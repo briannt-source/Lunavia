@@ -88,7 +88,7 @@ export class ContractTemplateService {
         name: input.name ?? existing.name,
         description: input.description ?? existing.description,
         content: input.content ?? existing.content,
-        variables: input.variables ?? existing.variables,
+        variables: (input.variables ?? existing.variables) as any,
         isActive: input.isActive ?? existing.isActive,
         version,
       },

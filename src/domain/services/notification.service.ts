@@ -53,7 +53,8 @@ export class NotificationService {
       return true; // Default to true for unknown types
     }
 
-    return settings[settingKey] ?? true;
+    const settingValue = settings[settingKey];
+    return typeof settingValue === 'boolean' ? settingValue : true;
   }
 
   /**
@@ -400,21 +401,22 @@ export class NotificationService {
   static async notifyReportSubmitted(operatorId: string, tourId: string, guideId: string) {
     const tour = await prisma.tour.findUnique({
       where: { id: tourId },
-      include: {
-        guide: {
-          include: { profile: true },
-        },
-      },
     });
 
     if (!tour) return;
+
+    // Get guide info separately
+    const guide = await prisma.user.findUnique({
+      where: { id: guideId },
+      include: { profile: true },
+    });
 
     const useCase = new SendNotificationUseCase();
     await useCase.execute({
       userId: operatorId,
       type: "REPORT_SUBMITTED",
       title: "Báo cáo tour mới",
-      message: `Guide đã nộp báo cáo cho tour "${tour.title}"`,
+      message: `${guide?.profile?.name || guide?.email || "Guide"} đã nộp báo cáo cho tour "${tour.title}"`,
       link: `/tours/${tourId}/reports`,
     });
 

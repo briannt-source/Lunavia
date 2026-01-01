@@ -30,13 +30,13 @@ export class CreateContractUseCase {
       update: {
         title: input.title,
         content: input.content,
-        template: input.template || input.content,
+        templateContent: input.template || input.content,
       },
       create: {
         tourId: input.tourId,
         title: input.title,
         content: input.content,
-        template: input.template || input.content,
+        templateContent: input.template || input.content,
       },
     });
 

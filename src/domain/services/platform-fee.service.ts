@@ -58,7 +58,7 @@ export class PlatformFeeService {
       guide.companyMember &&
       guide.companyMember.company.operatorId === operatorId;
 
-    if (isInHouse) {
+    if (isInHouse && guide.companyMember) {
       // In-house guide
       const contractVerified = guide.companyMember.contractVerified || false;
       const feeRate = contractVerified

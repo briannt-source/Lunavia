@@ -17,11 +17,12 @@ export class CreateWithdrawalRequestUseCase {
       throw new Error("Amount must be greater than 0");
     }
 
-    // Get user with wallet
+    // Get user with wallet and profile
     const user = await prisma.user.findUnique({
       where: { id: input.userId },
       include: {
         wallet: true,
+        profile: true,
       },
     });
 

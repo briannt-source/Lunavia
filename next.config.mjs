@@ -5,6 +5,17 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'firebasestorage.googleapis.com'],
   },
+  // Exclude stitch pages from build
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  // Exclude stitch folders from build
+  webpack: (config, { isServer }) => {
+    // Exclude stitch folders
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/node_modules/**', '**/src/app/(stitch)**', '**/src/app/(stitch).disabled/**'],
+    };
+    return config;
+  },
 };
 
 const pwaConfig = withPWA({

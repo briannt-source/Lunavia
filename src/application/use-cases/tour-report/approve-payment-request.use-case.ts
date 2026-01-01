@@ -9,7 +9,7 @@ export interface ApprovePaymentRequestInput {
 }
 
 export class ApprovePaymentRequestUseCase {
-  async execute(input: ApprovePaymentRequestInput) {
+  async execute(input: ApprovePaymentRequestInput): Promise<any> {
     // Get tour report
     const report = await prisma.tourReport.findUnique({
       where: { id: input.reportId },

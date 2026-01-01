@@ -29,8 +29,10 @@ export async function generateTourCode(): Promise<string> {
   let sequence = 1;
   if (todayTours.length > 0) {
     const lastCode = todayTours[0].code;
-    const lastSequence = parseInt(lastCode.split("-")[2] || "0");
-    sequence = lastSequence + 1;
+    if (lastCode) {
+      const lastSequence = parseInt(lastCode.split("-")[2] || "0");
+      sequence = lastSequence + 1;
+    }
   }
 
   const code = `${baseCode}-${String(sequence).padStart(4, "0")}`;
@@ -100,8 +102,10 @@ export async function generateTourCodeForExistingTour(
   let sequence = 1;
   if (dateTours.length > 0) {
     const lastCode = dateTours[0].code;
-    const lastSequence = parseInt(lastCode.split("-")[2] || "0");
-    sequence = lastSequence + 1;
+    if (lastCode) {
+      const lastSequence = parseInt(lastCode.split("-")[2] || "0");
+      sequence = lastSequence + 1;
+    }
   }
 
   const code = `${baseCode}-${String(sequence).padStart(4, "0")}`;

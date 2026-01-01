@@ -130,7 +130,7 @@ export function AIMatchingDialog({
                     {guide.code}
                   </span>
                 )}
-                <VerifiedBadge verified={true} />
+                <VerifiedBadge type="KYC" />
                 {guide.employmentType === "IN_HOUSE" && guide.company && (
                   <Badge variant="outline" className="text-xs">
                     {guide.company.name}

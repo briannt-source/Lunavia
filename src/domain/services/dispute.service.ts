@@ -235,6 +235,7 @@ export class DisputeService {
           if (dispute.escrowAccount.status === "LOCKED") {
             await EscrowService.refundEscrow(
               dispute.escrowAccountId,
+              input.resolutionAmount, // amount (undefined = full refund)
               input.resolutionNotes || `Dispute resolved: ${input.resolution}`
             );
           }

@@ -108,6 +108,9 @@ export class EscrowService {
       : escrowAccount.amount + escrowAccount.platformFee;
 
     // Check balance again
+    if (!escrowAccount.operator.wallet) {
+      throw new Error("Operator wallet not found");
+    }
     const availableBalance =
       escrowAccount.operator.wallet.balance - escrowAccount.operator.wallet.reserved;
 
@@ -185,6 +188,10 @@ export class EscrowService {
       ? escrowAccount.amount
       : escrowAccount.amount + escrowAccount.platformFee;
 
+    if (!escrowAccount.operator.wallet || !escrowAccount.guide.wallet) {
+      throw new Error("Operator or guide wallet not found");
+    }
+
     // Release funds: Transfer from escrow to guide
     const payment = await prisma.$transaction(async (tx) => {
       // Update operator wallet: deduct reserved amount
@@ -207,8 +214,8 @@ export class EscrowService {
       // Create payment record
       const payment = await tx.payment.create({
         data: {
-          fromWalletId: escrowAccount.operator.wallet.id,
-          toWalletId: escrowAccount.guide.wallet.id,
+          fromWalletId: escrowAccount.operator.wallet!.id,
+          toWalletId: escrowAccount.guide.wallet!.id,
           amount: escrowAccount.amount,
           platformFee: escrowAccount.platformFee,
           netAmount: escrowAccount.netAmount,
@@ -224,14 +231,14 @@ export class EscrowService {
       await tx.transaction.createMany({
         data: [
           {
-            walletId: escrowAccount.operator.wallet.id,
+            walletId: escrowAccount.operator.wallet!.id,
             type: "OUTGOING",
             amount: -operatorPays,
             description: `Payment to guide (Escrow released)${escrowAccount.platformFee > 0 ? ` + Platform fee: ${escrowAccount.platformFee.toLocaleString("vi-VN")} VND` : ""}`,
             refId: payment.id,
           },
           {
-            walletId: escrowAccount.guide.wallet.id,
+            walletId: escrowAccount.guide.wallet!.id,
             type: "INCOMING",
             amount: escrowAccount.netAmount,
             description: `Payment from operator (Escrow released)${escrowAccount.platformFee > 0 ? ` - Platform fee: ${escrowAccount.platformFee.toLocaleString("vi-VN")} VND` : ""}`,
@@ -297,6 +304,10 @@ export class EscrowService {
     const operatorPays = isFreelance
       ? escrowAccount.amount
       : escrowAccount.amount + escrowAccount.platformFee;
+
+    if (!escrowAccount.operator.wallet) {
+      throw new Error("Operator wallet not found");
+    }
 
     // Refund: Release reserved amount back to operator
     await prisma.$transaction(async (tx) => {

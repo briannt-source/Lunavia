@@ -8,7 +8,11 @@ export interface AddEvidenceInput {
 
 export class AddEvidenceUseCase {
   async execute(input: AddEvidenceInput) {
-    return await DisputeService.addEvidence(input);
+    return await DisputeService.addEvidence({
+      disputeId: input.disputeId,
+      evidenceUrls: input.evidenceUrls,
+      addedBy: input.userId,
+    });
   }
 }
 

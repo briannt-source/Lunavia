@@ -1,0 +1,490 @@
+// LUNAVIA v2 Database Schema
+// Optimized version with improved indexes and performance
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ENUMS (Giữ nguyên từ v1)
+// ============================================
+
+enum LegalRole {
+  TOUR_OPERATOR
+  TOUR_AGENCY
+  TOUR_GUIDE
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  MODERATOR
+  SUPPORT_STAFF
+}
+
+enum VerificationStatus {
+  NOT_SUBMITTED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum EmploymentType {
+  FREELANCE
+  IN_HOUSE
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum TourStatus {
+  DRAFT
+  OPEN
+  CLOSED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum GuideRole {
+  MAIN
+  SUB
+}
+
+enum AppStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum EscrowStatus {
+  PENDING
+  LOCKED
+  RELEASED
+  REFUNDED
+  CANCELLED
+}
+
+enum DisputeType {
+  PAYMENT
+  ASSIGNMENT
+  NO_SHOW
+  QUALITY
+}
+
+enum DisputeStatus {
+  PENDING
+  IN_REVIEW
+  RESOLVED
+  REJECTED
+  ESCALATED
+  APPEALED
+}
+
+enum DisputeResolution {
+  FULL_REFUND
+  PARTIAL_REFUND
+  FULL_PAYMENT
+  PARTIAL_PAYMENT
+  NO_ACTION
+}
+
+enum StandbyStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum Permission {
+  DISPUTES
+  TRANSFERS
+  PASSWORD_RESET
+  PROFILE_MGMT
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  BUSY
+  ON_TOUR
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum ContractStatus {
+  NOT_VIEWED
+  VIEWED
+  ACCEPTED
+  REJECTED
+}
+
+enum WithdrawalMethod {
+  BANK
+  MOMO
+  ZALO
+  OTHER
+}
+
+enum TourBlockReason {
+  MISINFORMATION
+  INAPPROPRIATE_CONTENT
+  POLICY_VIOLATION
+  MISSING_INFO
+  SPAM
+  FALSE_CLAIMS
+  COPYRIGHT_VIOLATION
+  UNAUTHORIZED_CONTACT
+  LEGAL_VIOLATION
+  UNETHICAL_BEHAVIOR
+  OTHER
+}
+
+enum UserBlockReason {
+  FRAUD
+  POLICY_VIOLATION
+  INAPPROPRIATE_BEHAVIOR
+  SPAM
+  FALSE_INFORMATION
+  UNAUTHORIZED_ACTIVITY
+  LEGAL_VIOLATION
+  UNETHICAL_BEHAVIOR
+  SAFETY_CONCERN
+  OTHER
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  FLAGGED
+}
+
+enum MilestoneStatus {
+  PENDING
+  REQUESTED
+  APPROVED
+  REJECTED
+  PAID
+  AUTO_RELEASED
+}
+
+enum EmergencyType {
+  SOS
+  EMERGENCY
+  INCIDENT
+  SAFETY_CHECK
+}
+
+enum EmergencySeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum EmergencyStatus {
+  PENDING
+  ACKNOWLEDGED
+  IN_PROGRESS
+  RESOLVED
+  CANCELLED
+}
+
+enum CheckInStatus {
+  SAFE
+  NEEDS_ATTENTION
+  MISSED
+  EMERGENCY
+}
+
+enum ContractTemplateCategory {
+  TOUR_GUIDE_STANDARD
+  TOUR_GUIDE_PREMIUM
+  STANDBY_SERVICE
+  IN_HOUSE_EMPLOYMENT
+  CUSTOM
+}
+
+enum InvoiceType {
+  TOUR_SERVICE
+  STANDBY_SERVICE
+  PLATFORM_FEE
+  COMBINED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+enum TaxType {
+  VAT
+  WITHHOLDING_TAX
+}
+
+enum TourRequestType {
+  EDIT
+  DELETE
+}
+
+enum TourRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ============================================
+// MODELS (Giữ nguyên từ v1, thêm indexes)
+// ============================================
+
+model User {
+  id             String              @id @default(cuid())
+  code           String?             @unique
+  email          String              @unique
+  password       String?
+  role           LegalRole
+  employmentType EmploymentType?
+  companyId      String?
+  licenseNumber  String?
+  verifiedStatus VerificationStatus  @default(NOT_SUBMITTED)
+  emailVerified  DateTime?
+  isBlocked      Boolean             @default(false)
+  blockedBy      String?
+  blockedAt      DateTime?
+  blockReason    UserBlockReason?
+  blockNotes     String?             @db.Text
+  unblockedBy    String?
+  unblockedAt    DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @default(now()) @updatedAt
+
+  // Relations
+  availabilities GuideAvailability[]
+  profile                  Profile?
+  wallet                   Wallet?
+  verifications            Verification[]
+  tours                    Tour[]
+  applications             Application[]
+  assignments              Assignment[]
+  standbyRequests          StandbyRequest[]
+  disputes                 Dispute[]
+  disputeTimelineActions   DisputeTimeline[]    @relation("DisputeTimelineActors")
+  reviewsGiven             Review[]             @relation("ReviewsGiven")
+  reviewsReceived          Review[]             @relation("ReviewsReceived")
+  accounts                 Account[]
+  sessions                 Session[]
+  company                  Company?
+  companyMember            CompanyMember?
+  companyInvitations       CompanyInvitation[]
+  joinRequests             JoinRequest[]
+  topUpRequests            TopUpRequest[]
+  withdrawalRequests       WithdrawalRequest[]
+  paymentMethods           PaymentMethod[]
+  notifications            Notification[]
+  contractAcceptances      ContractAcceptance[]
+  tourReports              TourReport[]
+  emergencyReports         EmergencyReport[]
+  operatorConversations    Conversation[]       @relation("OperatorConversations")
+  guideConversations       Conversation[]       @relation("GuideConversations")
+  messages                 Message[]
+  escrowAccountsAsOperator EscrowAccount[]      @relation("EscrowOperators")
+  escrowAccountsAsGuide    EscrowAccount[]      @relation("EscrowGuides")
+  tourEditRequests         TourEditRequest[]    @relation("TourEditRequestOperators")
+  tourDeleteRequests       TourDeleteRequest[]  @relation("TourDeleteRequestOperators")
+  userSettings             UserSettings?
+  PaymentMilestone         PaymentMilestone[]
+  invoicesIssued           Invoice[]            @relation("InvoiceIssuers")
+  invoicesReceived         Invoice[]            @relation("InvoiceRecipients")
+  SafetyCheckIn            SafetyCheckIn[]
+  EmergencyContact         EmergencyContact[]
+
+  // Indexes for performance
+  @@index([email])
+  @@index([role])
+  @@index([verifiedStatus])
+  @@index([isBlocked])
+  @@index([createdAt])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expires])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@index([expires])
+  @@map("verification_tokens")
+}
+
+model Profile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name            String?
+  photoUrl        String?
+  bio             String?
+  languages       String[]
+  experienceYears Int?
+  specialties     String[]
+  rating          Float?   @default(0)
+  reviewCount     Int      @default(0)
+
+  companyName        String?
+  companyLogo        String?
+  address            String?
+  phone              String?
+  companyEmail       String?
+  availabilityStatus AvailabilityStatus @default(AVAILABLE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([userId])
+  @@index([availabilityStatus])
+  @@index([rating])
+  @@map("profiles")
+}
+
+model Wallet {
+  id            String        @id @default(cuid())
+  userId        String        @unique
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance       Float         @default(0)
+  lockedDeposit Float         @default(0)
+  reserved      Float         @default(0)
+  transactions  Transaction[]
+  fromPayments  Payment[]     @relation("FromWallet")
+  toPayments    Payment[]     @relation("ToWallet")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+
+  @@index([userId])
+  @@map("wallets")
+}
+
+model Tour {
+  id                     String           @id @default(cuid())
+  code                   String?          @unique
+  operatorId             String
+  operator               User             @relation(fields: [operatorId], references: [id])
+  title                  String
+  description            String           @db.Text
+  city                   String
+  visibility             Visibility       @default(PUBLIC)
+  status                 TourStatus       @default(DRAFT)
+  priceMain              Float?
+  priceSub               Float?
+  currency               String           @default("VND")
+  pax                    Int
+  languages              String[]
+  specialties            String[]
+  startDate              DateTime
+  endDate                DateTime?
+  durationHours          Int?
+  files                  String[]
+  itinerary              Json[]
+  mainGuideSlots         Int              @default(1)
+  subGuideSlots          Int              @default(0)
+  inclusions             String[]         @default([])
+  exclusions             String[]         @default([])
+  additionalRequirements String?          @db.Text
+  guideNotes             String?          @db.Text
+  contract               Contract?
+  isBlocked              Boolean          @default(false)
+  blockedBy              String?
+  blockedAt              DateTime?
+  blockReason            TourBlockReason?
+  blockNotes             String?          @db.Text
+  unblockedBy            String?
+  unblockedAt            DateTime?
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @default(now()) @updatedAt
+
+  // Relations
+  applications      Application[]
+  assignments       Assignment[]
+  payments          Payment[]           @relation("TourPayments")
+  reviews           Review[]            @relation("TourReviews")
+  reports           TourReport[]
+  emergencyReports  EmergencyReport[]
+  conversations     Conversation[]
+  editRequests      TourEditRequest[]
+  deleteRequests    TourDeleteRequest[] @relation("TourDeleteRequests")
+  escrowAccounts    EscrowAccount[]     @relation("TourEscrows")
+  Dispute           Dispute[]
+  paymentMilestones PaymentMilestone[]
+  invoices          Invoice[]
+  SafetyCheckIn     SafetyCheckIn[]
+
+  // Indexes for performance
+  @@index([operatorId])
+  @@index([status])
+  @@index([visibility])
+  @@index([city])
+  @@index([startDate])
+  @@index([createdAt])
+  @@index([isBlocked])
+  @@fulltext([title, description]) // Full-text search
+  @@map("tours")
+}
+
+// ... (Các models khác giữ nguyên, chỉ thêm indexes tương tự)
+
+// Note: File này chỉ là template. 
+// Để migrate, copy toàn bộ schema từ schema.prisma và thêm indexes như trên.
+

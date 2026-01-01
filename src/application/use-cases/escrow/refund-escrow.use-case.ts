@@ -32,9 +32,10 @@ export class RefundEscrowUseCase {
       throw new UnauthorizedError("You don't own this escrow account");
     }
 
-    // Refund escrow
+    // Refund escrow (full refund, no amount specified)
     const refundedEscrow = await EscrowService.refundEscrow(
       input.escrowAccountId,
+      undefined, // amount - undefined means full refund
       input.reason || "Tour cancelled or dispute resolved"
     );
 

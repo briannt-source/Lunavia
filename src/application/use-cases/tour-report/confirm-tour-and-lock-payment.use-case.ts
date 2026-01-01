@@ -109,7 +109,7 @@ export class ConfirmTourAndLockPaymentUseCase {
 
     return {
       report: updatedReport,
-      lockedAmount,
+      lockedAmount: input.paymentAmount,
       paymentDueAt,
       message: `Đã xác nhận tour và khóa ${input.paymentAmount.toLocaleString("vi-VN")} VND. Thanh toán sẽ được thực hiện trong vòng 24 giờ.`,
     };
