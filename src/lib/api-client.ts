@@ -269,9 +269,6 @@ export const api = {
     getTotalSpent: () => fetchAPI("/wallet/total-spent"),
     getTotalEarned: () => fetchAPI("/wallet/total-earned"),
   },
-  operator: {
-    getAnalytics: () => fetchAPI("/operator/analytics"),
-  },
   guide: {
     getAnalytics: () => fetchAPI("/guide/analytics"),
   },
@@ -331,6 +328,7 @@ export const api = {
 
   // Operator
   operator: {
+    getAnalytics: () => fetchAPI("/operator/analytics"),
     getPaymentRequests: (params?: { status?: string }) => {
       const query = new URLSearchParams();
       if (params?.status) query.append("status", params.status);
