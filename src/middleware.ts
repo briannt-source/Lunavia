@@ -5,16 +5,16 @@ export default withAuth(function middleware(req) {
   const token = req.nextauth.token;
   const path = req.nextUrl.pathname;
 
-  // 🔒 Chưa login → về /login
+  // 🔒 Chưa login → về /auth/signin
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
 
   const role = token.role as string | undefined;
 
   // ⚠️ Không có role → logout
   if (!role) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
 
   // ❌ Guide không được tạo tour

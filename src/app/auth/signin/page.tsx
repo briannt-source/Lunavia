@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,14 +30,43 @@ export default function SignInPage() {
 
       if (result?.error) {
         toast.error("Email hoặc mật khẩu không đúng");
+        setLoading(false);
       } else {
         toast.success("Đăng nhập thành công");
-        // Force session refresh and redirect
-        window.location.href = "/home";
+        // Wait for session to be created, then redirect
+        // Poll for session to be available
+        const checkSession = async () => {
+          let attempts = 0;
+          const maxAttempts = 10;
+          
+          while (attempts < maxAttempts) {
+            const session = await getSession();
+            if (session?.user) {
+              // Session is ready, redirect based on role
+              const role = (session.user as any)?.role;
+              if (role?.startsWith("ADMIN_") || role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF") {
+                window.location.href = "/dashboard/admin";
+              } else if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
+                window.location.href = "/dashboard/operator";
+              } else if (role === "TOUR_GUIDE") {
+                window.location.href = "/dashboard/guide";
+              } else {
+                window.location.href = "/home";
+              }
+              return;
+            }
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+          
+          // Fallback: redirect to home if session not ready after max attempts
+          window.location.href = "/home";
+        };
+        
+        checkSession();
       }
     } catch (error) {
       toast.error("Đã có lỗi xảy ra");
-    } finally {
       setLoading(false);
     }
   };
