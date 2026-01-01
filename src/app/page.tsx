@@ -7,7 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  // Try to get session, but don't fail if database is not available
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (error) {
+    // If database connection fails, just show public page
+    // This allows the site to work even if database is not ready
+    console.error("Failed to get session (database may not be ready):", error);
+  }
 
   // If logged in, redirect to /home (authenticated home)
   if (session) {
