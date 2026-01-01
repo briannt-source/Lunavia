@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tour Details &amp; Apply - TourConnect</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1c2127",
+                        "border-dark": "#283039",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"],
+                        "body": ["Public Sans", "Noto Sans", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Public Sans", "Noto Sans", sans-serif;
+        }
+        /* Custom scrollbar for better look in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b4754;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5a6b;
+        }
+        /* Modal Animation */
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white min-h-screen flex flex-col font-display">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-border-dark px-10 py-3 bg-white dark:bg-[#111418]">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">travel_explore</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">TourConnect</h2>
+</div>
+<div class="hidden md:flex items-center gap-9">
+<a class="text-[#637588] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#111418] dark:text-white text-sm font-bold leading-normal text-primary" href="#">Find Tours</a>
+<a class="text-[#637588] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">My Applications</a>
+<a class="text-[#637588] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Wallet</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#637588] dark:text-[#9dabb9] flex border-none bg-[#f0f2f5] dark:bg-border-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-[#f0f2f5] dark:bg-border-dark focus:border-none h-full placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search tours..." value=""/>
+</div>
+</label>
+<div class="flex items-center gap-4">
+<button class="relative text-[#637588] dark:text-white hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-[#e5e7eb] dark:border-border-dark" data-alt="User profile picture showing a smiling tour guide" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCxwHppWvu2E_SwoBW3UH7UNlaS1gQQL-ll4FzRxTmYZc0jsTvhGq5rOzLOSszrn7eLexTKoolKjz-hCDrBimlIfu-Lreip4_y8Vtny13Faf6JZPA13QSb-STEa9HkEz-j6L9ap7bq8rP6QorLzUJHLTKLfgqndYuL-er2tIQtXMZ2SHB9O8dB_T_7HYDfNueJ9kI5ao6l-KizhteodX4youO3lQOT_LgAcB-PA4lTNPdh4kQG8oD17dvVjnrW6KfFUsb8eI37uRg");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-6 px-4 md:px-10 lg:px-20">
+<div class="w-full max-w-7xl flex flex-col gap-6">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 px-0">
+<a class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium leading-normal hover:underline" href="#">Home</a>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium leading-normal">/</span>
+<a class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium leading-normal hover:underline" href="#">Find Tours</a>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium leading-normal">/</span>
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Tour Details</span>
+</div>
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between gap-4 items-start md:items-end border-b border-[#e5e7eb] dark:border-border-dark pb-6">
+<div class="flex flex-col gap-3 max-w-3xl">
+<div class="flex flex-wrap gap-3 items-center">
+<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider border border-green-500/20">Recruiting</span>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Tour ID: #VN-2025-882</p>
+</div>
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">Hanoi City Tour - Old Quarter &amp; Food Experience</h1>
+<div class="flex items-center gap-2 text-[#637588] dark:text-[#9dabb9] text-sm">
+<span class="material-symbols-outlined text-[18px]">business</span>
+<span>Posted by: <strong class="text-[#111418] dark:text-white">Hanoi Travel Co.</strong></span>
+<span class="hidden sm:inline mx-1 text-xs">•</span>
+<span class="hidden sm:inline">License: 79-002/2023/TCDL-GP LHQT</span>
+</div>
+</div>
+<!-- Mobile Only Actions (Visible on small screens) -->
+<div class="md:hidden w-full mt-4">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2" onclick="document.getElementById('application-modal').classList.remove('hidden');">
+<span>Apply Now</span>
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+<!-- Main Content (Left Column) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Itinerary Snapshot -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-[#e5e7eb] dark:border-border-dark shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+                            Itinerary Snapshot
+                        </h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-[#f6f7f8] dark:bg-[#111418] border border-[#e5e7eb] dark:border-border-dark">
+<div class="text-[#637588] dark:text-[#9dabb9] flex items-center gap-2 text-sm font-medium uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                    Location
+                                </div>
+<p class="text-[#111418] dark:text-white font-bold text-lg">Hanoi, Vietnam</p>
+</div>
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-[#f6f7f8] dark:bg-[#111418] border border-[#e5e7eb] dark:border-border-dark">
+<div class="text-[#637588] dark:text-[#9dabb9] flex items-center gap-2 text-sm font-medium uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+                                    Start
+                                </div>
+<p class="text-[#111418] dark:text-white font-bold text-lg">12/05/2025</p>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm">08:00 AM</p>
+</div>
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-[#f6f7f8] dark:bg-[#111418] border border-[#e5e7eb] dark:border-border-dark">
+<div class="text-[#637588] dark:text-[#9dabb9] flex items-center gap-2 text-sm font-medium uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">event_busy</span>
+                                    End
+                                </div>
+<p class="text-[#111418] dark:text-white font-bold text-lg">14/05/2025</p>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm">05:00 PM</p>
+</div>
+</div>
+<!-- Map Placeholder -->
+<div class="mt-4 w-full h-48 rounded-lg bg-cover bg-center relative overflow-hidden" data-alt="Map view of Hanoi Old Quarter" data-location="Hanoi" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpIPPoCfkgJj_uGn756W-lkbVAMOPbTzK5eLV-A8zVVKqZkCNVwA1rTX02Hjk9_mjrEVYKW7lXaQJpv8ZZqGSZmHHiNVtnkc4i-EjK0Rgvmdsz3ZCL7prqd3we1DQfdNmOCJ9kbsXEY0GXi9KYbdkW2jTKl1XyNzk8XmP2zS8CszUiwVMhj53PkFHXOb0VB1m6lsHxvl4e2gyX8KH-qtbhcfjec0zCC6TGSRwpQiHo0t2IGXviDT27JMq-tkxHwdIxDyVBM2Q_Zw');">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center group cursor-pointer hover:bg-black/50 transition-colors">
+<button class="bg-white/90 dark:bg-black/80 text-[#111418] dark:text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 shadow-lg backdrop-blur-sm">
+<span class="material-symbols-outlined">map</span>
+                                    View Route Map
+                                </button>
+</div>
+</div>
+</div>
+<!-- Roles & Compensation -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-[#e5e7eb] dark:border-border-dark shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+                            Roles &amp; Compensation
+                        </h2>
+<div class="flex flex-col gap-4">
+<!-- Main Guide Card -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<h3 class="text-[#111418] dark:text-white font-bold text-lg">Main Guide</h3>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary text-white">High Priority</span>
+</div>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm max-w-md">Lead the group, manage logistics, and provide commentary in English &amp; Vietnamese.</p>
+</div>
+<div class="mt-3 md:mt-0 text-right w-full md:w-auto flex flex-row md:flex-col justify-between items-center md:items-end">
+<span class="text-primary font-black text-xl md:text-2xl">5,000,000 VND</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-xs">Total for 3 days</span>
+</div>
+</div>
+<!-- Sub Guide Card -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-lg bg-[#f6f7f8] dark:bg-[#111418] border border-[#e5e7eb] dark:border-border-dark hover:border-[#637588] transition-colors">
+<div class="flex flex-col gap-1">
+<h3 class="text-[#111418] dark:text-white font-bold text-lg">Sub Guide</h3>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm max-w-md">Assist with logistics, headcount, and guest support.</p>
+</div>
+<div class="mt-3 md:mt-0 text-right w-full md:w-auto flex flex-row md:flex-col justify-between items-center md:items-end">
+<span class="text-[#111418] dark:text-white font-bold text-xl md:text-2xl">3,000,000 VND</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-xs">Total for 3 days</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tour Description -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-[#e5e7eb] dark:border-border-dark shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                            Description
+                        </h2>
+<div class="prose dark:prose-invert max-w-none text-[#637588] dark:text-[#9dabb9] leading-relaxed">
+<p class="mb-4">
+                                Join us for an immersive 3-day exploration of Hanoi's historic heart. As a guide for this tour, you will be leading a group of approximately 15 guests from France. The itinerary focuses on the hidden alleys of the Old Quarter, street food culture, and historical landmarks including the Temple of Literature and Ho Chi Minh Mausoleum.
+                            </p>
+<p class="mb-4">
+<strong class="text-[#111418] dark:text-white">Responsibilities:</strong><br/>
+                                • Meet guests at the hotel lobby at 8:00 AM daily.<br/>
+                                • Coordinate with the driver and restaurant partners.<br/>
+                                • Provide engaging historical context and manage the group's pace.<br/>
+                                • Handle unexpected situations professionally.
+                            </p>
+<p>
+<strong class="text-[#111418] dark:text-white">Note:</strong> This tour involves significant walking. Please ensure you are physically prepared.
+                            </p>
+</div>
+</div>
+<!-- Requirements & Legal -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-[#e5e7eb] dark:border-border-dark shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+                            Requirements &amp; Inclusions
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-[#111418] dark:text-white font-bold mb-3 text-sm uppercase tracking-wider">Must Have</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 text-[20px] mt-0.5">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Valid International Tour Guide Card</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 text-[20px] mt-0.5">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Fluent in French &amp; English</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 text-[20px] mt-0.5">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Min. 2 years experience with EU market</span>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="text-[#111418] dark:text-white font-bold mb-3 text-sm uppercase tracking-wider">Included for Guide</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">restaurant</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Lunch &amp; Dinner with guests</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">directions_bus</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Transportation during tour</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">health_and_safety</span>
+<span class="text-[#637588] dark:text-[#9dabb9] text-sm">Trip Insurance Coverage</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Sidebar (Right Column) -->
+<div class="hidden lg:block lg:col-span-4 relative">
+<div class="sticky top-6 flex flex-col gap-4">
+<!-- Application Summary Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-[#e5e7eb] dark:border-border-dark shadow-lg overflow-hidden">
+<div class="p-6 flex flex-col gap-6">
+<div>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium mb-1">Estimated Earnings</p>
+<p class="text-[#111418] dark:text-white text-3xl font-black text-primary">3M - 5M <span class="text-base font-medium text-[#637588] dark:text-[#9dabb9]">VND</span></p>
+</div>
+<div class="h-px w-full bg-[#e5e7eb] dark:bg-border-dark"></div>
+<div class="flex flex-col gap-3">
+<p class="text-[#111418] dark:text-white font-bold text-sm">Eligibility Check</p>
+<div class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9]">KYC Verified (Identity/Card)</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9]">Wallet Balance &gt; 500k</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+<span class="text-[#637588] dark:text-[#9dabb9]">Schedule Clear (No Conflicts)</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 mt-2" onclick="document.getElementById('application-modal').classList.remove('hidden');">
+<span>Ứng tuyển ngay</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-[#637588] dark:text-[#9dabb9]">
+                                    Application closes in <span class="text-[#111418] dark:text-white font-bold">2 days</span>
+</p>
+</div>
+<div class="bg-[#f6f7f8] dark:bg-[#111418] p-4 text-xs text-[#637588] dark:text-[#9dabb9] text-center border-t border-[#e5e7eb] dark:border-border-dark">
+                                Compliant with Vietnam Tourism Law 2025
+                            </div>
+</div>
+<!-- Need Help Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-[#e5e7eb] dark:border-border-dark shadow-sm">
+<h3 class="text-[#111418] dark:text-white font-bold mb-2">Have questions?</h3>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm mb-4">Contact the Tour Operator directly for clarifications regarding the itinerary.</p>
+<button class="w-full py-2 px-4 border border-[#e5e7eb] dark:border-border-dark rounded-lg text-[#111418] dark:text-white font-medium hover:bg-[#f6f7f8] dark:hover:bg-[#2c343e] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+                                Chat with Operator
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Application Modal -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" id="application-modal">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.getElementById('application-modal').classList.add('hidden');"></div>
+<!-- Modal Content -->
+<div class="relative bg-white dark:bg-[#1c2127] rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+<div class="p-6 border-b border-[#e5e7eb] dark:border-border-dark flex justify-between items-center bg-[#f6f7f8] dark:bg-[#1c2127]">
+<h3 class="text-xl font-bold text-[#111418] dark:text-white">Apply for Tour</h3>
+<button class="text-[#637588] dark:text-[#9dabb9] hover:text-[#111418] dark:hover:text-white transition-colors" onclick="document.getElementById('application-modal').classList.add('hidden');">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6 overflow-y-auto flex-1">
+<form class="flex flex-col gap-6" onsubmit="event.preventDefault(); alert('Application Submitted!'); document.getElementById('application-modal').classList.add('hidden');">
+<!-- Role Selection -->
+<div class="flex flex-col gap-3">
+<label class="text-[#111418] dark:text-white font-bold text-sm">Select Role</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="role" type="radio"/>
+<div class="p-4 rounded-lg border-2 border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-[#111418] peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full flex flex-col gap-1">
+<span class="font-bold text-[#111418] dark:text-white">Main Guide</span>
+<span class="text-xs text-[#637588] dark:text-[#9dabb9]">5,000,000 VND</span>
+</div>
+<div class="absolute top-2 right-2 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="role" type="radio"/>
+<div class="p-4 rounded-lg border-2 border-[#e5e7eb] dark:border-border-dark bg-white dark:bg-[#111418] peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full flex flex-col gap-1">
+<span class="font-bold text-[#111418] dark:text-white">Sub Guide</span>
+<span class="text-xs text-[#637588] dark:text-[#9dabb9]">3,000,000 VND</span>
+</div>
+<div class="absolute top-2 right-2 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Cover Letter -->
+<div class="flex flex-col gap-3">
+<label class="text-[#111418] dark:text-white font-bold text-sm flex justify-between">
+                            Cover Letter
+                            <span class="text-xs font-normal text-[#637588] dark:text-[#9dabb9]">Optional</span>
+</label>
+<textarea class="w-full rounded-lg bg-[#f6f7f8] dark:bg-[#111418] border border-[#e5e7eb] dark:border-border-dark text-[#111418] dark:text-white p-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary resize-none placeholder:text-[#637588] dark:placeholder:text-[#9dabb9]" placeholder="Briefly introduce yourself and why you fit this tour..." rows="4"></textarea>
+</div>
+<!-- Deposit Warning -->
+<div class="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-yellow-500 shrink-0">info</span>
+<p class="text-xs text-yellow-700 dark:text-yellow-500 leading-relaxed">
+                            A refundable deposit of <strong class="text-yellow-800 dark:text-yellow-400">500,000 VND</strong> will be held from your wallet upon acceptance.
+                        </p>
+</div>
+<div class="pt-2">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-lg shadow-primary/20" type="submit">
+                            Submit Application
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body></html>

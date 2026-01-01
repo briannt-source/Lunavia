@@ -1,0 +1,359 @@
+"use client";
+
+import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { FileUpload } from "@/components/file-upload";
+import { AlertCircle, Upload, CheckCircle2 } from "lucide-react";
+import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api-client";
+
+export default function KYCSubmissionPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [documents, setDocuments] = useState<{
+    photoUrl: string[];
+    idDocumentUrl: string[];
+    licenseUrl: string[];
+    proofOfAddressUrl: string[];
+  }>({
+    photoUrl: [],
+    idDocumentUrl: [],
+    licenseUrl: [],
+    proofOfAddressUrl: [],
+  });
+  const [uploading, setUploading] = useState<Record<string, boolean>>({});
+
+  // Fetch current verification status
+  const { data: userInfo } = useQuery({
+    queryKey: ["user", "info"],
+    queryFn: () => api.user.info(),
+    enabled: !!session,
+  });
+
+  const verificationStatus = userInfo?.verifiedStatus || "NOT_SUBMITTED";
+
+  const handleFileUpload = async (files: File[], type: keyof typeof documents) => {
+    if (files.length === 0) return;
+    
+    // Check total files for this type
+    const currentFiles = documents[type];
+    if (currentFiles.length + files.length > 5) {
+      toast.error(`Mỗi trường chỉ được upload tối đa 5 files. Hiện tại đã có ${currentFiles.length} file.`);
+      return;
+    }
+    
+    setUploading({ ...uploading, [type]: true });
+    try {
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("type", "verification");
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Upload failed for ${file.name}`);
+        }
+
+        const data = await response.json();
+        // Handle both single file (data.url) and multiple files (data.urls) responses
+        const url = data.url || (data.urls && data.urls.length > 0 ? data.urls[0] : null);
+        if (!url || typeof url !== 'string') {
+          throw new Error(`Invalid response from upload API for ${file.name}`);
+        }
+        return url;
+      });
+
+      const urls = await Promise.all(uploadPromises);
+      // Filter out any null/undefined URLs
+      const validUrls = urls.filter((url): url is string => url != null && typeof url === 'string');
+      
+      if (validUrls.length === 0) {
+        throw new Error("Không có file nào được upload thành công");
+      }
+      
+      setDocuments((prev) => ({
+        ...prev,
+        [type]: [...prev[type], ...validUrls],
+      }));
+      toast.success(`Đã upload ${validUrls.length} file thành công!`);
+    } catch (error: any) {
+      toast.error(error.message || "Lỗi khi upload file");
+    } finally {
+      setUploading({ ...uploading, [type]: false });
+    }
+  };
+
+  const removeFile = (type: keyof typeof documents, index: number) => {
+    setDocuments((prev) => ({
+      ...prev,
+      [type]: prev[type].filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate required fields
+    const missingFields: string[] = [];
+    if (documents.photoUrl.length === 0) missingFields.push("Hình ảnh thật");
+    if (documents.idDocumentUrl.length === 0) missingFields.push("CMND/CCCD/Hộ chiếu");
+    if (documents.licenseUrl.length === 0) missingFields.push("Thẻ HDV du lịch");
+    if (documents.proofOfAddressUrl.length === 0) missingFields.push("Chứng minh nơi ở");
+
+    if (missingFields.length > 0) {
+      toast.error(`Vui lòng upload ít nhất 1 file cho: ${missingFields.join(", ")}`);
+      return;
+    }
+    
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/verifications/kyc", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photoUrl: documents.photoUrl,
+          idDocumentUrl: documents.idDocumentUrl,
+          licenseUrl: documents.licenseUrl,
+          proofOfAddressUrl: documents.proofOfAddressUrl,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Lỗi khi nộp KYC");
+      }
+
+      toast.success("Đã nộp KYC thành công! Vui lòng chờ admin duyệt.");
+      router.push("/dashboard/guide");
+    } catch (error: any) {
+      toast.error(error.message || "Lỗi khi nộp KYC");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const requirements = [
+    {
+      label: "Hình ảnh thật",
+      key: "photoUrl" as const,
+      description: "Ảnh chân dung rõ ràng của bạn",
+      required: true,
+    },
+    {
+      label: "CMND/CCCD/Hộ chiếu",
+      key: "idDocumentUrl" as const,
+      description: "Giấy tờ pháp lý cá nhân",
+      required: true,
+    },
+    {
+      label: "Thẻ HDV du lịch",
+      key: "licenseUrl" as const,
+      description: "Thẻ hướng dẫn viên du lịch (bắt buộc)",
+      required: true,
+    },
+    {
+      label: "Chứng minh nơi ở (Proof of Address)",
+      key: "proofOfAddressUrl" as const,
+      description: "Giấy tờ chứng minh địa chỉ cư trú (hóa đơn điện nước, sổ hộ khẩu, v.v.)",
+      required: true,
+    },
+  ];
+
+  if (verificationStatus === "APPROVED") {
+    return (
+      <DashboardLayout>
+        <PageHeader
+          title="KYC đã được duyệt"
+          description="Tài khoản của bạn đã được xác minh thành công"
+        />
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 text-emerald-600">
+              <CheckCircle2 className="h-6 w-6" />
+              <p className="text-lg font-semibold">
+                KYC của bạn đã được duyệt. Bạn có thể ứng tuyển vào các tour.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
+
+  if (verificationStatus === "PENDING") {
+    return (
+      <DashboardLayout>
+        <PageHeader
+          title="KYC đang chờ duyệt"
+          description="Vui lòng chờ admin xem xét và duyệt KYC của bạn"
+        />
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 text-amber-600">
+              <AlertCircle className="h-6 w-6" />
+              <p className="text-lg font-semibold">
+                KYC của bạn đang chờ duyệt. Vui lòng kiên nhẫn chờ đợi.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
+
+  if (verificationStatus === "REJECTED") {
+    return (
+      <DashboardLayout>
+        <PageHeader
+          title="KYC bị từ chối"
+          description="Vui lòng kiểm tra và nộp lại KYC"
+        />
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-3 text-red-600 mb-4">
+              <AlertCircle className="h-6 w-6 mt-0.5" />
+              <div>
+                <p className="text-lg font-semibold mb-2">
+                  KYC của bạn đã bị từ chối
+                </p>
+                <p className="text-sm text-slate-600">
+                  Vui lòng kiểm tra lại các giấy tờ và nộp lại.
+                </p>
+              </div>
+            </div>
+            <Button onClick={() => router.refresh()}>
+              Nộp lại KYC
+            </Button>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
+
+  return (
+    <DashboardLayout>
+      <PageHeader
+        title="Nộp KYC"
+        description="Hoàn tất xác minh danh tính để có thể ứng tuyển vào các tour"
+      />
+
+      <Card className="mb-6 border-amber-200 bg-amber-50">
+        <CardContent className="pt-6">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
+            <div>
+              <p className="font-semibold text-amber-900 mb-1">
+                Cần hoàn tất KYC để ứng tuyển tour
+              </p>
+              <p className="text-sm text-amber-700">
+                Bạn cần nộp đầy đủ các giấy tờ bắt buộc để có thể ứng tuyển vào các tour.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Thông tin KYC</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {requirements.map((req) => (
+              <div key={req.key} className="space-y-2">
+                <label className="text-sm font-medium text-slate-900">
+                  {req.label} {req.required && <span className="text-red-500">*</span>}
+                </label>
+                {req.description && (
+                  <p className="text-xs text-slate-500">{req.description}</p>
+                )}
+                <p className="text-xs text-slate-400">
+                  Có thể upload tối đa 5 files cho mỗi trường. Không yêu cầu định dạng file cụ thể.
+                </p>
+                
+                {documents[req.key].length > 0 && (
+                  <div className="mt-2 space-y-2">
+                    <p className="text-sm font-medium text-slate-700">
+                      Đã upload {documents[req.key].length}/5 files:
+                    </p>
+                    {documents[req.key].map((url, index) => (
+                      <div
+                        key={index}
+                        className="p-2 border rounded bg-slate-50 flex items-center justify-between"
+                      >
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:underline flex-1"
+                        >
+                          File {index + 1}
+                        </a>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeFile(req.key, index)}
+                        >
+                          Xóa
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {documents[req.key].length < 5 && (
+                  <FileUpload
+                    onFilesChange={(files) => handleFileUpload(files, req.key)}
+                    maxFiles={5 - documents[req.key].length}
+                    maxSizeMB={10}
+                    accept="*/*"
+                    label={documents[req.key].length === 0 
+                      ? `Upload ${req.label.toLowerCase()} (tối đa 5 files)` 
+                      : `Upload thêm files (${documents[req.key].length}/5)`}
+                  />
+                )}
+                {documents[req.key].length >= 5 && (
+                  <p className="text-xs text-amber-600">
+                    Đã đạt giới hạn 5 files cho trường này
+                  </p>
+                )}
+              </div>
+            ))}
+
+            <div className="flex gap-4 pt-4">
+              <Button
+                type="submit"
+                disabled={loading || Object.values(uploading).some(v => v)}
+                className="bg-gradient-to-r from-teal-500 to-emerald-500"
+              >
+                {loading ? "Đang xử lý..." : "Nộp KYC"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.back()}
+                disabled={loading || Object.values(uploading).some(v => v)}
+              >
+                Hủy
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </DashboardLayout>
+  );
+}
+

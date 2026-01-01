@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Duyệt yêu cầu thanh toán - VietTour Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1e2832",
+                        "surface-lighter": "#283039",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better look in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d4650;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col overflow-hidden text-slate-900 dark:text-white">
+<!-- Top Navigation -->
+<header class="flex shrink-0 items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#283039] bg-white dark:bg-[#111418] px-6 py-3 z-20">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">VietTour Admin</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-[#283039] text-slate-500 dark:text-white transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-[#283039] text-slate-500 dark:text-white transition-colors">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700 cursor-pointer" data-alt="Admin User Profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqHR88BLZrGOZKEiQ98fzyutIcAOzTEH0_GXLIHerZxiQ9zMzlz0r1xVrtROMhrRCs_JLWSVIKOMTV13VKOnI2WyEW6RQqIHg6lG04Yo3a2sfdQgFkHsvjLuvFZyHmvpwwSOW3TZCP10OqEATrQIvCw8DvaZrrlGOLicGMnjrUI2T1KVgm4lZR6-MdIJaNiRtL9IB29cn0nrP-as6qNLtoVxlasneM27ODg5rVEiXUobKGiuTOh__lJ96Zj4A9t1gKJW2JkzbvCQ");'></div>
+</div>
+</header>
+<!-- Main Content Area (Split Pane) -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar: List of Reports -->
+<aside class="flex flex-col w-[420px] shrink-0 border-r border-slate-200 dark:border-[#283039] bg-white dark:bg-[#111418]">
+<!-- Filters & Search -->
+<div class="p-4 flex flex-col gap-4 border-b border-slate-200 dark:border-[#283039]">
+<div>
+<h1 class="text-xl font-bold dark:text-white">Duyệt yêu cầu thanh toán</h1>
+<p class="text-sm text-slate-500 dark:text-[#9dabb9]">Quản lý báo cáo tour &amp; giải ngân</p>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-2.5 pl-10 bg-slate-100 dark:bg-[#283039] text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6" placeholder="Tìm theo mã tour, HDV..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/20 text-primary text-sm font-semibold whitespace-nowrap border border-primary/20">
+                        Chờ duyệt <span class="bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">4</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[#283039] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#3d4650] text-sm font-medium whitespace-nowrap transition-colors">
+                        Đã duyệt
+                    </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[#283039] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#3d4650] text-sm font-medium whitespace-nowrap transition-colors">
+                        Từ chối
+                    </button>
+</div>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto p-3 space-y-2">
+<!-- Item 1: Active -->
+<div class="group relative flex cursor-pointer flex-col gap-3 rounded-xl bg-primary/10 dark:bg-[#1e2832] p-4 border border-primary/40 shadow-sm transition-all hover:bg-primary/5">
+<div class="absolute right-3 top-3 flex size-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full size-2.5 bg-amber-500"></span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Tour Guide Portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFRtS_t6mrJ6JYq9KeoA9ze8F-piuf8_j57uL24T24gEmMpa0epEybKyh0zxUYBigPZd9Dr66D7kSJsKoUcSdnfwiqawGz6ry5hW0HVXjNFlVkFjtOLwOluuntX9KUbCK9owOaihX4j64wOrDyXt9U7e8FamerBgFixm1ia2xpHO_IQpRNPHNBhpP1KH7L7GDhwJsxzf95HUetM3YXpoCOwouLUbv7fleYFNR-XAmlZHnEcW2zYrHjT6qfPf8bd_7yGh69AeIPrw");'></div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Nguyễn Văn A</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9]">Mã HDV: VN-GUIDE-088</p>
+</div>
+</div>
+<div>
+<p class="text-base font-bold text-slate-900 dark:text-white line-clamp-1">Tour: Hạ Long Bay 2D1N Premium Cruise</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] mt-0.5">Code: HL-2025-001 • 15/10/2025</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/10 mt-1">
+<span class="inline-flex items-center rounded-md bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-400/20">Chờ thanh toán</span>
+<span class="text-sm font-bold text-primary">4.500.000 ₫</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group relative flex cursor-pointer flex-col gap-3 rounded-xl bg-white dark:bg-[#111418] hover:bg-slate-50 dark:hover:bg-[#1c2126] p-4 border border-slate-200 dark:border-[#283039] transition-all">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Female Guide Portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVsqJCMjDZ1NS95EB4eygnBNaiIs16VbNZz37cDzo6YgNDVv6H2Iqa_zETGjYd1tD6ewAeI7SUMapOYu1En8uLNTGG6yETjCqBuJbye2I_MCqNprvHFfqIsdUHpfFdfu1islMYPQWbnadXhsR8IJV6NpWd5LueIITxAoZmRXSMOM4qcyOPRwyJ5PJtf6jb-x3IKztGYTPbEqHR4qvhqPh3hG374rhNE2osRmn0XApQ2LyDYFx1Umi27v3tP5by5tX_NDWdHcCfVA");'></div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Trần Thị B</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9]">Mã HDV: VN-GUIDE-102</p>
+</div>
+</div>
+<div>
+<p class="text-base font-bold text-slate-900 dark:text-white line-clamp-1">Tour: Sai Gon City Tour &amp; Cu Chi Tunnels</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] mt-0.5">Code: SG-2025-442 • 14/10/2025</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/10 mt-1">
+<span class="inline-flex items-center rounded-md bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-400/20">Chờ thanh toán</span>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">1.200.000 ₫</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group relative flex cursor-pointer flex-col gap-3 rounded-xl bg-white dark:bg-[#111418] hover:bg-slate-50 dark:hover:bg-[#1c2126] p-4 border border-slate-200 dark:border-[#283039] transition-all">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Male Guide Portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDC-ru6T1TKjKYeMQd302Vf2QgOUANxyUrfpPqx0PaHdhLh1VtZZTTeh0vyyY4MiwrguvsyQajOQKAdj8FW6ALmmLiMK3J2tcsk2JGaNpIr2vc5Pu3hLJ88rEsg2B5fvgIx2H452tOi40IKD4ZjNHGwogMKXJtP_EXHgHyRMtz7rMq-W7zwhuQCHESvzNhXv1V5IUgw5swys7wXbe5AanbpzAAoUIKsoxOe9En-FNKRyryZlDbkmUTTGQ2Jr-HlNtwirKN3Nibvog");'></div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Lê Văn C</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9]">Mã HDV: VN-GUIDE-005</p>
+</div>
+</div>
+<div>
+<p class="text-base font-bold text-slate-900 dark:text-white line-clamp-1">Tour: Da Nang - Hoi An Walking Tour</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] mt-0.5">Code: DN-2025-112 • 12/10/2025</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/10 mt-1">
+<span class="inline-flex items-center rounded-md bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-400/20">Chờ thanh toán</span>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">850.000 ₫</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Panel: Detailed View -->
+<section class="flex flex-1 flex-col h-full bg-slate-50 dark:bg-[#0f151b] overflow-hidden relative">
+<!-- Detail Header -->
+<div class="shrink-0 px-8 py-5 border-b border-slate-200 dark:border-[#283039] bg-white dark:bg-[#111418]">
+<div class="flex justify-between items-start gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+<span class="text-xs font-medium text-green-600 dark:text-green-400 bg-green-400/10 px-2 py-0.5 rounded">Compliance Checked: Law 2025</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Báo cáo: Hạ Long Bay 2D1N Premium Cruise</h1>
+<p class="text-slate-500 dark:text-[#9dabb9]">Tour ID: <span class="font-mono text-slate-700 dark:text-slate-300">HL-2025-001</span> • Khởi hành: 15/10/2025</p>
+</div>
+<div class="text-right">
+<p class="text-sm text-slate-500 dark:text-[#9dabb9]">Tổng yêu cầu thanh toán</p>
+<p class="text-3xl font-black text-primary tracking-tight">4.500.000 ₫</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex gap-6 mt-6 border-b border-slate-100 dark:border-[#283039]">
+<button class="pb-3 border-b-2 border-primary text-primary font-medium text-sm px-1">Chi tiết Tour</button>
+<button class="pb-3 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-400 font-medium text-sm px-1 transition-colors">Tài chính &amp; Hóa đơn</button>
+<button class="pb-3 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-400 font-medium text-sm px-1 transition-colors">Ảnh &amp; Chứng từ (5)</button>
+</div>
+</div>
+<!-- Detail Content (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="mx-auto max-w-5xl space-y-8 pb-32">
+<!-- Guide Note & Warning -->
+<div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-700/30 rounded-lg p-4 flex gap-3">
+<span class="material-symbols-outlined text-amber-600 dark:text-amber-400">warning</span>
+<div>
+<p class="font-bold text-amber-800 dark:text-amber-200 text-sm">Ghi chú từ HDV (Quan trọng)</p>
+<p class="text-amber-900/80 dark:text-amber-100/70 text-sm mt-1">
+                                "Tour diễn ra tốt đẹp. Tuy nhiên có phát sinh phí vé thăm quan đảo Ti Tốp do giá vé tăng đột xuất chưa kịp cập nhật trong hệ thống. Tôi đã ứng trước tiền mặt và đính kèm hóa đơn đỏ bên dưới."
+                            </p>
+</div>
+</div>
+<!-- Statistics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-[#1e2832] p-4 rounded-xl border border-slate-200 dark:border-[#283039]">
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] uppercase font-bold tracking-wider">Đoàn khách</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-slate-400">group</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">15 pax</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1e2832] p-4 rounded-xl border border-slate-200 dark:border-[#283039]">
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] uppercase font-bold tracking-wider">Đánh giá</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-yellow-500">star</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">4.8/5</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1e2832] p-4 rounded-xl border border-slate-200 dark:border-[#283039]">
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] uppercase font-bold tracking-wider">Thời lượng</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-slate-400">schedule</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">2N1Đ</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1e2832] p-4 rounded-xl border border-slate-200 dark:border-[#283039]">
+<p class="text-xs text-slate-500 dark:text-[#9dabb9] uppercase font-bold tracking-wider">Trạng thái GPS</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-green-500">location_on</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">Verified</span>
+</div>
+</div>
+</div>
+<!-- Financial Breakdown Table -->
+<div class="bg-white dark:bg-[#1e2832] rounded-xl border border-slate-200 dark:border-[#283039] overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-[#283039]">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Chi tiết yêu cầu thanh toán</h3>
+</div>
+<table class="w-full text-left text-sm">
+<thead class="bg-slate-50 dark:bg-[#283039]">
+<tr>
+<th class="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">Hạng mục</th>
+<th class="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">Diễn giải</th>
+<th class="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9] text-right">Số tiền (VND)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-[#283039] text-slate-700 dark:text-slate-300">
+<tr class="hover:bg-slate-50 dark:hover:bg-[#232d36]">
+<td class="px-6 py-4">Công tác phí HDV</td>
+<td class="px-6 py-4">Theo hợp đồng (2 ngày)</td>
+<td class="px-6 py-4 text-right tabular-nums">3.000.000 ₫</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-[#232d36]">
+<td class="px-6 py-4">Phụ cấp ăn uống</td>
+<td class="px-6 py-4">4 bữa chính</td>
+<td class="px-6 py-4 text-right tabular-nums">1.000.000 ₫</td>
+</tr>
+<tr class="bg-amber-50/50 dark:bg-amber-900/5 hover:bg-amber-50 dark:hover:bg-amber-900/10">
+<td class="px-6 py-4 font-medium text-amber-700 dark:text-amber-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+                                        Phát sinh vé thăm quan
+                                    </td>
+<td class="px-6 py-4 text-amber-700 dark:text-amber-400">Vé đảo Ti Tốp (Có hóa đơn đính kèm)</td>
+<td class="px-6 py-4 text-right font-medium text-amber-700 dark:text-amber-400 tabular-nums">500.000 ₫</td>
+</tr>
+<tr class="bg-slate-50 dark:bg-[#283039] font-bold text-base">
+<td class="px-6 py-4 text-slate-900 dark:text-white" colspan="2">Tổng cộng</td>
+<td class="px-6 py-4 text-right text-primary tabular-nums">4.500.000 ₫</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Attachments Gallery -->
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Chứng từ &amp; Hình ảnh</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Image 1 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-200 dark:bg-[#283039] cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" data-alt="Red invoice receipt photo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBnhjVzsdHW4cTFb7OZS0ETVk9Dv25T8pNwaiwCs6piEcwJth3VRYZYWmOGA8ENP98Ze_TX-WQoBL8SWgOCrGJddpZ_cuMuOPInvsGmR0bqgSVRAEFr2BTNQ-Uod5wVc1mjAdQKr3n3iEdLPq6SB9d3GEGKzGITC2puNrrec07DDakZxs-10btwiOGeY0GlXd9N0xANzfZNKjfEIZHv-qKYTGRPtpOVVCE7714-kHfKSHJO8G1dQ5oIyiIVW2FTTZGICQJX69lJBA");'></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white text-xs font-medium bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Hóa đơn đỏ #8291</span>
+</div>
+</div>
+<!-- Image 2 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-200 dark:bg-[#283039] cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" data-alt="Tour group photo at Halong Bay" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4Ry4FMAliSdZ4rMfcOr5c6BsvmjdcIJe4uKxrpR4ViUrlJwer5BwxKZhVu7OT-GnXiIEPV2vgR6bRNK56bRheM90rRoWBfhoXrlCeThRjtoE2YFYFXIWPibChyB6aN2VK2mS407BDNQKqqQtYsisW2bAbGbbZTDOsVr3XzWJKUIL87eSHtNGn3sEn5SeG3srC6GLefnqAJ0UZtnMTBOP_wrounEDH70aHEU7xMuQ069XIKTbnmv2NT3C5Q3Ro6N9HiV3jILTQwg");'></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white text-xs font-medium bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Check-in tại bến</span>
+</div>
+</div>
+<!-- Image 3 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-200 dark:bg-[#283039] cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" data-alt="Ticket stub photo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDW8a_De6rH_w1HnQ9Dt8GCfPSOL8MZgVaXqCNIonfhkmPucr_ex_IZj3Oxwo0ftK2vxPWr7NLzAJRKsb7Pd_dA1oZ4B83HERkAYcCZVhMGTqX9mRm8RnVKMVqkqSRtsZLspGdMxPBgym3rnYWkmJkh20jsqvA_g7rj1QNw_taKaQ8qblCNZ1yvmRZXuY5vyvr6D8JEVUJncGXJkoArhO2etDOPPfFQM_uacw_nx0znjuK8U5SHLxtwCQ2CF3OPzvHEOz_zCIDZYA");'></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white text-xs font-medium bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Vé thăm quan</span>
+</div>
+</div>
+<!-- More placeholder -->
+<div class="flex items-center justify-center aspect-[4/3] rounded-lg bg-slate-100 dark:bg-[#1e2832] border border-dashed border-slate-300 dark:border-[#283039] text-slate-400 cursor-pointer hover:bg-slate-200 dark:hover:bg-[#283039] transition-colors">
+<span class="text-sm font-medium">+2 Ảnh khác</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Action Footer -->
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-white dark:bg-[#111418] border-t border-slate-200 dark:border-[#283039] flex flex-col gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+<!-- Input for rejection/notes -->
+<div class="relative hidden">
+<!-- This would be toggled if Reject is clicked, keeping hidden for clean initial view as requested -->
+</div>
+<div class="flex items-center justify-between gap-4">
+<div class="flex-1">
+<input class="w-full rounded-lg border-slate-300 dark:border-[#3d4650] bg-slate-50 dark:bg-[#1e2832] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-primary focus:border-primary" placeholder="Nhập ghi chú cho HDV (nếu cần)..." type="text"/>
+</div>
+<div class="flex gap-3 shrink-0">
+<button class="px-6 py-2.5 rounded-lg border border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 font-bold text-sm hover:bg-red-100 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                            Từ chối yêu cầu
+                        </button>
+<button class="px-6 py-2.5 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                            Duyệt thanh toán
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

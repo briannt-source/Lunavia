@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Emergency Management - TourOp Admin</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "surface-dark": "#111418", 
+              "surface-highlight": "#283039",
+              "danger": "#ef4444",
+              "warning": "#f97316",
+              "success": "#22c55e",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"],
+              "body": ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "0.75rem", 
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3e4a56; 
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display h-screen flex overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-[280px] bg-surface-dark flex flex-col border-r border-surface-highlight flex-shrink-0 z-20">
+<div class="p-4 flex flex-col h-full justify-between">
+<div class="flex flex-col gap-4">
+<!-- Branding -->
+<div class="flex gap-3 items-center px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Abstract blue logo for TourOp" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDp9Ns1M0QtfKGEMr5Mi5uBlumrhN3uH3Y4ueDOOhrzD2tcKoD71JvKnN1dEzD1iXjW6wHH1yt01vSxur4q_WVnQSGXGX7MAMvYOnkc4y-bT1yrcTLlCMkFfqWF_ihcX1IwG3lEw7iuufEBKlIz1F0X29FlCdAcXw8zd9Xakg5KacNC3ozvRgFU0crwLuPGVvLKL3-lA76MMa-1dWIuujOElce2ZQ6sy6VtF2m4cf-LwnitSK04EdwBfeziLQT-NPbKhC1gR0pPQ");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal">TourOp Admin</h1>
+<p class="text-[#9dabb9] text-xs font-normal leading-normal">Management Portal</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9dabb9] hover:bg-surface-highlight hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9dabb9] hover:bg-surface-highlight hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-sm font-medium">Tours</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9dabb9] hover:bg-surface-highlight hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Guides</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined icon-fill">warning</span>
+<span class="text-sm font-bold">Emergencies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9dabb9] hover:bg-surface-highlight hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Actions -->
+<div class="px-3">
+<button class="flex items-center gap-3 px-3 py-2 w-full rounded-lg text-[#9dabb9] hover:text-white hover:bg-surface-highlight transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Sign Out</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Top Navbar -->
+<header class="h-16 flex items-center justify-between px-6 bg-surface-dark border-b border-surface-highlight flex-shrink-0">
+<div class="flex items-center gap-4 text-white">
+<h2 class="text-lg font-bold leading-tight tracking-tight">Emergency Response Center</h2>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-red-500/20 text-red-500 border border-red-500/20">Live Monitoring</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search -->
+<div class="hidden md:flex h-10 w-64 bg-surface-highlight rounded-lg items-center px-3 gap-2">
+<span class="material-symbols-outlined text-[#9dabb9] text-[20px]">search</span>
+<input class="bg-transparent border-none text-white text-sm focus:ring-0 w-full p-0 placeholder-[#9dabb9]" placeholder="Search incidents..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg bg-surface-highlight text-white hover:bg-[#3e4a56] relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-surface-highlight"></span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-surface-highlight text-white hover:bg-[#3e4a56]">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<!-- Avatar -->
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-surface-highlight cursor-pointer" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaNB9TIP5251Dh6y67TEhcBXXBIKDtVeBTtdblQl-s-vFBKbVCAmlh2CsLuLsK6iSEnMWfMiYr8MSTAKBCB-An_7aCgy5DjkTN0IgH4GJks9l0gYGl1iQbs2A97GjeF2ccFB22zWtTZtseKsbO01P5wkzPOn3Hu-hwfDnoFTQCRPsZWAt0XKS5OaMLKkWDPa31Z3l_DJ0XJuLLDYm9Q_dAlkFlkmXaGn2fwpCp2avKnW7z_AAgIbPpaiIEvtbHH_TnaRPsA_rTTg");'></div>
+</div>
+</header>
+<!-- Breadcrumbs & Heading -->
+<div class="px-6 py-4 flex flex-col gap-2 flex-shrink-0">
+<div class="flex items-center gap-2 text-sm">
+<a class="text-[#9dabb9] hover:text-white transition-colors" href="#">Dashboard</a>
+<span class="text-[#9dabb9]">/</span>
+<span class="text-white font-medium">Emergency Management</span>
+</div>
+</div>
+<!-- Master-Detail Layout -->
+<main class="flex-1 flex px-6 pb-6 gap-6 min-h-0">
+<!-- LEFT PANEL: Triage List -->
+<div class="w-[400px] flex flex-col bg-surface-dark rounded-xl border border-surface-highlight flex-shrink-0 overflow-hidden shadow-lg">
+<!-- Filters -->
+<div class="p-4 border-b border-surface-highlight flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<h3 class="text-white font-bold text-lg">Active Reports</h3>
+<span class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">3 New</span>
+</div>
+<div class="flex gap-2">
+<select class="flex-1 h-9 bg-surface-highlight border-none rounded-lg text-white text-sm focus:ring-1 focus:ring-primary px-3">
+<option>All Statuses</option>
+<option>New</option>
+<option>Acknowledged</option>
+<option>Resolved</option>
+</select>
+<button class="h-9 w-9 flex items-center justify-center bg-surface-highlight rounded-lg text-[#9dabb9] hover:text-white hover:bg-[#3e4a56]">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
+<!-- Item 1: Active/Selected -->
+<div class="p-3 rounded-lg bg-surface-highlight border border-primary/50 cursor-pointer relative group transition-all hover:bg-[#323c46]">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg"></div>
+<div class="pl-2 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-red-500/20 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded border border-red-500/20 uppercase tracking-wide">New</span>
+<span class="text-[#9dabb9] text-xs">10m ago</span>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm leading-tight">Accident - Fall Injury</h4>
+<p class="text-[#9dabb9] text-xs mt-0.5 line-clamp-1">Tour: Amazing Ha Long Bay Cruise</p>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<div class="size-5 rounded-full bg-gray-600 bg-cover bg-center" data-alt="Guide avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnW_FXCATRCiy8kS1Pfox3GZHOslLW30rjq4IYzbFfov4IruUVkHIDkwqO04xruoU1e5zlj-qM4x5TNAZYWlDWUJhS1Enl9L4ZlzVTgYsSWEJyDBNFIWpH3KwuICiXTZcF3HevOQTvOYpBbPMM2p7PzdL1CHtMVAyAHGBPJkklrYvzqiiY7gKEbcsFLBpgMIs-0jFzd_hib_hCkW-FkrJR7hsWlytGoo5oB-4SKgIJFENp9x-2IDfMb2uvBWMP6ZIg8_hcSXtFog");'></div>
+<span class="text-xs text-white">Nguyen Van A</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-3 rounded-lg border border-transparent hover:bg-surface-highlight cursor-pointer transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-warning/20 text-warning text-[10px] font-bold px-2 py-0.5 rounded border border-warning/20 uppercase tracking-wide">Acknowledged</span>
+<span class="text-[#9dabb9] text-xs">45m ago</span>
+</div>
+<div>
+<h4 class="text-[#cbd5e1] font-medium text-sm leading-tight">Medical - Food Poisoning</h4>
+<p class="text-[#9dabb9] text-xs mt-0.5 line-clamp-1">Tour: Sapa Trekking Adventure</p>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<div class="size-5 rounded-full bg-gray-600 bg-cover bg-center" data-alt="Guide avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnJNgPJlFSZtlA4AmZj5A706x4Qv9U6eOwdQi_9wN1j1F0K4UIOKdhk6_m2dJNtmnfdjDrYbghGavBhgNK0HBdZpC_cXR_npEA8Ht-K56Vsx6Hrpq9uFxgeWVnoAx-vZaey-6zeKWZlYoFH9TR1yvxCNRatUswpNzSxxhWn4EGd6jbstWb_bTKnw6mmUH2U5Bhg7RBZzcYbnFEgKo0ti7ItXti1nVPkSnRa37uFt5SgrzqtwLndNgRZmoHugftYeZ-eUHtoxFDig");'></div>
+<span class="text-xs text-[#9dabb9]">Le Thi B</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-3 rounded-lg border border-transparent hover:bg-surface-highlight cursor-pointer transition-all opacity-70">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="bg-success/20 text-success text-[10px] font-bold px-2 py-0.5 rounded border border-success/20 uppercase tracking-wide">Resolved</span>
+<span class="text-[#9dabb9] text-xs">2h ago</span>
+</div>
+<div>
+<h4 class="text-[#cbd5e1] font-medium text-sm leading-tight">Lost Property - Passport</h4>
+<p class="text-[#9dabb9] text-xs mt-0.5 line-clamp-1">Tour: Hoi An Ancient Town Walk</p>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<div class="size-5 rounded-full bg-gray-600 bg-cover bg-center" data-alt="Guide avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAiRSrwRwZDlC7iyYYnOY50t2SiMwRwz2E7vWg7dlgEuTYqSTigWL5LELGIhKeoHGkcBh35nGp-onrNAbJfMjvPrnxQew999BtBNIBMNxBik2bEY0OfR5eIyqa9m3EKZQAt0Ut0REvgEiANA2Qf2h6h4e8mUyFi-kBgMBxXc79OmvkoRC7UVaW8Shi69dy4QnBh8pYk1f0iEJ1f2uhKOKZJCfdNBU6Mg_3-dgfTfp0lddSdfnyvdpf3KfKyuZsXJe6cjxYOz3IfA");'></div>
+<span class="text-xs text-[#9dabb9]">Tran Van C</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: Detail View -->
+<div class="flex-1 flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden shadow-lg relative">
+<!-- Detail Header -->
+<div class="px-6 py-4 border-b border-surface-highlight bg-[#151a21] flex justify-between items-start gap-4 flex-shrink-0">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-2xl font-bold text-white tracking-tight">SOS-2025-8842</h2>
+<span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">CRITICAL</span>
+</div>
+<p class="text-[#9dabb9] text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                            Reported Oct 24, 2025 at 14:30 (GMT+7)
+                        </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-highlight hover:bg-[#3e4a56] text-white text-sm font-bold rounded-lg border border-transparent transition-colors">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                             Export PDF
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-highlight hover:bg-[#3e4a56] text-white text-sm font-bold rounded-lg border border-transparent transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+                             Share
+                        </button>
+</div>
+</div>
+<!-- Scrollable Detail Content -->
+<div class="flex-1 overflow-y-auto p-6">
+<!-- Alert Banner -->
+<div class="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex gap-4 items-start">
+<span class="material-symbols-outlined text-red-500 mt-0.5">report_problem</span>
+<div>
+<h4 class="text-red-500 font-bold text-base mb-1">Incoming Emergency Report</h4>
+<p class="text-white/80 text-sm">This report has been flagged as "Accident". Immediate action is required. Please verify guide safety and coordinate local medical response.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Col 1: Main Info & Incident -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Incident Description -->
+<section>
+<h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                    Incident Details
+                                </h3>
+<div class="bg-surface-highlight p-5 rounded-lg border border-[#3e4a56]">
+<div class="mb-4">
+<label class="text-[#9dabb9] text-xs font-bold uppercase tracking-wider mb-1 block">Description from Guide</label>
+<p class="text-white text-base leading-relaxed">
+                                            "Guest slipped on wet rocks near the Sung Sot Cave entrance. Suspected ankle fracture or severe sprain. Guest cannot walk. Currently applying ice pack and elevating leg. Need boat transport to mainland hospital immediately."
+                                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="text-[#9dabb9] text-xs font-bold uppercase tracking-wider mb-1 block">Category</label>
+<p class="text-white font-medium">Physical Injury / Accident</p>
+</div>
+<div>
+<label class="text-[#9dabb9] text-xs font-bold uppercase tracking-wider mb-1 block">Affected Guests</label>
+<p class="text-white font-medium">1 (Mr. John Smith)</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Media / Evidence -->
+<section>
+<h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">perm_media</span>
+                                    Attached Media
+                                </h3>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="aspect-square bg-surface-highlight rounded-lg border border-[#3e4a56] overflow-hidden relative group cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-105" data-alt="Photo of rocky path where accident happened" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7G_Ti1zLz2K0XkkOh3_9hx-QwXvIEOUB31voqtUNjtxwg6VTrGkvJK5NGVFpUk1gFYudueMgvlFYw0MzfPzzMnbhXoejthjjNh3qsTLgXss03G4zBp2K4zxrxc3srSnHub3o7-QASmnUzUJLTJnfQdXTcx57rUQaNvBh87pr7S6PX-rQmLq35U8iz31Qk9noj3cG01ebzpbnln-Bn0RSmZ4DuV1ghErp61N3ugRV46k_nVm_h4E43PAH_PvEmMG40aqF6HXKqIg");'></div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="aspect-square bg-surface-highlight rounded-lg border border-[#3e4a56] overflow-hidden relative group cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-105" data-alt="Photo of injury close up" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJp76Kf-6qbaPmKKZWIVoQy2meB_n02CZxjSlgOESvrY4U2ANJAjF04T-lSj-vhdr0w79wuVoCKfPux732Z2ulkvXhQk0jir1kt8gLS9s06MfgJJHrr6tt37re4S5gm1V77oyz0_aeFD7CL8bp2zLQ0tRvdCA7ybvPpdekL8sDh7BgMbitALoBv2T-u7V1uEf6h3wMDLTJ49IDmpUFT8c-LYmXUcQTuHqkmXBYJLUVcwDeEvodSec3SYwU5vH94n9mgMvowL31kA");'></div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Tour Context -->
+<section>
+<h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tour</span>
+                                    Tour Context
+                                </h3>
+<div class="bg-surface-highlight p-4 rounded-lg border border-[#3e4a56] flex items-center justify-between">
+<div>
+<h4 class="text-white font-bold text-base">Amazing Ha Long Bay Cruise (2D1N)</h4>
+<p class="text-[#9dabb9] text-sm">Tour ID: HLB-2025-001 • Group Size: 15 Pax</p>
+</div>
+<button class="text-primary text-sm font-bold hover:underline">View Itinerary</button>
+</div>
+</section>
+</div>
+<!-- Col 2: Sidebar Info (Guide, Loc, Actions) -->
+<div class="flex flex-col gap-6">
+<!-- Guide Card -->
+<div class="bg-surface-highlight rounded-xl border border-[#3e4a56] p-5">
+<h3 class="text-[#9dabb9] text-xs font-bold uppercase tracking-wider mb-4">Reporting Guide</h3>
+<div class="flex items-center gap-4 mb-4">
+<div class="size-12 rounded-full bg-gray-600 bg-cover bg-center border-2 border-[#3e4a56]" data-alt="Profile picture of Guide Nguyen Van A" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGmEtWTSqHl0xto_q4OBFZBY10QTzQtMgj_BFjI1e_oDbnhzQPsPjrkafGR2l0OgfjfCeMzG9jbvEUaBUrm1S9pIqJ2k3rIZf6MMOD_9Vorqn_ETmywSVczlCSAJ19f8G75QCRs5k-WEWbWVq_OE6kLTVhgCTdAuVgRk8zdYQhqTgH-LFvTOcSv5GN0z1EYSLVswiTmlRojbiz0ILDy_T5AprqqCMyG9AKzPyt2cMSzJXn2SirTGkVNmfa8jgdBXsytacQQ2jUqw");'></div>
+<div>
+<p class="text-white font-bold text-lg">Nguyen Van A</p>
+<p class="text-[#9dabb9] text-sm">License: G-88219</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center justify-center gap-2 w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors" href="tel:+84901234567">
+<span class="material-symbols-outlined text-[20px]">call</span>
+                                        Call (+84) 90 123 4567
+                                    </a>
+<button class="flex items-center justify-center gap-2 w-full py-2 bg-[#0068FF] hover:bg-[#0054cc] text-white rounded-lg font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+                                        Chat via Zalo
+                                    </button>
+</div>
+</div>
+<!-- Location Map -->
+<div class="bg-surface-highlight rounded-xl border border-[#3e4a56] overflow-hidden flex flex-col">
+<div class="h-48 w-full bg-gray-700 relative" data-location="Ha Long Bay, Vietnam" style="https://lh3.googleusercontent.com/aida-public/AB6AXuBxvO8csnP3kI0tvuCeDJtRJUjydcbsFUhRPeMZeiYIJT_Sm4jrNYDZsORYaeUnFw-AM-Weenv6epsEML2eTogjbcCqfQfr7cxliv3RX7rTKCIugzFZ5f2fOhZ6RItazuAUvVB6aUT1ttD2qppFl5DaOJmCBeyEiMnqVA5ybKhwlEQmzJX__TvJvb0WzuEh_hKX0ZbL3IpqjfJarg_qqeCNyRa7SRmHRGPxgh3RtfB9dfsgLTBUMM3ud8jcrnm-_GbE6E9jA1SQmA">
+<div class="w-full h-full bg-cover bg-center opacity-70" data-alt="Map view of Ha Long Bay showing current location pin" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiZ7AMB_w6GR-nXVfrX4W73ocQ1PlyiJjwuUx_HdrweE9v0lBDe9Uxzu-C9PehXhrCJ2Ca2QV8GIoZyV7ZmokDIsNqUCp2LpoWEuRvsmNtcJ7-f9jeh3yQAQhye0XAyYqJ4I3cGVZ5i2HddOsE-qAj7cM4dzKu7IbjhCks3q7RDSBr8xhLSE9KyoCPymfasXOpqPyUHleC4unP8ZrFgiSF-RsvBRvjq3eG1cvrB72-YChYaWu-4axlqdxltXTBhS2oTQKuyK6usg");'></div>
+<!-- Fake Pin -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<span class="material-symbols-outlined text-red-500 text-4xl drop-shadow-md">location_on</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-center mb-1">
+<span class="text-white font-bold text-sm">Current Location</span>
+<span class="text-primary text-xs font-bold cursor-pointer">Open Maps</span>
+</div>
+<p class="text-[#9dabb9] text-xs font-mono">20.9101° N, 107.1839° E</p>
+<p class="text-[#9dabb9] text-xs mt-1">Sung Sot Cave Area, Ha Long Bay</p>
+</div>
+</div>
+<!-- Timeline / Log -->
+<div class="bg-surface-highlight rounded-xl border border-[#3e4a56] p-5 flex-1">
+<h3 class="text-[#9dabb9] text-xs font-bold uppercase tracking-wider mb-4">Activity Log</h3>
+<div class="relative pl-4 border-l-2 border-[#3e4a56] space-y-6">
+<div class="relative">
+<div class="absolute -left-[21px] top-0 size-3 bg-red-500 rounded-full border-2 border-surface-highlight"></div>
+<p class="text-white text-sm font-medium">SOS Report Received</p>
+<p class="text-[#9dabb9] text-xs">14:30 - System</p>
+</div>
+<div class="relative opacity-50">
+<div class="absolute -left-[21px] top-0 size-3 bg-[#3e4a56] rounded-full border-2 border-surface-highlight"></div>
+<p class="text-white text-sm font-medium">Operator Acknowledged</p>
+<p class="text-[#9dabb9] text-xs">Pending...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Actions -->
+<div class="p-4 bg-surface-dark border-t border-surface-highlight flex justify-between items-center flex-shrink-0 z-10">
+<div class="text-[#9dabb9] text-sm hidden md:block">
+                        Action required within <span class="text-red-500 font-bold">15 minutes</span>.
+                    </div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none h-11 px-6 rounded-lg bg-primary hover:bg-blue-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined">check_circle</span>
+                            Acknowledge Report
+                        </button>
+<button class="flex-1 md:flex-none h-11 px-6 rounded-lg bg-surface-highlight hover:bg-green-600 hover:text-white text-[#9dabb9] border border-[#3e4a56] font-bold text-sm transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">done_all</span>
+                            Đã xử lý (Resolve)
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

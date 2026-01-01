@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create New Tour</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1c2127",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #3b4754; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }.dark ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased h-screen flex overflow-hidden">
+<aside class="w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark flex-col hidden lg:flex z-20">
+<div class="h-16 flex items-center px-6 border-b border-slate-100 dark:border-border-dark">
+<div class="flex items-center gap-2 text-primary font-bold text-xl">
+<span class="material-symbols-outlined filled">travel_explore</span>
+<span>TourPortal</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined">tour</span>
+                My Tours
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">assignment_ind</span>
+                Applications
+                <span class="ml-auto bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-red-900/30 dark:text-red-400">12</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">groups</span>
+                Guides
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">payments</span>
+                Finance
+            </a>
+<div class="pt-4 mt-4 border-t border-slate-100 dark:border-border-dark">
+<p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Company</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">business</span>
+                    Company Details
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+                    Settings
+                </a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-slate-100 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBipcXeU2ojCTGhQ9Q6iUnRIDZ6VHEoc0J9jF7ZFnKCh79L0hDnTIN7yhG_sUfLQpMusgIEt8ZI0WDn3FZTeUhmnXN834kIFe9EzoiLhBuEgy_jAFbyrnClqm6GpB6vZA745FyQnQwB_63VtCWSH-p1bWYUSujURwJHHItJYjXrc_GZ2NZko609OW7X6peDUYCHQniX31yHyHXIwhvlmR5-_WusGrBOd-XeW-4ATp4pyesV-kbnbCZwMFagYLyFW_GRU9DLH5DcXQ"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Viet Travel Co.</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">admin@viettravel.com</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<header class="h-16 bg-white dark:bg-surface-dark border-b border-slate-200 dark:border-border-dark flex items-center justify-between px-4 lg:px-8 z-10">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-slate-500 hover:text-slate-700 dark:text-slate-400">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-bold text-lg text-slate-900 dark:text-white">TourPortal</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span class="text-sm font-medium">Back to List</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden md:flex relative max-w-xs w-full mr-4">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="block w-full rounded-full border-0 py-1.5 pl-10 bg-slate-100 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary sm:text-sm" placeholder="Search..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 lg:p-8 bg-background-light dark:bg-background-dark">
+<div class="max-w-5xl mx-auto pb-12">
+<div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-1">
+<span>My Tours</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-medium">New Tour</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Tạo Tour Mới</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Create a new tour listing compliant with Vietnam Tourism Law 2025.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                            Draft Save
+                        </button>
+</div>
+</div>
+<form class="space-y-6">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-6 lg:p-8">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-white/5">
+<span class="material-symbols-outlined text-primary">info</span>
+                            Thông tin cơ bản
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="md:col-span-12">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Tiêu đề tour <span class="text-red-500">*</span>
+</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow placeholder:text-slate-400" placeholder="Nhập tên tour du lịch..." type="text"/>
+</div>
+<div class="md:col-span-12">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Mô tả
+                                </label>
+<textarea class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow placeholder:text-slate-400" placeholder="Mô tả chi tiết về tour..." rows="4"></textarea>
+</div>
+<div class="md:col-span-4">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Thành phố <span class="text-red-500">*</span>
+</label>
+<div class="relative">
+<select class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent appearance-none">
+<option value="">Chọn thành phố</option>
+<option value="hanoi">Hà Nội</option>
+<option value="hcm">TP. Hồ Chí Minh</option>
+<option value="danang">Đà Nẵng</option>
+<option value="halong">Hạ Long</option>
+<option value="hoian">Hội An</option>
+</select>
+<span class="absolute right-3 top-2.5 text-slate-400 pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</span>
+</div>
+</div>
+<div class="md:col-span-4">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Ngày và giờ bắt đầu <span class="text-red-500">*</span>
+</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent" type="datetime-local"/>
+</div>
+<div class="md:col-span-4">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Ngày và giờ kết thúc <span class="text-red-500">*</span>
+</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent" type="datetime-local"/>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-6 lg:p-8">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-white/5">
+<span class="material-symbols-outlined text-primary">groups</span>
+                            Hướng dẫn viên &amp; Chi phí
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<div class="bg-slate-50 dark:bg-background-dark/50 p-4 rounded-xl border border-slate-100 dark:border-white/5 space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="p-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Main Guide</h3>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Số lượng Main Guide</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent" min="1" type="number" value="1"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Giá Main Guide (VND)</label>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent pr-12" placeholder="0" type="text"/>
+<span class="absolute right-3 top-2.5 text-xs font-bold text-slate-400">VND</span>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-background-dark/50 p-4 rounded-xl border border-slate-100 dark:border-white/5 space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined text-[18px]">assistant</span>
+</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Sub Guide</h3>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Số lượng Sub Guide</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent" min="0" type="number" value="0"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Giá Sub Guide (VND)</label>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent pr-12" placeholder="0" type="text"/>
+<span class="absolute right-3 top-2.5 text-xs font-bold text-slate-400">VND</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-6 lg:p-8">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-white/5">
+<span class="material-symbols-outlined text-primary">description</span>
+                            Chi tiết bổ sung
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Bao gồm
+                                </label>
+<textarea class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow placeholder:text-slate-400" placeholder="- Vé tham quan
+- Bữa trưa
+- Xe đưa đón" rows="5"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Không bao gồm
+                                </label>
+<textarea class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow placeholder:text-slate-400" placeholder="- Tiền tip
+- Đồ uống có cồn
+- Chi phí cá nhân" rows="5"></textarea>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                                    Yêu cầu bổ sung
+                                </label>
+<textarea class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow placeholder:text-slate-400" placeholder="Yêu cầu đặc biệt về ngôn ngữ, kỹ năng sơ cứu, thẻ hướng dẫn viên quốc tế..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-6 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<label class="block text-sm font-bold text-slate-900 dark:text-white mb-3">
+                                Tầm nhìn (Visibility)
+                            </label>
+<div class="flex items-center gap-6">
+<label class="flex items-center gap-2.5 cursor-pointer group">
+<div class="relative flex items-center">
+<input checked="" class="peer sr-only" name="visibility" type="radio" value="public"/>
+<div class="w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded-full peer-checked:border-primary peer-checked:bg-primary transition-all"></div>
+<div class="absolute inset-0 flex items-center justify-center scale-0 peer-checked:scale-100 transition-transform">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</div>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">PUBLIC</span>
+</label>
+<label class="flex items-center gap-2.5 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer sr-only" name="visibility" type="radio" value="private"/>
+<div class="w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded-full peer-checked:border-primary peer-checked:bg-primary transition-all"></div>
+<div class="absolute inset-0 flex items-center justify-center scale-0 peer-checked:scale-100 transition-transform">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</div>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">PRIVATE</span>
+</label>
+</div>
+<p class="text-xs text-slate-500 mt-2">Public tours are visible to all registered guides.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" type="button">
+                                Cancel
+                            </button>
+<button class="px-8 py-3 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined">add_circle</span>
+                                Tạo Tour
+                            </button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</main>
+
+</body></html>

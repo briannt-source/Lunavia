@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chi tiết Hợp đồng - GuideConnect VN</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "paper": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Noto Serif", "serif"], // Optional for contract body if needed, sticking to Public Sans for consistency
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for contract viewer */
+        .contract-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .contract-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .contract-scroll::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        .contract-scroll::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Print styles */
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+            .contract-paper { box-shadow: none; border: none; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white flex flex-col min-h-screen">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white dark:bg-[#1e2936] border-b border-[#f0f2f4] dark:border-[#2d3748] no-print">
+<div class="px-4 md:px-10 py-3 flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">GuideConnect VN</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Trang chủ</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-bold leading-normal text-primary" href="#">Hợp đồng</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Lịch trình</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Hồ sơ</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white dark:ring-gray-700 cursor-pointer shadow-sm" data-alt="User Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApLkrWU6VF-eT4TMYxlLYu-CzhIwCtZp9ep6gKVF4ZgV5cvx7xjqToMUE-lMIhcuBgvkSLly_cCTOeFZ0Ey21SVJYDbgR3pe-yr8fQFTv-6pjlhR8d1Gqp0BaVM3E828Byi-AioLDFchR1Ivl2UzST1B-GfqJ1SCOYOwH7aA_uDb0GdcPXrTyASjeAn8bFKmSbrdb34EXxGq0diwppO117nMWXGiyfBua0pkTYwrtoXNntHO2p6j_IXGMSHg8qSpTdcbNXOa6GTg");'></div>
+<div class="hidden md:block text-sm">
+<p class="font-medium text-[#111418] dark:text-white">Nguyễn Văn A</p>
+<p class="text-xs text-gray-500">Hướng dẫn viên quốc tế</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 md:px-6 lg:px-8 py-6 max-w-[1400px]">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 mb-6">
+<a class="text-[#617589] hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Trang chủ</a>
+<span class="text-[#617589] text-sm font-medium leading-normal">/</span>
+<a class="text-[#617589] hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Quản lý hợp đồng</a>
+<span class="text-[#617589] text-sm font-medium leading-normal">/</span>
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Chi tiết hợp đồng #2025-VN88</span>
+</div>
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 flex-wrap">
+<h1 class="text-[#111418] dark:text-white text-3xl font-black leading-tight tracking-tight">Hợp đồng hướng dẫn du lịch</h1>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 border border-blue-200 dark:border-blue-700">
+                        ĐÃ XEM
+                    </span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">Mã hợp đồng: CONT-2025-VN88 • Ngày tạo: 20/05/2025 • Hết hạn phản hồi: 25/05/2025</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-white dark:bg-[#1e2936] border border-[#dbe0e6] dark:border-[#2d3748] text-[#111418] dark:text-white text-sm font-bold shadow-sm hover:bg-gray-50 dark:hover:bg-[#2d3748] transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Tải PDF</span>
+</button>
+</div>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Contract Document (Takes up more space) -->
+<div class="lg:col-span-8 w-full">
+<!-- Contract Paper Container -->
+<div class="contract-paper bg-white text-black p-8 md:p-12 rounded-lg shadow-sm border border-[#e5e7eb] min-h-[800px] relative">
+<!-- Paper Watermark/Background decoration -->
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-primary to-blue-600 rounded-t-lg"></div>
+<!-- Contract Header -->
+<div class="text-center mb-10">
+<h3 class="uppercase font-bold text-base mb-1">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
+<p class="font-bold text-sm border-b-2 border-black inline-block pb-1 mb-6">Độc lập - Tự do - Hạnh phúc</p>
+<h2 class="uppercase font-black text-2xl mb-2 mt-4">HỢP ĐỒNG HƯỚNG DẪN DU LỊCH</h2>
+<p class="italic text-sm text-gray-600">Số: 2025/HD-HDDL/VTG-NVQA</p>
+<p class="italic text-sm text-gray-500 mt-2">Hà Nội, ngày 20 tháng 05 năm 2025</p>
+</div>
+<!-- Contract Body -->
+<div class="space-y-6 text-justify text-sm leading-relaxed font-serif">
+<!-- Preamble -->
+<div class="italic text-gray-700 mb-6">
+<p>Căn cứ Bộ luật Dân sự số 91/2015/QH13 ngày 24/11/2015;</p>
+<p>Căn cứ Luật Du lịch số 09/2017/QH14 ngày 19/06/2017;</p>
+<p>Căn cứ vào nhu cầu và khả năng của hai bên.</p>
+</div>
+<p>Hôm nay, chúng tôi gồm có:</p>
+<!-- Party A -->
+<div class="pl-4 border-l-2 border-gray-200">
+<h4 class="font-bold uppercase mb-2">BÊN A: CÔNG TY VIET TRAVEL GROUP (Bên thuê)</h4>
+<table class="w-full text-sm">
+<tbody><tr>
+<td class="w-32 font-medium py-1">Đại diện:</td>
+<td>Ông Trần Văn B - Giám đốc điều hành</td>
+</tr>
+<tr>
+<td class="font-medium py-1">Mã số thuế:</td>
+<td>0101234567</td>
+</tr>
+<tr>
+<td class="font-medium py-1">Địa chỉ:</td>
+<td>123 Đường Láng, Đống Đa, Hà Nội</td>
+</tr>
+<tr>
+<td class="font-medium py-1">Điện thoại:</td>
+<td>(024) 3838 8888</td>
+</tr>
+</tbody></table>
+</div>
+<!-- Party B -->
+<div class="pl-4 border-l-2 border-gray-200">
+<h4 class="font-bold uppercase mb-2">BÊN B: ÔNG/BÀ NGUYỄN VĂN A (Hướng dẫn viên)</h4>
+<table class="w-full text-sm">
+<tbody><tr>
+<td class="w-32 font-medium py-1">Số thẻ HDV:</td>
+<td>101156789 (Thẻ Quốc tế)</td>
+</tr>
+<tr>
+<td class="font-medium py-1">CCCD/CMND:</td>
+<td>034090001234</td>
+</tr>
+<tr>
+<td class="font-medium py-1">Địa chỉ:</td>
+<td>Phòng 405, Chung cư A1, Mỹ Đình, Hà Nội</td>
+</tr>
+<tr>
+<td class="font-medium py-1">Điện thoại:</td>
+<td>0912 345 678</td>
+</tr>
+</tbody></table>
+</div>
+<p>Hai bên thỏa thuận ký kết hợp đồng hướng dẫn du lịch với các điều khoản sau:</p>
+<!-- Article 1 -->
+<div>
+<h4 class="font-bold mb-1">ĐIỀU 1: NỘI DUNG CÔNG VIỆC</h4>
+<p>Bên A thuê Bên B thực hiện công tác hướng dẫn cho đoàn khách du lịch với lịch trình cụ thể như sau:</p>
+<ul class="list-disc pl-8 mt-2 space-y-1">
+<li><strong>Tên tour:</strong> Khám phá Di sản Miền Trung (Đà Nẵng - Hội An - Huế)</li>
+<li><strong>Thời gian:</strong> 4 ngày 3 đêm (Từ 15/06/2025 đến 18/06/2025)</li>
+<li><strong>Số lượng khách:</strong> 25 khách (Khách Quốc tế - Anh ngữ)</li>
+<li><strong>Điểm đón:</strong> Sân bay Đà Nẵng (08:00 AM - 15/06/2025)</li>
+</ul>
+</div>
+<!-- Article 2 -->
+<div>
+<h4 class="font-bold mb-1">ĐIỀU 2: THÙ LAO VÀ PHƯƠNG THỨC THANH TOÁN</h4>
+<p>2.1. Tổng thù lao trọn gói cho chương trình này là: <strong>8.000.000 VNĐ</strong> (Bằng chữ: Tám triệu đồng chẵn).</p>
+<p>2.2. Khoản thù lao trên đã bao gồm thuế thu nhập cá nhân (nếu có).</p>
+<p>2.3. Chi phí công tác phí (ăn, ở, đi lại theo đoàn) do Bên A chi trả theo tiêu chuẩn tour.</p>
+<p>2.4. Phương thức thanh toán: Chuyển khoản ngân hàng vào tài khoản Bên B trong vòng 03 ngày làm việc sau khi kết thúc tour và hoàn tất quyết toán.</p>
+</div>
+<!-- Article 3 -->
+<div>
+<h4 class="font-bold mb-1">ĐIỀU 3: TRÁCH NHIỆM CỦA CÁC BÊN</h4>
+<p><strong>3.1. Trách nhiệm của Bên B:</strong></p>
+<ul class="list-disc pl-8 mt-1 space-y-1">
+<li>Thực hiện đúng chương trình du lịch đã thỏa thuận, đảm bảo chất lượng phục vụ.</li>
+<li>Tuân thủ pháp luật và nội quy của Bên A trong quá trình dẫn đoàn.</li>
+<li>Đeo thẻ hướng dẫn viên trong suốt quá trình hành nghề.</li>
+<li>Giải quyết các phát sinh hợp lý trong phạm vi quyền hạn để đảm bảo an toàn và quyền lợi cho khách.</li>
+</ul>
+<p class="mt-2"><strong>3.2. Trách nhiệm của Bên A:</strong></p>
+<ul class="list-disc pl-8 mt-1 space-y-1">
+<li>Cung cấp đầy đủ thông tin đoàn, chương trình và các dịch vụ liên quan cho Bên B trước 03 ngày khởi hành.</li>
+<li>Thanh toán thù lao đúng hạn như cam kết tại Điều 2.</li>
+<li>Mua bảo hiểm du lịch cho Bên B trong thời gian thực hiện hợp đồng.</li>
+</ul>
+</div>
+<!-- Article 4 -->
+<div>
+<h4 class="font-bold mb-1">ĐIỀU 4: CAM KẾT CHUNG</h4>
+<p>Hai bên cam kết thực hiện đúng các điều khoản ghi trong hợp đồng. Mọi tranh chấp phát sinh sẽ được giải quyết qua thương lượng. Nếu không thành, vụ việc sẽ được đưa ra Tòa án có thẩm quyền tại Hà Nội để giải quyết.</p>
+<p>Hợp đồng này được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ 01 bản.</p>
+</div>
+</div>
+<!-- Signatures Mockup -->
+<div class="flex justify-between mt-16 pt-8 text-center text-sm">
+<div class="w-1/3">
+<p class="font-bold uppercase">Đại diện Bên A</p>
+<p class="text-xs italic mb-8">(Ký, đóng dấu)</p>
+<div class="h-20 w-20 mx-auto bg-contain bg-no-repeat opacity-80" data-alt="Company Stamp" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9a5gICvNw1fIjXzwGZbS60upsUs30_H_5J3qwAWNKuwDm9invQ08OqiEoii0xVvoIhZ6ZttNlug-MDwq-cSUZh5tCjY6Kdc32X2wOkIob7lFbFDzmqKBYWsjd6_opTuoPJV3SQBVUMN0z1r5jiM5AROF8blVJKfep-cJDggTlB0Zz5Q6GcJnpwCZzhnJlL2-isC9xBA6cWnRC10bj1WlUsIuPWwAaG0seNfqUJmZpo_9ninQEuXlixO6faC5PfWdmEZ7G1v5omA');"></div>
+<p class="font-bold mt-2">Trần Văn B</p>
+</div>
+<div class="w-1/3">
+<p class="font-bold uppercase">Đại diện Bên B</p>
+<p class="text-xs italic mb-12">(Ký, ghi rõ họ tên)</p>
+<p class="text-gray-400 italic bg-gray-50 py-4 border border-dashed border-gray-300 rounded">Chưa ký</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary Sidebar -->
+<div class="lg:col-span-4 w-full flex flex-col gap-6 sticky top-24">
+<!-- Summary Card -->
+<div class="bg-white dark:bg-[#1e2936] rounded-lg shadow-sm border border-[#dbe0e6] dark:border-[#2d3748] overflow-hidden">
+<div class="p-4 border-b border-[#f0f2f4] dark:border-[#2d3748] bg-gray-50 dark:bg-[#25303f]">
+<h3 class="font-bold text-[#111418] dark:text-white text-lg">Tóm tắt hợp đồng</h3>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded text-primary">
+<span class="material-symbols-outlined text-xl">apartment</span>
+</div>
+<div>
+<p class="text-xs text-[#617589] dark:text-gray-400 font-medium uppercase">Đơn vị thuê</p>
+<p class="text-sm font-semibold text-[#111418] dark:text-white">Viet Travel Group</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded text-primary">
+<span class="material-symbols-outlined text-xl">tour</span>
+</div>
+<div>
+<p class="text-xs text-[#617589] dark:text-gray-400 font-medium uppercase">Tour</p>
+<p class="text-sm font-semibold text-[#111418] dark:text-white">Di sản Miền Trung (4N3Đ)</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded text-primary">
+<span class="material-symbols-outlined text-xl">calendar_month</span>
+</div>
+<div>
+<p class="text-xs text-[#617589] dark:text-gray-400 font-medium uppercase">Thời gian</p>
+<p class="text-sm font-semibold text-[#111418] dark:text-white">15/06 - 18/06/2025</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded text-primary">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<div>
+<p class="text-xs text-[#617589] dark:text-gray-400 font-medium uppercase">Tổng giá trị</p>
+<p class="text-xl font-bold text-green-600 dark:text-green-400">8.000.000 đ</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Rejection Form Mockup (Hidden logic visualization) -->
+<!-- Ideally this appears when 'Reject' is clicked. For static design, we'll place it as a visually muted "Optional" block or collapsed state suggestion -->
+<div class="bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-100 dark:border-red-900/30 p-4 hidden">
+<h4 class="text-red-800 dark:text-red-200 font-bold text-sm mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span> 
+                        Lý do từ chối
+                    </h4>
+<textarea class="w-full p-2 text-sm border border-red-200 rounded bg-white dark:bg-[#1e2936] dark:border-red-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Nhập lý do từ chối hợp đồng này..." rows="3"></textarea>
+<button class="mt-2 w-full bg-red-600 text-white text-sm font-medium py-1.5 rounded hover:bg-red-700">Xác nhận từ chối</button>
+</div>
+<!-- Help Box -->
+<div class="bg-[#eefcf6] dark:bg-[#064e3b]/20 rounded-lg p-4 border border-[#c3f2d9] dark:border-[#065f46]">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#0f766e] dark:text-[#34d399] text-xl">help</span>
+<div>
+<p class="text-sm font-bold text-[#0f766e] dark:text-[#34d399] mb-1">Cần hỗ trợ?</p>
+<p class="text-xs text-[#115e59] dark:text-[#a7f3d0]">Nếu có điều khoản chưa rõ, vui lòng liên hệ trực tiếp với điều hành tour trước khi thao tác.</p>
+<a class="text-xs font-bold text-[#0f766e] dark:text-[#34d399] underline mt-2 block" href="#">Chat với điều hành</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for sticky footer -->
+<div class="h-32"></div>
+</main>
+<!-- Sticky Action Footer -->
+<footer class="fixed bottom-0 left-0 w-full bg-white dark:bg-[#1e2936] border-t border-[#dbe0e6] dark:border-[#2d3748] shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 p-4 no-print">
+<div class="container mx-auto max-w-[1400px] flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Legal Checkbox -->
+<div class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer" id="legal-agree" type="checkbox"/>
+<label class="text-sm text-[#111418] dark:text-gray-200 cursor-pointer select-none" for="legal-agree">
+                    Tôi đã đọc, hiểu rõ và đồng ý với toàn bộ <span class="font-bold">điều khoản hợp đồng</span>.
+                </label>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none h-11 px-6 rounded-lg border border-red-200 text-red-600 font-bold text-sm hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">close</span>
+                    Từ chối
+                </button>
+<button class="flex-1 md:flex-none h-11 px-8 rounded-lg bg-primary text-white font-bold text-sm shadow-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">check_circle</span>
+                    Chấp nhận &amp; Ký tên
+                </button>
+</div>
+</div>
+</footer>
+</body></html>

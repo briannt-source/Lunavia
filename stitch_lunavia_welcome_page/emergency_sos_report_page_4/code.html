@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dispute Management - VietTour Admin</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] dark:text-white transition-colors duration-200">
+<div class="flex h-screen w-full overflow-hidden">
+<aside class="w-64 flex-shrink-0 flex flex-col justify-between border-r border-[#f5f0f0] dark:border-[#3a2020] bg-white dark:bg-[#1a0b0b] h-full overflow-y-auto hidden lg:flex">
+<div class="flex flex-col gap-4 p-4">
+<div class="flex gap-3 items-center mb-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 flex-shrink-0" data-alt="VietTour Platform Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyYVCpoK33HNw7DbeGwfH5pKHcIK8w01RPaYZfStAxpKz2Kj909dwACLNxfP1ujgcDMqF1iT6wjBms7uWcSiRpz_9D-PJtbuV6xuH03_TJnAOQgRzKGwrgOaYZcDavOJJ3DUvJhPMpg_zoI3D3dYvbpRAcsUF-hSo_G-9gYYd5cPWoW_rk-JzsBOEB0cbcBSje0pdwDc-B42bPgGjPuBEYy4jvVgdEoh9q3K8zaX3ZavTG7tJqQnbKaSESi2tcPkP6en27UbQWvw");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#181111] dark:text-white text-base font-bold leading-normal">VietTour Admin</h1>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-sm font-normal leading-normal">Management Portal</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">dashboard</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">business</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Operators</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">groups</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Tour Guides</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-primary fill">gavel</span>
+<p class="text-primary text-sm font-bold leading-normal">Disputes</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">payments</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Transactions</p>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-[#f5f0f0] dark:border-[#3a2020]">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 bg-gray-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWzylYok5hv_ZZt170KeLCcyCTALmxoca4oIOpCuxTscIueJdUQDlCXTgvpt3YZWQoCY9X-S-paQh4AzROhXPr8H_YE3ltNqLmUfJ2yr7dZaaOvSKkYSNgdF4i4Rae1aHKzOC62B_5YniWMgtjIs_Ke3NB5bws33NksHyWuXHrA6RKEQ_KoW_79F6zpXF6CWfh6PzlRoWCMHpUVVaAw5l48zXtokRBTkkZ_7Kjh19ah0WzsZ_uh7BbRFmhOF1lNqXaVtsA5UlgNA");'></div>
+<div class="flex flex-col">
+<p class="text-[#181111] dark:text-white text-sm font-medium">Admin System</p>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-xs">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f5f0f0] dark:border-[#3a2020] bg-white dark:bg-[#1a0b0b] px-6 py-3 z-10 shrink-0">
+<div class="flex items-center gap-4 text-[#181111] dark:text-white lg:hidden">
+<button class="size-8 flex items-center justify-center text-[#8a6060] hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] text-[24px]">gavel</span>
+<span class="text-[#8a6060] dark:text-[#cc8888] text-sm">Operation</span>
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] text-[16px]">chevron_right</span>
+<h2 class="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Dispute Management</h2>
+</div>
+<div class="flex items-center justify-end gap-4">
+<button class="bg-background-light dark:bg-[#2a1b1b] p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 text-[#8a6060] dark:text-[#cc8888] hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-hidden bg-background-light dark:bg-background-dark p-4 md:p-6 flex flex-col gap-4">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shrink-0">
+<div>
+<h1 class="text-2xl font-black text-[#181111] dark:text-white tracking-tight">Quản lý Tranh chấp</h1>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-sm mt-1">Resolve conflicts between Tour Operators and Guides.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 rounded-lg border-gray-200 dark:border-[#3a2020] text-sm bg-white dark:bg-[#1a0b0b] focus:border-primary focus:ring-primary w-64" placeholder="Tìm kiếm tranh chấp..." type="text"/>
+</div>
+<select class="py-2 pl-3 pr-8 rounded-lg border-gray-200 dark:border-[#3a2020] text-sm bg-white dark:bg-[#1a0b0b] focus:border-primary focus:ring-primary">
+<option>Tất cả loại hình</option>
+<option>Thanh toán (Payment)</option>
+<option>Chất lượng (Quality)</option>
+<option>Hủy tour (No Show)</option>
+<option>Phân công (Assignment)</option>
+</select>
+<select class="py-2 pl-3 pr-8 rounded-lg border-gray-200 dark:border-[#3a2020] text-sm bg-white dark:bg-[#1a0b0b] focus:border-primary focus:ring-primary">
+<option>Tất cả trạng thái</option>
+<option>Chờ xử lý (Pending)</option>
+<option>Đang xem xét (In Review)</option>
+<option>Đã giải quyết (Resolved)</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-6 flex-1 overflow-hidden min-h-0">
+<div class="w-full lg:w-4/12 flex flex-col gap-3 overflow-y-auto pr-2 pb-2">
+<div class="bg-white dark:bg-[#1a0b0b] p-4 rounded-xl border-l-4 border-l-primary shadow-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-[#251010] transition-colors group relative">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 uppercase tracking-wide">In Review</span>
+<span class="text-xs text-gray-400">10:30 AM</span>
+</div>
+<h3 class="font-bold text-[#181111] dark:text-white text-base mb-1">Tranh chấp thanh toán Tour #SG-2025</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Operator chưa thanh toán công tác phí sau 3 ngày kết thúc tour theo hợp đồng.</p>
+<div class="flex items-center gap-2 mt-auto pt-3 border-t border-dashed border-gray-100 dark:border-[#3a2020]">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0UKyQ2gOcjMgKD786okHfoztDDxVQRmyTLP7clYhXJ6MbPjK_ffadnZLrqHHSdXjPvSxjU3Mb1MsdtWHzlNQMonPhudF3bkVRH8pZeZA92UDQmC3kpSRL5i5H9mYVVp2fpmjIae0XQDftD0_fIb7kNXZikO955X2eV0Ys6afp2wcZEYNErYhM5OdE0X4r79AtBDjRqrAzetgtzsFuflsqy2bsMIVzg1Wa3NE70suNelOPaUoq_VJiMOesltn-PK4fnMhkC_F95A");' title="Guide"></div>
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-800" title="Operator">VT</div>
+</div>
+<span class="text-xs text-gray-400">Nguyễn Văn A • VietTravel</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a0b0b] p-4 rounded-xl border border-[#f5f0f0] dark:border-[#3a2020] shadow-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-[#251010] transition-colors opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 uppercase tracking-wide">Pending</span>
+<span class="text-xs text-gray-400">Yesterday</span>
+</div>
+<h3 class="font-bold text-[#181111] dark:text-white text-base mb-1">Khách phàn nàn thái độ HDV</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Khách hàng phản ánh HDV đến trễ và thiếu nhiệt tình trong tour Củ Chi.</p>
+<div class="flex items-center gap-2 mt-auto pt-3 border-t border-dashed border-gray-100 dark:border-[#3a2020]">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center bg-green-100 flex items-center justify-center text-[10px] font-bold text-green-800" title="Operator">ST</div>
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0UKyQ2gOcjMgKD786okHfoztDDxVQRmyTLP7clYhXJ6MbPjK_ffadnZLrqHHSdXjPvSxjU3Mb1MsdtWHzlNQMonPhudF3bkVRH8pZeZA92UDQmC3kpSRL5i5H9mYVVp2fpmjIae0XQDftD0_fIb7kNXZikO955X2eV0Ys6afp2wcZEYNErYhM5OdE0X4r79AtBDjRqrAzetgtzsFuflsqy2bsMIVzg1Wa3NE70suNelOPaUoq_VJiMOesltn-PK4fnMhkC_F95A");' title="Guide"></div>
+</div>
+<span class="text-xs text-gray-400">Saigontourist • Trần Minh B</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a0b0b] p-4 rounded-xl border border-[#f5f0f0] dark:border-[#3a2020] shadow-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-[#251010] transition-colors opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 uppercase tracking-wide">Resolved</span>
+<span class="text-xs text-gray-400">2 days ago</span>
+</div>
+<h3 class="font-bold text-[#181111] dark:text-white text-base mb-1">Hủy tour không báo trước</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Operator hủy tour sát giờ nhưng không bồi thường theo quy định.</p>
+<div class="flex items-center gap-2 mt-auto pt-3 border-t border-dashed border-gray-100 dark:border-[#3a2020]">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center bg-gray-300" title="Guide"></div>
+<div class="size-6 rounded-full ring-2 ring-white dark:ring-[#1a0b0b] bg-cover bg-center bg-purple-100 flex items-center justify-center text-[10px] font-bold text-purple-800" title="Operator">LU</div>
+</div>
+<span class="text-xs text-gray-400">Lê Thị C • Luxury Travel</span>
+</div>
+</div>
+</div>
+<div class="flex-1 bg-white dark:bg-[#1a0b0b] rounded-xl border border-[#f5f0f0] dark:border-[#3a2020] shadow-sm flex flex-col overflow-hidden">
+<div class="px-6 py-4 border-b border-[#f5f0f0] dark:border-[#3a2020] flex justify-between items-center shrink-0">
+<div>
+<div class="flex items-center gap-3">
+<h2 class="text-lg font-bold text-[#181111] dark:text-white">#DSP-2025-008</h2>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800 flex items-center gap-1">
+<span class="size-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                                        IN_REVIEW
+                                    </span>
+</div>
+<p class="text-xs text-gray-500 mt-1">Last updated: 2 hours ago by Admin System</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-gray-200 dark:border-[#3a2020] rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#2a1b1b] flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                                    Liên hệ các bên
+                                </button>
+<button class="px-3 py-1.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-red-700 flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+                                    Đưa ra quyết định
+                                </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="p-4 rounded-lg border border-gray-100 dark:border-[#3a2020] bg-gray-50 dark:bg-[#221010]">
+<p class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Nguyên đơn (Claimant)</p>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0UKyQ2gOcjMgKD786okHfoztDDxVQRmyTLP7clYhXJ6MbPjK_ffadnZLrqHHSdXjPvSxjU3Mb1MsdtWHzlNQMonPhudF3bkVRH8pZeZA92UDQmC3kpSRL5i5H9mYVVp2fpmjIae0XQDftD0_fIb7kNXZikO955X2eV0Ys6afp2wcZEYNErYhM5OdE0X4r79AtBDjRqrAzetgtzsFuflsqy2bsMIVzg1Wa3NE70suNelOPaUoq_VJiMOesltn-PK4fnMhkC_F95A");'></div>
+<div>
+<p class="font-bold text-[#181111] dark:text-white">Nguyễn Văn A</p>
+<p class="text-xs text-gray-500">Guide ID: GD-8821</p>
+<div class="flex gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px] text-amber-500 fill">star</span>
+<span class="text-xs font-medium">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-lg border border-gray-100 dark:border-[#3a2020] bg-gray-50 dark:bg-[#221010]">
+<p class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Bị đơn (Respondent)</p>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold">VT</div>
+<div>
+<p class="font-bold text-[#181111] dark:text-white">VietTravel Company</p>
+<p class="text-xs text-gray-500">Op ID: OP-1022</p>
+<p class="text-xs text-blue-600 mt-1">Partner Since 2020</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="text-base font-bold text-[#181111] dark:text-white mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400">info</span>
+                                    Chi tiết sự việc
+                                </h3>
+<div class="bg-white dark:bg-[#1a0b0b] p-0">
+<div class="grid grid-cols-3 gap-6 mb-4 text-sm">
+<div>
+<span class="block text-gray-500 mb-1">Loại tranh chấp</span>
+<span class="font-medium">Thanh toán (Payment)</span>
+</div>
+<div>
+<span class="block text-gray-500 mb-1">Mã Tour</span>
+<a class="font-medium text-primary hover:underline" href="#">#SG-2025 (City Tour Sai Gon)</a>
+</div>
+<div>
+<span class="block text-gray-500 mb-1">Số tiền tranh chấp</span>
+<span class="font-bold text-green-600">2,500,000 VND</span>
+</div>
+</div>
+<div class="prose dark:prose-invert text-sm max-w-none text-gray-700 dark:text-gray-300">
+<p>Tôi (Nguyễn Văn A) đã hoàn thành tour City Tour Sài Gòn 2 ngày (15/05 - 16/05) cho đoàn khách 20 người của VietTravel. Theo hợp đồng số #HD-9921, phí công tác 2,500,000 VND phải được thanh toán trong vòng 24h sau khi kết thúc tour. Tuy nhiên đến nay (20/05), tôi vẫn chưa nhận được thanh toán dù đã liên hệ kế toán công ty nhiều lần.</p>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="text-base font-bold text-[#181111] dark:text-white mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400">attach_file</span>
+                                    Bằng chứng đính kèm
+                                </h3>
+<div class="flex gap-4 overflow-x-auto pb-2">
+<div class="w-40 h-32 rounded-lg border border-gray-200 dark:border-[#3a2020] bg-gray-50 dark:bg-[#221010] flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-3xl text-gray-400 group-hover:text-primary mb-2">image</span>
+<span class="text-xs text-gray-500">screenshot_zalo.jpg</span>
+</div>
+<div class="w-40 h-32 rounded-lg border border-gray-200 dark:border-[#3a2020] bg-gray-50 dark:bg-[#221010] flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-3xl text-red-400 group-hover:text-primary mb-2">picture_as_pdf</span>
+<span class="text-xs text-gray-500">hop_dong_hd9921.pdf</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-base font-bold text-[#181111] dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400">history</span>
+                                    Lịch sử xử lý
+                                </h3>
+<div class="relative border-l-2 border-gray-200 dark:border-[#3a2020] ml-3 space-y-6">
+<div class="relative pl-6">
+<span class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-[#1a0b0b] border-2 border-gray-300 dark:border-gray-600 rounded-full"></span>
+<p class="text-xs text-gray-500 mb-1">Today, 10:30 AM</p>
+<div class="bg-blue-50 dark:bg-blue-900/10 p-3 rounded-lg border border-blue-100 dark:border-blue-900/30">
+<p class="text-sm font-semibold text-blue-800 dark:text-blue-300">System Update</p>
+<p class="text-sm text-gray-700 dark:text-gray-300">Trạng thái thay đổi từ <b>PENDING</b> sang <b>IN_REVIEW</b>.</p>
+<p class="text-xs text-gray-500 mt-1">By Admin System</p>
+</div>
+</div>
+<div class="relative pl-6">
+<span class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-[#1a0b0b] border-2 border-primary rounded-full"></span>
+<p class="text-xs text-gray-500 mb-1">Yesterday, 14:20 PM</p>
+<div class="bg-gray-50 dark:bg-[#221010] p-3 rounded-lg border border-gray-200 dark:border-[#3a2020]">
+<div class="flex items-center gap-2 mb-1">
+<div class="size-5 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0UKyQ2gOcjMgKD786okHfoztDDxVQRmyTLP7clYhXJ6MbPjK_ffadnZLrqHHSdXjPvSxjU3Mb1MsdtWHzlNQMonPhudF3bkVRH8pZeZA92UDQmC3kpSRL5i5H9mYVVp2fpmjIae0XQDftD0_fIb7kNXZikO955X2eV0Ys6afp2wcZEYNErYhM5OdE0X4r79AtBDjRqrAzetgtzsFuflsqy2bsMIVzg1Wa3NE70suNelOPaUoq_VJiMOesltn-PK4fnMhkC_F95A");'></div>
+<p class="text-sm font-semibold text-[#181111] dark:text-white">Nguyễn Văn A</p>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-400">"Tôi đã đính kèm bằng chứng đoạn chat Zalo với kế toán công ty xác nhận đã nhận biên bản bàn giao."</p>
+</div>
+</div>
+<div class="relative pl-6">
+<span class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-[#1a0b0b] border-2 border-gray-300 dark:border-gray-600 rounded-full"></span>
+<p class="text-xs text-gray-500 mb-1">20 May, 09:00 AM</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">Dispute created automatically.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#f5f0f0] dark:border-[#3a2020] bg-gray-50/50 dark:bg-[#1a0b0b] flex justify-between items-center shrink-0">
+<div class="flex items-center gap-2">
+<label class="text-sm text-gray-600 dark:text-gray-400">Cập nhật trạng thái:</label>
+<select class="rounded border-gray-300 dark:border-[#3a2020] text-sm py-1 pl-2 pr-8 bg-white dark:bg-[#2a1b1b]">
+<option>IN_REVIEW</option>
+<option>RESOLVED</option>
+<option>REJECTED</option>
+</select>
+<button class="text-primary hover:bg-primary/10 p-1 rounded transition-colors">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</button>
+</div>
+<button class="px-4 py-2 bg-white dark:bg-[#2a1b1b] border border-gray-300 dark:border-[#3a2020] rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-[#3a2020] transition-colors">
+                                Xem xét (Review)
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

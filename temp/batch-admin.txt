@@ -1,0 +1,12 @@
+user_management_page_(admin_view)__1|UserManagementPage(adminView)1|user-management-page-admin-view--1
+user_management_page_(admin_view)__2|UserManagementPage(adminView)2|user-management-page-admin-view--2
+user_management_page_(admin_view)__3|UserManagementPage(adminView)3|user-management-page-admin-view--3
+user_management_page_(admin_view)__4|UserManagementPage(adminView)4|user-management-page-admin-view--4
+user_management_page_(admin_view)__5|UserManagementPage(adminView)5|user-management-page-admin-view--5
+user_management_page_(admin_view)__6|UserManagementPage(adminView)6|user-management-page-admin-view--6
+user_management_page_(admin_view)__7|UserManagementPage(adminView)7|user-management-page-admin-view--7
+user_management_page_(admin_view)__8|UserManagementPage(adminView)8|user-management-page-admin-view--8
+verification_details_&_approval|VerificationDetails&Approval|verification-details-&-approval
+verification_management_overview|VerificationManagementOverview|verification-management-overview
+verification_submission_page|VerificationSubmissionPage|verification-submission-page
+wallet_requests_management_page|WalletRequestsManagementPage|wallet-requests-management-page

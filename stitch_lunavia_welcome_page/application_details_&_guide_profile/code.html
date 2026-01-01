@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Application Details &amp; Guide Profile</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418", // Deep dark background
+                        "surface-dark": "#1C232B", // Slightly lighter for cards
+                        "border-dark": "#2d3842", // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3842; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5a6b; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display antialiased min-h-screen flex flex-col">
+<!-- Main Layout Container -->
+<div class="flex-1 flex flex-col w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8 py-6">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 items-center mb-6 text-sm">
+<a class="text-[#9dabb9] hover:text-white transition-colors font-medium" href="#">Dashboard</a>
+<span class="text-[#9dabb9] material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="text-[#9dabb9] hover:text-white transition-colors font-medium" href="#">My Tours</a>
+<span class="text-[#9dabb9] material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="text-[#9dabb9] hover:text-white transition-colors font-medium" href="#">Ha Long Bay 2D1N</a>
+<span class="text-[#9dabb9] material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-white font-semibold">Application #AP-8832</span>
+</div>
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-white text-3xl md:text-4xl font-black tracking-tight">Application Review</h1>
+<p class="text-[#9dabb9] text-base">Review applicant details for compliance with Tourism Law 2025.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center h-10 px-4 bg-[#283039] hover:bg-[#343e49] text-white text-sm font-bold rounded-lg transition-colors border border-transparent">
+<span class="material-symbols-outlined mr-2 text-[20px]">arrow_back</span>
+                    Back to List
+                </button>
+</div>
+</div>
+<!-- Split Layout Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Tour Context (Sticky on Large Screens) -->
+<div class="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-6">
+<!-- Tour Snapshot Card -->
+<div class="bg-surface-dark rounded-xl overflow-hidden border border-border-dark shadow-sm">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Scenic view of limestone karsts in Ha Long Bay Vietnam" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkGCrHHwvavUDSx_dQvJnOPtjn7WV45_YaN0mSloIhpWexR8FMr1_07DHb8UVYDU5SiTDVSOz1IHjB3wVLmKm2-ZoTXyH9w9vQJ9Vp30RJlqY3l8xhiP1PAnj44R54Tw2lXrIZtCcKwmN9qB8jVneChceoQdFjy9Pq5wzKrg2cN6A0_oRP5_XES7o_nx006gyLlcNFALUO5qEX00XTayQAYq2A3P2RU_aw2i0nYQv-575FI9dXLS_O4MSVg8ItuZ4YYziaO78dXQ');">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<span class="inline-block px-2 py-1 mb-2 text-xs font-bold text-white bg-primary rounded uppercase tracking-wider">Tour Context</span>
+<h2 class="text-white text-xl font-bold leading-tight">Ha Long Bay - 2 Days 1 Night</h2>
+</div>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<div class="flex justify-between items-center py-2 border-b border-border-dark">
+<span class="text-[#9dabb9] text-sm font-medium">Start Date</span>
+<span class="text-white text-sm font-semibold">Oct 12, 2025</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-border-dark">
+<span class="text-[#9dabb9] text-sm font-medium">Duration</span>
+<span class="text-white text-sm font-semibold">2 Days, 1 Night</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-border-dark">
+<span class="text-[#9dabb9] text-sm font-medium">Group Size</span>
+<span class="text-white text-sm font-semibold">12 Pax (International)</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-[#9dabb9] text-sm font-medium">Offered Fee</span>
+<span class="text-emerald-400 text-base font-bold">2,500,000 VND</span>
+</div>
+<button class="w-full mt-2 py-2.5 px-4 bg-[#283039] hover:bg-[#343e49] text-white text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                            View Full Itinerary
+                        </button>
+</div>
+</div>
+<!-- Application Status Card -->
+<div class="bg-surface-dark rounded-xl p-5 border border-border-dark shadow-sm">
+<h3 class="text-white text-base font-bold mb-4">Application Details</h3>
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#9dabb9] mt-0.5">payments</span>
+<div>
+<p class="text-xs text-[#9dabb9] uppercase font-bold tracking-wider">Proposed Fee</p>
+<p class="text-white font-medium">2,500,000 VND (Matches Offer)</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#9dabb9] mt-0.5">schedule</span>
+<div>
+<p class="text-xs text-[#9dabb9] uppercase font-bold tracking-wider">Applied On</p>
+<p class="text-white font-medium">Oct 01, 2025 • 09:42 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Guide Profile & Decision -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Profile Header -->
+<div class="bg-surface-dark rounded-xl p-6 border border-border-dark shadow-sm">
+<div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+<div class="relative group">
+<div class="w-28 h-28 rounded-full bg-cover bg-center border-4 border-[#283039]" data-alt="Portrait of Nguyen Van A tour guide" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB45zM6guJPnZlHSPKPmAALOP-rXp241HrYBUk2Bsg-Tc5UJwLt32Ax8OxOm9WzglrTLs_KjOr9NjMDoZrbdePaZVXvU2yM5XaorHzD4jk6xUj5fBpACNIYFHez0LREtedWUu1OKJqKZ1lfCk0rdZ2ADtXA1_3IHZDQsaYWUt8huh3S8o-qPIXJ5g0Rds4ewbHIEwGFfrx2fQE3MPgTgiI5L3HD_auGSmQQ48rcNbevXZqBVGzzpVzhQgESFMt0fqKFETIy1E4Seg');"></div>
+<div class="absolute bottom-1 right-1 bg-green-500 rounded-full p-1 border-4 border-surface-dark" title="Online Now">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<h2 class="text-white text-2xl font-bold truncate">Nguyen Van A</h2>
+<span class="material-symbols-outlined text-primary text-[20px] filled" title="KYC Verified">verified</span>
+<span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-2 py-0.5 rounded border border-blue-500/20">Freelance</span>
+</div>
+<p class="text-[#9dabb9] mb-3">Professional English Speaking Guide • Hanoi Based</p>
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-1 bg-[#283039] px-2 py-1 rounded text-xs font-medium text-white">
+<span class="material-symbols-outlined text-yellow-400 text-[16px] filled">star</span>
+<span>4.9 (42 Reviews)</span>
+</div>
+<div class="flex items-center gap-1 bg-[#283039] px-2 py-1 rounded text-xs font-medium text-white">
+<span class="material-symbols-outlined text-green-400 text-[16px]">workspace_premium</span>
+<span>Top Rated Badge</span>
+</div>
+<div class="flex items-center gap-1 bg-[#283039] px-2 py-1 rounded text-xs font-medium text-white">
+<span class="material-symbols-outlined text-purple-400 text-[16px]">school</span>
+<span>5 Years Exp.</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+                                Message
+                            </button>
+<button class="flex-1 md:flex-none h-10 px-4 bg-[#283039] hover:bg-[#343e49] text-white text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                                CV
+                            </button>
+</div>
+</div>
+</div>
+<!-- Tabs & Content -->
+<div class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden flex-1 flex flex-col">
+<!-- Tab Navigation -->
+<div class="flex border-b border-border-dark px-6 overflow-x-auto">
+<button class="flex items-center gap-2 border-b-[3px] border-primary text-white pb-3 pt-4 px-2 mr-6 font-bold text-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">person</span>
+                            Overview &amp; App
+                        </button>
+<button class="flex items-center gap-2 border-b-[3px] border-transparent text-[#9dabb9] hover:text-white pb-3 pt-4 px-2 mr-6 font-bold text-sm whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+                            Legal &amp; Compliance
+                        </button>
+<button class="flex items-center gap-2 border-b-[3px] border-transparent text-[#9dabb9] hover:text-white pb-3 pt-4 px-2 mr-6 font-bold text-sm whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                            History &amp; Reviews
+                        </button>
+</div>
+<!-- Tab Content Area -->
+<div class="p-6 md:p-8 flex flex-col gap-8">
+<!-- Cover Letter Section -->
+<div>
+<h3 class="text-white text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">format_quote</span>
+                                Cover Letter
+                            </h3>
+<div class="bg-[#111418] p-4 rounded-lg border border-border-dark text-[#d0d6dc] text-sm leading-relaxed">
+<p class="mb-2">Dear Operator,</p>
+<p class="mb-2">I am writing to express my strong interest in the Ha Long Bay 2D1N tour scheduled for Oct 12th. With over 5 years of experience guiding international groups (specifically English and French speakers) through Ha Long Bay and Lan Ha Bay, I am confident in my ability to deliver an exceptional experience for your clients.</p>
+<p class="mb-2">I have successfully led over 50 similar tours and am very familiar with the logistics, safety protocols, and hidden gems of the bay. I am fully fully vaccinated and hold a valid International Tour Guide License renewed under the 2024 regulations.</p>
+<p>Looking forward to the possibility of collaborating.</p>
+</div>
+</div>
+<!-- Compliance Highlights (Crucial for decision) -->
+<div>
+<h3 class="text-white text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">policy</span>
+                                Compliance &amp; Credentials
+                            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-[#111418] p-4 rounded-lg border border-border-dark flex items-start gap-4">
+<div class="bg-blue-500/10 p-2 rounded-lg text-blue-400">
+<span class="material-symbols-outlined text-[24px]">id_card</span>
+</div>
+<div>
+<p class="text-[#9dabb9] text-xs font-bold uppercase mb-1">Guide License (International)</p>
+<p class="text-white font-medium text-lg tracking-wide">101-928-334</p>
+<p class="text-green-400 text-xs mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] filled">check_circle</span>
+                                            Valid until Dec 2028
+                                        </p>
+</div>
+</div>
+<div class="bg-[#111418] p-4 rounded-lg border border-border-dark flex items-start gap-4">
+<div class="bg-purple-500/10 p-2 rounded-lg text-purple-400">
+<span class="material-symbols-outlined text-[24px]">translate</span>
+</div>
+<div>
+<p class="text-[#9dabb9] text-xs font-bold uppercase mb-1">Languages</p>
+<div class="flex gap-2 flex-wrap">
+<span class="text-white text-sm bg-[#283039] px-2 py-0.5 rounded">English (Fluent)</span>
+<span class="text-white text-sm bg-[#283039] px-2 py-0.5 rounded">French (Conv.)</span>
+<span class="text-white text-sm bg-[#283039] px-2 py-0.5 rounded">Vietnamese (Native)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity / Trust Signals -->
+<div>
+<h3 class="text-white text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">thumb_up</span>
+                                Recent Feedback
+                            </h3>
+<div class="space-y-3">
+<div class="bg-[#111418] p-4 rounded-lg border border-border-dark">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="bg-gray-600 h-6 w-6 rounded-full overflow-hidden" data-alt="Avatar of reviewer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAoRbUqnHMFDV28MTZpAmFSWxZgIbCUu4mej7sSeQXR6AsWWkhgFIrbT4Wca7XVnXeZvUPZcELGYBn6ZpumPofKw_Zgf6v9vKFZDHdAy9k8nPaqxEp9aeNCdwXjOgLM9cAC4u9Pb0cZLOOgnKXct2sVArk0XkUtiVUhOafxBUR6vGAA8s5cpnbR8y_EIBz-U9oPmbwKE-zQdOT5TvxOyQskyOa1AlG5HriSacow5G660hF9lLUMANowMg2HY-TIFcQuT56s35DTiQ');"></div>
+<span class="text-white text-sm font-semibold">Amazing Vietnam Travel</span>
+</div>
+<span class="text-[#9dabb9] text-xs">2 weeks ago</span>
+</div>
+<div class="flex text-yellow-400 mb-1">
+<span class="material-symbols-outlined text-[16px] filled">star</span>
+<span class="material-symbols-outlined text-[16px] filled">star</span>
+<span class="material-symbols-outlined text-[16px] filled">star</span>
+<span class="material-symbols-outlined text-[16px] filled">star</span>
+<span class="material-symbols-outlined text-[16px] filled">star</span>
+</div>
+<p class="text-[#d0d6dc] text-sm">"Nguyen was fantastic with our VIP group. Very knowledgeable and punctual. Highly recommended."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Action Footer (Inside Container) -->
+<div class="bg-[#151a21] border-t border-border-dark p-6 md:p-8 flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#9dabb9]" for="reject-reason">Reason for Rejection (Optional if Accepting)</label>
+<input class="w-full bg-[#111418] border border-border-dark rounded-lg px-4 py-3 text-white placeholder-[#586472] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="reject-reason" placeholder="e.g. Schedule conflict, fee mismatch..." type="text"/>
+</div>
+<div class="flex flex-col-reverse md:flex-row gap-4 pt-2">
+<button class="flex-1 md:max-w-[200px] h-12 rounded-lg border border-red-500/30 text-red-400 font-bold hover:bg-red-500/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">close</span>
+                                Reject Application
+                            </button>
+<button class="flex-1 h-12 rounded-lg bg-primary hover:bg-blue-600 text-white font-bold shadow-lg shadow-blue-900/20 transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">check</span>
+                                Accept Application (Chấp nhận)
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

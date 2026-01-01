@@ -1,0 +1,2 @@
+approve_payment_request_from_report|ApprovePaymentRequestFromReport|approve-payment-request-from-report
+submit_tour_report_page|SubmitTourReportPage|submit-tour-report-page

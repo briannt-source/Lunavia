@@ -1,0 +1,4 @@
+ai_analytics_dashboard|AiAnalyticsDashboard|ai-analytics-dashboard
+ai_chat_assistant_interface|AiChatAssistantInterface|ai-chat-assistant-interface
+ai_guide_matching_page|AiGuideMatchingPage|ai-guide-matching-page
+ai_itinerary_generation_page|AiItineraryGenerationPage|ai-itinerary-generation-page

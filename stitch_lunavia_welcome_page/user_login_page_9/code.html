@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - Tour Operator Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#106cc9",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2127",
+                        "accent-red": "#ef4444",
+                        "accent-orange": "#f97316",
+                        "accent-green": "#22c55e",
+                        "accent-blue": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b4754; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563; 
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased min-h-screen flex flex-col md:flex-row overflow-hidden">
+<aside class="w-full md:w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex-col hidden md:flex h-screen">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">travel_explore</span>
+</div>
+<span class="text-lg font-bold tracking-tight">VietTour Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<div class="pt-4 pb-2">
+<p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                Users
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">tour</span>
+                Tours
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">apartment</span>
+                Companies
+            </a>
+<div class="pt-4 pb-2">
+<p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Financials</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+                Transactions
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+                Disputes
+                <span class="ml-auto bg-accent-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
+</a>
+<div class="pt-4 pb-2">
+<p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Settings</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                System Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+                Compliance &amp; Logs
+            </a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<img alt="Admin" class="h-9 w-9 rounded-full bg-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZOUVU88r9s6SLlP1XqE5KCe4GLePKKya2_EKhGT4_EbIMvGBzGFdmYzfCOcVShDlFR1kzhh59Fg6nuIQjwRNwysfIxXC9-a5BUf2l9tXbM-pYDoTHfDfyzrpZGXzMKzgs2M-F-_cp-auqGTWE_fP_p2vKNESTAnUzZsAW886jqiHHGHbyrRfWso8oZPyLjTS8fCIxl3X7-DULoeEqjciOGzxtWFWZwlRpXGZHnNr5AwpZKEZwosgZEDEVmOkDHiXeJLP4lX_hRg"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">System Admin</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">admin@viettour.vn</p>
+</div>
+<button class="text-slate-400 hover:text-slate-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<header class="bg-white dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 z-10 shrink-0">
+<div class="flex items-center gap-4 md:hidden">
+<button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-lg font-bold">VietTour Admin</span>
+</div>
+<div class="hidden md:flex flex-col">
+<h1 class="text-lg font-bold text-slate-900 dark:text-white">Admin Dashboard</h1>
+<p class="text-xs text-slate-500">Overview of system health and pending actions</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 text-sm border-none bg-slate-100 dark:bg-slate-800 rounded-lg w-64 focus:ring-2 focus:ring-primary dark:text-white" placeholder="Search users, IDs..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Tổng Users</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">24,582</h3>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-sm">
+<span class="text-green-600 flex items-center font-medium">
+<span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                            +12%
+                        </span>
+<span class="text-slate-400 ml-2">from last month</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Tổng Tours</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">1,893</h3>
+</div>
+<div class="p-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-lg">
+<span class="material-symbols-outlined">tour</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-sm">
+<span class="text-green-600 flex items-center font-medium">
+<span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                            +5.4%
+                        </span>
+<span class="text-slate-400 ml-2">active tours</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Tour Guides</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">842</h3>
+</div>
+<div class="p-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg">
+<span class="material-symbols-outlined">hiking</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-sm">
+<span class="text-slate-500">62 guides currently online</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Volume</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">12.5B ₫</h3>
+</div>
+<div class="p-2 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-lg">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-sm">
+<span class="text-green-600 flex items-center font-medium">
+<span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                            +8%
+                        </span>
+<span class="text-slate-400 ml-2">transaction volume</span>
+</div>
+</div>
+</div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">warning</span>
+                Action Required
+            </h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-red-50 dark:bg-red-900/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400">gavel</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Disputes đang chờ</h3>
+</div>
+<span class="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-bold px-2.5 py-1 rounded-full">3 Pending</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex justify-between items-center">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Order #TR-8821 - Cancellation Fee</p>
+<p class="text-xs text-slate-500 mt-1">Reported by: Nguyen Van A (Guide) • 2 hours ago</p>
+</div>
+<button class="text-sm text-primary hover:text-primary-dark font-medium">Review</button>
+</div>
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex justify-between items-center">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Order #TR-8845 - Service Quality</p>
+<p class="text-xs text-slate-500 mt-1">Reported by: EasyTravel Co. • 5 hours ago</p>
+</div>
+<button class="text-sm text-primary hover:text-primary-dark font-medium">Review</button>
+</div>
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex justify-between items-center">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Order #TR-8790 - No Show</p>
+<p class="text-xs text-slate-500 mt-1">Reported by: LuxTours Vietnam • 1 day ago</p>
+</div>
+<button class="text-sm text-primary hover:text-primary-dark font-medium">Review</button>
+</div>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/30 text-center border-t border-slate-200 dark:border-slate-800">
+<a class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-primary" href="#">View all disputes</a>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-orange-50 dark:bg-orange-900/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400">verified_user</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Xác minh đang chờ (KYC/KYB)</h3>
+</div>
+<span class="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-xs font-bold px-2.5 py-1 rounded-full">5 Pending</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex items-center gap-4">
+<div class="bg-slate-100 h-10 w-10 rounded-full flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-slate-900 dark:text-white">Mekong Delta Travels Ltd.</p>
+<p class="text-xs text-slate-500 mt-1">Business License Verification • Submitted today</p>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 text-green-600 hover:bg-green-50 rounded"><span class="material-symbols-outlined text-lg">check</span></button>
+<button class="p-1.5 text-red-600 hover:bg-red-50 rounded"><span class="material-symbols-outlined text-lg">close</span></button>
+</div>
+</div>
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex items-center gap-4">
+<div class="bg-slate-100 h-10 w-10 rounded-full flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-slate-900 dark:text-white">Tran Minh Tuan</p>
+<p class="text-xs text-slate-500 mt-1">Tour Guide ID Verification • Submitted yesterday</p>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 text-green-600 hover:bg-green-50 rounded"><span class="material-symbols-outlined text-lg">check</span></button>
+<button class="p-1.5 text-red-600 hover:bg-red-50 rounded"><span class="material-symbols-outlined text-lg">close</span></button>
+</div>
+</div>
+<div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex items-center gap-4">
+<div class="bg-slate-100 h-10 w-10 rounded-full flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-slate-900 dark:text-white">Ha Long Bay Cruises JSC</p>
+<p class="text-xs text-slate-500 mt-1">Tax Document Verification • Submitted yesterday</p>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 text-green-600 hover:bg-green-50 rounded"><span class="material-symbols-outlined text-lg">check</span></button>
+<button class="p-1.5 text-red-600 hover:bg-red-50 rounded"><span class="material-symbols-outlined text-lg">close</span></button>
+</div>
+</div>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/30 text-center border-t border-slate-200 dark:border-slate-800">
+<a class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-primary" href="#">View verification queue</a>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400">add_card</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Top-up chờ duyệt</h3>
+</div>
+<a class="text-xs text-primary hover:underline" href="#">View all</a>
+</div>
+<div class="p-4">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<tr>
+<th class="px-3 py-2 rounded-l-lg">User</th>
+<th class="px-3 py-2">Amount</th>
+<th class="px-3 py-2">Method</th>
+<th class="px-3 py-2 rounded-r-lg text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+<td class="px-3 py-3 font-medium text-slate-900 dark:text-white">Saigon Tourist</td>
+<td class="px-3 py-3 text-slate-600 dark:text-slate-300">50,000,000 ₫</td>
+<td class="px-3 py-3 text-slate-500 text-xs">Bank Transfer</td>
+<td class="px-3 py-3 text-right">
+<button class="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded">Approve</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+<td class="px-3 py-3 font-medium text-slate-900 dark:text-white">Hanoi Guides</td>
+<td class="px-3 py-3 text-slate-600 dark:text-slate-300">12,500,000 ₫</td>
+<td class="px-3 py-3 text-slate-500 text-xs">Bank Transfer</td>
+<td class="px-3 py-3 text-right">
+<button class="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded">Approve</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400">payments</span>
+<h3 class="font-semibold text-slate-900 dark:text-white">Rút tiền chờ duyệt</h3>
+</div>
+<a class="text-xs text-primary hover:underline" href="#">View all</a>
+</div>
+<div class="p-4">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<tr>
+<th class="px-3 py-2 rounded-l-lg">User</th>
+<th class="px-3 py-2">Amount</th>
+<th class="px-3 py-2">Bank</th>
+<th class="px-3 py-2 rounded-r-lg text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+<td class="px-3 py-3 font-medium text-slate-900 dark:text-white">Le Van Cuong</td>
+<td class="px-3 py-3 text-slate-600 dark:text-slate-300">5,000,000 ₫</td>
+<td class="px-3 py-3 text-slate-500 text-xs">VCB ***9921</td>
+<td class="px-3 py-3 text-right">
+<button class="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded">Process</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+<td class="px-3 py-3 font-medium text-slate-900 dark:text-white">Da Nang Travel</td>
+<td class="px-3 py-3 text-slate-600 dark:text-slate-300">22,000,000 ₫</td>
+<td class="px-3 py-3 text-slate-500 text-xs">Techcom ***8812</td>
+<td class="px-3 py-3 text-right">
+<button class="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded">Process</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="mt-auto py-6 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-2 md:mb-0">
+<span class="material-symbols-outlined text-primary text-[16px]">verified_user</span>
+<span>Fully compliant with Vietnam Tourism Law 2025</span>
+</div>
+<div>
+                    © 2024 VietTour Platform. All rights reserved.
+                </div>
+</div>
+</div>
+</main>
+
+</body></html>

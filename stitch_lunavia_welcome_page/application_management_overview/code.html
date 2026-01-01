@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Application Management - TourOp Platform</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418", 
+                        "surface-dark": "#283039",
+                        "border-dark": "#3b4754",
+                        "text-secondary": "#9dabb9"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for table if needed */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-surface-dark px-10 py-3 bg-background-dark">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">travel_explore</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">TourOp Platform</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Tours</a>
+<a class="text-white text-sm font-medium leading-normal text-primary" href="#">Applications</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Guides</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Reports</a>
+</div>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-surface-dark text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-[#343e49] transition-colors">
+<span class="material-symbols-outlined text-white" style="font-size: 20px;">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-surface-dark" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAMuzfEAtZyebL8o1mPSBgek-VPpmXMneNk2qqiBuR_3ALQZWTIVfwsUmTzTf13VDKonfZSjcb1XQuCup6gcRWJNQe7OeopHW4EzZMoXm8NG9JWjY6TYbsHV-Qdjtrz4b5qf3i1T7c4ax1IIoSaydUtqGtEV3K6lquef-z3ouFAZ1DM-lVvf14zGV3oEpcRbLzNlyHOM5jj6u_cpVfWHFiquY1zfGk9rA-sGiPbyBpZMEOdmWRkcQMnZ87wf5yc4H5R4IsNPx03_A");'></div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<div class="flex flex-1 justify-center py-8 px-4 md:px-10 lg:px-20">
+<div class="flex flex-col max-w-[1200px] flex-1 gap-6">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex min-w-72 flex-col gap-3">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">Quản lý Đăng ký</h1>
+<p class="text-text-secondary text-base font-normal leading-normal max-w-2xl">
+                            Manage incoming tour guide applications compliant with Vietnam Tourism Law 2025. Review licenses, contracts, and guide profiles.
+                        </p>
+</div>
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-surface-dark hover:bg-[#343e49] text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors gap-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">download</span>
+<span class="truncate">Export Report</span>
+</button>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Pending Card (Highlighted) -->
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-primary/40 bg-primary/10 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">pending_actions</span>
+</div>
+<p class="text-primary text-base font-medium leading-normal flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                            Đang chờ duyệt (Pending)
+                        </p>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">12</p>
+<p class="text-primary/80 text-sm font-medium leading-normal">+3 new today</p>
+</div>
+<!-- Accepted Card -->
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-border-dark bg-surface-dark/50">
+<p class="text-text-secondary text-base font-medium leading-normal">Đã chấp nhận (Accepted)</p>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">45</p>
+<p class="text-[#0bda5b] text-sm font-medium leading-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> 12% vs last month
+                        </p>
+</div>
+<!-- Rejected Card -->
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-border-dark bg-surface-dark/50">
+<p class="text-text-secondary text-base font-medium leading-normal">Đã từ chối (Rejected)</p>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">8</p>
+<p class="text-text-secondary text-sm font-medium leading-normal">Most common reason: Invalid License</p>
+</div>
+</div>
+<!-- Filters & Search Toolbar -->
+<div class="flex flex-col lg:flex-row gap-4 bg-surface-dark p-4 rounded-xl border border-border-dark">
+<!-- Search -->
+<div class="flex-1 min-w-[240px]">
+<label class="relative block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-secondary">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</span>
+<input class="block w-full rounded-lg border-none bg-background-dark py-2.5 pl-10 pr-3 text-white placeholder:text-text-secondary focus:ring-2 focus:ring-primary text-sm" placeholder="Search by Guide Name or ID..." type="text"/>
+</label>
+</div>
+<!-- Dropdowns -->
+<div class="flex flex-wrap gap-3">
+<div class="relative min-w-[180px]">
+<select class="block w-full appearance-none rounded-lg border-none bg-background-dark py-2.5 pl-3 pr-10 text-white text-sm focus:ring-2 focus:ring-primary cursor-pointer">
+<option>All Tours</option>
+<option>Hanoi Street Food Tour</option>
+<option>Ha Long Bay 2D1N</option>
+<option>Da Nang City Tour</option>
+</select>
+<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary">
+<span class="material-symbols-outlined" style="font-size: 20px;">keyboard_arrow_down</span>
+</span>
+</div>
+<div class="relative min-w-[160px]">
+<select class="block w-full appearance-none rounded-lg border-none bg-background-dark py-2.5 pl-3 pr-10 text-white text-sm focus:ring-2 focus:ring-primary cursor-pointer">
+<option>All Status</option>
+<option>Pending</option>
+<option>Accepted</option>
+<option>Rejected</option>
+</select>
+<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary">
+<span class="material-symbols-outlined" style="font-size: 20px;">filter_list</span>
+</span>
+</div>
+<div class="relative min-w-[160px]">
+<button class="flex w-full items-center justify-between rounded-lg bg-background-dark py-2.5 px-3 text-white text-sm hover:bg-[#1a222b] transition-colors border-none focus:ring-2 focus:ring-primary">
+<span class="text-text-secondary truncate">Date Range</span>
+<span class="material-symbols-outlined text-text-secondary" style="font-size: 20px;">calendar_today</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Applications Table -->
+<div class="flex flex-col gap-4">
+<div class="overflow-x-auto rounded-xl border border-border-dark">
+<table class="w-full text-left text-sm text-white">
+<thead class="bg-surface-dark uppercase text-xs font-semibold text-text-secondary">
+<tr>
+<th class="px-6 py-4" scope="col">Application ID</th>
+<th class="px-6 py-4" scope="col">Tour Information</th>
+<th class="px-6 py-4" scope="col">Guide Profile</th>
+<th class="px-6 py-4" scope="col">Role</th>
+<th class="px-6 py-4" scope="col">Applied Date</th>
+<th class="px-6 py-4" scope="col">Status</th>
+<th class="px-6 py-4 text-right" scope="col">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark bg-background-dark">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-dark/40 transition-colors group">
+<td class="px-6 py-4 font-mono text-text-secondary">#APP-2025-001</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Hanoi street scene with food vendors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFqYtz_zp_ybf6wxhej-Bi9CaYZTxoiZ0tDVOrporrREmCC6nDdlqCX4NmzbqmAimSoY-iNdwwYIK0dJAN4Wu_UUOvA3AJ3gfdLT_F397LQDMRIBAwTsIQ34_x9jvsgwntb5XuZtIDriK-EO27e0ZKhi1U2j1_YSRQsA_NT6MQ2lSV6xdtyUp8vK-C_bTVRgbJ4JYA8UmBEXeQzbYJssrOIf3RBGLh75BJyGZ5C7XC-WTWbCWZJdhljYi3rfPEUbna0685YeXLgQ');"></div>
+<div>
+<div class="font-bold text-white">Hanoi Street Food Tour</div>
+<div class="text-xs text-text-secondary">4 Hours • Morning</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">N</div>
+<span class="font-medium">Nguyen Van A</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
+<span class="material-symbols-outlined text-[14px]">badge</span>
+                                            Main Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 text-text-secondary">Oct 24, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                            PENDING
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1">
+                                            Xem chi tiết <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-dark/40 transition-colors group">
+<td class="px-6 py-4 font-mono text-text-secondary">#APP-2025-002</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Ha Long Bay limestone karsts on water" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCw24nQiOkyWxDcWnbli52tdtkNLtvDpo4fzjis6kel91wcDixsuHwWyhdDjRxrEa2_mZxTvXJFBXSBozJucSPGj4epZHJQWmf8g42QnfNvfNDE6Z2YfKGonPJesMgAdEhHQFVWcpIK0h21rT8bcPHQA5GAfN2sli8nf9CFoF61M-YAysXmjeEo7hSzT9FWbXbccL4U9B9H0Nq_yR2FreUklL-6ZDdr-9NfaqCWD1KwxaYOKSOcMGfRxxIdZ49caXJEL_Qvf--dHQ');"></div>
+<div>
+<div class="font-bold text-white">Ha Long Bay 2D1N</div>
+<div class="text-xs text-text-secondary">Overnight Cruise</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs font-bold">T</div>
+<span class="font-medium">Tran Thi B</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 rounded bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-400 border border-purple-500/20">
+<span class="material-symbols-outlined text-[14px]">support_agent</span>
+                                            Sub Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 text-text-secondary">Oct 23, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-3 py-1 text-xs font-bold text-green-500 ring-1 ring-inset ring-green-500/20">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                            ACCEPTED
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-text-secondary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1">
+                                            Xem chi tiết <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-dark/40 transition-colors group">
+<td class="px-6 py-4 font-mono text-text-secondary">#APP-2025-003</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Golden Bridge in Da Nang held by giant stone hands" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAk_n6jcN87dcZQT1wA3B1VaCA04owKa3pjnmIVA0WihjauN-hgHgZRgXL6l3ahrpysuGC8sZwmNBVaLdG2_ufuQZ7CFV3QKa1_aURfulFfJ7Oo3ejT_2cw6ehItYAdKYXnXNw8wr-HZkFQKUWWxYJ2GgZSlVOuPQOkAN4hVrzZRk86-wYaN45xqlVTJNkP77XcmgCtip9TAxe1lb0VBTwFofdaWHMsYImaTa5KJC3Qfkfp5Mch4px2RgnE7s6bYKu8-mv56lHQyg');"></div>
+<div>
+<div class="font-bold text-white">Da Nang City Tour</div>
+<div class="text-xs text-text-secondary">Full Day</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 text-xs font-bold">L</div>
+<span class="font-medium">Le Van C</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
+<span class="material-symbols-outlined text-[14px]">badge</span>
+                                            Main Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 text-text-secondary">Oct 22, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-500 ring-1 ring-inset ring-red-500/20">
+<span class="size-1.5 rounded-full bg-red-500"></span>
+                                            REJECTED
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-text-secondary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1">
+                                            Xem chi tiết <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-dark/40 transition-colors group">
+<td class="px-6 py-4 font-mono text-text-secondary">#APP-2025-004</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Hanoi street scene with food vendors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-HJWKD41kW2ZKONLpNWXBvzPct75Y5VzH9zNtu-UZmkUWxbYkK6qO5NMcTXAWbCaLslv4LaPsu3tu9sGUTNUfrd5ucfwUSJ9ITyd5oU0GMkkExposw-6IQVlGAboWXOkJPocMHTiCkr2lusBz-2I_5qktJy_E3NadOTQIzRgKa-o9D3wF5ZyqBk7ykYY2ge2ahBQCRaPAjD5QkqK2SqDOuHdSLuin9MkIckRk4DENrEI_FKqMfdVQUPn7phGEof10Fph81u3N1Q');"></div>
+<div>
+<div class="font-bold text-white">Hanoi Street Food Tour</div>
+<div class="text-xs text-text-secondary">4 Hours • Morning</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 text-xs font-bold">P</div>
+<span class="font-medium">Pham Minh D</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
+<span class="material-symbols-outlined text-[14px]">badge</span>
+                                            Main Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 text-text-secondary">Oct 21, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                            PENDING
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1">
+                                            Xem chi tiết <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-dark/40 transition-colors group">
+<td class="px-6 py-4 font-mono text-text-secondary">#APP-2025-005</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Wooden boat on the Mekong Delta" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJlSAbidKR-FftVojiG25tUDS6IffGckLIUlzGC0oyrKDJl2Aqv3iX38S4jfhGB1_kzCDOg9YuGBDkimGAzstdTCgHL8hX3jlwVfDCtNTlONirqSuplY36x9-fCfizNEyMjSnlzSxrmwtuI9RFN2NCe19i9n3kH4Ry5Ngf0zCvjbTdUqZJ6B7ZPbzRX9XUZ6Fcf_nyKH9UqzSGIT5mgPPFybL2xMzIfWphNcdL-f8oq6pVYJwdr_Xq35qt_6pcsz1ArZi7m1JO5w');"></div>
+<div>
+<div class="font-bold text-white">Mekong Delta Explorer</div>
+<div class="text-xs text-text-secondary">Full Day</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 text-xs font-bold">H</div>
+<span class="font-medium">Hoang Thi E</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 rounded bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-400 border border-purple-500/20">
+<span class="material-symbols-outlined text-[14px]">support_agent</span>
+                                            Sub Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 text-text-secondary">Oct 20, 2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                            PENDING
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1">
+                                            Xem chi tiết <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between px-2">
+<div class="text-sm text-text-secondary">
+                            Showing <span class="font-medium text-white">1</span> to <span class="font-medium text-white">5</span> of <span class="font-medium text-white">65</span> results
+                        </div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-background-dark px-3 py-2 text-sm font-medium text-white hover:bg-surface-dark disabled:opacity-50">
+                                Previous
+                            </button>
+<button class="flex items-center justify-center rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-blue-600">
+                                1
+                            </button>
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-background-dark px-3 py-2 text-sm font-medium text-text-secondary hover:bg-surface-dark hover:text-white">
+                                2
+                            </button>
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-background-dark px-3 py-2 text-sm font-medium text-text-secondary hover:bg-surface-dark hover:text-white">
+                                3
+                            </button>
+<span class="flex items-center justify-center px-2 text-text-secondary">...</span>
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-background-dark px-3 py-2 text-sm font-medium text-white hover:bg-surface-dark">
+                                Next
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,11 @@
+user_login_page_1|UserLoginPage1|user-login-page-1
+user_login_page_10|UserLoginPage10|user-login-page-10
+user_login_page_2|UserLoginPage2|user-login-page-2
+user_login_page_3|UserLoginPage3|user-login-page-3
+user_login_page_4|UserLoginPage4|user-login-page-4
+user_login_page_5|UserLoginPage5|user-login-page-5
+user_login_page_6|UserLoginPage6|user-login-page-6
+user_login_page_7|UserLoginPage7|user-login-page-7
+user_login_page_8|UserLoginPage8|user-login-page-8
+user_login_page_9|UserLoginPage9|user-login-page-9
+user_registration_page|UserRegistrationPage|user-registration-page

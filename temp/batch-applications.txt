@@ -1,0 +1,4 @@
+application_details_&_guide_profile|ApplicationDetails&GuideProfile|application-details-&-guide-profile
+application_management_overview|ApplicationManagementOverview|application-management-overview
+my_applications_page_(guide_view)_|MyApplicationsPage(guideView)|my-applications-page-guide-view-
+my_assignments_page_(guide_view)_|MyAssignmentsPage(guideView)|my-assignments-page-guide-view-

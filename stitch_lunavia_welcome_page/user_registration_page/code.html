@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Registration - Vietnam Tourism Connect</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418", // Matching the component base color
+                        "surface-dark": "#1c2127",   // Slightly lighter for inputs/cards
+                        "border-dark": "#3b4754",    // Border color from components
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4754;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#283039] bg-[#111418]/90 backdrop-blur-md px-4 py-3 lg:px-10">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">travel_explore</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Vietnam Tourism Connect</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#9dabb9] hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Support</a>
+<a class="text-[#9dabb9] hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Legal</a>
+</div>
+<a class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 border border-[#283039] hover:bg-[#283039] text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors" href="#">
+<span class="truncate">Login</span>
+</a>
+</div>
+<!-- Mobile Menu Icon -->
+<div class="md:hidden text-white">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+</header>
+<!-- Main Content: Split Layout -->
+<main class="flex-1 flex flex-col lg:flex-row">
+<!-- Left Side: Hero Image & Context (Hidden on small mobile, visible on desktop) -->
+<div class="relative hidden lg:flex w-full lg:w-5/12 xl:w-1/2 flex-col justify-between p-12 bg-cover bg-center" data-alt="Scenic landscape of Halong Bay limestone mountains in Vietnam with boats on water" style="background-image: linear-gradient(rgba(17, 20, 24, 0.3), rgba(17, 20, 24, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBWarKyDiR71_MAZ0HwlAVFQDPQ4Xs-qmaz1YVqoevT9L9byIx0by3d6mEd7a6oV7SE67cHexOp_IJOgnb0vhbQuVVOwFL414gBPYEzVsplAIV3kyhYVS-LVBKDLHOZFX9tcxIG31xCyseDO3dvdT8W6w2IE2K4IjB3MzzBS0TB34dvoVRKEFkDMksZmFL9c_XTsyLh4ge7pzxSfhUs_rLf09Nqpa3-92fwRiXvV77omts7YAeDLfA1n6djiKKAEfqdKK3kmBzVVg');">
+<div class="relative z-10">
+<div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm border border-white/20">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Official 2025 Compliance</span>
+</div>
+</div>
+<div class="relative z-10 max-w-lg">
+<h1 class="mb-4 text-4xl font-black leading-tight tracking-tight text-white lg:text-5xl">
+                    Professional Tourism Network
+                </h1>
+<p class="text-lg text-gray-200">
+                    Join the compliant platform for Vietnam's tourism sector. Connect seamlessly with verified operators and guides under the new Tourism Law framework.
+                </p>
+<div class="mt-8 flex gap-4">
+<div class="flex -space-x-3">
+<img alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-[#111418] object-cover" data-alt="Portrait of a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1iblSmI2SdDML8v759D12X2-RE4vJ7YcZwM2GpZwUm42Cc-61JTdqgDz2cnTS_ZMaNF-smVlhNp4nfTV3mj7xC4ZC2U34albxIsLr43XFzap_-BsKjLme7whlYCVtZW30Y69oLiOn1kJs62RlAQ9iezRdlvkiThE4WvrL9z0jpEbSVi9jyNsWjRKgYbIgcF3Onay-934a6vFC33y8YgmMR6nE6gaTlVOaNlzBMah-GUu-hFZUC4YcSbj76eJzSTw9Q-f1qxdJdA"/>
+<img alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-[#111418] object-cover" data-alt="Portrait of a man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAELtIQZgirg0nArDpb-vR8pM6aE8pBU5HU-L9RaBhL8zoi_o9aLTzYk_s1-YB7z6nYfMuAu6Z6BaWIVohSaMIcZ05eorxsvBKhHN8VTgSFcxn4QS2V9V9iv3n--GR1joIEBSHVqfcuHgwbX65wk21Fz-to30Q4msJHuhNjBiCNSF4HSknz0Vwm-VW8lxoAqTR0cXNqZ1bUZmuKWTWS9gMpu7hnTa2kCejZGvLUJafRbKsoPvt8GSyqjr8utG2cN7MUxPrLflKamw"/>
+<img alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-[#111418] object-cover" data-alt="Portrait of a man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_UhmMQr6ClddIdmPLsq1rQf-ZzgA0N5WwfJ11S4-fU597tQg6hWqeDfbR8hSI4gPA-JnM37eVVI8PvV4OwBTol7CFXDXvdHsXk5AZ2aPxaobvpWEdukcUCzJjYVQCOZxRZ_5RyMaxX1u8m1Gf5ujRL3TWrPdhtWw4FfqEACwqbq-Q9DYXtjD2AswREGU_p9TeY5rKkJuIxJULGgjLY59Y0cVj9WfNs9C-u83hykSTgiKGrH5IdQGcwDp_eyk9Y_UcKi6reqTPAQ"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="text-sm font-bold text-white">2,000+ Professionals</span>
+<span class="text-xs text-gray-300">Registered this month</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Registration Form -->
+<div class="flex w-full lg:w-7/12 xl:w-1/2 items-center justify-center bg-background-dark p-6 lg:p-12">
+<div class="w-full max-w-[560px] flex flex-col gap-6">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h2 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Create your Account</h2>
+<p class="text-[#9dabb9] text-base">Enter your details to register as a compliant professional.</p>
+</div>
+<!-- Role Selector (Segmented Button) -->
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-medium leading-normal">I am registering as a</label>
+<div class="flex h-12 w-full items-center justify-center rounded-lg bg-[#283039] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:text-white text-[#9dabb9] text-sm font-bold leading-normal transition-all">
+<span class="truncate">Tour Operator / Agency</span>
+<input checked="" class="invisible w-0 absolute" name="role_selector" type="radio" value="Tour Operator / Agency"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:text-white text-[#9dabb9] text-sm font-bold leading-normal transition-all">
+<span class="truncate">Tour Guide</span>
+<input class="invisible w-0 absolute" name="role_selector" type="radio" value="Tour Guide"/>
+</label>
+</div>
+</div>
+<!-- Form Fields -->
+<form class="flex flex-col gap-5 mt-2" onsubmit="event.preventDefault();">
+<!-- Email -->
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Email Address</p>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-dark bg-surface-dark focus:border-primary h-12 pl-11 pr-4 text-base font-normal placeholder:text-[#586474]" placeholder="name@company.com" type="email"/>
+</div>
+</label>
+<!-- Display Name -->
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Display Name</p>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<input class="w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-dark bg-surface-dark focus:border-primary h-12 pl-11 pr-4 text-base font-normal placeholder:text-[#586474]" placeholder="Full Name or Agency Name" type="text"/>
+</div>
+</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Password -->
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Password</p>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-dark bg-surface-dark focus:border-primary h-12 pl-11 pr-11 text-base font-normal placeholder:text-[#586474]" placeholder="Min 8 characters" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-[#9dabb9] hover:text-white">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</div>
+</div>
+</label>
+<!-- Confirm Password -->
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Confirm Password</p>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined text-[20px]">lock_reset</span>
+</div>
+<input class="w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-dark bg-surface-dark focus:border-primary h-12 pl-11 pr-11 text-base font-normal placeholder:text-[#586474]" placeholder="Re-enter password" type="password"/>
+</div>
+</label>
+</div>
+<!-- Terms & Conditions -->
+<label class="flex items-start gap-3 mt-1 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-border-dark bg-surface-dark checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[16px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-[#9dabb9] text-sm leading-tight group-hover:text-gray-300 transition-colors">
+                            I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a>, <a class="text-primary hover:underline" href="#">Privacy Policy</a>, and Compliance Regulations.
+                        </span>
+</label>
+<!-- Submit Button -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary hover:bg-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors mt-2 shadow-[0_0_15px_rgba(19,127,236,0.3)] hover:shadow-[0_0_20px_rgba(19,127,236,0.5)]">
+                        Register Account
+                    </button>
+<!-- Login Link -->
+<div class="flex items-center justify-center gap-2 mt-2">
+<span class="text-[#9dabb9] text-sm">Already have an account?</span>
+<a class="text-white text-sm font-bold hover:text-primary transition-colors" href="#">Login here</a>
+</div>
+</form>
+<!-- Footer Trust Badge -->
+<div class="mt-8 border-t border-[#283039] pt-6 flex flex-col items-center gap-2">
+<div class="flex items-center gap-2 text-[#586474]">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span class="text-xs font-medium uppercase tracking-wider">Fully Compliant Platform</span>
+</div>
+<p class="text-[#586474] text-xs text-center max-w-sm">
+                        Data is encrypted and stored securely in accordance with Vietnam's Cyber Security Law and Tourism Law 2025.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

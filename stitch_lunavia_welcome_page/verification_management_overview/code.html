@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Xác thực - Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col transition-all duration-300">
+<div class="p-4 flex items-center gap-3 border-b border-slate-100 dark:border-slate-800">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCPngxmESo12wJdvbzBWPNHvbNJn6xaUG11GFNhKCktMr9wkUjqIg-LvBNPUxL8I0lB7WrjGlLZb4bE3obPk7Pv_x-qfldDkl_rccBsJf1OwUQ4T3arCMillLhry84E4ncrNiYxX7WtI_Aho96YlpnUboD7F4QzzUx_5_qRAJLKqoJTLcGdto58mklSYXZseU8kMstvuruwW8JufaXBvVEUIkCV-q6Tb47G6Sa9P9ID4hHq2I2zc4XTAAL7GJGAVoqObRnitBoj4Q");'></div>
+<div class="flex flex-col">
+<h1 class="text-sm font-bold leading-tight">Admin Panel</h1>
+<p class="text-slate-500 text-xs">Quản trị viên cấp cao</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Tổng quan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Người dùng</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:text-primary" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">verified_user</span>
+<span class="text-sm font-bold">Quản lý Xác thực</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm font-medium">Báo cáo</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Cài đặt</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light dark:bg-background-dark relative">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-6 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
+<div class="flex items-center gap-4">
+<h2 class="text-lg font-bold">Quản lý Xác thực</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-slate-900"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-8">
+<!-- Page Heading & Intro -->
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Tổng quan Xét duyệt</h1>
+<p class="text-slate-500 dark:text-slate-400">Kiểm duyệt hồ sơ Hướng dẫn viên và Doanh nghiệp lữ hành theo Luật Du lịch 2025.</p>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Stat 1 -->
+<div class="flex flex-col gap-1 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">pending_actions</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Xác minh đang chờ</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">24</p>
+<div class="flex items-center gap-1 text-xs font-medium text-amber-600 bg-amber-50 dark:bg-amber-900/20 w-fit px-2 py-0.5 rounded mt-2">
+<span>Cần xử lý gấp</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="flex flex-col gap-1 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Yêu cầu từ HDV</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">15</p>
+<p class="text-slate-400 text-xs mt-2">Hồ sơ cá nhân</p>
+</div>
+<!-- Stat 3 -->
+<div class="flex flex-col gap-1 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Yêu cầu từ Doanh nghiệp</p>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">9</p>
+<p class="text-slate-400 text-xs mt-2">Hồ sơ pháp nhân</p>
+</div>
+<!-- Stat 4 -->
+<div class="flex flex-col gap-1 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Đã duyệt hôm nay</p>
+<div class="flex items-end gap-2 mt-1">
+<p class="text-3xl font-bold text-slate-900 dark:text-white">5</p>
+<span class="text-green-600 text-sm font-bold mb-1 flex items-center">
+<span class="material-symbols-outlined text-sm">arrow_upward</span> 20%
+                            </span>
+</div>
+<p class="text-slate-400 text-xs mt-2">Hiệu suất xử lý</p>
+</div>
+</div>
+<!-- Filters & Actions -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+<div class="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
+<!-- Search -->
+<div class="relative w-full lg:w-96 group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg leading-5 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-shadow" placeholder="Tìm kiếm theo tên, ID hoặc SĐT..." type="text"/>
+</div>
+<!-- Dropdowns -->
+<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+<div class="relative min-w-[160px] flex-1 lg:flex-none">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary cursor-pointer">
+<option>Tất cả loại</option>
+<option>KYC - Hướng dẫn viên</option>
+<option>KYB - Doanh nghiệp</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</div>
+</div>
+<div class="relative min-w-[160px] flex-1 lg:flex-none">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary cursor-pointer">
+<option>Tất cả trạng thái</option>
+<option>Đang chờ</option>
+<option>Đã duyệt</option>
+<option>Từ chối</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Ngày gửi</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm whitespace-nowrap">
+<thead class="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 font-medium border-b border-slate-200 dark:border-slate-800">
+<tr>
+<th class="px-6 py-4">Đối tượng</th>
+<th class="px-6 py-4">Loại xác thực</th>
+<th class="px-6 py-4">Ngày gửi</th>
+<th class="px-6 py-4">Trạng thái</th>
+<th class="px-6 py-4 text-right">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-slate-100 dark:border-slate-700" data-alt="Avatar of Nguyen Van A" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAjKzKQB0ASNgbc2b5FW4c4qqMS3RI8NqcJgua3GNu0xVQO9y3E6kl7HMvEhzTZsGTAa96ctsmn0S0cVGNmxh64GLB8Se2DZ2expLsrnlKIUcz116qQfDhTVDG9jViA6pDSyJF5gB6sfRCMAP9ZdYznSOVwdhtEKGzzTq3jzW2uUkaLaPwh07m2cufm8exMmg3aGZJ1KV3f1NjypgBQHJj_uleQ1WysyOKutb_GOLaHrsO1Fel6ZTORPLLJvFSGU61ukrLdE6-PzQ");'></div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-semibold">Nguyễn Văn A</span>
+<span class="text-slate-500 text-xs">ID: #HDV-2025-001</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+<span class="text-slate-700 dark:text-slate-300">Hướng dẫn viên</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500">12/10/2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-900/50">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                            Đang chờ duyệt
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-medium text-sm">Xem chi tiết</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-cover bg-center border border-slate-100 dark:border-slate-700" data-alt="Logo of Viet Travel Corp" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHBOaaRhBEe1dndIQCx_IHkdjBN3Ld_kUSsIqDMeEVs4LVDWD5D4mq1jsdIgqcYHvY2mVTBRXMoYc0oG1JTxOKgCLi-KX8YtF_HlUgMC-YPGU4A8LOlx3E9XwK4k0Vz8A4li2YVreyagoHkCnMCDykG5eq62tAZh8NbKnpFBbMWfo3g1z4TR8M0ujheOJfcqWLdwGK8Dln-zYERN08mg1_HP_YC53fAyumYNlPXpMK2kmMQT7PYP85cbZyaYNsRofeamevoa-NJQ");'></div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-semibold">Viet Travel Corp</span>
+<span class="text-slate-500 text-xs">ID: #DN-2025-089</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">business</span>
+<span class="text-slate-700 dark:text-slate-300">Doanh nghiệp</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500">11/10/2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-100 dark:bg-green-900/30 dark:text-green-400 dark:border-green-900/50">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Đã duyệt
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium text-sm">Xem chi tiết</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-cover bg-center border border-slate-100 dark:border-slate-700" data-alt="Logo of Saigon Tours" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDymWl1ak74m4CJdUB9CjLEUXnVYavFiSOuJ-qqTc1c9y_hotn5zAibq2bNGy6BOi15PbImuyJhvy__QWnnWOlnSdljiNzLkjfM3Tr1N6mpI-ahuvUScAkcZ6GHoPjqpSfveZyN5Le_NOILHmA0ogznBEuA_3ofA6ftXWIdO5wVIfWlFsYc51zWrKxMY06GJx83AyFr_H0NE6JO9AZwu6LXfd8ovARTl_sDYdvSFyaAJjzvA9KUiSBmDsyGrukZ-q4gr8q8qg_oQw");'></div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-semibold">Saigon Tours</span>
+<span class="text-slate-500 text-xs">ID: #DN-2025-042</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">business</span>
+<span class="text-slate-700 dark:text-slate-300">Doanh nghiệp</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500">10/10/2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100 dark:bg-red-900/30 dark:text-red-400 dark:border-red-900/50">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            Từ chối
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium text-sm">Xem chi tiết</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-slate-100 dark:border-slate-700" data-alt="Avatar of Tran Thi B" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB1cADYkm9iZJ-vW7VD_ab2eC8wXyqPLlzcbZbZVkY44cMYf3deSE0TjB4DQ2JMAZGwnML8ZnNOltGDu23f_ArJNgBEs5LY8BFScaEU0yTabddlUMKt6ql3-VTJapnhuPCgZzON71z0ii5mBreuSB8TATJ4bWz4b93ezYlcwDt-jQD5aHSldkCmy36cGd70lizNcvIMs0JvBJsgmOfjlcz8moW67CkeTfjnOTNuhtZPp2vSfG4Ylpn3udmokv-QA0OPPEt0qd6y8Q");'></div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-semibold">Trần Thị B</span>
+<span class="text-slate-500 text-xs">ID: #HDV-2025-015</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+<span class="text-slate-700 dark:text-slate-300">Hướng dẫn viên</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500">09/10/2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-900/50">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                            Đang chờ duyệt
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-medium text-sm">Xem chi tiết</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border border-slate-100 dark:border-slate-700" data-alt="Avatar of Le Van C" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCodyWMQtq0pwOJr3hqQQNTquaEPOOce3MdT6KU38prAKHzmCWVhVFtx37N2TVAXtm7Wahz9hNeUCTcGSEdswHxTh_zuv0Ho838YwJDH32CpI1UJZBdeTBzF0CJQT-L14v-b07PZ5lWwiTZQi_WM1VQ-LZF3KeFvCCwnaq7tDbGLk4RjPEiKfj33z4i1MD1yRrUgr710AFtwiLKOjjQo-0gBN6Zb7G66zzOVC7MeeHF2VI4Lj5XCcKhMbMestxiUKJvn_esoJpRPg");'></div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-semibold">Lê Văn C</span>
+<span class="text-slate-500 text-xs">ID: #HDV-2025-022</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+<span class="text-slate-700 dark:text-slate-300">Hướng dẫn viên</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500">09/10/2025</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-900/50">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                            Đang chờ duyệt
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-medium text-sm">Xem chi tiết</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+<p class="text-sm text-slate-500 dark:text-slate-400">Hiển thị <span class="font-medium text-slate-900 dark:text-white">1</span> đến <span class="font-medium text-slate-900 dark:text-white">5</span> trong số <span class="font-medium text-slate-900 dark:text-white">24</span> kết quả</p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 text-sm text-slate-500 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled="">Trước</button>
+<button class="px-3 py-1 text-sm bg-primary text-white border border-primary rounded">1</button>
+<button class="px-3 py-1 text-sm text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800">2</button>
+<button class="px-3 py-1 text-sm text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800">3</button>
+<span class="text-slate-400">...</span>
+<button class="px-3 py-1 text-sm text-slate-500 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800">Sau</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

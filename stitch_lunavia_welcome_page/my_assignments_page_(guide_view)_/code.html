@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Assignments - Tour Guide Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1a2632] px-6 lg:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-[#111418] dark:text-white">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined !text-[24px]">travel_explore</span>
+</div>
+<h2 class="text-lg font-bold leading-tight">Tour Guide Portal</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-gray-500 hover:text-primary text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Assignments</a>
+<a class="text-gray-500 hover:text-primary text-sm font-medium leading-normal" href="#">Profile</a>
+<a class="text-gray-500 hover:text-primary text-sm font-medium leading-normal" href="#">Finance</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+<div class="text-gray-500 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined !text-[20px]">search</span>
+</div>
+<input class="w-full min-w-0 flex-1 resize-none bg-transparent border-none focus:ring-0 text-sm px-3 text-[#111418] dark:text-white placeholder:text-gray-400" placeholder="Search tours..."/>
+</div>
+</label>
+<div class="flex items-center gap-3">
+<button class="relative p-2 text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined !text-[24px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#1a2632]"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 ring-2 ring-gray-100 dark:ring-gray-800 cursor-pointer" data-alt="Tour guide profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCShVcAoKHzWObbzVMIuTYtvWak115VrwKtru11TVhfAGppg0swWaLt0LmozpZlF9kktcGYWZeW8O90aaoLSIKysTrzgFLY8iTf-bhFy4DUua2SjuvNqymUmWPvVe9Wl0b6CSAcin-KuRUkdGUADIX1cNO_TZcv7tiXH89QKBr_QfaLIWLgBkQyGt_2MJ_80sMIOPmsw5F3IViZJan-rLOYbCFU4485n9JYx0waVMkx4UrHxenTREPDu8LS2CHyNBiWaGZfh3SJXQ");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex justify-center py-6 px-4 md:px-8 lg:px-12">
+<div class="flex flex-col max-w-[1200px] w-full gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#111418] dark:text-white">Quản lý Lịch Tour</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal">Manage your private tour assignments from operators compliant with Tourism Law 2025.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined !text-[20px]">calendar_month</span>
+<span>My Calendar View</span>
+</button>
+</div>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-amber-200 bg-amber-50 dark:bg-amber-900/10 dark:border-amber-900/30">
+<div class="flex items-center justify-between">
+<p class="text-amber-800 dark:text-amber-400 text-sm font-semibold uppercase tracking-wider">Pending Requests</p>
+<span class="material-symbols-outlined text-amber-600 dark:text-amber-400">pending_actions</span>
+</div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">2</p>
+<p class="text-xs text-amber-700 dark:text-amber-500">Action required within 24h</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 bg-white dark:bg-[#1a2632] dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wider">Upcoming Tours</p>
+<span class="material-symbols-outlined text-primary">upcoming</span>
+</div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">5</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Next: Tomorrow at 08:00 AM</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 bg-white dark:bg-[#1a2632] dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wider">Completed Tours</p>
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+</div>
+<p class="text-[#111418] dark:text-white text-3xl font-bold">12</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">This month</p>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-[#1a2632] p-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto px-2">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary text-white px-4 text-sm font-medium transition-colors">
+                            All Status
+                        </button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-[#111418] dark:text-gray-200 px-4 text-sm font-medium transition-colors">
+                            Pending
+                        </button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-[#111418] dark:text-gray-200 px-4 text-sm font-medium transition-colors">
+                            Accepted
+                        </button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-[#111418] dark:text-gray-200 px-4 text-sm font-medium transition-colors">
+                            Rejected
+                        </button>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto px-2">
+<span class="text-sm text-gray-500 font-medium whitespace-nowrap hidden sm:block">Filter by date:</span>
+<button class="flex flex-1 sm:flex-none items-center justify-between gap-2 h-9 border border-gray-300 dark:border-gray-600 rounded-lg px-3 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-[#1a2632]">
+<span>This Month</span>
+<span class="material-symbols-outlined !text-[18px]">calendar_today</span>
+</button>
+</div>
+</div>
+<!-- Assignments List -->
+<div class="flex flex-col gap-4">
+<!-- PENDING CARD 1 -->
+<div class="group relative flex flex-col md:flex-row gap-6 p-6 rounded-xl border-l-4 border-l-amber-500 border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a2632] shadow-sm hover:shadow-md transition-shadow">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                                            PENDING
+                                        </span>
+<span class="text-xs text-gray-500">Contract #HD-2025-8821</span>
+</div>
+<h3 class="text-xl font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors cursor-pointer">Hanoi Street Food Private Tour</h3>
+</div>
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined !text-[18px]">schedule</span>
+<span>24h remaining to respond</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700">
+<img alt="Vietnam Discovery Travel Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO5B7hl1-aPhVEbRPGIUJtP50VuQjHKvM--_U5pQuLaQcudWyQwyjMDbMQAmHODPisBBwPYkT_V0jbWeT0HV-xvmPpbubwJcEaRE82JPCdsXp78hl1ylcyCZJx6fD4eM2pmLHp3LZ_21fhnD1SoR7jJYxPzEiwu6HXHV-9qDG9oIk77DIYbiqXtIVNteW3Gmm-NR3Hrf4r07jYI-zsOu2lfQ-8G-qGg58NL9JitXu7uGJyqgkyN45zeKbtrzPsSpWApvuxQC8ciA"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Operator</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Vietnam Discovery</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Date &amp; Time</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Oct 12, 2025 • 08:00 AM</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Guests</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">4 Pax (English)</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Fee</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">1,500,000 VND</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:border-l border-gray-100 dark:border-gray-700 md:pl-6 gap-3 justify-center min-w-[200px]">
+<button class="w-full bg-primary hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined !text-[20px]">check</span>
+                                Accept Assignment
+                            </button>
+<button class="w-full bg-white dark:bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors" onclick="document.getElementById('reject-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined !text-[20px]">close</span>
+                                Reject
+                            </button>
+<a class="text-center text-xs text-gray-500 hover:text-primary mt-1 underline" href="#">View detailed itinerary</a>
+</div>
+</div>
+<!-- PENDING CARD 2 -->
+<div class="group relative flex flex-col md:flex-row gap-6 p-6 rounded-xl border-l-4 border-l-amber-500 border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a2632] shadow-sm hover:shadow-md transition-shadow">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                                            PENDING
+                                        </span>
+<span class="text-xs text-gray-500">Contract #HD-2025-9942</span>
+</div>
+<h3 class="text-xl font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors cursor-pointer">Saigon City Half-Day Tour</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700">
+<img alt="Saigon Tourist Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc650drF8Py5F-F_1HOGWHjcQE1SJ6o8dg9w095SoWuvDEs9hFpnkkJertrvwRPScN1jAzGaOUJRFEgzvS49jZEFsdATcIIGXL11l6YZzFJ9JBzlhMq2HMXhY0NZBys-7KmteDo7iaRgBXJY8YmHrimgvQY1kektxnOqK97LbmueXbo-sgsCii6NekAHHoDMmH5xQNGOf9OOb2xGYKhnNrX_Aw5lloXyQagFSvEa6ixoCwYn2mNLtGS9SP-D8NH1sLYTSWUErI2A"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Operator</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Saigon Tourist</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Date &amp; Time</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Oct 25, 2025 • 01:00 PM</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Guests</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">3 Pax (French)</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Fee</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">1,200,000 VND</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:border-l border-gray-100 dark:border-gray-700 md:pl-6 gap-3 justify-center min-w-[200px]">
+<button class="w-full bg-primary hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined !text-[20px]">check</span>
+                                Accept Assignment
+                            </button>
+<button class="w-full bg-white dark:bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors" onclick="document.getElementById('reject-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined !text-[20px]">close</span>
+                                Reject
+                            </button>
+<a class="text-center text-xs text-gray-500 hover:text-primary mt-1 underline" href="#">View detailed itinerary</a>
+</div>
+</div>
+<!-- ACCEPTED CARD -->
+<div class="group relative flex flex-col md:flex-row gap-6 p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a2632] shadow-sm hover:shadow-md transition-shadow">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            ACCEPTED
+                                        </span>
+<span class="text-xs text-gray-500">Contract #HD-2025-1024</span>
+</div>
+<h3 class="text-xl font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors cursor-pointer">Ha Long Bay Day Cruise</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2 opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700">
+<img alt="Indochina Sails Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB04qubTgtvmZhbZ5MxpHn3452YzZzijlK744WWR6seIb9zkkVRbTi5AAO4jGgxpjC2XdIjmd40XxjBio1IVje4b38jZ8nTBPzimGpBS518LEGgk6zSa9FlX2cmWDbgzRiUPVDhdP1k7vfRR64o2m99MpzxE__vgsY9ee7nCCo9gA9Xg02sT8vNV9ycvl9qDtMbkjud6wgB-X5wdNlcWs5zthQbXjBm5pUo0LcaoO-MnXsMT9eEuhxUe3jIqpOPF02xuMxpcAhXxw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Operator</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Indochina Sails</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Date &amp; Time</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">Oct 15, 2025 • 07:00 AM</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Guests</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">2 Pax (English)</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Fee</span>
+<span class="text-sm font-medium text-[#111418] dark:text-white">2,000,000 VND</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:border-l border-gray-100 dark:border-gray-700 md:pl-6 gap-3 justify-center min-w-[200px]">
+<button class="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-[#111418] dark:text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">visibility</span>
+                                View Details
+                            </button>
+<span class="text-center text-xs text-green-600 dark:text-green-400 font-medium flex items-center justify-center gap-1">
+<span class="material-symbols-outlined !text-[16px]">verified</span>
+                                Accepted on Oct 01
+                            </span>
+</div>
+</div>
+<!-- REJECTED CARD -->
+<div class="group relative flex flex-col md:flex-row gap-6 p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#15202b] opacity-75 hover:opacity-100 transition-opacity">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            REJECTED
+                                        </span>
+<span class="text-xs text-gray-500">Contract #HD-2025-1055</span>
+</div>
+<h3 class="text-xl font-bold text-gray-600 dark:text-gray-400">Ninh Binh Excursion</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 grayscale">
+<img alt="Viet Travel Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSV9R0PUCcBUjZ59gjs1VI5KU9_davJ7ppKUr-Wd4efYYK4wHb4jIbSN4yYpiw-NjMcr7knZczR0kv4TULb3HVPnagO8u3b8bjqJzz8c05TJV1-nrbCz1WRnsmYKv9NcSL9XZPYkJ8pLXGf-feIv98rY3LkoL8dULVrZD8ChflPMpP5ZwfhAHSwJQAnDOzyi9IOQSoXLENXBOV46YRGXW2_h-d5R7pXmyvwiz-hn2_czlZ5d6gIGwZfa1GBWDE-0R-sHVdOSz5fw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Operator</span>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-400">Viet Travel</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Date &amp; Time</span>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-400">Oct 20, 2025</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Guests</span>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-400">6 Pax</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 uppercase font-semibold">Fee</span>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-400">1,800,000 VND</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:border-l border-gray-200 dark:border-gray-700 md:pl-6 gap-3 justify-center min-w-[200px]">
+<button class="w-full bg-transparent border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 cursor-not-allowed">
+                                View Reason
+                            </button>
+</div>
+</div>
+</div>
+<!-- Footer / Legal Note -->
+<div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+<p class="text-xs text-gray-400 dark:text-gray-500">
+                        © 2025 Tour Guide Portal. Compliant with Vietnam Tourism Law 2025. All assignments are legally binding contracts once accepted.
+                    </p>
+</div>
+</div>
+</main>
+</div>
+<!-- Reject Modal (Hidden by default) -->
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-[100] hidden" id="reject-modal" role="dialog">
+<!-- Background backdrop -->
+<div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity"></div>
+<div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+<!-- Modal panel -->
+<div class="relative transform overflow-hidden rounded-xl bg-white dark:bg-[#1a2632] text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-gray-200 dark:border-gray-700">
+<div class="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+<div class="sm:flex sm:items-start">
+<div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30 sm:mx-0 sm:size-10">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400">warning</span>
+</div>
+<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+<h3 class="text-lg font-semibold leading-6 text-[#111418] dark:text-white" id="modal-title">Reject Assignment</h3>
+<div class="mt-2">
+<p class="text-sm text-gray-500 dark:text-gray-400">
+                        Are you sure you want to reject this assignment? This action cannot be undone. Per professional standards, please provide a reason for the operator.
+                      </p>
+<div class="mt-4">
+<label class="block text-sm font-medium leading-6 text-[#111418] dark:text-white" for="reason">Reason for Rejection <span class="text-red-500">*</span></label>
+<div class="mt-2">
+<textarea class="block w-full rounded-lg border-0 py-2.5 text-[#111418] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-gray-50 dark:bg-gray-800 dark:ring-gray-600 dark:text-white" id="reason" name="reason" placeholder="e.g. Schedule conflict, Personal reasons..." rows="3"></textarea>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-gray-100 dark:border-gray-700">
+<button class="inline-flex w-full justify-center rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onclick="document.getElementById('reject-modal').classList.add('hidden')" type="button">Confirm Reject</button>
+<button class="mt-3 inline-flex w-full justify-center rounded-lg bg-white dark:bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 sm:mt-0 sm:w-auto" onclick="document.getElementById('reject-modal').classList.add('hidden')" type="button">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

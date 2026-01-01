@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verification Details &amp; Approval - Admin Portal</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] antialiased min-h-screen flex flex-col overflow-hidden">
+<!-- Main Layout -->
+<div class="flex h-screen w-full bg-white dark:bg-[#1a0f0f]">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 border-r border-[#f5f0f0] bg-white flex flex-col transition-all duration-300 hidden md:flex h-full">
+<div class="h-16 flex items-center px-6 border-b border-[#f5f0f0]">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">travel_explore</span>
+<span class="font-bold text-lg text-[#181111] tracking-tight">VietTourism Admin</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#5e6470] hover:bg-[#f5f0f0] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] group-hover:text-[#181111]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#5e6470] hover:bg-[#f5f0f0] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] group-hover:text-[#181111]">group</span>
+<span class="text-sm font-medium">Người dùng</span>
+</a>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined fill">verified_user</span>
+<span class="text-sm font-bold">Xác minh (KYC/KYB)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#5e6470] hover:bg-[#f5f0f0] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] group-hover:text-[#181111]">bar_chart</span>
+<span class="text-sm font-medium">Báo cáo</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#5e6470] hover:bg-[#f5f0f0] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] group-hover:text-[#181111]">settings</span>
+<span class="text-sm font-medium">Cài đặt</span>
+</a>
+</div>
+<div class="p-4 border-t border-[#f5f0f0]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Admin user avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZGWDgtAFU8pbNe15Se8Id6CUt19b9AQBDq3xhDmvuHO79k5XUIEW92jYj602Om3LvL_mB1zhRWY1PxKIaE0hAD5OZEZd6GqOO7vpDvMmkyf8vmfSaO1lGwu5LcUUQQKAxUrLjdNUsHXnG4clXOp00AIAAq2Q6IaNjRskl_6jo1RGOoKGw2zU2VExjqDP4f6GH8RO0xGRlR4ZuqDa9WReazKXgXfBQGca9HymDTM_VfqIHPClrsNf1GJ-s90Y3ithQQMvFDa_5iQ');"></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#181111]">Admin System</span>
+<span class="text-xs text-[#8a6060]">Super Admin</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark h-full">
+<!-- Top Header -->
+<header class="h-16 bg-white border-b border-[#f5f0f0] flex items-center justify-between px-6 flex-shrink-0 z-10">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-[#181111]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Breadcrumbs (Simplified for Header) -->
+<div class="hidden sm:flex items-center gap-2 text-sm text-[#8a6060]">
+<a class="hover:text-primary" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary" href="#">Quản lý xác minh</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-[#181111] font-medium">#KYC-2024-892</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#f5f0f0] text-[#181111] relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#f5f0f0] text-[#181111]">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-6">
+<!-- Page Heading Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="text-2xl md:text-3xl font-black text-[#181111] tracking-tight mb-1">Chi tiết xác minh #KYC-2024-892</h1>
+<div class="flex items-center gap-3 text-sm">
+<span class="bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded-full font-bold border border-yellow-200 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                                    Chờ xử lý
+                                </span>
+<span class="text-[#8a6060]">Gửi lúc: 20/10/2024 - 09:30 AM</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-white border border-[#e5e7eb] rounded-lg text-[#181111] font-bold text-sm hover:bg-gray-50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                                Lịch sử
+                            </button>
+<button class="px-4 py-2 bg-white border border-[#e5e7eb] rounded-lg text-[#181111] font-bold text-sm hover:bg-gray-50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                                In hồ sơ
+                            </button>
+</div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- LEFT COLUMN: Info & Docs (2/3) -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Applicant Profile Card -->
+<div class="bg-white rounded-xl shadow-sm border border-[#f5f0f0] overflow-hidden">
+<div class="p-6 border-b border-[#f5f0f0] bg-gradient-to-r from-[#fef2f2] to-white">
+<div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+<div class="w-20 h-20 rounded-full bg-cover bg-center border-4 border-white shadow-md flex-shrink-0" data-alt="Applicant portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1rbkvmdL4xM6CzGvtYo-4HfkulTymaVIhuXPRsfqMw9LX1qF5J8IpGgREDe0JAcqSrddKiepBBRP2Cnp4eCJWGu8xN0nxYRYdRZowoZTL26dBnGhzLNWAnTsHhaNgYnFIqGgZAuZKmX26bsHYUrRBa9xuowe757zmSLBcE8AOEPgHesChks2UB4dWUTReXRDYo1QKwZNygnEzqk2lIXoadzQgpDHDfGWnCs8AJJPRhsC8giaS8c65DWJN2jjMinvuKuFzH-O38g');"></div>
+<div>
+<h2 class="text-xl font-bold text-[#181111]">Nguyễn Văn A</h2>
+<p class="text-[#8a6060] font-medium">Hướng dẫn viên quốc tế</p>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-xs bg-white border border-[#e5e7eb] px-2 py-1 rounded text-[#5e6470]">ID: 89210</span>
+<span class="text-xs bg-white border border-[#e5e7eb] px-2 py-1 rounded text-[#5e6470]">Tel: 0909 123 456</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-bold text-[#181111] mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">badge</span>
+                                        Thông tin trích xuất
+                                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
+<div class="group">
+<label class="block text-xs uppercase tracking-wider text-[#8a6060] font-bold mb-1">Số CCCD / ID Card</label>
+<div class="flex items-center justify-between border-b border-[#f5f0f0] pb-1">
+<span class="text-[#181111] font-medium text-base">079190001234</span>
+<span class="material-symbols-outlined text-green-600 text-[18px]" title="Matched with OCR">check_circle</span>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs uppercase tracking-wider text-[#8a6060] font-bold mb-1">Ngày sinh</label>
+<div class="flex items-center justify-between border-b border-[#f5f0f0] pb-1">
+<span class="text-[#181111] font-medium text-base">12/05/1990</span>
+<span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+</div>
+</div>
+<div class="group md:col-span-2">
+<label class="block text-xs uppercase tracking-wider text-[#8a6060] font-bold mb-1">Địa chỉ thường trú</label>
+<div class="flex items-center justify-between border-b border-[#f5f0f0] pb-1">
+<span class="text-[#181111] font-medium text-base">123 Đường Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</span>
+<span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs uppercase tracking-wider text-[#8a6060] font-bold mb-1">Số thẻ HDV</label>
+<div class="flex items-center justify-between border-b border-[#f5f0f0] pb-1">
+<span class="text-[#181111] font-medium text-base">179-123-456</span>
+<span class="material-symbols-outlined text-green-600 text-[18px]">check_circle</span>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs uppercase tracking-wider text-[#8a6060] font-bold mb-1">Ngày hết hạn thẻ</label>
+<div class="flex items-center justify-between border-b border-[#f5f0f0] pb-1">
+<span class="text-[#181111] font-medium text-base">31/12/2028</span>
+<span class="material-symbols-outlined text-yellow-500 text-[18px]" title="Manual check required">warning</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Documents Section -->
+<div class="bg-white rounded-xl shadow-sm border border-[#f5f0f0] p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-bold text-[#181111] flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+                                        Hồ sơ đính kèm
+                                    </h3>
+<span class="text-sm text-[#8a6060]">4 tệp đính kèm</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Document Item 1 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden border border-[#f5f0f0] cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Vietnam ID card front side" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAkG0kJNW3CMjeQmp3Iyd3CeSQqV3NUbC0G_YOAS3hAbEEdRSOp88gdtU8elrORepNhP2PE-O6VATi_xZgfBOCadJLYyklRYAro6TH3IlZYgJByjjP_F6_Guqv5ZWH0snBvcTt4bIGeShDZFuEow2CDWu-ZcIlhKyatYWgkRZpyn0xQFEBoWxP7QXNTHytGWYItPm8pMCNbVrKTW3fldenVwsWt1J_0ri_eXtA-1mwmFilQGK9VB7uCAUwWj9mVWssYmgcxmBqO1Q');"></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+<p class="text-white text-xs font-bold truncate">CCCD (Mặt trước)</p>
+</div>
+</div>
+<!-- Document Item 2 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden border border-[#f5f0f0] cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Vietnam ID card back side with fingerprint" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBek0N80jmfKSvZlLnMNuL99Ccwzvm7dNkgfBhHNR9zAnhzzCXcTLYzMArcIXN7-Gr9c5mvbqmwnRguoJW0AHRXSQT8Iq64K0PhoCkBFLwNqNZAaJQBvJSfUF30abrLO_Mtw-ByXIWBTnVIMbhEBLMOB7YBwOgzYKy2ha-TYXSyswzk6stGDpHxOZjCqqjrbJpDA4d8G3gD-fy9RTKs462ISnG3HO6vFzvqDarN5dkUCPkBitEK1hkWatCjBh0NbBzQdKu10JvJRQ');"></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+<p class="text-white text-xs font-bold truncate">CCCD (Mặt sau)</p>
+</div>
+</div>
+<!-- Document Item 3 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden border border-[#f5f0f0] cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Tour guide license card blue color" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA499zcwVl3NjAr_WFcN1Ah9Mbxqi2RmtOxIwTJhjmLQUBQYbGTm7SMg5AM1wZcUDd7SlbeIdFrAcgYczzHC--YN5wuXmV40Avzdr8xd3tGKcZjgQN7yzXANlx_4lJ8lSISG6VUS_7CD5Pyu2UCpGhhmX2dhzuvzUdsXseVRsV08B_fyFOkbgSb7cHqFjpeIXByrXntJ6nWJxjl-8TWPhhJblotLwP5nlV4d6uaSqc2uFZBoj-ESBVQQ6TanEQCL5GofygoRjVoug');"></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+<p class="text-white text-xs font-bold truncate">Thẻ HDV Quốc tế</p>
+</div>
+</div>
+<!-- Document Item 4 -->
+<div class="group relative aspect-[4/3] rounded-lg overflow-hidden border border-[#f5f0f0] cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Portrait photo of a man in suit" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYpSiP-yEwjK3Y_Snyzm_LzBsuaFxJELOoQ3_GS2Vl-HWzKDef1VhWCWpmyIR0ejKdCrrn-TsfeNH1jp8fD8VYaZ0W1C3M8Z0KmewqBsB1jxe3vJXh7MtHqTvTqfssd2Wi3OQynluPCk_bJ04Jr_jruDKbfwmgP6AJSX3PXks96HgnmbYF668_rlGZBq2vV6Gj7y92ZK9Dm2QF6-vbJVV498NXs8vVAS4JFJMo9yJeINKJrrDSzyKYa7S5UuXC4jC8qkkjGWI_Rw');"></div>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+<p class="text-white text-xs font-bold truncate">Ảnh chân dung</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Actions (1/3) -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Decision Panel -->
+<div class="bg-white rounded-xl shadow-lg border border-[#f5f0f0] p-6 sticky top-6">
+<h3 class="text-lg font-bold text-[#181111] mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">gavel</span>
+                                    Phê duyệt hồ sơ
+                                </h3>
+<div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-blue-600 flex-shrink-0">info</span>
+<p class="text-sm text-blue-800 leading-snug">
+                                            Vui lòng kiểm tra kỹ <span class="font-bold">Ngày hết hạn</span> và <span class="font-bold">Số thẻ</span> trên hình ảnh so với dữ liệu nhập.
+                                        </p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div>
+<label class="block text-sm font-bold text-[#181111] mb-2" for="reject-reason">
+                                            Ghi chú / Lý do từ chối
+                                            <span class="text-[#8a6060] font-normal text-xs ml-1">(Bắt buộc nếu từ chối)</span>
+</label>
+<textarea class="w-full rounded-lg border-[#e5e7eb] bg-background-light text-[#181111] text-sm p-3 focus:ring-primary focus:border-primary placeholder:text-[#8a6060]/60 resize-none" id="reject-reason" placeholder="Nhập lý do từ chối hoặc ghi chú nội bộ..." rows="4"></textarea>
+</div>
+<div class="h-px bg-[#f5f0f0] my-2"></div>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+                                            Từ chối
+                                        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#16a34a] text-white font-bold hover:bg-[#15803d] shadow-md shadow-green-200 transition-all">
+<span class="material-symbols-outlined">check</span>
+                                            Duyệt hồ sơ
+                                        </button>
+</div>
+</div>
+</div>
+<!-- History Log (Compact) -->
+<div class="bg-white rounded-xl shadow-sm border border-[#f5f0f0] p-6">
+<h3 class="text-sm font-bold text-[#8a6060] uppercase tracking-wider mb-4">Lịch sử hoạt động</h3>
+<div class="relative pl-4 border-l-2 border-[#f5f0f0] space-y-6">
+<!-- Event 1 -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-primary border-2 border-white"></div>
+<p class="text-sm font-bold text-[#181111]">Hệ thống (Auto)</p>
+<p class="text-xs text-[#5e6470] mt-0.5">Xác minh OCR thành công 90%</p>
+<p class="text-[10px] text-[#8a6060] mt-1">20/10/2024 - 09:32 AM</p>
+</div>
+<!-- Event 2 -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-gray-300 border-2 border-white"></div>
+<p class="text-sm font-bold text-[#181111]">Nguyễn Văn A</p>
+<p class="text-xs text-[#5e6470] mt-0.5">Đã gửi yêu cầu xác minh</p>
+<p class="text-[10px] text-[#8a6060] mt-1">20/10/2024 - 09:30 AM</p>
+</div>
+<!-- Event 3 -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-gray-300 border-2 border-white"></div>
+<p class="text-sm font-bold text-[#181111]">Nguyễn Văn A</p>
+<p class="text-xs text-[#5e6470] mt-0.5">Đăng ký tài khoản</p>
+<p class="text-[10px] text-[#8a6060] mt-1">19/10/2024 - 08:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

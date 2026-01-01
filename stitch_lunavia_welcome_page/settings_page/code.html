@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Tourism B2B Platform</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418",
+                        "surface-dark": "#1c2127",
+                        "surface-highlight": "#283039",
+                        "text-secondary": "#9dabb9",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a4552; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-[#283039] px-6 py-3 bg-white dark:bg-[#111418] sticky top-0 z-50">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Tourism B2B Platform</h2>
+</div>
+<div class="flex items-center gap-4 md:gap-8">
+<div class="hidden md:flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors">
+<span class="truncate">Save Changes</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative group">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 cursor-pointer border-2 border-transparent hover:border-primary transition-colors" data-alt="User profile avatar of a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBN0hxY0xIXJKY73M7ZgTYiCwqwObue1aR0tlpN0F_sw6VRkDEiVaeLEbOrzUKK5hib7l6vtiiiZ2Y_AEFsfiXHTPCsiEmQdFx6nGKA2YQy76ABjzwFdXiCS7dogez1YEHK0cmQVezva96Gq_zo_vpx7em1BXWk7MvRbMT7vxj-3dbgRU8nkrRy8mv_Zc4n29BYUlB8sbb2BQNWhpElYDg9-bpfZJ-IghSXxjCn8JFaDeE-daLUytC5CdQisTuTp9ikMyLshEBMkQ");'></div>
+<div class="absolute right-0 top-12 w-48 bg-surface-dark rounded-lg shadow-xl py-2 hidden group-hover:block border border-[#283039]">
+<div class="px-4 py-2 border-b border-[#283039]">
+<p class="text-sm font-medium text-white">Nguyễn Văn A</p>
+<p class="text-xs text-text-secondary">Tour Guide</p>
+</div>
+<a class="block px-4 py-2 text-sm text-text-secondary hover:text-white hover:bg-[#283039]" href="#">Profile</a>
+<a class="block px-4 py-2 text-sm text-text-secondary hover:text-white hover:bg-[#283039]" href="#">Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex flex-1 max-w-[1600px] w-full mx-auto">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col w-80 border-r border-[#283039] bg-[#111418] shrink-0 sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto">
+<div class="p-6 flex flex-col gap-8">
+<!-- User Profile Summary -->
+<div class="flex items-center gap-3 p-3 rounded-xl bg-[#1c2127] border border-[#283039]">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Profile picture of tour guide Nguyen Van A" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCz9RyE3wVa_ehvpY_4DFxVc22uXS3XTTtjFd8a4JDiT7V6EivSeYtJ8t3KkwbVKCPmfbdogEvntLoTD597tAK9HAPbhC1At_rbRJP-ac_LSUTKemYavRrMXlL1dfkPtuvCtLBBZJdHxB9B84Lq2OpRJn7RtmFANet50ziOSCaR7hmYzGcOdVewLAFvMBtDxsEisL-Fja9dIMAgfkifCM2a72Onv6JbNSXkjbd8B8uLPmaRHWQLOMHP1MW5WR8BvyARzWaftY58gA");'></div>
+<div class="flex flex-col min-w-0">
+<h1 class="text-white text-base font-medium leading-normal truncate">Nguyễn Văn A</h1>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-green-500 text-[14px]">verified</span>
+<p class="text-text-secondary text-sm font-normal leading-normal truncate">Verified Guide</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-secondary hover:bg-[#1c2127] hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+<p class="text-sm font-medium leading-normal">Hồ sơ (Profile)</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-secondary hover:bg-[#1c2127] hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications</span>
+<p class="text-sm font-medium leading-normal">Thông báo (Notifications)</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-secondary hover:bg-[#1c2127] hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">language</span>
+<p class="text-sm font-medium leading-normal">Ngôn ngữ (Language)</p>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined font-variation-fill">security</span>
+<p class="text-sm font-bold leading-normal">Bảo mật (Security)</p>
+</a>
+<div class="h-px bg-[#283039] my-2"></div>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Đăng xuất (Logout)</p>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<div class="rounded-lg bg-gradient-to-br from-[#1c2127] to-[#111418] p-4 border border-[#283039]">
+<p class="text-xs text-text-secondary mb-2">Platform Version 2.4.0</p>
+<p class="text-[10px] text-text-secondary opacity-60">© 2025 Tourism B2B. Compliant with Vietnam Tourism Law 2025.</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 min-w-0 p-4 md:p-8 lg:p-12 overflow-y-auto">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm">
+<a class="text-text-secondary hover:text-white transition-colors" href="#">Home</a>
+<span class="text-text-secondary">/</span>
+<a class="text-text-secondary hover:text-white transition-colors" href="#">Settings</a>
+<span class="text-text-secondary">/</span>
+<span class="text-white font-medium">Security</span>
+</div>
+<!-- Page Header -->
+<div class="flex flex-col gap-2">
+<h1 class="text-white text-3xl font-bold tracking-tight">Bảo mật tài khoản</h1>
+<p class="text-text-secondary text-base">Manage your password, 2FA, and verification status according to local regulations.</p>
+</div>
+<!-- Compliance Status Card (Law 2025) -->
+<div class="relative overflow-hidden rounded-xl bg-[#1c2127] border border-[#283039] shadow-sm">
+<div class="absolute top-0 right-0 p-3 opacity-10">
+<span class="material-symbols-outlined text-9xl">gavel</span>
+</div>
+<div class="p-6 relative z-10">
+<div class="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+<div class="flex gap-4">
+<div class="bg-green-500/20 text-green-500 rounded-full p-3 h-fit">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-white text-lg font-bold">Trạng thái xác thực</h3>
+<p class="text-text-secondary text-sm max-w-md">Tài khoản của bạn đã được xác minh và tuân thủ đầy đủ <span class="text-primary font-medium">Luật Du lịch Việt Nam 2025</span>. Giấy phép hành nghề còn hiệu lực đến 12/2026.</p>
+</div>
+</div>
+<button class="shrink-0 rounded-lg bg-[#283039] hover:bg-[#323b46] text-white text-sm font-medium h-9 px-4 transition-colors flex items-center gap-2">
+<span>Xem chi tiết</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="h-1 w-full bg-gradient-to-r from-green-500 to-emerald-600"></div>
+</div>
+<!-- Password Change Section -->
+<div class="rounded-xl bg-[#1c2127] border border-[#283039] shadow-sm">
+<div class="p-6 border-b border-[#283039]">
+<h3 class="text-white text-lg font-bold">Đổi mật khẩu</h3>
+<p class="text-text-secondary text-sm mt-1">Ensure your account is using a strong, unique password.</p>
+</div>
+<div class="p-6 flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-white">Mật khẩu hiện tại</label>
+<input class="w-full bg-[#111418] border border-[#283039] rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-white">Mật khẩu mới</label>
+<input class="w-full bg-[#111418] border border-[#283039] rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Enter new password" type="password"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-white">Xác nhận mật khẩu mới</label>
+<input class="w-full bg-[#111418] border border-[#283039] rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Confirm new password" type="password"/>
+</div>
+</div>
+<div class="flex justify-end pt-2">
+<button class="rounded-lg bg-[#283039] hover:bg-[#323b46] text-white text-sm font-medium h-10 px-6 transition-colors">
+                                Cập nhật mật khẩu
+                            </button>
+</div>
+</div>
+</div>
+<!-- Two-Factor Auth -->
+<div class="rounded-xl bg-[#1c2127] border border-[#283039] shadow-sm">
+<div class="p-6 flex items-start justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">phonelink_lock</span>
+<h3 class="text-white text-lg font-bold">Xác thực 2 lớp (2FA)</h3>
+</div>
+<p class="text-text-secondary text-sm mt-1 max-w-xl">Add an extra layer of security to your account by requiring a code from your phone when logging in.</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-[#283039] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Active Sessions -->
+<div class="rounded-xl bg-[#1c2127] border border-[#283039] shadow-sm mb-12">
+<div class="p-6 border-b border-[#283039]">
+<h3 class="text-white text-lg font-bold">Thiết bị đang đăng nhập</h3>
+<p class="text-text-secondary text-sm mt-1">Manage devices that are currently logged into your account.</p>
+</div>
+<div class="divide-y divide-[#283039]">
+<div class="p-4 flex items-center justify-between hover:bg-[#283039]/30 transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-text-secondary">desktop_windows</span>
+<div>
+<p class="text-white font-medium">Windows PC - Chrome</p>
+<div class="flex items-center gap-2">
+<p class="text-text-secondary text-xs">Ho Chi Minh City, Vietnam</p>
+<span class="size-1 bg-text-secondary rounded-full"></span>
+<p class="text-green-500 text-xs font-medium">Active now</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between hover:bg-[#283039]/30 transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-text-secondary">smartphone</span>
+<div>
+<p class="text-white font-medium">iPhone 14 Pro - App</p>
+<div class="flex items-center gap-2">
+<p class="text-text-secondary text-xs">Da Nang, Vietnam</p>
+<span class="size-1 bg-text-secondary rounded-full"></span>
+<p class="text-text-secondary text-xs">Last active 2 days ago</p>
+</div>
+</div>
+</div>
+<button class="text-text-secondary hover:text-red-400 text-sm font-medium transition-colors">Log out</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

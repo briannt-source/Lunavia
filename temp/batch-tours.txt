@@ -1,0 +1,4 @@
+browse_tours_page_(guide_view)_|BrowseToursPage(guideView)|browse-tours-page-guide-view-
+edit_tour_page|EditTourPage|edit-tour-page
+my_tours_(participating)_page_(guide_view)_|MyTours(participating)Page(guideView)|my-tours-participating-page-guide-view-
+tour_details_&_apply_(guide_view)_page|TourDetails&Apply(guideView)Page|tour-details-&-apply-guide-view-page

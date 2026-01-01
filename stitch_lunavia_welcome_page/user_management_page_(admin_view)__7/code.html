@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management - VNTour Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "primary-hover": "#0b4ecf",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light text-[#111318] overflow-hidden h-screen flex">
+<!-- Sidebar -->
+<aside class="w-64 bg-white border-r border-[#f0f1f5] flex flex-col h-full shrink-0 z-20">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/10 rounded-lg p-2">
+<span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+</div>
+<div>
+<h1 class="text-[#111318] text-lg font-bold leading-tight">VNTour Admin</h1>
+<p class="text-[#606e8a] text-xs font-normal">Portal Quản trị</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-4 py-2 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="text-sm font-medium">Tổng quan</span>
+</a>
+<div class="px-3 pt-4 pb-2">
+<p class="text-xs font-bold text-[#9aa2b1] uppercase tracking-wider">Quản lý hệ thống</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined icon-fill">group</span>
+<span class="text-sm font-medium">Người dùng</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">map</span>
+<span class="text-sm font-medium">Danh sách Tour</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">verified_user</span>
+<span class="text-sm font-medium">Xác minh hồ sơ</span>
+<span class="ml-auto bg-red-100 text-red-600 py-0.5 px-2 rounded-full text-xs font-bold">12</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">account_balance_wallet</span>
+<span class="text-sm font-medium">Ví &amp; Thanh toán</span>
+</a>
+<div class="px-3 pt-4 pb-2">
+<p class="text-xs font-bold text-[#9aa2b1] uppercase tracking-wider">Cấu hình</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+<span class="text-sm font-medium">Cài đặt chung</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">shield</span>
+<span class="text-sm font-medium">Phân quyền</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#f0f1f5]">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light cursor-pointer">
+<div class="size-9 rounded-full bg-cover bg-center" data-alt="Admin User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGxxGxo6jlUHrL5wJxbfrs0j1Xt-D-wSQIPWdE2UGPw_n_ujQ8cgr1gZ0BeCd9Y-dNEcVzMhvRM3iqmt8xzYdWexb9d_uxv-ZDbFn_ICV327Tf3lfNde-KFv9Ap-avrjvlR2azJm9Dt_OWvrWuhntZzwFpIMaW9xbBpjjem7DNjGxl6F9VC-TxVjuvYfD-6_ChnAEKvNl2dbpbhMy1WQm4PvBVvdWReiOamDHo4q3mM9IOBUJ6nxupHndgIGDczE_C7GFNw9bXZw');"></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-sm font-medium text-[#111318] truncate">Minh Admin</p>
+<p class="text-xs text-[#606e8a] truncate">admin@vntour.vn</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-[#606e8a] text-[20px]">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 bg-white border-b border-[#f0f1f5] flex items-center justify-between px-6 shrink-0 z-10">
+<div class="flex items-center gap-2 text-[#606e8a] text-sm">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span>/</span>
+<span class="text-[#111318] font-medium">Quản lý người dùng</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#606e8a] hover:bg-background-light rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-white"></span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+<!-- Page Heading & Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold text-[#111318]">Danh sách người dùng</h2>
+<p class="text-[#606e8a] text-sm mt-1">Quản lý Tour Operators, Tour Guides và tài khoản hệ thống.</p>
+</div>
+<button class="flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-sm shadow-blue-200 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Thêm người dùng mới
+                    </button>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-white p-5 rounded-xl border border-[#e5e7eb] shadow-sm flex items-start justify-between">
+<div>
+<p class="text-[#606e8a] text-sm font-medium mb-1">Tổng người dùng</p>
+<h3 class="text-2xl font-bold text-[#111318]">2,450</h3>
+<p class="text-green-600 text-xs font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% tháng này
+                            </p>
+</div>
+<div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-[#e5e7eb] shadow-sm flex items-start justify-between">
+<div>
+<p class="text-[#606e8a] text-sm font-medium mb-1">Chờ xác thực (Pending)</p>
+<h3 class="text-2xl font-bold text-[#111318]">45</h3>
+<p class="text-orange-600 text-xs font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> Cần xử lý ngay
+                            </p>
+</div>
+<div class="p-3 bg-orange-50 text-orange-600 rounded-lg">
+<span class="material-symbols-outlined">gavel</span>
+</div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-[#e5e7eb] shadow-sm flex items-start justify-between">
+<div>
+<p class="text-[#606e8a] text-sm font-medium mb-1">Tour Guide Hoạt động</p>
+<h3 class="text-2xl font-bold text-[#111318]">850</h3>
+<p class="text-green-600 text-xs font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> 98% tuân thủ
+                            </p>
+</div>
+<div class="p-3 bg-green-50 text-green-600 rounded-lg">
+<span class="material-symbols-outlined">hiking</span>
+</div>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="flex items-center gap-2 w-full md:w-auto flex-1 max-w-lg">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#9aa2b1]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 border border-[#e5e7eb] rounded-lg leading-5 bg-background-light text-[#111318] placeholder-[#9aa2b1] focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-colors" placeholder="Tìm kiếm theo tên, email, SĐT..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+<select class="form-select block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white border border-[#e5e7eb] text-[#111318]">
+<option>Tất cả vai trò</option>
+<option>Tour Operator</option>
+<option>Tour Guide</option>
+<option>Admin</option>
+</select>
+<select class="form-select block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white border border-[#e5e7eb] text-[#111318]">
+<option>Tất cả trạng thái</option>
+<option>Đã xác thực</option>
+<option>Chờ xác thực</option>
+<option>Từ chối</option>
+<option>Đã khóa</option>
+</select>
+<button class="flex items-center gap-2 px-4 py-2.5 border border-[#e5e7eb] rounded-lg text-sm font-medium text-[#111318] hover:bg-gray-50 whitespace-nowrap bg-white">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Xuất Excel
+                        </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="min-w-full divide-y divide-[#f0f1f5]">
+<thead class="bg-[#f8f9fc]">
+<tr>
+<th class="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider" scope="col">User Info</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider" scope="col">Vai trò</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider" scope="col">Trạng thái</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider" scope="col">Số dư ví</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider" scope="col">Ngày tham gia</th>
+<th class="relative px-6 py-4" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-[#f0f1f5]">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 transition-colors group cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="h-10 w-10 flex-shrink-0">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmSJvEmq23kdVIdhy60CuIJDmfualfc1Uabyi2jZqvXf6wfg5Y6rjg8xJ9NycTGSOA7sjjx-gZBY2qa7MvyxYu9Ws_jS5LKrGxiv6klZWTWasMMy5DQTkRHvKDO146GtyW_XbdlYXAHMTrvZ5m7eA4IYy3m2qJQVvAlN2f6YZMZPpsh6K9UdrImNzaTstMUAipYrQ4Qw3smTS0k8ZU4N5u3oTG6s2Wl0XqysmXcvbFVH3JOyx6Q8O4jcLlILxSd1sRiZM0KYck9Q');"></div>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[#111318]">Nguyễn Văn A</div>
+<div class="text-sm text-[#606e8a]">nguyenvana@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Tour Operator
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 gap-1">
+<span class="size-1.5 rounded-full bg-green-600"></span>
+                                            APPROVED
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
+                                        15,000,000 ₫
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
+                                        12/10/2023
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-[#606e8a] hover:text-primary p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (Pending) -->
+<tr class="bg-orange-50/30 hover:bg-orange-50 transition-colors cursor-pointer border-l-4 border-l-orange-500">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="h-10 w-10 flex-shrink-0">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-P_nGfsTzY0jcv0cGv_C91ja2_384Hj_Ak2EfRlkiRRjXABSz6Uo6tvzxGHev5QuwpaLPnPNdQhELcTZePws5WBQ0ExiIvZKIYWQcY3q6g2LyS_8iWLfRamI7m8-yZxdE0UZNtVAurVez282oPFp0MNktNWLwh6PFR6PW2J5Z7HVazijSwap9VXzkDjZj8Lx5EcJ_UAc33jU-MrdSQZOytb8xm5L46EsCQf3iUGhqxrqoySlEZFTBM-KzAZI47aWOPZx69gTTDw');"></div>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[#111318]">Trần Thị B</div>
+<div class="text-sm text-[#606e8a]">tranthib@travel.vn</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                            Tour Guide
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 gap-1">
+<span class="size-1.5 rounded-full bg-orange-600 animate-pulse"></span>
+                                            PENDING
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
+                                        0 ₫
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
+                                        01/05/2024
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-primary hover:text-primary-hover font-bold text-xs uppercase tracking-wide">
+                                            Xác thực
+                                        </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="h-10 w-10 flex-shrink-0">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDy0Zzjc1gebEg22HUuSGYIXNxVBeaT1b9LAoAWAeOdFiizdOn9_QAjNRlHVMiFKH5F1_5mRq0Vl6vv786qeyPr66k5ER_v3W9m5WcJkFx4yO97WKsizXGEIsxz7tNO3gT3EnTxJQBYM-K1obELA33As1T3pi6FZXE6IycaAA6MB2jg00kvVaI1I3lwcVs3fNqO8cdNHrJ0z3GqBmnWmkDaRQpnu65lYJvWAI3jDNfzL79AYWB1UUJIIwqINYWIozsWJHNBtYlLoA');"></div>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[#111318]">Lê Văn C</div>
+<div class="text-sm text-[#606e8a]">levanc@admin.vn</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Admin
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 gap-1">
+<span class="size-1.5 rounded-full bg-green-600"></span>
+                                            APPROVED
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
+                                        -
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
+                                        15/08/2023
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-[#606e8a] hover:text-primary p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Locked) -->
+<tr class="hover:bg-gray-50 transition-colors cursor-pointer bg-red-50/20">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="h-10 w-10 flex-shrink-0 grayscale opacity-75">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATkT4uSIA1txmtd1ceqZv_67EScgFaKqJARZL_o60Jg7qZuq9WUYN6wYwHpNIub5VxWyRCSlxsuvYsKet-n1C19kRc2ks2sNC9o8eBvL69g6Wv3O-6ATk7sh-FzidsCoC5I1MlLCJOm145fn0NGM_fzZ-5mZvaDubKWFdUmN6CMhWniMoziNLhtWlIpBIimmr-7JldDOYtqSoPS6xJNyAtZZr5N1dAV5BRC31cgAYTQYgBMEyfwGCsLG6l4Xp5nWti1YNbetmv-w');"></div>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[#606e8a]">Phạm Thị D (Locked)</div>
+<div class="text-sm text-[#9aa2b1]">phamthid@fail.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Tour Operator
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 gap-1">
+<span class="size-1.5 rounded-full bg-red-600"></span>
+                                            LOCKED
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
+                                        2,500,000 ₫
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
+                                        20/11/2023
+                                    </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-[#606e8a] hover:text-primary p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-[#e5e7eb] flex items-center justify-between bg-white">
+<p class="text-sm text-[#606e8a]">Hiển thị <span class="font-medium text-[#111318]">1-10</span> của <span class="font-medium text-[#111318]">2,450</span></p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded border border-[#e5e7eb] text-[#606e8a] hover:bg-[#f0f1f5] disabled:opacity-50 text-sm">Trước</button>
+<button class="px-3 py-1 rounded bg-primary text-white text-sm font-medium">1</button>
+<button class="px-3 py-1 rounded border border-[#e5e7eb] text-[#606e8a] hover:bg-[#f0f1f5] text-sm">2</button>
+<button class="px-3 py-1 rounded border border-[#e5e7eb] text-[#606e8a] hover:bg-[#f0f1f5] text-sm">...</button>
+<button class="px-3 py-1 rounded border border-[#e5e7eb] text-[#606e8a] hover:bg-[#f0f1f5] text-sm">245</button>
+<button class="px-3 py-1 rounded border border-[#e5e7eb] text-[#606e8a] hover:bg-[#f0f1f5] text-sm">Sau</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Slide-over Drawer (Simulating Open State for Demo) -->
+<!-- In a real app, this would be toggled via JS -->
+<div class="fixed inset-y-0 right-0 w-[480px] bg-white shadow-2xl z-30 transform transition-transform duration-300 ease-in-out border-l border-[#e5e7eb] flex flex-col h-full">
+<!-- Drawer Header -->
+<div class="p-6 border-b border-[#f0f1f5] flex items-start justify-between bg-[#fcfcfd]">
+<div class="flex gap-4">
+<div class="relative">
+<div class="size-16 rounded-full bg-cover bg-center border-2 border-white shadow-sm" data-alt="Detail User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYAH6kxll6Ioo4f9laq47U34AGXFm5S1rIUbSjNZTYKLIEVkczd4l81TUXGNlIDp9enG3xLJn4ddk8YywDlspjz7anICJt9Vy2-Rzx8X0_7SV5Q9YoMqsnVoUOKhZk0aizPcxvdeysvRzmlE07hGOo12NA94aoewZ-iXKfNgbpjBXFtFGQ55gEhgv9KSyUNTEdW9tZm_hC-E5WJHZkBboQn2x-_Q9AWYnODYzaJH5JFMnA6kCduN-PnuICUglZy30rFaLKnDfpng');"></div>
+<div class="absolute -bottom-1 -right-1 bg-purple-100 text-purple-700 p-1 rounded-full border border-white" title="Tour Guide">
+<span class="material-symbols-outlined text-[16px] block">hiking</span>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-[#111318]">Trần Thị B</h3>
+<p class="text-[#606e8a] text-sm">tranthib@travel.vn</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-orange-100 text-orange-700 border border-orange-200 uppercase tracking-wide">
+                            Pending Verification
+                        </span>
+<span class="text-xs text-[#606e8a]">ID: #USR-2024-882</span>
+</div>
+</div>
+</div>
+<button class="text-[#9aa2b1] hover:text-[#111318] p-1 rounded-md hover:bg-gray-100">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Drawer Body (Tabs & Content) -->
+<div class="flex-1 overflow-y-auto">
+<!-- Tabs -->
+<div class="flex border-b border-[#f0f1f5] px-6">
+<button class="py-3 px-1 border-b-2 border-primary text-primary text-sm font-medium mr-6">Tổng quan</button>
+<button class="py-3 px-1 border-b-2 border-transparent text-[#606e8a] hover:text-[#111318] text-sm font-medium mr-6">Ví &amp; GD</button>
+<button class="py-3 px-1 border-b-2 border-transparent text-[#606e8a] hover:text-[#111318] text-sm font-medium">Lịch sử</button>
+</div>
+<div class="p-6 space-y-6">
+<!-- Profile Section -->
+<div>
+<h4 class="text-sm font-bold text-[#111318] uppercase tracking-wide mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">person</span> Thông tin cá nhân
+                    </h4>
+<div class="grid grid-cols-2 gap-4 text-sm">
+<div>
+<p class="text-[#606e8a] text-xs">Số điện thoại</p>
+<p class="font-medium text-[#111318] mt-1">0912 345 678</p>
+</div>
+<div>
+<p class="text-[#606e8a] text-xs">Ngày sinh</p>
+<p class="font-medium text-[#111318] mt-1">15/08/1995</p>
+</div>
+<div class="col-span-2">
+<p class="text-[#606e8a] text-xs">Địa chỉ</p>
+<p class="font-medium text-[#111318] mt-1">123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+</div>
+</div>
+</div>
+<hr class="border-[#f0f1f5]"/>
+<!-- Compliance Section (Critical for Tourism Law) -->
+<div class="bg-orange-50 rounded-lg p-4 border border-orange-100">
+<h4 class="text-sm font-bold text-orange-800 uppercase tracking-wide mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified</span> Hồ sơ pháp lý
+                    </h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-white rounded border border-orange-200 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="bg-red-50 text-red-600 p-2 rounded">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-sm font-medium text-[#111318]">Thẻ Hướng Dẫn Viên</p>
+<p class="text-xs text-[#606e8a]">Uploaded 2h ago</p>
+</div>
+</div>
+<button class="text-primary text-sm font-medium hover:underline">Xem</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-white rounded border border-orange-200 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="bg-blue-50 text-blue-600 p-2 rounded">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div>
+<p class="text-sm font-medium text-[#111318]">CCCD / Passport</p>
+<p class="text-xs text-[#606e8a]">Uploaded 2h ago</p>
+</div>
+</div>
+<button class="text-primary text-sm font-medium hover:underline">Xem</button>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded text-sm font-medium transition-colors">Duyệt hồ sơ</button>
+<button class="flex-1 bg-white border border-red-200 text-red-600 hover:bg-red-50 py-2 rounded text-sm font-medium transition-colors">Từ chối</button>
+</div>
+</div>
+<hr class="border-[#f0f1f5]"/>
+<!-- Wallet Quick View -->
+<div>
+<h4 class="text-sm font-bold text-[#111318] uppercase tracking-wide mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> Ví tài khoản
+                    </h4>
+<div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-4 text-white shadow-lg">
+<p class="text-gray-400 text-xs">Số dư hiện tại</p>
+<p class="text-2xl font-bold mt-1">0 ₫</p>
+<div class="mt-4 flex gap-2">
+<button class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded transition-colors">Lịch sử giao dịch</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Drawer Footer (Actions) -->
+<div class="p-4 border-t border-[#f0f1f5] bg-gray-50 flex flex-col gap-2">
+<button class="w-full flex items-center justify-center gap-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 text-[#111318] py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+                Reset mật khẩu
+            </button>
+<div class="flex gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 text-[#111318] py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    Chỉnh sửa Profile
+                </button>
+<button class="flex-1 flex items-center justify-center gap-2 bg-red-50 border border-red-100 hover:bg-red-100 text-red-600 py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                    Khóa tài khoản
+                </button>
+</div>
+</div>
+</div>
+</body></html>

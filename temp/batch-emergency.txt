@@ -1,0 +1,5 @@
+emergency_management_page|EmergencyManagementPage|emergency-management-page
+emergency_sos_report_page_1|EmergencySosReportPage1|emergency-sos-report-page-1
+emergency_sos_report_page_2|EmergencySosReportPage2|emergency-sos-report-page-2
+emergency_sos_report_page_3|EmergencySosReportPage3|emergency-sos-report-page-3
+emergency_sos_report_page_4|EmergencySosReportPage4|emergency-sos-report-page-4

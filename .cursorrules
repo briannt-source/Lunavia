@@ -1,0 +1,36 @@
+# Cursor Rules for Google Stitch Integration
+
+## Khi làm việc với code từ Google Stitch (stitch.withgoogle.com):
+
+1. **Luôn convert code từ Stitch sang format dự án:**
+   - TypeScript với proper types
+   - Tailwind CSS thay vì CSS thuần
+   - shadcn/ui components thay vì custom components
+   - Next.js 15 App Router patterns
+
+2. **Khi nhận code từ Google Stitch (HTML/CSS):**
+   - Tự động detect HTML/CSS và suggest conversion
+   - Convert HTML → React JSX
+   - Convert HTML attributes (onclick → onClick, class → className)
+   - Map CSS classes sang Tailwind
+   - Replace HTML elements với shadcn/ui components
+   - Add TypeScript types
+
+3. **Component structure:**
+   - Server components mặc định (không có 'use client' trừ khi cần)
+   - Proper imports từ @/components/ui
+   - TypeScript interfaces cho props
+   - Error handling và loading states
+
+4. **Styling:**
+   - Sử dụng Tailwind classes
+   - Tuân thủ design system trong tailwind.config.ts
+   - Responsive design với Tailwind breakpoints
+   - Dark mode support nếu cần
+
+5. **Best practices:**
+   - Luôn review code từ Stitch trước khi commit
+   - Test component sau khi convert
+   - Document props và usage
+   - Giữ consistency với codebase hiện tại
+

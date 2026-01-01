@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Settings - Lunavia Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "primary-hover": "#0b4ecf",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #0d59f2;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0d59f2;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light text-[#111318] overflow-hidden h-screen flex">
+<aside class="w-64 bg-white border-r border-[#f0f1f5] flex flex-col h-full shrink-0 z-20 hidden lg:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/10 rounded-lg p-2">
+<span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+</div>
+<div>
+<h1 class="text-[#111318] text-lg font-bold leading-tight">Lunavia Admin</h1>
+<p class="text-[#606e8a] text-xs font-normal">Portal Quản trị</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-4 py-2 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="text-sm font-medium">Tổng quan</span>
+</a>
+<div class="px-3 pt-4 pb-2">
+<p class="text-xs font-bold text-[#9aa2b1] uppercase tracking-wider">Quản lý hệ thống</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">group</span>
+<span class="text-sm font-medium">Người dùng</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">business</span>
+<span class="text-sm font-medium">Công ty Lữ hành</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">map</span>
+<span class="text-sm font-medium">Danh sách Tour</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">verified_user</span>
+<span class="text-sm font-medium">Xác minh hồ sơ</span>
+<span class="ml-auto bg-red-100 text-red-600 py-0.5 px-2 rounded-full text-xs font-bold">4</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined icon-fill">account_balance_wallet</span>
+<span class="text-sm font-medium">Ví &amp; Thanh toán</span>
+</a>
+<div class="px-3 pt-4 pb-2">
+<p class="text-xs font-bold text-[#9aa2b1] uppercase tracking-wider">Cấu hình</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+<span class="text-sm font-medium">Cài đặt chung</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#606e8a] hover:bg-background-light group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">shield</span>
+<span class="text-sm font-medium">Phân quyền</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#f0f1f5]">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light cursor-pointer">
+<div class="size-9 rounded-full bg-cover bg-center" data-alt="Admin User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGxxGxo6jlUHrL5wJxbfrs0j1Xt-D-wSQIPWdE2UGPw_n_ujQ8cgr1gZ0BeCd9Y-dNEcVzMhvRM3iqmt8xzYdWexb9d_uxv-ZDbFn_ICV327Tf3lfNde-KFv9Ap-avrjvlR2azJm9Dt_OWvrWuhntZzwFpIMaW9xbBpjjem7DNjGxl6F9VC-TxVjuvYfD-6_ChnAEKvNl2dbpbhMy1WQm4PvBVvdWReiOamDHo4q3mM9IOBUJ6nxupHndgIGDczE_C7GFNw9bXZw');"></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-sm font-medium text-[#111318] truncate">Minh Admin</p>
+<p class="text-xs text-[#606e8a] truncate">admin@lunavia.vn</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-[#606e8a] text-[20px]">logout</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+<header class="h-16 bg-white border-b border-[#f0f1f5] flex items-center justify-between px-6 shrink-0 z-10">
+<div class="flex items-center gap-2 text-[#606e8a] text-sm">
+<button class="lg:hidden mr-2 text-[#606e8a]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span>/</span>
+<span class="text-[#111318] font-medium">Cấu hình Thanh toán</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#606e8a] hover:bg-background-light rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-white"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold text-[#111318]">Cài đặt Thanh toán</h2>
+<p class="text-[#606e8a] text-sm mt-1">Quản lý tài khoản ngân hàng, phương thức thanh toán và tỷ giá hối đoái.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center gap-2 bg-white border border-[#e5e7eb] hover:bg-gray-50 text-[#111318] px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                            Lịch sử thay đổi
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-[#f0f1f5] flex items-center justify-between">
+<h3 class="font-bold text-[#111318] flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">account_balance</span>
+                                    Tài khoản ngân hàng của Lunavia
+                                </h3>
+<button class="flex items-center gap-1.5 text-primary bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                    Thêm tài khoản
+                                </button>
+</div>
+<div class="p-0">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead class="bg-[#f8f9fc] text-[#606e8a] border-b border-[#f0f1f5]">
+<tr>
+<th class="px-6 py-3 font-semibold">Ngân hàng</th>
+<th class="px-6 py-3 font-semibold">Số tài khoản</th>
+<th class="px-6 py-3 font-semibold">Chủ tài khoản</th>
+<th class="px-6 py-3 font-semibold text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#f0f1f5]">
+<tr class="hover:bg-gray-50 group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-green-50 rounded-lg flex items-center justify-center text-green-700 font-bold border border-green-100">
+                                                            VCB
+                                                        </div>
+<div>
+<p class="font-medium text-[#111318]">Vietcombank</p>
+<p class="text-xs text-[#606e8a]">Chi nhánh Sở Giao Dịch</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-[#111318] font-medium tracking-wide">
+                                                    0011 0022 3344
+                                                </td>
+<td class="px-6 py-4 text-[#111318]">
+                                                    LUNAVIA COMPANY LTD
+                                                </td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-gray-200 rounded text-[#606e8a] hover:text-[#111318]" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-[#606e8a] hover:text-red-600" title="Xóa">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-red-50 rounded-lg flex items-center justify-center text-red-700 font-bold border border-red-100">
+                                                            TCB
+                                                        </div>
+<div>
+<p class="font-medium text-[#111318]">Techcombank</p>
+<p class="text-xs text-[#606e8a]">Chi nhánh Tân Bình</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-[#111318] font-medium tracking-wide">
+                                                    1903 4567 8910
+                                                </td>
+<td class="px-6 py-4 text-[#111318]">
+                                                    LUNAVIA COMPANY LTD
+                                                </td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-gray-200 rounded text-[#606e8a] hover:text-[#111318]" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-[#606e8a] hover:text-red-600" title="Xóa">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-700 font-bold border border-blue-100">
+                                                            ACB
+                                                        </div>
+<div>
+<p class="font-medium text-[#111318]">ACB Bank</p>
+<p class="text-xs text-[#606e8a]">Chi nhánh Sài Gòn</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-[#111318] font-medium tracking-wide">
+                                                    8888 9999 6666
+                                                </td>
+<td class="px-6 py-4 text-[#111318]">
+                                                    LUNAVIA GLOBAL
+                                                </td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-gray-200 rounded text-[#606e8a] hover:text-[#111318]" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-[#606e8a] hover:text-red-600" title="Xóa">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-gray-50 px-6 py-3 border-t border-[#f0f1f5] text-xs text-[#606e8a]">
+                                * Các tài khoản này sẽ được hiển thị cho đối tác khi thực hiện thanh toán chuyển khoản thủ công.
+                            </div>
+</div>
+<div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-[#f0f1f5] flex items-center justify-between">
+<h3 class="font-bold text-[#111318] flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">credit_card</span>
+                                    Phương thức thanh toán
+                                </h3>
+</div>
+<div class="divide-y divide-[#f0f1f5]">
+<div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-[#f0f1f5] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[#606e8a] text-[24px]">account_balance</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#111318]">Chuyển khoản Ngân hàng</h4>
+<p class="text-xs text-[#606e8a] mt-0.5">Xác nhận thủ công bởi Admin</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm text-primary font-medium hover:underline">Cấu hình</button>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer" for="toggle1"></label>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-[#a50064] flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-xs">MoMo</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#111318]">Ví điện tử MoMo</h4>
+<p class="text-xs text-[#606e8a] mt-0.5">Kết nối qua cổng thanh toán</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm text-primary font-medium hover:underline">Cấu hình API</button>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-primary" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer" for="toggle2"></label>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-[#0068ff] flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-xs">Zalo</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#111318]">ZaloPay</h4>
+<p class="text-xs text-[#606e8a] mt-0.5">Cổng thanh toán QR Code</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm text-primary font-medium hover:underline">Cấu hình API</button>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-gray-300" id="toggle3" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="toggle3"></label>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-[24px]">payments</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#111318]">Thẻ Quốc tế (Visa/Master)</h4>
+<p class="text-xs text-[#606e8a] mt-0.5">Thông qua cổng Stripe/OnePay</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm text-primary font-medium hover:underline">Thiết lập</button>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-gray-300" id="toggle4" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="toggle4"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1 flex flex-col gap-6">
+<div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden sticky top-6">
+<div class="px-6 py-4 border-b border-[#f0f1f5] bg-gradient-to-r from-[#0d59f2] to-[#0b4ecf] text-white">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-white text-[20px]">currency_exchange</span>
+                                    Tỷ giá hối đoái
+                                </h3>
+<p class="text-xs text-blue-100 mt-1 opacity-90">Áp dụng cho thanh toán quốc tế</p>
+</div>
+<div class="p-6">
+<form class="flex flex-col gap-5">
+<div class="flex items-center justify-between bg-blue-50 p-3 rounded-lg border border-blue-100">
+<div class="flex items-center gap-2">
+<img alt="USD" class="w-6 h-auto shadow-sm rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvF9sipHE4VQHhjNWtMqj7g-o0z8b0LXBq0Tk9tK8dWJn-7PV8E9l-dGyDGNLLVJRMeHsUxvMA3NcMydnvotRbRwzwwLc-hOydxFo3VJKOkAN5uKerrFvidpx12aYVJCp7LHDWmkuc0qHOG_WAoJRkaYNHpgNS63RaCAjMdyee0_fnQWu1T6EJAgcMl-xPyquHlpdGo5IvY89QkkmQLinvpZqu0L6wJuqSlG8mwYSKbDPc0JY5KOXxVXfJpnNEyPkbdDcPvbOm_Q"/>
+<span class="font-bold text-[#111318]">1 USD</span>
+</div>
+<span class="material-symbols-outlined text-blue-400">arrow_right_alt</span>
+<div class="flex items-center gap-2">
+<img alt="VND" class="w-6 h-auto shadow-sm rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9kK6sSZTLgj_njA6yDOh04o_wPtuFDq7eoY_nOLfiv0ccdOCRQgSQAbd1wGA7NJss7tC5oJMmrVbP_f2iETsxGuIGzIEemYXdYO-64NLuf2ZKNzG6TrcRHJzFMpKkkbPCzWLYlZYSB2ZlGgcKXhw4JCTEK-NJKlJUfnLbb1aumU4pI9efKJnUr-MhZL9PZX7aooXtqcyzHbMVByPRdlTTxn5H_XX29LIt5eWJXCS2XVud-j5qdDUeqGRsfgB-xPjl7IHAAlPtIQ"/>
+<span class="font-bold text-[#111318]">VND</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-[#111318]">Tỷ giá quy đổi (VND)</label>
+<div class="relative">
+<input class="w-full pr-12 border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-lg font-bold py-2.5 text-[#111318]" placeholder="0" type="text" value="24,550"/>
+<span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500 font-medium text-sm">
+                                                VND
+                                            </span>
+</div>
+<p class="text-xs text-[#606e8a] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">update</span>
+                                            Cập nhật lần cuối: 20/10/2023 08:00
+                                        </p>
+</div>
+<button class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white py-2.5 rounded-lg text-sm font-bold shadow-md shadow-blue-100 transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                                        Cập nhật tỷ giá
+                                    </button>
+</form>
+<hr class="my-5 border-dashed border-gray-200"/>
+<div>
+<h4 class="text-xs font-bold text-[#606e8a] uppercase tracking-wider mb-3">Lịch sử gần đây</h4>
+<ul class="space-y-3">
+<li class="flex justify-between items-center text-sm">
+<span class="text-[#606e8a]">19/10/2023</span>
+<span class="font-medium text-[#111318]">24,500 VND</span>
+</li>
+<li class="flex justify-between items-center text-sm">
+<span class="text-[#606e8a]">18/10/2023</span>
+<span class="font-medium text-[#111318]">24,480 VND</span>
+</li>
+<li class="flex justify-between items-center text-sm">
+<span class="text-[#606e8a]">15/10/2023</span>
+<span class="font-medium text-[#111318]">24,450 VND</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 items-start">
+<span class="material-symbols-outlined text-primary mt-0.5">verified_user</span>
+<div>
+<h4 class="text-sm font-bold text-[#111318]">Bảo mật thanh toán</h4>
+<p class="text-xs text-[#606e8a] mt-1 leading-relaxed">
+                                     Mọi thay đổi cấu hình thanh toán đều được ghi lại trong nhật ký hệ thống và yêu cầu xác thực 2 bước (2FA) để áp dụng.
+                                 </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Direct Payment to Guide - VNTravel B2B</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display">
+<div class="flex h-screen w-full overflow-hidden">
+<aside class="flex w-72 flex-col justify-between border-r border-[#283039] bg-[#111418] p-4 hidden lg:flex">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10" data-alt="VNTravel B2B logo abstract blue shape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAkh_iZmeeKvlnD_KIg8O2yZc308ZL2k2wSfLAWOreWl8B58_9wNPnP0qyfdUz_-wDg796wwuEGJtNrsmOcW40B9LQy_fkJJAJeMjHFjSkEnv8s9GaLMGEhUkPHskvKligXNHTORPaGEdsefWS8QdXpboIm9HyV3jN_MVj1tXCREEXLhLHDfzeUuhtkEjxF8WO5Yz4fPna8E5u5qOXN5F5DpfFjx2HGEhjXcgyNnKOIP5MgXf1MV7DimfwHr8XCwYJStsca5_7wrQ");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal">VNTravel B2B</h1>
+<p class="text-[#9dabb9] text-xs font-normal leading-normal">Tour Operator Portal</p>
+</div>
+</div>
+<div class="h-px bg-[#283039] w-full my-2"></div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">grid_view</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">map</span>
+<p class="text-sm font-medium leading-normal">My Tours</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">group</span>
+<p class="text-sm font-medium leading-normal">Guides Roster</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">person_add</span>
+<p class="text-sm font-medium leading-normal">Join Requests</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined text-[24px] fill-1">payments</span>
+<p class="text-sm font-medium leading-normal">Payments</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 px-3 py-2 text-[#9dabb9] hover:text-white cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">logout</span>
+<p class="text-sm font-medium leading-normal">Sign Out</p>
+</div>
+</div>
+</aside>
+<main class="flex flex-1 flex-col overflow-y-auto bg-[#111418] relative">
+<header class="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-[#283039] bg-[#111418]/95 px-6 backdrop-blur">
+<div class="flex items-center gap-4 text-white lg:hidden">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+<div class="flex flex-1 items-center justify-end gap-6">
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-[#9dabb9] hover:bg-[#283039] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-[#9dabb9] hover:bg-[#283039] transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-px bg-[#283039]"></div>
+<div class="flex items-center gap-3">
+<div class="flex flex-col items-end hidden sm:flex">
+<p class="text-sm font-medium text-white">Sarah Jenkins</p>
+<p class="text-xs text-[#9dabb9]">Admin</p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 cursor-pointer ring-2 ring-[#283039]" data-alt="User profile picture woman smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_BCQQN3ISgLN-xoiGXJ6h_aiLI-YPiHrh8yHrft7JtAFTeqAKDdgkPvAk7UhuGfj9cTidq82bCgKXcYY4PhtzXa55Yvp5DcMg5-Oh_6IHJPLZparpxzEvS_b4Hg_xiLK9q7ZJ-uw8UXsTpHeblsgDlLUg2UK8oRV1LQWe-pKM4ADzpD2Wo9STU5IQ2KOUJGWT9FtRiTwMjBxLHPR9Q8O47IL6mfijZ2CCg8kQRNxBTP7CG_LJl8C5PxbDP68iFlYjX89hSQZp-Q");'></div>
+</div>
+</div>
+</header>
+<div class="flex flex-col gap-8 p-6 md:p-10 max-w-[1400px] mx-auto w-full">
+<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between border-b border-[#283039] pb-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-white text-3xl font-bold leading-tight tracking-tight">Thanh toán Hướng dẫn viên</h1>
+<p class="text-[#9dabb9] text-base font-normal leading-normal">Manage direct payments to guides for completed tours securely.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg border border-[#283039] bg-transparent px-4 py-2.5 text-sm font-medium text-[#9dabb9] hover:text-white hover:bg-[#283039] transition-colors">
+<span class="material-symbols-outlined mr-2 text-[20px]">history</span>
+                        History
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="rounded-xl bg-[#1e2329] p-6 border border-[#283039] shadow-sm">
+<h2 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+                            Payment Details
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#9dabb9]">Chọn tour (Select Tour)</label>
+<div class="relative">
+<select class="w-full rounded-lg bg-[#111418] border border-[#283039] text-white py-3 pl-4 pr-10 focus:ring-1 focus:ring-primary focus:border-primary appearance-none cursor-pointer">
+<option value="">-- Chọn tour đã hoàn thành --</option>
+<option selected="" value="HN-HL-001">Hanoi - Halong Bay (3D2N) #T2025001</option>
+<option value="HCM-MK-002">HCMC - Mekong Delta (1D) #T2025002</option>
+<option value="DN-HA-003">Da Nang - Hoi An (2D1N) #T2025003</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#9dabb9]">Chọn guide (Select Guide)</label>
+<div class="relative">
+<select class="w-full rounded-lg bg-[#111418] border border-[#283039] text-white py-3 pl-4 pr-10 focus:ring-1 focus:ring-primary focus:border-primary appearance-none cursor-pointer">
+<option value="">-- Chọn hướng dẫn viên --</option>
+<option selected="" value="192845992">Nguyen Van Minh (ID: 192-845-992)</option>
+<option value="221554102">Tran Thi Mai (ID: 221-554-102)</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9dabb9]">
+<span class="material-symbols-outlined">person_search</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-6 flex items-center p-4 bg-[#111418] rounded-lg border border-[#283039]">
+<div class="h-12 w-12 rounded-full bg-cover bg-center border border-[#283039] mr-4" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAABnI8PxjrK_lEv1LlDVcCdglipx1UsRciYbVN9Tq2daDifMRe2eDyTOluruAumvp43iuWNa3w4_ss7PHmR2dgd0uUDzh8ze0DntiRxo627RGph4nQBLbLhwO5ysAHQ4vIziY3SQbjqwPiXyFjt5tbPOPZVQaMnK9Tkk_3oW8i8KD6BnLwa913cdvUj39YzuMxBhmNKYqZlrEEQiby378GVaUUMNyqgTUMJYvPY65W8L9zHMCDLuiqwwx0uOBLvFBRV35q9JvbPQ");'></div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-white">Nguyen Van Minh</h3>
+<p class="text-xs text-[#9dabb9]">International Guide License • Valid</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-[#9dabb9]">Wallet ID</p>
+<p class="text-sm font-mono text-white">VN-8829-1102</p>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 mt-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#9dabb9]">Nhập số tiền (VND)</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-[#111418] border border-[#283039] text-white text-xl font-bold py-3 pl-4 pr-16 focus:ring-1 focus:ring-primary focus:border-primary placeholder:font-normal placeholder:text-[#3a4450]" placeholder="0" type="text" value="2.500.000"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9dabb9] font-medium">VND</span>
+</div>
+<p class="text-xs text-[#9dabb9]">Available balance to pay: <span class="text-green-500 font-medium">500.000.000 VND</span></p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#9dabb9]">Nội dung thanh toán (Description)</label>
+<textarea class="w-full rounded-lg bg-[#111418] border border-[#283039] text-white py-3 px-4 focus:ring-1 focus:ring-primary focus:border-primary min-h-[100px]" placeholder="e.g., Payment for Tour T2025001 - Guide services"></textarea>
+</div>
+</div>
+<div class="h-px bg-[#283039] w-full my-6"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-[#9dabb9]">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="text-xs">Transaction is encrypted and secure.</span>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-[#9dabb9] hover:text-white hover:bg-[#283039] transition-colors">
+                                Cancel
+                            </button>
+<button class="px-8 py-2.5 rounded-lg bg-primary text-sm font-bold text-white hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 flex items-center gap-2">
+                                Thanh toán
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="rounded-xl bg-[#1e2329] p-6 border border-[#283039] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl text-white">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<p class="text-sm text-[#9dabb9] font-medium mb-1">Guide's Current Balance</p>
+<h3 class="text-3xl font-bold text-white mb-4">15.250.000 <span class="text-lg font-normal text-[#9dabb9]">VND</span></h3>
+<div class="flex gap-2 mb-6">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-green-500/10 text-green-500 text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                +2.5M this month
+                            </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#283039] text-[#9dabb9] text-xs font-medium">
+                                Active
+                            </span>
+</div>
+<div class="h-px bg-[#283039] w-full mb-4"></div>
+<h4 class="text-sm font-bold text-white mb-3">Recent Transactions</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#111418] border border-[#283039]">
+<div class="flex flex-col">
+<span class="text-xs font-medium text-white">Tour #T2024098</span>
+<span class="text-[10px] text-[#9dabb9]">12 Oct 2024</span>
+</div>
+<span class="text-sm font-bold text-green-500">+ 3.000.000</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#111418] border border-[#283039]">
+<div class="flex flex-col">
+<span class="text-xs font-medium text-white">Tour #T2024085</span>
+<span class="text-[10px] text-[#9dabb9]">05 Oct 2024</span>
+</div>
+<span class="text-sm font-bold text-green-500">+ 2.800.000</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#111418] border border-[#283039]">
+<div class="flex flex-col">
+<span class="text-xs font-medium text-white">Bonus Q3</span>
+<span class="text-[10px] text-[#9dabb9]">01 Oct 2024</span>
+</div>
+<span class="text-sm font-bold text-green-500">+ 500.000</span>
+</div>
+</div>
+<button class="w-full mt-4 text-xs text-primary hover:text-primary/80 font-medium">View All History</button>
+</div>
+</div>
+<div class="rounded-xl bg-[#1e2329] p-6 border border-[#283039]">
+<h3 class="text-sm font-bold text-white mb-4">Payment Guidelines</h3>
+<ul class="space-y-3">
+<li class="flex gap-3 text-xs text-[#9dabb9]">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">check_circle</span>
+<span>Payments are processed instantly to the guide's digital wallet.</span>
+</li>
+<li class="flex gap-3 text-xs text-[#9dabb9]">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">check_circle</span>
+<span>Transaction fees are covered by the platform for amounts over 5M VND.</span>
+</li>
+<li class="flex gap-3 text-xs text-[#9dabb9]">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">check_circle</span>
+<span>Verify the Guide ID before confirming payment to avoid disputes.</span>
+</li>
+</ul>
+<div class="mt-4 pt-4 border-t border-[#283039]">
+<a class="flex items-center gap-2 text-xs font-medium text-white hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">help</span>
+                            Need help with payments?
+                        </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

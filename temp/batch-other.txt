@@ -1,0 +1,6 @@
+conversation_list_page_1|ConversationListPage1|conversation-list-page-1
+conversation_list_page_2|ConversationListPage2|conversation-list-page-2
+create_contract_page|CreateContractPage|create-contract-page
+faq_page|FaqPage|faq-page
+settings_page|SettingsPage|settings-page
+view_&_accept_contract_page|View&AcceptContractPage|view-&-accept-contract-page

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Join Company - VietTour Platform</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] dark:text-white transition-colors duration-200">
+<div class="flex h-screen w-full overflow-hidden">
+<aside class="w-64 flex-shrink-0 flex flex-col justify-between border-r border-[#f5f0f0] dark:border-[#3a2020] bg-white dark:bg-[#1a0b0b] h-full overflow-y-auto hidden lg:flex">
+<div class="flex flex-col gap-4 p-4">
+<div class="flex gap-3 items-center mb-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 flex-shrink-0" data-alt="VietTour Platform Logo with a stylized map pin" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyYVCpoK33HNw7DbeGwfH5pKHcIK8w01RPaYZfStAxpKz2Kj909dwACLNxfP1ujgcDMqF1iT6wjBms7uWcSiRpz_9D-PJtbuV6xuH03_TJnAOQgRzKGwrgOaYZcDavOJJ3DUvJhPMpg_zoI3D3dYvbpRAcsUF-hSo_G-9gYYd5cPWoW_rk-JzsBOEB0cbcBSje0pdwDc-B42bPgGjPuBEYy4jvVgdEoh9q3K8zaX3ZavTG7tJqQnbKaSESi2tcPkP6en27UbQWvw");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#181111] dark:text-white text-base font-bold leading-normal">VietTour Platform</h1>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-sm font-normal leading-normal">Tour Guide Portal</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">dashboard</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">map</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Tours</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">report_problem</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">SOS Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-primary fill">business_center</span>
+<p class="text-primary text-sm font-bold leading-normal">Company</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light dark:hover:bg-[#3a2020] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] group-hover:text-primary">settings</span>
+<p class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-[#f5f0f0] dark:border-[#3a2020]">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8" data-alt="User avatar of a smiling tour guide" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0UKyQ2gOcjMgKD786okHfoztDDxVQRmyTLP7clYhXJ6MbPjK_ffadnZLrqHHSdXjPvSxjU3Mb1MsdtWHzlNQMonPhudF3bkVRH8pZeZA92UDQmC3kpSRL5i5H9mYVVp2fpmjIae0XQDftD0_fIb7kNXZikO955X2eV0Ys6afp2wcZEYNErYhM5OdE0X4r79AtBDjRqrAzetgtzsFuflsqy2bsMIVzg1Wa3NE70suNelOPaUoq_VJiMOesltn-PK4fnMhkC_F95A");'></div>
+<div class="flex flex-col">
+<p class="text-[#181111] dark:text-white text-sm font-medium">Nguyễn Văn A</p>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-xs">ID: GD-8821</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f5f0f0] dark:border-[#3a2020] bg-white dark:bg-[#1a0b0b] px-6 py-3 z-10">
+<div class="flex items-center gap-4 text-[#181111] dark:text-white lg:hidden">
+<button class="size-8 flex items-center justify-center text-[#8a6060] hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] text-[24px]">apartment</span>
+<span class="text-[#8a6060] dark:text-[#cc8888] text-sm">Dashboard</span>
+<span class="material-symbols-outlined text-[#8a6060] dark:text-[#cc8888] text-[16px]">chevron_right</span>
+<h2 class="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Affiliation Manager</h2>
+</div>
+<div class="flex items-center justify-end gap-4">
+<button class="bg-background-light dark:bg-[#2a1b1b] p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 text-[#8a6060] dark:text-[#cc8888] hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-4 md:p-8">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-black text-[#181111] dark:text-white tracking-tight">Tham gia Công ty Lữ hành</h1>
+<p class="text-[#8a6060] dark:text-[#cc8888] text-base leading-relaxed max-w-2xl">
+                        Theo <span class="font-bold text-[#181111] dark:text-white">Luật Du lịch 2025</span>, tất cả hướng dẫn viên phải trực thuộc một đơn vị lữ hành được cấp phép để hành nghề hợp pháp. Vui lòng liên kết tài khoản của bạn dưới đây.
+                    </p>
+</div>
+<div class="grid grid-cols-1 gap-8">
+<div class="bg-white dark:bg-[#1a0b0b] rounded-xl shadow-sm border border-[#f5f0f0] dark:border-[#3a2020] overflow-hidden">
+<div class="p-6 border-b border-[#f5f0f0] dark:border-[#3a2020] flex items-center gap-4 bg-gray-50/50 dark:bg-[#2a1b1b]/30">
+<div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined text-2xl">mail</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white">Bạn có mã lời mời?</h3>
+<p class="text-sm text-[#8a6060] dark:text-[#cc8888]">Nhập liên kết hoặc mã được gửi từ công ty du lịch của bạn.</p>
+</div>
+</div>
+<div class="p-6">
+<form class="flex flex-col md:flex-row gap-4">
+<div class="flex-1 relative">
+<label class="sr-only" for="invite-link">Invite Link</label>
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400">link</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-[#3a2020] rounded-lg leading-5 bg-white dark:bg-[#2a1b1b] text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm" id="invite-link" placeholder="https://viettour.vn/join/..." type="text" value=""/>
+</div>
+<button class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined mr-2 text-[20px]">check_circle</span>
+                                    Chấp nhận lời mời
+                                </button>
+</form>
+<p class="mt-3 text-xs text-gray-500 dark:text-gray-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+                                Liên kết lời mời thường có hiệu lực trong 48 giờ.
+                            </p>
+</div>
+</div>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-[#f5f0f0] dark:border-[#3a2020]"></div>
+<span class="flex-shrink-0 mx-4 text-gray-400 dark:text-gray-600 text-sm uppercase font-semibold">Hoặc</span>
+<div class="flex-grow border-t border-[#f5f0f0] dark:border-[#3a2020]"></div>
+</div>
+<div class="bg-white dark:bg-[#1a0b0b] rounded-xl shadow-sm border border-[#f5f0f0] dark:border-[#3a2020] overflow-hidden flex flex-col h-full">
+<div class="p-6 border-b border-[#f5f0f0] dark:border-[#3a2020] bg-gray-50/50 dark:bg-[#2a1b1b]/30 flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">search</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white">Tìm kiếm công ty</h3>
+<p class="text-sm text-[#8a6060] dark:text-[#cc8888]">Gửi yêu cầu tham gia đến các công ty đang hoạt động trên hệ thống.</p>
+</div>
+</div>
+<div class="relative mt-2">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-[#3a2020] rounded-lg leading-5 bg-white dark:bg-[#2a1b1b] text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Nhập tên công ty, mã số thuế hoặc mã định danh (ID)..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-1 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+</div>
+<div class="divide-y divide-[#f5f0f0] dark:divide-[#3a2020]">
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:bg-background-light dark:hover:bg-[#221010] transition-colors group">
+<div class="size-16 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center flex-shrink-0 text-xl font-bold border border-orange-200 dark:border-orange-800">
+                                    VT
+                                </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-[#181111] dark:text-white truncate">VietTravel Corporation</h4>
+<span class="material-symbols-outlined text-blue-500 text-[16px] fill" title="Verified Partner">verified</span>
+</div>
+<p class="text-sm text-[#8a6060] dark:text-[#cc8888] truncate">190 Pasteur, Phường 6, Quận 3, TP.HCM</p>
+<div class="flex items-center gap-3 mt-1 text-xs text-gray-500">
+<span class="bg-gray-100 dark:bg-[#3a2020] px-2 py-0.5 rounded">ID: TO-0089</span>
+<span>•</span>
+<span>500+ Guides</span>
+</div>
+</div>
+<div class="w-full sm:w-auto mt-2 sm:mt-0">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-[#2a1b1b] border border-gray-200 dark:border-[#3a2020] hover:border-primary hover:text-primary dark:hover:border-primary text-[#181111] dark:text-white rounded-lg text-sm font-medium transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_business</span>
+                                        Yêu cầu tham gia
+                                    </button>
+</div>
+</div>
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:bg-background-light dark:hover:bg-[#221010] transition-colors group">
+<div class="size-16 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center flex-shrink-0 text-xl font-bold border border-green-200 dark:border-green-800">
+                                    ST
+                                </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-[#181111] dark:text-white truncate">Saigontourist Travel Service</h4>
+<span class="material-symbols-outlined text-blue-500 text-[16px] fill" title="Verified Partner">verified</span>
+</div>
+<p class="text-sm text-[#8a6060] dark:text-[#cc8888] truncate">45 Lê Thánh Tôn, Quận 1, TP.HCM</p>
+<div class="flex items-center gap-3 mt-1 text-xs text-gray-500">
+<span class="bg-gray-100 dark:bg-[#3a2020] px-2 py-0.5 rounded">ID: TO-0012</span>
+<span>•</span>
+<span>Active Recruitment</span>
+</div>
+</div>
+<div class="w-full sm:w-auto mt-2 sm:mt-0">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-[#3a2020] text-gray-400 dark:text-gray-500 border border-transparent rounded-lg text-sm font-medium cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">hourglass_top</span>
+                                        Đang chờ duyệt
+                                    </button>
+</div>
+</div>
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:bg-background-light dark:hover:bg-[#221010] transition-colors group">
+<div class="size-16 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 text-xl font-bold border border-indigo-200 dark:border-indigo-800">
+                                    HT
+                                </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-[#181111] dark:text-white truncate">Hanoi Tourism JSC</h4>
+</div>
+<p class="text-sm text-[#8a6060] dark:text-[#cc8888] truncate">18 Lý Thường Kiệt, Hoàn Kiếm, Hà Nội</p>
+<div class="flex items-center gap-3 mt-1 text-xs text-gray-500">
+<span class="bg-gray-100 dark:bg-[#3a2020] px-2 py-0.5 rounded">ID: TO-0156</span>
+</div>
+</div>
+<div class="w-full sm:w-auto mt-2 sm:mt-0">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-primary hover:bg-red-700 text-white border border-transparent rounded-lg text-sm font-medium transition-all shadow-sm shadow-red-500/20">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                                        Yêu cầu tham gia
+                                    </button>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#f5f0f0] dark:border-[#3a2020] flex justify-center">
+<button class="text-sm text-[#8a6060] dark:text-[#cc8888] hover:text-primary font-medium flex items-center gap-1">
+                                Xem thêm kết quả
+                                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

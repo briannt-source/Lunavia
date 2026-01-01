@@ -1,0 +1,1426 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LegalRole {
+  TOUR_OPERATOR
+  TOUR_AGENCY
+  TOUR_GUIDE
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  MODERATOR
+  SUPPORT_STAFF
+}
+
+enum VerificationStatus {
+  NOT_SUBMITTED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum EmploymentType {
+  FREELANCE
+  IN_HOUSE
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum TourStatus {
+  DRAFT
+  OPEN
+  CLOSED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum GuideRole {
+  MAIN
+  SUB
+}
+
+enum AppStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum EscrowStatus {
+  PENDING
+  LOCKED
+  RELEASED
+  REFUNDED
+  CANCELLED
+}
+
+enum DisputeType {
+  PAYMENT
+  ASSIGNMENT
+  NO_SHOW
+  QUALITY
+}
+
+enum DisputeStatus {
+  PENDING
+  IN_REVIEW
+  RESOLVED
+  REJECTED
+  ESCALATED
+  APPEALED
+}
+
+enum DisputeResolution {
+  FULL_REFUND
+  PARTIAL_REFUND
+  FULL_PAYMENT
+  PARTIAL_PAYMENT
+  NO_ACTION
+}
+
+enum StandbyStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum Permission {
+  DISPUTES
+  TRANSFERS
+  PASSWORD_RESET
+  PROFILE_MGMT
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  BUSY
+  ON_TOUR
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum ContractStatus {
+  NOT_VIEWED
+  VIEWED
+  ACCEPTED
+  REJECTED
+}
+
+enum WithdrawalMethod {
+  BANK
+  MOMO
+  ZALO
+  OTHER
+}
+
+enum TourBlockReason {
+  MISINFORMATION
+  INAPPROPRIATE_CONTENT
+  POLICY_VIOLATION
+  MISSING_INFO
+  SPAM
+  FALSE_CLAIMS
+  COPYRIGHT_VIOLATION
+  UNAUTHORIZED_CONTACT
+  LEGAL_VIOLATION
+  UNETHICAL_BEHAVIOR
+  OTHER
+}
+
+enum UserBlockReason {
+  FRAUD
+  POLICY_VIOLATION
+  INAPPROPRIATE_BEHAVIOR
+  SPAM
+  FALSE_INFORMATION
+  UNAUTHORIZED_ACTIVITY
+  LEGAL_VIOLATION
+  UNETHICAL_BEHAVIOR
+  SAFETY_CONCERN
+  OTHER
+}
+
+model User {
+  id             String              @id @default(cuid())
+  code           String?             @unique // Mã ID cho guide/agency (ví dụ: GUIDE-20250115-0001, AGENCY-20250115-0001)
+  email          String              @unique
+  password       String?
+  role           LegalRole
+  employmentType EmploymentType?
+  companyId      String?
+  licenseNumber  String?
+  verifiedStatus VerificationStatus  @default(NOT_SUBMITTED)
+  emailVerified  DateTime?
+  isBlocked      Boolean             @default(false)
+  blockedBy      String?
+  blockedAt      DateTime?
+  blockReason    UserBlockReason?
+  blockNotes     String?             @db.Text
+  unblockedBy    String?
+  unblockedAt    DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @default(now()) @updatedAt
+  availabilities GuideAvailability[]
+
+  profile                  Profile?
+  wallet                   Wallet?
+  verifications            Verification[]
+  tours                    Tour[]
+  applications             Application[]
+  assignments              Assignment[]
+  standbyRequests          StandbyRequest[]
+  disputes                 Dispute[]
+  disputeTimelineActions   DisputeTimeline[]    @relation("DisputeTimelineActors")
+  reviewsGiven             Review[]             @relation("ReviewsGiven")
+  reviewsReceived          Review[]             @relation("ReviewsReceived")
+  accounts                 Account[]
+  sessions                 Session[]
+  company                  Company?
+  companyMember            CompanyMember?
+  companyInvitations       CompanyInvitation[]
+  joinRequests             JoinRequest[]
+  topUpRequests            TopUpRequest[]
+  withdrawalRequests       WithdrawalRequest[]
+  paymentMethods           PaymentMethod[]
+  notifications            Notification[]
+  contractAcceptances      ContractAcceptance[]
+  tourReports              TourReport[]
+  emergencyReports         EmergencyReport[]
+  operatorConversations    Conversation[]       @relation("OperatorConversations")
+  guideConversations       Conversation[]       @relation("GuideConversations")
+  messages                 Message[]
+  escrowAccountsAsOperator EscrowAccount[]      @relation("EscrowOperators")
+  escrowAccountsAsGuide    EscrowAccount[]      @relation("EscrowGuides")
+  tourEditRequests         TourEditRequest[]    @relation("TourEditRequestOperators")
+  tourDeleteRequests       TourDeleteRequest[]  @relation("TourDeleteRequestOperators")
+  userSettings             UserSettings?
+  PaymentMilestone         PaymentMilestone[]
+  invoicesIssued           Invoice[]            @relation("InvoiceIssuers")
+  invoicesReceived         Invoice[]            @relation("InvoiceRecipients")
+  SafetyCheckIn            SafetyCheckIn[]
+  EmergencyContact         EmergencyContact[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Profile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name            String?
+  photoUrl        String?
+  bio             String?
+  languages       String[]
+  experienceYears Int?
+  specialties     String[]
+  rating          Float?   @default(0)
+  reviewCount     Int      @default(0)
+
+  companyName        String?
+  companyLogo        String?
+  address            String?
+  phone              String?
+  companyEmail       String?
+  availabilityStatus AvailabilityStatus @default(AVAILABLE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("profiles")
+}
+
+model Wallet {
+  id            String        @id @default(cuid())
+  userId        String        @unique
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance       Float         @default(0)
+  lockedDeposit Float         @default(0)
+  reserved      Float         @default(0)
+  transactions  Transaction[]
+  fromPayments  Payment[]     @relation("FromWallet")
+  toPayments    Payment[]     @relation("ToWallet")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+
+  @@map("wallets")
+}
+
+model Tour {
+  id                     String           @id @default(cuid())
+  code                   String?          @unique // Mã tour duy nhất (ví dụ: TOUR-20250115-0001)
+  operatorId             String
+  operator               User             @relation(fields: [operatorId], references: [id])
+  title                  String
+  description            String           @db.Text
+  city                   String
+  visibility             Visibility       @default(PUBLIC)
+  status                 TourStatus       @default(DRAFT)
+  priceMain              Float?
+  priceSub               Float?
+  currency               String           @default("VND")
+  pax                    Int
+  languages              String[]
+  specialties            String[]
+  startDate              DateTime
+  endDate                DateTime?
+  durationHours          Int?
+  files                  String[]
+  itinerary              Json[]
+  mainGuideSlots         Int              @default(1)
+  subGuideSlots          Int              @default(0)
+  inclusions             String[]         @default([])
+  exclusions             String[]         @default([])
+  additionalRequirements String?          @db.Text
+  guideNotes             String?          @db.Text // Notes/notices dành riêng cho tour guide
+  contract               Contract?
+  isBlocked              Boolean          @default(false)
+  blockedBy              String?
+  blockedAt              DateTime?
+  blockReason            TourBlockReason?
+  blockNotes             String?          @db.Text
+  unblockedBy            String?
+  unblockedAt            DateTime?
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @default(now()) @updatedAt
+
+  applications      Application[]
+  assignments       Assignment[]
+  payments          Payment[]           @relation("TourPayments")
+  reviews           Review[]            @relation("TourReviews")
+  reports           TourReport[]
+  emergencyReports  EmergencyReport[]
+  conversations     Conversation[]
+  editRequests      TourEditRequest[]
+  deleteRequests    TourDeleteRequest[] @relation("TourDeleteRequests")
+  escrowAccounts    EscrowAccount[]     @relation("TourEscrows")
+  Dispute           Dispute[]
+  paymentMilestones PaymentMilestone[]
+  invoices          Invoice[]
+  SafetyCheckIn     SafetyCheckIn[]
+
+  @@map("tours")
+}
+
+model Application {
+  id          String    @id @default(cuid())
+  tourId      String
+  guideId     String
+  tour        Tour      @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guide       User      @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  role        GuideRole
+  status      AppStatus @default(PENDING)
+  coverLetter String?   @db.Text
+  appliedAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  cancellation      ApplicationCancellation?
+  disputes          Dispute[]
+  paymentMilestones PaymentMilestone[]
+
+  @@unique([tourId, guideId])
+  @@map("applications")
+}
+
+model Payment {
+  id                    String          @id @default(cuid())
+  fromWalletId          String
+  toWalletId            String
+  fromWallet            Wallet          @relation("FromWallet", fields: [fromWalletId], references: [id])
+  toWallet              Wallet          @relation("ToWallet", fields: [toWalletId], references: [id])
+  amount                Float // Gross amount (before platform fee)
+  platformFee           Float           @default(0) // Platform fee deducted
+  netAmount             Float // Net amount received by guide (amount - platformFee)
+  isFreelance           Boolean         @default(true) // true = freelance (5% fee), false = in-house (1% or 0%)
+  employmentContractUrl String? // URL to employment contract for in-house guides
+  status                PaymentStatus   @default(PENDING)
+  tourId                String?
+  tour                  Tour?           @relation("TourPayments", fields: [tourId], references: [id])
+  standbyRequestId      String? // If payment is for standby request
+  standbyRequest        StandbyRequest? @relation(fields: [standbyRequestId], references: [id])
+  escrowAccountId       String? // If payment is from escrow
+  escrowAccount         EscrowAccount?  @relation(fields: [escrowAccountId], references: [id])
+  disputes              Dispute[]
+  refId                 String?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @default(now()) @updatedAt
+
+  // Milestone payments
+  milestone1Payments PaymentMilestone[] @relation("Milestone1Payments")
+  milestone2Payments PaymentMilestone[] @relation("Milestone2Payments")
+  milestone3Payments PaymentMilestone[] @relation("Milestone3Payments")
+  invoice            Invoice?
+
+  @@map("payments")
+}
+
+enum ReviewStatus {
+  PENDING // Awaiting moderation
+  APPROVED // Approved and visible
+  REJECTED // Rejected by admin
+  FLAGGED // Flagged for review
+}
+
+model Review {
+  id         String  @id @default(cuid())
+  reviewerId String
+  reviewer   User    @relation("ReviewsGiven", fields: [reviewerId], references: [id], onDelete: Cascade)
+  subjectId  String
+  subject    User    @relation("ReviewsReceived", fields: [subjectId], references: [id], onDelete: Cascade)
+  tourId     String?
+  tour       Tour?   @relation("TourReviews", fields: [tourId], references: [id], onDelete: SetNull)
+
+  // Multi-dimensional ratings
+  professionalismRating Int // 1-5
+  communicationRating   Int // 1-5
+  punctualityRating     Int // 1-5
+  knowledgeRating       Int // 1-5
+  overallRating         Int // 1-5 (calculated average or separate)
+
+  comment String?  @db.Text
+  photos  String[] // URLs to photo evidence
+
+  // Verification & Moderation
+  status       ReviewStatus @default(PENDING)
+  isVerified   Boolean      @default(false) // Only verified if user completed tour
+  canEdit      Boolean      @default(true) // Can edit within 7 days
+  editDeadline DateTime? // 7 days after creation
+
+  // Moderation
+  isFlagged  Boolean   @default(false)
+  flaggedBy  String? // Admin user ID
+  flaggedAt  DateTime?
+  flagReason String?   @db.Text
+  reviewedBy String? // Admin user ID
+  reviewedAt DateTime?
+  reviewNote String?   @db.Text
+
+  // Response system
+  response    String?   @db.Text
+  responseBy  String? // User ID who responded
+  respondedAt DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  editedAt  DateTime? // Track when review was last edited
+
+  @@index([reviewerId])
+  @@index([subjectId])
+  @@index([tourId])
+  @@index([status])
+  @@index([isVerified])
+  @@map("reviews")
+}
+
+model Verification {
+  id                String             @id @default(cuid())
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status            VerificationStatus @default(NOT_SUBMITTED)
+  // Document URLs - structured by type
+  photoUrl          String? // Real photo of user
+  idDocumentUrl     String? // Government ID/Passport
+  licenseUrl        String? // Tour Guide License (for guides) or Business License (for operators)
+  travelLicenseUrl  String? // Travel License (for operators only)
+  proofOfAddressUrl String? // Proof of address document
+  documents         String[] // Additional documents (legacy support)
+  adminNotes        String?            @db.Text
+  rejectionReason   String?            @db.Text
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now()) @updatedAt
+
+  @@map("verifications")
+}
+
+model GuideAvailability {
+  id        String   @id @default(cuid())
+  guideId   String
+  guide     User     @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  date      DateTime
+  slots     Json[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([guideId, date])
+  @@map("guide_availabilities")
+}
+
+model StandbyRequest {
+  id            String          @id @default(cuid())
+  operatorId    String
+  operator      User            @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  title         String
+  city          String
+  requiredDate  DateTime
+  budget        Float // Total budget for standby
+  standbyFee    Float? // Additional fee for standby service (charged to operator)
+  status        StandbyStatus   @default(PENDING)
+  mainGuideId   String?
+  subGuideId    String?
+  description   String?         @db.Text
+  acceptedAt    DateTime?
+  rejectedAt    DateTime?
+  completedAt   DateTime?
+  payments      Payment[] // Payments related to this standby request
+  invoices      Invoice[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
+  EscrowAccount EscrowAccount[]
+
+  @@map("standby_requests")
+}
+
+model EscrowAccount {
+  id                 String            @id @default(cuid())
+  operatorId         String
+  operator           User              @relation("EscrowOperators", fields: [operatorId], references: [id], onDelete: Cascade)
+  guideId            String
+  guide              User              @relation("EscrowGuides", fields: [guideId], references: [id], onDelete: Cascade)
+  tourId             String?
+  tour               Tour?             @relation("TourEscrows", fields: [tourId], references: [id], onDelete: SetNull)
+  standbyRequestId   String?
+  standbyRequest     StandbyRequest?   @relation(fields: [standbyRequestId], references: [id], onDelete: SetNull)
+  amount             Float // Gross amount (before platform fee)
+  platformFee        Float             @default(0) // Platform fee deducted
+  netAmount          Float // Net amount to be released to guide
+  status             EscrowStatus      @default(PENDING)
+  lockedAt           DateTime?
+  releasedAt         DateTime?
+  refundedAt         DateTime?
+  cancelledAt        DateTime?
+  releaseReason      String?           @db.Text
+  refundReason       String?           @db.Text
+  cancelledReason    String?           @db.Text
+  payments           Payment[] // Payments released from this escrow
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @default(now()) @updatedAt
+  Dispute            Dispute[]
+  PaymentMilestone   PaymentMilestone? @relation(fields: [paymentMilestoneId], references: [id])
+  paymentMilestoneId String?
+
+  @@index([operatorId])
+  @@index([guideId])
+  @@index([tourId])
+  @@map("escrow_accounts")
+}
+
+model AdminUser {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  password    String
+  role        AdminRole    @default(SUPPORT_STAFF)
+  permissions Permission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+
+  disputes Dispute[]
+
+  @@map("admin_users")
+}
+
+model Dispute {
+  id               String             @id @default(cuid())
+  userId           String
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tourId           String?
+  tour             Tour?              @relation(fields: [tourId], references: [id], onDelete: SetNull)
+  applicationId    String?
+  application      Application?       @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  paymentId        String?
+  payment          Payment?           @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  escrowAccountId  String?
+  escrowAccount    EscrowAccount?     @relation(fields: [escrowAccountId], references: [id], onDelete: SetNull)
+  type             DisputeType
+  description      String             @db.Text
+  evidence         String[] // URLs to evidence files
+  status           DisputeStatus      @default(PENDING)
+  resolution       DisputeResolution?
+  resolutionAmount Float? // Amount for partial refund/payment
+  resolutionNotes  String?            @db.Text
+  assignedTo       String?
+  adminUser        AdminUser?         @relation(fields: [assignedTo], references: [id])
+  escalatedAt      DateTime?
+  escalatedBy      String? // Admin user ID
+  resolvedAt       DateTime?
+  resolvedBy       String? // Admin user ID
+  appealId         String?            @unique
+  appeal           Dispute?           @relation("DisputeAppeals", fields: [appealId], references: [id])
+  appeals          Dispute[]          @relation("DisputeAppeals")
+  timeline         DisputeTimeline[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now()) @updatedAt
+
+  @@index([tourId])
+  @@index([applicationId])
+  @@index([paymentId])
+  @@index([escrowAccountId])
+  @@index([status])
+  @@map("disputes")
+}
+
+model DisputeTimeline {
+  id        String   @id @default(cuid())
+  disputeId String   @map("disputeid")
+  dispute   Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  action    String // "CREATED", "EVIDENCE_ADDED", "ESCALATED", "RESOLVED", "APPEALED", etc.
+  actorId   String?  @map("actorid") // User ID or Admin ID who performed action
+  actor     User?    @relation("DisputeTimelineActors", fields: [actorId], references: [id], onDelete: SetNull)
+  details   String?  @db.Text
+  metadata  Json? // Additional data (amount, reason, file URLs, etc.)
+  createdAt DateTime @default(now()) @map("createdat")
+
+  @@index([disputeId])
+  @@index([createdAt])
+  @@map("dispute_timelines")
+}
+
+enum MilestoneStatus {
+  PENDING // Not yet triggered
+  REQUESTED // Guide requested payment
+  APPROVED // Operator approved
+  REJECTED // Operator rejected
+  PAID // Payment completed
+  AUTO_RELEASED // Auto-released after timeout
+}
+
+model PaymentMilestone {
+  id            String       @id @default(cuid())
+  tourId        String
+  tour          Tour         @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guideId       String
+  guide         User         @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  applicationId String? // If from application
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  assignmentId  String? // If from assignment
+  assignment    Assignment?  @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+
+  // Milestone configuration
+  totalAmount      Float // Total payment amount
+  milestone1Amount Float // Amount for milestone 1 (accept) - 30%
+  milestone2Amount Float // Amount for milestone 2 (tour start) - 40%
+  milestone3Amount Float // Amount for milestone 3 (tour complete) - 30%
+
+  // Milestone 1: Accept Application/Assignment
+  milestone1Status      MilestoneStatus @default(PENDING)
+  milestone1RequestedAt DateTime?
+  milestone1PaidAt      DateTime?
+  milestone1PaymentId   String?
+  milestone1Payment     Payment?        @relation("Milestone1Payments", fields: [milestone1PaymentId], references: [id])
+
+  // Milestone 2: Tour Start
+  milestone2Status      MilestoneStatus @default(PENDING)
+  milestone2RequestedAt DateTime?
+  milestone2PaidAt      DateTime?
+  milestone2PaymentId   String?
+  milestone2Payment     Payment?        @relation("Milestone2Payments", fields: [milestone2PaymentId], references: [id])
+
+  // Milestone 3: Tour Complete
+  milestone3Status      MilestoneStatus @default(PENDING)
+  milestone3RequestedAt DateTime?
+  milestone3PaidAt      DateTime?
+  milestone3PaymentId   String?
+  milestone3Payment     Payment?        @relation("Milestone3Payments", fields: [milestone3PaymentId], references: [id])
+
+  // Auto-release settings
+  autoReleaseEnabled Boolean @default(false)
+  autoReleaseHours   Int     @default(24) // Hours to wait before auto-release
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  escrowAccounts EscrowAccount[] // One escrow per milestone or combined
+
+  @@unique([tourId, guideId])
+  @@index([tourId])
+  @@index([guideId])
+  @@map("payment_milestones")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  walletId    String
+  wallet      Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  type        String
+  amount      Float
+  description String
+  refId       String?
+  createdAt   DateTime @default(now())
+
+  @@map("transactions")
+}
+
+// Company & Employment Module
+model Company {
+  id                    String   @id @default(cuid())
+  companyId             String   @unique // Auto-generated: SYT-001, etc.
+  name                  String
+  logo                  String? // Bắt buộc cho operator
+  email                 String?  @unique // Email công ty phải là duy nhất
+  website               String?
+  address               String?
+  businessLicenseNumber String?  @unique // Số đăng ký kinh doanh phải là duy nhất (tránh giả mạo)
+  travelLicenseNumber   String?  @unique // Số giấy phép lữ hành phải là duy nhất (tránh giả mạo)
+  operatorId            String   @unique
+  operator              User     @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now()) @updatedAt
+
+  members      CompanyMember[]
+  invitations  CompanyInvitation[]
+  joinRequests JoinRequest[]
+
+  @@map("companies")
+}
+
+model CompanyMember {
+  id                    String        @id @default(cuid())
+  companyId             String
+  company               Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  guideId               String        @unique
+  guide                 User          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  companyEmail          String?
+  status                RequestStatus @default(PENDING)
+  employmentContractUrl String?       @db.Text // URL to employment contract document (required for in-house)
+  contractVerified      Boolean       @default(false) // Admin verified the contract
+  contractVerifiedBy    String? // Admin user ID who verified
+  contractVerifiedAt    DateTime?
+  approvedAt            DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @default(now()) @updatedAt
+
+  @@map("company_members")
+}
+
+model CompanyInvitation {
+  id          String        @id @default(cuid())
+  companyId   String
+  company     Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  guideId     String?
+  guide       User?         @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  email       String? // For invite link without guide
+  inviteToken String        @unique
+  status      RequestStatus @default(PENDING)
+  invitedBy   String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now()) @updatedAt
+
+  @@map("company_invitations")
+}
+
+model JoinRequest {
+  id        String        @id @default(cuid())
+  companyId String
+  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  guideId   String
+  guide     User          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  message   String?       @db.Text
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
+
+  @@unique([companyId, guideId])
+  @@map("join_requests")
+}
+
+// Assignment Module (khác với Application - direct assign)
+model Assignment {
+  id           String        @id @default(cuid())
+  tourId       String
+  tour         Tour          @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guideId      String
+  guide        User          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  role         GuideRole
+  status       RequestStatus @default(PENDING)
+  rejectReason String?       @db.Text
+  assignedAt   DateTime      @default(now())
+  acceptedAt   DateTime?
+  rejectedAt   DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+
+  paymentMilestones PaymentMilestone[]
+
+  @@unique([tourId, guideId])
+  @@map("assignments")
+}
+
+// Tour Report Module
+model TourReport {
+  id                   String        @id @default(cuid())
+  tourId               String
+  tour                 Tour          @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guideId              String
+  guide                User          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  overallRating        Int?
+  clientSatisfaction   Int?
+  highlights           String?       @db.Text
+  challenges           String?       @db.Text
+  recommendations      String?       @db.Text
+  paymentRequestAmount Float?
+  paymentRequestStatus RequestStatus @default(PENDING)
+  paymentLockedAmount  Float? // Amount locked when operator confirms
+  paymentLockedAt      DateTime? // When payment was locked
+  paymentDueAt         DateTime? // 24h deadline for payment
+  operatorNotes        String?       @db.Text
+  submittedAt          DateTime      @default(now())
+  approvedAt           DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @default(now()) @updatedAt
+
+  @@unique([tourId, guideId])
+  @@map("tour_reports")
+}
+
+enum EmergencyType {
+  SOS // One-tap SOS button
+  EMERGENCY // General emergency
+  INCIDENT // Non-emergency incident
+  SAFETY_CHECK // Safety check-in
+}
+
+enum EmergencySeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum EmergencyStatus {
+  PENDING // Awaiting response
+  ACKNOWLEDGED // Response team acknowledged
+  IN_PROGRESS // Response in progress
+  RESOLVED // Emergency resolved
+  CANCELLED // False alarm or cancelled
+}
+
+enum CheckInStatus {
+  SAFE // All good
+  NEEDS_ATTENTION // Minor issue
+  MISSED // Check-in missed
+  EMERGENCY // Emergency situation
+}
+
+// SOS/Emergency Report Module
+model EmergencyReport {
+  id      String @id @default(cuid())
+  tourId  String
+  tour    Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guideId String
+  guide   User   @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+  type        EmergencyType // SOS, EMERGENCY, INCIDENT, SAFETY_CHECK
+  description String            @db.Text
+  severity    EmergencySeverity // LOW, MEDIUM, HIGH, CRITICAL
+  status      EmergencyStatus   @default(PENDING)
+
+  // Location
+  location         String? // Address
+  latitude         Float? // GPS latitude
+  longitude        Float? // GPS longitude
+  locationAccuracy Float? // GPS accuracy in meters
+
+  // Response
+  operatorResponse String?   @db.Text
+  respondedBy      String? // Admin/Operator user ID
+  respondedAt      DateTime?
+  resolvedAt       DateTime?
+  resolvedBy       String? // Admin user ID
+  resolutionNotes  String?   @db.Text
+
+  // Escalation
+  escalated       Boolean   @default(false)
+  escalatedAt     DateTime?
+  escalatedBy     String? // Admin user ID
+  escalationLevel Int       @default(1) // 1-5
+
+  // Emergency contacts notified
+  contactsNotified String[] // Contact IDs notified
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  checkIns SafetyCheckIn[]
+
+  @@index([tourId])
+  @@index([guideId])
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+  @@map("emergency_reports")
+}
+
+model SafetyCheckIn {
+  id                String           @id @default(cuid())
+  emergencyReportId String? // If triggered by emergency
+  emergencyReport   EmergencyReport? @relation(fields: [emergencyReportId], references: [id], onDelete: SetNull)
+  tourId            String
+  tour              Tour             @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  guideId           String
+  guide             User             @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+  status    CheckInStatus @default(SAFE)
+  location  String? // Address
+  latitude  Float?
+  longitude Float?
+  notes     String?       @db.Text
+
+  scheduledAt DateTime // When check-in was scheduled
+  checkedInAt DateTime? // When guide actually checked in
+  missed      Boolean   @default(false)
+  missedAt    DateTime? // When check-in was marked as missed
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([tourId])
+  @@index([guideId])
+  @@index([scheduledAt])
+  @@index([missed])
+  @@map("safety_check_ins")
+}
+
+model EmergencyContact {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  phone        String
+  email        String?
+  relationship String? // "FAMILY", "FRIEND", "COLLEAGUE", etc.
+  priority     Int      @default(1) // 1 = highest priority
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+
+  @@index([userId])
+  @@map("emergency_contacts")
+}
+
+// Application Cancellation with Penalty
+model ApplicationCancellation {
+  id             String      @id @default(cuid())
+  applicationId  String      @unique
+  application    Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  cancelledBy    String // "GUIDE" or "OPERATOR"
+  reason         String?     @db.Text
+  penaltyAmount  Float? // Penalty if cancelled too close to tour start
+  penaltyApplied Boolean     @default(false)
+  cancelledAt    DateTime    @default(now())
+  createdAt      DateTime    @default(now())
+
+  @@map("application_cancellations")
+}
+
+enum ContractTemplateCategory {
+  TOUR_GUIDE_STANDARD
+  TOUR_GUIDE_PREMIUM
+  STANDBY_SERVICE
+  IN_HOUSE_EMPLOYMENT
+  CUSTOM
+}
+
+// Contract Module
+model ContractTemplate {
+  id          String                   @id @default(cuid())
+  name        String
+  category    ContractTemplateCategory
+  description String?                  @db.Text
+  content     String                   @db.Text // Template with variables like {{tour.title}}
+  variables   Json // Available variables and their descriptions
+  isActive    Boolean                  @default(true)
+  version     Int                      @default(1)
+  createdBy   String? // Admin user ID
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @default(now()) @updatedAt
+
+  contracts Contract[]
+
+  @@map("contract_templates")
+}
+
+model Contract {
+  id              String            @id @default(cuid())
+  tourId          String            @unique
+  tour            Tour              @relation(fields: [tourId], references: [id])
+  templateId      String? // If created from template
+  template        ContractTemplate? @relation(fields: [templateId], references: [id])
+  title           String
+  content         String            @db.Text // Final content with variables replaced
+  templateContent String?           @db.Text // Original template content
+
+  // E-Signature (Operator)
+  operatorSignatureUrl String? // URL to operator's signature image
+  operatorSignedAt     DateTime?
+  operatorSignedIp     String?
+
+  // Contract metadata
+  version             Int       @default(1)
+  isActive            Boolean   @default(true)
+  expiresAt           DateTime? // Contract expiration date
+  renewalReminderSent Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  acceptances ContractAcceptance[]
+  history     ContractHistory[]
+
+  @@map("contracts")
+}
+
+model ContractAcceptance {
+  id         String         @id @default(cuid())
+  contractId String
+  contract   Contract       @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  guideId    String
+  guide      User           @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  status     ContractStatus @default(NOT_VIEWED)
+
+  // E-Signature (Guide)
+  signatureUrl String? // URL to guide's signature image
+  signedAt     DateTime?
+  signedIp     String?
+
+  viewedAt        DateTime?
+  acceptedAt      DateTime?
+  rejectedAt      DateTime?
+  rejectionReason String?   @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([contractId, guideId])
+  @@map("contract_acceptances")
+}
+
+model ContractHistory {
+  id         String   @id @default(cuid())
+  contractId String
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  version    Int
+  content    String   @db.Text
+  changedBy  String? // User ID who made changes
+  changeNote String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([contractId])
+  @@map("contract_history")
+}
+
+enum InvoiceType {
+  TOUR_SERVICE // Dịch vụ hướng dẫn tour
+  STANDBY_SERVICE // Dịch vụ standby
+  PLATFORM_FEE // Phí platform
+  COMBINED // Hóa đơn kết hợp
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+enum TaxType {
+  VAT // Value Added Tax (10%)
+  WITHHOLDING_TAX // Thuế thu nhập cá nhân (5% or 10%)
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String        @unique // Format: INV-YYYYMMDD-XXXX
+  invoiceType   InvoiceType
+  status        InvoiceStatus @default(DRAFT)
+
+  // Parties
+  issuerId    String // Operator/Platform ID
+  issuer      User   @relation("InvoiceIssuers", fields: [issuerId], references: [id])
+  recipientId String // Guide/Operator ID
+  recipient   User   @relation("InvoiceRecipients", fields: [recipientId], references: [id])
+
+  // Related entities
+  tourId           String?
+  tour             Tour?           @relation(fields: [tourId], references: [id])
+  paymentId        String?         @unique
+  payment          Payment?        @relation(fields: [paymentId], references: [id])
+  standbyRequestId String?
+  standbyRequest   StandbyRequest? @relation(fields: [standbyRequestId], references: [id])
+
+  // Amounts
+  subtotal       Float // Amount before tax
+  vatAmount      Float @default(0) // VAT (10%)
+  withholdingTax Float @default(0) // Withholding tax (5% or 10%)
+  totalAmount    Float // Total after tax
+
+  // Dates
+  invoiceDate DateTime  @default(now())
+  dueDate     DateTime?
+  paidAt      DateTime?
+
+  // Invoice details
+  lineItems Json // Array of line items
+  notes     String? @db.Text
+  terms     String? @db.Text
+
+  // Tax information
+  taxCode   String? // Mã số thuế
+  taxExempt Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  taxRecords TaxRecord[]
+
+  @@index([issuerId])
+  @@index([recipientId])
+  @@index([invoiceNumber])
+  @@index([status])
+  @@map("invoices")
+}
+
+model TaxRecord {
+  id        String  @id @default(cuid())
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  taxType       TaxType
+  taxRate       Float // Percentage (e.g., 10 for 10%)
+  taxableAmount Float // Amount subject to tax
+  taxAmount     Float // Calculated tax amount
+
+  // Tax period
+  taxPeriod String // Format: YYYY-MM (e.g., "2025-01")
+  taxYear   Int // Year
+
+  // Reporting
+  reported   Boolean   @default(false)
+  reportedAt DateTime?
+  reportId   String? // Reference to tax report
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([invoiceId])
+  @@index([taxPeriod])
+  @@index([taxYear])
+  @@map("tax_records")
+}
+
+// Payment Methods - User's saved payment methods
+model PaymentMethod {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          String // "BANK", "MOMO", "ZALO", etc.
+  accountName   String // Tên chủ tài khoản
+  accountNumber String // Số tài khoản / Số điện thoại
+  bankName      String? // Tên ngân hàng (nếu type = BANK)
+  branchName    String? // Chi nhánh (nếu type = BANK)
+  isDefault     Boolean   @default(false)
+  isVerified    Boolean   @default(false) // Đã xác nhận chủ tài khoản
+  verifiedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+
+  topUpRequests      TopUpRequest[]
+  withdrawalRequests WithdrawalRequest[]
+
+  @@map("payment_methods")
+}
+
+// Lunavia Bank Account - Admin managed
+model LunaviaBankAccount {
+  id            String   @id @default(cuid())
+  bankName      String
+  accountName   String
+  accountNumber String
+  branchName    String?
+  qrCodeUrl     String? // QR code for payment
+  isActive      Boolean  @default(true)
+  notes         String?  @db.Text
+  createdBy     String // Admin user ID
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  @@map("lunavia_bank_accounts")
+}
+
+// Wallet Requests
+model TopUpRequest {
+  id                String         @id @default(cuid())
+  userId            String
+  user              User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount            Float
+  method            String
+  paymentMethodId   String? // Reference to PaymentMethod if user selected saved method
+  paymentMethod     PaymentMethod? @relation(fields: [paymentMethodId], references: [id], onDelete: SetNull)
+  customAccountInfo String?        @db.Text // Custom account info if not using saved method
+  status            RequestStatus  @default(PENDING)
+  adminNotes        String?        @db.Text
+  processedAt       DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @default(now()) @updatedAt
+
+  @@map("topup_requests")
+}
+
+model WithdrawalRequest {
+  id                String           @id @default(cuid())
+  userId            String
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount            Float
+  method            WithdrawalMethod
+  paymentMethodId   String? // Reference to PaymentMethod if user selected saved method
+  paymentMethod     PaymentMethod?   @relation(fields: [paymentMethodId], references: [id], onDelete: SetNull)
+  customAccountInfo String?          @db.Text // Custom account info if not using saved method
+  accountOwnerName  String? // Tên chủ tài khoản để xác nhận
+  status            RequestStatus    @default(PENDING)
+  adminNotes        String?          @db.Text
+  processedAt       DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
+
+  @@map("withdrawal_requests")
+}
+
+// Notification Module
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  message   String    @db.Text
+  link      String?
+  read      Boolean   @default(false)
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@map("notifications")
+}
+
+// User Settings Module - Phase 1: Account & Notifications
+model UserSettings {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Notification Preferences
+  emailNewApplication    Boolean @default(true) // Email khi có ứng tuyển mới
+  emailApplicationStatus Boolean @default(true) // Email khi application status thay đổi
+  emailPayment           Boolean @default(true) // Email khi có payment
+  emailTourStarted       Boolean @default(true) // Email khi tour bắt đầu
+  emailTourCancelled     Boolean @default(true) // Email khi tour bị hủy
+  emailMessage           Boolean @default(true) // Email khi có tin nhắn mới
+  emailReportSubmitted   Boolean @default(true) // Email khi guide submit report
+  emailPaymentRequest    Boolean @default(true) // Email khi có payment request
+  emailEmergency         Boolean @default(true) // Email khi có emergency report
+  inAppNotifications     Boolean @default(true) // Bật/tắt in-app notifications
+
+  // Account Settings
+  language        String @default("vi") // "vi" | "en"
+  dateFormat      String @default("DD/MM/YYYY") // "DD/MM/YYYY" | "MM/DD/YYYY"
+  currencyDisplay String @default("VND") // "VND" | "USD" | "BOTH"
+  timezone        String @default("Asia/Ho_Chi_Minh")
+
+  // Privacy Settings
+  profileVisibility String  @default("PUBLIC") // "PUBLIC" | "PRIVATE"
+  showWalletBalance Boolean @default(false) // Cho operators: hiển thị balance cho guides
+
+  // Tour Preferences (for Operators)
+  defaultTourVisibility String? // "PUBLIC" | "PRIVATE"
+  defaultCurrency       String? @default("VND")
+  defaultMainGuideSlots Int?    @default(1)
+  defaultSubGuideSlots  Int?    @default(0)
+  autoCloseToursDays    Int? // Auto-close tours sau X ngày không có ứng tuyển
+
+  // Guide Preferences (for Guides)
+  autoApplyEnabled   Boolean  @default(false) // Auto-apply to matching tours
+  minTourPrice       Float? // Minimum tour price filter
+  preferredTourTypes String[] // Array of preferred tour types/specialties
+
+  // Payment Preferences (for Operators)
+  autoApprovePayments  Boolean @default(false) // Tự động duyệt payment requests
+  autoApproveThreshold Float? // Tự động duyệt nếu amount <= threshold (VND)
+  paymentReminderDays  Int?    @default(7) // Nhắc nhở thanh toán sau X ngày
+  defaultPaymentMethod String? // "WALLET" | "BANK_TRANSFER" | "CARD"
+  paymentCurrency      String? @default("VND") // Currency cho payments
+  paymentSchedule      String? @default("IMMEDIATE") // "IMMEDIATE" | "WEEKLY" | "MONTHLY"
+
+  // Payment Preferences (for Guides)
+  preferredPaymentMethod String? // "WALLET" | "BANK_TRANSFER" | "CARD"
+  autoWithdrawEnabled    Boolean @default(false) // Tự động rút tiền khi đạt threshold
+  autoWithdrawThreshold  Float? // Tự động rút khi balance >= threshold (VND)
+  paymentReminderEnabled Boolean @default(true) // Bật nhắc nhở thanh toán
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("user_settings")
+}
+
+// City & Region Module
+model City {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  region    String
+  code      String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("cities")
+}
+
+// Exchange Rate Management
+model ExchangeRate {
+  id            String    @id @default(cuid())
+  fromCurrency  String    @default("USD")
+  toCurrency    String    @default("VND")
+  rate          Float
+  effectiveFrom DateTime  @default(now())
+  effectiveTo   DateTime?
+  createdBy     String? // Admin user ID
+  createdAt     DateTime  @default(now())
+
+  @@map("exchange_rates")
+}
+
+// Messaging System - Internal communication between operator and guide
+model Conversation {
+  id         String    @id @default(cuid())
+  tourId     String
+  tour       Tour      @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  operatorId String
+  operator   User      @relation("OperatorConversations", fields: [operatorId], references: [id], onDelete: Cascade)
+  guideId    String
+  guide      User      @relation("GuideConversations", fields: [guideId], references: [id], onDelete: Cascade)
+  messages   Message[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+
+  @@unique([tourId, operatorId, guideId])
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  content        String       @db.Text
+  read           Boolean      @default(false)
+  readAt         DateTime?
+  createdAt      DateTime     @default(now())
+
+  @@map("messages")
+}
+
+// Tour Edit/Delete Requests - Require admin approval if tour has applications
+enum TourRequestType {
+  EDIT
+  DELETE
+}
+
+enum TourRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model TourEditRequest {
+  id         String            @id @default(cuid())
+  tourId     String
+  tour       Tour              @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  operatorId String
+  operator   User              @relation("TourEditRequestOperators", fields: [operatorId], references: [id], onDelete: Cascade)
+  reason     String?           @db.Text // Reason for edit request
+  changes    Json // Store the changes requested
+  status     TourRequestStatus @default(PENDING)
+  reviewedBy String? // Admin user ID
+  reviewedAt DateTime?
+  reviewNote String?           @db.Text
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @default(now()) @updatedAt
+
+  @@map("tour_edit_requests")
+}
+
+model TourDeleteRequest {
+  id         String            @id @default(cuid())
+  tourId     String
+  tour       Tour              @relation("TourDeleteRequests", fields: [tourId], references: [id], onDelete: Cascade)
+  operatorId String
+  operator   User              @relation("TourDeleteRequestOperators", fields: [operatorId], references: [id], onDelete: Cascade)
+  reason     String?           @db.Text // Reason for delete request
+  status     TourRequestStatus @default(PENDING)
+  reviewedBy String? // Admin user ID
+  reviewedAt DateTime?
+  reviewNote String?           @db.Text
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @default(now()) @updatedAt
+
+  @@map("tour_delete_requests")
+}

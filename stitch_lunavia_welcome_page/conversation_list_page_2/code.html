@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VietTravel Ops - Conversation List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=Noto+Sans:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0d59f2",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"],
+              "body": ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white overflow-hidden h-screen flex">
+<!-- Side Navigation -->
+<div class="hidden lg:flex w-[280px] flex-col bg-white dark:bg-[#1a202c] border-r border-[#f0f1f5] dark:border-gray-800 h-full shrink-0">
+<div class="flex flex-col justify-between h-full p-4">
+<div class="flex flex-col gap-6">
+<!-- User Profile / App Title -->
+<div class="flex gap-3 items-center px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shadow-sm" data-alt="Company logo with blue gradient abstract shape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAzmGHW9n2rDl6t9LqFzHYv4pQBnjc88szGxLgTqFidKY_teHwl8xbLhbONzTxyeIrj2WtGYNqAMroU01qIAB8mujvcXugCSI-Q0Jdt9n_oN-2SdOSKHsLH6JuJFRJGY4za4k-mLdIu4KeNgVeGeVEgjImxaa-hmrF5rU7_1YREmpRkyYpFbT17aluyjH5hcPf6lJt5nlxaltGgvvZUxc9d1M2UEOCOzdonLQqjvxL9KziRhL4R3PxNlzOIkzocy7FHjapln8BAAg");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-normal">VietTravel Ops</h1>
+<p class="text-[#606e8a] text-xs font-normal">Quản lý vận hành</p>
+</div>
+</div>
+<!-- Nav Items -->
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#606e8a] group-hover:text-primary" data-size="24px">dashboard</span>
+<p class="text-[#606e8a] group-hover:text-[#111318] dark:group-hover:text-white text-sm font-medium">Tổng quan</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#606e8a] group-hover:text-primary" data-size="24px">map</span>
+<p class="text-[#606e8a] group-hover:text-[#111318] dark:group-hover:text-white text-sm font-medium">Tour của tôi</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary fill-1" data-size="24px">chat_bubble</span>
+<p class="text-primary text-sm font-bold">Tin nhắn</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#606e8a] group-hover:text-primary" data-size="24px">groups</span>
+<p class="text-[#606e8a] group-hover:text-[#111318] dark:group-hover:text-white text-sm font-medium">Đối tác</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#606e8a] group-hover:text-primary" data-size="24px">settings</span>
+<p class="text-[#606e8a] group-hover:text-[#111318] dark:group-hover:text-white text-sm font-medium">Cài đặt</p>
+</a>
+</div>
+</div>
+<!-- Bottom Actions -->
+<div class="px-2">
+<button class="w-full flex items-center justify-center gap-2 py-2 text-sm text-[#606e8a] hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-inherit" style="font-size: 20px;">logout</span>
+<span>Đăng xuất</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full relative w-full">
+<!-- Top Header -->
+<header class="flex items-center justify-between border-b border-[#f0f1f5] dark:border-gray-800 bg-white dark:bg-[#1a202c] px-6 py-3 shrink-0">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-1 text-[#606e8a]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-lg font-bold text-[#111318] dark:text-white">Portal Đối Tác</h2>
+</div>
+<div class="flex items-center gap-4">
+<!-- Global Search -->
+<div class="hidden md:flex relative w-64 h-10">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#606e8a]" style="font-size: 20px;">search</span>
+</div>
+<input class="w-full h-full pl-10 pr-4 bg-[#f0f1f5] dark:bg-gray-800 border-none rounded-lg text-sm text-[#111318] dark:text-white placeholder-[#606e8a] focus:ring-2 focus:ring-primary/50" placeholder="Tìm kiếm nhanh..." type="text"/>
+</div>
+<button class="relative p-2 text-[#606e8a] hover:bg-[#f0f1f5] dark:hover:bg-gray-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#1a202c]"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 cursor-pointer border border-[#f0f1f5]" data-alt="User avatar of a smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYePc_j9WRb5FQDd948dGUTgw_dxl0mHQORzcfXsDeSsJJVxLay-dgsmBY0KIS2Syw3VkW8iYjdjEN_SmxEWfDWeEqxvTBYaYrfgH5hwj2uHnsrw4Tj7VD8z3sTrtKyHjwg5_v9XTlRYAIsljoiRLX80QqwI_TeSE_kV60DaVeZxkDplnSYjt7LUfPvwmwtmtMNX800t5Pj7QIzIDTxf5dfyJo2q5pKy3wYeY0j_H6U1EENZ0bB73eQ1BybumVl8MBzM8HWu2umQ");'></div>
+</div>
+</header>
+<!-- Messaging Layout -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Conversation List (Left Panel) -->
+<div class="w-full md:w-[400px] lg:w-[420px] flex flex-col bg-white dark:bg-[#1a202c] border-r border-[#f0f1f5] dark:border-gray-800 h-full shrink-0">
+<!-- List Header -->
+<div class="px-5 pt-5 pb-3 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h1 class="text-2xl font-bold tracking-tight">Tin nhắn</h1>
+<button class="bg-[#f0f1f5] hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-[#111318] dark:text-white rounded-lg p-2 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit_square</span>
+</button>
+</div>
+<!-- Search within Messages -->
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#606e8a]" style="font-size: 20px;">search</span>
+</div>
+<input class="w-full h-10 pl-10 pr-4 bg-[#f0f1f5] dark:bg-gray-800 border-none rounded-lg text-sm text-[#111318] dark:text-white placeholder-[#606e8a] focus:ring-1 focus:ring-primary" placeholder="Tìm tên hoặc mã tour..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+<button class="flex-shrink-0 px-3 py-1.5 bg-[#111318] text-white rounded-full text-xs font-medium">Tất cả</button>
+<button class="flex-shrink-0 px-3 py-1.5 bg-[#f0f1f5] dark:bg-gray-800 text-[#606e8a] dark:text-gray-400 hover:text-[#111318] hover:bg-gray-200 rounded-full text-xs font-medium transition-colors">Chưa đọc</button>
+<button class="flex-shrink-0 px-3 py-1.5 bg-[#f0f1f5] dark:bg-gray-800 text-[#606e8a] dark:text-gray-400 hover:text-[#111318] hover:bg-gray-200 rounded-full text-xs font-medium transition-colors">Tour đang chạy</button>
+<button class="flex-shrink-0 px-3 py-1.5 bg-[#f0f1f5] dark:bg-gray-800 text-[#606e8a] dark:text-gray-400 hover:text-[#111318] hover:bg-gray-200 rounded-full text-xs font-medium transition-colors">Lưu trữ</button>
+</div>
+</div>
+<!-- List Content -->
+<div class="flex-1 overflow-y-auto">
+<!-- Item 1: Active -->
+<div class="flex gap-3 p-4 border-l-[3px] border-primary bg-primary/5 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm" data-alt="Profile picture of Nguyen Van A" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDzIdjyxFmR7tH2w98IaDqCVsMKMsdWbfu6brs0deP-l9gZkUrOw_MAO7IeG0DVGMPqX6lMmzhehRu2Y_8u3uqQlz5IE2J8lWtj8iHuXPxEuNeAJcaT-ZvAEFu-AGJ2q_xE-VcoGHdfXw5OcCKpn5Y71SuEu_IwsK_czQiFEz7xeu_j3G1XlpxcFFHE4_6LlS-HYlx3PhGYvMLufsUD7nfnUdmgi7IRn2Jo--0mGVqOqjgmqjg8M5HGh_0Xb-GHrI4uf1EPCxcQsQ");'></div>
+<div class="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full border-2 border-white dark:border-[#1a202c]"></div>
+</div>
+<div class="flex flex-col flex-1 min-w-0 justify-center">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="text-sm font-bold text-[#111318] dark:text-white truncate pr-2">Nguyễn Văn A - HDV</h3>
+<span class="text-xs text-primary font-medium whitespace-nowrap">10:30 AM</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-blue-100 text-blue-800 text-[10px] px-1.5 py-0.5 rounded font-mono font-medium">#TOUR-HN-2025</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="text-sm text-[#111318] dark:text-gray-200 truncate font-medium">Đã xác nhận đón khách tại điểm hẹn cũ nhé...</p>
+<span class="flex items-center justify-center size-5 bg-primary text-white text-[10px] font-bold rounded-full shrink-0">2</span>
+</div>
+</div>
+</div>
+<!-- Item 2: Unread -->
+<div class="flex gap-3 p-4 border-l-[3px] border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm" data-alt="Logo of Travel Partner Company" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAjhvZe9DlLAdXWKD2ozv84h9UJFSR0f59ykdNG0ezO_Pa4jjeZBELybzHlRkcOrw52R6RKFmisl-oWlrnqGtaB3pXb2fBGc5RwZaH7laoN1FGQ9P7wal9rQ9_fOGEw_CCUV6ZKUh0Z6Hwm16NPRxNtw82h69djZtNWyIC3SBtBJt9PhF4YfA8X_HglGxJ3QXar4C-8-2GJYXTxot9R9aGzi9F_j5lFiz_8ZjDXEw-Gkz4ttETiDakXqbLDq9oQZxjoGpVX-YUiPg");'></div>
+<!-- No online status dot -->
+</div>
+<div class="flex flex-col flex-1 min-w-0 justify-center">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="text-sm font-bold text-[#111318] dark:text-white truncate pr-2">Công ty Xe Du Lịch Việt</h3>
+<span class="text-xs text-[#606e8a] font-normal whitespace-nowrap">09:15 AM</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded font-mono font-medium">#BUS-SG-DL</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="text-sm text-[#111318] dark:text-gray-300 truncate font-medium">Hợp đồng thuê xe 45 chỗ đã được ký duyệt...</p>
+<span class="flex items-center justify-center size-5 bg-primary text-white text-[10px] font-bold rounded-full shrink-0">1</span>
+</div>
+</div>
+</div>
+<!-- Item 3: Read -->
+<div class="flex gap-3 p-4 border-l-[3px] border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm grayscale opacity-80" data-alt="Profile picture of Tran Thi B" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7of-fOYD0_inYIfe2Dqhe80VJPox8Ggo6_tqD1RjdnH7DygvwrMFy70fQkrPSO6W3eXv62_gdlXpm2Jm31pJaBbSWj68QhZpScHgpnAqz3Zvq64mxjuUutZ8p1pgi7_tg9BGAS94JGK3X63lRFiino-j9g1ZURYcG_HW99LAXVfTrxIpBU7leYwtFASZHAPOSIQlelLL0h6FstO5HBd8P4l3pDGtK_T8cijK1dTNRDWOMui2-P6aOf4zVkc0k_Oq64e2FX8eFcA");'></div>
+</div>
+<div class="flex flex-col flex-1 min-w-0 justify-center">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="text-sm font-medium text-[#111318] dark:text-white truncate pr-2">Trần Thị B - Admin</h3>
+<span class="text-xs text-[#606e8a] font-normal whitespace-nowrap">Hôm qua</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded font-mono font-medium">#ADMIN-SUP</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="text-sm text-[#606e8a] truncate font-normal">Đã cập nhật danh sách khách đoàn tour Đà Nẵng.</p>
+<!-- No Badge -->
+</div>
+</div>
+</div>
+<!-- Item 4: Read -->
+<div class="flex gap-3 p-4 border-l-[3px] border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm" data-alt="Profile picture of Le Van C" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD9WoJ7e1fghUVYDL4C46rczoolAkiJc-TfRSZY1aRgM17vGVIZlLa4EwFuc7y2ihvyl_SYk03oGwpoO2IdFMhVfxQUtQrDOFePS-Ko-nmpEa5QY68K4mmFkGCjpfGGDaT4k56dda4G4lybcwvxa9PBm7zjFcfjnRoizggMh01EaRmLcix9UOkmpwQDN6ZR5lLIoi2Dcm0hGFRT93XFkGwvyDKIlqd6Efmg2mBv9EB68VXgYs-8njSy43zR-WbIcE_DntUeM3uYEg");'></div>
+</div>
+<div class="flex flex-col flex-1 min-w-0 justify-center">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="text-sm font-medium text-[#111318] dark:text-white truncate pr-2">Lê Văn C - HDV</h3>
+<span class="text-xs text-[#606e8a] font-normal whitespace-nowrap">Hôm qua</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded font-mono font-medium">#TOUR-PQ-2025</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="text-sm text-[#606e8a] truncate font-normal">Khách sạn yêu cầu check-in sớm 1 tiếng.</p>
+</div>
+</div>
+</div>
+<!-- Item 5: Read -->
+<div class="flex gap-3 p-4 border-l-[3px] border-transparent cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm" data-alt="Profile picture of Pham D" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQtUOwSmDyEZxuCk2lQWjqMGFM2r1CclypXKKTiRe41xSBLjJMqSHOV_Sl_n5sOw4og9DXhcY4-sDuYcF5etD2ex2SfO3N-hC4q3VlmHmiVXN5l9kruvfV3C8cBz0po2AB8G6BnTEZt7I1CAprNxn9wWzCihFI6E_bSet1_gKZ1zZsivGcM_qIMQOXHx5GrYu9ihua4wXDWHR5s9Vp_SDgYiXQzKPK_e9zWqaJHXZAbYSo24r4-85iAR3jjtAIEhEN1eQ38K4FFA");'></div>
+</div>
+<div class="flex flex-col flex-1 min-w-0 justify-center">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="text-sm font-medium text-[#111318] dark:text-white truncate pr-2">Phạm D - Điều hành</h3>
+<span class="text-xs text-[#606e8a] font-normal whitespace-nowrap">2 ngày trước</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded font-mono font-medium">#INTERNAL</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="text-sm text-[#606e8a] truncate font-normal">Gửi lại lịch trình chi tiết cho khách nhé.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Content (Right Panel) - Hidden on Mobile unless active -->
+<div class="flex-1 hidden md:flex flex-col bg-white dark:bg-[#1a202c] relative">
+<!-- Chat Header -->
+<div class="px-6 py-4 border-b border-[#f0f1f5] dark:border-gray-800 flex justify-between items-center bg-white dark:bg-[#1a202c] z-10">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-sm" data-alt="Active chat user profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCb5MZObz82R-EmS25dUesmMgGQzuqnLzwVYOCszDby-pBke5ZE72f29I8Mbm7a_-8J8zD6kiChNq50OJD_-KblJv1KH5FMVyqQkMK9pmQ-TViHQkGNxH7sOV9qsoydG_ge7exsf_lA2J-hIWThNOS4973X2RhaOYdDWKO9x4eA9BbLAFOOZAOww2kpe7folYiDEQmeiHWAMxKlndnKlaZ0t5M1aimZS45GhmiLmMiPgNjTUeJ6qrycGyzLAU7AHCk52vJvoGTjSw");'></div>
+<div class="absolute bottom-0 right-0 size-2.5 bg-green-500 rounded-full border-2 border-white dark:border-[#1a202c]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#111318] dark:text-white">Nguyễn Văn A - HDV</h3>
+<span class="bg-green-100 text-green-700 text-[10px] px-1.5 rounded font-medium border border-green-200">Đã xác thực</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-[#606e8a]">
+<span>Tour: Hà Nội Street Food</span>
+<span class="size-1 bg-[#606e8a] rounded-full"></span>
+<span class="font-mono">#TOUR-HN-2025</span>
+</div>
+</div>
+</div>
+<div class="flex gap-1 text-[#606e8a]">
+<button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" title="Gọi thoại">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" title="Gọi video">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" title="Thông tin tour">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-6 bg-[#f5f6f8] dark:bg-[#101622] flex flex-col gap-4">
+<!-- Date Separator -->
+<div class="flex justify-center my-2">
+<span class="text-xs font-medium text-[#606e8a] bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Hôm nay</span>
+</div>
+<!-- Message Incoming -->
+<div class="flex gap-3 max-w-[80%]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 mt-1 shrink-0" data-alt="Avatar of sender" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCzbF62wV_asJQD5zMNnvMVBpGHbPpOaROuFOVoEce05-gcvm-R2LXx-1VbIZSrMKlvjLDfX688kgEgIg0KkdYlbT0gZSx0qVJ3vdexmn9wAOyWBjP3he5jI1i2zBWpCLLZYvpa-RdJqPsLfGQBFWEIWSOYBXupxZYIWJV1c_fzBvlXkkv74gWcjkphlrZTM_Cz35SUI88tVrfNBMMKAwt42DZ_BJpTmYMmbomh1B2wmpa-m5xZ05hk7CbXTwaQU7ZUbpalymOvSQ");'></div>
+<div class="flex flex-col gap-1">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700">
+<p class="text-sm text-[#111318] dark:text-gray-200">Chào anh, đoàn khách 5 người đã đến điểm tập trung chưa ạ?</p>
+</div>
+<span class="text-[10px] text-[#606e8a] ml-1">10:15 AM</span>
+</div>
+</div>
+<!-- Message Outgoing -->
+<div class="flex gap-3 max-w-[80%] self-end flex-row-reverse">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 mt-1 shrink-0" data-alt="My avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCU_8MBKUOgvmbhwMYFU2NTqTOIOOW6F-ASp32qxnwlYQmvwIBb0EMdw_10sMNYGFQg2dysZfb5Pybh9QlmS7oCEwK6ooqIXPhi9vuY-4Rd74ui3q0_iryWzqVmNNLu65SE3x2W-c8a_HDjHhLkLJtXlNjiGousfws2U_yZoPhoa2Z_67jyY3Y9OhjCH5JkSXYqHrFDisxqTWmnK1bZp3fIGS23pwdX12z-as7aHA0JVW6dikxCaUSel0kOdf5lSoal-dKFALQv_A");'></div>
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-primary text-white p-3 rounded-2xl rounded-tr-none shadow-sm">
+<p class="text-sm">Đoàn đang trên đường tới, khoảng 5 phút nữa có mặt nhé.</p>
+</div>
+<span class="text-[10px] text-[#606e8a] mr-1">10:18 AM</span>
+</div>
+</div>
+<!-- Message Incoming -->
+<div class="flex gap-3 max-w-[80%]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 mt-1 shrink-0" data-alt="Avatar of sender" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdVbt7gYkCeu6bEpeZHmBFfNX_AvxDm67HguYLazWOSImsbMO9JTOyIGu47l74M3yZ3ABgz6uJk9U4XgriyV4WoTaPUWU58lwJDcWHqQc46hDXZmzrz0zo_V1w5TWnTe4ahugTR9BCenbXAuEh8CEhQYco_vAytfwYCbPJk1_xOucHpO2_7B6q0FfbbK59xSNf0h2hY9hEqIvGUhGSbcRQ4KVXBEgI196mg-E4oh_U8eQA_fUrGAR90u-YlqhxGTAHaLy11agWGw");'></div>
+<div class="flex flex-col gap-1">
+<div class="bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700">
+<p class="text-sm text-[#111318] dark:text-gray-200">Dạ vâng, em đã xác nhận với nhà hàng. Em sẽ đón khách tại điểm hẹn cũ (Cổng số 1).</p>
+</div>
+<div class="bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 mt-1 flex items-center gap-3 w-fit hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+<div class="bg-red-50 size-10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-red-500">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-medium dark:text-white">Thucdon_Doan5N.pdf</span>
+<span class="text-xs text-[#606e8a]">1.2 MB</span>
+</div>
+</div>
+<span class="text-[10px] text-[#606e8a] ml-1">10:30 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 bg-white dark:bg-[#1a202c] border-t border-[#f0f1f5] dark:border-gray-800">
+<div class="flex gap-2 items-end">
+<button class="text-[#606e8a] hover:text-primary p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="text-[#606e8a] hover:text-primary p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">image</span>
+</button>
+<div class="flex-1 bg-[#f0f1f5] dark:bg-gray-800 rounded-2xl px-4 py-2 min-h-[44px] flex items-center">
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-0 text-sm text-[#111318] dark:text-white placeholder-[#606e8a] resize-none" placeholder="Nhập tin nhắn..." rows="1"></textarea>
+<button class="text-[#606e8a] hover:text-primary ml-2">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+</div>
+<button class="bg-primary hover:bg-blue-700 text-white p-2 rounded-full shadow-md transition-colors flex items-center justify-center size-10 shrink-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 px-2">
+<p class="text-[10px] text-[#606e8a]">Nhấn Enter để gửi, Shift + Enter để xuống dòng</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

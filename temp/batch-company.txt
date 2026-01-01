@@ -1,0 +1,4 @@
+company_profile_&_management|CompanyProfile&Management|company-profile-&-management
+invite_guide_to_company|InviteGuideToCompany|invite-guide-to-company
+pending_guide_join_requests_1|PendingGuideJoinRequests1|pending-guide-join-requests-1
+pending_guide_join_requests_2|PendingGuideJoinRequests2|pending-guide-join-requests-2

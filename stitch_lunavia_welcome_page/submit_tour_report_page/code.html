@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Submit Tour Report - VietGuide Connect</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] font-display antialiased overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar -->
+<aside class="w-[280px] bg-white border-r border-[#f0f2f4] flex flex-col h-full shrink-0 z-20 hidden lg:flex">
+<div class="p-4 flex items-center gap-4 text-[#111418] border-b border-[#f0f2f4]">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">VietGuide Connect</h2>
+</div>
+<div class="flex flex-col flex-1 overflow-y-auto p-4 gap-4">
+<!-- User Profile Summary -->
+<div class="flex gap-3 items-center mb-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Portrait of a smiling tour guide" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmB5c8wQLZQLoMTc6vE3kjqYeAr-NqqHPzleEYj6gLF6iUhNRMAUfCdxkaXJ7N-A18vM1L1TVZsLRmut44qdcHMPFAVwOwjMktyIs3gnXDlS3Ou2ikqcTWLwaSc4owiyu1__RnYtMuJNUn0z8qAu2GU1dpBa1ReqMbIkFHyw1SfgZ0V2mDYD3ja9zRa0TVi_qhLv7Y95EMLt2h3yEza4v_aA3hQrV6QOqseoRjwVss_622x43VibPw0ywHErXixCV1uGLm-2-R3w");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#111418] text-base font-medium leading-normal">Nguyen Van A</h1>
+<p class="text-[#617589] text-sm font-normal leading-normal">Licensed Guide</p>
+</div>
+</div>
+<!-- Nav Menu -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4] text-[#111418] transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4] text-[#111418] transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">map</span>
+<p class="text-sm font-medium leading-normal">My Tours</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px] fill-1">assignment</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4] text-[#111418] transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+<p class="text-sm font-medium leading-normal">Earnings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4] text-[#111418] transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<p class="text-sm font-medium leading-normal">Profile</p>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#f0f2f4]">
+<button class="flex items-center gap-3 px-3 py-2 w-full text-left rounded-lg hover:bg-[#f0f2f4] text-[#617589]">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Log Out</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-6 border-b border-[#f0f2f4] bg-white shrink-0 z-10">
+<div class="flex items-center gap-4 lg:hidden">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+<span class="font-bold text-lg">VietGuide</span>
+</div>
+<div class="hidden lg:flex w-full justify-between items-center">
+<!-- Breadcrumbs in header for easy access -->
+<div class="flex items-center gap-2 text-sm">
+<a class="text-[#617589] hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-[#617589]">/</span>
+<a class="text-[#617589] hover:text-primary transition-colors" href="#">My Tours</a>
+<span class="text-[#617589]">/</span>
+<span class="text-[#111418] font-medium">Submit Report</span>
+</div>
+<div class="flex gap-4 items-center">
+<button class="size-10 flex items-center justify-center rounded-full hover:bg-[#f0f2f4] text-[#111418]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full hover:bg-[#f0f2f4] text-[#111418]">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-[#f0f2f4]" data-alt="User avatar small" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDv2QXZLRnT3NROSPTKcqrbp5RouO3yOzK3-0e46SL6Z40FZ_7Iyltn3atkX22dsQceX4E3ujeIVgKOBzRXRKMwbb1F3a0uDqjA0Uy28dqOvKsp8yt-4HOFb1CMf-7rmmzRE8_zJXSAdbGa0rqFuuwDPOOHLJPyGvGs_it4p7wzqAe_n2mD5A5TCUIFsrlVIdRpsHQ9a9IqSL0F1FCvaSMjVQ5WbarZGCXJq2Li4166ouAxIq-jO_EY77qJDlntUbjAmSKiu8qJbw");'></div>
+</div>
+</div>
+</header>
+<!-- Scrollable Page Content -->
+<div class="flex-1 overflow-y-auto p-4 lg:p-10 scroll-smooth">
+<div class="max-w-[960px] mx-auto flex flex-col gap-8 pb-20">
+<!-- Page Heading -->
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111418] text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Báo cáo sau tour</h1>
+<p class="text-[#617589] text-base font-normal leading-normal">Vui lòng điền đầy đủ thông tin để hoàn tất quy trình và thanh toán.</p>
+</div>
+<!-- Tour Context Card -->
+<div class="bg-white rounded-xl border border-[#dbe0e6] shadow-sm overflow-hidden">
+<div class="bg-[#f8fafc] px-6 py-4 border-b border-[#dbe0e6] flex justify-between items-center flex-wrap gap-2">
+<h3 class="font-bold text-[#111418]">Thông tin Tour</h3>
+<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
+</div>
+<div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<p class="text-[#617589] text-xs font-semibold uppercase tracking-wider mb-1">Tour Name</p>
+<p class="text-[#111418] font-medium">Amazing Ha Long Bay 3D2N</p>
+</div>
+<div>
+<p class="text-[#617589] text-xs font-semibold uppercase tracking-wider mb-1">Date</p>
+<p class="text-[#111418] font-medium">Oct 12 - Oct 14, 2024</p>
+</div>
+<div>
+<p class="text-[#617589] text-xs font-semibold uppercase tracking-wider mb-1">Booking Reference</p>
+<p class="text-[#111418] font-medium font-mono">HLB-2405-01</p>
+</div>
+</div>
+</div>
+<!-- Main Report Form -->
+<div class="flex flex-col gap-8">
+<!-- Section 1: General Info -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-[#f0f2f4]">
+<h3 class="text-lg font-bold text-[#111418] mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                                Thông tin chung
+                            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<!-- Guests Count -->
+<div class="flex flex-col gap-2">
+<label class="text-[#111418] text-sm font-medium">Số lượng khách thực tế</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#617589] text-[20px]">groups</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-2.5 pl-10 pr-3 text-[#111418] shadow-sm ring-1 ring-inset ring-[#dbe0e6] placeholder:text-[#9ca3af] focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-[#f8fafc]" placeholder="Nhập số lượng khách" type="number"/>
+</div>
+</div>
+<!-- Rating -->
+<div class="flex flex-col gap-2">
+<label class="text-[#111418] text-sm font-medium">Đánh giá chất lượng tour</label>
+<div class="flex items-center gap-1 h-[42px]">
+<button class="text-yellow-400 hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[32px] fill-1">star</span></button>
+<button class="text-yellow-400 hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[32px] fill-1">star</span></button>
+<button class="text-yellow-400 hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[32px] fill-1">star</span></button>
+<button class="text-yellow-400 hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[32px] fill-1">star</span></button>
+<button class="text-[#dbe0e6] hover:text-yellow-400 transition-colors hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[32px]">star</span></button>
+<span class="ml-2 text-sm font-medium text-[#617589]">(Tốt)</span>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-2">
+<label class="text-[#111418] text-sm font-medium">Mô tả tour &amp; Ghi chú</label>
+<textarea class="block w-full rounded-lg border-0 py-2.5 px-3 text-[#111418] shadow-sm ring-1 ring-inset ring-[#dbe0e6] placeholder:text-[#9ca3af] focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-[#f8fafc]" placeholder="Mô tả chi tiết chuyến đi, phản hồi của khách hàng hoặc các sự cố phát sinh..." rows="4"></textarea>
+</div>
+</div>
+<!-- Section 2: Uploads -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-[#f0f2f4]">
+<h3 class="text-lg font-bold text-[#111418] mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">image</span>
+                                Hình ảnh &amp; Tài liệu
+                            </h3>
+<div class="grid grid-cols-1 gap-8">
+<!-- Image Upload -->
+<div class="flex flex-col gap-3">
+<label class="text-[#111418] text-sm font-medium">Hình ảnh chuyến đi (Images)</label>
+<div class="flex justify-center rounded-xl border border-dashed border-[#dbe0e6] px-6 py-10 hover:bg-[#f8fafc] transition-colors cursor-pointer group/upload">
+<div class="text-center">
+<span class="material-symbols-outlined mx-auto text-4xl text-[#9ca3af] group-hover/upload:text-primary mb-3 block">add_photo_alternate</span>
+<div class="flex text-sm leading-6 text-[#617589] justify-center">
+<label class="relative cursor-pointer rounded-md bg-transparent font-semibold text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:text-blue-600" for="file-upload">
+<span>Upload files</span>
+<input class="sr-only" id="file-upload" name="file-upload" type="file"/>
+</label>
+<p class="pl-1">or drag and drop</p>
+</div>
+<p class="text-xs leading-5 text-[#9ca3af]">PNG, JPG, GIF up to 10MB</p>
+</div>
+</div>
+<!-- Preview list (Mockup) -->
+<div class="flex gap-4 mt-2 overflow-x-auto pb-2">
+<div class="relative size-20 rounded-lg overflow-hidden shrink-0 group">
+<div class="bg-center bg-no-repeat bg-cover size-full" data-alt="Tour photo 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCf-PDRBBj643xQVlwmAXaMHN5Dn5BGoEDYfRlGO-q3TpXU2AfaxHfeXvWWypMkrEDPIj-oY4MosENvMzGFL4iJJXUf0okWyD1Hfi6vFa0V-TpMqi5hlHR8-mhf3QROkyK_9fXTQdnVMTwx1wIQdF_eXmsCz6cJ3QEJvijCG65NToKVCHq63Wls5I8sqeN-KMItAHtGr6YNMMGhHQIurbq_psG_pp-DWss5fjdQ_wFVePuq7rgTX1H2ibmNHWGiTMpJPCdYzsH6Cw");'></div>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-white text-lg">delete</span>
+</div>
+</div>
+<div class="relative size-20 rounded-lg overflow-hidden shrink-0 group">
+<div class="bg-center bg-no-repeat bg-cover size-full" data-alt="Tour photo 2" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhwxKV6F5i81ANaf3fPyH_1LuuawS5SdDm89RtpF41DgOJYjNJ1u--8m4u8fsYOkgulh9cPXO_azJgejseqLf_IaxEbbcFwZi0DcHKHmqaCiDLRxYhAIe9cfLitKJd4b_RI3w3SHarzQ10X4Pon5foFKv73R7To3zREht7V30HaXIUquv4D1n-_vhj4Nx_rfMaGbvBTSPL0xbSfleDuQnlkWTvx8wjjgLtE-XHr-PavYtNFqrNjYckiPoV9t__koFrWtS9T9Ihcw");'></div>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-white text-lg">delete</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Doc Upload -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="text-[#111418] text-sm font-medium">Tài liệu đính kèm (Documents)</label>
+<div class="group relative flex items-center gap-1 cursor-help">
+<span class="material-symbols-outlined text-[#617589] text-[18px]">info</span>
+<span class="text-xs text-[#617589] border-b border-dashed border-[#617589]">Yêu cầu Luật Du Lịch 2025</span>
+<!-- Tooltip -->
+<div class="absolute right-0 bottom-full mb-2 w-64 p-2 bg-[#111418] text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                                Vui lòng tải lên danh sách hành khách và nhật ký tour theo quy định mới.
+                                            </div>
+</div>
+</div>
+<div class="rounded-lg border border-[#dbe0e6] bg-[#f8fafc] p-4 flex items-center gap-4">
+<button class="bg-white hover:bg-gray-50 text-[#111418] font-medium py-2 px-4 border border-[#dbe0e6] rounded-lg text-sm shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+                                            Select Files
+                                        </button>
+<p class="text-sm text-[#617589]">No file chosen</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Payment -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-[#f0f2f4] ring-1 ring-primary/10">
+<h3 class="text-lg font-bold text-[#111418] mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+                                Thanh toán
+                            </h3>
+<div class="flex flex-col gap-6">
+<div class="relative flex gap-x-3">
+<div class="flex h-6 items-center">
+<input checked="" class="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary" id="payment_request" name="payment_request" type="checkbox"/>
+</div>
+<div class="text-sm leading-6">
+<label class="font-medium text-[#111418]" for="payment_request">Yêu cầu thanh toán</label>
+<p class="text-[#617589]">Tôi muốn gửi yêu cầu thanh toán cho tour này ngay sau khi báo cáo được duyệt.</p>
+</div>
+</div>
+<div class="pl-8 transition-all duration-300 ease-in-out">
+<label class="block text-sm font-medium leading-6 text-[#111418]" for="amount">Số tiền yêu cầu (VND)</label>
+<div class="relative mt-2 rounded-md shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="text-[#617589] sm:text-sm">₫</span>
+</div>
+<input class="block w-full rounded-md border-0 py-3 pl-8 pr-12 text-[#111418] ring-1 ring-inset ring-[#dbe0e6] placeholder:text-[#9ca3af] focus:ring-2 focus:ring-inset focus:ring-primary text-lg font-medium font-mono tracking-wide" id="amount" name="amount" placeholder="0" type="text" value="5.000.000"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<span class="text-[#617589] sm:text-sm">VND</span>
+</div>
+</div>
+<p class="mt-2 text-sm text-[#617589]">Đã bao gồm các chi phí phát sinh được chấp thuận.</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-4 border-t border-[#f0f2f4]">
+<button class="px-6 py-2.5 rounded-lg text-[#111418] font-bold text-sm bg-white border border-[#dbe0e6] hover:bg-[#f8fafc] transition-colors">
+                                Hủy bỏ
+                            </button>
+<button class="px-8 py-2.5 rounded-lg text-white font-bold text-sm bg-primary hover:bg-blue-600 transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">send</span>
+                                Gửi báo cáo
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
