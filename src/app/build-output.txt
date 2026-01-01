@@ -1,0 +1,90 @@
+
+> lunavia@1.0.0 build
+> next build
+
+   Γû▓ Next.js 15.5.9
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+> [PWA] Compile server
+> [PWA] Compile server
+> [PWA] Compile client (static)
+> [PWA] Auto register service worker with: D:\Cursor\lunavia\node_modules\next-pwa\register.js
+> [PWA] Service worker: D:\Cursor\lunavia\public\sw.js
+> [PWA]   url: /sw.js
+> [PWA]   scope: /
+ Γ£ô Compiled successfully in 9.8s
+   Linting and checking validity of types ...
+
+./src/app/(stitch).disabled/ai-analytics-dashboard/page.tsx
+36:67  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/(stitch).disabled/browse-tours-page/page.tsx
+120:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+142:22  Warning: 'Languages' is not defined.  react/jsx-no-undef
+185:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+204:22  Warning: 'Languages' is not defined.  react/jsx-no-undef
+241:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+261:22  Warning: 'Languages' is not defined.  react/jsx-no-undef
+302:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+321:22  Warning: 'Languages' is not defined.  react/jsx-no-undef
+
+./src/app/(stitch).disabled/company-profile-management/page.tsx
+315:26  Warning: 'Clock' is not defined.  react/jsx-no-undef
+
+./src/app/(stitch).disabled/emergency-management-page/page.tsx
+208:88  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+208:97  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+225:27  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+225:250  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./src/app/(stitch).disabled/faq-page/page.tsx
+285:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+285:50  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+302:78  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+303:27  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+304:27  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+304:37  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./src/app/(stitch).disabled/tour-details-apply-guide-view-page/page.tsx
+144:18  Warning: 'Building2' is not defined.  react/jsx-no-undef
+
+./src/app/(stitch).disabled/user-login-page-9/page.tsx
+308:20  Warning: 'Verified' is not defined.  react/jsx-no-undef
+525:16  Warning: 'Verified' is not defined.  react/jsx-no-undef
+
+./src/app/(stitch).disabled/user-management-page-admin-view--7/page.tsx
+196:16  Warning: 'Menu' is not defined.  react/jsx-no-undef
+
+./src/app/ai/match/page.tsx
+20:6  Warning: React Hook useEffect has a missing dependency: 'handleMatch'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/dashboard/admin/disputes/[id]/page.tsx
+192:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/dashboard/admin/verifications/[id]/page.tsx
+281:33  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+337:33  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/guides/[id]/profile/page.tsx
+105:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+279:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+322:31  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/tours/create/page.tsx
+69:6  Warning: React Hook useEffect has a missing dependency: 'formData.title'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./scripts/create-test-users.ts:93:12
+Type error: Cannot find name '─Éi'.
+
+  91 |   const moderator = await prisma.adminUser.upsert({
+  92 |     where: { email: 'mod@lunavia.test' },
+> 93 |     update:─Éi{},
+     |            ^
+  94 |     create: {
+  95 |       email: 'mod@lunavia.test',
+  96 |       password: modPassword,
+Next.js build worker exited with code: 1 and signal: null

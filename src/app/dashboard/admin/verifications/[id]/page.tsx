@@ -274,7 +274,7 @@ export default function VerificationDetailPage() {
                         </div>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {group.urls.map((url, index) => (
+                        {group.urls.map((url: string, index: number) => (
                           <div key={index} className="border rounded overflow-hidden bg-white">
                             <div className="aspect-video bg-slate-50 flex items-center justify-center relative group">
                               {url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (

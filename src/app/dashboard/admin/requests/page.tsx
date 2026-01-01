@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import toast from "react-hot-toast";
 
-export default function AdminRequestsPage() {
+function AdminRequestsContent() {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -308,6 +308,18 @@ export default function AdminRequestsPage() {
         </CardContent>
       </Card>
     </DashboardLayout>
+  );
+}
+
+export default function AdminRequestsPage() {
+  return (
+    <Suspense fallback={
+      <DashboardLayout>
+        <div className="text-center py-12">Đang tải...</div>
+      </DashboardLayout>
+    }>
+      <AdminRequestsContent />
+    </Suspense>
   );
 }
 

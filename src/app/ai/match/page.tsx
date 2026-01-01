@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Zap } from "lucide-react";
 
-export default function AIMatchPage() {
+function AIMatchContent() {
   const searchParams = useSearchParams();
   const tourId = searchParams.get("tourId");
   const [matches, setMatches] = useState<any[]>([]);
@@ -91,6 +91,14 @@ export default function AIMatchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AIMatchPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto px-4 py-8">Đang tải...</div>}>
+      <AIMatchContent />
+    </Suspense>
   );
 }
 

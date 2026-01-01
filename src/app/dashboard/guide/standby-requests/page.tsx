@@ -126,10 +126,7 @@ export default function GuideStandbyRequestsPage() {
                     </div>
                     <StatusBadge
                       status={request.status}
-                      color={getStatusColor(request.status)}
-                    >
-                      {getStatusLabel(request.status)}
-                    </StatusBadge>
+                    />
                   </div>
                 </CardHeader>
                 <CardContent>

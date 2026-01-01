@@ -202,9 +202,9 @@ export default async function AdminDisputesPage({
                             Được giao cho: {dispute.adminUser.email}
                           </span>
                         )}
-                        {dispute.amountRefunded && (
+                        {dispute.resolutionAmount && (
                           <span className="text-emerald-600 font-medium">
-                            Hoàn tiền: {formatVND(dispute.amountRefunded)}
+                            Hoàn tiền: {formatVND(dispute.resolutionAmount)}
                           </span>
                         )}
                       </div>

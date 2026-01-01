@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/components/ui/button";
 import { AlertTriangle, MapPin, Clock, ExternalLink } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";

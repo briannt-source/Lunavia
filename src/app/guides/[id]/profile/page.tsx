@@ -374,7 +374,7 @@ export default function GuideProfilePage() {
                       {review.comment && (
                         <div className="mt-3 p-3 bg-slate-50 rounded-lg">
                           <p className="text-sm text-slate-700 leading-relaxed">
-                            "{review.comment}"
+                            &quot;{review.comment}&quot;
                           </p>
                         </div>
                       )}

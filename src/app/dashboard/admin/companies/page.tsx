@@ -47,7 +47,7 @@ export default async function AdminCompaniesPage({
   const companies = await prisma.company.findMany({
     where,
     include: {
-      owner: {
+      operator: {
         include: {
           profile: true,
         },
@@ -104,10 +104,10 @@ export default async function AdminCompaniesPage({
                               <span>{company.email}</span>
                             </div>
                           )}
-                          {company.phone && (
+                          {company.operator.profile?.phone && (
                             <div className="flex items-center gap-2">
                               <Phone className="h-4 w-4" />
-                              <span>{company.phone}</span>
+                              <span>{company.operator.profile.phone}</span>
                             </div>
                           )}
                           {company.address && (
@@ -126,7 +126,7 @@ export default async function AdminCompaniesPage({
                           <div>
                             <p className="text-sm font-medium text-slate-700">Chủ sở hữu:</p>
                             <p className="text-sm text-slate-600">
-                              {company.owner.profile?.name || company.owner.email}
+                              {company.operator.profile?.name || company.operator.email}
                             </p>
                           </div>
                           {company.members.length > 0 && (

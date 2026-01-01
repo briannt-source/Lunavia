@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/components/ui/button";
 import { AlertTriangle, MapPin, Clock } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatDate } from "@/lib/utils";

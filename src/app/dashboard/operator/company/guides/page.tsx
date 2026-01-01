@@ -75,7 +75,7 @@ export default function CompanyGuidesPage() {
 
   // Update guide mutation
   const updateGuideMutation = useMutation({
-    mutationFn: (data: { guideId: string; companyEmail?: string; status?: string }) =>
+    mutationFn: (data: { guideId: string; companyEmail?: string; status?: string; employmentContractUrl?: string }) =>
       api.companies.updateGuide(companyId!, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });

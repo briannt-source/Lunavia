@@ -249,8 +249,9 @@ export default function AvailabilityPage() {
                     const isToday = dateStr === todayStr;
 
                     let dayStatus = currentStatus;
-                    if (availability?.slots?.[0]?.status) {
-                      dayStatus = availability.slots[0].status;
+                    const avail = availability as any;
+                    if (avail?.slots && Array.isArray(avail.slots) && avail.slots[0]?.status) {
+                      dayStatus = avail.slots[0].status;
                     }
 
                     return (

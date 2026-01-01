@@ -25,11 +25,19 @@ export async function POST(
 
     const { id: reportId } = await params;
 
-    // Get report
+    // Get report with wallets
     const report = await prisma.tourReport.findUnique({
       where: { id: reportId },
       include: {
-        tour: true,
+        tour: {
+          include: {
+            operator: {
+              include: {
+                wallet: true,
+              },
+            },
+          },
+        },
         guide: {
           include: {
             wallet: true,
@@ -74,14 +82,24 @@ export async function POST(
     });
 
     // Create payment record for notification
+    // Note: WalletService.transfer already creates the payment, but we need it for notification
+    // Get the payment created by WalletService or create a reference
+    if (!report.tour.operator.wallet || !report.guide.wallet) {
+      return NextResponse.json(
+        { error: "Wallets not found" },
+        { status: 500 }
+      );
+    }
+
     const payment = await prisma.payment.create({
       data: {
-        fromUserId: session.user.id,
-        toUserId: report.guideId,
-        amount: report.paymentRequestAmount,
-        type: "TOUR_PAYMENT",
+        fromWalletId: report.tour.operator.wallet.id,
+        toWalletId: report.guide.wallet.id,
+        amount: report.paymentRequestAmount || 0,
+        platformFee: 0,
+        netAmount: report.paymentRequestAmount || 0,
+        status: "COMPLETED",
         tourId: report.tourId,
-        description: `Thanh toán cho tour "${report.tour.title}"`,
       },
     });
 

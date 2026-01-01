@@ -18,17 +18,15 @@ export async function PUT(
     }
 
     // Check if user is admin or moderator
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-    });
+    // Check session role first (from JWT)
+    const sessionRole = session.user.role as string;
+    const isSessionAdmin = sessionRole?.startsWith("ADMIN_") || 
+      sessionRole === "SUPER_ADMIN" || 
+      sessionRole === "MODERATOR" || 
+      sessionRole === "SUPPORT_STAFF";
 
-    const isAdmin =
-      user?.role === "SUPER_ADMIN" ||
-      user?.role === "MODERATOR" ||
-      user?.role === "SUPPORT_STAFF";
-
-    if (!isAdmin) {
-      // Check if user is AdminUser
+    if (!isSessionAdmin) {
+      // Check if user is AdminUser in database
       const adminUser = await prisma.adminUser.findUnique({
         where: { id: session.user.id },
       });

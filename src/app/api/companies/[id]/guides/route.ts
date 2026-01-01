@@ -138,7 +138,7 @@ export async function PUT(
 
     const { id: companyId } = await params;
     const body = await req.json();
-    const { guideId, companyEmail, status } = body;
+    const { guideId, companyEmail, status, employmentContractUrl } = body;
 
     if (!guideId) {
       return NextResponse.json(

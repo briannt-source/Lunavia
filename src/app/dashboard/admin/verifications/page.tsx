@@ -195,9 +195,9 @@ export default async function AdminVerificationsPage({
                           {verification.user.role.replace(/_/g, " ")}
                         </span>
                         <span>Nộp: {formatDateTime(verification.createdAt)}</span>
-                        {verification.reviewedAt && (
+                        {verification.status !== "PENDING" && verification.updatedAt && (
                           <span>
-                            Duyệt: {formatDateTime(verification.reviewedAt)}
+                            {verification.status === "APPROVED" ? "Duyệt" : "Từ chối"}: {formatDateTime(verification.updatedAt)}
                           </span>
                         )}
                       </div>

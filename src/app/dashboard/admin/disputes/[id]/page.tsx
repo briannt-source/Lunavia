@@ -162,11 +162,11 @@ export default function DisputeDetailPage() {
                   <p className="mt-1">{formatDateTime(dispute.resolvedAt)}</p>
                 </div>
               )}
-              {dispute.amountRefunded && (
+              {dispute.resolutionAmount && (
                 <div>
                   <Label className="text-sm font-medium text-slate-500">Số tiền hoàn</Label>
                   <p className="mt-1 text-lg font-bold text-emerald-600">
-                    {formatVND(dispute.amountRefunded)}
+                    {formatVND(dispute.resolutionAmount || 0)}
                   </p>
                 </div>
               )}
