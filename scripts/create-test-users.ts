@@ -90,7 +90,7 @@ async function createTestUsers() {
   
   const moderator = await prisma.adminUser.upsert({
     where: { email: 'mod@lunavia.test' },
-    update:Đi{},
+    update: {},
     create: {
       email: 'mod@lunavia.test',
       password: modPassword,
