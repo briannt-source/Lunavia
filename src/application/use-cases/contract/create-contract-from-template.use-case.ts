@@ -1,5 +1,6 @@
 import { ContractService } from "@/domain/services/contract.service";
 import { NotificationService } from "@/domain/services/notification.service";
+import { prisma } from "@/lib/prisma";
 
 export interface CreateContractFromTemplateInput {
   operatorId: string;
