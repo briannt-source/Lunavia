@@ -2,6 +2,17 @@
 
 ## Lỗi: "Application error: a server-side exception has occurred"
 
+### 🔍 Triệu chứng thường gặp:
+- ✅ `/auth/signin` → vào được
+- ✅ `/auth/register` → vào được  
+- ❌ `/` (homepage) → Application error (server-side exception)
+
+**Nguyên nhân:** Homepage gọi `getServerSession()` cần database connection. Nếu database chưa có migrations hoặc connection không thành công → lỗi.
+
+**Đã fix:** Homepage giờ có error handling, sẽ hiển thị public page ngay cả khi database chưa sẵn sàng.
+
+**Nhưng vẫn cần:** Chạy database migrations để app hoạt động đầy đủ.
+
 ### ✅ Checklist Kiểm Tra
 
 #### 1. Environment Variables (QUAN TRỌNG NHẤT)
