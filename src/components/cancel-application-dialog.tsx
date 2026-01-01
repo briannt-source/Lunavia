@@ -90,7 +90,7 @@ export function CancelApplicationDialog({
             Hủy ứng tuyển
           </DialogTitle>
           <DialogDescription>
-            Bạn có chắc muốn hủy ứng tuyển cho tour "{tourTitle}"?
+            Bạn có chắc muốn hủy ứng tuyển cho tour {'"'}{tourTitle}{'"'}?
           </DialogDescription>
         </DialogHeader>
 
