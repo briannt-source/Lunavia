@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   MapPin,
   Users,
@@ -41,7 +41,7 @@ export default function UserLoginPage5() {
       <aside className="w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark flex-col hidden lg:flex z-20">
         <div className="h-16 flex items-center px-6 border-b border-slate-100 dark:border-border-dark">
           <div className="flex items-center gap-2 text-primary font-bold text-xl">
-            <TravelExplore className="h-6 w-6 fill-current" />
+            <Globe className="h-6 w-6 fill-current" />
             <span>TourPortal</span>
           </div>
         </div>
@@ -420,4 +420,6 @@ export default function UserLoginPage5() {
     </div>
   );
 }
+
+
 

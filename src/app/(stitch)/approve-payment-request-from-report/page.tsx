@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Bell,
   Settings,
+  AlertTriangle,
   Search,
   Verified,
   Users,
@@ -19,14 +20,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ApprovePaymentRequestFromReportPage() {
@@ -36,7 +29,7 @@ export default function ApprovePaymentRequestFromReportPage() {
       <header className="flex shrink-0 items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#283039] bg-white dark:bg-[#111418] px-6 py-3 z-20">
         <div className="flex items-center gap-4">
           <div className="size-8 text-primary">
-            <TravelExplore className="h-8 w-8" />
+            <Globe className="h-8 w-8" />
           </div>
           <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight">
             VietTour Admin
@@ -335,53 +328,53 @@ export default function ApprovePaymentRequestFromReportPage() {
                     Chi tiết yêu cầu thanh toán
                   </h3>
                 </div>
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-slate-50 dark:bg-[#283039] hover:bg-slate-50 dark:hover:bg-[#283039]">
-                      <TableHead className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">
+                <table className="w-full text-sm text-left">
+                  <ther>
+                    <tr className="bg-slate-50 dark:bg-[#283039] hover:bg-slate-50 dark:hover:bg-[#283039]">
+                      <th className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">
                         Hạng mục
-                      </TableHead>
-                      <TableHead className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">
+                      </th>
+                      <th className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9]">
                         Diễn giải
-                      </TableHead>
-                      <TableHead className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9] text-right">
+                      </th>
+                      <th className="px-6 py-3 font-medium text-slate-500 dark:text-[#9dabb9] text-right">
                         Số tiền (VND)
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="divide-y divide-slate-100 dark:divide-[#283039] text-slate-700 dark:text-slate-300">
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-[#232d36]">
-                      <TableCell className="px-6 py-4">Công tác phí HDV</TableCell>
-                      <TableCell className="px-6 py-4">Theo hợp đồng (2 ngày)</TableCell>
-                      <TableCell className="px-6 py-4 text-right tabular-nums">3.000.000 ₫</TableCell>
-                    </TableRow>
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-[#232d36]">
-                      <TableCell className="px-6 py-4">Phụ cấp ăn uống</TableCell>
-                      <TableCell className="px-6 py-4">4 bữa chính</TableCell>
-                      <TableCell className="px-6 py-4 text-right tabular-nums">1.000.000 ₫</TableCell>
-                    </TableRow>
-                    <TableRow className="bg-amber-50/50 dark:bg-amber-900/5 hover:bg-amber-50 dark:hover:bg-amber-900/10">
-                      <TableCell className="px-6 py-4 font-medium text-amber-700 dark:text-amber-400 flex items-center gap-2">
+                      </th>
+                    </tr>
+                  </ther>
+                  <tbody className="divide-y divide-slate-100 dark:divide-[#283039] text-slate-700 dark:text-slate-300">
+                    <tr className="hover:bg-slate-50 dark:hover:bg-[#232d36]">
+                      <td className="px-6 py-4">Công tác phí HDV</td>
+                      <td className="px-6 py-4">Theo hợp đồng (2 ngày)</td>
+                      <td className="px-6 py-4 text-right tabular-nums">3.000.000 ₫</td>
+                    </tr>
+                    <tr className="hover:bg-slate-50 dark:hover:bg-[#232d36]">
+                      <td className="px-6 py-4">Phụ cấp ăn uống</td>
+                      <td className="px-6 py-4">4 bữa chính</td>
+                      <td className="px-6 py-4 text-right tabular-nums">1.000.000 ₫</td>
+                    </tr>
+                    <tr className="bg-amber-50/50 dark:bg-amber-900/5 hover:bg-amber-50 dark:hover:bg-amber-900/10">
+                      <td className="px-6 py-4 font-medium text-amber-700 dark:text-amber-400 flex items-center gap-2">
                         <Receipt className="h-4 w-4" />
                         Phát sinh vé thăm quan
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-amber-700 dark:text-amber-400">
+                      </td>
+                      <td className="px-6 py-4 text-amber-700 dark:text-amber-400">
                         Vé đảo Ti Tốp (Có hóa đơn đính kèm)
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-right font-medium text-amber-700 dark:text-amber-400 tabular-nums">
+                      </td>
+                      <td className="px-6 py-4 text-right font-medium text-amber-700 dark:text-amber-400 tabular-nums">
                         500.000 ₫
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className="bg-slate-50 dark:bg-[#283039] font-bold text-base">
-                      <TableCell className="px-6 py-4 text-slate-900 dark:text-white" colSpan={2}>
+                      </td>
+                    </tr>
+                    <tr className="bg-slate-50 dark:bg-[#283039] font-bold text-base">
+                      <td className="px-6 py-4 text-slate-900 dark:text-white" colSpan={2}>
                         Tổng cộng
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-right text-primary tabular-nums">
+                      </td>
+                      <td className="px-6 py-4 text-right text-primary tabular-nums">
                         4.500.000 ₫
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
               {/* Attachments Gallery */}
@@ -471,4 +464,7 @@ export default function ApprovePaymentRequestFromReportPage() {
     </div>
   );
 }
+
+
+
 

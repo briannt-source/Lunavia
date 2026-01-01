@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   Users,
   FileText,
@@ -31,7 +31,7 @@ export default function AiChatAssistantInterfacePage() {
       {/* Left Sidebar (Main App Navigation) */}
       <div className="hidden md:flex w-20 flex-col items-center border-r border-gray-200 dark:border-gray-800 bg-surface-light dark:bg-surface-dark py-6 flex-shrink-0">
         <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
-          <TravelExplore className="h-6 w-6" />
+          <Globe className="h-6 w-6" />
         </div>
         <nav className="flex flex-col gap-6 w-full items-center">
           <Button
@@ -451,4 +451,5 @@ export default function AiChatAssistantInterfacePage() {
     </div>
   );
 }
+
 

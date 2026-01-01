@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Search,
   Bell,
   Calendar,
@@ -36,7 +36,7 @@ export default function MyAssignmentsPageGuideView() {
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-3 text-[#111418] dark:text-white">
               <div className="size-6 text-primary">
-                <TravelExplore className="h-6 w-6" />
+                <Globe className="h-6 w-6" />
               </div>
               <h2 className="text-lg font-bold leading-tight">Tour Guide Portal</h2>
             </div>
@@ -549,4 +549,5 @@ export default function MyAssignmentsPageGuideView() {
     </div>
   );
 }
+
 

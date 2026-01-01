@@ -24,15 +24,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
 export default function MyToursParticipatingPageGuideView() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display antialiased overflow-hidden">
@@ -259,33 +250,33 @@ export default function MyToursParticipatingPageGuideView() {
               {/* Tour Table/List */}
               <div className="bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-[#2a3846] rounded-xl shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-[#f9fafb] dark:bg-[#202d3a] border-b border-[#dbe0e6] dark:border-[#2a3846] hover:bg-[#f9fafb] dark:hover:bg-[#202d3a]">
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400 w-[350px]">
+                  <table className="w-full text-sm text-left">
+                    <ther>
+                      <tr className="bg-[#f9fafb] dark:bg-[#202d3a] border-b border-[#dbe0e6] dark:border-[#2a3846] hover:bg-[#f9fafb] dark:hover:bg-[#202d3a]">
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400 w-[350px]">
                           Thông tin Tour
-                        </TableHead>
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
+                        </th>
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
                           Đơn vị tổ chức
-                        </TableHead>
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
+                        </th>
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
                           Thời gian
-                        </TableHead>
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
+                        </th>
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
                           Vai trò
-                        </TableHead>
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
+                        </th>
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400">
                           Trạng thái
-                        </TableHead>
-                        <TableHead className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400 text-right">
+                        </th>
+                        <th className="p-4 text-xs font-bold uppercase tracking-wider text-[#617589] dark:text-slate-400 text-right">
                           Hành động
-                        </TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody className="divide-y divide-[#dbe0e6] dark:divide-[#2a3846]">
+                        </th>
+                      </tr>
+                    </ther>
+                    <tbody className="divide-y divide-[#dbe0e6] dark:divide-[#2a3846]">
                       {/* Row 1: Active */}
-                      <TableRow className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
-                        <TableCell className="p-4">
+                      <tr className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
+                        <td className="p-4">
                           <div className="flex gap-3">
                             <div className="relative w-16 h-12 rounded-lg shrink-0 overflow-hidden">
                               <Image
@@ -302,47 +293,47 @@ export default function MyToursParticipatingPageGuideView() {
                               <span className="text-xs text-[#617589] dark:text-slate-400">Mã: HN-001</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Building2 className="h-[18px] w-[18px] text-[#617589]" />
                             <span className="text-sm font-medium text-[#111418] dark:text-white">
                               Hanoi Travel Co.
                             </span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex flex-col">
                             <span className="text-sm font-medium text-[#111418] dark:text-white">
                               15/05 - 18/05/2024
                             </span>
                             <span className="text-xs text-[#617589] dark:text-slate-400">4 ngày 3 đêm</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800">
                             <span className="size-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
                             HDV Chính
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800">
                             Đang diễn ra
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4 text-right">
+                        </td>
+                        <td className="p-4 text-right">
                           <Button
                             variant="outline"
                             className="inline-flex items-center justify-center px-3 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg text-xs font-bold transition-all"
                           >
                             Xem chi tiết
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
 
                       {/* Row 2: Active */}
-                      <TableRow className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
-                        <TableCell className="p-4">
+                      <tr className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
+                        <td className="p-4">
                           <div className="flex gap-3">
                             <div className="relative w-16 h-12 rounded-lg shrink-0 overflow-hidden">
                               <Image
@@ -359,47 +350,47 @@ export default function MyToursParticipatingPageGuideView() {
                               <span className="text-xs text-[#617589] dark:text-slate-400">Mã: HL-203</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Building2 className="h-[18px] w-[18px] text-[#617589]" />
                             <span className="text-sm font-medium text-[#111418] dark:text-white">
                               Ocean Blue Tours
                             </span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex flex-col">
                             <span className="text-sm font-medium text-[#111418] dark:text-white">
                               16/05 - 17/05/2024
                             </span>
                             <span className="text-xs text-[#617589] dark:text-slate-400">2 ngày 1 đêm</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800">
                             <span className="size-1.5 rounded-full bg-cyan-600 dark:bg-cyan-400"></span>
                             HDV Phụ
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800">
                             Đang diễn ra
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4 text-right">
+                        </td>
+                        <td className="p-4 text-right">
                           <Button
                             variant="outline"
                             className="inline-flex items-center justify-center px-3 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg text-xs font-bold transition-all"
                           >
                             Xem chi tiết
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
 
                       {/* Row 3: Upcoming */}
-                      <TableRow className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
-                        <TableCell className="p-4">
+                      <tr className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
+                        <td className="p-4">
                           <div className="flex gap-3">
                             <div className="relative w-16 h-12 rounded-lg shrink-0 overflow-hidden">
                               <Image
@@ -416,45 +407,45 @@ export default function MyToursParticipatingPageGuideView() {
                               <span className="text-xs text-[#617589] dark:text-slate-400">Mã: DN-099</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Building2 className="h-[18px] w-[18px] text-[#617589]" />
                             <span className="text-sm font-medium text-[#111418] dark:text-white">Viet Heritage</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex flex-col">
                             <span className="text-sm font-medium text-[#111418] dark:text-white">
                               25/05 - 28/05/2024
                             </span>
                             <span className="text-xs text-[#617589] dark:text-slate-400">4 ngày 3 đêm</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800">
                             <span className="size-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
                             HDV Chính
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 border border-orange-100 dark:border-orange-800">
                             Sắp tới
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4 text-right">
+                        </td>
+                        <td className="p-4 text-right">
                           <Button
                             variant="outline"
                             className="inline-flex items-center justify-center px-3 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg text-xs font-bold transition-all"
                           >
                             Xem chi tiết
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
 
                       {/* Row 4: Completed */}
-                      <TableRow className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
-                        <TableCell className="p-4">
+                      <tr className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
+                        <td className="p-4">
                           <div className="flex gap-3">
                             <div className="relative w-16 h-12 rounded-lg shrink-0 overflow-hidden grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
                               <Image
@@ -471,45 +462,45 @@ export default function MyToursParticipatingPageGuideView() {
                               <span className="text-xs text-[#617589] dark:text-slate-400">Mã: NB-101</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Building2 className="h-[18px] w-[18px] text-[#617589]" />
                             <span className="text-sm font-medium text-[#617589] dark:text-slate-400">
                               Explore Vietnam
                             </span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex flex-col">
                             <span className="text-sm font-medium text-[#617589] dark:text-slate-400">10/05/2024</span>
                             <span className="text-xs text-[#617589] dark:text-slate-400">1 ngày</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 opacity-75">
                             <span className="size-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
                             HDV Chính
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-700/50 dark:text-slate-400 border border-slate-200 dark:border-slate-600">
                             Hoàn thành
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4 text-right">
+                        </td>
+                        <td className="p-4 text-right">
                           <Button
                             variant="outline"
                             className="inline-flex items-center justify-center px-3 py-1.5 bg-[#f0f2f4] dark:bg-[#2a3846] text-[#111418] dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg text-xs font-bold transition-all"
                           >
                             Xem lại
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
 
                       {/* Row 5: Cancelled */}
-                      <TableRow className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
-                        <TableCell className="p-4">
+                      <tr className="group hover:bg-[#f6f7f8] dark:hover:bg-[#202d3a] transition-colors">
+                        <td className="p-4">
                           <div className="flex gap-3">
                             <div className="relative w-16 h-12 rounded-lg shrink-0 overflow-hidden grayscale opacity-80">
                               <Image
@@ -526,45 +517,45 @@ export default function MyToursParticipatingPageGuideView() {
                               <span className="text-xs text-[#617589] dark:text-slate-400">Mã: SP-055</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Building2 className="h-[18px] w-[18px] text-[#617589]" />
                             <span className="text-sm font-medium text-[#617589] dark:text-slate-400">
                               Highland Tours
                             </span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <div className="flex flex-col">
                             <span className="text-sm font-medium text-[#617589] dark:text-slate-400">
                               01/05 - 03/05/2024
                             </span>
                             <span className="text-xs text-[#617589] dark:text-slate-400">3 ngày 2 đêm</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800 opacity-75">
                             <span className="size-1.5 rounded-full bg-cyan-600 dark:bg-cyan-400"></span>
                             HDV Phụ
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4">
+                        </td>
+                        <td className="p-4">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300 border border-red-100 dark:border-red-800">
                             Đã hủy
                           </span>
-                        </TableCell>
-                        <TableCell className="p-4 text-right">
+                        </td>
+                        <td className="p-4 text-right">
                           <Button
                             variant="outline"
                             className="inline-flex items-center justify-center px-3 py-1.5 bg-[#f0f2f4] dark:bg-[#2a3846] text-[#111418] dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg text-xs font-bold transition-all"
                           >
                             Chi tiết
                           </Button>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 {/* Pagination */}
                 <div className="flex items-center justify-between px-4 py-3 border-t border-[#dbe0e6] dark:border-[#2a3846] bg-[#f9fafb] dark:bg-[#202d3a]">

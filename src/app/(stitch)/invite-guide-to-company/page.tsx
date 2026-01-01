@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   MapPin,
   Users,
@@ -24,14 +24,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function InviteGuideToCompanyPage() {
   return (
@@ -125,7 +117,7 @@ export default function InviteGuideToCompanyPage() {
           <div className="flex items-center gap-4 text-white">
             <div className="flex items-center gap-2">
               <div className="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
-                <TravelExplore className="h-5 w-5" />
+                <Globe className="h-5 w-5" />
               </div>
               <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">
                 TourConnect B2B
@@ -272,20 +264,20 @@ export default function InviteGuideToCompanyPage() {
               </div>
               <div className="rounded-xl border border-border-dark bg-surface-dark overflow-hidden">
                 <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-[#111418] text-text-secondary border-b border-border-dark hover:bg-[#111418]">
-                        <TableHead className="px-6 py-4 font-medium">Hướng Dẫn Viên</TableHead>
-                        <TableHead className="px-6 py-4 font-medium">Phương thức</TableHead>
-                        <TableHead className="px-6 py-4 font-medium">Trạng thái</TableHead>
-                        <TableHead className="px-6 py-4 font-medium">Ngày gửi</TableHead>
-                        <TableHead className="px-6 py-4 font-medium text-right">Thao tác</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody className="divide-y divide-border-dark">
+                  <table className="w-full text-sm text-left">
+                    <ther>
+                      <tr className="bg-[#111418] text-text-secondary border-b border-border-dark hover:bg-[#111418]">
+                        <th className="px-6 py-4 font-medium">Hướng Dẫn Viên</th>
+                        <th className="px-6 py-4 font-medium">Phương thức</th>
+                        <th className="px-6 py-4 font-medium">Trạng thái</th>
+                        <th className="px-6 py-4 font-medium">Ngày gửi</th>
+                        <th className="px-6 py-4 font-medium text-right">Thao tác</th>
+                      </tr>
+                    </ther>
+                    <tbody className="divide-y divide-border-dark">
                       {/* Row 1 */}
-                      <TableRow className="group hover:bg-[#283039] transition-colors">
-                        <TableCell className="px-6 py-4">
+                      <tr className="group hover:bg-[#283039] transition-colors">
+                        <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center font-bold text-xs text-white">
                               NH
@@ -294,21 +286,21 @@ export default function InviteGuideToCompanyPage() {
                               <span className="font-medium">nguyen.huy@example.com</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">
                           <div className="flex items-center gap-1">
                             <Mail className="h-4 w-4" />
                             Email
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4">
+                        </td>
+                        <td className="px-6 py-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
                             <span className="size-1.5 rounded-full bg-yellow-500"></span>
                             Đang chờ
                           </span>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">Hôm nay, 10:30 AM</TableCell>
-                        <TableCell className="px-6 py-4 text-right">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">Hôm nay, 10:30 AM</td>
+                        <td className="px-6 py-4 text-right">
                           <Button
                             variant="ghost"
                             size="icon"
@@ -316,11 +308,11 @@ export default function InviteGuideToCompanyPage() {
                           >
                             <MoreVertical className="h-5 w-5" />
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
                       {/* Row 2 */}
-                      <TableRow className="group hover:bg-[#283039] transition-colors">
-                        <TableCell className="px-6 py-4">
+                      <tr className="group hover:bg-[#283039] transition-colors">
+                        <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="size-8 rounded-full bg-[#3b4754] flex items-center justify-center font-bold text-xs text-text-secondary">
                               <LinkIcon className="h-4 w-4" />
@@ -329,21 +321,21 @@ export default function InviteGuideToCompanyPage() {
                               <span className="font-medium text-text-secondary italic">Chia sẻ qua Zalo</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">
                           <div className="flex items-center gap-1">
                             <LinkIcon className="h-4 w-4" />
                             Link
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4">
+                        </td>
+                        <td className="px-6 py-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20">
                             <CheckCircle2 className="h-3 w-3" />
                             Đã đăng ký
                           </span>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">05 Th5, 2025</TableCell>
-                        <TableCell className="px-6 py-4 text-right">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">05 Th5, 2025</td>
+                        <td className="px-6 py-4 text-right">
                           <Button
                             variant="ghost"
                             size="icon"
@@ -351,11 +343,11 @@ export default function InviteGuideToCompanyPage() {
                           >
                             <MoreVertical className="h-5 w-5" />
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
                       {/* Row 3 */}
-                      <TableRow className="group hover:bg-[#283039] transition-colors">
-                        <TableCell className="px-6 py-4">
+                      <tr className="group hover:bg-[#283039] transition-colors">
+                        <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="size-8 rounded-full bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center font-bold text-xs text-white">
                               TV
@@ -364,28 +356,28 @@ export default function InviteGuideToCompanyPage() {
                               <span className="font-medium">tran.van.b@yahoo.com</span>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">
                           <div className="flex items-center gap-1">
                             <Mail className="h-4 w-4" />
                             Email
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4">
+                        </td>
+                        <td className="px-6 py-4">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-500 border border-red-500/20">
                             <X className="h-3 w-3" />
                             Hết hạn
                           </span>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 text-text-secondary">01 Th5, 2025</TableCell>
-                        <TableCell className="px-6 py-4 text-right">
+                        </td>
+                        <td className="px-6 py-4 text-text-secondary">01 Th5, 2025</td>
+                        <td className="px-6 py-4 text-right">
                           <Button className="text-primary hover:text-blue-300 text-xs font-bold border border-primary/30 rounded px-2 py-1 hover:bg-primary/10">
                             Gửi lại
                           </Button>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div className="p-4 border-t border-border-dark bg-[#111418] flex items-center justify-center">
                   <Button variant="link" className="text-sm text-text-secondary hover:text-white flex items-center gap-1">
@@ -420,4 +412,6 @@ export default function InviteGuideToCompanyPage() {
     </div>
   );
 }
+
+
 

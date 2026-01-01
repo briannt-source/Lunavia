@@ -8,9 +8,7 @@ import {
   Settings,
   Menu,
   Bell,
-  Emergency,
-  Warning,
-  MyLocation,
+  Navigation,
   Upload,
   Shield,
   Phone,
@@ -121,7 +119,7 @@ export default function EmergencySosReportPage1() {
               </Button>
             </div>
             <div className="flex items-center gap-2">
-              <Emergency className="h-7 w-7 text-primary fill-primary" />
+              <AlertTriangle className="h-7 w-7 text-primary fill-primary" />
               <h2 className="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
                 Emergency Reporting System
               </h2>
@@ -143,7 +141,7 @@ export default function EmergencySosReportPage1() {
             <div className="max-w-5xl mx-auto flex flex-col gap-6">
               {/* Warning Banner */}
               <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-primary p-4 rounded-r-lg shadow-sm flex items-start gap-4 animate-pulse">
-                <Warning className="h-6 w-6 text-primary fill-primary mt-0.5" />
+                <AlertTriangle className="h-6 w-6 text-primary fill-primary mt-0.5" />
                 <div>
                   <p className="text-[#181111] dark:text-white font-bold text-base">
                     Yêu cầu hỗ trợ khẩn cấp
@@ -209,7 +207,7 @@ export default function EmergencySosReportPage1() {
                           <label className="cursor-pointer group">
                             <RadioGroupItem value="other" className="peer sr-only" />
                             <div className="h-full flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 border-transparent bg-background-light dark:bg-[#2a1b1b] hover:bg-red-50 dark:hover:bg-red-900/10 peer-checked:border-primary peer-checked:bg-red-50 dark:peer-checked:bg-primary/20 transition-all">
-                              <Warning className="h-8 w-8 text-[#8a6060] dark:text-[#cc8888] peer-checked:text-primary group-hover:text-primary" />
+                              <AlertTriangle className="h-8 w-8 text-[#8a6060] dark:text-[#cc8888] peer-checked:text-primary group-hover:text-primary" />
                               <span className="text-sm font-medium text-center dark:text-gray-200 peer-checked:text-primary">
                                 Khác
                               </span>
@@ -225,7 +223,7 @@ export default function EmergencySosReportPage1() {
                         </Label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <MyLocation className="h-5 w-5 text-primary" />
+                            <Navigation className="h-5 w-5 text-primary" />
                           </div>
                           <Input
                             className="block w-full pl-10 pr-12 py-3 rounded-lg border-gray-200 dark:border-[#3a2020] bg-white dark:bg-[#2a1b1b] text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm"
@@ -277,7 +275,7 @@ export default function EmergencySosReportPage1() {
                       {/* Submit Button */}
                       <div className="pt-4 border-t border-[#f5f0f0] dark:border-[#3a2020] flex flex-col gap-3">
                         <Button className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg shadow-red-500/30 transition-all transform active:scale-[0.99]">
-                          <Emergency className="h-5 w-5 animate-pulse fill-white" />
+                          <AlertTriangle className="h-5 w-5 animate-pulse fill-white" />
                           GỬI BÁO CÁO KHẨN CẤP
                         </Button>
                         <div className="flex items-center justify-center gap-2">
@@ -414,4 +412,6 @@ export default function EmergencySosReportPage1() {
     </div>
   );
 }
+
+
 

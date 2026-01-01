@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   Users,
   MapPin,
@@ -26,14 +26,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function UserLoginPage9() {
   return (
@@ -42,7 +34,7 @@ export default function UserLoginPage9() {
         <div className="p-6 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <div className="bg-primary/10 p-2 rounded-lg text-primary">
-              <TravelExplore className="h-5 w-5" />
+              <Globe className="h-5 w-5" />
             </div>
             <span className="text-lg font-bold tracking-tight">VietTour Admin</span>
           </div>
@@ -416,52 +408,54 @@ export default function UserLoginPage9() {
                 </Link>
               </div>
               <div className="p-4">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                      <TableHead className="px-3 py-2 rounded-l-lg">User</TableHead>
-                      <TableHead className="px-3 py-2">Amount</TableHead>
-                      <TableHead className="px-3 py-2">Method</TableHead>
-                      <TableHead className="px-3 py-2 rounded-r-lg text-right">Action</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                      <TableCell className="px-3 py-3 font-medium text-slate-900 dark:text-white">
-                        Saigon Tourist
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-600 dark:text-slate-300">
-                        50,000,000 ₫
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-500 text-xs">Bank Transfer</TableCell>
-                      <TableCell className="px-3 py-3 text-right">
-                        <Button
-                          variant="outline"
-                          className="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded"
-                        >
-                          Approve
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                      <TableCell className="px-3 py-3 font-medium text-slate-900 dark:text-white">
-                        Hanoi Guides
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-600 dark:text-slate-300">
-                        12,500,000 ₫
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-500 text-xs">Bank Transfer</TableCell>
-                      <TableCell className="px-3 py-3 text-right">
-                        <Button
-                          variant="outline"
-                          className="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded"
-                        >
-                          Approve
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead>
+                      <tr className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <th className="px-3 py-2 rounded-l-lg">User</th>
+                        <th className="px-3 py-2">Amount</th>
+                        <th className="px-3 py-2">Method</th>
+                        <th className="px-3 py-2 rounded-r-lg text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                        <td className="px-3 py-3 font-medium text-slate-900 dark:text-white">
+                          Saigon Tourist
+                        </td>
+                        <td className="px-3 py-3 text-slate-600 dark:text-slate-300">
+                          50,000,000 ₫
+                        </td>
+                        <td className="px-3 py-3 text-slate-500 text-xs">Bank Transfer</td>
+                        <td className="px-3 py-3 text-right">
+                          <Button
+                            variant="outline"
+                            className="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded"
+                          >
+                            Approve
+                          </Button>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                        <td className="px-3 py-3 font-medium text-slate-900 dark:text-white">
+                          Hanoi Guides
+                        </td>
+                        <td className="px-3 py-3 text-slate-600 dark:text-slate-300">
+                          12,500,000 ₫
+                        </td>
+                        <td className="px-3 py-3 text-slate-500 text-xs">Bank Transfer</td>
+                        <td className="px-3 py-3 text-right">
+                          <Button
+                            variant="outline"
+                            className="text-primary hover:text-primary-dark text-xs font-medium border border-primary/20 bg-primary/5 px-2 py-1 rounded"
+                          >
+                            Approve
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </Card>
             <Card className="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -475,52 +469,54 @@ export default function UserLoginPage9() {
                 </Link>
               </div>
               <div className="p-4">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                      <TableHead className="px-3 py-2 rounded-l-lg">User</TableHead>
-                      <TableHead className="px-3 py-2">Amount</TableHead>
-                      <TableHead className="px-3 py-2">Bank</TableHead>
-                      <TableHead className="px-3 py-2 rounded-r-lg text-right">Action</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                      <TableCell className="px-3 py-3 font-medium text-slate-900 dark:text-white">
-                        Le Van Cuong
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-600 dark:text-slate-300">
-                        5,000,000 ₫
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-500 text-xs">VCB ***9921</TableCell>
-                      <TableCell className="px-3 py-3 text-right">
-                        <Button
-                          variant="outline"
-                          className="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded"
-                        >
-                          Process
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                      <TableCell className="px-3 py-3 font-medium text-slate-900 dark:text-white">
-                        Da Nang Travel
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-600 dark:text-slate-300">
-                        22,000,000 ₫
-                      </TableCell>
-                      <TableCell className="px-3 py-3 text-slate-500 text-xs">Techcom ***8812</TableCell>
-                      <TableCell className="px-3 py-3 text-right">
-                        <Button
-                          variant="outline"
-                          className="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded"
-                        >
-                          Process
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead>
+                      <tr className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <th className="px-3 py-2 rounded-l-lg">User</th>
+                        <th className="px-3 py-2">Amount</th>
+                        <th className="px-3 py-2">Bank</th>
+                        <th className="px-3 py-2 rounded-r-lg text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                        <td className="px-3 py-3 font-medium text-slate-900 dark:text-white">
+                          Le Van Cuong
+                        </td>
+                        <td className="px-3 py-3 text-slate-600 dark:text-slate-300">
+                          5,000,000 ₫
+                        </td>
+                        <td className="px-3 py-3 text-slate-500 text-xs">VCB ***9921</td>
+                        <td className="px-3 py-3 text-right">
+                          <Button
+                            variant="outline"
+                            className="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded"
+                          >
+                            Process
+                          </Button>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                        <td className="px-3 py-3 font-medium text-slate-900 dark:text-white">
+                          Da Nang Travel
+                        </td>
+                        <td className="px-3 py-3 text-slate-600 dark:text-slate-300">
+                          22,000,000 ₫
+                        </td>
+                        <td className="px-3 py-3 text-slate-500 text-xs">Techcom ***8812</td>
+                        <td className="px-3 py-3 text-right">
+                          <Button
+                            variant="outline"
+                            className="text-green-600 hover:text-green-700 text-xs font-medium border border-green-200 bg-green-50 px-2 py-1 rounded"
+                          >
+                            Process
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </Card>
           </div>
@@ -536,4 +532,5 @@ export default function UserLoginPage9() {
     </div>
   );
 }
+
 

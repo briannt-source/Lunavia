@@ -29,14 +29,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function MoneyTransfersPage() {
   const [senderAccount, setSenderAccount] = useState("");
@@ -352,24 +344,24 @@ export default function MoneyTransfersPage() {
 
                 <Card className="overflow-hidden flex flex-col h-full">
                   <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader className="bg-[#f8f9fc]">
-                        <TableRow>
-                          <TableHead className="uppercase tracking-wider">Giao dịch</TableHead>
-                          <TableHead className="uppercase tracking-wider">Người gửi</TableHead>
-                          <TableHead className="uppercase tracking-wider">Người nhận</TableHead>
-                          <TableHead className="text-right uppercase tracking-wider">Số tiền (VND)</TableHead>
-                          <TableHead className="text-center uppercase tracking-wider">Trạng thái</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
+                    <table className="w-full text-sm text-left">
+                      <thead className="bg-[#f8f9fc]">
+                        <tr>
+                          <th className="uppercase tracking-wider">Giao dịch</th>
+                          <th className="uppercase tracking-wider">Người gửi</th>
+                          <th className="uppercase tracking-wider">Người nhận</th>
+                          <th className="text-right uppercase tracking-wider">Số tiền (VND)</th>
+                          <th className="text-center uppercase tracking-wider">Trạng thái</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                         {transactions.map((tx) => (
-                          <TableRow key={tx.id} className="hover:bg-gray-50">
-                            <TableCell className="whitespace-nowrap">
+                          <tr key={tx.id} className="hover:bg-gray-50">
+                            <td className="whitespace-nowrap">
                               <div className="text-sm font-bold text-[#111318]">{tx.id}</div>
                               <div className="text-xs text-[#606e8a] mt-0.5">{tx.date}</div>
-                            </TableCell>
-                            <TableCell className="whitespace-nowrap">
+                            </td>
+                            <td className="whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="size-8 rounded bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 mr-3 shrink-0">
                                   {tx.sender.initials}
@@ -384,8 +376,8 @@ export default function MoneyTransfersPage() {
                                   )}
                                 </div>
                               </div>
-                            </TableCell>
-                            <TableCell className="whitespace-nowrap">
+                            </td>
+                            <td className="whitespace-nowrap">
                               <div className="flex items-center">
                                 {tx.receiver.avatar ? (
                                   <div className="relative size-8 rounded-full overflow-hidden mr-3 shrink-0 border border-gray-200">
@@ -411,12 +403,12 @@ export default function MoneyTransfersPage() {
                                   )}
                                 </div>
                               </div>
-                            </TableCell>
-                            <TableCell className="whitespace-nowrap text-right">
+                            </td>
+                            <td className="whitespace-nowrap text-right">
                               <div className="text-sm font-bold text-[#111318]">{tx.amount}</div>
                               <div className="text-[10px] text-[#606e8a]">{tx.description}</div>
-                            </TableCell>
-                            <TableCell className="whitespace-nowrap text-center">
+                            </td>
+                            <td className="whitespace-nowrap text-center">
                               <Badge
                                 variant={
                                   tx.status === "completed"
@@ -439,11 +431,11 @@ export default function MoneyTransfersPage() {
                                   ? "Đang xử lý"
                                   : "Thất bại"}
                               </Badge>
-                            </TableCell>
-                          </TableRow>
+                            </td>
+                          </tr>
                         ))}
-                      </TableBody>
-                    </Table>
+                  </tbody>
+                </table>
                   </div>
                   <div className="px-6 py-4 border-t border-[#e5e7eb] flex items-center justify-between bg-white mt-auto">
                     <p className="text-sm text-[#606e8a]">
@@ -480,4 +472,5 @@ export default function MoneyTransfersPage() {
     </div>
   );
 }
+
 

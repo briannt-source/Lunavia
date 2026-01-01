@@ -13,7 +13,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  LocationOn,
 } from "lucide-react";
 
 export default function BrowseToursPageGuide() {
@@ -108,7 +107,7 @@ export default function BrowseToursPageGuide() {
                 Lọc theo:
               </span>
               <button className="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg border border-[#e5e7eb] bg-white hover:bg-gray-50 px-4 transition-all dark:bg-[#232F3E] dark:border-gray-600 dark:hover:bg-gray-700">
-                <LocationOn className="w-5 h-5 text-[#617589] dark:text-gray-400" />
+                <MapPin className="w-5 h-5 text-[#617589] dark:text-gray-400" />
                 <p className="text-[#111418] text-sm font-medium leading-normal dark:text-gray-200">
                   Thành phố
                 </p>
@@ -211,7 +210,7 @@ export default function BrowseToursPageGuide() {
                     <span>3 Days 2 Nights</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <LocationOn className="w-[18px] h-[18px]" />
+                    <MapPin className="w-[18px] h-[18px]" />
                     <span>Hanoi {'&'} Ha Long</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -299,7 +298,7 @@ export default function BrowseToursPageGuide() {
                     <span>4 Hours (18:00 - 22:00)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <LocationOn className="w-[18px] h-[18px]" />
+                    <MapPin className="w-[18px] h-[18px]" />
                     <span>Ho Chi Minh City</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -380,7 +379,7 @@ export default function BrowseToursPageGuide() {
                     <span>1 Day</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <LocationOn className="w-[18px] h-[18px]" />
+                    <MapPin className="w-[18px] h-[18px]" />
                     <span>Da Nang</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -468,7 +467,7 @@ export default function BrowseToursPageGuide() {
                     <span>2 Days 1 Night</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <LocationOn className="w-[18px] h-[18px]" />
+                    <MapPin className="w-[18px] h-[18px]" />
                     <span>Lao Cai, Sapa</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -527,4 +526,5 @@ export default function BrowseToursPageGuide() {
     </div>
   );
 }
+
 

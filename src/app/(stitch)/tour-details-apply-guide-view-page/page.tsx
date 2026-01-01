@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Bell,
   Search,
   MapPin,
@@ -46,7 +46,7 @@ export default function TourDetailsApplyGuideViewPage() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-4 text-[#111418] dark:text-white">
             <div className="size-8 text-primary">
-              <TravelExplore className="h-8 w-8" />
+              <Globe className="h-8 w-8" />
             </div>
             <h2 className="text-lg font-bold leading-tight tracking-[-0.015em]">TourConnect</h2>
           </div>
@@ -494,4 +494,5 @@ export default function TourDetailsApplyGuideViewPage() {
     </div>
   );
 }
+
 

@@ -35,14 +35,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function UserManagementPageAdminView3() {
   const [selectedTour, setSelectedTour] = useState<number | null>(0);
@@ -309,27 +301,27 @@ export default function UserManagementPageAdminView3() {
 
             <Card className="overflow-hidden">
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader className="bg-[#f8f9fc]">
-                    <TableRow>
-                      <TableHead className="w-1/3">Thông tin Tour</TableHead>
-                      <TableHead>Operator</TableHead>
-                      <TableHead>Địa điểm</TableHead>
-                      <TableHead>Ngày đi - Về</TableHead>
-                      <TableHead>Trạng thái</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+                <table className="w-full text-sm text-left">
+                  <ther className="bg-[#f8f9fc]">
+                    <tr>
+                      <th className="w-1/3">Thông tin Tour</th>
+                      <th>Operator</th>
+                      <th>Địa điểm</th>
+                      <th>Ngày đi - Về</th>
+                      <th>Trạng thái</th>
+                      <th className="text-right">Actions</th>
+                    </tr>
+                  </ther>
+                  <tbody>
                     {tours.map((tour) => (
-                      <TableRow
+                      <tr
                         key={tour.id}
                         className={`cursor-pointer ${
                           selectedTour === tour.id ? "bg-blue-50/30 border-l-4 border-l-blue-500" : ""
                         }`}
                         onClick={() => setSelectedTour(tour.id)}
                       >
-                        <TableCell>
+                        <td>
                           <div className="flex items-start">
                             <div className="relative h-12 w-16 flex-shrink-0 rounded-lg overflow-hidden border border-gray-100">
                               <Image src={tour.thumbnail} alt={tour.title} fill className="object-cover" />
@@ -339,21 +331,21 @@ export default function UserManagementPageAdminView3() {
                               <div className="text-xs text-[#606e8a] mt-0.5">{tour.code}</div>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <div className="flex items-center">
                             <div className="relative size-6 rounded-full overflow-hidden">
                               <Image src={tour.operatorAvatar} alt={tour.operator} fill className="object-cover" />
                             </div>
                             <span className="text-sm text-[#111318] font-medium ml-2">{tour.operator}</span>
                           </div>
-                        </TableCell>
-                        <TableCell className="text-sm text-[#606e8a]">{tour.location}</TableCell>
-                        <TableCell>
+                        </td>
+                        <td className="text-sm text-[#606e8a]">{tour.location}</td>
+                        <td>
                           <div className="text-sm text-[#111318]">{tour.startDate}</div>
                           <div className="text-xs text-[#606e8a]">{tour.duration}</div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <Badge
                             className={
                               tour.status === "OPEN"
@@ -375,16 +367,16 @@ export default function UserManagementPageAdminView3() {
                             )}
                             {tour.status}
                           </Badge>
-                        </TableCell>
-                        <TableCell className="text-right">
+                        </td>
+                        <td className="text-right">
                           <Button variant="ghost" size="icon">
                             <Eye className="h-4 w-4" />
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
                     ))}
-                  </TableBody>
-                </Table>
+                  </tbody>
+                </table>
               </div>
               <div className="px-6 py-4 border-t border-[#e5e7eb] flex items-center justify-between bg-white">
                 <p className="text-sm text-[#606e8a]">
@@ -565,4 +557,7 @@ export default function UserManagementPageAdminView3() {
     </div>
   );
 }
+
+
+
 

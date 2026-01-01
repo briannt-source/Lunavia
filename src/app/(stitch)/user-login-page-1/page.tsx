@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   MapPin,
   Users,
@@ -28,14 +28,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function UserLoginPage1() {
@@ -44,7 +36,7 @@ export default function UserLoginPage1() {
       <aside className="w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark flex-col hidden lg:flex z-20">
         <div className="h-16 flex items-center px-6 border-b border-slate-100 dark:border-border-dark">
           <div className="flex items-center gap-2 text-primary font-bold text-xl">
-            <TravelExplore className="h-6 w-6 fill-current" />
+            <Globe className="h-6 w-6 fill-current" />
             <span>TourPortal</span>
           </div>
         </div>
@@ -353,25 +345,25 @@ export default function UserLoginPage1() {
                 </Link>
               </div>
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-slate-50 dark:bg-background-dark text-slate-500 dark:text-slate-400 font-medium">
-                      <TableHead className="px-6 py-4">Tour Name</TableHead>
-                      <TableHead className="px-6 py-4">Guide Name</TableHead>
-                      <TableHead className="px-6 py-4">Applied Date</TableHead>
-                      <TableHead className="px-6 py-4">Status</TableHead>
-                      <TableHead className="px-6 py-4 text-right">Action</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="divide-y divide-slate-200 dark:divide-border-dark">
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                      <TableCell className="px-6 py-4">
+                <table className="w-full text-sm text-left">
+                  <ther>
+                    <tr className="bg-slate-50 dark:bg-background-dark text-slate-500 dark:text-slate-400 font-medium">
+                      <th className="px-6 py-4">Tour Name</th>
+                      <th className="px-6 py-4">Guide Name</th>
+                      <th className="px-6 py-4">Applied Date</th>
+                      <th className="px-6 py-4">Status</th>
+                      <th className="px-6 py-4 text-right">Action</th>
+                    </tr>
+                  </ther>
+                  <tbody className="divide-y divide-slate-200 dark:divide-border-dark">
+                    <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                      <td className="px-6 py-4">
                         <div className="font-medium text-slate-900 dark:text-white">
                           Ha Long Bay Discovery - 3D2N
                         </div>
                         <div className="text-xs text-slate-500">ID: #T-8832</div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-medium text-slate-600 dark:text-slate-300">
                             NH
@@ -383,17 +375,17 @@ export default function UserLoginPage1() {
                             <div className="text-xs text-slate-500">English, French</div>
                           </div>
                         </div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                      </td>
+                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                         Oct 24, 2023
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border border-orange-100 dark:border-orange-900/50">
                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                           Pending Review
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-right">
+                      </td>
+                      <td className="px-6 py-4 text-right">
                         <Button
                           variant="ghost"
                           size="icon"
@@ -408,16 +400,16 @@ export default function UserLoginPage1() {
                         >
                           <CheckCircle className="h-5 w-5" />
                         </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                      <TableCell className="px-6 py-4">
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                      <td className="px-6 py-4">
                         <div className="font-medium text-slate-900 dark:text-white">
                           Hoi An Ancient Town Walk
                         </div>
                         <div className="text-xs text-slate-500">ID: #T-8835</div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-medium text-slate-600 dark:text-slate-300">
                             TM
@@ -429,17 +421,17 @@ export default function UserLoginPage1() {
                             <div className="text-xs text-slate-500">English, Japanese</div>
                           </div>
                         </div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                      </td>
+                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                         Oct 23, 2023
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border border-orange-100 dark:border-orange-900/50">
                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                           Pending Review
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-right">
+                      </td>
+                      <td className="px-6 py-4 text-right">
                         <Button
                           variant="ghost"
                           size="icon"
@@ -454,16 +446,16 @@ export default function UserLoginPage1() {
                         >
                           <CheckCircle className="h-5 w-5" />
                         </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                      <TableCell className="px-6 py-4">
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                      <td className="px-6 py-4">
                         <div className="font-medium text-slate-900 dark:text-white">
                           Mekong Delta Boat Trip
                         </div>
                         <div className="text-xs text-slate-500">ID: #T-8901</div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-medium text-slate-600 dark:text-slate-300">
                             LA
@@ -473,17 +465,17 @@ export default function UserLoginPage1() {
                             <div className="text-xs text-slate-500">English</div>
                           </div>
                         </div>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                      </td>
+                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                         Oct 22, 2023
-                      </TableCell>
-                      <TableCell className="px-6 py-4">
+                      </td>
+                      <td className="px-6 py-4">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-100 dark:border-blue-900/50">
                           <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
                           Interviewing
                         </span>
-                      </TableCell>
-                      <TableCell className="px-6 py-4 text-right">
+                      </td>
+                      <td className="px-6 py-4 text-right">
                         <Button
                           variant="ghost"
                           size="icon"
@@ -498,10 +490,10 @@ export default function UserLoginPage1() {
                         >
                           <CheckCircle className="h-5 w-5" />
                         </Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </Card>
           </div>
@@ -510,4 +502,7 @@ export default function UserLoginPage1() {
     </div>
   );
 }
+
+
+
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Bell,
   Search,
   MapPin,
@@ -26,7 +26,7 @@ export default function BrowseToursPageGuideView() {
       <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] bg-white px-10 py-3 shadow-sm dark:bg-[#1A2633] dark:border-b-gray-700">
         <div className="flex items-center gap-4 text-[#111418] dark:text-white">
           <div className="size-8 text-primary">
-            <TravelExplore className="h-10 w-10" />
+            <Globe className="h-10 w-10" />
           </div>
           <h2 className="text-[#111418] text-xl font-bold leading-tight tracking-[-0.015em] dark:text-white">
             GuideConnect
@@ -513,4 +513,5 @@ export default function BrowseToursPageGuideView() {
     </div>
   );
 }
+
 

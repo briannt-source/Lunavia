@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   Verified,
   Mail,
   Lock,
@@ -42,7 +42,7 @@ export default function UserLoginPage7() {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div className="text-center lg:text-left mb-10">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/20 text-primary mb-6">
-                <TravelExplore className="h-7 w-7" />
+                <Globe className="h-7 w-7" />
               </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Log in to your account
@@ -173,4 +173,5 @@ export default function UserLoginPage7() {
     </div>
   );
 }
+
 

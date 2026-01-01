@@ -1,7 +1,4 @@
-import { Add, Analytics, AnalyticsOutlined, AutoAwesome, Campaign, CheckCircle, Close, Dashboard, Download, FilterList, Gavel, Map, MoreVert, Settings, TrendingUp, VerifiedUser, Warning } from "lucide-react"
-import StatCard from "../../../../components/ui/stat-card"
-import IconWrapper from "../../../../components/ui/icon-wrapper"
-import Table from "../../../../components/ui/table"
+import { Plus, BarChart3, Sparkles, Megaphone, CheckCircle, X, LayoutDashboard, Download, Filter, Gavel, Map, MoreVertical, Settings, TrendingUp, Shield, AlertTriangle } from "lucide-react"
 
 export interface AiAnalyticsDashboardProps {}
 
@@ -19,11 +16,11 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
         </div>
         <nav className="flex-1 overflow-y-auto px-4 py-2 flex flex-col gap-2">
           <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-text-sec-light dark:text-text-sec-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-primary transition-colors" href="#">
-            <Dashboard className="w-5 h-5" />
+            <LayoutDashboard className="w-5 h-5" />
             <span className="text-sm font-medium">Dashboard</span>
           </a>
           <a className="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:text-blue-400" href="#">
-            <Analytics className="w-5 h-5 text-primary dark:text-blue-400" />
+            <BarChart3 className="w-5 h-5 text-primary dark:text-blue-400" />
             <span className="text-sm font-medium">AI Analytics</span>
           </a>
           <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-text-sec-light dark:text-text-sec-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-primary transition-colors" href="#">
@@ -71,7 +68,7 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
               <span className="text-sm font-medium">Export Report</span>
             </button>
             <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm shadow-primary/30">
-              <Add className="w-5 h-5" />
+              <Plus className="w-5 h-5" />
               <span className="text-sm font-medium">New Analysis</span>
             </button>
           </div>
@@ -96,12 +93,12 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
             <div className="relative group">
               <button className="flex h-9 items-center gap-2 rounded-lg bg-primary text-white border border-primary px-3 text-sm font-medium shadow-sm shadow-primary/20">
                 <span>Region: Da Nang</span>
-                <Close className="w-4 h-4" />
+                <X className="w-4 h-4" />
               </button>
             </div>
             <div className="relative group ml-auto">
               <button className="flex h-9 items-center gap-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark px-3 text-sm font-medium shadow-sm hover:border-primary transition-colors">
-                <FilterList className="w-4 h-4 text-text-sec-light dark:text-text-sec-dark" />
+                <Filter className="w-4 h-4 text-text-sec-light dark:text-text-sec-dark" />
                 <span>More Filters</span>
               </button>
             </div>
@@ -110,19 +107,21 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
           {/* KPI Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {/* Stat 1 */}
-            <StatCard
-              label={"Total Revenue"}
-              value={"3.2B VND"}
-              subtitle={<p className="text-xs text-text-sec-light dark:text-text-sec-dark mt-1">vs 2.8B last month</p>}
-              trend={<span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1"><TrendingUp className="w-3 h-3" /> 12%</span>}
-            />
+            <div className="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-border-light dark:border-border-dark shadow-sm">
+              <div className="flex justify-between items-start mb-2">
+                <p className="text-text-sec-light dark:text-text-sec-dark text-sm font-medium">Total Revenue</p>
+                <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1"><TrendingUp className="w-3 h-3" /> 12%</span>
+              </div>
+              <p className="text-2xl font-bold text-text-main-light dark:text-text-main-dark tracking-tight">3.2B VND</p>
+              <p className="text-xs text-text-sec-light dark:text-text-sec-dark mt-1">vs 2.8B last month</p>
+            </div>
 
             {/* Stat 2 */}
             <div className="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-border-light dark:border-border-dark shadow-sm">
               <div className="flex justify-between items-start mb-2">
                 <p className="text-text-sec-light dark:text-text-sec-dark text-sm font-medium">Compliance Score</p>
                 <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
-                  <Warning className="w-3 h-3" /> Action Needed
+                  <AlertTriangle className="w-3 h-3" /> Action Needed
                 </span>
               </div>
               <p className="text-2xl font-bold text-text-main-light dark:text-text-main-dark tracking-tight">88/100</p>
@@ -157,11 +156,11 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
           {/* AI Insight Section */}
           <div className="mb-8 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border border-blue-100 dark:border-blue-900 p-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-10">
-              <AutoAwesome className="w-32 h-32 text-primary" />
+              <Sparkles className="w-32 h-32 text-primary" />
             </div>
             <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-3">
-                <AutoAwesome className="w-6 h-6 text-primary dark:text-blue-400" />
+                <Sparkles className="w-6 h-6 text-primary dark:text-blue-400" />
                 <h2 className="text-lg font-bold text-primary dark:text-blue-400">AI-Driven Strategic Insight</h2>
               </div>
               <h3 className="text-2xl font-bold text-text-main-light dark:text-text-main-dark mb-2 max-w-3xl">Optimize Pricing for Ha Long Bay: Demand Shift Detected</h3>
@@ -251,7 +250,7 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
 
                   {/* Item 2 */}
                   <div className="p-3 rounded-lg border border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-900/10 flex gap-3 items-start">
-                    <IconWrapper className="text-xl shrink-0 mt-0.5">✍️</IconWrapper>
+                    <span className="text-xl shrink-0 mt-0.5">✍️</span>
                     <div>
                       <p className="text-sm font-bold text-text-main-light dark:text-text-main-dark">Digital Contract Gap</p>
                       <p className="text-xs text-text-sec-light dark:text-text-sec-dark mt-1">2 upcoming tours lack finalized digital contracts.</p>
@@ -261,7 +260,7 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
 
                   {/* Item 3 */}
                   <div className="p-3 rounded-lg border border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors flex gap-3 items-start cursor-pointer">
-                    <Campaign className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <Megaphone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm font-bold text-text-main-light dark:text-text-main-dark">Marketing Opportunity</p>
                       <p className="text-xs text-text-sec-light dark:text-text-sec-dark mt-1">Sapa tours are trending. Create a promo campaign?</p>
@@ -278,59 +277,61 @@ export default function AiAnalyticsDashboard(_props: AiAnalyticsDashboardProps) 
               <h3 className="text-lg font-bold">Top Performing Tours</h3>
               <button className="text-primary text-sm font-medium hover:underline">View All</button>
             </div>
-            <Table className="overflow-x-auto">
-              <thead className="text-xs text-text-sec-light dark:text-text-sec-dark uppercase bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark">
-                <tr>
-                  <th className="px-6 py-3 font-medium">Tour Name</th>
-                  <th className="px-6 py-3 font-medium">Region</th>
-                  <th className="px-6 py-3 font-medium">Bookings</th>
-                  <th className="px-6 py-3 font-medium">Rating</th>
-                  <th className="px-6 py-3 font-medium">Revenue</th>
-                  <th className="px-6 py-3 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border-light dark:divide-border-dark">
-                <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Ha Long Bay Luxury Cruise</td>
-                  <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Quang Ninh</td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">1,240</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center text-yellow-400">
-                      ⭐
-                      <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.9</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">1.2B VND</td>
-                  <td className="px-6 py-4"><span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-1 rounded-full font-medium">Active</span></td>
-                </tr>
-                <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Da Nang City & Golden Bridge</td>
-                  <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Da Nang</td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">980</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center text-yellow-400">
-                      ⭐
-                      <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.7</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">850M VND</td>
-                  <td className="px-6 py-4"><span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-1 rounded-full font-medium">Active</span></td>
-                </tr>
-                <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Hanoi Street Food Walk</td>
-                  <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Hanoi</td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">850</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center text-yellow-400">
-                      ⭐
-                      <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.8</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">420M VND</td>
-                  <td className="px-6 py-4"><span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs px-2 py-1 rounded-full font-medium">Review</span></td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="text-xs text-text-sec-light dark:text-text-sec-dark uppercase bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark">
+                  <tr>
+                    <th className="px-6 py-3 font-medium text-left">Tour Name</th>
+                    <th className="px-6 py-3 font-medium text-left">Region</th>
+                    <th className="px-6 py-3 font-medium text-left">Bookings</th>
+                    <th className="px-6 py-3 font-medium text-left">Rating</th>
+                    <th className="px-6 py-3 font-medium text-left">Revenue</th>
+                    <th className="px-6 py-3 font-medium text-left">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-light dark:divide-border-dark">
+                  <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Ha Long Bay Luxury Cruise</td>
+                    <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Quang Ninh</td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">1,240</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center text-yellow-400">
+                        ⭐
+                        <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.9</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">1.2B VND</td>
+                    <td className="px-6 py-4"><span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-1 rounded-full font-medium">Active</span></td>
+                  </tr>
+                  <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Da Nang City & Golden Bridge</td>
+                    <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Da Nang</td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">980</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center text-yellow-400">
+                        ⭐
+                        <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.7</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">850M VND</td>
+                    <td className="px-6 py-4"><span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-1 rounded-full font-medium">Active</span></td>
+                  </tr>
+                  <tr className="hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark">Hanoi Street Food Walk</td>
+                    <td className="px-6 py-4 text-text-sec-light dark:text-text-sec-dark">Hanoi</td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">850</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center text-yellow-400">
+                        ⭐
+                        <span className="text-text-main-light dark:text-text-main-dark ml-1 text-sm">4.8</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-text-main-light dark:text-text-main-dark">420M VND</td>
+                    <td className="px-6 py-4"><span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs px-2 py-1 rounded-full font-medium">Review</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </main>

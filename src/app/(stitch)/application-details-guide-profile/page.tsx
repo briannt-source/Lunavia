@@ -19,7 +19,7 @@ import {
   X,
   Check,
   CreditCard,
-  Translate,
+  Languages,
   Award,
   GraduationCap,
   Verified,
@@ -297,7 +297,7 @@ export default function ApplicationDetailsGuideProfilePage() {
                       </div>
                       <div className="bg-[#111418] p-4 rounded-lg border border-border-dark flex items-start gap-4">
                         <div className="bg-purple-500/10 p-2 rounded-lg text-purple-400">
-                          <Translate className="h-6 w-6" />
+                          <Languages className="h-6 w-6" />
                         </div>
                         <div>
                           <p className="text-[#9dabb9] text-xs font-bold uppercase mb-1">Languages</p>
@@ -401,4 +401,5 @@ export default function ApplicationDetailsGuideProfilePage() {
     </div>
   );
 }
+
 

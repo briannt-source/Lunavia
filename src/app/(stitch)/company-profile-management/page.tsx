@@ -3,7 +3,6 @@ import Image from "next/image";
 import {
   Building2,
   MapPin,
-  Tour,
   Ticket,
   Users,
   Wallet,
@@ -60,7 +59,7 @@ export default function CompanyProfileManagementPage() {
                 href="#"
                 className="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9dabb9] hover:bg-[#283039] hover:text-white transition-colors"
               >
-                <Tour className="h-5 w-5" />
+                <MapPin className="h-5 w-5" />
                 <span className="text-sm font-medium">Quản lý Tour</span>
               </Link>
               <Link
@@ -496,3 +495,4 @@ export default function CompanyProfileManagementPage() {
     </div>
   );
 }
+

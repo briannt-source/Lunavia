@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   Search,
   Calendar,
@@ -19,7 +19,7 @@ import {
   MapPin,
   Clock,
   Users,
-  FlightTakeoff,
+  PlaneTakeoff,
   Plus,
   Minus,
   Receipt,
@@ -27,22 +27,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
 export default function UserLoginPage2() {
   return (
     <div className="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased h-screen overflow-hidden flex">
       <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 h-full transition-all">
         <div className="p-6 flex items-center space-x-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-white shadow-lg shadow-primary/30">
-            <TravelExplore className="h-6 w-6" />
+            <Globe className="h-6 w-6" />
           </div>
           <div>
             <h1 className="font-bold text-lg leading-tight tracking-tight">Guide Portal</h1>
@@ -256,42 +247,42 @@ export default function UserLoginPage2() {
                     </Link>
                   </div>
                   <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                          <TableHead className="px-6 py-3 font-medium">Tên Tour / Địa điểm</TableHead>
-                          <TableHead className="px-6 py-3 font-medium">Đối tác</TableHead>
-                          <TableHead className="px-6 py-3 font-medium">Thời gian</TableHead>
-                          <TableHead className="px-6 py-3 font-medium">Trạng thái</TableHead>
-                          <TableHead className="px-6 py-3 font-medium text-right">Thao tác</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody className="divide-y divide-slate-200 dark:divide-slate-800">
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                          <TableCell className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                    <table className="w-full text-sm text-left">
+                      <ther>
+                        <tr className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+                          <th className="px-6 py-3 font-medium">Tên Tour / Địa điểm</th>
+                          <th className="px-6 py-3 font-medium">Đối tác</th>
+                          <th className="px-6 py-3 font-medium">Thời gian</th>
+                          <th className="px-6 py-3 font-medium">Trạng thái</th>
+                          <th className="px-6 py-3 font-medium text-right">Thao tác</th>
+                        </tr>
+                      </ther>
+                      <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
                             Hanoi City Tour Full Day
                             <div className="text-xs text-slate-500 font-normal mt-0.5">
                               Tiếng Anh • Nhóm 10 pax
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             <div className="flex items-center gap-2">
                               <div className="w-6 h-6 rounded bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 flex items-center justify-center text-xs font-bold">
                                 V
                               </div>
                               VietTravel
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             12/06/2025
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400">
                               <span className="h-1.5 w-1.5 rounded-full bg-green-600"></span> Chấp
                               nhận
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <Button
                               variant="ghost"
                               size="icon"
@@ -299,33 +290,33 @@ export default function UserLoginPage2() {
                             >
                               <Eye className="h-5 w-5" />
                             </Button>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                          <TableCell className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
                             Ha Long Bay 2D1N Cruise
                             <div className="text-xs text-slate-500 font-normal mt-0.5">
                               Tiếng Pháp • Nhóm 25 pax
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             <div className="flex items-center gap-2">
                               <div className="w-6 h-6 rounded bg-orange-100 dark:bg-orange-900/50 text-orange-600 flex items-center justify-center text-xs font-bold">
                                 L
                               </div>
                               Luxury Tours
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             15/06/2025
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2 py-1 text-xs font-medium text-yellow-700 dark:text-yellow-400">
                               <span className="h-1.5 w-1.5 rounded-full bg-yellow-600"></span> Đang
                               chờ
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <Button
                               variant="ghost"
                               size="icon"
@@ -333,33 +324,33 @@ export default function UserLoginPage2() {
                             >
                               <Eye className="h-5 w-5" />
                             </Button>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                          <TableCell className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
                             Ninh Binh Exploration
                             <div className="text-xs text-slate-500 font-normal mt-0.5">
                               Tiếng Anh • Nhóm 4 pax
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             <div className="flex items-center gap-2">
                               <div className="w-6 h-6 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-600 flex items-center justify-center text-xs font-bold">
                                 S
                               </div>
                               Saigontourist
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             20/06/2025
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300">
                               <span className="h-1.5 w-1.5 rounded-full bg-slate-500"></span> Đã
                               đóng
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <Button
                               variant="ghost"
                               size="icon"
@@ -367,17 +358,17 @@ export default function UserLoginPage2() {
                             >
                               <Eye className="h-5 w-5" />
                             </Button>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </Card>
               </div>
               <div className="space-y-6">
                 <Card className="bg-gradient-to-br from-primary to-blue-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-3 opacity-10">
-                    <FlightTakeoff className="h-[100px] w-[100px]" />
+                    <PlaneTakeoff className="h-[100px] w-[100px]" />
                   </div>
                   <div className="relative z-10">
                     <h4 className="text-blue-100 text-sm font-medium mb-1">Chuyến đi sắp tới</h4>
@@ -450,4 +441,8 @@ export default function UserLoginPage2() {
     </div>
   );
 }
+
+
+
+
 

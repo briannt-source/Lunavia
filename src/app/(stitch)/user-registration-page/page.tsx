@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   Verified,
   Mail,
   Badge,
@@ -21,7 +21,7 @@ export default function UserRegistrationPage() {
       <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#283039] bg-[#111418]/90 backdrop-blur-md px-4 py-3 lg:px-10">
         <div className="flex items-center gap-4 text-white">
           <div className="size-8 text-primary flex items-center justify-center">
-            <TravelExplore className="h-8 w-8" />
+            <Globe className="h-8 w-8" />
           </div>
           <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
             Vietnam Tourism Connect
@@ -252,4 +252,5 @@ export default function UserRegistrationPage() {
     </div>
   );
 }
+
 

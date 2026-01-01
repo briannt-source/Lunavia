@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Bell,
   Download,
   Clock,
@@ -18,15 +18,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
 export default function ApplicationManagementOverviewPage() {
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
@@ -34,7 +25,7 @@ export default function ApplicationManagementOverviewPage() {
       <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-surface-dark px-10 py-3 bg-background-dark">
         <div className="flex items-center gap-4 text-white">
           <div className="size-8 flex items-center justify-center text-primary">
-            <TravelExplore className="h-8 w-8" />
+            <Globe className="h-8 w-8" />
           </div>
           <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
             TourOp Platform
@@ -207,25 +198,25 @@ export default function ApplicationManagementOverviewPage() {
           {/* Applications Table */}
           <div className="flex flex-col gap-4">
             <div className="overflow-x-auto rounded-xl border border-border-dark">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-surface-dark uppercase text-xs font-semibold text-text-secondary hover:bg-surface-dark">
-                    <TableHead className="px-6 py-4">Application ID</TableHead>
-                    <TableHead className="px-6 py-4">Tour Information</TableHead>
-                    <TableHead className="px-6 py-4">Guide Profile</TableHead>
-                    <TableHead className="px-6 py-4">Role</TableHead>
-                    <TableHead className="px-6 py-4">Applied Date</TableHead>
-                    <TableHead className="px-6 py-4">Status</TableHead>
-                    <TableHead className="px-6 py-4 text-right">Action</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody className="divide-y divide-border-dark bg-background-dark">
+              <table className="w-full text-sm text-left">
+                <ther>
+                  <tr className="bg-surface-dark uppercase text-xs font-semibold text-text-secondary hover:bg-surface-dark">
+                    <th className="px-6 py-4">Application ID</th>
+                    <th className="px-6 py-4">Tour Information</th>
+                    <th className="px-6 py-4">Guide Profile</th>
+                    <th className="px-6 py-4">Role</th>
+                    <th className="px-6 py-4">Applied Date</th>
+                    <th className="px-6 py-4">Status</th>
+                    <th className="px-6 py-4 text-right">Action</th>
+                  </tr>
+                </ther>
+                <tbody className="divide-y divide-border-dark bg-background-dark">
                   {/* Row 1 */}
-                  <TableRow className="hover:bg-surface-dark/40 transition-colors group">
-                    <TableCell className="px-6 py-4 font-mono text-text-secondary">
+                  <tr className="hover:bg-surface-dark/40 transition-colors group">
+                    <td className="px-6 py-4 font-mono text-text-secondary">
                       #APP-2025-001
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden">
                           <Image
@@ -240,44 +231,44 @@ export default function ApplicationManagementOverviewPage() {
                           <div className="text-xs text-text-secondary">4 Hours • Morning</div>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">
                           N
                         </div>
                         <span className="font-medium">Nguyen Van A</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
                         <Badge className="h-[14px] w-[14px]" />
                         Main Guide
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-text-secondary">Oct 24, 2025</TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4 text-text-secondary">Oct 24, 2025</td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
                         <span className="size-1.5 rounded-full bg-yellow-500"></span>
                         PENDING
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <Button
                         variant="link"
                         className="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1 p-0 h-auto"
                       >
                         Xem chi tiết <ArrowRight className="h-4 w-4" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 2 */}
-                  <TableRow className="hover:bg-surface-dark/40 transition-colors group">
-                    <TableCell className="px-6 py-4 font-mono text-text-secondary">
+                  <tr className="hover:bg-surface-dark/40 transition-colors group">
+                    <td className="px-6 py-4 font-mono text-text-secondary">
                       #APP-2025-002
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden">
                           <Image
@@ -292,44 +283,44 @@ export default function ApplicationManagementOverviewPage() {
                           <div className="text-xs text-text-secondary">Overnight Cruise</div>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs font-bold">
                           T
                         </div>
                         <span className="font-medium">Tran Thi B</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 rounded bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-400 border border-purple-500/20">
                         <Headphones className="h-[14px] w-[14px]" />
                         Sub Guide
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-text-secondary">Oct 23, 2025</TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4 text-text-secondary">Oct 23, 2025</td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-3 py-1 text-xs font-bold text-green-500 ring-1 ring-inset ring-green-500/20">
                         <span className="size-1.5 rounded-full bg-green-500"></span>
                         ACCEPTED
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <Button
                         variant="link"
                         className="text-text-secondary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1 p-0 h-auto"
                       >
                         Xem chi tiết <ArrowRight className="h-4 w-4" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 3 */}
-                  <TableRow className="hover:bg-surface-dark/40 transition-colors group">
-                    <TableCell className="px-6 py-4 font-mono text-text-secondary">
+                  <tr className="hover:bg-surface-dark/40 transition-colors group">
+                    <td className="px-6 py-4 font-mono text-text-secondary">
                       #APP-2025-003
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden">
                           <Image
@@ -344,44 +335,44 @@ export default function ApplicationManagementOverviewPage() {
                           <div className="text-xs text-text-secondary">Full Day</div>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 text-xs font-bold">
                           L
                         </div>
                         <span className="font-medium">Le Van C</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
                         <Badge className="h-[14px] w-[14px]" />
                         Main Guide
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-text-secondary">Oct 22, 2025</TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4 text-text-secondary">Oct 22, 2025</td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-500 ring-1 ring-inset ring-red-500/20">
                         <span className="size-1.5 rounded-full bg-red-500"></span>
                         REJECTED
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <Button
                         variant="link"
                         className="text-text-secondary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1 p-0 h-auto"
                       >
                         Xem chi tiết <ArrowRight className="h-4 w-4" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 4 */}
-                  <TableRow className="hover:bg-surface-dark/40 transition-colors group">
-                    <TableCell className="px-6 py-4 font-mono text-text-secondary">
+                  <tr className="hover:bg-surface-dark/40 transition-colors group">
+                    <td className="px-6 py-4 font-mono text-text-secondary">
                       #APP-2025-004
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden">
                           <Image
@@ -396,44 +387,44 @@ export default function ApplicationManagementOverviewPage() {
                           <div className="text-xs text-text-secondary">4 Hours • Morning</div>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 text-xs font-bold">
                           P
                         </div>
                         <span className="font-medium">Pham Minh D</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 rounded bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-400 border border-blue-500/20">
                         <Badge className="h-[14px] w-[14px]" />
                         Main Guide
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-text-secondary">Oct 21, 2025</TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4 text-text-secondary">Oct 21, 2025</td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
                         <span className="size-1.5 rounded-full bg-yellow-500"></span>
                         PENDING
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <Button
                         variant="link"
                         className="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1 p-0 h-auto"
                       >
                         Xem chi tiết <ArrowRight className="h-4 w-4" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 5 */}
-                  <TableRow className="hover:bg-surface-dark/40 transition-colors group">
-                    <TableCell className="px-6 py-4 font-mono text-text-secondary">
+                  <tr className="hover:bg-surface-dark/40 transition-colors group">
+                    <td className="px-6 py-4 font-mono text-text-secondary">
                       #APP-2025-005
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden">
                           <Image
@@ -448,39 +439,39 @@ export default function ApplicationManagementOverviewPage() {
                           <div className="text-xs text-text-secondary">Full Day</div>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 text-xs font-bold">
                           H
                         </div>
                         <span className="font-medium">Hoang Thi E</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 rounded bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-400 border border-purple-500/20">
                         <Headphones className="h-[14px] w-[14px]" />
                         Sub Guide
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-text-secondary">Oct 20, 2025</TableCell>
-                    <TableCell className="px-6 py-4">
+                    </td>
+                    <td className="px-6 py-4 text-text-secondary">Oct 20, 2025</td>
+                    <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-bold text-yellow-500 ring-1 ring-inset ring-yellow-500/20">
                         <span className="size-1.5 rounded-full bg-yellow-500"></span>
                         PENDING
                       </span>
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <Button
                         variant="link"
                         className="text-primary hover:text-white transition-colors font-semibold text-sm inline-flex items-center gap-1 p-0 h-auto"
                       >
                         Xem chi tiết <ArrowRight className="h-4 w-4" />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             {/* Pagination */}
@@ -529,4 +520,6 @@ export default function ApplicationManagementOverviewPage() {
     </div>
   );
 }
+
+
 

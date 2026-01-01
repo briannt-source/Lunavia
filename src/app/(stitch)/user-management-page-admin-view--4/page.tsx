@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   Calendar,
   Ticket,
@@ -41,7 +41,7 @@ export default function WalletTopupPage() {
       <aside className="w-64 bg-white border-r border-[#f0f1f5] flex flex-col h-full shrink-0 z-20 hidden lg:flex">
         <div className="p-6 flex items-center gap-3">
           <div className="bg-primary/10 rounded-lg p-2">
-            <TravelExplore className="h-6 w-6 text-primary" />
+            <Globe className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h1 className="text-[#111318] text-lg font-bold leading-tight">Lunavia Partner</h1>
@@ -410,4 +410,5 @@ export default function WalletTopupPage() {
     </div>
   );
 }
+
 

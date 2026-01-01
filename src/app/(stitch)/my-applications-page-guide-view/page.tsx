@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Bell,
   MessageSquare,
   PlusCircle,
@@ -19,15 +19,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
 export default function MyApplicationsPageGuideView() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col">
@@ -39,7 +30,7 @@ export default function MyApplicationsPageGuideView() {
               <header className="flex items-center justify-between whitespace-nowrap px-4 md:px-10 py-3">
                 <div className="flex items-center gap-4 text-slate-900 dark:text-white">
                   <div className="size-8 text-primary">
-                    <TravelExplore className="h-8 w-8" />
+                    <Globe className="h-8 w-8" />
                   </div>
                   <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
                     GuidePortal
@@ -223,33 +214,33 @@ export default function MyApplicationsPageGuideView() {
           {/* Table Section */}
           <div className="bg-surface-light dark:bg-[#1f2937] rounded-xl border border-gray-200 dark:border-[#3b4754] overflow-hidden shadow-sm flex flex-col">
             <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-b border-gray-200 dark:border-[#3b4754] bg-gray-50 dark:bg-[#283039] hover:bg-gray-50 dark:hover:bg-[#283039]">
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400 w-1/3">
+              <table className="w-full text-sm text-left">
+                <ther>
+                  <tr className="border-b border-gray-200 dark:border-[#3b4754] bg-gray-50 dark:bg-[#283039] hover:bg-gray-50 dark:hover:bg-[#283039]">
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400 w-1/3">
                       Tour Name
-                    </TableHead>
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
+                    </th>
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
                       Operator
-                    </TableHead>
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
+                    </th>
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
                       Role
-                    </TableHead>
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
+                    </th>
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
                       Applied Date
-                    </TableHead>
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
+                    </th>
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">
                       Status
-                    </TableHead>
-                    <TableHead className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400 text-right">
+                    </th>
+                    <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400 text-right">
                       Actions
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody className="divide-y divide-gray-200 dark:divide-[#3b4754]">
+                    </th>
+                  </tr>
+                </ther>
+                <tbody className="divide-y divide-gray-200 dark:divide-[#3b4754]">
                   {/* Row 1: PENDING */}
-                  <TableRow className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
-                    <TableCell className="py-4 px-6">
+                  <tr className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-lg shrink-0 border border-gray-200 dark:border-gray-700 overflow-hidden">
                           <Image
@@ -268,27 +259,27 @@ export default function MyApplicationsPageGuideView() {
                           </p>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-300 text-xs font-bold">
                           V
                         </div>
                         <span className="text-slate-700 dark:text-gray-300 text-sm">VietTravel Corp</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-700 dark:text-gray-300 text-sm font-medium">Main Guide</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-500 dark:text-gray-400 text-sm">Oct 01, 2023</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
                         Pending
                       </span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6 text-right">
+                    </td>
+                    <td className="py-4 px-6 text-right">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -307,12 +298,12 @@ export default function MyApplicationsPageGuideView() {
                           <Eye className="h-5 w-5" />
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 2: ACCEPTED */}
-                  <TableRow className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
-                    <TableCell className="py-4 px-6">
+                  <tr className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-lg shrink-0 border border-gray-200 dark:border-gray-700 overflow-hidden">
                           <Image
@@ -331,27 +322,27 @@ export default function MyApplicationsPageGuideView() {
                           </p>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center text-orange-700 dark:text-orange-300 text-xs font-bold">
                           S
                         </div>
                         <span className="text-slate-700 dark:text-gray-300 text-sm">Saigontourist</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-700 dark:text-gray-300 text-sm font-medium">Sub Guide</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-500 dark:text-gray-400 text-sm">Sep 28, 2023</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
                         Accepted
                       </span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6 text-right">
+                    </td>
+                    <td className="py-4 px-6 text-right">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -371,12 +362,12 @@ export default function MyApplicationsPageGuideView() {
                           <Eye className="h-5 w-5" />
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 3: REJECTED */}
-                  <TableRow className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
-                    <TableCell className="py-4 px-6">
+                  <tr className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-lg shrink-0 border border-gray-200 dark:border-gray-700 overflow-hidden">
                           <Image
@@ -395,27 +386,27 @@ export default function MyApplicationsPageGuideView() {
                           </p>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-700 dark:text-purple-300 text-xs font-bold">
                           H
                         </div>
                         <span className="text-slate-700 dark:text-gray-300 text-sm">Hanoi Tours</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-700 dark:text-gray-300 text-sm font-medium">Main Guide</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-500 dark:text-gray-400 text-sm">Sep 25, 2023</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800">
                         Rejected
                       </span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6 text-right">
+                    </td>
+                    <td className="py-4 px-6 text-right">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -435,12 +426,12 @@ export default function MyApplicationsPageGuideView() {
                           <Eye className="h-5 w-5" />
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
 
                   {/* Row 4: PENDING */}
-                  <TableRow className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
-                    <TableCell className="py-4 px-6">
+                  <tr className="group hover:bg-gray-50 dark:hover:bg-[#283039] transition-colors">
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-lg shrink-0 border border-gray-200 dark:border-gray-700 overflow-hidden">
                           <Image
@@ -459,27 +450,27 @@ export default function MyApplicationsPageGuideView() {
                           </p>
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center text-teal-700 dark:text-teal-300 text-xs font-bold">
                           K
                         </div>
                         <span className="text-slate-700 dark:text-gray-300 text-sm">Kim Travel</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-700 dark:text-gray-300 text-sm font-medium">Sub Guide</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="text-slate-500 dark:text-gray-400 text-sm">Oct 05, 2023</span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6">
+                    </td>
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
                         Pending
                       </span>
-                    </TableCell>
-                    <TableCell className="py-4 px-6 text-right">
+                    </td>
+                    <td className="py-4 px-6 text-right">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -498,10 +489,10 @@ export default function MyApplicationsPageGuideView() {
                           <Eye className="h-5 w-5" />
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             {/* Pagination */}
@@ -563,4 +554,7 @@ export default function MyApplicationsPageGuideView() {
     </div>
   );
 }
+
+
+
 

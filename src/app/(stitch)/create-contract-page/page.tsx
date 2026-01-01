@@ -1,5 +1,4 @@
 import { Bell, Copy, Download, Edit2, Mail, Search, UploadCloud, Check } from "lucide-react"
-import FormField from "../../../../components/form/form-field"
 
 export interface CreateContractPageProps {}
 
@@ -68,7 +67,8 @@ export default function CreateContractPage(_props: CreateContractPageProps) {
               <div className="flex flex-col gap-4 px-4 pb-6">
                 <h3 className="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4 border-b border-[#f0f2f4] dark:border-[#2a3541]">1. Chọn Tour & Hướng dẫn viên</h3>
                 <div className="flex flex-wrap items-end gap-4 py-2">
-                  <FormField label={"Chọn Tour"} className="flex-1 min-w-[300px]">
+                  <div className="flex-1 min-w-[300px]">
+                    <label className="block text-sm font-medium text-[#111418] dark:text-white mb-2">Chọn Tour</label>
                     <div className="relative">
                       <select className="form-input appearance-none flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe0e6] dark:border-[#3e4a5b] bg-white dark:bg-[#1e2732] h-14 placeholder:text-[#617589] px-[15px] pr-10 text-base font-normal leading-normal transition-shadow">
                         <option disabled defaultValue="">Tìm kiếm theo tên tour hoặc mã tour...</option>
@@ -80,7 +80,7 @@ export default function CreateContractPage(_props: CreateContractPageProps) {
                         ▼
                       </div>
                     </div>
-                  </FormField>
+                  </div>
                   <button className="h-14 px-6 rounded-lg bg-background-light dark:bg-[#2a3541] border border-[#dbe0e6] dark:border-[#3e4a5b] text-[#111418] dark:text-white font-bold hover:bg-gray-200 dark:hover:bg-[#344050] transition-colors">
                     Tải mẫu gần đây
                   </button>
@@ -229,3 +229,4 @@ export default function CreateContractPage(_props: CreateContractPageProps) {
     </div>
   )
 }
+

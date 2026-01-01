@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   MapPin,
   Users,
@@ -16,7 +16,6 @@ import {
   RefreshCw,
   FileText,
   Info,
-  Globe,
   GraduationCap,
   History,
   CheckCircle2,
@@ -30,14 +29,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function UserLoginPage3() {
   return (
@@ -45,7 +36,7 @@ export default function UserLoginPage3() {
       <aside className="w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark flex-col hidden lg:flex z-20">
         <div className="h-16 flex items-center px-6 border-b border-slate-100 dark:border-border-dark">
           <div className="flex items-center gap-2 text-primary font-bold text-xl">
-            <TravelExplore className="h-6 w-6 fill-current" />
+            <Globe className="h-6 w-6 fill-current" />
             <span>TourPortal</span>
           </div>
         </div>
@@ -274,18 +265,18 @@ export default function UserLoginPage3() {
                     </div>
                   </div>
                   <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="bg-slate-50 dark:bg-background-dark text-slate-500 dark:text-slate-400 font-medium border-b border-slate-200 dark:border-border-dark">
-                          <TableHead className="px-6 py-3">Guide Name</TableHead>
-                          <TableHead className="px-6 py-3">Applied Date</TableHead>
-                          <TableHead className="px-6 py-3">Status</TableHead>
-                          <TableHead className="px-6 py-3 text-right">Action</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody className="divide-y divide-slate-200 dark:divide-border-dark">
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
-                          <TableCell className="px-6 py-4">
+                    <table className="w-full text-sm text-left">
+                      <thead>
+                        <tr className="bg-slate-50 dark:bg-background-dark text-slate-500 dark:text-slate-400 font-medium border-b border-slate-200 dark:border-border-dark">
+                          <th className="px-6 py-3">Guide Name</th>
+                          <th className="px-6 py-3">Applied Date</th>
+                          <th className="px-6 py-3">Status</th>
+                          <th className="px-6 py-3 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 dark:divide-border-dark">
+                        <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                          <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="h-9 w-9 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-sm font-bold text-blue-600 dark:text-blue-400">
                                 NH
@@ -297,17 +288,17 @@ export default function UserLoginPage3() {
                                 <div className="text-xs text-slate-500">5 Years • English</div>
                               </div>
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             Oct 24, 2023
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border border-orange-100 dark:border-orange-900/50">
                               <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                               Pending
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end gap-2">
                               <Button
                                 variant="ghost"
@@ -334,10 +325,10 @@ export default function UserLoginPage3() {
                                 <X className="h-5 w-5" />
                               </Button>
                             </div>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
-                          <TableCell className="px-6 py-4">
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                          <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="h-9 w-9 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-sm font-bold text-purple-600 dark:text-purple-400">
                                 TM
@@ -349,17 +340,17 @@ export default function UserLoginPage3() {
                                 <div className="text-xs text-slate-500">3 Years • Eng, Jap</div>
                               </div>
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             Oct 23, 2023
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border border-orange-100 dark:border-orange-900/50">
                               <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                               Pending
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end gap-2">
                               <Button
                                 variant="ghost"
@@ -386,10 +377,10 @@ export default function UserLoginPage3() {
                                 <X className="h-5 w-5" />
                               </Button>
                             </div>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
-                          <TableCell className="px-6 py-4">
+                          </td>
+                        </tr>
+                        <tr className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
+                          <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="h-9 w-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">
                                 HV
@@ -401,17 +392,17 @@ export default function UserLoginPage3() {
                                 <div className="text-xs text-slate-500">2 Years • English</div>
                               </div>
                             </div>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                          </td>
+                          <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                             Oct 20, 2023
-                          </TableCell>
-                          <TableCell className="px-6 py-4">
+                          </td>
+                          <td className="px-6 py-4">
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-100 dark:border-red-900/50">
                               <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                               Rejected
                             </span>
-                          </TableCell>
-                          <TableCell className="px-6 py-4 text-right">
+                          </td>
+                          <td className="px-6 py-4 text-right">
                             <div className="flex items-center justify-end gap-2">
                               <Button
                                 variant="ghost"
@@ -422,10 +413,10 @@ export default function UserLoginPage3() {
                                 <Eye className="h-5 w-5" />
                               </Button>
                             </div>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
+                          </td>
+                        </tr>
+                  </tbody>
+                </table>
                   </div>
                   <div className="bg-slate-50 dark:bg-white/5 p-3 border-t border-slate-200 dark:border-border-dark text-center">
                     <Button variant="link" className="text-sm text-primary font-medium hover:underline">
@@ -584,4 +575,5 @@ export default function UserLoginPage3() {
     </div>
   );
 }
+
 

@@ -1,16 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Menu,
-  Dashboard,
-  Tour,
+  LayoutDashboard,
+  MapPin,
   FileText,
   BarChart3,
   ChevronRight,
   Sparkles,
   PlaneTakeoff,
-  MapPin,
   Calendar,
   Users,
   Clock,
@@ -32,7 +31,7 @@ export default function AiItineraryGenerationPage() {
       <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f1f5] dark:border-gray-800 bg-white dark:bg-[#1a222e] px-10 py-3">
         <div className="flex items-center gap-4 text-[#111318] dark:text-white">
           <div className="size-8 flex items-center justify-center text-primary">
-            <TravelExplore className="h-8 w-8" />
+            <Globe className="h-8 w-8" />
           </div>
           <h2 className="text-[#111318] dark:text-white text-lg font-display font-bold leading-tight tracking-[-0.015em]">
             TourConnect B2B
@@ -449,4 +448,6 @@ export default function AiItineraryGenerationPage() {
     </div>
   );
 }
+
+
 

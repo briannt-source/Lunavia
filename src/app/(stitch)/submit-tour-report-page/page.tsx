@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Menu,
   LayoutDashboard,
   MapPin,
@@ -35,7 +35,7 @@ export default function SubmitTourReportPage() {
         <aside className="w-[280px] bg-white border-r border-[#f0f2f4] flex flex-col h-full shrink-0 z-20 hidden lg:flex">
           <div className="p-4 flex items-center gap-4 text-[#111418] border-b border-[#f0f2f4]">
             <div className="size-8 text-primary">
-              <TravelExplore className="h-8 w-8" />
+              <Globe className="h-8 w-8" />
             </div>
             <h2 className="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">
               VietGuide Connect
@@ -429,4 +429,5 @@ export default function SubmitTourReportPage() {
     </div>
   );
 }
+
 

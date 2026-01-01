@@ -1,17 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  TravelExplore,
+  Globe,
   Search,
   Bell,
-  Dashboard,
-  Tour,
+  LayoutDashboard,
+  MapPin,
   Users,
   FileText,
   Sparkles,
   Calendar,
-  Translate,
-  MapPin,
+  Languages,
   Edit,
   Star,
   UserCheck,
@@ -31,7 +30,7 @@ export default function AiGuideMatchingPage() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-4">
             <div className="size-8 text-primary">
-              <TravelExplore className="w-full h-full" />
+              <Globe className="w-full h-full" />
             </div>
             <h2 className="text-lg font-bold leading-tight tracking-[-0.015em] dark:text-white">
               GuideConnect Pro
@@ -169,7 +168,7 @@ export default function AiGuideMatchingPage() {
                 <div className="bg-white dark:bg-[#1a2230] rounded-xl border border-[#dbdfe6] dark:border-gray-700 p-6 shadow-sm sticky top-24">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary">
-                      <Tour className="h-5 w-5" />
+                      <MapPin className="h-5 w-5" />
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-[#111318] dark:text-white">
@@ -189,7 +188,7 @@ export default function AiGuideMatchingPage() {
                       </div>
                     </div>
                     <div className="flex gap-3 items-start">
-                      <Translate className="text-[#606e8a] h-5 w-5 mt-0.5 shrink-0" />
+                      <Languages className="text-[#606e8a] h-5 w-5 mt-0.5 shrink-0" />
                       <div>
                         <p className="text-sm font-semibold text-[#111318] dark:text-white">
                           French (Primary)
@@ -557,4 +556,6 @@ export default function AiGuideMatchingPage() {
     </div>
   );
 }
+
+
 

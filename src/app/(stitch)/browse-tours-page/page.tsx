@@ -1,8 +1,4 @@
-import { Bell, Bookmark, Calendar, Clock, ExpandMore, MapPin, Search, Settings, Translate } from "lucide-react"
-import CardGrid from "../../../../components/layout/card-grid"
-import FilterBar from "../../../../components/filters/filter-bar"
-import EmptyState from "../../../../components/ui/empty-state"
-import Pagination from "../../../../components/ui/pagination"
+import { Bell, Bookmark, Calendar, Clock, ChevronDown, MapPin, Search, Settings, Translate } from "lucide-react"
 
 export interface BrowseTourPageProps {}
 
@@ -46,7 +42,18 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
           {/* Search & Filters */}
           <div className="flex flex-col gap-4 rounded-xl bg-white p-5 shadow-sm dark:bg-[#1A2633]">
             {/* Search Bar */}
-            <FilterBar />
+            <div className="flex w-full items-center gap-3">
+              <div className="flex flex-1 items-center rounded-lg border border-[#e5e7eb] bg-white dark:bg-[#232F3E] dark:border-gray-600 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+                <div className="flex items-center justify-center pl-4">
+                  <Search className="w-5 h-5 text-[#617589] dark:text-gray-400" />
+                </div>
+                <input className="flex-1 px-4 py-2.5 bg-transparent text-[#111418] dark:text-white placeholder:text-[#617589] dark:placeholder:text-gray-400 focus:outline-none text-sm" placeholder="Tìm kiếm tour, địa điểm, mã tour..." />
+              </div>
+              <button className="flex items-center justify-center rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-medium transition-all shadow-sm">
+                <Search className="w-4 h-4 mr-2" />
+                Tìm kiếm
+              </button>
+            </div>
 
             {/* Filter Chips */}
             <div className="flex flex-wrap gap-3 items-center">
@@ -54,17 +61,17 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
               <button className="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg border border-[#e5e7eb] bg-white hover:bg-gray-50 px-4 transition-all dark:bg-[#232F3E] dark:border-gray-600 dark:hover:bg-gray-700">
                 <MapPin className="w-5 h-5 text-[#617589] dark:text-gray-400" />
                 <p className="text-[#111418] text-sm font-medium leading-normal dark:text-gray-200">Thành phố</p>
-                <ExpandMore className="w-5 h-5 text-[#617589] dark:text-gray-400" />
+                <ChevronDown className="w-5 h-5 text-[#617589] dark:text-gray-400" />
               </button>
               <button className="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg border border-[#e5e7eb] bg-white hover:bg-gray-50 px-4 transition-all dark:bg-[#232F3E] dark:border-gray-600 dark:hover:bg-gray-700">
                 <Calendar className="w-5 h-5 text-[#617589] dark:text-gray-400" />
                 <p className="text-[#111418] text-sm font-medium leading-normal dark:text-gray-200">Ngày khởi hành</p>
-                <ExpandMore className="w-5 h-5 text-[#617589] dark:text-gray-400" />
+                <ChevronDown className="w-5 h-5 text-[#617589] dark:text-gray-400" />
               </button>
               <button className="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg border border-[#e5e7eb] bg-white hover:bg-gray-50 px-4 transition-all dark:bg-[#232F3E] dark:border-gray-600 dark:hover:bg-gray-700">
                 💰
                 <p className="text-[#111418] text-sm font-medium leading-normal dark:text-gray-200">Mức thù lao</p>
-                <ExpandMore className="w-5 h-5 text-[#617589] dark:text-gray-400" />
+                <ChevronDown className="w-5 h-5 text-[#617589] dark:text-gray-400" />
               </button>
               <div className="h-6 w-px bg-gray-200 mx-2 dark:bg-gray-700"></div>
               <button className="text-sm font-medium text-primary hover:underline">Xóa bộ lọc</button>
@@ -73,7 +80,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
 
           {/* Results Count */}
           <div className="flex items-center justify-between">
-            <EmptyState title={<p className="text-[#111418] font-medium dark:text-white">Tìm thấy <span className="font-bold">124</span> tour phù hợp</p>} className="p-0" />
+            <p className="text-[#111418] font-medium dark:text-white">Tìm thấy <span className="font-bold">124</span> tour phù hợp</p>
             <div className="flex items-center gap-2">
               <span className="text-sm text-[#617589] dark:text-gray-400">Sắp xếp:</span>
               <select className="bg-transparent text-sm font-medium text-[#111418] focus:outline-none cursor-pointer dark:text-white">
@@ -85,7 +92,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
           </div>
 
           {/* Tours Grid */}
-          <CardGrid className="grid grid-cols-1 gap-5">
+          <div className="grid grid-cols-1 gap-5">
             {/* Card 1: Urgent */}
             <div className="group relative flex flex-col items-stretch justify-start rounded-xl border border-transparent hover:border-primary/20 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:bg-[#1A2633] dark:hover:border-primary/40 sm:flex-row sm:items-start">
               <div className="absolute top-4 left-4 z-10 rounded bg-red-50 px-2 py-1 text-xs font-bold text-red-600 border border-red-100 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800">
@@ -132,7 +139,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
                     <span>Hanoi & Ha Long</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Translate className="w-4 h-4" />
+                    <Languages className="w-4 h-4" />
                     <span>English</span>
                   </div>
                 </div>
@@ -155,7 +162,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
                   </button>
                 </div>
               </div>
-            </CardGrid>
+            </div>
 
             {/* Card 2: Standard */}
             <div className="group relative flex flex-col items-stretch justify-start rounded-xl border border-transparent hover:border-primary/20 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:bg-[#1A2633] dark:hover:border-primary/40 sm:flex-row sm:items-start">
@@ -194,7 +201,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
                     <span>Ho Chi Minh City</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Translate className="w-4 h-4" />
+                    <Languages className="w-4 h-4" />
                     <span>French</span>
                   </div>
                 </div>
@@ -251,7 +258,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
                     <span>Da Nang</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Translate className="w-4 h-4" />
+                    <Languages className="w-4 h-4" />
                     <span>Korean</span>
                   </div>
                 </div>
@@ -311,7 +318,7 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
                     <span>Lao Cai, Sapa</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Translate className="w-4 h-4" />
+                    <Languages className="w-4 h-4" />
                     <span>English</span>
                   </div>
                 </div>
@@ -332,9 +339,23 @@ export default function BrowseToursPage(_props: BrowseTourPageProps) {
           </div>
 
           {/* Pagination */}
-          <Pagination currentPage={1} totalPages={12} />
+          <div className="flex items-center justify-center gap-2 mt-8">
+            <button className="px-3 py-2 rounded-lg border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#1A2633] text-[#617589] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              ←
+            </button>
+            <button className="px-4 py-2 rounded-lg bg-primary text-white font-medium">1</button>
+            <button className="px-4 py-2 rounded-lg border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#1A2633] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">2</button>
+            <button className="px-4 py-2 rounded-lg border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#1A2633] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">3</button>
+            <span className="px-2 text-[#617589] dark:text-gray-400">...</span>
+            <button className="px-4 py-2 rounded-lg border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#1A2633] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">12</button>
+            <button className="px-3 py-2 rounded-lg border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#1A2633] text-[#617589] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              →
+            </button>
+          </div>
         </div>
       </main>
     </div>
   )
 }
+
+

@@ -32,14 +32,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function UserManagementPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -278,21 +270,21 @@ export default function UserManagementPage() {
             {/* Users Table */}
             <Card className="shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader className="bg-[#f8f9fc]">
-                    <TableRow>
-                      <TableHead className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">User Info</TableHead>
-                      <TableHead className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Vai trò</TableHead>
-                      <TableHead className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Trạng thái</TableHead>
-                      <TableHead className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Số dư ví</TableHead>
-                      <TableHead className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Ngày tham gia</TableHead>
-                      <TableHead className="px-6 py-4 text-right text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="bg-white divide-y divide-[#f0f1f5]">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-[#f8f9fc]">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">User Info</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Vai trò</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Trạng thái</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Số dư ví</th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Ngày tham gia</th>
+                      <th className="px-6 py-4 text-right text-xs font-semibold text-[#606e8a] uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-[#f0f1f5]">
                     {users.map((user) => (
-                      <TableRow key={user.id} className="hover:bg-gray-50 transition-colors">
-                        <TableCell className="px-6 py-4 whitespace-nowrap">
+                      <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="relative size-10 rounded-full overflow-hidden mr-3 shrink-0 border border-gray-200">
                               <Image src={user.avatar} alt={user.name} fill className="object-cover" />
@@ -302,20 +294,20 @@ export default function UserManagementPage() {
                               <div className="text-sm text-[#606e8a]">{user.email}</div>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
                           {getRoleBadge(user.role)}
-                        </TableCell>
-                        <TableCell className="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
                           {getStatusBadge(user.status)}
-                        </TableCell>
-                        <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#111318] font-medium">
                           {user.walletBalance} ₫
-                        </TableCell>
-                        <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#606e8a]">
                           {user.joinDate}
-                        </TableCell>
-                        <TableCell className="px-6 py-4 whitespace-nowrap text-right">
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right">
                           <div className="flex items-center justify-end gap-2">
                             <Button variant="ghost" size="icon" className="h-8 w-8">
                               <Eye className="h-4 w-4" />
@@ -324,11 +316,11 @@ export default function UserManagementPage() {
                               <Edit className="h-4 w-4" />
                             </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
                     ))}
-                  </TableBody>
-                </Table>
+                  </tbody>
+                </table>
               </div>
             </Card>
           </div>
@@ -337,3 +329,4 @@ export default function UserManagementPage() {
     </div>
   );
 }
+

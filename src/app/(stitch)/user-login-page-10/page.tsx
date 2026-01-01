@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  TravelExplore,
+  Globe,
   LayoutDashboard,
   Search,
   Calendar,
@@ -15,7 +15,7 @@ import {
   Hourglass,
   List,
   Eye,
-  FlightTakeoff,
+  PlaneTakeoff,
   Receipt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ export default function UserLoginPage10() {
       <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 h-full transition-all">
         <div className="p-6 flex items-center space-x-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-white shadow-lg shadow-primary/30">
-            <TravelExplore className="h-6 w-6" />
+            <Globe className="h-6 w-6" />
           </div>
           <div>
             <h1 className="font-bold text-lg leading-tight tracking-tight">Guide Portal</h1>
@@ -229,7 +229,7 @@ export default function UserLoginPage10() {
                   </div>
                   <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
                     <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800/50 rounded-full flex items-center justify-center mb-5">
-                      <TravelExplore className="h-10 w-10 text-slate-300 dark:text-slate-500" />
+                      <Globe className="h-10 w-10 text-slate-300 dark:text-slate-500" />
                     </div>
                     <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-2">
                       Bạn chưa có ứng tuyển/tour nào
@@ -248,7 +248,7 @@ export default function UserLoginPage10() {
               <div className="space-y-6">
                 <Card className="bg-gradient-to-br from-primary to-blue-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden h-48 flex flex-col justify-between">
                   <div className="absolute top-0 right-0 p-3 opacity-10">
-                    <FlightTakeoff className="h-[100px] w-[100px]" />
+                    <PlaneTakeoff className="h-[100px] w-[100px]" />
                   </div>
                   <div className="relative z-10">
                     <h4 className="text-blue-100 text-sm font-medium mb-1">Chuyến đi sắp tới</h4>
@@ -282,4 +282,6 @@ export default function UserLoginPage10() {
     </div>
   );
 }
+
+
 

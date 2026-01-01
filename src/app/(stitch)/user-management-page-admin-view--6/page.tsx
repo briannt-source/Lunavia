@@ -17,28 +17,18 @@ import {
   Plus,
   Verified,
   Lock,
-  Savings,
   History,
   Calendar,
   Filter,
   CreditCard,
-  Tour,
-  CreditCardOff,
-  LockClock,
+  X,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function WalletOverviewPage() {
   const transactions = [
@@ -65,7 +55,7 @@ export default function WalletOverviewPage() {
       amount: "- 12,500,000",
       amountColor: "text-[#111318]",
       status: "success",
-      icon: Tour,
+      icon: MapPin,
       iconBg: "bg-blue-50 text-blue-600",
     },
     {
@@ -78,7 +68,7 @@ export default function WalletOverviewPage() {
       amount: "- 5,000,000",
       amountColor: "text-red-600",
       status: "processing",
-      icon: CreditCardOff,
+      icon: X,
       iconBg: "bg-gray-100 text-[#606e8a]",
     },
     {
@@ -91,7 +81,7 @@ export default function WalletOverviewPage() {
       amount: "50,000,000",
       amountColor: "text-[#606e8a]",
       status: "locked",
-      icon: LockClock,
+      icon: Clock,
       iconBg: "bg-amber-50 text-amber-600",
     },
     {
@@ -104,7 +94,7 @@ export default function WalletOverviewPage() {
       amount: "- 8,200,000",
       amountColor: "text-[#111318]",
       status: "success",
-      icon: Tour,
+      icon: MapPin,
       iconBg: "bg-blue-50 text-blue-600",
     },
   ];
@@ -299,7 +289,7 @@ export default function WalletOverviewPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 text-[#606e8a]">
-                      <Savings className="h-5 w-5" />
+                      <Wallet className="h-5 w-5" />
                       <span className="text-sm font-medium uppercase tracking-wide">Tổng tài sản</span>
                     </div>
                   </div>
@@ -351,22 +341,22 @@ export default function WalletOverviewPage() {
                 </div>
               </CardHeader>
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader className="bg-[#f8f9fc] text-[#606e8a] border-b border-[#f0f1f5]">
-                    <TableRow>
-                      <TableHead className="font-semibold whitespace-nowrap">Giao dịch</TableHead>
-                      <TableHead className="font-semibold whitespace-nowrap">Mã tham chiếu</TableHead>
-                      <TableHead className="font-semibold whitespace-nowrap">Thời gian</TableHead>
-                      <TableHead className="text-right font-semibold whitespace-nowrap">Số tiền</TableHead>
-                      <TableHead className="text-right font-semibold whitespace-nowrap">Trạng thái</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="divide-y divide-[#f0f1f5]">
+                <table className="w-full text-sm text-left">
+                  <ther className="bg-[#f8f9fc] text-[#606e8a] border-b border-[#f0f1f5]">
+                    <tr>
+                      <th className="font-semibold whitespace-nowrap">Giao dịch</th>
+                      <th className="font-semibold whitespace-nowrap">Mã tham chiếu</th>
+                      <th className="font-semibold whitespace-nowrap">Thời gian</th>
+                      <th className="text-right font-semibold whitespace-nowrap">Số tiền</th>
+                      <th className="text-right font-semibold whitespace-nowrap">Trạng thái</th>
+                    </tr>
+                  </ther>
+                  <tbody className="divide-y divide-[#f0f1f5]">
                     {transactions.map((tx) => {
                       const IconComponent = tx.icon;
                       return (
-                        <TableRow key={tx.id} className="hover:bg-gray-50 group transition-colors">
-                          <TableCell>
+                        <tr key={tx.id} className="hover:bg-gray-50 group transition-colors">
+                          <td>
                             <div className="flex items-center gap-3">
                               <div className={`size-10 rounded-full ${tx.iconBg} flex items-center justify-center shrink-0`}>
                                 <IconComponent className="h-5 w-5" />
@@ -376,16 +366,16 @@ export default function WalletOverviewPage() {
                                 <p className="text-xs text-[#606e8a]">{tx.description}</p>
                               </div>
                             </div>
-                          </TableCell>
-                          <TableCell className="font-mono text-[#606e8a] text-xs">{tx.id}</TableCell>
-                          <TableCell className="text-[#111318]">
+                          </td>
+                          <td className="font-mono text-[#606e8a] text-xs">{tx.id}</td>
+                          <td className="text-[#111318]">
                             <p>{tx.date}</p>
                             <p className="text-xs text-[#606e8a]">{tx.time}</p>
-                          </TableCell>
-                          <TableCell className={`text-right ${tx.amountColor} font-bold`}>
+                          </td>
+                          <td className={`text-right ${tx.amountColor} font-bold`}>
                             {tx.amount} ₫
-                          </TableCell>
-                          <TableCell className="text-right">
+                          </td>
+                          <td className="text-right">
                             <Badge
                               variant={
                                 tx.status === "success"
@@ -408,12 +398,12 @@ export default function WalletOverviewPage() {
                                 ? "Đang xử lý"
                                 : "Đã khoá"}
                             </Badge>
-                          </TableCell>
-                        </TableRow>
+                          </td>
+                        </tr>
                       );
                     })}
-                  </TableBody>
-                </Table>
+                  </tbody>
+                </table>
               </div>
               <div className="px-6 py-4 border-t border-[#f0f1f5] flex items-center justify-between">
                 <p className="text-sm text-[#606e8a]">
@@ -436,4 +426,5 @@ export default function WalletOverviewPage() {
     </div>
   );
 }
+
 

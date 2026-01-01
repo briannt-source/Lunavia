@@ -38,14 +38,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 export default function UserManagementPageAdminView2() {
   const [selectedCompany, setSelectedCompany] = useState<number | null>(0);
@@ -302,27 +294,27 @@ export default function UserManagementPageAdminView2() {
             {/* Table */}
             <Card className="overflow-hidden">
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader className="bg-[#f8f9fc]">
-                    <TableRow>
-                      <TableHead className="w-1/3">Tên công ty</TableHead>
-                      <TableHead>Người đại diện (Operator)</TableHead>
-                      <TableHead>Liên hệ</TableHead>
-                      <TableHead>Quy mô</TableHead>
-                      <TableHead>Trạng thái</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+                <table className="w-full text-sm text-left">
+                  <ther className="bg-[#f8f9fc]">
+                    <tr>
+                      <th className="w-1/3">Tên công ty</th>
+                      <th>Người đại diện (Operator)</th>
+                      <th>Liên hệ</th>
+                      <th>Quy mô</th>
+                      <th>Trạng thái</th>
+                      <th className="text-right">Actions</th>
+                    </tr>
+                  </ther>
+                  <tbody>
                     {companies.map((company) => (
-                      <TableRow
+                      <tr
                         key={company.id}
                         className={`cursor-pointer ${
                           selectedCompany === company.id ? "bg-blue-50/30 border-l-4 border-l-blue-500" : ""
                         }`}
                         onClick={() => setSelectedCompany(company.id)}
                       >
-                        <TableCell>
+                        <td>
                           <div className="flex items-start">
                             <div className="relative size-12 flex-shrink-0 rounded-lg overflow-hidden border border-gray-100 p-1 bg-white">
                               <Image
@@ -338,8 +330,8 @@ export default function UserManagementPageAdminView2() {
                               <div className="text-xs text-[#606e8a]">{company.location}</div>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <div className="flex items-center">
                             <div className="relative size-6 rounded-full overflow-hidden">
                               <Image
@@ -351,16 +343,16 @@ export default function UserManagementPageAdminView2() {
                             </div>
                             <span className="text-sm text-[#111318] font-medium ml-2">{company.operator}</span>
                           </div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <div className="text-sm text-[#111318]">{company.email}</div>
                           <div className="text-xs text-[#606e8a]">{company.phone}</div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <div className="text-sm text-[#111318]">{company.tours} Tour</div>
                           <div className="text-xs text-[#606e8a]">{company.guides} Hướng dẫn viên</div>
-                        </TableCell>
-                        <TableCell>
+                        </td>
+                        <td>
                           <Badge
                             className={
                               company.status === "VERIFIED"
@@ -374,16 +366,16 @@ export default function UserManagementPageAdminView2() {
                             {company.status === "LOCKED" && <Lock className="h-3 w-3 mr-1" />}
                             {company.status}
                           </Badge>
-                        </TableCell>
-                        <TableCell className="text-right">
+                        </td>
+                        <td className="text-right">
                           <Button variant="ghost" size="icon">
                             <Eye className="h-4 w-4" />
                           </Button>
-                        </TableCell>
-                      </TableRow>
+                        </td>
+                      </tr>
                     ))}
-                  </TableBody>
-                </Table>
+                  </tbody>
+                </table>
               </div>
               <div className="px-6 py-4 border-t border-[#e5e7eb] flex items-center justify-between bg-white">
                 <p className="text-sm text-[#606e8a]">
@@ -539,4 +531,7 @@ export default function UserManagementPageAdminView2() {
     </div>
   );
 }
+
+
+
 
