@@ -26,11 +26,18 @@
     --ring: 217 91% 60%;
     --radius: 0.75rem;
     
-    /* Sea You Travel Brand Colors */
-    --sea-blue: 217 91% 60%;
-    --sea-blue-dark: 217 91% 40%;
-    --sea-blue-light: 217 91% 95%;
-    --sea-dark: 217 30% 15%;
+    /* Lunavia Brand Colors - New Color Scheme */
+    --lunavia-primary: 200 100% 36%;      /* #0077B6 */
+    --lunavia-secondary: 200 100% 15%;    /* #003049 */
+    --lunavia-accent: 210 100% 12%;       /* #001D3D */
+    --lunavia-light: 200 50% 95%;         /* Light tint */
+    --lunavia-lighter: 200 30% 98%;       /* Lighter tint */
+    
+    /* Sea You Travel Brand Colors (Legacy - for compatibility) */
+    --sea-blue: 200 100% 36%;              /* #0077B6 */
+    --sea-blue-dark: 200 100% 15%;         /* #003049 */
+    --sea-blue-light: 200 50% 95%;         /* Light tint */
+    --sea-dark: 210 100% 12%;              /* #001D3D */
   }
 
   .dark {

@@ -33,10 +33,19 @@ const config = {
           foreground: "hsl(var(--secondary-foreground))",
         },
         sea: {
-          blue: "hsl(var(--sea-blue))",
-          "blue-dark": "hsl(var(--sea-blue-dark))",
-          "blue-light": "hsl(var(--sea-blue-light))",
-          dark: "hsl(var(--sea-dark))",
+          blue: "#0077B6",        // Primary blue
+          "blue-dark": "#003049",  // Dark blue
+          "blue-darker": "#001D3D", // Darkest blue
+          "blue-light": "#E6F2F8", // Light blue (tint)
+          "blue-lighter": "#F0F8FB", // Lighter blue
+          dark: "#001D3D",         // Darkest
+        },
+        lunavia: {
+          primary: "#0077B6",      // Main brand color
+          secondary: "#003049",    // Secondary/dark
+          accent: "#001D3D",       // Accent/darkest
+          light: "#E6F2F8",        // Light tint
+          lighter: "#F0F8FB",      // Lighter tint
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
