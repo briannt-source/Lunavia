@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
@@ -7,28 +9,23 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 
 export default async function Home() {
-  // Try to get session, but don't fail if database is not available
   let session = null;
+
   try {
     session = await getServerSession(authOptions);
-  } catch (error) {
-    // If database connection fails, just show public page
-    // This allows the site to work even if database is not ready
-    console.error("Failed to get session (database may not be ready):", error);
+  } catch {
+    session = null;
   }
 
-  // If logged in, redirect to /home (authenticated home)
   if (session) {
     redirect("/home");
   }
 
-  // Public landing page
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-slate-50">
-      {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <nav className="flex items-center justify-between">
-          <Logo size="md" variant="dark" showText={true} />
+          <Logo size="md" variant="dark" showText />
           <div className="flex gap-4">
             <Link href="/auth/signin">
               <Button variant="ghost" className="text-slate-700 hover:text-blue-600">
@@ -44,7 +41,6 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-2xl mb-6">
@@ -74,7 +70,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
@@ -107,13 +102,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-12 text-white shadow-xl">
-          <Award className="h-12 w-12 mx-auto mb-4 text-white" />
-          <h2 className="text-3xl font-bold mb-4">
-            Sẵn sàng bắt đầu?
-          </h2>
+          <Award className="h-12 w-12 mx-auto mb-4" />
+          <h2 className="text-3xl font-bold mb-4">Sẵn sàng bắt đầu?</h2>
           <p className="text-blue-100 mb-6 max-w-xl mx-auto">
             Tham gia cộng đồng tour operator và hướng dẫn viên chuyên nghiệp của Sea You Travel
           </p>
@@ -125,10 +117,9 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="container mx-auto px-4 py-8 border-t border-slate-200 mt-16">
         <div className="flex items-center justify-between">
-          <Logo size="sm" variant="dark" showText={true} />
+          <Logo size="sm" variant="dark" showText />
           <p className="text-sm text-slate-600">
             © 2025 Sea You Travel - Lunavia Platform. All rights reserved.
           </p>
