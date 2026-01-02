@@ -17,44 +17,50 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Try to find regular user first
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-          include: { profile: true, wallet: true },
-        });
+        try {
+          // Try to find regular user first
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+            include: { profile: true, wallet: true },
+          });
 
-        if (user && user.password) {
-          const isValid = await bcrypt.compare(credentials.password, user.password);
+          if (user && user.password) {
+            const isValid = await bcrypt.compare(credentials.password, user.password);
 
-          if (isValid) {
-            return {
-              id: user.id,
-              email: user.email,
-              role: user.role,
-              verifiedStatus: user.verifiedStatus,
-            };
+            if (isValid) {
+              return {
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                verifiedStatus: user.verifiedStatus,
+              };
+            }
           }
-        }
 
-        // If not found, try admin user
-        const adminUser = await prisma.adminUser.findUnique({
-          where: { email: credentials.email },
-        });
+          // If not found, try admin user
+          const adminUser = await prisma.adminUser.findUnique({
+            where: { email: credentials.email },
+          });
 
-        if (adminUser && adminUser.password) {
-          const isValid = await bcrypt.compare(credentials.password, adminUser.password);
+          if (adminUser && adminUser.password) {
+            const isValid = await bcrypt.compare(credentials.password, adminUser.password);
 
-          if (isValid) {
-            return {
-              id: adminUser.id,
-              email: adminUser.email,
-              role: `ADMIN_${adminUser.role}`, // Prefix with ADMIN_ to distinguish
-              verifiedStatus: 'APPROVED', // Admin is always approved
-            };
+            if (isValid) {
+              return {
+                id: adminUser.id,
+                email: adminUser.email,
+                role: `ADMIN_${adminUser.role}`, // Prefix with ADMIN_ to distinguish
+                verifiedStatus: 'APPROVED', // Admin is always approved
+              };
+            }
           }
-        }
 
-        return null;
+          return null;
+        } catch (error) {
+          console.error("Auth error:", error);
+          // Return null on error to prevent exposing database errors
+          return null;
+        }
       },
     }),
     GoogleProvider({
@@ -99,5 +105,6 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 };
 
