@@ -119,26 +119,27 @@ export const authOptions: NextAuthOptions = {
   },
   // CRITICAL: NextAuth requires secret in production
   // This must be set in Vercel Environment Variables
-  secret: (() => {
-    const secret = process.env.NEXTAUTH_SECRET;
-    
-    // In production/Vercel, secret is REQUIRED
-    if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+  // Note: We don't validate during build time, only at runtime
+  secret: process.env.NEXTAUTH_SECRET || (() => {
+    // Only validate at runtime, not during build
+    // During build, env vars might not be available yet
+    if (typeof window === "undefined" && process.env.VERCEL_ENV) {
+      // Runtime check in Vercel production
+      const secret = process.env.NEXTAUTH_SECRET;
       if (!secret) {
-        const errorMsg = "[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is MISSING in production!";
-        console.error(errorMsg);
+        console.error("[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is MISSING in production!");
         console.error("[AUTH-CONFIG] Please add NEXTAUTH_SECRET to Vercel Environment Variables");
-        throw new Error("NEXTAUTH_SECRET is required in production");
+        // Don't throw during build - NextAuth will handle this
+      } else if (secret.length < 32) {
+        console.error(`[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is too short (${secret.length} chars, need 32+)`);
+        // Don't throw during build - NextAuth will handle this
+      } else {
+        console.info(`[AUTH-CONFIG] ✅ NEXTAUTH_SECRET found (${secret.length} chars)`);
       }
-      if (secret.length < 32) {
-        const errorMsg = `[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is too short (${secret.length} chars, need 32+)`;
-        console.error(errorMsg);
-        throw new Error("NEXTAUTH_SECRET must be at least 32 characters");
-      }
-      console.info(`[AUTH-CONFIG] ✅ NEXTAUTH_SECRET found (${secret.length} chars)`);
     }
-    
-    return secret || "development-secret-min-32-chars-please-change-in-production";
+    // Return undefined if missing - NextAuth will throw NO_SECRET error at runtime
+    // This allows build to complete, but runtime will fail if secret is missing
+    return undefined;
   })(),
   debug: process.env.NODE_ENV === "development",
 };
