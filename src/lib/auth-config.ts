@@ -119,26 +119,18 @@ export const authOptions: NextAuthOptions = {
   },
   // CRITICAL: NextAuth requires secret in production
   // This must be set in Vercel Environment Variables
-  // Note: We don't validate during build time, only at runtime
+  // Note: During build, env vars might not be available, so we use fallback
+  // NextAuth will validate at runtime and throw NO_SECRET if missing in production
   secret: process.env.NEXTAUTH_SECRET || (() => {
-    // Only validate at runtime, not during build
-    // During build, env vars might not be available yet
-    if (typeof window === "undefined" && process.env.VERCEL_ENV) {
-      // Runtime check in Vercel production
-      const secret = process.env.NEXTAUTH_SECRET;
-      if (!secret) {
-        console.error("[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is MISSING in production!");
-        console.error("[AUTH-CONFIG] Please add NEXTAUTH_SECRET to Vercel Environment Variables");
-        // Don't throw during build - NextAuth will handle this
-      } else if (secret.length < 32) {
-        console.error(`[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is too short (${secret.length} chars, need 32+)`);
-        // Don't throw during build - NextAuth will handle this
-      } else {
-        console.info(`[AUTH-CONFIG] ✅ NEXTAUTH_SECRET found (${secret.length} chars)`);
-      }
+    // During build time, env vars might not be injected yet
+    // We return a fallback to allow build to complete
+    // NextAuth will validate at runtime and throw NO_SECRET if secret is missing in production
+    const isBuildTime = process.env.NEXT_PHASE === "phase-production-build";
+    if (isBuildTime) {
+      // During build, return fallback to allow build to complete
+      return "build-time-fallback-secret-nextauth-will-validate-at-runtime";
     }
-    // Return undefined if missing - NextAuth will throw NO_SECRET error at runtime
-    // This allows build to complete, but runtime will fail if secret is missing
+    // At runtime, if still no secret, NextAuth will handle the error
     return undefined;
   })(),
   debug: process.env.NODE_ENV === "development",
