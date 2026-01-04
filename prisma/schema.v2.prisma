@@ -488,3 +488,4 @@ model Tour {
 // Note: File này chỉ là template. 
 // Để migrate, copy toàn bộ schema từ schema.prisma và thêm indexes như trên.
 
+

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { SubmitKycUseCase } from "@/application/use-cases/verification/submit-kyc.use-case";
 
 export async function POST(req: NextRequest) {

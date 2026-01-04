@@ -1,7 +1,9 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-config";
 
-export default withAuth(function middleware(req) {
+export default withAuth(
+  function middleware(req) {
   const token = req.nextauth.token;
   const path = req.nextUrl.pathname;
 
@@ -54,7 +56,13 @@ export default withAuth(function middleware(req) {
   }
 
   return NextResponse.next();
-});
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
+  }
+);
 
 export const config = {
   matcher: [

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { AcceptJoinRequestUseCase } from "@/application/use-cases/company/accept-join-request.use-case";
 
 export async function POST(
@@ -33,6 +33,7 @@ export async function POST(
     );
   }
 }
+
 
 
 

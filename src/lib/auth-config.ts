@@ -4,6 +4,19 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+// Runtime presence check (non-sensitive): log availability/length only
+try {
+  const hasSecret = !!process.env.NEXTAUTH_SECRET;
+  const secretLen = process.env.NEXTAUTH_SECRET
+    ? process.env.NEXTAUTH_SECRET.length
+    : 0;
+  const hasDb = !!process.env.DATABASE_URL;
+  const dbLen = process.env.DATABASE_URL ? process.env.DATABASE_URL.length : 0;
+  console.info("[runtime-debug] NEXTAUTH_SECRET present:", hasSecret, "len=", secretLen);
+  console.info("[runtime-debug] DATABASE_URL present:", hasDb, "len=", dbLen);
+} catch (e) {
+  // ignore in environments that restrict console
+}
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -107,4 +120,5 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
 };
+// force rebuild auth config
 

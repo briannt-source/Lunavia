@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { CreateContractUseCase } from "@/application/use-cases/contract/create-contract.use-case";
 import { prisma } from "@/lib/prisma";
 
@@ -74,6 +74,7 @@ export async function GET(
     );
   }
 }
+
 
 
 

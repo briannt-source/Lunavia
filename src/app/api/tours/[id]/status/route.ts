@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { ChangeTourStatusUseCase } from "@/application/use-cases/tour/change-tour-status.use-case";
 import { revalidatePath } from "next/cache";
 

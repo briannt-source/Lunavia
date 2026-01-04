@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { RequestPaymentUseCase } from "@/application/use-cases/tour-report/request-payment.use-case";
 
 export async function POST(
@@ -38,6 +38,7 @@ export async function POST(
     );
   }
 }
+
 
 
 

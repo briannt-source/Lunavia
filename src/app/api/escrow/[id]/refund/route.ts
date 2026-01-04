@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { RefundEscrowUseCase } from "@/application/use-cases/escrow/refund-escrow.use-case";
 import { handleError } from "@/lib/error-handler";
 

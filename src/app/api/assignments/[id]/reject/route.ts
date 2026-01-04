@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { GuideRejectAssignmentUseCase } from "@/application/use-cases/assignment/guide-reject-assignment.use-case";
 
 export async function POST(
@@ -40,6 +40,7 @@ export async function POST(
     );
   }
 }
+
 
 
 

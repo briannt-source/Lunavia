@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 import { ApproveVerificationUseCase } from "@/application/use-cases/verification/approve-verification.use-case";
 
@@ -46,6 +46,7 @@ export async function POST(
     );
   }
 }
+
 
 
 
