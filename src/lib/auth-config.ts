@@ -117,7 +117,29 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  // CRITICAL: NextAuth requires secret in production
+  // This must be set in Vercel Environment Variables
+  secret: (() => {
+    const secret = process.env.NEXTAUTH_SECRET;
+    
+    // In production/Vercel, secret is REQUIRED
+    if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+      if (!secret) {
+        const errorMsg = "[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is MISSING in production!";
+        console.error(errorMsg);
+        console.error("[AUTH-CONFIG] Please add NEXTAUTH_SECRET to Vercel Environment Variables");
+        throw new Error("NEXTAUTH_SECRET is required in production");
+      }
+      if (secret.length < 32) {
+        const errorMsg = `[AUTH-CONFIG] ❌ NEXTAUTH_SECRET is too short (${secret.length} chars, need 32+)`;
+        console.error(errorMsg);
+        throw new Error("NEXTAUTH_SECRET must be at least 32 characters");
+      }
+      console.info(`[AUTH-CONFIG] ✅ NEXTAUTH_SECRET found (${secret.length} chars)`);
+    }
+    
+    return secret || "development-secret-min-32-chars-please-change-in-production";
+  })(),
   debug: process.env.NODE_ENV === "development",
 };
 // force rebuild auth config
