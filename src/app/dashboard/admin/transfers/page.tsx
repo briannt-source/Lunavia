@@ -145,7 +145,7 @@ export default function AdminTransfersPage() {
                   </Select>
                   {fromUser && fromUser.wallet && (
                     <p className="text-sm text-slate-500 mt-1">
-                      Số dư khả dụng: {formatVND(fromUser.wallet.balance - fromUser.wallet.reserved)}
+                      Số dư khả dụng: {formatVND(fromUser.wallet.balance)}
                     </p>
                   )}
                 </div>
@@ -261,6 +261,11 @@ export default function AdminTransfersPage() {
     </DashboardLayout>
   );
 }
+
+
+
+
+
 
 
 

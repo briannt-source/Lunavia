@@ -158,8 +158,7 @@ export default function WalletPage() {
   };
 
   const availableBalance =
-    wallet && wallet.balance - wallet.reserved >= 0
-      ? wallet.balance - wallet.reserved
+    wallet ? wallet.balance
       : 0;
 
   const topUpRequests = transactions?.topUpRequests || [];
@@ -500,7 +499,7 @@ export default function WalletPage() {
         />
         <StatsCard
           title="Deposit đã khóa"
-          value={wallet ? formatVND(wallet.lockedDeposit) : formatVND(0)}
+          value={formatVND(0)}
           icon={Lock}
         />
         <StatsCard

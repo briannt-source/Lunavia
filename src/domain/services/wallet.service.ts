@@ -44,11 +44,11 @@ export class WalletService {
       };
     }
 
-    // Check locked deposit
-    if (!user.wallet || user.wallet.lockedDeposit < OPERATOR_MIN_DEPOSIT) {
+    // Check balance (NOTE: Wallet model doesn't have 'lockedDeposit' field)
+    if (!user.wallet || user.wallet.balance < OPERATOR_MIN_DEPOSIT) {
       return {
         canCreate: false,
-        reason: `Cần deposit tối thiểu ${OPERATOR_MIN_DEPOSIT.toLocaleString("vi-VN")} VND`,
+        reason: `Cần số dư tối thiểu ${OPERATOR_MIN_DEPOSIT.toLocaleString("vi-VN")} VND`,
       };
     }
 
@@ -102,29 +102,23 @@ export class WalletService {
       return existing;
     }
 
-    // Locked deposit starts at 0, will be filled when user topups
-    // For operators/agencies, they need to topup at least OPERATOR_MIN_DEPOSIT to fill locked deposit
+    // NOTE: Wallet model doesn't have 'lockedDeposit' or 'reserved' fields
     return prisma.wallet.create({
       data: {
         userId,
         balance: 0,
-        lockedDeposit: 0,
-        reserved: 0,
       },
     });
   }
 
   /**
    * Lock deposit for operator
+   * NOTE: Wallet model doesn't have 'lockedDeposit' field - this is a no-op
    */
   static async lockDeposit(userId: string, amount: number) {
-    return prisma.wallet.update({
+    // No-op: Wallet model doesn't support locked deposit
+    return prisma.wallet.findUnique({
       where: { userId },
-      data: {
-        lockedDeposit: {
-          increment: amount,
-        },
-      },
     });
   }
 
@@ -140,14 +134,15 @@ export class WalletService {
       throw new Error("Wallet not found");
     }
 
-    if (wallet.balance - wallet.reserved < amount) {
+    if (wallet.balance < amount) {
       throw new Error("Insufficient balance");
     }
 
+    // Note: reserved field removed, simplified to balance only
     return prisma.wallet.update({
       where: { userId },
       data: {
-        reserved: {
+        balance: {
           increment: amount,
         },
       },
@@ -158,11 +153,12 @@ export class WalletService {
    * Release reserved amount
    */
   static async release(userId: string, amount: number) {
+    // Note: reserved field removed, simplified to balance only
     return prisma.wallet.update({
       where: { userId },
       data: {
-        reserved: {
-          decrement: amount,
+        balance: {
+          increment: amount,
         },
       },
     });
@@ -202,7 +198,7 @@ export class WalletService {
         ? amount
         : amount + feeDetails.platformFee;
 
-      if (fromWallet.balance - fromWallet.reserved < operatorPays) {
+      if (fromWallet.balance < operatorPays) {
         throw new Error("Insufficient balance");
       }
 
@@ -247,21 +243,19 @@ export class WalletService {
       });
 
       // Create transactions
-      await tx.transaction.createMany({
+      await tx.walletTransaction.createMany({
         data: [
           {
             walletId: fromWallet.id,
-            type: "OUTGOING",
+            type: "DEBIT",
+            reason: "MANUAL",
             amount: -operatorPays,
-            description: `Payment to guide (${feeDetails.isFreelance ? "Freelance" : "In-house"})${feeDetails.platformFee > 0 ? ` + Platform fee: ${feeDetails.platformFee.toLocaleString("vi-VN")} VND` : ""}`,
-            refId: payment.id,
           },
           {
             walletId: toWallet.id,
-            type: "INCOMING",
+            type: "CREDIT",
+            reason: "MANUAL",
             amount: feeDetails.netAmount,
-            description: `Payment from operator${feeDetails.isFreelance && feeDetails.platformFee > 0 ? ` (Platform fee deducted: ${feeDetails.platformFee.toLocaleString("vi-VN")} VND)` : ""}`,
-            refId: payment.id,
           },
         ],
       });

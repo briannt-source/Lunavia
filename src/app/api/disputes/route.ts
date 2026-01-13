@@ -1,81 +1,54 @@
+/**
+ * Open Dispute API Route
+ * 
+ * Thin controller - maps request to use case only.
+ * No business logic, no validation duplication.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
-import { CreateDisputeUseCase } from "@/application/use-cases/dispute/create-dispute.use-case";
-import { DisputeService } from "@/domain/services/dispute.service";
+import { OpenDisputeUseCase } from "@/application/use-cases/refund/open-dispute.use-case";
+import { PrismaAuditLogRepository } from "@/infrastructure/repositories";
+import { DisputeType } from "@prisma/client";
+import { requirePermission } from "@/interfaces/http/middleware/require-permission";
+import { ApiAction } from "@/interfaces/http/permissions/action-permission.map";
 
 export async function POST(req: NextRequest) {
   try {
+    // Authentication and permission check
     const session = await getServerSession(authOptions);
+    const permissionCheck = await requirePermission(session, ApiAction.OPEN_DISPUTE);
+    if (permissionCheck) {
+      return permissionCheck;
+    }
 
     if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
-    const {
-      tourId,
-      applicationId,
-      paymentId,
-      escrowAccountId,
-      type,
-      description,
-      evidence,
-    } = body;
+    const { tourId, reason, type, evidence } = body;
 
-    const useCase = new CreateDisputeUseCase();
-    const dispute = await useCase.execute({
-      userId: session.user.id,
+    // Instantiate dependencies
+    const auditLogRepository = new PrismaAuditLogRepository();
+    const useCase = new OpenDisputeUseCase(auditLogRepository);
+
+    // Execute use case (validation handled in use case)
+    const result = await useCase.execute({
+      actorId: session.user.id,
       tourId,
-      applicationId,
-      paymentId,
-      escrowAccountId,
-      type,
-      description,
-      evidence: evidence || [],
+      reason,
+      type: type as DisputeType,
+      evidence: evidence || undefined,
     });
 
-    return NextResponse.json(dispute, { status: 201 });
+    return NextResponse.json(result, { status: 201 });
   } catch (error: any) {
-    console.error("Error creating dispute:", error);
+    console.error("Error opening dispute:", error);
     return NextResponse.json(
-      { message: error.message || "Failed to create dispute" },
-      { status: 400 }
+      { error: error.message || "Internal server error" },
+      { status: error.message?.includes("not found") ? 404 : 500 }
     );
   }
 }
-
-export async function GET(req: NextRequest) {
-  try {
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    const { searchParams } = new URL(req.url);
-    const tourId = searchParams.get("tourId");
-    const status = searchParams.get("status") as any;
-    const type = searchParams.get("type") as any;
-
-    // Users can only see their own disputes unless they're admin
-    const role = (session.user as any)?.role;
-    const isAdmin = role && (role.startsWith("ADMIN_") || role === "SUPER_ADMIN" || role === "MODERATOR");
-
-    const disputes = await DisputeService.listDisputes({
-      userId: isAdmin ? undefined : session.user.id,
-      tourId: tourId || undefined,
-      status,
-      type,
-    });
-
-    return NextResponse.json(disputes);
-  } catch (error: any) {
-    console.error("Error fetching disputes:", error);
-    return NextResponse.json(
-      { message: error.message || "Failed to fetch disputes" },
-      { status: 500 }
-    );
-  }
-}
-

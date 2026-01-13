@@ -92,3 +92,8 @@ npm run db:migrate:deploy
 Nếu vẫn lỗi, thử cách 2 (fix manually).
 
 
+
+
+
+
+

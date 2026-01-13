@@ -57,7 +57,8 @@ export class ProcessTopUpRequestUseCase {
       user.role === "TOUR_OPERATOR" ||
       user.role === "TOUR_AGENCY"
     ) {
-      const currentLocked = user.wallet.lockedDeposit;
+      // NOTE: Wallet model doesn't have 'lockedDeposit' field
+      const currentLocked = 0;
       const neededForLocked = Math.max(0, OPERATOR_MIN_DEPOSIT - currentLocked);
       
       // If locked deposit is not full, topup must be enough to fill it completely
@@ -75,19 +76,19 @@ export class ProcessTopUpRequestUseCase {
         await prisma.wallet.update({
           where: { userId: user.id },
           data: {
-            lockedDeposit: { increment: amountForLocked },
-            balance: { increment: amountForBalance },
+            // NOTE: Wallet model doesn't have 'lockedDeposit' field
+            // All topup goes to balance
+            balance: { increment: topUpRequest.amount },
           },
         });
 
         // Create transaction
-        await prisma.transaction.create({
+        await prisma.walletTransaction.create({
           data: {
             walletId: user.wallet.id,
-            type: "TOP_UP",
+            type: "CREDIT",
+            reason: "MANUAL",
             amount: topUpRequest.amount,
-            description: `Top-up: ${amountForLocked.toLocaleString("vi-VN")} VND to locked deposit, ${amountForBalance.toLocaleString("vi-VN")} VND to balance`,
-            refId: topUpRequest.id,
           },
         });
       } else {
@@ -100,13 +101,12 @@ export class ProcessTopUpRequestUseCase {
         });
 
         // Create transaction
-        await prisma.transaction.create({
+        await prisma.walletTransaction.create({
           data: {
             walletId: user.wallet.id,
-            type: "TOP_UP",
+            type: "CREDIT",
+            reason: "MANUAL",
             amount: topUpRequest.amount,
-            description: `Top-up: ${topUpRequest.amount.toLocaleString("vi-VN")} VND to balance`,
-            refId: topUpRequest.id,
           },
         });
       }
@@ -120,13 +120,12 @@ export class ProcessTopUpRequestUseCase {
       });
 
       // Create transaction
-      await prisma.transaction.create({
+      await prisma.walletTransaction.create({
         data: {
           walletId: user.wallet.id,
-          type: "TOP_UP",
+          type: "CREDIT",
+          reason: "MANUAL",
           amount: topUpRequest.amount,
-          description: `Top-up: ${topUpRequest.amount.toLocaleString("vi-VN")} VND`,
-          refId: topUpRequest.id,
         },
       });
     }

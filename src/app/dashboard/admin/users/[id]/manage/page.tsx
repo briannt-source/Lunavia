@@ -385,11 +385,11 @@ export default function AdminUserManagePage() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-500">Đã khóa</p>
-                    <p className="font-medium">{formatVND(user.wallet.lockedDeposit)}</p>
+                    <p className="font-medium">{formatVND(0)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-slate-500">Đã đặt cọc</p>
-                    <p className="font-medium">{formatVND(user.wallet.reserved)}</p>
+                    <p className="font-medium">{formatVND(0)}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -400,6 +400,11 @@ export default function AdminUserManagePage() {
     </DashboardLayout>
   );
 }
+
+
+
+
+
 
 
 

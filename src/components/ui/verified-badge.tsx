@@ -30,3 +30,8 @@ export function VerifiedBadge({ type = "KYC", className }: VerifiedBadgeProps) {
 
 
 
+
+
+
+
+

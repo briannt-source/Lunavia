@@ -92,12 +92,12 @@ export class CancelApplicationUseCase {
       });
       
       // Create transaction record
-      await prisma.transaction.create({
+      await prisma.walletTransaction.create({
         data: {
           walletId: application.guide.wallet.id,
-          type: "OUTGOING",
+          type: "DEBIT",
+          reason: "APPLICATION_CANCEL_PENALTY",
           amount: -penaltyAmount,
-          description: `Phí hủy tour: ${application.tour.title}`,
         },
       });
 

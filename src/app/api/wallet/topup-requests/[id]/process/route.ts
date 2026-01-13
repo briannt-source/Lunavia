@@ -1,40 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 import { ProcessTopUpRequestUseCase } from "@/application/use-cases/wallet/process-topup-request.use-case";
+import { checkPermission } from "@/lib/permission-helpers";
+import { Permission } from "@prisma/client";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    // Check permission instead of role
+    const { hasPermission, adminUser } = await checkPermission(
+      Permission.FINANCE_APPROVE_TOPUP
+    );
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // Check if user is SUPER_ADMIN only
-    const role = (session.user as any)?.role;
-    const adminRole = role?.startsWith("ADMIN_")
-      ? role.replace("ADMIN_", "")
-      : role;
-    
-    if (adminRole !== "SUPER_ADMIN") {
+    if (!hasPermission || !adminUser) {
       return NextResponse.json(
-        { error: "Only SUPER_ADMIN can process financial requests" },
-        { status: 403 }
-      );
-    }
-
-    const adminUser = await prisma.adminUser.findUnique({
-      where: { email: session.user.email },
-    });
-
-    if (!adminUser) {
-      return NextResponse.json(
-        { error: "Admin user not found" },
+        { error: "Insufficient permissions" },
         { status: 403 }
       );
     }

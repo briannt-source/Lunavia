@@ -134,7 +134,7 @@ export async function DELETE(
       });
 
       // Delete contract acceptances first (cascade)
-      const contract = await tx.contract.findUnique({
+      const contract = await tx.contract.findFirst({
         where: { tourId },
       });
 
@@ -145,9 +145,9 @@ export async function DELETE(
           },
         });
 
-        // Delete contract (tourId is unique)
+        // Delete contract
         await tx.contract.delete({
-          where: { tourId },
+          where: { id: contract.id },
         });
       }
 

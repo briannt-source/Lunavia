@@ -85,8 +85,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Check available balance
-    const availableBalance =
-      fromUser.wallet.balance - fromUser.wallet.reserved;
+    // NOTE: Wallet model doesn't have 'reserved' field in current schema
+    const availableBalance = fromUser.wallet.balance;
 
     if (amount > availableBalance) {
       return NextResponse.json(
@@ -104,24 +104,23 @@ export async function POST(req: NextRequest) {
       amount
     );
 
-    // Create admin transaction record with reason
-    await prisma.transaction.create({
+    // Create admin transaction records with reason
+    // NOTE: Using WalletTransaction model
+    await prisma.walletTransaction.create({
       data: {
         walletId: fromUser.wallet.id,
-        type: "ADMIN_TRANSFER",
+        type: "DEBIT",
+        reason: "MANUAL",
         amount: -amount,
-        description: `Admin Transfer to ${toUser.profile?.name || toUser.email}: ${reason}`,
-        refId: payment.id,
       },
     });
 
-    await prisma.transaction.create({
+    await prisma.walletTransaction.create({
       data: {
         walletId: toUser.wallet.id,
-        type: "ADMIN_TRANSFER",
+        type: "CREDIT",
+        reason: "MANUAL",
         amount,
-        description: `Admin Transfer from ${fromUser.profile?.name || fromUser.email}: ${reason}`,
-        refId: payment.id,
       },
     });
 

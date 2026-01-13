@@ -40,10 +40,20 @@ export default withAuth(
     }
   }
 
-  // 🛡️ Admin - check if user is admin
+  // 🛡️ Admin - check if user is admin (basic role check)
+  // Note: Middleware only checks roles for route access.
+  // Granular permission checks happen in API routes using PermissionService.
   if (path.startsWith("/dashboard/admin")) {
     // Check if role starts with ADMIN_ or is a valid admin role
-    if (role && (role.startsWith("ADMIN_") || role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF")) {
+    const validAdminRoles = [
+      "SUPER_ADMIN",
+      "MODERATOR",
+      "OPS_CS",
+      "FINANCE",
+      "FINANCE_LEAD",
+      "SUPPORT_STAFF",
+    ];
+    if (role && (role.startsWith("ADMIN_") || validAdminRoles.includes(role))) {
       return NextResponse.next();
     }
     // If not admin, redirect to appropriate dashboard

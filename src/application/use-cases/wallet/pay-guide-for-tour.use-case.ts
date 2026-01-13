@@ -51,9 +51,8 @@ export class PayGuideForTourUseCase {
       ? input.amount
       : input.amount + feeDetails.platformFee;
 
-    // Check available balance (excluding locked deposit)
-    const availableBalance =
-      tour.operator.wallet.balance - tour.operator.wallet.reserved;
+    // Check available balance
+    const availableBalance = tour.operator.wallet.balance;
 
     if (operatorPays > availableBalance) {
       throw new Error(

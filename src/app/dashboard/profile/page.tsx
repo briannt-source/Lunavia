@@ -356,21 +356,21 @@ export default function ProfilePage() {
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Deposit đã khóa</p>
                   <p className="text-xl font-semibold">
-                    {formatCurrency(wallet.lockedDeposit)}
+                    {formatCurrency(0)}
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Đã reserve</p>
                   <p className="text-lg font-medium">
-                    {formatCurrency(wallet.reserved)}
+                    {formatCurrency(0)}
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Số dư khả dụng</p>
                   <p className="text-lg font-medium text-emerald-600">
-                    {formatCurrency(wallet.balance - wallet.reserved)}
+                    {formatCurrency(wallet.balance)}
                   </p>
                 </div>
               </>

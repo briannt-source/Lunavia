@@ -624,11 +624,11 @@ export class NotificationService {
 
     if (!dispute) return;
 
-    // Notify all admins/moderators with DISPUTES permission
+    // Notify all admins/moderators with DISPUTE_VIEW permission
     const admins = await prisma.adminUser.findMany({
       where: {
         permissions: {
-          has: "DISPUTES",
+          has: "DISPUTE_VIEW",
         },
       },
     });
@@ -748,7 +748,7 @@ export class NotificationService {
       where: { id: contractId },
       include: {
         tour: true,
-        acceptances: {
+        ContractAcceptance: {
           where: { guideId },
           include: {
             guide: {
@@ -760,9 +760,9 @@ export class NotificationService {
         },
       },
     });
-    if (!contract || contract.acceptances.length === 0) return;
+    if (!contract || contract.ContractAcceptance.length === 0) return;
 
-    const guide = contract.acceptances[0].guide;
+    const guide = contract.ContractAcceptance[0].guide;
 
     const useCase = new SendNotificationUseCase();
     await useCase.execute({

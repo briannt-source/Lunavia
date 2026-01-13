@@ -29,7 +29,7 @@ export class CreateStandbyRequestUseCase {
 
     // Check if operator has enough balance (budget + standby fee)
     const totalCost = input.budget + (input.standbyFee || 0);
-    if (operator.wallet && operator.wallet.balance - operator.wallet.reserved < totalCost) {
+    if (operator.wallet && operator.wallet.balance < totalCost) {
       throw new Error(
         `Insufficient balance. Required: ${totalCost.toLocaleString("vi-VN")} VND (Budget: ${input.budget.toLocaleString("vi-VN")} VND + Standby Fee: ${(input.standbyFee || 0).toLocaleString("vi-VN")} VND)`
       );

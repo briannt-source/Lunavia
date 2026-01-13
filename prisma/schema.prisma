@@ -16,6 +16,9 @@ enum LegalRole {
 enum AdminRole {
   SUPER_ADMIN
   MODERATOR
+  OPS_CS
+  FINANCE
+  FINANCE_LEAD
   SUPPORT_STAFF
 }
 
@@ -102,10 +105,53 @@ enum StandbyStatus {
 }
 
 enum Permission {
-  DISPUTES
-  TRANSFERS
-  PASSWORD_RESET
-  PROFILE_MGMT
+  // Trust actions
+  TRUST_ADJUST
+  TRUST_RESET
+  TRUST_VIEW_HISTORY
+  // Finance actions
+  FINANCE_APPROVE_TOPUP
+  FINANCE_APPROVE_REFUND
+  FINANCE_ADJUST_CREDIT
+  FINANCE_VIEW_TRANSACTIONS
+  // Dispute actions
+  DISPUTE_VIEW
+  DISPUTE_OPEN
+  DISPUTE_RESOLVE
+  DISPUTE_FORCE_CANCEL
+  DISPUTE_ESCALATE
+  // SOS actions
+  SOS_VIEW
+  SOS_OPEN
+  SOS_RESOLVE
+  // User management actions
+  USER_VIEW
+  USER_BLOCK
+  USER_UNBLOCK
+  USER_DELETE
+  USER_RESET_PASSWORD
+  USER_VIEW_PROFILE
+  USER_EDIT_PROFILE
+  // Verification actions
+  VERIFICATION_VIEW
+  VERIFICATION_APPROVE
+  VERIFICATION_REJECT
+  // Tour management actions
+  TOUR_VIEW
+  TOUR_BLOCK
+  TOUR_UNBLOCK
+  TOUR_DELETE
+  // Wallet actions
+  WALLET_VIEW
+  WALLET_TRANSFER
+  WALLET_ADJUST
+}
+
+enum AuditLogTargetType {
+  USER
+  TOUR
+  CONFIG
+  OTHER
 }
 
 enum AvailabilityStatus {
@@ -122,6 +168,11 @@ enum RequestStatus {
 }
 
 enum ContractStatus {
+  DRAFT
+  SIGNED
+}
+
+enum ContractAcceptanceStatus {
   NOT_VIEWED
   VIEWED
   ACCEPTED
@@ -133,6 +184,18 @@ enum WithdrawalMethod {
   MOMO
   ZALO
   OTHER
+}
+
+enum WalletTransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum WalletTransactionReason {
+  MANUAL
+  SYSTEM_ADJUSTMENT
+  CONTRACT_PLACEHOLDER
+  APPLICATION_CANCEL_PENALTY
 }
 
 enum TourBlockReason {
@@ -162,6 +225,17 @@ enum UserBlockReason {
   OTHER
 }
 
+enum TrustSource {
+  AUTO
+  ADMIN
+}
+
+enum DepositLockStatus {
+  LOCKED
+  RELEASED
+  FORFEITED
+}
+
 model User {
   id             String              @id @default(cuid())
   code           String?             @unique // Mã ID cho guide/agency (ví dụ: GUIDE-20250115-0001, AGENCY-20250115-0001)
@@ -184,6 +258,10 @@ model User {
   updatedAt      DateTime            @default(now()) @updatedAt
   availabilities GuideAvailability[]
 
+  // Trust & Deposit fields (Phase 3C.1)
+  trustScore            Int     @default(100)
+  onboardingDepositPaid Boolean @default(false)
+
   profile                  Profile?
   wallet                   Wallet?
   verifications            Verification[]
@@ -205,7 +283,11 @@ model User {
   withdrawalRequests       WithdrawalRequest[]
   paymentMethods           PaymentMethod[]
   notifications            Notification[]
+  trustRecords             TrustRecord[]
+  depositLocks             DepositLock[]
   contractAcceptances      ContractAcceptance[]
+  contractsAsOperator      Contract[]           @relation("ContractOperators")
+  contractsAsGuide         Contract[]           @relation("ContractGuides")
   tourReports              TourReport[]
   emergencyReports         EmergencyReport[]
   operatorConversations    Conversation[]       @relation("OperatorConversations")
@@ -292,17 +374,15 @@ model Profile {
 }
 
 model Wallet {
-  id            String        @id @default(cuid())
-  userId        String        @unique
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  balance       Float         @default(0)
-  lockedDeposit Float         @default(0)
-  reserved      Float         @default(0)
-  transactions  Transaction[]
-  fromPayments  Payment[]     @relation("FromWallet")
-  toPayments    Payment[]     @relation("ToWallet")
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @default(now()) @updatedAt
+  id           String              @id @default(cuid())
+  userId       String              @unique
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance      Float               @default(0)
+  transactions WalletTransaction[]
+  fromPayments Payment[]           @relation("FromWallet")
+  toPayments   Payment[]           @relation("ToWallet")
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @default(now()) @updatedAt
 
   @@map("wallets")
 }
@@ -334,7 +414,7 @@ model Tour {
   exclusions             String[]         @default([])
   additionalRequirements String?          @db.Text
   guideNotes             String?          @db.Text // Notes/notices dành riêng cho tour guide
-  contract               Contract?
+  contracts              Contract[]
   isBlocked              Boolean          @default(false)
   blockedBy              String?
   blockedAt              DateTime?
@@ -359,6 +439,11 @@ model Tour {
   paymentMilestones PaymentMilestone[]
   invoices          Invoice[]
   SafetyCheckIn     SafetyCheckIn[]
+
+  // Trust & Deposit fields (Phase 3C.1)
+  depositLockRequired Boolean       @default(false)
+  depositLockAmount   Int           @default(0)
+  depositLocks        DepositLock[]
 
   @@map("tours")
 }
@@ -697,17 +782,18 @@ model PaymentMilestone {
   @@map("payment_milestones")
 }
 
-model Transaction {
-  id          String   @id @default(cuid())
-  walletId    String
-  wallet      Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  type        String
-  amount      Float
-  description String
-  refId       String?
-  createdAt   DateTime @default(now())
+model WalletTransaction {
+  id        String                  @id @default(cuid())
+  walletId  String
+  wallet    Wallet                  @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  amount    Float
+  type      WalletTransactionType
+  reason    WalletTransactionReason
+  createdAt DateTime                @default(now())
 
-  @@map("transactions")
+  @@index([walletId])
+  @@index([createdAt])
+  @@map("wallet_transactions")
 }
 
 // Company & Employment Module
@@ -800,6 +886,7 @@ model Assignment {
   updatedAt    DateTime      @default(now()) @updatedAt
 
   paymentMilestones PaymentMilestone[]
+  contracts         Contract[]
 
   @@unique([tourId, guideId])
   @@map("assignments")
@@ -1000,42 +1087,39 @@ model ContractTemplate {
 }
 
 model Contract {
-  id              String            @id @default(cuid())
-  tourId          String            @unique
-  tour            Tour              @relation(fields: [tourId], references: [id])
-  templateId      String? // If created from template
-  template        ContractTemplate? @relation(fields: [templateId], references: [id])
-  title           String
-  content         String            @db.Text // Final content with variables replaced
-  templateContent String?           @db.Text // Original template content
+  id                 String               @id @default(cuid())
+  tourId             String
+  tour               Tour                 @relation(fields: [tourId], references: [id])
+  assignmentId       String
+  assignment         Assignment           @relation(fields: [assignmentId], references: [id])
+  operatorId         String
+  operator           User                 @relation("ContractOperators", fields: [operatorId], references: [id])
+  guideId            String
+  guide              User                 @relation("ContractGuides", fields: [guideId], references: [id])
+  terms              Json // Can store string or object
+  status             ContractStatus       @default(DRAFT)
+  signedAt           DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @default(now()) @updatedAt
+  ContractHistory    ContractHistory[]
+  ContractTemplate   ContractTemplate?    @relation(fields: [contractTemplateId], references: [id])
+  contractTemplateId String?
+  ContractAcceptance ContractAcceptance[]
 
-  // E-Signature (Operator)
-  operatorSignatureUrl String? // URL to operator's signature image
-  operatorSignedAt     DateTime?
-  operatorSignedIp     String?
-
-  // Contract metadata
-  version             Int       @default(1)
-  isActive            Boolean   @default(true)
-  expiresAt           DateTime? // Contract expiration date
-  renewalReminderSent Boolean   @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  acceptances ContractAcceptance[]
-  history     ContractHistory[]
-
+  @@unique([assignmentId])
+  @@index([operatorId])
+  @@index([guideId])
+  @@index([tourId])
   @@map("contracts")
 }
 
 model ContractAcceptance {
-  id         String         @id @default(cuid())
+  id         String                   @id @default(cuid())
   contractId String
-  contract   Contract       @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  contract   Contract                 @relation(fields: [contractId], references: [id], onDelete: Cascade)
   guideId    String
-  guide      User           @relation(fields: [guideId], references: [id], onDelete: Cascade)
-  status     ContractStatus @default(NOT_VIEWED)
+  guide      User                     @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  status     ContractAcceptanceStatus @default(NOT_VIEWED)
 
   // E-Signature (Guide)
   signatureUrl String? // URL to guide's signature image
@@ -1423,4 +1507,92 @@ model TourDeleteRequest {
   updatedAt  DateTime          @default(now()) @updatedAt
 
   @@map("tour_delete_requests")
+}
+
+// ============================================
+// Phase 3C.1: Trust & Deposit Models
+// ============================================
+
+model TrustRecord {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  delta     Int // Trust change amount (can be negative)
+  reason    String // Reason for trust change (e.g., "NO_SHOW", "TOUR_COMPLETED")
+  source    TrustSource @default(AUTO) // AUTO = system-generated, ADMIN = manual adjustment
+  metadata  Json? // Additional context (tourId, etc.)
+  createdAt DateTime    @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("trust_records")
+}
+
+model TrustConfig {
+  id String @id @default("global") // Singleton config
+
+  // Trust status thresholds (admin-configurable)
+  goodMin       Int @default(80) // GOOD: >= goodMin
+  atRiskMin     Int @default(50) // AT_RISK: >= atRiskMin && < goodMin
+  restrictedMax Int @default(49) // RESTRICTED: <= restrictedMax
+
+  // Action blocking thresholds
+  blockCreateTourBelow Int @default(50) // Block tour creation if trust < this
+  blockApplyTourBelow  Int @default(50) // Block tour application if trust < this
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("trust_config")
+}
+
+model DepositConfig {
+  id String @id @default("global") // Singleton config
+
+  // Onboarding deposit requirements (LVC lock amounts)
+  operatorOnboardingLock Int @default(1000000) // 1M LVC for operators
+  guideOnboardingLock    Int @default(500000) // 500K LVC for guides
+
+  // Per-tour deposit lock (optional, admin-configurable)
+  perTourLockAmount Int @default(0) // 0 = disabled, >0 = required per tour
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("deposit_config")
+}
+
+model DepositLock {
+  id         String            @id @default(cuid())
+  userId     String
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tourId     String
+  tour       Tour              @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  amount     Int // LVC amount locked
+  status     DepositLockStatus @default(LOCKED)
+  createdAt  DateTime          @default(now())
+  releasedAt DateTime? // When lock was released
+
+  @@index([userId])
+  @@index([tourId])
+  @@index([status])
+  @@map("deposit_locks")
+}
+
+model AuditLog {
+  id          String             @id @default(cuid())
+  actorId     String // Admin user ID performing the action
+  action      String // Action name (e.g., "ADJUST_TRUST", "RESET_TRUST")
+  targetType  AuditLogTargetType
+  targetId    String? // ID of the target entity (nullable for actions without specific target)
+  beforeState Json? // State before action (nullable)
+  afterState  Json? // State after action (nullable)
+  reason      String? // Reason for action (nullable)
+  createdAt   DateTime           @default(now())
+
+  @@index([actorId])
+  @@index([targetType, targetId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
 }

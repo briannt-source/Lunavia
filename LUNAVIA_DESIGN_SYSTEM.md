@@ -208,3 +208,8 @@ Khi code pages mới:
 **Colors đã được cập nhật trong Tailwind config và globals.css!** 🎨
 
 
+
+
+
+
+

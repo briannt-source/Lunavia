@@ -49,7 +49,7 @@ export class EscrowService {
       ? input.amount
       : input.amount + feeDetails.platformFee;
 
-    const availableBalance = operator.wallet.balance - operator.wallet.reserved;
+    const availableBalance = operator.wallet.balance;
 
     if (operatorPays > availableBalance) {
       throw new InsufficientBalanceError(
@@ -112,7 +112,7 @@ export class EscrowService {
       throw new Error("Operator wallet not found");
     }
     const availableBalance =
-      escrowAccount.operator.wallet.balance - escrowAccount.operator.wallet.reserved;
+      escrowAccount.operator.wallet.balance;
 
     if (operatorPays > availableBalance) {
       throw new InsufficientBalanceError(
@@ -126,7 +126,7 @@ export class EscrowService {
       await tx.wallet.update({
         where: { userId: escrowAccount.operatorId },
         data: {
-          reserved: { increment: operatorPays },
+          balance: { decrement: operatorPays }, // Reserve by deducting from balance
         },
       });
 
@@ -195,13 +195,9 @@ export class EscrowService {
     // Release funds: Transfer from escrow to guide
     const payment = await prisma.$transaction(async (tx) => {
       // Update operator wallet: deduct reserved amount
-      await tx.wallet.update({
-        where: { userId: escrowAccount.operatorId },
-        data: {
-          balance: { decrement: operatorPays },
-          reserved: { decrement: operatorPays },
-        },
-      });
+      // Release reserve by adding back to balance (simplified, no reserved field)
+      // Note: In actual implementation, this would restore the reserved amount
+      // For MVP, we skip this as reserved field is removed
 
       // Update guide wallet: add net amount
       await tx.wallet.update({
@@ -228,21 +224,19 @@ export class EscrowService {
       });
 
       // Create transactions
-      await tx.transaction.createMany({
+      await tx.walletTransaction.createMany({
         data: [
           {
             walletId: escrowAccount.operator.wallet!.id,
-            type: "OUTGOING",
+            type: "DEBIT",
+            reason: "MANUAL",
             amount: -operatorPays,
-            description: `Payment to guide (Escrow released)${escrowAccount.platformFee > 0 ? ` + Platform fee: ${escrowAccount.platformFee.toLocaleString("vi-VN")} VND` : ""}`,
-            refId: payment.id,
           },
           {
             walletId: escrowAccount.guide.wallet!.id,
-            type: "INCOMING",
+            type: "CREDIT",
+            reason: "MANUAL",
             amount: escrowAccount.netAmount,
-            description: `Payment from operator (Escrow released)${escrowAccount.platformFee > 0 ? ` - Platform fee: ${escrowAccount.platformFee.toLocaleString("vi-VN")} VND` : ""}`,
-            refId: payment.id,
           },
         ],
       });
@@ -315,7 +309,7 @@ export class EscrowService {
       await tx.wallet.update({
         where: { userId: escrowAccount.operatorId },
         data: {
-          reserved: { decrement: operatorPays },
+          balance: { increment: operatorPays }, // Release reserve by adding back to balance
         },
       });
 

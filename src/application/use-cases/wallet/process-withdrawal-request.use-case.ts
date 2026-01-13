@@ -50,7 +50,7 @@ export class ProcessWithdrawalRequestUseCase {
     }
 
     // Check available balance
-    const availableBalance = user.wallet.balance - user.wallet.reserved;
+    const availableBalance = user.wallet.balance;
 
     if (withdrawalRequest.amount > availableBalance) {
       throw new Error("Insufficient available balance");
@@ -65,13 +65,12 @@ export class ProcessWithdrawalRequestUseCase {
     });
 
     // Create transaction
-    await prisma.transaction.create({
+    await prisma.walletTransaction.create({
       data: {
         walletId: user.wallet.id,
-        type: "WITHDRAWAL",
+        type: "DEBIT",
+        reason: "MANUAL",
         amount: -withdrawalRequest.amount,
-        description: `Withdrawal: ${withdrawalRequest.amount.toLocaleString("vi-VN")} VND via ${withdrawalRequest.method}`,
-        refId: withdrawalRequest.id,
       },
     });
 
@@ -88,6 +87,11 @@ export class ProcessWithdrawalRequestUseCase {
     return withdrawalRequest;
   }
 }
+
+
+
+
+
 
 
 

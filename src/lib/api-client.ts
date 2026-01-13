@@ -189,6 +189,16 @@ export const api = {
       fetchAPI(`/tours/${id}/delete`, {
         method: "DELETE",
       }),
+    transitionState: (id: string, data: { fromState: string; toState: string; reason?: string }) =>
+      fetchAPI(`/tours/${id}/transition`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+    triggerSOS: (id: string, data: { reason: string }) =>
+      fetchAPI(`/tours/${id}/sos`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
   },
 
   // Applications
@@ -504,6 +514,14 @@ export const api = {
       return fetchAPI(`/disputes?${searchParams.toString()}`);
     },
     get: (id: string) => fetchAPI(`/disputes/${id}`),
+    // Phase 3C: Open dispute
+    open: (data: {
+      tourId: string;
+      reason: string;
+      type: string;
+      evidence?: string[];
+    }) => fetchAPI("/disputes", { method: "POST", body: JSON.stringify(data) }),
+    // Legacy create method (for backward compatibility)
     create: (data: {
       tourId?: string;
       applicationId?: string;
@@ -538,6 +556,21 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ appealDescription }),
       }),
+    // Phase 3C: Approve refund (4-eyes rule)
+    approve: (id: string) =>
+      fetchAPI(`/disputes/${id}/approve`, {
+        method: "POST",
+      }),
+    // Phase 3C: Reject refund
+    rejectRefund: (id: string, reason: string) =>
+      fetchAPI(`/disputes/${id}/reject`, {
+        method: "POST",
+        body: JSON.stringify({ reason }),
+      }),
+  },
+  // Ops overview (observability)
+  ops: {
+    overview: () => fetchAPI("/ops/overview"),
   },
 };
 

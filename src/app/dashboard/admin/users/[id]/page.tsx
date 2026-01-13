@@ -240,13 +240,13 @@ export default async function AdminUserDetailPage({
                   <div>
                     <p className="text-sm text-slate-500">Đã khóa</p>
                     <p className="text-lg font-bold text-amber-600">
-                      {formatVND(user.wallet.lockedDeposit)}
+                      {formatVND(0)}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-slate-500">Đã đặt cọc</p>
                     <p className="text-lg font-bold text-blue-600">
-                      {formatVND(user.wallet.reserved)}
+                      {formatVND(0)}
                     </p>
                   </div>
                 </div>

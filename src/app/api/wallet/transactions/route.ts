@@ -1,111 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-
+/**
+ * GET /api/wallet/transactions
+ * Get wallet transactions for current user
+ * 
+ * NOTE: Wallet system is FROZEN. This is a simplified implementation.
+ */
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
     }
 
-    const userId = session.user.id;
-
-    // Get user's wallet
+    // Get user wallet
     const wallet = await prisma.wallet.findUnique({
-      where: { userId },
+      where: { userId: session.user.id },
     });
 
     if (!wallet) {
-      return NextResponse.json({
-        topUpRequests: [],
-        withdrawalRequests: [],
-        payments: [],
-      });
+      return NextResponse.json(
+        { success: false, error: "Wallet not found" },
+        { status: 404 }
+      );
     }
 
-    // Get top-up requests
-    const topUpRequests = await prisma.topUpRequest.findMany({
-      where: { userId },
-      include: {
-        paymentMethod: true,
-      },
+    // Get transactions
+    const transactions = await prisma.walletTransaction.findMany({
+      where: { walletId: wallet.id },
       orderBy: { createdAt: "desc" },
-      take: 100,
-    });
-
-    // Get withdrawal requests
-    const withdrawalRequests = await prisma.withdrawalRequest.findMany({
-      where: { userId },
-      include: {
-        paymentMethod: true,
-      },
-      orderBy: { createdAt: "desc" },
-      take: 100,
-    });
-
-    // Get payments (both sent and received)
-    const payments = await prisma.payment.findMany({
-      where: {
-        OR: [
-          { fromWalletId: wallet.id }, // Payments sent
-          { toWalletId: wallet.id },    // Payments received
-        ],
-      },
-      include: {
-        tour: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-        fromWallet: {
-          include: {
-            user: {
-              select: {
-                email: true,
-                profile: {
-                  select: {
-                    name: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-        toWallet: {
-          include: {
-            user: {
-              select: {
-                email: true,
-                profile: {
-                  select: {
-                    name: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 100,
+      take: 100, // Limit to last 100 transactions
     });
 
     return NextResponse.json({
-      topUpRequests,
-      withdrawalRequests,
-      payments,
+      success: true,
+      data: transactions.map((t) => ({
+        id: t.id,
+        amount: t.amount,
+        type: t.type,
+        reason: t.reason,
+        createdAt: t.createdAt.toISOString(),
+      })),
     });
   } catch (error: any) {
-    console.error("Error fetching transactions:", error);
+    console.error("Error fetching wallet transactions:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to fetch transactions" },
+      {
+        success: false,
+        error: error.message || "Internal server error",
+      },
       { status: 500 }
     );
   }
 }
-

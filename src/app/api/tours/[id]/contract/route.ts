@@ -48,14 +48,15 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const userId = session.user.id;
     const { id: tourId } = await params;
 
-    const contract = await prisma.contract.findUnique({
+    const contract = await prisma.contract.findFirst({
       where: { tourId },
       include: {
-        acceptances: {
+        ContractAcceptance: {
           where: {
-            guideId: session.user.id,
+            guideId: userId,
           },
         },
       },
@@ -74,6 +75,11 @@ export async function GET(
     );
   }
 }
+
+
+
+
+
 
 
 

@@ -31,7 +31,7 @@ export class CreateWithdrawalRequestUseCase {
     }
 
     // Check available balance
-    const availableBalance = user.wallet.balance - user.wallet.reserved;
+    const availableBalance = user.wallet.balance;
 
     if (input.amount > availableBalance) {
       throw new Error("Insufficient available balance");

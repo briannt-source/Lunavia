@@ -22,8 +22,6 @@ export async function GET(
         wallet: {
           select: {
             balance: true,
-            lockedDeposit: true,
-            reserved: true,
           },
         },
         verifications: {

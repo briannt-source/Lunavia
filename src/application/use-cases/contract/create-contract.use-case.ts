@@ -24,21 +24,46 @@ export class CreateContractUseCase {
       throw new Error("Unauthorized: You don't own this tour");
     }
 
-    // Create contract
-    const contract = await prisma.contract.upsert({
+    // Get assignment for this tour (required for Contract)
+    const assignment = await prisma.assignment.findFirst({
       where: { tourId: input.tourId },
-      update: {
-        title: input.title,
-        content: input.content,
-        templateContent: input.template || input.content,
-      },
-      create: {
-        tourId: input.tourId,
-        title: input.title,
-        content: input.content,
-        templateContent: input.template || input.content,
-      },
+      orderBy: { createdAt: "desc" },
     });
+
+    if (!assignment) {
+      throw new Error("No assignment found for this tour. Contract requires an assignment.");
+    }
+
+    // Check if contract already exists
+    const existingContract = await prisma.contract.findFirst({
+      where: { tourId: input.tourId },
+    });
+
+    // Create or update contract
+    const contract = existingContract
+      ? await prisma.contract.update({
+          where: { id: existingContract.id },
+          data: {
+            terms: {
+              title: input.title,
+              content: input.content,
+              template: input.template || input.content,
+            },
+          },
+        })
+      : await prisma.contract.create({
+          data: {
+            tourId: input.tourId,
+            assignmentId: assignment.id,
+            operatorId: input.operatorId,
+            guideId: assignment.guideId,
+            terms: {
+              title: input.title,
+              content: input.content,
+              template: input.template || input.content,
+            },
+          },
+        });
 
     return contract;
   }
