@@ -18,7 +18,7 @@ import { formatVND } from "@/lib/utils";
 export default function TourReportPage() {
   const params = useParams();
   const router = useRouter();
-  const tourId = params.tourId as string;
+  const tourId = params.id as string;
 
   const [loading, setLoading] = useState(false);
   const [overallRating, setOverallRating] = useState<number>(5);

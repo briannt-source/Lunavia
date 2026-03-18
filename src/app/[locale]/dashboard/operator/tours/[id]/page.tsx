@@ -55,7 +55,7 @@ export default function TourDetailPage() {
   const params = useParams();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const tourId = params.tourId as string;
+  const tourId = params.id as string;
 
   const [transitionDialogOpen, setTransitionDialogOpen] = useState(false);
   const [sosDialogOpen, setSosDialogOpen] = useState(false);

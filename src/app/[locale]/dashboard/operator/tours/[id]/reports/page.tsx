@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 export default function TourReportsPage() {
   const params = useParams();
   const router = useRouter();
-  const tourId = params.tourId as string;
+  const tourId = params.id as string;
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 

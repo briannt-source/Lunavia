@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export default function TourEmergenciesPage() {
   const params = useParams();
-  const tourId = params.tourId as string;
+  const tourId = params.id as string;
 
   const { data: tour } = useQuery({
     queryKey: ["tour", tourId],
