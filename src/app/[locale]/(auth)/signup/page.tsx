@@ -58,12 +58,34 @@ function SignupContent() {
     }
 
     setLoading(true);
-    const res = await fetch('/api/signup', {
+
+    // Map frontend fields to V2 Backend Schema
+    let backendRole: string = role;
+    if (role === 'TOUR_OPERATOR' && operatorType === 'agency') {
+      backendRole = 'TOUR_AGENCY';
+    }
+
+    const payload = {
+      email,
+      password,
+      role: backendRole,
+      name: trimmedName,
+      licenseNumber: businessRegistrationNumber || tourLicenseNumber || undefined,
+      companyName: trimmedName // Fallback since the UI doesn't explicitly capture companyName yet
+    };
+
+    const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fullName: trimmedName, email, password, role, roleMetadata, referralCode: inviteCode || refCode || undefined, systemMode: role === 'TOUR_OPERATOR' ? systemMode : undefined }),
+      body: JSON.stringify(payload),
     });
-    const data = await res.json();
+    
+    let data;
+    try {
+      data = await res.json();
+    } catch (e) {
+      data = { success: false, message: 'Server returned an invalid response (500 Error).' };
+    }
     setLoading(false);
 
     if (data.success) {
