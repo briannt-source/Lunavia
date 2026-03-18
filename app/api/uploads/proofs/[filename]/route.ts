@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
     _req: NextRequest,
-    { params }: { params: { filename: string } }
+    { params }: { params: Promise<{ filename: string }> }
 ) {
     // RBAC: Only SUPER_ADMIN, FINANCE, or OPS can view proofs
     const session = await getServerSession(authOptions);
@@ -20,7 +20,7 @@ export async function GET(
         return new NextResponse('Forbidden', { status: 403 });
     }
 
-    const filename = params.filename;
+    const { filename } = await params;
 
     // Prevent directory traversal
     const safeFilename = path.basename(filename);

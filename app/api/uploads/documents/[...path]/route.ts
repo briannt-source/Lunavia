@@ -19,28 +19,35 @@ const MIME_TYPES: Record<string, string> = {
 // ── GET /api/uploads/documents/[...path] — Serve files with access control ──
 export async function GET(
     _req: NextRequest,
-    { params }: { params: { path: string[] } }
+    { params }: { params: Promise<{ path: string[] }> }
 ) {
     const session = await getServerSession(authOptions);
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     try {
         // Path format: [tourId, filename]
-        const [tourId, filename] = params.path;
+        const { path: pathArray } = await params;
+        const [tourId, filename] = pathArray;
         if (!tourId || !filename) {
             return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
         }
 
+        const userId = session.user.id;
+        const isAdmin = ['SUPER_ADMIN', 'OPS'].includes(session.user.role);
+
         // Verify access
-        const tour = await prisma.serviceRequest.findUnique({
+        const tour = await prisma.tour.findUnique({
             where: { id: tourId },
-            select: { operatorId: true, assignedGuideId: true },
+            select: { 
+                operatorId: true,
+                applications: { where: { guideId: userId, status: 'ACCEPTED' }, select: { id: true } },
+                assignments: { where: { guideId: userId, status: 'APPROVED' }, select: { id: true } }
+            },
         });
         if (!tour) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-        const userId = session.user.id;
-        const isAdmin = ['SUPER_ADMIN', 'OPS'].includes(session.user.role);
-        if (tour.operatorId !== userId && tour.assignedGuideId !== userId && !isAdmin) {
+        const isAssignedGuide = tour.applications.length > 0 || tour.assignments.length > 0;
+        if (tour.operatorId !== userId && !isAssignedGuide && !isAdmin) {
             return NextResponse.json({ error: 'Access denied' }, { status: 403 });
         }
 
