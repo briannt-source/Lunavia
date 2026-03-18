@@ -1,0 +1,103 @@
+import { ITourRepository } from '../../../domain/tour/ITourRepository';
+import { Tour } from '../../../domain/tour/Tour';
+import { TourStatus } from '../../../domain/tour/TourStatus';
+import { prisma } from '@/lib/prisma';
+import { TourMapper } from '../../mappers/TourMapper';
+
+export class PrismaTourRepository implements ITourRepository {
+    async save(tour: Tour): Promise<void> {
+        const data = TourMapper.toPersistence(tour);
+        await prisma.serviceRequest.upsert({
+            where: { id: tour.id },
+            update: data,
+            create: data as any // Types might mismatch slightly
+        });
+    }
+
+    async updateStatus(id: string, status: TourStatus): Promise<void> {
+        await prisma.serviceRequest.update({
+            where: { id },
+            data: { status }
+        });
+    }
+
+    async findById(id: string): Promise<Tour | null> {
+        const data = await prisma.serviceRequest.findUnique({
+            where: { id }
+        });
+        if (!data) return null;
+        return TourMapper.toDomain(data);
+    }
+
+    async findByOperator(operatorId: string): Promise<Tour[]> {
+        const data = await prisma.serviceRequest.findMany({
+            where: { operatorId }
+        });
+        return data.map(TourMapper.toDomain);
+    }
+
+    async findActiveByOperator(operatorId: string): Promise<Tour[]> {
+        const data = await prisma.serviceRequest.findMany({
+            where: {
+                operatorId,
+                status: { notIn: ['COMPLETED', 'CANCELLED', 'CLOSED'] }
+            }
+        });
+        return data.map(TourMapper.toDomain);
+    }
+
+    async findConflictingTours(guideId: string, startTime: Date, endTime: Date): Promise<Tour[]> {
+        const data = await prisma.serviceRequest.findMany({
+            where: {
+                assignedGuideId: guideId,
+                status: { notIn: ['CANCELLED', 'DRAFT'] },
+                OR: [
+                    { startTime: { lte: endTime }, endTime: { gte: startTime } }
+                ]
+            }
+        });
+        return data.map(TourMapper.toDomain);
+    }
+
+    // Automation Support
+    async findCompletedTours(): Promise<Tour[]> {
+        const data = await prisma.serviceRequest.findMany({
+            where: {
+                status: 'IN_PROGRESS',
+                endTime: { lt: new Date() }
+            }
+        });
+        return data.map(TourMapper.toDomain);
+    }
+
+    async hasActiveIncidents(tourId: string): Promise<boolean> {
+        const count = await prisma.incident.count({
+            where: {
+                requestId: tourId,
+                status: { not: 'RESOLVED' }
+            }
+        });
+        return count > 0;
+    }
+
+    async hasActiveDisputes(tourId: string): Promise<boolean> {
+        const count = await prisma.conflict.count({
+            where: {
+                serviceRequestId: tourId,
+                status: { not: 'RESOLVED' }
+            }
+        });
+        return count > 0;
+    }
+
+    async findPotentialNoShows(): Promise<Tour[]> {
+        const data = await prisma.serviceRequest.findMany({
+            where: {
+                status: 'ASSIGNED',
+                startTime: { lt: new Date() },
+                guideCheckedInAt: null
+            }
+        });
+        return data.map(TourMapper.toDomain);
+    }
+}

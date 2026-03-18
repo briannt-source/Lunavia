@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  /* Core colors */
+  --bg-main: 255 255 255;
+  /* white */
+  --bg-subtle: 249 250 251;
+  /* gray-50 */
+  --text-main: 17 24 39;
+  /* gray-900 */
+  --text-muted: 107 114 128;
+  /* gray-500 */
+  --border-subtle: 229 231 235;
+  /* gray-200 */
+
+  /* Status colors */
+  --color-success: 34 197 94;
+  /* green-500 */
+  --color-warning: 234 179 8;
+  /* yellow-500 */
+  --color-danger: 239 68 68;
+  /* red-500 */
+  --color-info: 59 130 246;
+  /* blue-500 */
+
+  /* Brand */
+  --color-primary: 79 70 229;
+  /* indigo-600 */
+  --color-primary-hover: 67 56 202;
+  /* indigo-700 */
+}
+
+.dark {
+  --bg-main: 17 24 39;
+  /* gray-900 */
+  --bg-subtle: 31 41 55;
+  /* gray-800 */
+  --text-main: 243 244 246;
+  /* gray-100 */
+  --text-muted: 156 163 175;
+  /* gray-400 */
+  --border-subtle: 55 65 81;
+  /* gray-700 */
+
+  /* Status colors (slightly adjusted for dark) */
+  --color-success: 74 222 128;
+  /* green-400 */
+  --color-warning: 250 204 21;
+  /* yellow-400 */
+  --color-danger: 248 113 113;
+  /* red-400 */
+  --color-info: 96 165 250;
+  /* blue-400 */
+
+  /* Brand */
+  --color-primary: 99 102 241;
+  /* indigo-500 */
+  --color-primary-hover: 129 140 248;
+  /* indigo-400 */
+}
+
+/* Smooth shimmer animation for skeletons */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Subtle fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(90deg,
+        rgb(var(--bg-subtle)) 0%,
+        rgb(var(--bg-main)) 50%,
+        rgb(var(--bg-subtle)) 100%);
+    background-size: 200% 100%;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+
+  /* Improved focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+
+  .shadow-premium {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -5px rgba(0, 0, 0, 0.03);
+  }
+
+  .trust-gradient {
+    background: linear-gradient(135deg, #00A3FF 0%, #0072B5 100%);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

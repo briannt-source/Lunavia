@@ -1,84 +1,87 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
-import { authOptions } from "@/lib/auth-config";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './navigation';
 
-export default withAuth(
-  function middleware(req) {
-  const token = req.nextauth.token;
-  const path = req.nextUrl.pathname;
+const intlMiddleware = createMiddleware(routing);
 
-  // 🔒 Chưa login → về /auth/signin
-  if (!token) {
-    return NextResponse.redirect(new URL("/auth/signin", req.url));
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Skip static assets and internal APIs
+  if (
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
   }
 
-  const role = token.role as string | undefined;
-
-  // ⚠️ Không có role → logout
-  if (!role) {
-    return NextResponse.redirect(new URL("/auth/signin", req.url));
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET });
+  const segments = pathname.split('/').filter(Boolean);
+  const hasLocale = segments.length > 0 && ['en', 'vi'].includes(segments[0]);
+  
+  let routeWithoutLocale = pathname;
+  if (hasLocale) {
+    routeWithoutLocale = pathname.replace(`/${segments[0]}`, '');
+  }
+  if (routeWithoutLocale === '') {
+    routeWithoutLocale = '/';
   }
 
-  // ❌ Guide không được tạo tour
-  if (path.startsWith("/tours/create") && role === "TOUR_GUIDE") {
-    return NextResponse.redirect(
-      new URL("/dashboard/guide?error=unauthorized", req.url)
-    );
+  const localePrefix = hasLocale ? `/${segments[0]}` : `/${routing.defaultLocale}`;
+
+  // 1. Unauthenticated users -> redirect to login
+  const isProtectedPath = routeWithoutLocale.startsWith("/dashboard") || 
+                          routeWithoutLocale.startsWith("/tours/create") || 
+                          routeWithoutLocale.startsWith("/chat") || 
+                          routeWithoutLocale.startsWith("/ai");
+
+  if (isProtectedPath && !token) {
+    const loginUrl = new URL(`${localePrefix}/auth/signin`, req.url);
+    loginUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // 🧭 Operator / Agency
-  if (path.startsWith("/dashboard/operator")) {
-    if (role !== "TOUR_OPERATOR" && role !== "TOUR_AGENCY") {
-      return NextResponse.redirect(new URL("/dashboard/guide", req.url));
+  // 2. Role-based Access Control
+  if (isProtectedPath && token) {
+    const role = token.role as string | undefined;
+
+    if (!role) {
+      return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
+    }
+
+    if (routeWithoutLocale.startsWith("/tours/create") && role === "TOUR_GUIDE") {
+      return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide?error=unauthorized`, req.url));
+    }
+
+    if (routeWithoutLocale.startsWith("/dashboard/operator")) {
+      if (role !== "TOUR_OPERATOR" && role !== "TOUR_AGENCY") {
+        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
+      }
+    }
+
+    if (routeWithoutLocale.startsWith("/dashboard/guide")) {
+      if (role !== "TOUR_GUIDE") {
+        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
+      }
+    }
+
+    if (routeWithoutLocale.startsWith("/dashboard/admin")) {
+      const validAdminRoles = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
+      if (!role.startsWith("ADMIN_") && !validAdminRoles.includes(role)) {
+        if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
+        if (role === "TOUR_GUIDE") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
+        return NextResponse.redirect(new URL(`${localePrefix}/`, req.url));
+      }
     }
   }
 
-  // 🧭 Guide
-  if (path.startsWith("/dashboard/guide")) {
-    if (role !== "TOUR_GUIDE") {
-      return NextResponse.redirect(new URL("/dashboard/operator", req.url));
-    }
-  }
-
-  // 🛡️ Admin - check if user is admin (basic role check)
-  // Note: Middleware only checks roles for route access.
-  // Granular permission checks happen in API routes using PermissionService.
-  if (path.startsWith("/dashboard/admin")) {
-    // Check if role starts with ADMIN_ or is a valid admin role
-    const validAdminRoles = [
-      "SUPER_ADMIN",
-      "MODERATOR",
-      "OPS_CS",
-      "FINANCE",
-      "FINANCE_LEAD",
-      "SUPPORT_STAFF",
-    ];
-    if (role && (role.startsWith("ADMIN_") || validAdminRoles.includes(role))) {
-      return NextResponse.next();
-    }
-    // If not admin, redirect to appropriate dashboard
-    if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
-      return NextResponse.redirect(new URL("/dashboard/operator", req.url));
-    } else if (role === "TOUR_GUIDE") {
-      return NextResponse.redirect(new URL("/dashboard/guide", req.url));
-    }
-    return NextResponse.redirect(new URL("/", req.url));
-  }
-
-  return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => !!token,
-    },
-  }
-);
+  // 3. Fall through to next-intl to handle URL rewriting
+  return intlMiddleware(req);
+}
 
 export const config = {
-  matcher: [
-    "/dashboard/:path*",
-    "/tours/create/:path*",
-    "/chat/:path*",
-    "/ai/:path*",
-  ],
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

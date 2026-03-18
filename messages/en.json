@@ -1,0 +1,2826 @@
+{
+    "MarketingPricing": {
+        "header": {
+            "badge": "Transparent Pricing",
+            "title": "Plans for every stage",
+            "subtitle": "Choose Marketplace for guide discovery, or Operations for internal team management. No hidden fees."
+        },
+        "tabs": {
+            "marketplace": "🌐 Marketplace",
+            "operations": "🏢 Operations"
+        },
+        "desc": {
+            "marketplace": "Marketplace",
+            "marketplaceText": "— Open platform with guide discovery, escrow payments, SOS broadcast, and trust scoring. For operators who need to find and hire freelance guides.",
+            "operations": "Operations",
+            "operationsText": "— Closed ecosystem for companies with their own guides. No marketplace, no escrow fees. Just team management, tour tracking, and operational tools."
+        },
+        "billing": {
+            "monthly": "Monthly",
+            "quarterly": "Quarterly",
+            "annual": "Annual"
+        },
+        "promo": {
+            "title": "First 100 Users — 3 Months Pro Free!",
+            "desc1": "Be among the first 100 operators to sign up and get ",
+            "descHighlight": "3 months of Pro plan",
+            "desc2": " completely free. No credit card required — start operating with full features today.",
+            "cta": "Claim Your Spot"
+        },
+        "plans": {
+            "Marketplace": {
+                "Free": {
+                    "name": "Free",
+                    "desc": "Get started with basic marketplace access.",
+                    "cta": "Start Free",
+                    "limits": {
+                        "tours": "10 / month",
+                        "team": "5 guides",
+                        "guidesPerTour": "2"
+                    },
+                    "features": [
+                        "Guide marketplace access",
+                        "Escrow-protected payments",
+                        "Tour lifecycle management",
+                        "Incident reporting",
+                        "Payment disputes"
+                    ],
+                    "excluded": [
+                        "SOS broadcast",
+                        "Command center",
+                        "Advanced filters",
+                        "Analytics & insights",
+                        "Portfolio & sharing",
+                        "Guest check-in system",
+                        "Priority boost"
+                    ]
+                },
+                "Pro": {
+                    "name": "Pro",
+                    "desc": "Scale your operations with advanced tools.",
+                    "cta": "Upgrade to Pro",
+                    "limits": {
+                        "tours": "50 / month",
+                        "team": "20 guides",
+                        "guidesPerTour": "5"
+                    },
+                    "features": [
+                        "Everything in Free",
+                        "SOS guide broadcast",
+                        "Live command center",
+                        "Advanced search filters",
+                        "Analytics & insights",
+                        "Portfolio & social sharing",
+                        "Multi-guide teams",
+                        "Guest check-in system",
+                        "Full tour segments"
+                    ],
+                    "excluded": [
+                        "Priority boost",
+                        "External tracking"
+                    ]
+                },
+                "Elite": {
+                    "name": "Elite",
+                    "desc": "For high-volume operators needing full power.",
+                    "cta": "Go Elite",
+                    "limits": {
+                        "tours": "Unlimited",
+                        "team": "100 guides",
+                        "guidesPerTour": "10"
+                    },
+                    "features": [
+                        "Everything in Pro",
+                        "Priority boost & visibility",
+                        "External agency tracking",
+                        "Lowest commission rate",
+                        "Priority support"
+                    ]
+                },
+                "Enterprise": {
+                    "name": "Enterprise",
+                    "desc": "Custom solution for large-scale operations.",
+                    "cta": "Contact Sales",
+                    "limits": {
+                        "tours": "Custom",
+                        "team": "Custom",
+                        "guidesPerTour": "Custom"
+                    },
+                    "features": [
+                        "Everything in Elite",
+                        "Custom tour & team limits",
+                        "Negotiated commission",
+                        "Dedicated account manager",
+                        "SLA guarantee",
+                        "Custom integrations"
+                    ]
+                }
+            },
+            "Operations": {
+                "Starter": {
+                    "name": "Ops Starter",
+                    "desc": "Internal team management for small operators.",
+                    "cta": "Get Started",
+                    "limits": {
+                        "tours": "30 / month",
+                        "team": "15 guides",
+                        "guidesPerTour": "5"
+                    },
+                    "features": [
+                        "Tour creation & management",
+                        "Live command center",
+                        "Team management & invites",
+                        "Multi-guide per tour",
+                        "Full tour segments",
+                        "Incident reporting"
+                    ],
+                    "excluded": [
+                        "No marketplace (closed ecosystem)",
+                        "Analytics & insights",
+                        "External tracking",
+                        "Guest check-in system"
+                    ]
+                },
+                "Business": {
+                    "name": "Ops Business",
+                    "desc": "Full operations suite for established companies.",
+                    "cta": "Upgrade",
+                    "limits": {
+                        "tours": "100 / month",
+                        "team": "50 guides",
+                        "guidesPerTour": "10"
+                    },
+                    "features": [
+                        "Everything in Ops Starter",
+                        "Analytics & insights",
+                        "External agency tracking",
+                        "Guest check-in system",
+                        "Portfolio & sharing",
+                        "Priority support"
+                    ]
+                },
+                "Enterprise": {
+                    "name": "Enterprise",
+                    "desc": "Custom solution with optional marketplace.",
+                    "cta": "Contact Sales",
+                    "limits": {
+                        "tours": "Custom",
+                        "team": "Custom",
+                        "guidesPerTour": "Custom"
+                    },
+                    "features": [
+                        "Everything in Ops Business",
+                        "Optional marketplace access",
+                        "Custom limits",
+                        "Dedicated account manager",
+                        "SLA guarantee",
+                        "Custom integrations"
+                    ]
+                }
+            }
+        },
+        "card": {
+            "selected": "Selected Plan",
+            "selectedTag": "Selected",
+            "mostPopular": "Most Popular",
+            "custom": "Custom",
+            "free": "Free",
+            "noCommission": "✨ No commission — pay guides directly",
+            "commission": "{pct} commission per transaction",
+            "tours": "Tours",
+            "teamSize": "Team size",
+            "guidesPerTour": "Guides/tour",
+            "includedFeatures": "Included Features",
+            "notIncluded": "Not Included",
+            "choose": "Choose {name}",
+            "contactSales": "Contact Sales",
+            "clickToSelect1": "Click any plan to highlight and compare • ",
+            "clickToSelectLink": "See detailed comparison →",
+            "clickOutside": "Click outside or press × to close"
+        },
+        "compare": {
+            "title": "Compare Marketplace Plans",
+            "feature": "Feature",
+            "free": "Free",
+            "pro": "Pro",
+            "elite": "Elite",
+            "enterprise": "Enterprise",
+            "features": {
+                "Subscription": "Subscription",
+                "Commission": "Commission",
+                "Tours per month": "Tours / month",
+                "Team size": "Team size",
+                "Guides per tour": "Guides per tour",
+                "Marketplace": "Marketplace",
+                "SOS Broadcast": "SOS Broadcast",
+                "Command Center": "Command Center",
+                "Advanced Filters": "Advanced Filters",
+                "Analytics": "Analytics",
+                "Portfolio": "Portfolio",
+                "External Tracking": "External Tracking",
+                "Priority Boost": "Priority Boost",
+                "Vouchers": "Vouchers"
+            },
+            "values": {
+                "Pro_Subs": "₫1.3M/mo",
+                "Elite_Subs": "₫3.5M/mo",
+                "Custom": "Custom",
+                "Unlimited": "Unlimited"
+            }
+        },
+        "guide": {
+            "badge": "For Tour Guides",
+            "title": "Free to start. Pro to grow.",
+            "subtitle": "No subscription required — start guiding immediately. Upgrade to Pro for lower fees, priority matching, and professional tools that help you earn more.",
+            "feeTitle": "Platform Service Fee",
+            "feeDesc": "A small platform fee is deducted from each payout to cover escrow processing, payment security, and dispute protection. Pro guides enjoy a significantly lower fee.",
+            "freePlan": "Guide Free",
+            "freeDesc": "Get started, build your profile, and start earning right away.",
+            "freeApplications": "Applications",
+            "freePlatformFee": "Platform fee",
+            "freeCancellation": "Cancellation forgiveness",
+            "unlimited": "Unlimited",
+            "none": "None",
+            "startFree": "Start Free",
+            "proRecommended": "Recommended",
+            "proPlan": "Guide Pro",
+            "proFeeDesc": "Only 2% platform fee — save 60% on fees",
+            "proDesc": "Professional tools for serious guides. Earn more, rank higher, protect your record.",
+            "upgradePro": "Upgrade to Pro",
+            "freeFeeDesc": "5% platform service fee per payout",
+            "freeFeatures": [
+                "Tour marketplace access",
+                "Escrow-protected payments",
+                "Trust score & ratings",
+                "Basic profile & portfolio",
+                "Tour notifications",
+                "Earnings dashboard",
+                "Incident reporting"
+            ],
+            "freeExcluded": [
+                "Priority in search results",
+                "Cancellation forgiveness",
+                "Performance analytics",
+                "Verified Pro badge"
+            ],
+            "proFeatures": [
+                "Everything in Free",
+                "Only 2% platform fee (vs 5%)",
+                "Priority in operator search results",
+                "Verified Pro badge on profile",
+                "Cancellation forgiveness (1/quarter)",
+                "Advanced performance analytics",
+                "Enhanced portfolio & showcase",
+                "Priority tour notifications",
+                "Earnings optimization tips"
+            ],
+            "rulesTitle": "Reliability Rules",
+            "rulesDesc1": "Lunavia tracks every guide's reliability to protect operators and maintain platform quality. Consistent performance is rewarded. ",
+            "rulesDescLink": "Learn how scoring works →",
+            "penaltyTitle": "Late Cancellation Penalty",
+            "penaltyDesc1": "Cancel within 48h of departure: ",
+            "penaltyDescHighlight": "reliability score −15 points",
+            "penaltyDesc2": " + temporary search ranking drop.",
+            "warningTitle": "Performance Warning",
+            "warningDesc1": "Below 70% reliability score: ",
+            "warningDescHighlight": "account on probation",
+            "warningDesc2": ". Tour applications may be restricted.",
+            "rewardTitle": "High Performer Rewards",
+            "rewardDesc1": "Above 95% reliability: ",
+            "rewardDescHighlight": "priority matching",
+            "rewardDesc2": ", operator trust badge, and higher visibility."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "q1": "What's the difference between Marketplace and Operations?",
+            "a1": "Marketplace gives you access to our guide discovery network with escrow payments. Operations is for companies who already have their own guides — no marketplace fees, just team management tools.",
+            "q2": "Why do Operations plans have 0% commission?",
+            "a2": "Operations plans don't use escrow — you pay your guides directly through your own payroll. There's no payment intermediary, so no commission.",
+            "q3": "Can I switch between Marketplace and Operations?",
+            "a3": "Yes! Contact our team to switch your product line. Enterprise plans can even combine both — use marketplace when you need extra guides and operations for your internal team.",
+            "q4": "What happens when I reach my tour limit?",
+            "a4": "You'll see an upgrade prompt. Upgrade to a higher plan anytime to increase your limits. Existing tours continue running normally."
+        },
+        "bottomCta": {
+            "title": "Ready to get started?",
+            "subtitle": "Start with our Free plan — no credit card required.",
+            "startFree": "Start Free",
+            "contactSales": "Contact Sales"
+        }
+    },
+    "Home": {
+        "nav": {
+            "home": "Home",
+            "pricing": "Pricing",
+            "about": "About",
+            "contact": "Contact",
+            "login": "Log in",
+            "startFree": "Start Free"
+        },
+        "hero": {
+            "badge": "Regulated Marketplace Infrastructure",
+            "title1": "Operate tours with trust. ",
+            "title2": "Hire guides with confidence.",
+            "subtitle": "Tour management, guide marketplace, escrow payment, and governance — in one platform.",
+            "cta1": "Start Free",
+            "cta2": "Book Demo"
+        },
+        "stats": {
+            "val1": "100%",
+            "label1": "Escrow Protected",
+            "val2": "Real-time",
+            "label2": "Trust Scoring",
+            "val3": "Multi-tier",
+            "label3": "Compliance",
+            "val4": "Hybrid",
+            "label4": "Workforce Model"
+        },
+        "modules": {
+            "badge": "Core Modules",
+            "title": "Everything you need to operate",
+            "subtitle": "Three integrated systems that cover the full lifecycle of tour operations.",
+            "m1": {
+                "title": "Tour Management",
+                "desc": "Create, schedule, and manage tours with structured lifecycle tracking. From draft to completion, every stage is governed and auditable."
+            },
+            "m2": {
+                "title": "Guide Marketplace",
+                "desc": "Access a verified pool of professional tour guides. Filter by expertise, language, location, and trust score to find the right match."
+            },
+            "m3": {
+                "title": "Escrow & Trust Transparency",
+                "desc": "All payments are escrow-protected. Trust scores are earned through verified performance, not purchased — ensuring a fair, merit-based marketplace."
+            }
+        },
+        "hybrid": {
+            "badge": "Hybrid Workforce",
+            "title1": "Use in-house guides. ",
+            "title2": "Hire freelance when needed.",
+            "subtitle": "Operators can assign their internal team to tours or open positions to the marketplace. Mix-and-match based on demand, season, and specialization — all within one platform.",
+            "assign": {
+                "title": "Assign internal guides",
+                "desc": "Directly assign tours to your in-house team with no marketplace exposure."
+            },
+            "open": {
+                "title": "Open to marketplace",
+                "desc": "Post open positions to the verified freelance guide network when you need extra hands."
+            },
+            "diagram": {
+                "operator": "Tour Operator",
+                "inHouse": "In-House Guides",
+                "inHouseDesc": "Direct assignment",
+                "marketplace": "Marketplace Guides",
+                "marketplaceDesc": "Open application"
+            }
+        },
+        "compliance": {
+            "badge": "Compliance & Governance",
+            "title": "Built on verified trust",
+            "subtitle": "Every participant is verified. Every transaction is protected. Every action is transparent.",
+            "c1": {
+                "title": "Verified Operators",
+                "desc": "Every operator undergoes identity and business verification before accessing the platform."
+            },
+            "c2": {
+                "title": "Compliance Levels",
+                "desc": "Structured compliance tiers ensure regulatory alignment across different operator categories."
+            },
+            "c3": {
+                "title": "Trust Score",
+                "desc": "Transparent, merit-based scoring earned through operational performance — not payment."
+            },
+            "c4": {
+                "title": "Escrow Protection",
+                "desc": "All financial transactions flow through escrow until service delivery is confirmed by both parties."
+            }
+        },
+        "howItWorks": {
+            "badge": "How It Works",
+            "title": "Get started in minutes",
+            "subtitle": "Three simple steps to start operating or start earning as a guide.",
+            "operatorTitle": "For Tour Operators",
+            "os1": {
+                "title": "Create your account",
+                "desc": "Sign up, complete KYC verification, and set up your operator profile."
+            },
+            "os2": {
+                "title": "Post a tour",
+                "desc": "Create tour requests with dates, location, requirements, and budget. Assign your team or open to the marketplace."
+            },
+            "os3": {
+                "title": "Manage & pay",
+                "desc": "Track tours in real-time via Command Center. Payments are escrow-protected — guides get paid after completion."
+            },
+            "guideTitle": "For Tour Guides",
+            "gs1": {
+                "title": "Build your profile",
+                "desc": "Sign up, verify your identity, and showcase your languages, skills, and experience."
+            },
+            "gs2": {
+                "title": "Apply to tours",
+                "desc": "Browse available tours, filter by location and date, and apply to ones that match your expertise."
+            },
+            "gs3": {
+                "title": "Guide & get paid",
+                "desc": "Complete the tour, receive your payout via escrow. Build your trust score with every successful tour."
+            }
+        },
+        "products": {
+            "badge": "Two Ways to Use Lunavia",
+            "title": "Choose what fits your business",
+            "marketplace": {
+                "title": "Marketplace",
+                "desc1": "Open platform for operators who need to ",
+                "descHighlight": "discover and hire freelance guides",
+                "desc2": ". Includes guide marketplace, escrow payments, SOS broadcast, and trust scoring.",
+                "f1": "Guide discovery & matching",
+                "f2": "Escrow-protected payments",
+                "f3": "SOS guide broadcast",
+                "f4": "Trust score system",
+                "pricePrefix": "From ",
+                "priceDisplay": "Free",
+                "priceSuffix": " — 10 tours/month",
+                "cta": "See Marketplace plans"
+            },
+            "operations": {
+                "title": "Operations",
+                "desc1": "Closed ecosystem for companies who ",
+                "descHighlight": "already have their own guides",
+                "desc2": ". No marketplace, no escrow fees. Just team management and operational tools.",
+                "f1": "Internal team management",
+                "f2": "Live tour command center",
+                "f3": "Multi-guide per tour",
+                "f4": "No commission — 0% fees",
+                "pricePrefix": "From ",
+                "priceDisplay": "₫899,000",
+                "priceSuffix": "/month",
+                "cta": "See Operations plans"
+            }
+        },
+        "cta": {
+            "title": "Ready to build with trust?",
+            "subtitle": "Join the platform designed for compliant, transparent tour operations.",
+            "btn1": "Start Free",
+            "btn2": "View Pricing"
+        }
+    },
+    "Auth": {
+        "Login": {
+            "title": "Welcome back",
+            "subtitle": "Enter your details to access your dashboard.",
+            "googleBtn": "Continue with Google",
+            "orEmail": "or sign in with email",
+            "email": "Email address",
+            "emailPlaceholder": "you@example.com",
+            "password": "Password",
+            "forgotPassword": "Forgot password?",
+            "passwordPlaceholder": "••••••••",
+            "loading": "Signing in…",
+            "submit": "Sign in",
+            "noAccount": "Don't have an account?",
+            "signupLink": "Sign up for free",
+            "loadingSession": "Checking your session…",
+            "leftQuote": "Trusted tour operations — from guide matching to escrow payout, all in one platform.",
+            "feature1": "Live tour monitoring & command center",
+            "feature2": "Escrow-protected payments",
+            "feature3": "Verified guide marketplace"
+        },
+        "Signup": {
+            "title": "Create an account",
+            "subtitle": "Sign up to get started with Lunavia.",
+            "invitedMsg": "You were invited! Complete signup to receive your 7-day PRO trial.",
+            "googleBtn": "Sign up with Google",
+            "orEmail": "or register with email",
+            "fullName": "Full Name",
+            "fullNamePlaceholder": "Your legal name",
+            "fullNameWarning": "⚠️ Real names build trust. This cannot be easily changed.",
+            "email": "Email address",
+            "emailPlaceholder": "you@example.com",
+            "password": "Password",
+            "passwordPlaceholder": "At least 8 characters",
+            "confirmPassword": "Confirm password",
+            "confirmPlaceholder": "Repeat password",
+            "roleQ": "How will you use Lunavia?",
+            "roleOp": "Tour Operator",
+            "roleOpDesc": "Post tours & hire guides",
+            "roleGuide": "Tour Guide",
+            "roleGuideDesc": "Accept tour requests",
+            "modeQ": "Which product tier are you signing up for? *",
+            "modeMp": "Marketplace & Operations",
+            "modeMpDesc": "Hire freelance guides using escrow on the open network.",
+            "modeOps": "Internal Operations Only",
+            "modeOpsDesc": "Manage your own in-house guides. 0% commission.",
+            "opType": "Operator type *",
+            "opPlaceholder": "Select structure...",
+            "opCompany": "Licensed Tour Operator",
+            "opAgency": "Travel Agency",
+            "opSole": "Sole Proprietor",
+            "opLicense": "Business / License Number",
+            "guideType": "Guide type *",
+            "guidePlaceholder": "Select status...",
+            "guideFreelance": "Freelance Guide",
+            "guideAssoc": "In-house Guide (Associate)",
+            "guideCard": "Guide Card #",
+            "optional": "(Optional)",
+            "assocWarning": "Associate guides require operator authorization",
+            "assocDesc1": "In-house (associate) guides can only join the platform through their tour operator. There are two ways:",
+            "assocList1": "Operator sends an invite — via email or the Lunavia system. You'll receive a link to complete registration.",
+            "assocList2": "Enter an invite code — if your operator gave you one, enter it below to link your account.",
+            "assocNote": "Note: Associate guides cannot access the freelance marketplace. Lunavia will verify the labor agreement between you and your operator.",
+            "refCode": "Operator Referral Code (or System ID)",
+            "refRequired": "(Required for exact link)",
+            "refPlaceholder": "e.g. a1b2c3d4 or Operator ID",
+            "refHelp": "Ask your operator to share their Referral Code from their Team page.",
+            "poaAccept": "I understand I must complete KYC/KYB identity verification before I can start accepting or creating tours.",
+            "agreeTerms1": "I agree to the",
+            "agreeTermsLink1": "Terms of Service",
+            "agreeTerms2": "and",
+            "agreeTermsLink2": "Privacy Policy.",
+            "loading": "Creating account…",
+            "submit": "Create account",
+            "hasAccount": "Already have an account?",
+            "loginLink": "Sign in instead",
+            "leftTitle": "Join the network of professional operators and verified guides.",
+            "feature1": "Secure escrow payouts",
+            "feature2": "Verified trusted profiles",
+            "feature3": "Real-time incident management"
+        }
+    },
+    "Dashboard": {
+        "Sidebar": {
+            "sections": {
+                "core": "Core",
+                "teamMarketplace": "Team & Marketplace",
+                "team": "Team",
+                "finance": "Finance",
+                "operations": "Operations",
+                "account": "Account",
+                "tours": "Tours",
+                "commandCenter": "Command Center",
+                "system": "System",
+                "pitchMode": "Pitch Mode"
+            },
+            "links": {
+                "dashboard": "Dashboard",
+                "myTours": "My Tours",
+                "myTeam": "My Team",
+                "discoverGuides": "Discover Guides",
+                "wallet": "Wallet",
+                "commission": "Commission",
+                "liveFleetTracking": "Live Fleet Tracking",
+                "commandCenter": "Command Center",
+                "insights": "Insights",
+                "disputes": "Disputes",
+                "guideBlacklist": "Guide Blacklist",
+                "profile": "Profile",
+                "portfolio": "Portfolio",
+                "subscription": "Subscription",
+                "verification": "Verification",
+                "settings": "Settings",
+                "marketplace": "Marketplace",
+                "calendar": "Calendar",
+                "earnings": "Earnings",
+                "godMode": "⚡ God Mode",
+                "globalFleet": "🗺️ Global Fleet Tracking",
+                "analytics": "Analytics",
+                "marketplaceUsers": "Marketplace Users",
+                "tourControl": "Tour Control Center",
+                "incidents": "Incidents",
+                "disputeRes": "Dispute Resolution",
+                "cancellations": "Cancellations",
+                "risk": "Risk Monitoring",
+                "feedback": "Feedback",
+                "omniscience": "👁️ Omniscience",
+                "escrow": "💰 Escrow",
+                "topups": "Top-ups",
+                "withdrawals": "Withdrawals",
+                "ledger": "Ledger",
+                "subscriptions": "Subscriptions",
+                "vouchers": "Vouchers",
+                "referrals": "Referrals",
+                "bankSettings": "Bank Settings",
+                "staff": "Internal Staff",
+                "maintenance": "Maintenance",
+                "permissions": "Permissions",
+                "governance": "Governance",
+                "systemHealth": "System Health",
+                "simulation": "Simulation",
+                "investor": "Investor Overview",
+                "demo": "Demo Reset",
+                "myProfile": "My Profile"
+            },
+            "footer": {
+                "tourOperator": "Tour Operator",
+                "tourGuide": "Tour Guide",
+                "logOut": "Log out"
+            }
+        }
+    },
+    "Operator": {
+        "Tours": {
+            "title": "My Tours",
+            "subtitle": "Manage your drafts and active tours.",
+            "createTourBtn": "+ Create Tour",
+            "tabs": {
+                "all": "All",
+                "drafts": "Drafts",
+                "active": "Active",
+                "completed": "Completed",
+                "cancelled": "Cancelled"
+            },
+            "emptyState": {
+                "title": "No requests found",
+                "allDesc": "Use the \"+ Create Tour\" button above to get started.",
+                "otherDesc": "No {tab} requests yet."
+            },
+            "status": {
+                "draft": "Draft",
+                "published": "Published",
+                "open": "Open",
+                "offered": "Offered",
+                "assigned": "Assigned",
+                "inProgress": "In Progress",
+                "pendingConfirmation": "Pending Confirmation",
+                "closed": "Closed",
+                "disputed": "Disputed",
+                "cancelled": "Cancelled"
+            },
+            "actions": {
+                "edit": "Edit",
+                "publish": "Publish",
+                "verifyToPublish": "🔒 Verify to publish",
+                "delete": "Delete",
+                "viewApplicants": "View Applicants",
+                "viewAssign": "View / Assign",
+                "cancel": "Cancel",
+                "view": "View",
+                "startTour": "▶ Start Tour",
+                "guideNoShow": "Overdue (Guide No-Show)",
+                "reportNoShow": "Report No-Show & Cancel",
+                "waitingGuideCheckIn": "Waiting for Guide Check-in",
+                "reviewWithdrawal": "Review Withdrawal Request",
+                "trackLive": "Track Live",
+                "reviewConfirm": "⚡ Review & Confirm",
+                "viewReport": "View report →",
+                "viewDispute": "View dispute →",
+                "viewDetails": "View details →"
+            },
+            "applicantsCount": "{count} Applicant",
+            "applicantsCountPlural": "{count} Applicants",
+            "liabilityWarning": {
+                "unlicensedBadge": "{type} — No Tour Operator License",
+                "warningText": "You bear full legal responsibility for all tours you organize. Your trust score is capped at {score}/100. Tour guides will see a notice that this tour is organized by an unlicensed operator. Consider obtaining a Tour Operator License for higher trust and better guide matching.",
+                "submitVerification": "Submit Verification →"
+            },
+            "alerts": {
+                "publishConfirm": "Publish this request to the marketplace?",
+                "publishSuccess": "Tour published successfully!",
+                "deleteConfirm": "Permanently delete this tour? This cannot be undone.",
+                "deleteSuccess": "Tour deleted.",
+                "cancelWarningAssigned": "WARNING: This tour is already assigned to a guide! Cancelling now will severely impact the guide and DEDUCT 50 TRUST SCORE from your account. Are you absolutely sure you want to cancel?",
+                "cancelNoticeApplied": "Notice: {count} guide(s) have already applied to this tour. Cancelling will notify them and remove their applications. Do you wish to proceed?",
+                "cancelConfirm": "Are you sure you want to cancel this request? This cannot be undone.",
+                "noShowConfirm": "Are you sure you want to cancel this tour due to a Guide No-Show? The guide will be penalized, and escrowed funds will be refunded.",
+                "networkError": "Network error. Please try again."
+            }
+        },
+        "Team": {
+            "title": "My In-House Team",
+            "subtitle": "Manage your affiliated guides and view their schedules.",
+            "inviteDirect": "🤝 Invite direct:",
+            "inviteDirectDesc": "Ask guides to select \"Associate\" on signup and enter your Operator ID:",
+            "sendInviteBtn": "+ Send Email Invite",
+            "loading": "Loading team...",
+            "activeTeam": {
+                "title": "Active Team Members",
+                "empty": "No in-house guides found. Invite guides to join your team.",
+                "unverified": "UNVERIFIED",
+                "pendingKyc": "Pending KYC"
+            },
+            "invites": {
+                "title": "Pending Invitations",
+                "colEmail": "Email",
+                "colSent": "Sent",
+                "colExpires": "Expires",
+                "colStatus": "Status",
+                "statusPending": "Pending",
+                "statusExpired": "Expired"
+            },
+            "modal": {
+                "title": "Invite Guide",
+                "tabEmail": "By Email",
+                "tabGuideId": "By Guide ID",
+                "emailLabel": "Guide Email",
+                "emailPlaceholder": "guide@example.com",
+                "emailHint": "External invite — they'll receive an email",
+                "idLabel": "Lunavia Guide ID",
+                "idPlaceholder": "e.g., abc12345-...",
+                "idHint": "Internal — links directly if the guide exists on Lunavia",
+                "cancelBtn": "Cancel",
+                "sendBtn": "Send Invitation",
+                "sendingBtn": "Sending..."
+            },
+            "schedule": {
+                "title": "{email} - Schedule",
+                "loading": "Loading schedule...",
+                "empty": "No events in the next 30 days.",
+                "blocked": "⛔ Blocked"
+            },
+            "alerts": {
+                "invalidEmail": "Please enter a valid email",
+                "invalidGuideId": "Please enter a Guide ID",
+                "inviteSuccess": "Invitation sent successfully",
+                "inviteFailed": "Failed to send invite"
+            }
+        },
+        "Wallet": {
+            "title": "Wallet",
+            "subtitle": "Manage your balance for tour escrow payments",
+            "backToDashboard": "← Dashboard",
+            "balances": {
+                "available": "Available Balance",
+                "escrow": "Escrow Held",
+                "deposited": "Total Deposited",
+                "activeHolds": "{count} active tour",
+                "activeHoldsPlural": "{count} active tours"
+            },
+            "topUp": {
+                "title": "Top Up Balance",
+                "desc": "Transfer funds to the Lunavia bank account below, then upload the proof of payment. Your balance will be credited after admin verification.",
+                "bankAccountTitle": "Lunavia Bank Account",
+                "bankDetailsNotAvailable": "Bank details not available. Please contact admin.",
+                "loadingBankDetails": "Loading bank details...",
+                "bankName": "Bank Name:",
+                "accountNo": "Account No:",
+                "accountName": "Account Name:",
+                "branch": "Branch:",
+                "transferContent": "Transfer Content:",
+                "submitProofBtn": "Submit Proof of Payment",
+                "amountLabel": "Amount Transferred (VND) *",
+                "amountPlaceholder": "e.g. 5,000,000",
+                "minAmount": "Minimum: 100,000 VND",
+                "uploadProofLabel": "Upload Proof *",
+                "uploadReceiptHint": "Payment Receipt",
+                "uploadHint": "Upload up to 5 images/PDFs",
+                "notesLabel": "Notes",
+                "notesPlaceholder": "Transaction ID or other details...",
+                "cancelBtn": "Cancel",
+                "submitRequestBtn": "Submit Request",
+                "submittingBtn": "Submitting..."
+            },
+            "withdraw": {
+                "title": "Withdraw Funds",
+                "desc": "Request a withdrawal of your available funds to your linked bank account. Processing takes 1-3 business days.",
+                "availableText": "Available to Withdraw:",
+                "requestBtn": "Request Withdrawal",
+                "amountLabel": "Amount to Withdraw (VND) *",
+                "amountPlaceholder": "e.g. 2,000,000",
+                "maxAmount": "Max: {amount} VND",
+                "bankNameLabel": "Bank Name *",
+                "bankNamePlaceholder": "e.g. MB Bank",
+                "accountNoLabel": "Account Number *",
+                "accountNoPlaceholder": "0001...",
+                "accountNameLabel": "Account Name *",
+                "accountNamePlaceholder": "NGUYEN VAN A",
+                "processingBtn": "Processing..."
+            },
+            "history": {
+                "title": "Transaction History",
+                "emptyState": "No transactions yet",
+                "emptyDesc": "Top up your wallet to get started",
+                "colType": "Type",
+                "colDesc": "Description",
+                "colAmount": "Amount",
+                "colStatus": "Status",
+                "colDate": "Date",
+                "invoiceBtn": "📄 Invoice",
+                "cancelBtn": "Cancel"
+            },
+            "status": {
+                "PENDING": "Pending",
+                "COMPLETED": "Completed",
+                "CANCELLED": "Cancelled",
+                "FAILED": "Failed",
+                "REJECTED": "Rejected"
+            },
+            "types": {
+                "TOP_UP": "Top Up",
+                "PAYOUT": "Withdraw",
+                "HOLD": "Escrow Hold",
+                "RELEASE": "Escrow Release",
+                "REFUND": "Refund",
+                "PENALTY": "Penalty",
+                "SUBSCRIPTION": "Subscription"
+            },
+            "alerts": {
+                "minTopUp": "Minimum top-up is 100,000 VND",
+                "uploadProof": "Please upload the payment receipt",
+                "topUpSuccess": "Top-up request submitted",
+                "topUpMessage": "Top-up request submitted. Pending admin verification.",
+                "topUpFailed": "Failed to submit top-up",
+                "invalidAmount": "Invalid withdrawal amount",
+                "insufficientBalance": "Insufficient available balance",
+                "withdrawSuccess": "Withdrawal request submitted",
+                "withdrawMessage": "Withdrawal request submitted. Pending processing.",
+                "withdrawFailed": "Failed to request withdrawal",
+                "cancelWithdrawConfirm": "Cancel this pending withdrawal? Funds will be returned to your available balance.",
+                "cancelWithdrawSuccess": "Withdrawal cancelled. Funds returned to wallet.",
+                "cancelWithdrawFailed": "Failed to cancel withdrawal",
+                "cancelTopUpConfirm": "Cancel this pending top-up request?",
+                "cancelTopUpSuccess": "Top-up request cancelled.",
+                "cancelTopUpFailed": "Failed to cancel top-up request",
+                "networkError": "Network error. Please try again."
+            }
+        }
+    },
+    "Guide": {
+        "Dashboard": {
+            "title": "Guide Dashboard",
+            "subtitle": "Your performance overview.",
+            "metrics": {
+                "today": "Today",
+                "thisMonth": "This Month",
+                "toursCompleted": "Tours Completed",
+                "trustScore": "Trust Score",
+                "goodStanding": "Good standing",
+                "fair": "Fair",
+                "atRisk": "At risk",
+                "reliability": "Reliability",
+                "excellent": "⭐ Excellent",
+                "standard": "⚠️ Standard",
+                "probation": "🚨 Probation",
+                "avgRating": "Avg Rating",
+                "reviews": "{count} reviews",
+                "noReviews": "—"
+            },
+            "alerts": {
+                "inHouseTitle": "In-House Associate",
+                "affiliatedWith": "You are officially affiliated with",
+                "linked": "Linked",
+                "supportTitle": "Support Guide — No Tour Guide License",
+                "supportDesc": "You are registered as a Support Guide without a professional Tour Guide License. Operators will see this status when reviewing your applications. Your trust score is capped at 80/100. Consider obtaining your Tour Guide License for better opportunities and higher trust.",
+                "internTitle": "Intern Guide",
+                "internDesc": "You are registered as an Intern Guide. Your trust score ceiling is 60/100. Operators will see this status when reviewing your applications. Complete more tours to build your reputation and work toward obtaining your Tour Guide License."
+            }
+        },
+        "Available": {
+            "tabs": {
+                "standard": "📅 Standard Tours",
+                "urgentSos": "🚨 Urgent SOS"
+            },
+            "filters": {
+                "title": "Filters",
+                "clear": "Clear",
+                "location": "Location",
+                "whereTo": "Where to?",
+                "dateRange": "Date Range",
+                "category": "Category",
+                "allCategories": "All Categories",
+                "catCity": "City Tour",
+                "catAdventure": "Adventure",
+                "catCultural": "Cultural",
+                "catFood": "Food Tour",
+                "catNature": "Nature",
+                "groupSize": "Group Size",
+                "anySize": "Any size",
+                "size4": "Private (1–4)",
+                "size12": "Small Group (5–12)",
+                "size50": "Large Group (13+)"
+            },
+            "main": {
+                "titleRegular": "Service Requests",
+                "titleSos": "🚨 Urgent SOS Broadcasts",
+                "subtitleRegular": "{count} open opportunities for professional guides",
+                "subtitleSos": "Tours starting immediately that urgently need a guide.",
+                "sortBy": "Sort by:",
+                "sortPosted": "Date Posted",
+                "sortRate": "Highest Rate",
+                "sortUrgent": "Closest Start Date"
+            },
+            "sos": {
+                "allCaughtUp": "You're all caught up!",
+                "noUrgent": "No urgent guide requests in your area at the moment.",
+                "urgentBadge": "URGENT • {minutes}m left",
+                "payment": "Payment",
+                "location": "Location",
+                "operator": "Operator",
+                "applicationSent": "✓ Application Sent",
+                "acceptNow": "Accept Now & Save the Day",
+                "accepting": "Accepting...",
+                "slotsRemaining": "{count} acceptance slot remaining",
+                "slotsRemainingPlural": "{count} acceptance slots remaining",
+                "expiresIn": "Expires in {minutes}m",
+                "acceptSuccess": "SOS accepted and application sent!"
+            },
+            "regular": {
+                "noMatches": "No tours match your filters",
+                "tryBroadening": "Try broadening your search or check back later.",
+                "estRate": "Est. Rate",
+                "duration": "Duration",
+                "language": "Language",
+                "groupSizeKey": "Group Size",
+                "location": "Location",
+                "licensed": "✅ Licensed",
+                "noLicense": "⚠️ No License",
+                "noLicenseWarning": "No Tour Operator License · Max Trust: {trust}/100",
+                "trustLabel": "Trust: {trust}",
+                "viewDetails": "View Details",
+                "applied": "Applied",
+                "rejected": "Rejected",
+                "applyBtn": "Apply",
+                "processing": "Processing...",
+                "showingResults": "Showing {count} result",
+                "showingResultsPlural": "Showing {count} results",
+                "formatPerson": "1 Person",
+                "formatPersons": "{count} Persons",
+                "formatMin": "{mins} Min",
+                "formatHm": "{hours}h {mins}m",
+                "formatHours": "{hours} Hours",
+                "locationAck": "Do you confirm you can be at the tour location on time?"
+            },
+            "alerts": {
+                "applySuccess": "Applied successfully",
+                "applyFailed": "Failed to apply",
+                "acceptSosFailed": "Failed to accept SOS"
+            }
+        },
+        "Calendar": {
+            "title": "Availability Management",
+            "subtitle": "Set your available dates to receive tour offers.",
+            "controls": {
+                "prev": "Previous",
+                "today": "Today",
+                "next": "Next"
+            },
+            "days": {
+                "sun": "Sun",
+                "mon": "Mon",
+                "tue": "Tue",
+                "wed": "Wed",
+                "thu": "Thu",
+                "fri": "Fri",
+                "sat": "Sat"
+            },
+            "status": {
+                "assigned": "Assigned",
+                "available": "Available",
+                "unavailable": "Unavailable",
+                "markUnavailable": "Mark Unavailable",
+                "markAvailable": "Mark Available"
+            },
+            "legend": {
+                "available": "Available",
+                "assigned": "Assigned Tour",
+                "unavailable": "Unavailable (Default)"
+            }
+        },
+        "Earnings": {
+            "title": "My Earnings",
+            "subtitle": "Track your completed tours and operator payouts.",
+            "summary": {
+                "totalReleased": "Total Released",
+                "totalReleasedDesc": "Funds successfully paid out to you",
+                "pendingRelease": "Pending Release",
+                "pendingReleaseDesc": "Awaiting operator escrow release",
+                "totalExpected": "Total Expected",
+                "totalExpectedDesc": "From all completed tours"
+            },
+            "history": {
+                "title": "Payout History",
+                "records": "{count} records",
+                "loading": "Loading history...",
+                "noEarnings": "No earnings yet",
+                "noEarningsDesc": "Complete your first tour to start earning.",
+                "cols": {
+                    "tour": "Tour",
+                    "operator": "Operator",
+                    "endDate": "End Date",
+                    "status": "Status",
+                    "amount": "Amount"
+                },
+                "statusLabels": {
+                    "cancelled": "Cancelled ({type})",
+                    "released": "Released",
+                    "pendingEscrow": "Pending Escrow",
+                    "notApplicable": "N/A"
+                }
+            },
+            "alerts": {
+                "networkError": "Network error"
+            }
+        },
+        "Profile": {
+            "title": "Profile",
+            "subtitle": "Manage your account information",
+            "trustScore": "Trust Score",
+            "planExpires": "Expires {date}",
+            "verification": {
+                "notStarted": "Not Started",
+                "underReview": "Under Review",
+                "verified": "Verified",
+                "rejected": "Rejected"
+            },
+            "stats": {
+                "completedTours": "Completed Tours",
+                "avgRating": "Avg Rating",
+                "reviews": "Reviews"
+            },
+            "alerts": {
+                "verifyCta": "Verify your account to apply for tours.",
+                "verifyBtn": "Get Verified",
+                "rejectedCta": "Verification rejected. Please review and resubmit.",
+                "resubmitBtn": "Resubmit",
+                "linkContractCta": "You are affiliated with an operator. Upload your employment/collaboration contract to complete onboarding.",
+                "uploadContractBtn": "Upload Contract",
+                "contractPending": "Your contract is under review. You'll be notified once approved.",
+                "contractApproved": "In-house contract approved. You are affiliated with your operator."
+            },
+            "nav": {
+                "portfolio": "My Portfolio",
+                "portfolioDesc": "View and share your public profile",
+                "portfolioBtn": "View Portfolio →",
+                "editProfile": "Edit Profile",
+                "editProfileDesc": "Update bio, skills, languages",
+                "editProfileBtn": "Edit →",
+                "trustScore": "Trust Score",
+                "trustScoreDesc": "View your trust history graph",
+                "trustScoreBtn": "View →",
+                "security": "Security",
+                "securityDesc": "Change password, manage sessions",
+                "securityBtn": "Manage →",
+                "payout": "Payout Info",
+                "payoutDescSet": "Bank account configured",
+                "payoutDescUnset": "Set up your bank details",
+                "payoutBtn": "Manage →"
+            }
+        },
+        "Portfolio": {
+            "title": "Guide Profile",
+            "subtitle": "Your professional verified profile.",
+            "viewPublic": "View Public Profile ↗",
+            "loading": "Loading portfolio...",
+            "loadError": "Failed to load portfolio data.",
+            "notFound": "Profile not found.",
+            "ratingCard": {
+                "title": "Performance",
+                "reviews": "{count} reviews",
+                "toursCompleted": "Tours Completed",
+                "completionRate": "Completion Rate",
+                "experience": "Experience",
+                "years": "{count} years",
+                "verifiedData": "Verified platform data by Lunavia"
+            }
+        },
+        "Tours": {
+            "title": "My Tours",
+            "subtitle": "Manage your applications and assigned tours.",
+            "refresh": "Refresh",
+            "tabs": {
+                "applied": "Pending Apps ({count})",
+                "upcoming": "Upcoming ({count})",
+                "active": "Active ({count})",
+                "history": "History ({count})"
+            },
+            "empty": "No tours found in this category.",
+            "table": {
+                "date": "Date",
+                "tourInfo": "Tour Info",
+                "operator": "Operator",
+                "status": "Status",
+                "action": "Action",
+                "dateTime": "Date/Time"
+            },
+            "actions": {
+                "viewDetails": "View Details",
+                "reportIncident": "Report Incident",
+                "rateTour": "Rate Tour",
+                "feedbackAppended": "Feedback Appended"
+            },
+            "alerts": {
+                "fetchAppsFail": "Failed to fetch applications",
+                "fetchToursFail": "Failed to fetch assigned tours"
+            }
+        },
+        "TourDetails": {
+            "loading": "Loading...",
+            "notFound": "Tour not found",
+            "back": "← Back",
+            "breadcrumbs": {
+                "available": "Available Tours"
+            },
+            "summary": {
+                "totalRate": "Total Rate",
+                "date": "Date",
+                "time": "Time",
+                "duration": "Duration",
+                "groupSize": "Group Size"
+            },
+            "details": {
+                "sectionTitle": "Tour Details",
+                "location": "Location",
+                "language": "Language",
+                "tourId": "Tour ID"
+            },
+            "roles": {
+                "sectionTitle": "Roles Needed",
+                "qty": "Qty"
+            },
+            "itinerary": {
+                "sectionTitle": "Itinerary"
+            },
+            "operator": {
+                "sectionTitle": "Tour Operator",
+                "trust": "Trust"
+            },
+            "application": {
+                "sectionTitle": "Application",
+                "submitted": "Application Submitted",
+                "status": "Status",
+                "appliedAt": "Applied {date}",
+                "withdrawBtn": "Withdraw Application",
+                "applyDesc": "Apply to let the operator know you're interested in this tour.",
+                "applyBtn": "Apply for This Tour",
+                "closed": "This tour is no longer accepting applications."
+            },
+            "execution": {
+                "sectionTitle": "Tour Execution",
+                "liveBtn": "Go to Live Execution",
+                "dashBtn": "Go to Tour Dashboard",
+                "desc": "Check-in segments, log activities, report incidents, and return tour",
+                "checkedIn": "Checked In",
+                "at": "At",
+                "waiting": "⏳ Waiting for operator to start the tour...",
+                "checkInDesc": "You must check in before the tour begins. The operator cannot start the tour until you do.",
+                "checkInBtn": "Check In Now",
+                "checkingInBtn": "Checking In...",
+                "cancelBtn": "Request Cancellation",
+                "pendingCancel": "Cancellation requested. Awaiting operator approval."
+            },
+            "dispute": {
+                "overlayTitle": "Active Dispute Overlay",
+                "overlayDesc": "A dispute is currently open. Funds are frozen until Lunavia Support resolves it.",
+                "frozen": "FROZEN",
+                "support": "Lunavia Support",
+                "participant": "Participant",
+                "viewEvidence": "📎 View Attached Evidence",
+                "issueTitle": "Issue with this tour?",
+                "issueDesc": "If the operator is severely late, violates safety protocols, or there is an unresolvable issue, open a dispute.",
+                "openBtn": "Open Dispute"
+            },
+            "modals": {
+                "applyTitle": "Confirm Application",
+                "applyDesc": "You are about to apply for {title}. By applying, you indicate your availability and willingness to guide this tour.",
+                "cancelBtn": "Cancel",
+                "submitBtn": "Submit Application",
+                "submittingBtn": "Submitting...",
+                "withdrawTitle": "Withdraw Application?",
+                "withdrawDesc": "Are you sure you want to withdraw your application for {title}? You can apply again later if the tour is still open.",
+                "withdrawBtn": "Withdraw",
+                "withdrawingBtn": "Withdrawing...",
+                "cancelTitle": "Request Cancellation?",
+                "cancelWarning": "Warning: You are requesting to withdraw from this tour. If the operator approves, your trust score may be slightly impacted if this is a late withdrawal.",
+                "cancelDesc": "Are you sure you want to request cancellation for {title}?",
+                "keepBtn": "Keep Assignment",
+                "requestCancelBtn": "Request Cancel",
+                "requestingBtn": "Requesting..."
+            },
+            "alerts": {
+                "applySuccess": "Application submitted!",
+                "applyFail": "Failed to apply",
+                "checkInSuccess": "Successfully checked in!",
+                "checkInFail": "Failed to check in",
+                "withdrawSuccess": "Application withdrawn successfully.",
+                "withdrawFail": "Failed to withdraw application",
+                "cancelSuccess": "Cancellation request sent to operator. Waiting for their approval.",
+                "cancelFail": "Failed to request cancellation",
+                "confirmLocation": "Do you confirm you can be at the tour location on time?"
+            }
+        },
+        "Verification": {
+            "title": "Guide Verification",
+            "subtitle": "Provide your details and documents to verify your guide account",
+            "kyc": {
+                "title": "Why is KYC verification required?",
+                "desc": "Know Your Customer (KYC) verification confirms your identity and professional credentials. This builds trust with operators, enables you to receive escrow-protected payments, and ensures compliance with tourism regulations.",
+                "perk1": "✅ Apply to tours",
+                "perk2": "💰 Receive payouts",
+                "perk3": "🏆 Higher trust score",
+                "link": "View full verification guide →"
+            },
+            "form": {
+                "profilePhoto": "Profile Photo",
+                "profilePhotoDesc": "Upload a professional photo to build trust with travelers.",
+                "supportedFormats": "Supported: JPG, PNG. Max 5MB.",
+                "licenseInfo": "License Information",
+                "guideType": "Guide Type",
+                "internNote": "Interns can only be assigned as sub-guides.",
+                "licensedNote": "Licensed guides can operate as main guides.",
+                "licenseNumber": "Guide License Number",
+                "licensePlaceholder": "e.g. TG-12345",
+                "requiredDocs": "Required Documents",
+                "identityLabel": "Identity Documents (Required)",
+                "identityHint": "National ID (Front & Back) or Passport",
+                "addressLabel": "Proof of Address (Required)",
+                "addressHint": "Utility bill, Bank statement (Recent)",
+                "licenseLabel": "Guide License Card (Required)",
+                "licenseHint": "Official Tour Guide Card (Front/Back)",
+                "cancelBtn": "Cancel",
+                "submittingBtn": "Submitting...",
+                "submitBtn": "Submit for Review"
+            },
+            "status": {
+                "approvedTitle": "Already Verified",
+                "approvedDesc": "Your account has verified access.",
+                "pendingTitle": "Verification Pending",
+                "pendingDesc": "Your documents are being reviewed. We'll notify you once complete.",
+                "backBtn": "← Back to Dashboard"
+            },
+            "alerts": {
+                "uploadFail": "Upload failed",
+                "uploadSuccess": "Profile photo updated",
+                "selectType": "Please select guide type",
+                "requireNumber": "Guide Card Number is required",
+                "requireLicense": "Please upload your Guide License Card",
+                "requireId": "Please upload your Identity Documents (ID/Passport)",
+                "requireAddress": "Please upload Proof of Address",
+                "invalidForm": "Invalid form",
+                "submitFail": "Failed to submit verification",
+                "networkError": "An error occurred",
+                "cancelConfirm": "You have uploaded documents. Cancelling will remove them. Continue?"
+            },
+            "types": {
+                "licensed": "Licensed Guide (Freelance/In-house)",
+                "intern": "Intern (Sub-guide only)"
+            }
+        },
+        "Contract": {
+            "backToProfile": "← Back to Profile",
+            "type": "Type:",
+            "status": {
+                "noOperatorTitle": "No Operator Affiliation",
+                "noOperatorDesc": "You need to be affiliated with an operator before uploading a contract.",
+                "reviewTitle": "Contract Under Review",
+                "reviewDesc": "Your contract has been submitted and is being reviewed.",
+                "approvedTitle": "Contract Approved",
+                "approvedDesc": "Your in-house contract has been approved."
+            },
+            "form": {
+                "title": "Upload Contract",
+                "subtitle": "Submit your employment or collaboration contract for review. This is required to complete your in-house affiliation.",
+                "typeLabel": "Contract Type *",
+                "typePlaceholder": "Select type...",
+                "urlLabel": "Contract Document URL *",
+                "urlPlaceholder": "https://drive.google.com/file/... or any public URL",
+                "urlHint": "Upload your contract to Google Drive, Dropbox, or any file hosting service and paste the link here.",
+                "important": "Important:",
+                "importantDesc": "Lunavia will review this contract to verify the labor relationship between you and your operator. Once approved, you will be listed as an in-house guide and cannot access the freelance marketplace.",
+                "submittingBtn": "Submitting...",
+                "submitBtn": "Submit Contract"
+            },
+            "types": {
+                "employment": "Employment Contract",
+                "collaboration": "Collaboration Agreement",
+                "internship": "Internship Agreement"
+            },
+            "alerts": {
+                "submitSuccess": "Contract submitted!",
+                "submitFail": "Failed to submit contract",
+                "networkError": "Network error — please try again"
+            }
+        },
+        "Disputes": {
+            "title": "My Disputes",
+            "subtitle": "View and manage disputes related to your tours.",
+            "openBtn": "+ Open Dispute",
+            "form": {
+                "title": "Open a New Dispute",
+                "tourId": "Tour ID",
+                "tourIdPlaceholder": "Tour ID",
+                "reason": "Reason",
+                "reasonPlaceholder": "Describe the issue...",
+                "submittingBtn": "Submitting...",
+                "submitBtn": "Open Dispute",
+                "cancelBtn": "Cancel"
+            },
+            "emptyState": {
+                "title": "No disputes found.",
+                "desc": "If you have an issue with a tour, you can open a dispute above."
+            },
+            "list": {
+                "evidenceCount": "{count} evidence",
+                "openedBy": "Opened by {name}",
+                "resolution": "Resolution:"
+            }
+        },
+        "Invites": {
+            "title": "Tour Invitations",
+            "subtitle": "Review and respond to tour invitations from operators.",
+            "list": {
+                "pendingCount": "{count} pending invitation",
+                "pendingCountPlural": "{count} pending invitations",
+                "noPending": "No pending invitations",
+                "empty": "No invitations found.",
+                "all": "All",
+                "expired": "Expired",
+                "unknownOperator": "Unknown Operator",
+                "from": "From:",
+                "received": "Received",
+                "expires": "Expires",
+                "acceptBtn": "Accept",
+                "declineBtn": "Decline",
+                "acceptingBtn": "...",
+                "decliningBtn": "..."
+            },
+            "status": {
+                "PENDING": "Pending",
+                "ACCEPTED": "Accepted",
+                "DECLINED": "Declined",
+                "EXPIRED": "Expired"
+            },
+            "alerts": {
+                "loadFail": "Failed to load invites",
+                "actionFail": "Failed to {action}",
+                "networkError": "Network error"
+            }
+        }
+    },
+    "Admin": {
+        "Dashboard": {
+            "pageTitle": "Command Center — Lunavia",
+            "headerTitle": "Command Center",
+            "headerSubtitle": "Operational overview and system management",
+            "maintenanceAlert": "System is in maintenance mode. Some features may be unavailable.",
+            "roles": {
+                "superAdmin": "Super Admin",
+                "ops": "Operations",
+                "finance": "Finance",
+                "kyc": "KYC Analyst"
+            },
+            "metrics": {
+                "activeUsers": "Active Users",
+                "activeTours": "Active Tours",
+                "openIncidents": "Open Incidents",
+                "pendingKyc": "Pending KYC",
+                "pendingPayments": "Pending Payments",
+                "revenue": "Revenue",
+                "totalPayouts": "Total Payouts",
+                "suspended": "Suspended"
+            },
+            "sections": {
+                "ops": {
+                    "title": "Operations",
+                    "subtitle": "User management, incidents, and compliance"
+                },
+                "finance": {
+                    "title": "Finance",
+                    "subtitle": "Escrow, payments, and revenue"
+                },
+                "system": {
+                    "title": "System",
+                    "subtitle": "Infrastructure and access control"
+                },
+                "tools": {
+                    "title": "Tools",
+                    "subtitle": "Simulation, analytics, and pitch mode"
+                }
+            },
+            "actions": {
+                "marketplace": {
+                    "title": "Marketplace Users",
+                    "desc": "Manage operators and guides"
+                },
+                "incidents": {
+                    "title": "Incidents",
+                    "desc": "Active incident reports"
+                },
+                "cancellations": {
+                    "title": "Cancellations",
+                    "desc": "Review tour cancellations"
+                },
+                "risk": {
+                    "title": "Risk Monitoring",
+                    "desc": "Trust scores and risk signals"
+                },
+                "feedback": {
+                    "title": "Feedback",
+                    "desc": "Operator and guide feedback"
+                },
+                "verification": {
+                    "title": "Verification",
+                    "desc": "KYB/KYC document review"
+                },
+                "topups": {
+                    "title": "Escrow Top-ups",
+                    "desc": "Review deposit requests"
+                },
+                "withdrawals": {
+                    "title": "Withdrawals",
+                    "desc": "Approve withdrawal requests"
+                },
+                "ledger": {
+                    "title": "Ledger",
+                    "desc": "Transaction history"
+                },
+                "subscriptions": {
+                    "title": "Subscriptions",
+                    "desc": "Plan upgrades and billing"
+                },
+                "vouchers": {
+                    "title": "Vouchers",
+                    "desc": "Manage discount vouchers"
+                },
+                "referrals": {
+                    "title": "Referrals",
+                    "desc": "Referral program tracking"
+                },
+                "staff": {
+                    "title": "Internal Staff",
+                    "desc": "Manage OPS, Finance, KYC team"
+                },
+                "maintenance": {
+                    "title": "Maintenance",
+                    "descOffline": "🔴 System in maintenance",
+                    "descOnline": "🟢 System online"
+                },
+                "permissions": {
+                    "title": "Permissions",
+                    "desc": "Role and permission config"
+                },
+                "governance": {
+                    "title": "Governance",
+                    "desc": "Dashboard governance rules"
+                },
+                "systemHealth": {
+                    "title": "System Health",
+                    "desc": "Infrastructure monitoring"
+                },
+                "investor": {
+                    "title": "Investor View",
+                    "desc": "Pitch mode for investors"
+                },
+                "demoReset": {
+                    "title": "Demo Reset",
+                    "desc": "Reset demo data for pitches"
+                },
+                "analytics": {
+                    "title": "Analytics",
+                    "desc": "Platform-wide analytics"
+                },
+                "intelligence": {
+                    "title": "Platform Intelligence",
+                    "desc": "Network insights, demand & supply"
+                },
+                "tourControl": {
+                    "title": "Tour Control Center",
+                    "desc": "Master tour monitoring"
+                }
+            },
+            "alerts": {
+                "title": "Ops Alert Feed",
+                "live": "Live",
+                "escalated": "Check-in Escalated",
+                "incident": "Incident reported",
+                "noShow": "Guide No-Show",
+                "disputed": "Payment Disputed",
+                "reopened": "Tour Reopened",
+                "closed": "Tour Closed"
+            }
+        },
+        "Users": {
+            "title": "Marketplace Users",
+            "subtitle": "View and manage Operators & Guides (External)",
+            "search": "Search users...",
+            "filterByPlan": "Filter by plan:",
+            "allPlans": "All Plans",
+            "free": "Free",
+            "pro": "Pro",
+            "elite": "Elite",
+            "table": {
+                "user": "User",
+                "role": "Role",
+                "trust": "Trust",
+                "details": "Details",
+                "plan": "Plan",
+                "status": "Status",
+                "actions": "Actions"
+            },
+            "roles": {
+                "operator": "Operator",
+                "guide": "Guide"
+            },
+            "actions": {
+                "viewDetails": "View Details →",
+                "editProfile": "Edit Profile",
+                "changePlan": "Change Plan",
+                "activateUser": "Activate User",
+                "suspendUser": "Suspend User",
+                "resetVerification": "Reset Verification"
+            },
+            "empty": "No users found.",
+            "modals": {
+                "changePlan": {
+                    "title": "Change User Plan",
+                    "user": "User",
+                    "currentPlan": "Current Plan",
+                    "newPlan": "New Plan",
+                    "expiresAt": "Expires At (Optional)",
+                    "reason": "Reason",
+                    "cancel": "Cancel",
+                    "updatePlan": "Update Plan"
+                },
+                "editProfile": {
+                    "title": "Edit Profile",
+                    "subtitle": "Editing details for {email}",
+                    "displayName": "Display Name",
+                    "phoneNumber": "Phone Number",
+                    "address": "Address",
+                    "opDetails": "Operator Details",
+                    "opType": "Operator Type",
+                    "companyName": "Company Name",
+                    "businessReg": "Business Registration",
+                    "tourismLicense": "Tourism License",
+                    "guideDetails": "Guide Details",
+                    "guideType": "Guide Type",
+                    "licensedGuide": "Licensed Guide",
+                    "intern": "Intern",
+                    "guideCardNumber": "Guide Card Number",
+                    "affiliatedOperator": "Affiliated Operator ID",
+                    "optional": "Optional",
+                    "bio": "Bio / Notes",
+                    "cancel": "Cancel",
+                    "saveChanges": "Save Changes",
+                    "individual": "Individual",
+                    "company": "Company"
+                },
+                "planHistory": {
+                    "title": "Plan History",
+                    "empty": "No plan changes recorded."
+                }
+            },
+            "notifications": {
+                "loadFail": "Failed to load users",
+                "planUpdateSuccess": "Plan updated to {plan}",
+                "planUpdateReq": "Please select a plan and provide a reason",
+                "planUpdateFail": "Failed to update plan",
+                "profileUpdateSuccess": "User profile updated",
+                "profileUpdateFail": "Failed to update profile",
+                "historyLoadFail": "Failed to load plan history",
+                "idCopied": "ID copied to clipboard",
+                "statusSuccess": "Status updated",
+                "statusFail": "Action failed",
+                "resetSuccess": "Verification reset"
+            },
+            "alerts": {
+                "confirmSuspend": "Are you sure you want to suspend this user?",
+                "confirmActivate": "Are you sure you want to activate this user?",
+                "confirmReset": "Reset verification status to PENDING? This will clear current approval/rejections."
+            }
+        },
+        "Tours": {
+            "title": "Tour Control Center",
+            "subtitle": "Master view of all executing and upcoming tours.",
+            "totalTours": "{total} Tours Total",
+            "searchPlaceholder": "Search by tour title or ID...",
+            "allStatuses": "All Statuses",
+            "loading": "Loading master tour list...",
+            "empty": {
+                "title": "No tours found",
+                "desc": "Try adjusting your filters."
+            },
+            "table": {
+                "tour": "Tour Title / ID",
+                "participants": "Participants",
+                "startTime": "Start Time",
+                "health": "Health",
+                "status": "Status",
+                "escrow": "Escrow",
+                "amount": "Amount"
+            },
+            "roles": {
+                "op": "Op:",
+                "gd": "Gd:"
+            },
+            "pagination": {
+                "prev": "Previous",
+                "next": "Next",
+                "info": "Page {page} of {totalPages}"
+            },
+            "error": "Failed to load tours"
+        },
+        "TourDetails": {
+            "back": "← Back",
+            "dispute": {
+                "resolved": "Dispute Resolved",
+                "activeDispute": "Active Dispute Needs Resolution",
+                "reason": "Reason:",
+                "evidenceNotes": "Evidence & Notes",
+                "viewEvidence": "📎 View Attached Evidence",
+                "executeResolution": "Execute Resolution (Admin Only)",
+                "escrowAction": "Escrow Action",
+                "selectAction": "Select Action...",
+                "releaseToGuide": "Release Full Escrow to Guide",
+                "refundToOperator": "Refund Full Escrow to Operator",
+                "partialPayment": "Split / Partial Payment",
+                "warnGuide": "Warning Only (Guide) - No Escrow Change",
+                "warnOperator": "Warning Only (Operator) - No Escrow Change",
+                "amountToGuide": "Amount to Guide (VND)",
+                "operatorRefundRemainder": "Operator will be refunded the remainder.",
+                "resolutionNote": "Resolution Note & Final Verdict",
+                "explainVerdict": "Explain the admin verdict. This will be visible to both parties.",
+                "trustScoreAction": "Trust Score Action",
+                "noTrustAdjustment": "No Trust Adjustment",
+                "refundTrust": "Refund Trust to Both Parties (Neutral Verdict)",
+                "penalizeGuide": "Penalize Guide (Deduct Trust)",
+                "penalizeOperator": "Penalize Operator (Deduct Trust)",
+                "trustPointsAmount": "Trust Points Amount",
+                "executing": "Executing...",
+                "executeResolutionBtn": "Execute Resolution",
+                "confirmResolve": "Are you sure you want to resolve this dispute? This action is irreversible and will execute escrow transfers immediately.",
+                "resolveSuccess": "Dispute resolved successfully.",
+                "resolveError": "Failed to resolve dispute"
+            },
+            "overview": {
+                "title": "Tour Overview",
+                "location": "Location",
+                "categoryGroupSize": "Category / Group Size",
+                "startTime": "Start Time",
+                "endTime": "End Time",
+                "notes": "Notes from Operator"
+            },
+            "finance": {
+                "title": "Financial Log",
+                "escrowStatus": "Escrow Status",
+                "totalCharged": "Total Charged",
+                "guidePayout": "Guide Payout"
+            },
+            "users": {
+                "operator": "Operator",
+                "trust": "Trust",
+                "viewProfile": "View Full Profile",
+                "assignedGuide": "Assigned Guide",
+                "verified": "Verified",
+                "checkIn": "Check in:",
+                "payoutStatus": "Payout Status:",
+                "noGuide": "No guide assigned yet"
+            },
+            "timeline": {
+                "title": "Tour Event Timeline",
+                "actor": "Actor:",
+                "empty": "No timeline events recorded."
+            }
+        },
+        "FinanceOmniscience": {
+            "error": "Failed to load financial data",
+            "title": "👁️ Financial Omniscience",
+            "levelGod": "Level: God",
+            "subtitle": "Platform-wide ledger visibility, escrow states, and liquidity tracking",
+            "lastUpdated": "Last Updated",
+            "metrics": {
+                "escrowHeld": "Total Escrow Held",
+                "escrowSubline": "Across all active tours",
+                "subRevenue": "Total Sub Revenue",
+                "subRevenueSubline": "{amount} this month",
+                "pendingWithdrawals": "Pending Withdrawals",
+                "requests": "{count} requests",
+                "pendingTopups": "Pending Top-ups"
+            },
+            "wallets": {
+                "title": "💰 Top Operator Wallets",
+                "totalWallets": "{count} total wallets",
+                "empty": "No active wallets",
+                "inEscrow": "+{amount} in escrow"
+            },
+            "escrow": {
+                "title": "🔒 Active Escrow Holds",
+                "viewAll": "View All",
+                "empty": "No funds currently in escrow",
+                "held": "Held: {date}"
+            },
+            "flow": {
+                "title": "🌊 Monthly Liquidity Flow",
+                "moneyIn": "Money In (Topups)",
+                "platformSubs": "Platform Subs",
+                "moneyOut": "Money Out (Withdraws)"
+            }
+        },
+        "FinanceWithdrawals": {
+            "title": "Escrow Withdrawals",
+            "subtitle": "Review operator wallet withdrawal requests",
+            "stats": {
+                "pending": "Pending",
+                "approved": "Approved",
+                "rejected": "Rejected",
+                "totalWithdrawn": "Total Withdrawn"
+            },
+            "filter": {
+                "all": "All"
+            },
+            "messages": {
+                "loading": "Loading...",
+                "empty": "No withdrawal requests found",
+                "approveSuccess": "Withdrawal approved",
+                "rejectSuccess": "Withdrawal rejected",
+                "reasonRequired": "Reason required"
+            },
+            "table": {
+                "operator": "Operator",
+                "amount": "Amount",
+                "bank": "Bank",
+                "account": "Account",
+                "proof": "Proof",
+                "status": "Status",
+                "date": "Date",
+                "actions": "Actions",
+                "viewProof": "View Proof",
+                "noProof": "No proof",
+                "clickToReview": "Click to Review →",
+                "hasNotes": "📝 Has notes"
+            },
+            "modal": {
+                "title": "Review Withdrawal Request",
+                "operator": "Operator",
+                "amount": "Amount",
+                "bank": "Bank",
+                "account": "Account",
+                "submitted": "Submitted",
+                "proof": "Proof",
+                "viewProof": "View Proof",
+                "internalNotesTitle": "📝 Internal Notes",
+                "by": "by {email}",
+                "internalNotesLabel": "Internal Notes (visible to supervisors only)",
+                "internalNotesPlaceholder": "Add internal review notes...",
+                "rejectBtn": "Reject",
+                "approveBtn": "Approve",
+                "processing": "Processing...",
+                "statusApproved": "✅ Approved",
+                "statusRejected": "❌ Rejected",
+                "reason": "Reason: {reason}",
+                "reviewedAt": "Reviewed: {date}"
+            },
+            "rejectModal": {
+                "title": "Reject Withdrawal Request",
+                "placeholder": "Enter rejection reason...",
+                "confirmBtn": "Confirm Reject",
+                "cancelBtn": "Cancel"
+            }
+        },
+        "FinanceTopups": {
+            "title": "Escrow Top-Up Requests",
+            "subtitle": "Review operator wallet top-up requests",
+            "stats": {
+                "pending": "Pending",
+                "approved": "Approved",
+                "rejected": "Rejected",
+                "totalApproved": "Total Approved"
+            },
+            "filter": {
+                "all": "All"
+            },
+            "messages": {
+                "loading": "Loading...",
+                "empty": "No top-up requests found",
+                "approveSuccess": "Top-up approved",
+                "rejectSuccess": "Top-up rejected",
+                "reasonRequired": "Reason required"
+            },
+            "table": {
+                "operator": "Operator",
+                "amount": "Amount",
+                "reference": "Reference",
+                "proof": "Proof",
+                "status": "Status",
+                "date": "Date",
+                "actions": "Actions",
+                "viewProof": "View",
+                "noProof": "None",
+                "clickToReview": "Click to Review →",
+                "hasNotes": "📝 Has notes"
+            },
+            "modal": {
+                "title": "Review Top-Up Request",
+                "operator": "Operator",
+                "amount": "Amount",
+                "reference": "Reference",
+                "submitted": "Submitted",
+                "proof": "Proof",
+                "viewProof": "View Payment Proof",
+                "operatorNotes": "Operator Notes",
+                "internalNotesTitle": "📝 Internal Notes",
+                "by": "by {email}",
+                "internalNotesLabel": "Internal Notes (visible to supervisors only)",
+                "internalNotesPlaceholder": "Add internal review notes...",
+                "rejectBtn": "Reject",
+                "approveBtn": "Approve",
+                "processing": "Processing...",
+                "statusApproved": "✅ Approved",
+                "statusRejected": "❌ Rejected",
+                "reason": "Reason: {reason}",
+                "reviewedAt": "Reviewed: {date}"
+            },
+            "rejectModal": {
+                "title": "Reject Top-Up Request",
+                "placeholder": "Enter rejection reason...",
+                "confirmBtn": "Confirm Reject",
+                "cancelBtn": "Cancel"
+            }
+        },
+        "FinanceLedger": {
+            "title": "Platform Ledger",
+            "subtitle": "Audit trail of escrow funds and platform revenue",
+            "entriesCount": "{count} entries",
+            "tabs": {
+                "escrow": "Escrow Trust Ledger",
+                "revenue": "Platform Revenue Ledger"
+            },
+            "filter": {
+                "all": "All"
+            },
+            "messages": {
+                "loading": "Loading...",
+                "empty": "No ledger entries found"
+            },
+            "table": {
+                "date": "Date",
+                "operator": "Operator",
+                "type": "Type",
+                "direction": "Direction",
+                "amount": "Amount",
+                "reference": "Reference"
+            },
+            "pagination": {
+                "previous": "Previous",
+                "next": "Next",
+                "pageStatus": "Page {page} of {total}"
+            },
+            "escrowTypes": {
+                "ESCROW_TOPUP": "Top-Up",
+                "ESCROW_WITHDRAW": "Withdrawal",
+                "ESCROW_HOLD": "Escrow Hold",
+                "ESCROW_RELEASE": "Escrow Release",
+                "ESCROW_REFUND": "Refund",
+                "SYSTEM_ADJUSTMENT": "Adjustment",
+                "BOOST_PURCHASE": "Boost Purchase"
+            },
+            "revenueTypes": {
+                "SUBSCRIPTION_FEE": "Subscription Fee",
+                "COMMISSION_FEE": "Commission Fee",
+                "BOOST_FEE": "Boost Fee",
+                "PENALTY_FEE": "Penalty Fee",
+                "ADJUSTMENT": "Adjustment"
+            }
+        },
+        "FinanceSubscriptions": {
+            "title": "Subscription Dashboard",
+            "subtitle": "Plan distribution, financial overview, and payment management",
+            "roles": {
+                "operator": "Tour Operators",
+                "guide": "Tour Guides",
+                "admin": "Admin",
+                "super_admin": "Super Admin",
+                "observer": "Observers"
+            },
+            "stats": {
+                "loading": "Loading plan stats...",
+                "totalAccounts": "Total Accounts",
+                "activePaid": "Active Paid",
+                "expiredPaid": "Expired Paid",
+                "totalRevenue": "Total Revenue",
+                "pending": "Pending",
+                "approved": "Approved",
+                "rejected": "Rejected"
+            },
+            "distribution": {
+                "title": "Plan Distribution",
+                "plan": "Plan",
+                "users": "Users",
+                "percentage": "%",
+                "byRole": "By Role",
+                "approvedPayments": "Approved Payments"
+            },
+            "requests": {
+                "title": "Payment Requests",
+                "subtitle": "Review and approve manual subscription payment confirmations",
+                "loading": "Loading...",
+                "empty": "No {filter} requests",
+                "confirmApprove": "Approve this payment and activate the plan?",
+                "approveSuccess": "Payment approved",
+                "rejectRequired": "Please provide a rejection reason",
+                "rejectSuccess": "Payment rejected"
+            },
+            "table": {
+                "user": "User",
+                "plan": "Plan",
+                "duration": "Duration",
+                "amount": "Amount",
+                "proof": "Proof",
+                "date": "Date",
+                "actions": "Actions",
+                "days": "{days} days",
+                "view": "View",
+                "none": "None",
+                "review": "Review",
+                "approved": "Approved"
+            },
+            "modal": {
+                "title": "Review Payment Request",
+                "user": "User",
+                "planChange": "Plan Change",
+                "duration": "Duration",
+                "amount": "Amount",
+                "proof": "Proof",
+                "viewReceipt": "View Receipt",
+                "noProof": "No proof uploaded",
+                "rejectionReasonLabel": "Rejection Reason (if rejecting)",
+                "rejectionReasonPlaceholder": "Enter reason for rejection...",
+                "approveBtn": "Approve",
+                "rejectBtn": "Reject",
+                "cancelBtn": "Cancel"
+            }
+        }
+    },
+    "MarketingAbout": {
+        "hero": {
+            "badge": "About Lunavia",
+            "title1": "Infrastructure for the future ",
+            "title2": "of tourism",
+            "subtitle": "Lunavia is not a tour operator. We are the regulated marketplace infrastructure that connects operators and guides with the tools, governance, and trust they need to operate at scale."
+        },
+        "vision": {
+            "badge": "Vision",
+            "title": "A national marketplace built on transparency",
+            "desc1": "We envision a tourism industry where every operator is verified, every guide is protected, and every transaction is transparent. Lunavia is building the foundational infrastructure to make this a reality — not as a competitor to operators, but as the neutral platform that empowers their growth.",
+            "desc2": "Our goal is to become the standard for compliant, trustworthy tour operations — first nationally, then regionally, then globally.",
+            "m1Value": "Zero",
+            "m1Label": "Self-operated tours. Pure infrastructure.",
+            "m2Value": "100%",
+            "m2Label": "Escrow-protected transactions.",
+            "m3Value": "Merit",
+            "m3Label": "Trust earned, never purchased."
+        },
+        "approach": {
+            "badge": "Approach",
+            "title": "Infrastructure-first",
+            "subtitle": "We don't operate tours. We build the systems that make tour operations trustworthy, efficient, and compliant.",
+            "c1Title": "Trust Systems",
+            "c1Desc": "Behavioural analytics and transparent trust scoring that rewards quality service without bias.",
+            "c2Title": "Payment Protection",
+            "c2Desc": "Escrow-based financial infrastructure ensuring funds flow only when service is confirmed.",
+            "c3Title": "Governance Engine",
+            "c3Desc": "Compliance tracking, incident management, and audit trails for regulatory alignment."
+        },
+        "compliance": {
+            "badge": "Compliance",
+            "title": "Regulatory compliance by design",
+            "desc1": "Compliance is not an afterthought on Lunavia. Our platform architecture enforces verification, documentation, and auditability at every layer — from user onboarding to payment settlement.",
+            "desc2": "We work to ensure that operators and guides operating on Lunavia meet the regulatory expectations of their market, so that every participant can operate with confidence.",
+            "items": [
+                "Business verification (KYB) for every operator",
+                "Identity verification (KYC) for every guide",
+                "License tracking and renewal management",
+                "Structured incident and dispute resolution",
+                "Complete audit trail for every transaction",
+                "Risk-level classification and monitoring"
+            ]
+        },
+        "visionLong": {
+            "badge": "Looking Ahead",
+            "title": "Building the national marketplace",
+            "subtitle": "Lunavia is building toward becoming the definitive infrastructure for tourism operations. We see a future where every licensed operator and every certified guide in the country operates on a single, trusted, regulated platform — raising the standard for the entire industry.",
+            "p1Phase": "Phase 1",
+            "p1Title": "Foundation",
+            "p1Desc": "Core marketplace, trust systems, escrow, and compliance infrastructure.",
+            "p2Phase": "Phase 2",
+            "p2Title": "National Scale",
+            "p2Desc": "Regulatory partnerships, operator onboarding at scale, industry standard adoption.",
+            "p3Phase": "Phase 3",
+            "p3Title": "Regional Expansion",
+            "p3Desc": "Cross-border compliance, multi-market support, international operator networks."
+        }
+    },
+    "MarketingContact": {
+        "success": {
+            "title": "Message sent!",
+            "desc": "Thank you for reaching out. Our team will get back to you within 24 hours.",
+            "back": "Back to Home"
+        },
+        "hero": {
+            "badge": "Get in Touch",
+            "title": "Contact our team",
+            "subtitle": "Have questions about Enterprise plans, need a demo, or want to discuss a partnership? We'd love to hear from you."
+        },
+        "form": {
+            "helpTitle": "What can we help with?",
+            "types": {
+                "enterprise": {
+                    "label": "Enterprise Plan",
+                    "desc": "Custom pricing & limits"
+                },
+                "demo": {
+                    "label": "Book a Demo",
+                    "desc": "See the platform in action"
+                },
+                "partnership": {
+                    "label": "Partnership",
+                    "desc": "Business collaboration"
+                },
+                "other": {
+                    "label": "Other",
+                    "desc": "General inquiry"
+                }
+            },
+            "name": "Full name *",
+            "email": "Email *",
+            "company": "Company",
+            "phone": "Phone",
+            "message": "Message *",
+            "messagePlaceholder": "Tell us about your needs, team size, expected tour volume...",
+            "sendBtn": "Send message",
+            "sending": "Sending...",
+            "failed": "Failed to send. Please try again.",
+            "error": "Network error. Please try again."
+        },
+        "info": {
+            "responseTimeTitle": "Response Time",
+            "enterpriseResponse": "Enterprise inquiries: ",
+            "enterpriseTime": "within 24 hours",
+            "generalResponse": "General questions: ",
+            "generalTime": "1–2 business days",
+            "getStartedTitle": "Get Started Faster",
+            "getStartedDesc": "Don't need Enterprise? Our self-serve plans get you started in minutes.",
+            "seePricing": "See pricing plans",
+            "partnerTitle": "Early Partner Program",
+            "partnerDesc": "Join as an early partner and receive 3 months free on any paid plan, plus priority onboarding support.",
+            "partnerNote": "Limited availability • Contact us to learn more"
+        }
+    },
+    "MarketingFeatures": {
+        "hero": {
+            "badge": "Full Comparison",
+            "title": "Compare all features",
+            "subtitle": "Every feature, every plan — see exactly what you get. No surprises, no hidden limitations.",
+            "tabs": {
+                "marketplace": {
+                    "label": "🌐 Marketplace",
+                    "desc": "For operators hiring guides"
+                },
+                "operations": {
+                    "label": "🏢 Operations",
+                    "desc": "For internal teams"
+                },
+                "guides": {
+                    "label": "🧑‍🏫 Guides",
+                    "desc": "For tour guides"
+                }
+            }
+        },
+        "table": {
+            "feature": "Feature",
+            "recommended": "Recommended",
+            "included": "Included",
+            "notIncluded": "Not included",
+            "plans": {
+                "mp_free": "Free",
+                "mp_pro": "Pro",
+                "mp_elite": "Elite",
+                "mp_enterprise": "Enterprise",
+                "ops_starter": "Ops Starter",
+                "ops_business": "Ops Business",
+                "ops_enterprise": "Ops Enterprise",
+                "guide_free": "Free",
+                "guide_pro": "Pro"
+            },
+            "values": {
+                "Free": "Free",
+                "Custom": "Custom",
+                "Unlimited": "Unlimited"
+            }
+        },
+        "categories": {
+            "Pricing": "Pricing",
+            "Limits": "Limits",
+            "Core": "Core",
+            "Advanced": "Advanced",
+            "Analytics & Branding": "Analytics & Branding",
+            "Premium": "Premium",
+            "Enterprise": "Enterprise",
+            "Pro Benefits": "Pro Benefits"
+        },
+        "cta": {
+            "title": "Ready to get started?",
+            "subtitle": "Choose the plan that fits your needs. Upgrade or downgrade anytime.",
+            "start": "Start Free",
+            "pricing": "View Pricing",
+            "contact": "Contact Sales"
+        },
+        "marketplaceFeatures": {
+            "f1": {
+                "feature": "Monthly price",
+                "description": "Base subscription fee"
+            },
+            "f2": {
+                "feature": "Commission rate",
+                "description": "Per escrow transaction fee"
+            },
+            "f3": {
+                "feature": "Quarterly discount",
+                "description": "Save on quarterly billing"
+            },
+            "f4": {
+                "feature": "Annual discount",
+                "description": "Save on annual billing"
+            },
+            "f5": {
+                "feature": "Tours per month",
+                "description": "Maximum tours you can create"
+            },
+            "f6": {
+                "feature": "Team size",
+                "description": "Maximum guides on your team"
+            },
+            "f7": {
+                "feature": "Guides per tour",
+                "description": "Lead + assistant guides per tour"
+            },
+            "f8": {
+                "feature": "Guide marketplace",
+                "description": "Discover and hire freelance guides from the public marketplace"
+            },
+            "f9": {
+                "feature": "Escrow payments",
+                "description": "Secure payments held until tour completion — protects both parties"
+            },
+            "f10": {
+                "feature": "Tour lifecycle",
+                "description": "Create, assign, execute, and complete tours with full status tracking"
+            },
+            "f11": {
+                "feature": "Incident reporting",
+                "description": "Report and track incidents during tour execution"
+            },
+            "f12": {
+                "feature": "Payment disputes",
+                "description": "File and manage payment disputes through the platform"
+            },
+            "f13": {
+                "feature": "SOS broadcast",
+                "description": "Emergency guide replacement — broadcast request to nearby available guides"
+            },
+            "f14": {
+                "feature": "Live command center",
+                "description": "Real-time operations dashboard with tour health monitoring"
+            },
+            "f15": {
+                "feature": "Advanced search filters",
+                "description": "Filter guides by language, skills, rating, availability, and more"
+            },
+            "f16": {
+                "feature": "Multi-guide teams",
+                "description": "Assign lead guide + assistant guides to the same tour"
+            },
+            "f17": {
+                "feature": "Tour segments",
+                "description": "Break tours into segments with individual check-ins and tracking"
+            },
+            "f18": {
+                "feature": "Guest check-in system",
+                "description": "Manage guest lists and self-check-in links for your tours"
+            },
+            "f19": {
+                "feature": "Analytics & insights",
+                "description": "Detailed performance metrics, trends, and operational analytics"
+            },
+            "f20": {
+                "feature": "Portfolio & sharing",
+                "description": "Public portfolio page showcasing your tours and reputation"
+            },
+            "f21": {
+                "feature": "Priority boost",
+                "description": "Higher visibility in marketplace search results and guide recommendations"
+            },
+            "f22": {
+                "feature": "External tracking",
+                "description": "Track tours managed outside the platform for unified analytics"
+            },
+            "f23": {
+                "feature": "Priority support",
+                "description": "Faster response times and dedicated support channel"
+            },
+            "f24": {
+                "feature": "Dedicated account manager",
+                "description": "Personal point of contact for your organization"
+            },
+            "f25": {
+                "feature": "SLA guarantee",
+                "description": "Service Level Agreement with uptime and response time guarantees"
+            },
+            "f26": {
+                "feature": "Custom integrations",
+                "description": "API access and custom integrations with your existing systems"
+            }
+        },
+        "operationsFeatures": {
+            "f1": {
+                "feature": "Monthly price",
+                "description": "Base subscription fee"
+            },
+            "f2": {
+                "feature": "Commission rate",
+                "description": "No marketplace fees — pay guides directly"
+            },
+            "f3": {
+                "feature": "Tours per month",
+                "description": "Maximum tours you can create"
+            },
+            "f4": {
+                "feature": "Team size",
+                "description": "Maximum guides on your team"
+            },
+            "f5": {
+                "feature": "Guides per tour",
+                "description": "Guides per tour assignment"
+            },
+            "f6": {
+                "feature": "Tour management",
+                "description": "Create and manage tour lifecycle"
+            },
+            "f7": {
+                "feature": "Live command center",
+                "description": "Real-time operations dashboard"
+            },
+            "f8": {
+                "feature": "Team management",
+                "description": "Invite and manage your in-house guides"
+            },
+            "f9": {
+                "feature": "Multi-guide per tour",
+                "description": "Assign multiple guides to tours"
+            },
+            "f10": {
+                "feature": "Tour segments",
+                "description": "Segment-level check-ins and tracking"
+            },
+            "f11": {
+                "feature": "Incident reporting",
+                "description": "Report and track tour incidents"
+            },
+            "f12": {
+                "feature": "Analytics & insights",
+                "description": "Performance metrics and trends"
+            },
+            "f13": {
+                "feature": "Guest check-in system",
+                "description": "Guest lists with self-check-in links"
+            },
+            "f14": {
+                "feature": "External tracking",
+                "description": "Track external tours"
+            },
+            "f15": {
+                "feature": "Custom integrations",
+                "description": "API and third-party integrations"
+            },
+            "f16": {
+                "feature": "SLA guarantee",
+                "description": "Service Level Agreement"
+            }
+        },
+        "guideFeatures": {
+            "f1": {
+                "feature": "Subscription",
+                "description": "Monthly fee"
+            },
+            "f2": {
+                "feature": "Platform service fee",
+                "description": "Deducted from each payout"
+            },
+            "f3": {
+                "feature": "Monthly applications",
+                "description": "Apply to open tour requests"
+            },
+            "f4": {
+                "feature": "Tour applications",
+                "description": "Apply to available tour postings"
+            },
+            "f5": {
+                "feature": "Direct invitations",
+                "description": "Accept direct invitations from operators"
+            },
+            "f6": {
+                "feature": "Payout tracking",
+                "description": "Track earnings and withdrawal history"
+            },
+            "f7": {
+                "feature": "Profile & reviews",
+                "description": "Public profile with ratings and reviews"
+            },
+            "f8": {
+                "feature": "Cancellation forgiveness",
+                "description": "1 penalty-free cancellation per quarter"
+            },
+            "f9": {
+                "feature": "Priority matching",
+                "description": "Appear higher in operator search results"
+            },
+            "f10": {
+                "feature": "Pro badge",
+                "description": "Verified Pro badge on your profile"
+            },
+            "f11": {
+                "feature": "Advanced analytics",
+                "description": "Detailed performance metrics and insights"
+            },
+            "f12": {
+                "feature": "Lower platform fee",
+                "description": "Reduced service fee on all payouts"
+            }
+        }
+    },
+    "MarketingHowItWorks": {
+        "title": "How It Works — Lunavia",
+        "h1": "How Lunavia Works",
+        "step1": "Sign up and select your role.",
+        "step2": "Complete verification (if required for your role).",
+        "step3": "Create or apply to service requests.",
+        "step4": "Execute tours with transparent audit trails.",
+        "join": {
+            "text": "Want to join?",
+            "link": "Create an account"
+        }
+    },
+    "FAQ": {
+        "title": "FAQ — Lunavia",
+        "h1": "Frequently Asked Questions",
+        "back": "← Back to Home",
+        "q1": "How does the Trust Score work?",
+        "a1": "Your Trust Score is calculated based on your activity, verification status, and community feedback. Completing tours successfully, verifying your identity (KYC/KYB), and maintaining a clean incident record increases your score.",
+        "q2": "Is verification mandatory?",
+        "a2": "Verification is highly recommended. While you can browse some features without it, verified partners get significantly higher visibility and are preferred by operators and guides for reliability.",
+        "q3": "How do I get paid?",
+        "a3": "Lunavia currently focuses on matching and operations management. Payment terms are agreed upon directly between the Operator and the Guide. We do not process payments on the platform at this time.",
+        "q4": "Can I cancel a tour?",
+        "a4": "Yes, but cancellations may impact your Trust Score. We encourage you to communicate early with your partners. Frequent cancellations may lead to account suspension.",
+        "more": "Still have questions?",
+        "contact": "Contact Support"
+    },
+    "TrustSafety": {
+        "title": "Trust & Safety — Lunavia",
+        "desc": "How Lunavia calculates trust scores, reliability scores, and protects both operators and guides.",
+        "hero": {
+            "badge": "Trust & Safety",
+            "title": "How trust works on Lunavia",
+            "subtitle": "Every user earns a Trust Score and Reliability Score based on real performance data — not marketing promises. Here's exactly how they work."
+        },
+        "overview": {
+            "trust": {
+                "title": "Trust Score",
+                "desc": "A 0–100 score reflecting your overall platform reputation. Combines your verification status, performance history, financial behavior, and compliance. Operators and guides have different formulas tailored to their roles.",
+                "note": "Affects visibility, matching priority, and feature access"
+            },
+            "reliability": {
+                "title": "Reliability Score",
+                "desc": "A percentage-based score (0–100%) tracking your dependability. Primarily measures cancellation behavior, no-shows, and deadline adherence. Drops sharply for late cancellations and recovers slowly through consistent performance.",
+                "note": "Affects tour application acceptance and account standing"
+            }
+        },
+        "operator": {
+            "tag": "For Operators",
+            "title": "Operator Trust Score",
+            "desc": "Your trust score is the sum of four positive components minus any penalties. Maximum score is 90 (Licensed), 70 (Agency), or 50 (Sole Proprietor).",
+            "formula": "Trust = Legal Base + Compliance + Performance + Financial − Penalties",
+            "legal": {
+                "title": "Legal Base (10–30 pts)",
+                "i1": "Licensed Company:",
+                "v1": "30 points",
+                "i2": "Travel Agency:",
+                "v2": "20 points",
+                "i3": "Sole Proprietor:",
+                "v3": "10 points"
+            },
+            "compliance": {
+                "title": "Compliance (0–20 pts)",
+                "i1": "Gold compliance:",
+                "v1": "20 points",
+                "i2": "Standard:",
+                "v2": "10 points",
+                "i3": "Probation:",
+                "v3": "0 points"
+            },
+            "performance": {
+                "title": "Performance (0–25 pts)",
+                "desc": "Based on your tour completion rate. Needs at least 3 tours for meaningful data. New operators start with 12 points (neutral)."
+            },
+            "financial": {
+                "title": "Financial Behavior (0–15 pts)",
+                "desc": "Based on clean payment history. Disputes reduce your score. Clean record = full 15 points. New operators start with 8 points."
+            },
+            "penalties": {
+                "title": "Penalty Deductions",
+                "desc": "Penalties are subtracted from your score. Each type is capped at 30 points, and total penalties are capped at 40 to prevent a single incident from destroying your reputation.",
+                "opTitle": "Operational Penalties",
+                "opDesc": "Late cancellations, no-shows, tour mismanagement",
+                "finTitle": "Financial Penalties",
+                "finDesc": "Payment disputes, escrow violations, suspicious transfers",
+                "riskTitle": "Risk Penalties",
+                "riskDesc": "Policy violations, compliance issues, flagged behavior"
+            }
+        },
+        "guide": {
+            "tag": "For Guides",
+            "title": "Guide Trust Score",
+            "desc": "Guides are individuals — no legal base or compliance component. Your score is built entirely from how you perform.",
+            "formula": "Trust = Base (30) + Completion + Rating + Reliability − Penalties",
+            "base": {
+                "title": "Base Score: 30 pts",
+                "desc": "Every guide starts with 30 points upon registration. This is your starting foundation."
+            },
+            "completion": {
+                "title": "Completion Rate (0–30 pts)",
+                "desc": "Tours completed vs total assigned. Need at least 3 tours for scoring. 100% completion = 30 points."
+            },
+            "rating": {
+                "title": "Rating Score (0–25 pts)",
+                "desc": "Average operator rating (1–5 stars) converted to points. 5 stars = 25 points. Needs at least 3 ratings."
+            },
+            "reliability": {
+                "title": "Reliability (0–15 pts)",
+                "desc": "Starts at 15. Each no-show costs −5 pts. Each late cancellation costs −3 pts. Based on last 90 days."
+            }
+        },
+        "reliabilityScore": {
+            "tag": "Both Operators & Guides",
+            "title": "Reliability Score",
+            "desc": "Your reliability score starts at 100% and reflects how dependable you are. It's separate from Trust Score and focus specifically on cancellation and commitment behavior.",
+            "zones": {
+                "excellent": {
+                    "title": "⭐ Excellent",
+                    "i1": "Priority matching with operators",
+                    "i2": "Trust badge displayed on profile",
+                    "i3": "Higher visibility in search",
+                    "i4": "Eligible for premium tour requests"
+                },
+                "standard": {
+                    "title": "⚠️ Standard",
+                    "i1": "Normal platform access",
+                    "i2": "Regular matching priority",
+                    "i3": "Some operators may prefer higher-rated guides"
+                },
+                "probation": {
+                    "title": "🚨 Probation",
+                    "i1": "Tour applications may be restricted",
+                    "i2": "Reduced search visibility",
+                    "i3": "Account review may be triggered"
+                }
+            },
+            "affects": {
+                "title": "What affects your Reliability Score",
+                "late": {
+                    "title": "Late Cancellation (within 48h of departure)",
+                    "value": "−15 points + temporary search ranking drop",
+                    "desc": "The most penalized behavior. Canceling close to departure leaves operators scrambling to find replacements."
+                },
+                "noshow": {
+                    "title": "No-Show",
+                    "value": "−25 points + severe ranking penalty",
+                    "desc": "Not showing up to an assigned tour is the most serious offense. Multiple no-shows may result in account suspension."
+                },
+                "incident": {
+                    "title": "Incident Reports (confirmed against you)",
+                    "value": "−3 to −10 points depending on severity",
+                    "desc": "Minor issues: −3pts. Moderate: −10pts. Severe: −25pts. Only deducted after investigation confirms fault."
+                },
+                "completion": {
+                    "title": "Tour Completion",
+                    "value": "Score recovers gradually",
+                    "desc": "Every completed tour improves your reliability. Consistency is rewarded — your score recovers over time through good behavior."
+                }
+            }
+        },
+        "fees": {
+            "title": "Platform Fees",
+            "desc": "Transparent fees — you always know what you're paying. No hidden charges, ever.",
+            "operatorTitle": "Operator Fees",
+            "opSub": "Subscription",
+            "opSubVal": "Free – ₫799K/mo",
+            "opComm": "Escrow Commission",
+            "opCommVal": "1.5% – 5%",
+            "opOps": "Operations (no escrow)",
+            "opOpsVal": "0% commission",
+            "opNote": "Commission is charged per escrow transaction, deducted before guide payout. Operations plans don't use escrow — pay guides directly.",
+            "guideTitle": "Guide Fees",
+            "gdFree": "Guide Free — Service fee",
+            "gdFreeVal": "5% per payout",
+            "gdPro": "Guide Pro — Service fee",
+            "gdProVal": "2% per payout",
+            "gdSub": "Guide Pro subscription",
+            "gdSubVal": "₫149K/mo",
+            "gdNote": "Platform service fee covers escrow processing, payment security, and dispute protection. Deducted automatically from each payout."
+        },
+        "decay": {
+            "title": "Trust Decay & Recovery",
+            "desc": "Trust isn't static. Inactive accounts gradually lose trust score, while active users maintain and grow theirs.",
+            "inactivity": {
+                "title": "Inactivity Decay",
+                "desc": "Accounts inactive for extended periods see gradual trust score reduction. This ensures active, engaged users rank higher."
+            },
+            "recovery": {
+                "title": "Recovery Through Activity",
+                "desc": "Complete tours, maintain clean payments, and avoid cancellations. Your score will recover and grow over time."
+            },
+            "caps": {
+                "title": "Penalty Caps",
+                "desc": "Individual penalties are capped (max 30 each, total max 40). One bad day won't destroy years of good reputation."
+            }
+        },
+        "matching": {
+            "title": "How Trust Affects Matching",
+            "desc": "When operators search for guides or the system ranks applicants, trust plays a major role.",
+            "formula": "Match Score = Reliability × 60% + Trust × 40%",
+            "rel": {
+                "title": "Reliability Score",
+                "desc": "Dependability is weighted highest because operators need guides who show up and don't cancel."
+            },
+            "trust": {
+                "title": "Trust Score",
+                "desc": "Overall platform reputation, including ratings, completion history, and verification status."
+            }
+        },
+        "tourHealth": {
+            "title": "Tour Health System",
+            "desc": "Real-time operational monitoring for every active tour. See how Lunavia tracks start delays, segment progress, incidents, and guide activity — computed into a live 0–100 health score.",
+            "btn": "Learn More →"
+        },
+        "cta": {
+            "title": "Start building your trust",
+            "desc": "Create your account, complete verification, and start earning your reputation on Lunavia.",
+            "start": "Get Started",
+            "pricing": "View Pricing"
+        }
+    },
+    "TourHealth": {
+        "title": "Tour Health System — Lunavia",
+        "desc": "How Lunavia monitors every active tour in real-time. Understand tour health scores, status signals, and how we protect your operations.",
+        "hero": {
+            "badge": "Operations Monitoring",
+            "title": "Tour Health System",
+            "subtitle": "Real-time monitoring for every active tour. Like flight operations status for airlines — Lunavia gives operators and admins instant visibility into tour execution health."
+        },
+        "indicators": {
+            "healthy": "Healthy",
+            "minorRisk": "Minor Risk",
+            "atRisk": "At Risk",
+            "critical": "Critical",
+            "sosActive": "SOS Active"
+        },
+        "whatIsIt": {
+            "tag": "What is it?",
+            "title": "Your tour's vital signs",
+            "p1": "Tour Health is a real-time monitoring system that tracks every active tour's operational status. It combines multiple signals — start time, segment progress, incidents, and guide activity — into a single health score and status.",
+            "p2": "Think of it like a hospital patient monitor: when everything is green, your tour is running smoothly. When signals go yellow or red, you know exactly what's wrong and can act immediately.",
+            "items": {
+                "uber": {
+                    "label": "Like Uber trip status",
+                    "desc": "Real-time progress tracking"
+                },
+                "logistics": {
+                    "label": "Like logistics shipment health",
+                    "desc": "Know when deliverables are delayed"
+                },
+                "airline": {
+                    "label": "Like airline flight ops",
+                    "desc": "System-wide operations dashboard"
+                },
+                "patient": {
+                    "label": "Like patient monitoring",
+                    "desc": "Multiple vital signs → single status"
+                }
+            }
+        },
+        "scoreSystem": {
+            "tag": "Score System",
+            "title": "Health Score (0–100)",
+            "desc": "Each tour receives a real-time composite score from five weighted factors. Computed on-demand from actual execution data — nothing self-reported.",
+            "factors": {
+                "f1": {
+                    "name": "Segment Progress",
+                    "desc": "Are tour segments being completed at the expected pace? Compares actual check-in progress against time elapsed.",
+                    "d1": "Checks completed vs total segments",
+                    "d2": "Time-aware: compares actual vs expected progress",
+                    "d3": "Accounts for tour duration and elapsed time"
+                },
+                "f2": {
+                    "name": "Start Delay",
+                    "desc": "Did the tour start on time? Late starts cascade into other problems.",
+                    "d1": "≤5 min late → 100/100",
+                    "d2": "5–15 min → 75/100",
+                    "d3": "15–30 min → 50/100",
+                    "d4": "30–60 min → 25/100",
+                    "d5": ">60 min → 0/100 (critical)"
+                },
+                "f3": {
+                    "name": "Skipped Segments",
+                    "desc": "Were any tour segments skipped? Skipping segments means tourists miss planned experiences.",
+                    "d1": "No skips → 100/100",
+                    "d2": "Score decreases proportionally with skip ratio",
+                    "d3": "50%+ segments skipped → 0/100"
+                },
+                "f4": {
+                    "name": "Incidents",
+                    "desc": "Are there open incidents on this tour? Severity matters.",
+                    "d1": "No incidents → 100/100",
+                    "d2": "1 incident → 60/100",
+                    "d3": "2 incidents → 40/100",
+                    "d4": "3+ incidents → 20/100",
+                    "d5": "Any HIGH severity → 10/100"
+                },
+                "f5": {
+                    "name": "Guide Reliability",
+                    "desc": "Is the guide actively checking in? Long silence during a tour is a risk signal.",
+                    "d1": "Active within 15min → 100/100",
+                    "d2": "15–30 min silence → 70/100",
+                    "d3": "30–60 min silence → 40/100",
+                    "d4": ">60 min silence → 10/100",
+                    "d5": "No guide assigned → 50/100"
+                }
+            },
+            "formulaTitle": "Weighted Formula",
+            "formula": "Health = <segment>Segment × 30%</segment> + <start>Start × 20%</start> + <skipped>Skipped × 20%</skipped> + <incidents>Incidents × 20%</incidents> + <guide>Guide × 10%</guide>"
+        },
+        "statusZones": {
+            "tag": "Status Zones",
+            "title": "Four Health Zones",
+            "desc": "Health scores map to four status zones. Each zone triggers different levels of visibility and alerts on the Command Center.",
+            "healthy": {
+                "title": "Healthy",
+                "desc": "Tour is running on schedule. All segments on track, guide active, no incidents. No action needed."
+            },
+            "minorRisk": {
+                "title": "Minor Risk",
+                "desc": "Slight delays or missed check-ins. Worth monitoring but likely recoverable. Shows as yellow on Command Center."
+            },
+            "atRisk": {
+                "title": "At Risk",
+                "desc": "Significant delays, guide unresponsive, or multiple issues. Operator should intervene. Alert system may trigger notifications."
+            },
+            "critical": {
+                "title": "Critical",
+                "desc": "Tour has serious operational issues. Immediate action required — may involve SOS broadcast, guide replacement, or incident escalation."
+            }
+        },
+        "stateMachine": {
+            "tag": "State Machine",
+            "title": "Five Operational States",
+            "desc": "Beyond the numeric score, each tour has a categorical state based on real events. States follow a priority system — higher-severity states override lower ones.",
+            "states": {
+                "health": {
+                    "title": "HEALTHY",
+                    "desc": "All systems normal — on schedule, guide active, no incidents",
+                    "t1": "Default state when no issues detected",
+                    "t2": "Reverts to HEALTHY when all incidents resolved"
+                },
+                "atRisk": {
+                    "title": "AT_RISK",
+                    "desc": "Warning signals detected — may escalate without intervention",
+                    "t1": "Pickup not started 15+ min after scheduled time",
+                    "t2": "Guide not verified close to departure",
+                    "t3": "Guide replacement request pending"
+                },
+                "delayed": {
+                    "title": "DELAYED",
+                    "desc": "Tour started late — confirmed delay in execution timeline",
+                    "t1": "Tour actually started 15+ minutes after scheduled time",
+                    "t2": "Detected from execution timeline events"
+                },
+                "incident": {
+                    "title": "INCIDENT",
+                    "desc": "Active incident reported — requires resolution",
+                    "t1": "One or more unresolved incidents on the tour",
+                    "t2": "Remains until all incidents are resolved",
+                    "t3": "Counts active incident reports from guides or operators"
+                },
+                "sosActive": {
+                    "title": "SOS_ACTIVE",
+                    "desc": "Emergency — SOS broadcast triggered for urgent guide replacement",
+                    "t1": "Active SOS broadcast on the tour",
+                    "t2": "Highest priority — overrides all other states",
+                    "t3": "Triggered when guide cancels last-minute and operator needs emergency replacement"
+                }
+            },
+            "prioritySystem": "Priority System",
+            "priorityDesc": "Higher-priority states always override lower ones. A tour with both an incident and a delay shows as INCIDENT.",
+            "priorityChain": "<sos>SOS_ACTIVE(5)</sos> > <incident>INCIDENT(4)</incident> > <delayed>DELAYED(3)</delayed> > <risk>AT_RISK(2)</risk> > <healthy>HEALTHY(1)</healthy>"
+        },
+        "whoSeesWhat": {
+            "title": "Who sees Tour Health?",
+            "desc": "Different roles see different views — all based on the same real-time data.",
+            "operator": {
+                "title": "Operators",
+                "i1": "Command Center — see all today's tours with health status",
+                "i2": "Health counts: how many healthy, at-risk, incident",
+                "i3": "Can drill into individual tour health factors"
+            },
+            "admin": {
+                "title": "Platform Admins",
+                "i1": "System-wide health dashboard",
+                "i2": "Flagged tours across all operators",
+                "i3": "SOS/incident escalation management"
+            },
+            "alert": {
+                "title": "Alert Engine",
+                "i1": "Automated monitoring of health scores",
+                "i2": "Triggers notifications on state changes",
+                "i3": "Escalates critical tours to admins"
+            }
+        },
+        "integratedWith": {
+            "title": "Integrated with",
+            "desc": "Tour Health connects to other Lunavia systems for automated responses.",
+            "items": {
+                "cc": {
+                    "name": "Command Center",
+                    "desc": "Live operations dashboard"
+                },
+                "sos": {
+                    "name": "SOS Broadcast",
+                    "desc": "Emergency guide replacement"
+                },
+                "ir": {
+                    "name": "Incident Reports",
+                    "desc": "Problem documentation"
+                },
+                "ae": {
+                    "name": "Alert Engine",
+                    "desc": "Automated notifications"
+                },
+                "et": {
+                    "name": "Execution Timeline",
+                    "desc": "Step-by-step tracking"
+                },
+                "gr": {
+                    "name": "Guide Replacement",
+                    "desc": "Mid-tour substitutions"
+                },
+                "ts": {
+                    "name": "Trust Score",
+                    "desc": "Performance impact"
+                },
+                "es": {
+                    "name": "Escrow System",
+                    "desc": "Payment protection"
+                }
+            }
+        },
+        "cta": {
+            "title": "Run tours with confidence",
+            "desc": "Tour Health is included in all plans. Start monitoring your operations in real-time.",
+            "start": "Get Started",
+            "trustSafety": "Trust & Safety"
+        }
+    },
+    "Terms": {
+        "title": "Terms — Lunavia",
+        "back": "← Back",
+        "h1": "Terms of Service",
+        "lastUpdated": "Last updated: February 2026",
+        "p1Title": "1. Introduction",
+        "p1Desc": "Welcome to Lunavia. By accessing our platform, you agree to these terms.",
+        "p2Title": "2. User Responsibilities",
+        "p2Desc": "You agree to provide accurate information during verification and to conduct yourself professionally during all tours arranged via our platform.",
+        "p3Title": "3. Trust & Safety",
+        "p3Desc": "We take safety seriously. Any reported incidents may result in permanent suspension of your account.",
+        "p4Title": "4. Limitation of Liability",
+        "p4Desc": "Lunavia is a matching platform. We are not responsible for the actions of Guides or Operators outside of the platform."
+    },
+    "Privacy": {
+        "title": "Privacy — Lunavia",
+        "back": "← Back",
+        "h1": "Privacy Policy",
+        "lastUpdated": "Last updated: February 2026",
+        "p1Title": "1. Data Collection",
+        "p1Desc": "We collect information you provide directly to us, such as when you create an account, verify your identity, or communicate with us.",
+        "p2Title": "2. Use of Information",
+        "p2Desc": "We use your information to operate and improve our platform, including trust score calculations and partner matching.",
+        "p3Title": "3. Data Sharing",
+        "p3Desc": "We verify your identity with third-party providers but do not sell your personal data to advertisers."
+    },
+    "MarketingFooter": {
+        "brand_desc": "Tour operations and guide marketplace platform. Connecting operators and guides with trust.",
+        "categories": {
+            "platform": "Platform",
+            "trust": "Trust",
+            "legal": "Legal"
+        },
+        "links": {
+            "pricing": "Pricing",
+            "about": "About",
+            "get_started": "Get Started",
+            "trust_safety": "Trust & Safety",
+            "tour_health": "Tour Health",
+            "verification_guide": "Verification Guide",
+            "faq": "FAQ",
+            "terms": "Terms of Service",
+            "privacy": "Privacy Policy"
+        },
+        "copyright": "© {year} Lunavia Platform. All rights reserved.",
+        "status": "All Systems Operational"
+    }
+}
