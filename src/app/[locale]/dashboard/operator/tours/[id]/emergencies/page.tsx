@@ -2,7 +2,6 @@
 
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -51,7 +50,7 @@ export default function TourEmergenciesPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Báo cáo SOS / Sự cố"
         description={`Tour: ${tour?.title || ""}`}
@@ -193,7 +192,7 @@ export default function TourEmergenciesPage() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

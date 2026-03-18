@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -126,17 +125,17 @@ export default function AdminUserManagePage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Đang tải...</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (!user) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Không tìm thấy user</p>
           <Link href="/dashboard/admin/users">
@@ -145,12 +144,12 @@ export default function AdminUserManagePage() {
             </Button>
           </Link>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý User"
         description={user.email}
@@ -397,7 +396,7 @@ export default function AdminUserManagePage() {
           </div>
         </TabsContent>
       </Tabs>
-    </DashboardLayout>
+    </>
   );
 }
 

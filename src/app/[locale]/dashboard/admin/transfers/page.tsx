@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -103,7 +102,7 @@ export default function AdminTransfersPage() {
   const toUser = users.find((u: any) => u.id === toUserId);
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Internal Transfer"
         description="Chuyển tiền nội bộ giữa các tài khoản (Chỉ SUPER_ADMIN)"
@@ -258,7 +257,7 @@ export default function AdminTransfersPage() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

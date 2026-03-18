@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,7 +30,7 @@ export default function NotificationsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Thông báo"
         description={`${data?.unreadCount || 0} thông báo chưa đọc`}
@@ -97,7 +96,7 @@ export default function NotificationsPage() {
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

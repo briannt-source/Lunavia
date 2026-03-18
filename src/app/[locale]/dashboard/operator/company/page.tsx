@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -35,7 +34,7 @@ export default function CompanyPage() {
   const companyInfo = companyData || company;
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Thông tin Công ty"
         description="Quản lý thông tin công ty của bạn"
@@ -198,7 +197,7 @@ export default function CompanyPage() {
           </div>
         </div>
       )}
-    </DashboardLayout>
+    </>
   );
 }
 

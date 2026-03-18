@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -54,7 +53,7 @@ export default function StandbyRequestsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <PageHeader
           title="Standby Requests"
@@ -159,7 +158,7 @@ export default function StandbyRequestsPage() {
           setIsCreateDialogOpen(false);
         }}
       />
-    </DashboardLayout>
+    </>
   );
 }
 

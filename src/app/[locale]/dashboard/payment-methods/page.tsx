@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -196,7 +195,7 @@ export default function PaymentMethodsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Phương thức thanh toán"
         description="Quản lý các phương thức thanh toán đã lưu"
@@ -496,7 +495,7 @@ export default function PaymentMethodsPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </DashboardLayout>
+    </>
   );
 }
 

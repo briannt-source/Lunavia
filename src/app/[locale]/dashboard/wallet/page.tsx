@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatsCard } from "@/components/ui/stats-card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -202,7 +201,7 @@ export default function WalletPage() {
   ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Ví của tôi"
         description="Quản lý số dư và giao dịch"
@@ -741,6 +740,6 @@ export default function WalletPage() {
           </Tabs>
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }

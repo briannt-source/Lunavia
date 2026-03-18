@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -156,7 +155,7 @@ export default function PaymentSettingsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Cài đặt Thanh toán"
         description="Quản lý thông tin tài khoản ngân hàng Lunavia"
@@ -386,7 +385,7 @@ export default function PaymentSettingsPage() {
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

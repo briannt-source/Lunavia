@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -111,17 +110,17 @@ export default function VerificationDetailPage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Đang tải...</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (!verification) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Không tìm thấy yêu cầu xác minh</p>
           <Link href="/dashboard/admin/verifications">
@@ -130,7 +129,7 @@ export default function VerificationDetailPage() {
             </Button>
           </Link>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
@@ -198,7 +197,7 @@ export default function VerificationDetailPage() {
   ].filter((group) => group.urls.length > 0);
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title={`Xác minh ${verificationType}`}
         description={`ID: ${verification.id}`}
@@ -477,7 +476,7 @@ export default function VerificationDetailPage() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -208,7 +207,7 @@ export default function KYBSubmissionPage() {
 
   if (verificationStatus === "APPROVED") {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYB đã được duyệt"
           description="Tài khoản của bạn đã được xác minh thành công"
@@ -223,13 +222,13 @@ export default function KYBSubmissionPage() {
             </div>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (verificationStatus === "PENDING") {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYB đang chờ duyệt"
           description="Vui lòng chờ admin xem xét và duyệt KYB của bạn"
@@ -244,13 +243,13 @@ export default function KYBSubmissionPage() {
             </div>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (verificationStatus === "REJECTED" && !showResubmitForm) {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYB bị từ chối"
           description="Vui lòng kiểm tra và nộp lại KYB"
@@ -273,12 +272,12 @@ export default function KYBSubmissionPage() {
             </Button>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Nộp KYB"
         description="Hoàn tất xác minh doanh nghiệp để có thể tạo tour"
@@ -408,7 +407,7 @@ export default function KYBSubmissionPage() {
           </form>
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

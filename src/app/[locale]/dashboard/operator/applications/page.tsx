@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -84,7 +83,7 @@ export default function ApplicationsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Ứng tuyển"
         description="Xem và quản lý các ứng tuyển cho tours của bạn"
@@ -199,7 +198,7 @@ export default function ApplicationsPage() {
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

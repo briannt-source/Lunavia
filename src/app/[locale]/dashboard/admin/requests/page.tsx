@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -100,16 +99,16 @@ function AdminRequestsContent() {
 
   if (!canAccess) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Chỉ SUPER_ADMIN mới có quyền truy cập trang này</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Yêu cầu Tài chính"
         description="Duyệt các yêu cầu nạp tiền và rút tiền (Chỉ SUPER_ADMIN)"
@@ -307,16 +306,16 @@ function AdminRequestsContent() {
           </Tabs>
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 
 export default function AdminRequestsPage() {
   return (
     <Suspense fallback={
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">Đang tải...</div>
-      </DashboardLayout>
+      </>
     }>
       <AdminRequestsContent />
     </Suspense>

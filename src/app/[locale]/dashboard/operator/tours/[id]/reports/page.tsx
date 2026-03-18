@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,7 +55,7 @@ export default function TourReportsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Báo cáo Tour"
         description={`Tour: ${tour?.title || ""}`}
@@ -225,7 +224,7 @@ export default function TourReportsPage() {
           onConfirm={handleConfirmTour}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 }
 

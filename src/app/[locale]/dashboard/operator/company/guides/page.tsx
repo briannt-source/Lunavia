@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -124,7 +123,7 @@ export default function CompanyGuidesPage() {
 
   if (!companyId) {
     return (
-      <DashboardLayout>
+      <>
         <Card>
           <CardContent className="p-6">
             <p className="text-center text-muted-foreground">
@@ -138,12 +137,12 @@ export default function CompanyGuidesPage() {
             </p>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Guides"
         description="Quản lý in-house guides trong công ty của bạn"
@@ -353,7 +352,7 @@ export default function CompanyGuidesPage() {
         onOpenChange={setShowInviteDialog}
         companyId={companyId!}
       />
-    </DashboardLayout>
+    </>
   );
 }
 

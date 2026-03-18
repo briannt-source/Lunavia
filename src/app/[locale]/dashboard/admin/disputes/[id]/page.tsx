@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -85,17 +84,17 @@ export default function DisputeDetailPage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Đang tải...</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (!dispute) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Không tìm thấy dispute</p>
           <Link href="/dashboard/admin/disputes">
@@ -104,12 +103,12 @@ export default function DisputeDetailPage() {
             </Button>
           </Link>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Chi tiết Dispute"
         description={`ID: ${dispute.id}`}
@@ -314,7 +313,7 @@ export default function DisputeDetailPage() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

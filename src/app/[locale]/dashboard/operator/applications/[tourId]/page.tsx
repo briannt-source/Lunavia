@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
@@ -65,7 +64,7 @@ export default function TourApplicationsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title={`Ứng tuyển: ${tour?.title || ""}`}
         description={`${applications.length} ứng tuyển cho tour này`}
@@ -308,7 +307,7 @@ export default function TourApplicationsPage() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

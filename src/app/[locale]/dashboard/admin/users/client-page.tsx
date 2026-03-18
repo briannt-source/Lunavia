@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -62,7 +61,7 @@ export default function AdminUsersClientPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Users"
         description="Quản lý tất cả người dùng trong hệ thống. Có thể block/unblock hoặc xóa user nếu vi phạm quy định."
@@ -331,7 +330,7 @@ export default function AdminUsersClientPage() {
           }}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 }
 

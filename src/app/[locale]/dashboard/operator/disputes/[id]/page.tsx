@@ -3,7 +3,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -46,21 +45,21 @@ export default function DisputeDetailPage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <>
         <div className="flex items-center justify-center h-64">
           <p className="text-[#64748B]">Đang tải...</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (!dispute) {
     return (
-      <DashboardLayout>
+      <>
         <div className="flex items-center justify-center h-64">
           <p className="text-[#64748B]">Dispute không tồn tại</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
@@ -69,7 +68,7 @@ export default function DisputeDetailPage() {
     "bg-gray-100 text-gray-700 border-gray-300";
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -252,7 +251,7 @@ export default function DisputeDetailPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

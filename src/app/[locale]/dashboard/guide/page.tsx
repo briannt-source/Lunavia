@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatsCard } from "@/components/ui/stats-card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -62,7 +61,7 @@ export default function GuideDashboard() {
   const needsKYC = verifiedStatus !== "APPROVED";
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Dashboard Guide"
         description="Tổng quan hoạt động của bạn"
@@ -265,6 +264,6 @@ export default function GuideDashboard() {
           </CardContent>
         </Card>
       )}
-    </DashboardLayout>
+    </>
   );
 }

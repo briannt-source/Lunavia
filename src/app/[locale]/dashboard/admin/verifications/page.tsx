@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -74,7 +73,7 @@ export default async function AdminVerificationsPage({
   }, {} as Record<string, number>);
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Xác minh"
         description="Duyệt các yêu cầu xác minh KYC/KYB"
@@ -217,7 +216,7 @@ export default async function AdminVerificationsPage({
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

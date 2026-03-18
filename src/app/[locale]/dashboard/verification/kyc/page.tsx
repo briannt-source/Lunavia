@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -173,7 +172,7 @@ export default function KYCSubmissionPage() {
 
   if (verificationStatus === "APPROVED") {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYC đã được duyệt"
           description="Tài khoản của bạn đã được xác minh thành công"
@@ -188,13 +187,13 @@ export default function KYCSubmissionPage() {
             </div>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (verificationStatus === "PENDING") {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYC đang chờ duyệt"
           description="Vui lòng chờ admin xem xét và duyệt KYC của bạn"
@@ -209,13 +208,13 @@ export default function KYCSubmissionPage() {
             </div>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (verificationStatus === "REJECTED") {
     return (
-      <DashboardLayout>
+      <>
         <PageHeader
           title="KYC bị từ chối"
           description="Vui lòng kiểm tra và nộp lại KYC"
@@ -238,12 +237,12 @@ export default function KYCSubmissionPage() {
             </Button>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Nộp KYC"
         description="Hoàn tất xác minh danh tính để có thể ứng tuyển vào các tour"
@@ -353,7 +352,7 @@ export default function KYCSubmissionPage() {
           </form>
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

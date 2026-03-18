@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -54,7 +53,7 @@ export default function OperatorPaymentsPage() {
   );
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Thanh toán"
         description="Quản lý các yêu cầu thanh toán từ hướng dẫn viên"
@@ -227,6 +226,6 @@ export default function OperatorPaymentsPage() {
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }

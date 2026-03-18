@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatsCard } from "@/components/ui/stats-card";
@@ -118,7 +117,7 @@ export default async function AdminDashboard() {
   ]);
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Admin Dashboard"
         description={
@@ -371,7 +370,7 @@ export default async function AdminDashboard() {
           </Card>
         )}
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

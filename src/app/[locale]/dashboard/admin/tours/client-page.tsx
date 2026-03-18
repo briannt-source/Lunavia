@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -59,7 +58,7 @@ export default function AdminToursClientPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Quản lý Tours"
         description="Xem và quản lý tất cả tours trong hệ thống. Có thể đóng/mở tour nếu vi phạm quy định."
@@ -335,7 +334,7 @@ export default function AdminToursClientPage() {
           }}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 }
 

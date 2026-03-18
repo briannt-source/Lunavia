@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -107,11 +106,11 @@ export default function TourReportPage() {
 
   if (!tour) {
     return (
-      <DashboardLayout>
+      <>
         <div className="text-center py-12">
           <p className="text-slate-600">Đang tải...</p>
         </div>
-      </DashboardLayout>
+      </>
     );
   }
 
@@ -123,7 +122,7 @@ export default function TourReportPage() {
     existingReport.paymentRequestStatus !== "PENDING";
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Báo cáo Tour"
         description={`Tour: ${tour.title}`}
@@ -322,7 +321,7 @@ export default function TourReportPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -106,7 +105,7 @@ export default function GuideAssignmentsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Phân công của tôi"
         description="Xem và quản lý các phân công tour của bạn"
@@ -321,7 +320,7 @@ export default function GuideAssignmentsPage() {
           )}
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   );
 }
 

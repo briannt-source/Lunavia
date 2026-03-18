@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -59,7 +58,7 @@ export default function ContractVerificationPage() {
 
   // For now, show a placeholder
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <PageHeader
           title="Xác minh Hợp đồng Lao động"
@@ -77,7 +76,7 @@ export default function ContractVerificationPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

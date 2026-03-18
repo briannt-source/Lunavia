@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -75,7 +74,7 @@ export default async function AdminUserDetailPage({
   }
 
   return (
-    <DashboardLayout>
+    <>
       <PageHeader
         title="Chi tiết User"
         description={user.email}
@@ -343,7 +342,7 @@ export default async function AdminUserDetailPage({
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 

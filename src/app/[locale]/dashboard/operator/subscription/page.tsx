@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +40,7 @@ export default function SubscriptionPage() {
   const planInfo = PLANS[currentPlan] || PLANS.FREE;
 
   return (
-    <DashboardLayout>
+    <>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-semibold text-[#1E293B] mb-2">Subscription</h1>
@@ -183,7 +182,7 @@ export default function SubscriptionPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
 
