@@ -21,7 +21,7 @@ export async function processAutoClose24h(): Promise<{ processed: number; errors
 
     try {
         // 1. Find potential tours
-        const tours = await (prisma.serviceRequest as any).findMany({
+        const tours = await (prisma.tour as any).findMany({
             where: {
                 status: TOUR_STATUS.COMPLETED,
                 guideReturnedAt: { lte: threshold },
@@ -49,7 +49,7 @@ export async function processAutoClose24h(): Promise<{ processed: number; errors
                 }
 
                 // 2. Auto-close transition
-                await (prisma.serviceRequest as any).update({
+                await (prisma.tour as any).update({
                     where: { id: tour.id },
                     data: {
                         status: TOUR_STATUS.CLOSED,
@@ -109,7 +109,7 @@ export async function reopenTour(
         throw new Error('Unauthorized: Only OPS or SUPER_ADMIN can reopen tours');
     }
 
-    const tour = await prisma.serviceRequest.update({
+    const tour = await prisma.tour.update({
         where: { id: tourId },
         data: { status: TOUR_STATUS.REOPENED }
     });

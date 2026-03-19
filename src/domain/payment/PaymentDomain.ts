@@ -16,7 +16,7 @@ interface CreatePaymentRequestInput {
 }
 
 async function createSubscriptionPaymentRequest(input: CreatePaymentRequestInput) {
-    return prisma.subscriptionPaymentRequest.create({
+    return prisma.payment.create({
         data: {
             userId: input.userId,
             requestedPlan: input.requestedPlan,
@@ -30,7 +30,7 @@ async function createSubscriptionPaymentRequest(input: CreatePaymentRequestInput
 // ── Upload Payment Proof ────────────────────────────────────────────
 
 async function uploadPaymentProof(requestId: string, proofImageUrl: string) {
-    return prisma.subscriptionPaymentRequest.update({
+    return prisma.payment.update({
         where: { id: requestId },
         data: { proofImageUrl },
     });
@@ -154,7 +154,7 @@ async function deactivatePlanPricing(pricingId: string, adminId: string, plan: s
 // ── Create Operator Wallet ──────────────────────────────────────────
 
 async function ensureOperatorWallet(operatorId: string) {
-    return prisma.operatorWallet.create({
+    return prisma.wallet.create({
         data: { operatorId, availableBalance: 0, currency: 'VND' },
     });
 }

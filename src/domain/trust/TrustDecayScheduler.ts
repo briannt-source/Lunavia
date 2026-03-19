@@ -138,16 +138,16 @@ export async function runTrustDecay(): Promise<DecayResult> {
                             select: { kybStatus: true },
                         });
 
-                        const completedTours = await prisma.serviceRequest.count({
+                        const completedTours = await prisma.tour.count({
                             where: { operatorId: user.id, status: 'COMPLETED' },
                         });
 
-                        const totalTours = await prisma.serviceRequest.count({
+                        const totalTours = await prisma.tour.count({
                             where: { operatorId: user.id },
                         });
 
                         const disputeRate = totalTours > 0
-                            ? (await prisma.serviceRequest.count({
+                            ? (await prisma.tour.count({
                                 where: {
                                     operatorId: user.id,
                                     status: { in: ['CANCELLED', 'FORCE_CANCELLED'] },

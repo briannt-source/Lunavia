@@ -39,7 +39,7 @@ interface CreateTrackingLinkInput {
 async function createTrackingLink(input: CreateTrackingLinkInput) {
     const { tourId, operatorId, agencyName, permissions } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, endTime: true, title: true },
     });
@@ -93,7 +93,7 @@ async function getTrackingData(token: string) {
     const permissions = access.permissions as any;
 
     // Fetch tour data (sanitized — no financials)
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: access.tourId },
         select: {
             id: true,
@@ -122,7 +122,7 @@ async function getTrackingData(token: string) {
     // Guide info (if permitted)
     let guide = null;
     if (permissions.viewGuide) {
-        const tourFull = await prisma.serviceRequest.findUnique({
+        const tourFull = await prisma.tour.findUnique({
             where: { id: access.tourId },
             select: { assignedGuideId: true },
         });

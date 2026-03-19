@@ -135,7 +135,7 @@ async function createNotificationsForEvent(eventId: string, tourId: string, even
     if (!rules) return;
 
     // Get tour with operator and guide info
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,

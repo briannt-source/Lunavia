@@ -85,7 +85,7 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
     // 2.5 Eligibility & Wallet Check
     const eligibility = await checkEligibility(operatorId);
     
-    const wallet = await prisma.operatorWallet.findUnique({
+    const wallet = await prisma.wallet.findUnique({
         where: { operatorId }
     });
 
@@ -141,7 +141,7 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
 
     if (!eligibility.isFree) {
         transactionQueries.push(
-            prisma.operatorWallet.update({
+            prisma.wallet.update({
                 where: { id: wallet.id },
                 data: { availableBalance: { decrement: eligibility.cost } }
             })
@@ -394,7 +394,7 @@ async function findMatchingGuides(tour: any) {
     if (tour.assignedGuideId) excludeIds.push(tour.assignedGuideId);
 
     // #4: Find guides with overlapping assigned tours
-    const overlappingGuideIds = await prisma.serviceRequest.findMany({
+    const overlappingGuideIds = await prisma.tour.findMany({
         where: {
             status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
             startTime: { lte: tour.endTime },

@@ -22,8 +22,8 @@ export default async function ServiceRequestParamsPage({
     const userId = user.id;
     const userRole = user.role;
 
-    // Fetch Request (No includes for operator/guide due to schema limitations)
-    const request = await prisma.serviceRequest.findUnique({
+    // Fetch Tour (renamed from serviceRequest)
+    const request = await prisma.tour.findUnique({
         where: { id: params.id },
         include: {
             applications: true,
@@ -44,19 +44,20 @@ export default async function ServiceRequestParamsPage({
         where: { id: request.operatorId },
         select: {
             id: true,
-            verifiedStatus: true,
+            verificationStatus: true,
             createdAt: true
         }
     });
 
-    // Fetch Assigned Guide Details
+    // Fetch Assigned Guide (via accepted applications instead of assignedGuideId)
     let assignedGuide = null;
-    if (request.assignedGuideId) {
+    const acceptedApp = request.applications?.find((a: any) => a.status === 'ACCEPTED' && a.role === 'MAIN');
+    if (acceptedApp) {
         assignedGuide = await prisma.user.findUnique({
-            where: { id: request.assignedGuideId },
+            where: { id: acceptedApp.guideId },
             select: {
                 id: true,
-                verifiedStatus: true,
+                verificationStatus: true,
                 createdAt: true
             }
         });
@@ -67,11 +68,11 @@ export default async function ServiceRequestParamsPage({
     if (operator) {
         const opTrustState = await PrismaUserTrustRepo.getTrustState(operator.id);
         const opTrustScore = opTrustState.score;
-        const opCompletedTours = await prisma.serviceRequest.count({
+        const opCompletedTours = await prisma.tour.count({
             where: { operatorId: operator.id, status: 'COMPLETED' }
         });
-        const opIncidents = await prisma.trustEvent.count({
-            where: { userId: operator.id, changeValue: { lt: 0 } }
+        const opIncidents = await prisma.trustRecord.count({
+            where: { userId: operator.id, delta: { lt: 0 } }
         });
 
         operatorData = {
@@ -89,11 +90,12 @@ export default async function ServiceRequestParamsPage({
     if (assignedGuide) {
         const gTrustState = await PrismaUserTrustRepo.getTrustState(assignedGuide.id);
         const gTrustScore = gTrustState.score;
-        const gCompletedTours = await prisma.serviceRequest.count({
-            where: { assignedGuideId: assignedGuide.id, status: 'COMPLETED' }
+        // Guide completed tours = count via applications
+        const gCompletedTours = await prisma.application.count({
+            where: { guideId: assignedGuide.id, status: 'ACCEPTED', tour: { status: 'COMPLETED' } }
         });
-        const gIncidents = await prisma.trustEvent.count({
-            where: { userId: assignedGuide.id, changeValue: { lt: 0 } }
+        const gIncidents = await prisma.trustRecord.count({
+            where: { userId: assignedGuide.id, delta: { lt: 0 } }
         });
 
         guideData = {
@@ -110,7 +112,6 @@ export default async function ServiceRequestParamsPage({
     const viewData = {
         request: {
             ...request,
-            rolesNeeded: request.rolesNeeded ? JSON.parse(request.rolesNeeded) : []
         },
         operator: operatorData,
         assignedGuide: guideData

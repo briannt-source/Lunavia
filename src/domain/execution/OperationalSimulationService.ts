@@ -107,7 +107,7 @@ async function simulateSingleTour(
     const endTime = new Date(startTime.getTime() + 4 * 3600000); // 4h tour
 
     // 1. Create simulated tour
-    const tour = await prisma.serviceRequest.create({
+    const tour = await prisma.tour.create({
         data: {
             operatorId,
             title: `${SIMULATION_PREFIX} Tour ${index + 1} - ${scenario}`,
@@ -232,7 +232,7 @@ async function cleanupSimulation() {
     });
 
     // Delete simulation tours
-    const deletedTours = await prisma.serviceRequest.deleteMany({
+    const deletedTours = await prisma.tour.deleteMany({
         where: { title: { startsWith: SIMULATION_PREFIX } },
     });
 

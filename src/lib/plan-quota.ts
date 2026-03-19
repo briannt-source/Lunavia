@@ -67,7 +67,7 @@ export async function checkOperatorQuota(userId: string): Promise<QuotaResult> {
     }
 
     // Count currently active tours (matches route.ts enforcement)
-    const currentUsage = await prisma.serviceRequest.count({
+    const currentUsage = await prisma.tour.count({
         where: {
             operatorId: userId,
             status: { in: ['DRAFT', 'PUBLISHED', 'OPEN', 'OFFERED', 'IN_PROGRESS'] }

@@ -30,7 +30,7 @@ interface StartTourInput { tourId: string; userId: string; actorRole?: string; }
 async function startTour(input: StartTourInput) {
     const { tourId, userId, actorRole } = input;
 
-    const request = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const request = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!request) throw new Error('NOT_FOUND');
 
     // Allow either the Operator or the assigned Guide to start the tour
@@ -113,7 +113,7 @@ interface GuideCheckInInput { tourId: string; userId: string; }
 async function guideCheckIn(input: GuideCheckInInput) {
     const { tourId, userId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, status: true, startTime: true, assignedGuideId: true, guideCheckedInAt: true, title: true, operatorId: true },
     });
@@ -178,7 +178,7 @@ interface ReturnTourInput {
 async function returnTour(input: ReturnTourInput) {
     const { tourId, userId, completionStatus, notes, incidentSummary } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, status: true, startTime: true, endTime: true, assignedGuideId: true, guideReturnedAt: true, title: true, operatorId: true },
     });
@@ -259,7 +259,7 @@ interface ConfirmTourInput {
 async function confirmTour(input: ConfirmTourInput) {
     const { tourId, userId, action, reason, notes } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, status: true, operatorId: true, assignedGuideId: true, title: true },
     });
@@ -385,7 +385,7 @@ interface ReopenTourInput { tourId: string; userId: string; userRole: string; re
 async function reopenTour(input: ReopenTourInput) {
     const { tourId, userId, userRole, reason, notes } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, status: true, operatorId: true, assignedGuideId: true, title: true, closeReason: true },
     });
@@ -442,7 +442,7 @@ interface ReassignGuideInput { tourId: string; operatorId: string; newGuideId: s
 async function reassignGuide(input: ReassignGuideInput) {
     const { tourId, operatorId, newGuideId } = input;
 
-    const request = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const request = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!request) throw new Error('NOT_FOUND');
     if (request.operatorId !== operatorId) throw new Error('FORBIDDEN');
     if (!['ASSIGNED', 'IN_PROGRESS'].includes(request.status)) throw new Error('INACTIVE');
@@ -529,7 +529,7 @@ interface CancelTourInput {
 async function cancelTour(input: CancelTourInput) {
     const { tourId, userId, userRole, reason, explanation } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: { applications: true, escrowTransaction: true },
     });
@@ -638,7 +638,7 @@ interface ProposeMutualCancelInput { tourId: string; userId: string; reason?: st
 async function proposeMutualCancel(input: ProposeMutualCancelInput) {
     const { tourId, userId, reason } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!tour) throw new Error('NOT_FOUND');
 
     const isOperator = tour.operatorId === userId;
@@ -703,7 +703,7 @@ interface RejectMutualCancelInput { tourId: string; userId: string; }
 async function rejectMutualCancel(input: RejectMutualCancelInput) {
     const { tourId, userId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.status !== CANCELLATION_STATUSES.PENDING_MUTUAL_CANCEL) throw new Error('NO_PENDING');
     if (tour.cancellationInitiator === userId) throw new Error('CANNOT_REJECT_OWN');
@@ -758,7 +758,7 @@ interface ApproveGuideWithdrawalInput { tourId: string; operatorId: string; }
 async function approveGuideWithdrawal(input: ApproveGuideWithdrawalInput) {
     const { tourId, operatorId } = input;
     
-    const tour = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.operatorId !== operatorId) throw new Error('FORBIDDEN');
     if (tour.status !== CANCELLATION_STATUSES.PENDING_MUTUAL_CANCEL) throw new Error('NO_PENDING');
@@ -841,7 +841,7 @@ interface ClaimForceCancelInput {
 async function claimForceCancel(input: ClaimForceCancelInput) {
     const { tourId, userId, reason, evidenceUrl } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!tour) throw new Error('NOT_FOUND');
 
     const isOperator = tour.operatorId === userId;
@@ -926,7 +926,7 @@ interface ForceResolveDisputeInput {
 async function forceResolveDispute(input: ForceResolveDisputeInput) {
     const { tourId, adminId, resolution, notes } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: { escrowTransaction: true },
     });
@@ -1070,7 +1070,7 @@ interface CreateServiceRequestInput {
 async function createServiceRequest(input: CreateServiceRequestInput) {
     const { operatorId, data: body } = input;
 
-    const request = await prisma.serviceRequest.create({
+    const request = await prisma.tour.create({
         data: {
             operatorId,
             title: body.title?.trim() || 'Untitled Tour',
@@ -1155,7 +1155,7 @@ async function updateServiceRequest(input: UpdateServiceRequestInput) {
         });
     }
 
-    const updated = await prisma.serviceRequest.update({
+    const updated = await prisma.tour.update({
         where: { id: tourId },
         data: updateData,
     });
@@ -1193,7 +1193,7 @@ async function assertExecutionAuthority(
     guideId: string,
     requiredAction?: string
 ): Promise<{ authorized: boolean; role: string; verified: boolean }> {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true },
     });
@@ -1249,7 +1249,7 @@ async function verifyGuideIdentity(input: {
     const { tourId, guideId, selfieUrl } = input;
 
     // Ensure guide is assigned to tour
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, title: true },
     });
@@ -1308,7 +1308,7 @@ async function assignGuideToTeam(input: {
 }) {
     const { tourId, guideId, role, operatorId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, title: true },
     });

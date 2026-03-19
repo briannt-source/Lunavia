@@ -3,7 +3,7 @@
  *
  * ALL tour state mutations MUST go through this service.
  * Route layer calls these functions; this is the ONLY place
- * where prisma.serviceRequest is mutated.
+ * where prisma.tour is mutated.
  *
  * Governed mutations use executeGovernedMutation kernel.
  * Simpler mutations use executeSimpleMutation kernel.
@@ -33,7 +33,7 @@ interface CompleteTourInput {
 export async function completeTour(input: CompleteTourInput) {
     const { tourId, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.serviceRequest.findUnique({ where: { id: tourId } });
+    const request = await prisma.tour.findUnique({ where: { id: tourId } });
     if (!request) throw new Error('Request not found');
     if (request.operatorId !== actorId) throw new Error('Not your request');
 
@@ -96,7 +96,7 @@ interface CreateSegmentsInput {
 export async function createSegments(input: CreateSegmentsInput) {
     const { tourId, actorId, segments } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
     });
@@ -218,7 +218,7 @@ export async function bulkCloseTours(input: BulkCloseInput) {
 
     for (const tourId of tourIds) {
         try {
-            const tour = await prisma.serviceRequest.findUnique({
+            const tour = await prisma.tour.findUnique({
                 where: { id: tourId },
                 include: {
                     incidents: { where: { status: 'OPEN' } },

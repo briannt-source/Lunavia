@@ -80,9 +80,9 @@ async function recomputeOperatorRisk(operatorId: string, kybStatusOverride?: str
     try {
         const riskResult = await evaluateOperatorRisk(operatorId);
         const [completedTours, conflictCount, totalTours] = await Promise.all([
-            prisma.serviceRequest.count({ where: { operatorId, status: 'COMPLETED' } }),
+            prisma.tour.count({ where: { operatorId, status: 'COMPLETED' } }),
             prisma.conflict.count({ where: { OR: [{ filedById: operatorId }, { receivedById: operatorId }] } }),
-            prisma.serviceRequest.count({ where: { operatorId } }),
+            prisma.tour.count({ where: { operatorId } }),
         ]);
         let kybStatus = kybStatusOverride;
         if (!kybStatus) {

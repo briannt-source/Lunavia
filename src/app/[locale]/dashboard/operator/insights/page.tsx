@@ -9,11 +9,11 @@ export default async function OperatorInsightsPage() {
 
     const user = await prisma.user.findUnique({
         where: { id: session.user.id },
-        select: { verifiedStatus: true }
+        select: { verificationStatus: true }
     });
 
     // Verification Gate
-    const isVerified = user?.verifiedStatus === 'APPROVED';
+    const isVerified = user?.verificationStatus === 'APPROVED';
 
     if (!isVerified) {
         return (
@@ -29,7 +29,7 @@ export default async function OperatorInsightsPage() {
                     <p className="text-gray-600 max-w-md mx-auto mb-6">
                         Complete your account verification to access detailed operational analytics, revenue reports, and trust scores.
                     </p>
-                    <a href="/dashboard/verification" className="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">
+                    <a href="/dashboard/operator/verification" className="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">
                         Complete Verification
                     </a>
                 </div>
@@ -37,20 +37,22 @@ export default async function OperatorInsightsPage() {
         );
     }
 
-    // Fetch Metrics
+    // Fetch Metrics using Tour model
     const operatorId = session.user.id;
 
-    const [totalSpent, completedTours, totalTours] = await Promise.all([
-        prisma.serviceRequest.aggregate({
-            where: { operatorId, status: 'COMPLETED' },
-            _sum: { totalPayout: true }
-        }),
-        prisma.serviceRequest.count({ where: { operatorId, status: 'COMPLETED' } }),
-        prisma.serviceRequest.count({ where: { operatorId } })
+    const [completedTours, totalTours] = await Promise.all([
+        prisma.tour.count({ where: { operatorId, status: 'COMPLETED' } }),
+        prisma.tour.count({ where: { operatorId } })
     ]);
 
+    // Calculate total payouts from payments
+    const totalPayments = await prisma.payment.aggregate({
+        where: { tour: { operatorId }, status: 'COMPLETED' },
+        _sum: { amount: true }
+    });
+
     const completionRate = totalTours > 0 ? ((completedTours / totalTours) * 100).toFixed(1) : 0;
-    const spentAmount = totalSpent._sum.totalPayout || 0;
+    const spentAmount = totalPayments._sum.amount || 0;
 
     return (
         <div className="space-y-6">
@@ -59,7 +61,7 @@ export default async function OperatorInsightsPage() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                     <h3 className="mb-2 font-medium text-gray-500">Total Payouts</h3>
-                    <p className="text-3xl font-bold text-gray-900">{spentAmount.toLocaleString()} ₫</p>
+                    <p className="text-3xl font-bold text-gray-900">{Number(spentAmount).toLocaleString()} ₫</p>
                     <div className="text-xs text-gray-400 mt-2">Paid to guides</div>
                 </div>
 

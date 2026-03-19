@@ -33,12 +33,12 @@ export default async function ProfilePage() {
     const [acceptedApplications, completedTours, totalReviews] = await Promise.all([
         prisma.application.count({ where: { guideId: user.id, status: 'ACCEPTED' } }),
         prisma.application.count({ where: { guideId: user.id, status: 'ACCEPTED', tour: { status: 'COMPLETED' } } }),
-        prisma.review.count({ where: { revieweeId: user.id } }),
+        prisma.review.count({ where: { subjectId: user.id } }),
     ]);
 
     // Get average rating from reviews
     const avgRatingResult = await prisma.review.aggregate({
-        where: { revieweeId: user.id },
+        where: { subjectId: user.id },
         _avg: { rating: true },
     });
     const avgRating = avgRatingResult._avg.rating;

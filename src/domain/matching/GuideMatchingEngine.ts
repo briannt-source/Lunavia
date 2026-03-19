@@ -107,7 +107,7 @@ function calculateGuideMatchScore(params: {
  */
 async function rankGuidesForTour(tourId: string): Promise<RankedGuide[]> {
     // Fetch tour details
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true, operatorId: true, language: true,
@@ -132,7 +132,7 @@ async function rankGuidesForTour(tourId: string): Promise<RankedGuide[]> {
     });
 
     // Batch fetch availability for tour date
-    const availabilityBlocks = await prisma.availabilityBlock.findMany({
+    const availabilityBlocks = await prisma.guideAvailability.findMany({
         where: {
             userId: { in: guides.map(g => g.id) },
             date: tour.startTime,
@@ -143,7 +143,7 @@ async function rankGuidesForTour(tourId: string): Promise<RankedGuide[]> {
     const availableGuideIds = new Set(availabilityBlocks.map(a => a.userId));
 
     // Batch fetch collaboration counts
-    const collaborations = await prisma.serviceRequest.groupBy({
+    const collaborations = await prisma.tour.groupBy({
         by: ['assignedGuideId'],
         where: {
             operatorId: tour.operatorId,

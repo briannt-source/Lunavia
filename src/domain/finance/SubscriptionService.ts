@@ -101,7 +101,7 @@ export class SubscriptionService {
      * Get upgrade history for a user
      */
     static async getUpgradeHistory(userId: string) {
-        return prisma.subscriptionPaymentRequest.findMany({
+        return prisma.payment.findMany({
             where: { userId },
             orderBy: { createdAt: 'desc' },
         });

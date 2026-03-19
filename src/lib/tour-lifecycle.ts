@@ -53,7 +53,7 @@ export async function processAutoStart(): Promise<{ processed: number; errors: s
     try {
         // Find tours ready to auto-start
         // Note: Cast to any to handle new Prisma fields that may not be in IDE cache
-        const toursToStart = await (prisma.serviceRequest as any).findMany({
+        const toursToStart = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
                 startTime: { lte: now },
@@ -69,7 +69,7 @@ export async function processAutoStart(): Promise<{ processed: number; errors: s
 
         for (const tour of toursToStart) {
             try {
-                await prisma.serviceRequest.update({
+                await prisma.tour.update({
                     where: { id: tour.id },
                     data: { status: TOUR_STATUS.IN_PROGRESS }
                 });
@@ -122,7 +122,7 @@ export async function processAutoReady(): Promise<{ processed: number; errors: s
 
     try {
         // Find tours approaching start time
-        const toursToReady = await prisma.serviceRequest.findMany({
+        const toursToReady = await prisma.tour.findMany({
             where: {
                 status: 'ASSIGNED',
                 startTime: { lte: readyWindow },
@@ -136,7 +136,7 @@ export async function processAutoReady(): Promise<{ processed: number; errors: s
 
         for (const tour of toursToReady) {
             try {
-                await prisma.serviceRequest.update({
+                await prisma.tour.update({
                     where: { id: tour.id },
                     data: { status: TOUR_STATUS.READY }
                 });
@@ -178,7 +178,7 @@ export async function processCheckInEscalation(): Promise<{ processed: number; e
     try {
         // Find tours that are past T+15 and still haven't checked in
         // Filter out those that already have an escalation event in metadata (to avoid spam)
-        const toursToEscalate = await (prisma.serviceRequest as any).findMany({
+        const toursToEscalate = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
                 startTime: { lte: escalationThreshold },
@@ -252,7 +252,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
     try {
         // Find tours past start time without check-in
         // Note: Cast to any to handle new Prisma fields
-        const noShowTours = await (prisma.serviceRequest as any).findMany({
+        const noShowTours = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
                 startTime: { lt: now },
@@ -271,7 +271,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
             try {
                 // Mark tour as cancelled due to no-show
                 // Note: Cast to any to handle new Prisma fields
-                await (prisma.serviceRequest as any).update({
+                await (prisma.tour as any).update({
                     where: { id: tour.id },
                     data: {
                         status: TOUR_STATUS.CANCELLED,
@@ -289,7 +289,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
                 );
 
                 // Count recent NO_SHOWs for this guide
-                const recentNoShows = await prisma.trustEvent.count({
+                const recentNoShows = await prisma.trustRecord.count({
                     where: {
                         userId: tour.assignedGuideId!,
                         description: { contains: 'NO_SHOW' },
@@ -379,7 +379,7 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
 
     try {
         // Find IN_PROGRESS tours past auto-close threshold
-        const overdueTours = await prisma.serviceRequest.findMany({
+        const overdueTours = await prisma.tour.findMany({
             where: {
                 status: 'IN_PROGRESS',
                 endTime: { lt: autoCloseThreshold },
@@ -396,7 +396,7 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
             try {
                 // Mark as completed with warning
                 // Note: Cast to any to handle new Prisma fields
-                await (prisma.serviceRequest as any).update({
+                await (prisma.tour as any).update({
                     where: { id: tour.id },
                     data: {
                         status: TOUR_STATUS.COMPLETED,

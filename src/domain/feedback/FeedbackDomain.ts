@@ -10,7 +10,7 @@ interface CreateFeedbackInput {
 }
 
 async function createFeedback(input: CreateFeedbackInput) {
-    return prisma.tourFeedback.create({
+    return prisma.review.create({
         data: {
             tourId: input.tourId,
             userId: input.userId,

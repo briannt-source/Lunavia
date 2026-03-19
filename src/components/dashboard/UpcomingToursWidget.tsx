@@ -14,7 +14,7 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
         ? { operatorId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startTime: { gte: now } }
         : { assignedGuideId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startTime: { gte: now } };
 
-    const upcomingTours = await prisma.serviceRequest.findMany({
+    const upcomingTours = await prisma.tour.findMany({
         where: whereCondition as any,
         orderBy: { startTime: 'asc' },
         take: 3,

@@ -58,7 +58,7 @@ export class TourDisputeService {
         const { tourId, openedById, reason, description, evidenceUrl, isSimulation = false } = params;
 
         // Verify tour exists
-        const tour = await prisma.serviceRequest.findUnique({
+        const tour = await prisma.tour.findUnique({
             where: { id: tourId },
             select: { id: true, operatorId: true, assignedGuideId: true, escrowStatus: true },
         });
@@ -98,7 +98,7 @@ export class TourDisputeService {
 
         // Lock escrow if currently held
         if (tour.escrowStatus === 'HELD') {
-            await prisma.serviceRequest.update({
+            await prisma.tour.update({
                 where: { id: tourId },
                 data: { escrowStatus: 'HELD' }, // Keep held — prevent release
             });
@@ -226,11 +226,11 @@ export class TourDisputeService {
                 // Add trust back to both
                 const targets = [operatorId, guideId].filter(Boolean) as string[];
                 for (const targetId of targets) {
-                    await prisma.trustEvent.create({
+                    await prisma.trustRecord.create({
                         data: {
                             userId: targetId,
                             type: 'DISPUTE_RESOLUTION',
-                            changeValue: trustAmount,
+                            delta: trustAmount,
                             newScore: 0,
                             description: `Dispute neutral resolution: ${resolution.slice(0, 100)}`,
                         },
@@ -243,11 +243,11 @@ export class TourDisputeService {
             } else if (trustAction === 'FAULT_GUIDE' || trustAction === 'FAULT_OPERATOR') {
                 const targetId = trustAction === 'FAULT_GUIDE' ? guideId : operatorId;
                 if (targetId) {
-                    await prisma.trustEvent.create({
+                    await prisma.trustRecord.create({
                         data: {
                             userId: targetId,
                             type: 'DISPUTE_RESOLUTION',
-                            changeValue: -trustAmount,
+                            delta: -trustAmount,
                             newScore: 0,
                             description: `Dispute penalty: ${resolution.slice(0, 100)}`,
                         },

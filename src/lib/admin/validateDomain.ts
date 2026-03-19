@@ -23,7 +23,7 @@ async function existsInVerification(entityId: string): Promise<boolean> {
 }
 
 async function existsInPayments(entityId: string): Promise<boolean> {
-    const payment = await prisma.subscriptionPaymentRequest.findUnique({
+    const payment = await prisma.payment.findUnique({
         where: { id: entityId },
         select: { id: true },
     });
@@ -39,7 +39,7 @@ async function existsInIncidents(entityId: string): Promise<boolean> {
 }
 
 async function existsInCancellation(entityId: string): Promise<boolean> {
-    const sr = await prisma.serviceRequest.findFirst({
+    const sr = await prisma.tour.findFirst({
         where: {
             id: entityId,
             status: { in: ['FORCE_CANCEL_PENDING_REVIEW', 'CANCELLED'] },

@@ -24,7 +24,7 @@ export class TourIncidentService {
         const { tourId, reportedBy, type, description, isSimulation = false } = params;
 
         // Verify tour exists
-        const tour = await prisma.serviceRequest.findUnique({
+        const tour = await prisma.tour.findUnique({
             where: { id: tourId },
             select: { id: true, operatorId: true, assignedGuideId: true },
         });

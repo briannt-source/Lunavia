@@ -61,7 +61,7 @@ interface ApproveTopupInput {
 export async function approveTopup(input: ApproveTopupInput) {
     const { requestId, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.escrowTopUpRequest.findUnique({ where: { id: requestId } });
+    const request = await prisma.topUpRequest.findUnique({ where: { id: requestId } });
     if (!request) throw new Error('Request not found');
     const beforeState = snapshotRecord(request);
 
@@ -138,7 +138,7 @@ interface RejectTopupInput {
 export async function rejectTopup(input: RejectTopupInput) {
     const { requestId, reason, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.escrowTopUpRequest.findUnique({ where: { id: requestId } });
+    const request = await prisma.topUpRequest.findUnique({ where: { id: requestId } });
     if (!request) throw new Error('Request not found');
     const beforeState = snapshotRecord(request);
 
@@ -185,7 +185,7 @@ interface ApproveWithdrawalInput {
 export async function approveWithdrawal(input: ApproveWithdrawalInput) {
     const { requestId, proofUrl, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.escrowWithdrawRequest.findUnique({ where: { id: requestId } });
+    const request = await prisma.withdrawalRequest.findUnique({ where: { id: requestId } });
     if (!request) throw new Error('Request not found');
     if (request.status !== 'PENDING') throw new Error('Request already processed');
     const beforeState = snapshotRecord(request);
@@ -253,7 +253,7 @@ interface RejectWithdrawalInput {
 export async function rejectWithdrawal(input: RejectWithdrawalInput) {
     const { requestId, reason, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.escrowWithdrawRequest.findUnique({ where: { id: requestId } });
+    const request = await prisma.withdrawalRequest.findUnique({ where: { id: requestId } });
     if (!request) throw new Error('Request not found');
     const beforeState = snapshotRecord(request);
 
@@ -330,7 +330,7 @@ interface CreateWithdrawalInput {
 export async function createWithdrawalRequest(input: CreateWithdrawalInput) {
     const { operatorId, operatorRole, amount, bankName, accountNumber, accountName, ipAddress } = input;
 
-    const wallet = await prisma.operatorWallet.findUnique({ where: { operatorId } });
+    const wallet = await prisma.wallet.findUnique({ where: { operatorId } });
     if (!wallet) throw new Error('WALLET_NOT_FOUND');
     const beforeState = snapshotRecord(wallet);
 
@@ -420,9 +420,9 @@ interface CancelWithdrawalInput {
 export async function cancelWithdrawal(input: CancelWithdrawalInput) {
     const { requestId, operatorId, operatorRole, ipAddress } = input;
 
-    let request = await prisma.escrowWithdrawRequest.findFirst({ where: { transactionId: requestId } });
+    let request = await prisma.withdrawalRequest.findFirst({ where: { transactionId: requestId } });
     if (!request) {
-        request = await prisma.escrowWithdrawRequest.findUnique({ where: { id: requestId } });
+        request = await prisma.withdrawalRequest.findUnique({ where: { id: requestId } });
     }
     if (!request) throw new Error('REQUEST_NOT_FOUND');
     if (request.operatorId !== operatorId) throw new Error('FORBIDDEN');
@@ -552,7 +552,7 @@ export async function adminWalletTopUp(input: AdminWalletTopUpInput) {
         throw new Error('Valid amount required');
     }
 
-    const wallet = await prisma.operatorWallet.findUnique({ where: { id: walletId } });
+    const wallet = await prisma.wallet.findUnique({ where: { id: walletId } });
     if (!wallet) throw new Error('Wallet not found');
 
     await executeGovernedMutation({
@@ -610,7 +610,7 @@ interface ApprovePaymentInput {
 export async function approvePayment(input: ApprovePaymentInput) {
     const { requestId, actorId, actorRole } = input;
 
-    const paymentRequest = await prisma.subscriptionPaymentRequest.findUnique({ where: { id: requestId } });
+    const paymentRequest = await prisma.payment.findUnique({ where: { id: requestId } });
     if (!paymentRequest) throw new Error('Payment request not found');
 
     const user = await prisma.user.findUnique({ where: { id: paymentRequest.userId } });
@@ -681,7 +681,7 @@ interface PublishTourInput {
 export async function publishTour(input: PublishTourInput) {
     const { requestId, userId, userRole, operatorModeInfo } = input;
 
-    const request = await prisma.serviceRequest.findUnique({ where: { id: requestId } });
+    const request = await prisma.tour.findUnique({ where: { id: requestId } });
     if (!request) throw new Error('Request not found');
     if (request.operatorId !== userId) throw new Error('Forbidden');
     const beforeState = snapshotRecord(request);
@@ -806,7 +806,7 @@ interface ReleaseEscrowInput {
 export async function releaseEscrow(input: ReleaseEscrowInput) {
     const { tourId, actorId, actorRole, notes, ipAddress } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             escrowTransaction: true,
@@ -837,7 +837,7 @@ export async function releaseEscrow(input: ReleaseEscrowInput) {
     if (!tour.escrowTransaction) throw new Error('No escrow transaction found');
 
     const grossAmount = tour.escrowTransaction.amount;
-    const wallet = await prisma.operatorWallet.findUnique({ where: { id: tour.escrowTransaction.walletId } });
+    const wallet = await prisma.wallet.findUnique({ where: { id: tour.escrowTransaction.walletId } });
     if (!wallet) throw new Error('Wallet not found');
 
     // Layer consistency warning
@@ -1018,7 +1018,7 @@ export async function refundEscrow(input: RefundEscrowInput) {
     const escrowLib = await getEscrowLib();
     const refundReason = reason as any;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             escrowTransaction: true,
@@ -1036,7 +1036,7 @@ export async function refundEscrow(input: RefundEscrowInput) {
     if (!tour.escrowTransaction) throw new Error('No escrow transaction found');
 
     const amount = tour.escrowTransaction.amount;
-    const wallet = await prisma.operatorWallet.findUnique({ where: { id: tour.escrowTransaction.walletId } });
+    const wallet = await prisma.wallet.findUnique({ where: { id: tour.escrowTransaction.walletId } });
     if (!wallet) throw new Error('Wallet not found');
 
     const trustImpact = getTrustImpact(refundReason);
@@ -1200,7 +1200,7 @@ interface AcceptCancellationInput {
 export async function acceptCancellation(input: AcceptCancellationInput) {
     const { tourId, userId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: { escrowTransaction: true },
     });
@@ -1334,11 +1334,11 @@ interface AcceptInviteInput {
 export async function acceptInvite(input: AcceptInviteInput) {
     const { token, userId, userEmail } = input;
 
-    const invitation = await prisma.teamInvitation.findUnique({ where: { token } });
+    const invitation = await prisma.companyInvitation.findUnique({ where: { token } });
     if (!invitation || invitation.status !== 'PENDING') throw new Error('Invitation not found or already processed');
 
     if (new Date() > invitation.expiresAt) {
-        await prisma.teamInvitation.update({ where: { id: invitation.id }, data: { status: 'EXPIRED' } });
+        await prisma.companyInvitation.update({ where: { id: invitation.id }, data: { status: 'EXPIRED' } });
         throw new Error('EXPIRED');
     }
 
@@ -1408,7 +1408,7 @@ interface ReviewForceCancellationInput {
 export async function reviewForceCancellation(input: ReviewForceCancellationInput) {
     const { tourId, actorId, actorRole, action, faultParty, notes, supervisorId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: { escrowTransaction: true },
     });
@@ -1431,7 +1431,7 @@ export async function reviewForceCancellation(input: ReviewForceCancellationInpu
     if (action === 'reject') {
         const previousStatus = tour.assignedGuideId ? 'ASSIGNED' : 'PUBLISHED';
 
-        await prisma.serviceRequest.update({
+        await prisma.tour.update({
             where: { id: tourId },
             data: {
                 status: previousStatus, cancellationType: null, cancellationTiming: null,
@@ -1619,9 +1619,9 @@ export async function reviewForceCancellation(input: ReviewForceCancellationInpu
             try {
                 const riskResult = await evaluateOperatorRisk(tour.operatorId);
                 const [completedTours, conflictCount, totalTours] = await Promise.all([
-                    prisma.serviceRequest.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
+                    prisma.tour.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
                     prisma.conflict.count({ where: { OR: [{ filedById: tour.operatorId }, { receivedById: tour.operatorId }] } }),
-                    prisma.serviceRequest.count({ where: { operatorId: tour.operatorId } }),
+                    prisma.tour.count({ where: { operatorId: tour.operatorId } }),
                 ]);
                 const disputeRate = totalTours > 0 ? conflictCount / totalTours : 0;
                 const compLevel = computeComplianceLevel({

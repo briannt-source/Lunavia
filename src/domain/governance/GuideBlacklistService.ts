@@ -36,7 +36,7 @@ export class GuideBlacklistService {
         });
 
         // Create timeline event on most recent shared tour (if any)
-        const recentTour = await prisma.serviceRequest.findFirst({
+        const recentTour = await prisma.tour.findFirst({
             where: { operatorId, assignedGuideId: guideId },
             orderBy: { createdAt: 'desc' },
             select: { id: true },
@@ -72,7 +72,7 @@ export class GuideBlacklistService {
         });
 
         // Create timeline event
-        const recentTour = await prisma.serviceRequest.findFirst({
+        const recentTour = await prisma.tour.findFirst({
             where: { operatorId, assignedGuideId: guideId },
             orderBy: { createdAt: 'desc' },
             select: { id: true },

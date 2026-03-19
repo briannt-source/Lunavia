@@ -21,7 +21,7 @@ export interface ChatMessageInput {
 // ── Validation ────────────────────────────────────────────────────────
 
 async function validateChatAccess(tourId: string, userId: string, userRole: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { operatorId: true, assignedGuideId: true, title: true }
     });

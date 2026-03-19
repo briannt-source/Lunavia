@@ -43,7 +43,7 @@ export interface TourHealthResult {
 async function computeHealth(tourId: string): Promise<TourHealthResult> {
     const now = new Date();
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             segments: {

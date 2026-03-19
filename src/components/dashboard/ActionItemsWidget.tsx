@@ -18,7 +18,7 @@ export async function ActionItemsWidget({ role, userId }: ActionItemsWidgetProps
             }
         });
 
-        const staleDraftsCount = await prisma.serviceRequest.count({
+        const staleDraftsCount = await prisma.tour.count({
             where: {
                 operatorId: userId,
                 status: 'DRAFT',
@@ -63,7 +63,7 @@ export async function ActionItemsWidget({ role, userId }: ActionItemsWidgetProps
         }
 
         // Check for offers
-        const offersCount = await prisma.serviceRequest.count({
+        const offersCount = await prisma.tour.count({
             where: {
                 assignedGuideId: userId,
                 status: 'OFFERED' // Assuming we have an OFFERED status for direct assigns or after application approval if that flow exists

@@ -45,7 +45,7 @@ async function removeAvailability(userId: string, date: Date) {
  * Get availability for a guide within a date range
  */
 async function getAvailability(guideId: string, startDate: Date, endDate: Date) {
-    return prisma.availabilityBlock.findMany({
+    return prisma.guideAvailability.findMany({
         where: {
             userId: guideId,
             date: { gte: startDate, lte: endDate },
@@ -58,7 +58,7 @@ async function getAvailability(guideId: string, startDate: Date, endDate: Date) 
  * Check if a guide is available on a specific date
  */
 async function isAvailableOn(guideId: string, date: Date): Promise<boolean> {
-    const block = await prisma.availabilityBlock.findFirst({
+    const block = await prisma.guideAvailability.findFirst({
         where: { userId: guideId, date, status: 'AVAILABLE' },
     });
     return !!block;
@@ -68,7 +68,7 @@ async function isAvailableOn(guideId: string, date: Date): Promise<boolean> {
  * Get all AVAILABLE dates for a guide (operator view — only shows available)
  */
 async function getPublicAvailability(guideId: string, startDate: Date, endDate: Date) {
-    return prisma.availabilityBlock.findMany({
+    return prisma.guideAvailability.findMany({
         where: {
             userId: guideId,
             date: { gte: startDate, lte: endDate },

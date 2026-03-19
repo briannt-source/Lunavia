@@ -40,7 +40,7 @@ export interface StaleRiskCase {
  * Critical for detecting financial integrity issues.
  */
 export async function getLedgerDriftCases(): Promise<LedgerDriftCase[]> {
-    const wallets = await prisma.operatorWallet.findMany({
+    const wallets = await prisma.wallet.findMany({
         select: { id: true, operatorId: true, availableBalance: true },
     });
 

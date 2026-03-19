@@ -24,7 +24,7 @@ async function getGuideAvailability(guideId: string, date: Date): Promise<string
     endOfDay.setDate(endOfDay.getDate() + 1);
 
     // Check availability block
-    const block = await prisma.availabilityBlock.findFirst({
+    const block = await prisma.guideAvailability.findFirst({
         where: {
             userId: guideId,
             date: { gte: startOfDay, lt: endOfDay },
@@ -34,7 +34,7 @@ async function getGuideAvailability(guideId: string, date: Date): Promise<string
     if (block) return block.status; // AVAILABLE | UNAVAILABLE
 
     // Check if guide has an assigned tour on this date
-    const assignedTour = await prisma.serviceRequest.findFirst({
+    const assignedTour = await prisma.tour.findFirst({
         where: {
             assignedGuideId: guideId,
             startTime: { gte: startOfDay, lt: endOfDay },
@@ -66,7 +66,7 @@ async function findAvailableGuides(criteria: GuideMatchCriteria) {
     endOfDay.setDate(endOfDay.getDate() + 1);
 
     // Find guides with AVAILABLE blocks or no blocks
-    const unavailableGuideIds = await prisma.availabilityBlock.findMany({
+    const unavailableGuideIds = await prisma.guideAvailability.findMany({
         where: {
             date: { gte: startOfDay, lt: endOfDay },
             status: 'UNAVAILABLE',
@@ -81,7 +81,7 @@ async function findAvailableGuides(criteria: GuideMatchCriteria) {
         endTime: { gt: startTime || startOfDay },
         status: { notIn: ['CANCELLED', 'DRAFT'] },
     };
-    const bookedTours = await prisma.serviceRequest.findMany({
+    const bookedTours = await prisma.tour.findMany({
         where: bookedFilter,
         select: { assignedGuideId: true },
     });
@@ -142,7 +142,7 @@ async function setAvailability(guideId: string, date: Date, status: string, note
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
 
-    return prisma.availabilityBlock.upsert({
+    return prisma.guideAvailability.upsert({
         where: {
             userId_date: { userId: guideId, date: startOfDay },
         },

@@ -21,7 +21,7 @@ interface FrictionLogParams {
 
 export async function logFriction(params: FrictionLogParams): Promise<void> {
     try {
-        await prisma.frictionLog.create({
+        await prisma.auditLog.create({
             data: {
                 eventType: params.eventType,
                 userId: params.userId || null,

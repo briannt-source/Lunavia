@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
-import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,23 +18,27 @@ export default async function SystemHealthDashboard() {
     const now = new Date();
     const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
+    // Use correct models: Tour instead of serviceRequest
     const [
-        totalRequests,
+        totalTours,
         statusCounts,
-        recentFeedback,
-        frictionLogs,
         recentErrors,
         activeUsers,
     ] = await Promise.all([
-        prisma.serviceRequest.count(),
-        prisma.serviceRequest.groupBy({ by: ['status'], _count: true }),
-        prisma.pilotFeedback.findMany({ orderBy: { createdAt: 'desc' }, take: 20 }),
-        prisma.frictionLog.findMany({ orderBy: { createdAt: 'desc' }, take: 20 }),
-        prisma.frictionLog.count({ where: { eventType: 'ERROR', createdAt: { gte: twentyFourHoursAgo } } }),
-        prisma.user.count({ where: { lastActivityAt: { gte: twentyFourHoursAgo } } }),
+        prisma.tour.count(),
+        prisma.tour.groupBy({ by: ['status'], _count: true }),
+        // No frictionLog or pilotFeedback model — use AuditLog as proxy
+        prisma.auditLog.count({ where: { action: { contains: 'ERROR' }, createdAt: { gte: twentyFourHoursAgo } } }),
+        prisma.user.count({ where: { updatedAt: { gte: twentyFourHoursAgo } } }),
     ]);
 
     const statusMap = statusCounts.reduce((acc, item) => { acc[item.status] = item._count; return acc; }, {} as Record<string, number>);
+
+    // Fetch recent audit logs as friction/error proxy
+    const recentLogs = await prisma.auditLog.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 20,
+    });
 
     return (
         <BaseDashboardLayout>
@@ -46,7 +49,7 @@ export default async function SystemHealthDashboard() {
                             🩺 System Health
                             <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-blue-100 text-blue-800 rounded-full">Pilot Ops</span>
                         </h1>
-                        <p className="text-sm text-gray-500 mt-1">Platform stability, performance metrics, and operational friction</p>
+                        <p className="text-sm text-gray-500 mt-1">Platform stability, performance metrics, and operational overview</p>
                     </div>
                 </div>
 
@@ -69,14 +72,8 @@ export default async function SystemHealthDashboard() {
 
                     <div className="p-4 rounded-xl border bg-white shadow-sm">
                         <span className="text-xl mb-1 block">🗺️</span>
-                        <p className="text-xl font-black text-gray-900">{totalRequests}</p>
+                        <p className="text-xl font-black text-gray-900">{totalTours}</p>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Total Tours</p>
-                    </div>
-
-                    <div className="p-4 rounded-xl border bg-amber-50 border-amber-200">
-                        <span className="text-xl mb-1 block">⚠️</span>
-                        <p className="text-xl font-black text-amber-900">{frictionLogs.length}</p>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700">Friction Logs</p>
                     </div>
 
                     <div className={`p-4 rounded-xl border ${recentErrors > 0 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'}`}>
@@ -101,61 +98,30 @@ export default async function SystemHealthDashboard() {
                                 ))}
                             </div>
                         </div>
-
-                        {/* Friction Tracker */}
-                        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-                            <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
-                                <h2 className="font-bold text-gray-900 flex items-center gap-2">⚠️ Friction & Error Tracker</h2>
-                            </div>
-                            {frictionLogs.length === 0 ? (
-                                <p className="p-6 text-center text-sm text-gray-400">System running smoothly. No friction logged.</p>
-                            ) : (
-                                <div className="divide-y divide-gray-50 max-h-96 overflow-y-auto">
-                                    {frictionLogs.map(log => (
-                                        <div key={log.id} className="p-4 hover:bg-gray-50">
-                                            <div className="flex justify-between items-start mb-1">
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${log.eventType === 'ERROR' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}>
-                                                    {log.eventType}
-                                                </span>
-                                                <span className="text-xs text-gray-400">{new Date(log.createdAt).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</span>
-                                            </div>
-                                            <p className="text-sm font-medium text-gray-900 mt-2">{log.reason || 'Unknown cause'}</p>
-                                            <p className="text-xs text-mono text-gray-500 mt-1">User: {log.userRole || 'System'} | Route: {log.metadata?.includes('route') ? 'Known Route' : 'N/A'}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
                     </div>
 
                     {/* RIGHT COLUMN */}
                     <div className="space-y-6">
-                        {/* User Feedback */}
+                        {/* Recent Audit Logs */}
                         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                             <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
-                                <h2 className="font-bold text-gray-900 flex items-center gap-2">💬 User Feedback</h2>
+                                <h2 className="font-bold text-gray-900 flex items-center gap-2">📋 Recent Audit Logs</h2>
                             </div>
-                            {recentFeedback.length === 0 ? (
-                                <p className="p-6 text-center text-sm text-gray-400">No recent feedback</p>
+                            {recentLogs.length === 0 ? (
+                                <p className="p-6 text-center text-sm text-gray-400">No recent activity</p>
                             ) : (
                                 <div className="divide-y divide-gray-50 max-h-[600px] overflow-y-auto">
-                                    {recentFeedback.map(fb => (
-                                        <div key={fb.id} className="p-4 hover:bg-gray-50">
-                                            <div className="flex justify-between items-center mb-2">
-                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                                                    fb.category === 'BUG' ? 'bg-red-100 text-red-700' :
-                                                    fb.category === 'CONFUSING' ? 'bg-amber-100 text-amber-700' :
-                                                    'bg-blue-100 text-blue-700'
-                                                }`}>
-                                                    {fb.category}
+                                    {recentLogs.map(log => (
+                                        <div key={log.id} className="p-4 hover:bg-gray-50">
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-700">
+                                                    {log.action}
                                                 </span>
-                                                <span className="text-xs text-gray-400">{new Date(fb.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</span>
+                                                <span className="text-xs text-gray-400">
+                                                    {new Date(log.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                                </span>
                                             </div>
-                                            <p className="text-sm text-gray-900">{fb.message}</p>
-                                            <div className="text-[10px] text-gray-500 mt-2 flex justify-between">
-                                                <span>{fb.userRole || 'Anonymous'}</span>
-                                                <span>{fb.route}</span>
-                                            </div>
+                                            <p className="text-sm text-gray-900 mt-1">{log.entityType} — {log.entityId}</p>
                                         </div>
                                     ))}
                                 </div>

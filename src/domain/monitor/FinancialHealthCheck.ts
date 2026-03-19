@@ -51,7 +51,7 @@ async function logFinding(f: HealthFinding): Promise<void> {
 async function checkWalletLedgerDrift(): Promise<HealthFinding[]> {
     const findings: HealthFinding[] = [];
 
-    const wallets = await prisma.operatorWallet.findMany({
+    const wallets = await prisma.wallet.findMany({
         select: {
             id: true,
             operatorId: true,
@@ -134,7 +134,7 @@ async function checkStuckEscrows(): Promise<HealthFinding[]> {
     const findings: HealthFinding[] = [];
     const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
 
-    const stuck = await prisma.serviceRequest.findMany({
+    const stuck = await prisma.tour.findMany({
         where: {
             escrowStatus: 'HELD',
             updatedAt: { lt: cutoff },
@@ -215,7 +215,7 @@ async function checkTrustCapViolations(): Promise<HealthFinding[]> {
 async function checkNegativeBalances(): Promise<HealthFinding[]> {
     const findings: HealthFinding[] = [];
 
-    const negativeWallets = await prisma.operatorWallet.findMany({
+    const negativeWallets = await prisma.wallet.findMany({
         where: {
             OR: [
                 { availableBalance: { lt: 0 } },

@@ -30,7 +30,7 @@ export interface GuestHeadcount {
 // ── Add Guest (Operator only) ────────────────────────────────────────
 
 export async function addGuest(tourId: string, operatorId: string, input: GuestInput) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
     });
@@ -58,7 +58,7 @@ export async function addGuest(tourId: string, operatorId: string, input: GuestI
 // ── Remove Guest (Operator only, before tour starts) ─────────────────
 
 export async function removeGuest(tourId: string, operatorId: string, guestId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
     });
@@ -82,7 +82,7 @@ export async function removeGuest(tourId: string, operatorId: string, guestId: s
 // ── Guide Check-in Guest ─────────────────────────────────────────────
 
 export async function guideCheckInGuest(tourId: string, guideId: string, guestId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true, title: true },
     });
@@ -174,7 +174,7 @@ export async function getGuestByToken(checkInToken: string) {
 // ── Mark No-Show (Guide) ─────────────────────────────────────────────
 
 export async function markNoShow(tourId: string, guideId: string, guestId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true },
     });
@@ -204,7 +204,7 @@ export async function markNoShow(tourId: string, guideId: string, guestId: strin
 // ── Mark Early Leave (Guide) ──────────────────────────────────────────
 
 export async function markEarlyLeave(tourId: string, guideId: string, guestId: string, notes: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true },
     });

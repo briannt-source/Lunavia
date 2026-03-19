@@ -37,9 +37,9 @@ const RECOVERY_BONUS = 5;
  * Starts at 100, modified by events.
  */
 async function recalculateReliabilityScore(guideId: string): Promise<number> {
-    const events = await prisma.trustEvent.findMany({
+    const events = await prisma.trustRecord.findMany({
         where: { userId: guideId },
-        select: { type: true, changeValue: true },
+        select: { type: true, delta: true },
     });
 
     let score = 100;
@@ -95,7 +95,7 @@ async function applyReliabilityEvent(
             // Check if this quarter's forgiveness has been used
             const now = new Date();
             const quarterStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
-            const forgivenThisQuarter = await prisma.trustEvent.count({
+            const forgivenThisQuarter = await prisma.trustRecord.count({
                 where: {
                     userId: guideId,
                     type: 'CANCELLATION_FORGIVEN',
@@ -105,11 +105,11 @@ async function applyReliabilityEvent(
 
             if (forgivenThisQuarter === 0) {
                 // Use the forgiveness — record but don't penalize
-                await prisma.trustEvent.create({
+                await prisma.trustRecord.create({
                     data: {
                         userId: guideId,
                         type: 'CANCELLATION_FORGIVEN',
-                        changeValue: 0,
+                        delta: 0,
                         newScore: 0,
                         description: 'Pro benefit: penalty-free cancellation used (1/quarter)',
                         relatedRequestId: tourId || null,
@@ -122,11 +122,11 @@ async function applyReliabilityEvent(
     }
 
     // Record trust event
-    await prisma.trustEvent.create({
+    await prisma.trustRecord.create({
         data: {
             userId: guideId,
             type: eventType,
-            changeValue: eventConfig.delta,
+            delta: eventConfig.delta,
             newScore: 0, // Will be overwritten by recalc
             relatedRequestId: tourId || null,
         },
@@ -194,7 +194,7 @@ async function getGuideReliabilityStats(guideId: string) {
     });
 
     // Count relevant events
-    const events = await prisma.trustEvent.findMany({
+    const events = await prisma.trustRecord.findMany({
         where: { userId: guideId },
         select: { type: true },
     });
@@ -232,7 +232,7 @@ async function getGuideReliabilityStats(guideId: string) {
  * grant a +5 reliability recovery bonus.
  */
 async function computeRecoveryBonus(guideId: string): Promise<number> {
-    const recentEvents = await prisma.trustEvent.findMany({
+    const recentEvents = await prisma.trustRecord.findMany({
         where: { userId: guideId },
         orderBy: { createdAt: 'desc' },
         take: RECOVERY_CONSECUTIVE_CLEAN,

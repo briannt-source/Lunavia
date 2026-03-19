@@ -79,7 +79,7 @@ export async function verifyWalletIntegrity(walletId: string): Promise<WalletInt
  * Verify integrity of ALL wallets. Returns only drifted wallets.
  */
 export async function verifyAllWalletIntegrity(): Promise<WalletIntegrityResult[]> {
-    const wallets = await prisma.operatorWallet.findMany({
+    const wallets = await prisma.wallet.findMany({
         select: { id: true },
     });
 

@@ -15,13 +15,16 @@ export default async function GuideExecutePage({
     if (!session?.user) redirect('/login');
     if (session.user.role !== 'TOUR_GUIDE') redirect('/dashboard');
 
-    // Verify this guide is assigned to this tour
-    const tour = await prisma.serviceRequest.findUnique({
-        where: { id: params.id },
-        select: { assignedGuideId: true },
+    // Verify this guide is assigned to this tour (via accepted application)
+    const assignment = await prisma.application.findFirst({
+        where: {
+            tourId: params.id,
+            guideId: session.user.id,
+            status: 'ACCEPTED',
+        },
     });
 
-    if (!tour || tour.assignedGuideId !== session.user.id) {
+    if (!assignment) {
         redirect('/dashboard/guide');
     }
 

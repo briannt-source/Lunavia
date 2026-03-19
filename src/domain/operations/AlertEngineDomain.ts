@@ -63,7 +63,7 @@ async function createAlert(params: {
 // ── Scan Tour for Alerts ──────────────────────────────────────────────
 
 async function scanTourForAlerts(tourId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, status: true, startTime: true, assignedGuideId: true },
     });
@@ -182,7 +182,7 @@ async function scanOperatorTours(operatorId: string) {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const tours = await prisma.serviceRequest.findMany({
+    const tours = await prisma.tour.findMany({
         where: {
             operatorId,
             startTime: { gte: today, lt: tomorrow },

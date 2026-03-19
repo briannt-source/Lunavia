@@ -113,13 +113,13 @@ export async function evaluateOperatorRisk(userId: string): Promise<{
                 createdAt: { gte: ninetyDaysAgo },
             },
         }),
-        prisma.trustEvent.findMany({
+        prisma.trustRecord.findMany({
             where: {
                 userId,
                 createdAt: { gte: ninetyDaysAgo },
                 type: { in: ['LATE_CANCELLATION', 'NO_SHOW', 'MANUAL_ADJUSTMENT'] },
             },
-            select: { type: true, changeValue: true },
+            select: { type: true, delta: true },
         }),
         (prisma as any).riskSignal.findMany({
             where: {
@@ -131,7 +131,7 @@ export async function evaluateOperatorRisk(userId: string): Promise<{
         computeCleanMonths(userId),
     ]);
 
-    const lateCancels = trustEvents.filter(e => e.type === 'LATE_CANCELLATION' || (e.type === 'MANUAL_ADJUSTMENT' && e.changeValue < -5)).length;
+    const lateCancels = trustEvents.filter(e => e.type === 'LATE_CANCELLATION' || (e.type === 'MANUAL_ADJUSTMENT' && e.delta < -5)).length;
     const noShows = trustEvents.filter(e => e.type === 'NO_SHOW').length;
     const operationalPatternWeight = (lateCancels * LATE_CANCEL_WEIGHT) + (noShows * NOSHOW_WEIGHT);
 
@@ -154,10 +154,10 @@ export async function evaluateOperatorRisk(userId: string): Promise<{
 
 async function computeCleanMonths(userId: string): Promise<number> {
     const sixMonthsAgo = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000);
-    const negativeEvents = await prisma.trustEvent.findMany({
+    const negativeEvents = await prisma.trustRecord.findMany({
         where: {
             userId,
-            changeValue: { lt: 0 },
+            delta: { lt: 0 },
             createdAt: { gte: sixMonthsAgo },
         },
         select: { createdAt: true },
@@ -219,7 +219,7 @@ export async function logRiskSignal(params: {
 export async function checkWithdrawFrequency(userId: string): Promise<void> {
     try {
         const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
-        const count = await prisma.escrowWithdrawRequest.count({
+        const count = await prisma.withdrawalRequest.count({
             where: { operatorId: userId, createdAt: { gte: oneHourAgo } },
         });
         if (count >= 5) {
@@ -249,7 +249,7 @@ export async function checkAdminMassApproval(adminId: string): Promise<void> {
 export async function checkRapidTourCreation(operatorId: string): Promise<void> {
     try {
         const tenMinAgo = new Date(Date.now() - 10 * 60 * 1000);
-        const count = await prisma.serviceRequest.count({
+        const count = await prisma.tour.count({
             where: { operatorId, createdAt: { gte: tenMinAgo } },
         });
         if (count >= 10) {

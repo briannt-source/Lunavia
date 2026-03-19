@@ -169,7 +169,7 @@ export class TrustService {
             notification: async () => {
                 // Post-transaction: evaluate risk + update compliance (best-effort)
                 try {
-                    const sr = await prisma.serviceRequest.findUnique({
+                    const sr = await prisma.tour.findUnique({
                         where: { id: serviceRequestId },
                         select: { operatorId: true },
                     });
@@ -177,9 +177,9 @@ export class TrustService {
                         const operatorId = sr.operatorId;
                         const riskResult = await evaluateOperatorRisk(operatorId);
                         const [completedTours, conflictCount, totalTours] = await Promise.all([
-                            prisma.serviceRequest.count({ where: { operatorId, status: 'COMPLETED' } }),
+                            prisma.tour.count({ where: { operatorId, status: 'COMPLETED' } }),
                             prisma.conflict.count({ where: { OR: [{ filedById: operatorId }, { receivedById: operatorId }] } }),
-                            prisma.serviceRequest.count({ where: { operatorId } }),
+                            prisma.tour.count({ where: { operatorId } }),
                         ]);
                         const disputeRate = totalTours > 0 ? conflictCount / totalTours : 0;
                         const operatorData = await prisma.user.findUnique({ where: { id: operatorId }, select: { kybStatus: true } });

@@ -20,7 +20,7 @@ async function logLocationPing(input: LogLocationPingInput) {
 
     // Fast check: Ensure tour is actually in progress and guide is assigned.
     // If we want ultra-high throughput, we could cache this in Redis. For now DB is fine.
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { status: true, assignedGuideId: true }
     });
@@ -58,7 +58,7 @@ async function logLocationPing(input: LogLocationPingInput) {
  */
 async function getLiveOperatorFleet(operatorId: string) {
     // 1. Get all IN_PROGRESS tours for this operator
-    const activeTours = await prisma.serviceRequest.findMany({
+    const activeTours = await prisma.tour.findMany({
         where: { 
             operatorId, 
             status: 'IN_PROGRESS' 
@@ -127,7 +127,7 @@ async function getLiveOperatorFleet(operatorId: string) {
  * Super Admin: Retrieves the latest location ping for ALL currently IN_PROGRESS tours platform-wide.
  */
 async function getLivePlatformFleet() {
-    const activeTours = await prisma.serviceRequest.findMany({
+    const activeTours = await prisma.tour.findMany({
         where: { status: 'IN_PROGRESS' },
         select: {
             id: true,

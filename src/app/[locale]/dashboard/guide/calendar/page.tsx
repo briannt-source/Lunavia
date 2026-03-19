@@ -14,19 +14,30 @@ export default async function GuideCalendarPage() {
     const t = await getTranslations('Guide.Calendar');
 
     // Fetch Availability Blocks
-    const availability = await prisma.availabilityBlock.findMany({
-        where: { userId: session.user.id },
+    const availability = await prisma.guideAvailability.findMany({
+        where: { guideId: session.user.id },
         select: { date: true, status: true }
     });
 
-    // Fetch Assigned Tours to show as "Busy"
-    const assignedTours = await prisma.serviceRequest.findMany({
+    // Fetch Assigned Tours via accepted Applications
+    const acceptedApps = await prisma.application.findMany({
         where: {
-            assignedGuideId: session.user.id,
-            status: { in: ['ASSIGNED', 'IN_PROGRESS'] }
+            guideId: session.user.id,
+            status: 'ACCEPTED',
+            tour: { status: { in: ['OPEN', 'CLOSED', 'IN_PROGRESS'] } }
         },
-        select: { startTime: true, endTime: true, title: true }
+        select: {
+            tour: {
+                select: { startDate: true, endDate: true, title: true }
+            }
+        }
     });
+
+    const assignedTours = acceptedApps.map(a => ({
+        startTime: a.tour.startDate,
+        endTime: a.tour.endDate,
+        title: a.tour.title,
+    }));
 
     return (
         <BaseDashboardLayout

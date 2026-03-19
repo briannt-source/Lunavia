@@ -41,7 +41,7 @@ export async function createExecutionArchive(tourId: string): Promise<{
     snapshot: ExecutionSnapshot;
     hash: string;
 }> {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,

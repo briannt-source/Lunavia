@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 async function getTourData(id: string) {
-    const queryTour = await prisma.serviceRequest.findUnique({
+    const queryTour = await prisma.tour.findUnique({
         where: { id },
         include: {
             operator: {
@@ -16,7 +16,6 @@ async function getTourData(id: string) {
                     id: true,
                     email: true,
                     roleMetadata: true,
-                    avatarUrl: true,
                     trustScore: true,
                 }
             },
@@ -25,42 +24,30 @@ async function getTourData(id: string) {
                     guide: {
                         select: {
                             id: true,
-                            name: true,
                             email: true,
-                            avatarUrl: true,
                             trustScore: true,
                             verificationStatus: true,
-                            experienceYears: true,
                         }
                     }
                 }
             },
-            tourDisputes: {
-                include: {
-                    evidence: {
-                        orderBy: { createdAt: 'desc' }
-                    }
-                },
+            Dispute: {
                 orderBy: { createdAt: 'desc' }
             },
-            timelineEvents: {
-                orderBy: { createdAt: 'desc' },
-                take: 50
-            }
         }
     });
 
     if (!queryTour) return null;
 
+    // Get assigned guide via accepted application
     let assignedGuide = null;
-    if (queryTour.assignedGuideId) {
+    const acceptedApp = queryTour.applications?.find((a: any) => a.status === 'ACCEPTED' && a.role === 'MAIN');
+    if (acceptedApp) {
         assignedGuide = await prisma.user.findUnique({
-            where: { id: queryTour.assignedGuideId },
+            where: { id: acceptedApp.guideId },
             select: {
                 id: true,
-                name: true,
                 email: true,
-                avatarUrl: true,
                 trustScore: true,
                 verificationStatus: true,
             }
@@ -78,7 +65,7 @@ async function getTourData(id: string) {
         operatorCategory: opMetadata.operatorCategory || 'STANDARD',
     };
 
-    return { ...tAny, operator, assignedGuide };
+    return { ...tAny, operator, assignedGuide, tourDisputes: tAny.Dispute || [], timelineEvents: [] };
 }
 
 export default async function Page({ params }: { params: { id: string } }) {

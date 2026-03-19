@@ -49,7 +49,7 @@ export interface AttentionItem {
 export async function getStaleCompletedTours(hoursThreshold: number = OBSERVABILITY_THRESHOLDS.STALE_COMPLETED_HOURS) {
     const cutoffDate = new Date(Date.now() - hoursThreshold * 60 * 60 * 1000);
 
-    return prisma.serviceRequest.findMany({
+    return prisma.tour.findMany({
         where: {
             status: 'COMPLETED',
             updatedAt: { lt: cutoffDate }
@@ -142,7 +142,7 @@ export async function getPendingContracts(hoursThreshold: number = OBSERVABILITY
 export async function getPendingForceCancelReviews(hoursThreshold: number = OBSERVABILITY_THRESHOLDS.FORCE_CANCEL_REVIEW_HOURS) {
     const cutoffDate = new Date(Date.now() - hoursThreshold * 60 * 60 * 1000);
 
-    return prisma.serviceRequest.findMany({
+    return prisma.tour.findMany({
         where: {
             status: 'FORCE_CANCEL_PENDING_REVIEW',
             updatedAt: { lt: cutoffDate }
@@ -164,7 +164,7 @@ export async function getPendingForceCancelReviews(hoursThreshold: number = OBSE
 export async function getPendingEscrowReleases(hoursThreshold: number = OBSERVABILITY_THRESHOLDS.ESCROW_PENDING_HOURS) {
     const cutoffDate = new Date(Date.now() - hoursThreshold * 60 * 60 * 1000);
 
-    return prisma.serviceRequest.findMany({
+    return prisma.tour.findMany({
         where: {
             status: 'CLOSED',
             escrowStatus: 'HELD',

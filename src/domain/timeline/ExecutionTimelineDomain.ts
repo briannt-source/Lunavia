@@ -53,7 +53,7 @@ export interface TimelineEvent {
 async function getTimelineEvents(tourId: string): Promise<TimelineEvent[]> {
     // Load all data sources in parallel
     const [tour, checkIns, incidents] = await Promise.all([
-        prisma.serviceRequest.findUnique({
+        prisma.tour.findUnique({
             where: { id: tourId },
             select: {
                 id: true,

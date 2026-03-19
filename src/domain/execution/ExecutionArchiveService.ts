@@ -14,7 +14,7 @@ import { createHash } from 'crypto';
  */
 async function createArchive(tourId: string) {
     // Fetch full execution data
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,

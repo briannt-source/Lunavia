@@ -29,7 +29,7 @@ async function createInvite(params: {
     const { tourId, guideId, operatorId, message } = params;
 
     // Validation
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true, title: true, startTime: true, assignedGuideId: true },
     });

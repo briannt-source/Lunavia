@@ -50,7 +50,7 @@ interface RequestReplacementInput {
 async function requestReplacement(input: RequestReplacementInput) {
     const { tourId, guideId, reason, suggestedReplacementId } = input;
 
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, title: true, operatorId: true, assignedGuideId: true, status: true, startTime: true },
     });
@@ -303,7 +303,7 @@ async function cancelFromReplacement(request: any, operatorId: string, note?: st
  * this constitutes abandonment. Called by automation (NoShowPolicy).
  */
 async function markGuideAbandoned(tourId: string, guideId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, title: true, operatorId: true },
     });
@@ -357,7 +357,7 @@ async function markGuideAbandoned(tourId: string, guideId: string) {
 // ── Suggest Available Guides (for operator) ───────────────────────────
 
 async function suggestAvailableGuides(tourId: string, operatorId: string) {
-    const tour = await prisma.serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, startTime: true, endTime: true, province: true, language: true },
     });

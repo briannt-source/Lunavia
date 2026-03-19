@@ -26,51 +26,47 @@ export async function GET() {
 
     try {
         const [
-            // Wallets & Escrow
+            // Wallets
             wallets,
             walletCount,
 
-            // Transactions
+            // Pending Transactions
             pendingWithdrawals,
             pendingTopups,
+
+            // Completed this month
             completedWithdrawalsMonth,
             completedTopupsMonth,
 
-            // Platform Revenue
-            subscriptionRevenueMonth,
-            totalSubscriptionRevenue,
+            // Escrow
+            activeEscrows,
         ] = await Promise.all([
-            // Top wallets by available + pending balance
-            prisma.operatorWallet.findMany({
+            // Top wallets by balance
+            prisma.wallet.findMany({
                 take: 10,
-                orderBy: { availableBalance: 'desc' },
-                include: { operator: { select: { id: true, name: true, email: true } } },
+                orderBy: { balance: 'desc' },
+                include: { user: { select: { id: true, email: true } } },
             }),
-            prisma.operatorWallet.count(),
+            prisma.wallet.count(),
 
-            // Pending transactions
-            prisma.escrowWithdrawRequest.aggregate({ where: { status: 'PENDING' }, _sum: { amount: true }, _count: { id: true } }),
-            prisma.escrowTopUpRequest.aggregate({ where: { status: 'PENDING' }, _sum: { amount: true }, _count: { id: true } }),
+            // Pending withdrawals/topups
+            prisma.withdrawalRequest.aggregate({ where: { status: 'PENDING' }, _sum: { amount: true }, _count: { id: true } }),
+            prisma.topUpRequest.aggregate({ where: { status: 'PENDING' }, _sum: { amount: true }, _count: { id: true } }),
 
-            // Completed transactions this month
-            prisma.escrowWithdrawRequest.aggregate({ where: { status: 'COMPLETED', createdAt: { gte: startOfMonth } }, _sum: { amount: true } }),
-            prisma.escrowTopUpRequest.aggregate({ where: { status: 'COMPLETED', createdAt: { gte: startOfMonth } }, _sum: { amount: true } }),
+            // Completed this month
+            prisma.withdrawalRequest.aggregate({ where: { status: 'APPROVED', createdAt: { gte: startOfMonth } }, _sum: { amount: true } }),
+            prisma.topUpRequest.aggregate({ where: { status: 'APPROVED', createdAt: { gte: startOfMonth } }, _sum: { amount: true } }),
 
-            // Subscriptions
-            prisma.subscriptionPaymentRequest.aggregate({ where: { status: 'APPROVED', approvedAt: { gte: startOfMonth } }, _sum: { amount: true } }),
-            prisma.subscriptionPaymentRequest.aggregate({ where: { status: 'APPROVED' }, _sum: { amount: true } }),
+            // Active escrow accounts
+            prisma.escrowAccount.findMany({
+                where: { status: 'HELD' },
+                select: { id: true, amount: true, tourId: true, createdAt: true, tour: { select: { title: true, operatorId: true } } },
+                orderBy: { createdAt: 'desc' },
+                take: 15,
+            }),
         ]);
 
-        const totalAvailable = wallets.reduce((acc, w) => acc + w.availableBalance, 0);
-        const totalPending = wallets.reduce((acc, w) => acc + w.pendingBalance, 0);
-
-        // Active Escrow Holds
-        const activeEscrowHolds = await prisma.serviceRequest.findMany({
-            where: { escrowStatus: 'HELD' },
-            select: { id: true, title: true, totalPayout: true, escrowHeldAt: true, operator: { select: { name: true } } },
-            orderBy: { escrowHeldAt: 'desc' },
-            take: 15,
-        });
+        const totalAvailable = wallets.reduce((acc, w) => acc + Number(w.balance), 0);
 
         return NextResponse.json({
             success: true,
@@ -78,34 +74,27 @@ export async function GET() {
                 system: {
                     walletCount,
                     totalAvailableEstimated: totalAvailable,
-                    totalPendingEstimated: totalPending,
                 },
                 pending: {
                     withdrawalsCount: pendingWithdrawals._count.id,
-                    withdrawalsAmount: pendingWithdrawals._sum.amount || 0,
+                    withdrawalsAmount: Number(pendingWithdrawals._sum.amount || 0),
                     topupsCount: pendingTopups._count.id,
-                    topupsAmount: pendingTopups._sum.amount || 0,
+                    topupsAmount: Number(pendingTopups._sum.amount || 0),
                 },
                 monthlyFlow: {
-                    withdrawals: completedWithdrawalsMonth._sum.amount || 0,
-                    topups: completedTopupsMonth._sum.amount || 0,
-                    subscriptions: subscriptionRevenueMonth._sum.amount || 0,
-                },
-                revenue: {
-                    totalSubscriptions: totalSubscriptionRevenue._sum.amount || 0,
+                    withdrawals: Number(completedWithdrawalsMonth._sum.amount || 0),
+                    topups: Number(completedTopupsMonth._sum.amount || 0),
                 },
                 topWallets: wallets.map(w => ({
                     id: w.id,
-                    operatorName: w.operator.name || w.operator.email || 'Unknown',
-                    available: w.availableBalance,
-                    pending: w.pendingBalance,
+                    ownerEmail: w.user.email || 'Unknown',
+                    available: Number(w.balance),
                 })),
-                activeEscrowHolds: activeEscrowHolds.map(h => ({
+                activeEscrowHolds: activeEscrows.map(h => ({
                     id: h.id,
-                    amount: h.totalPayout || 0,
-                    title: h.title,
-                    operatorName: h.operator?.name || 'Unknown',
-                    heldAt: h.escrowHeldAt,
+                    amount: Number(h.amount),
+                    title: h.tour?.title || 'Unknown tour',
+                    heldAt: h.createdAt,
                 })),
                 timestamp: now.toISOString(),
             },

@@ -7,7 +7,7 @@ import { TourMapper } from '../../mappers/TourMapper';
 export class PrismaTourRepository implements ITourRepository {
     async save(tour: Tour): Promise<void> {
         const data = TourMapper.toPersistence(tour);
-        await prisma.serviceRequest.upsert({
+        await prisma.tour.upsert({
             where: { id: tour.id },
             update: data,
             create: data as any // Types might mismatch slightly
@@ -15,14 +15,14 @@ export class PrismaTourRepository implements ITourRepository {
     }
 
     async updateStatus(id: string, status: TourStatus): Promise<void> {
-        await prisma.serviceRequest.update({
+        await prisma.tour.update({
             where: { id },
             data: { status }
         });
     }
 
     async findById(id: string): Promise<Tour | null> {
-        const data = await prisma.serviceRequest.findUnique({
+        const data = await prisma.tour.findUnique({
             where: { id }
         });
         if (!data) return null;
@@ -30,14 +30,14 @@ export class PrismaTourRepository implements ITourRepository {
     }
 
     async findByOperator(operatorId: string): Promise<Tour[]> {
-        const data = await prisma.serviceRequest.findMany({
+        const data = await prisma.tour.findMany({
             where: { operatorId }
         });
         return data.map(TourMapper.toDomain);
     }
 
     async findActiveByOperator(operatorId: string): Promise<Tour[]> {
-        const data = await prisma.serviceRequest.findMany({
+        const data = await prisma.tour.findMany({
             where: {
                 operatorId,
                 status: { notIn: ['COMPLETED', 'CANCELLED', 'CLOSED'] }
@@ -47,7 +47,7 @@ export class PrismaTourRepository implements ITourRepository {
     }
 
     async findConflictingTours(guideId: string, startTime: Date, endTime: Date): Promise<Tour[]> {
-        const data = await prisma.serviceRequest.findMany({
+        const data = await prisma.tour.findMany({
             where: {
                 assignedGuideId: guideId,
                 status: { notIn: ['CANCELLED', 'DRAFT'] },
@@ -61,7 +61,7 @@ export class PrismaTourRepository implements ITourRepository {
 
     // Automation Support
     async findCompletedTours(): Promise<Tour[]> {
-        const data = await prisma.serviceRequest.findMany({
+        const data = await prisma.tour.findMany({
             where: {
                 status: 'IN_PROGRESS',
                 endTime: { lt: new Date() }
@@ -91,7 +91,7 @@ export class PrismaTourRepository implements ITourRepository {
     }
 
     async findPotentialNoShows(): Promise<Tour[]> {
-        const data = await prisma.serviceRequest.findMany({
+        const data = await prisma.tour.findMany({
             where: {
                 status: 'ASSIGNED',
                 startTime: { lt: new Date() },
