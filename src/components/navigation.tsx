@@ -31,23 +31,23 @@ export function Navigation() {
     if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
       return [
         { href: "/dashboard/operator", label: "Dashboard", icon: LayoutDashboard },
-        { href: "/tours", label: "Tours", icon: MapPin },
-        { href: "/tours/create", label: "Tạo Tour", icon: Plus },
-        { href: "/dashboard/profile", label: "Profile", icon: Users },
+        { href: "/dashboard/operator/tours", label: "Tours", icon: MapPin },
+        { href: "/dashboard/operator/tours/new", label: "Tạo Tour", icon: Plus },
+        { href: "/dashboard/operator/profile", label: "Profile", icon: Users },
       ];
     } else if (role === "TOUR_GUIDE") {
       return [
         { href: "/dashboard/guide", label: "Dashboard", icon: LayoutDashboard },
-        { href: "/tours", label: "Tours", icon: MapPin },
+        { href: "/dashboard/guide/tours", label: "Tours", icon: MapPin },
         { href: "/dashboard/guide/applications", label: "Ứng tuyển", icon: Briefcase },
-        { href: "/dashboard/profile", label: "Profile", icon: Users },
+        { href: "/dashboard/guide/profile", label: "Profile", icon: Users },
       ];
     } else if (role && role.startsWith("ADMIN_")) {
       // Admin users
       const adminRole = role.replace("ADMIN_", "");
       const menuItems = [
         { href: "/dashboard/admin", label: "Dashboard", icon: LayoutDashboard },
-        { href: "/dashboard/profile", label: "Profile", icon: Users },
+        { href: "/dashboard/admin", label: "Profile", icon: Users },
       ];
 
       // Add menu items based on permissions

@@ -80,7 +80,7 @@ export default function TourListPage() {
             <h1 className="text-3xl font-semibold text-[#1E293B] mb-2">Danh Sách Tours</h1>
             <p className="text-[#64748B]">Quản lý và theo dõi tất cả tours của bạn</p>
           </div>
-          <Link href="/tours/create">
+          <Link href="/dashboard/operator/tours/new">
             <Button className="bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]">
               Tạo Tour Mới
             </Button>

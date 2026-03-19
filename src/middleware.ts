@@ -33,10 +33,7 @@ export async function middleware(req: NextRequest) {
   const localePrefix = hasLocale ? `/${segments[0]}` : `/${routing.defaultLocale}`;
 
   // 1. Unauthenticated users -> redirect to login
-  const isProtectedPath = routeWithoutLocale.startsWith("/dashboard") || 
-                          routeWithoutLocale.startsWith("/tours/create") || 
-                          routeWithoutLocale.startsWith("/chat") || 
-                          routeWithoutLocale.startsWith("/ai");
+  const isProtectedPath = routeWithoutLocale.startsWith("/dashboard");
 
   if (isProtectedPath && !token) {
     const loginUrl = new URL(`${localePrefix}/auth/signin`, req.url);
@@ -52,9 +49,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
     }
 
-    if (routeWithoutLocale.startsWith("/tours/create") && role === "TOUR_GUIDE") {
-      return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide?error=unauthorized`, req.url));
-    }
+
 
     if (routeWithoutLocale.startsWith("/dashboard/operator")) {
       if (role !== "TOUR_OPERATOR" && role !== "TOUR_AGENCY") {

@@ -60,9 +60,9 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
           label: "Dashboard",
           icon: LayoutDashboard,
         },
-        { href: "/tours/browse", label: "Browse", icon: MapPin },
+        { href: "/dashboard/operator/tours", label: "Browse", icon: MapPin },
         { href: "/dashboard/operator/tours", label: "My Tours", icon: MapPin },
-        { href: "/tours/create", label: "Tạo Tour", icon: Plus },
+        { href: "/dashboard/operator/tours/new", label: "Tạo Tour", icon: Plus },
         {
           href: "/dashboard/operator/applications",
           label: "Ứng tuyển",
@@ -80,10 +80,9 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
         },
         { href: "/dashboard/operator/company", label: "Công ty", icon: Building2 },
         { href: "/dashboard/operator/standby-requests", label: "Standby Requests", icon: AlertTriangle },
-        { href: "/messages", label: "Tin nhắn", icon: MessageSquare },
-        { href: "/dashboard/profile", label: "Profile", icon: Users },
-        { href: "/dashboard/wallet", label: "Ví", icon: Wallet },
-        { href: "/dashboard/settings", label: "Settings", icon: Settings },
+        { href: "/dashboard/operator/profile", label: "Profile", icon: Users },
+        { href: "/dashboard/operator/wallet", label: "Ví", icon: Wallet },
+        { href: "/dashboard/operator/settings", label: "Settings", icon: Settings },
       ];
     } else if (role === "TOUR_GUIDE") {
       return [
@@ -92,8 +91,8 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
           label: "Dashboard",
           icon: LayoutDashboard,
         },
-        { href: "/tours/browse", label: "Tìm Tour", icon: MapPin },
-        { href: "/tours", label: "Tours", icon: MapPin },
+        { href: "/dashboard/guide/tours", label: "Tìm Tour", icon: MapPin },
+        { href: "/dashboard/guide/tours", label: "Tours", icon: MapPin },
         {
           href: "/dashboard/guide/applications",
           label: "Ứng tuyển",
@@ -103,11 +102,9 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
         { href: "/dashboard/guide/tours", label: "Tours của tôi", icon: MapPin },
         { href: "/dashboard/guide/standby-requests", label: "Standby Requests", icon: AlertTriangle },
         { href: "/dashboard/guide/availability", label: "Availability", icon: Calendar },
-        { href: "/messages", label: "Tin nhắn", icon: MessageSquare },
-        { href: "/dashboard/profile", label: "Profile", icon: Users },
-        { href: "/dashboard/wallet", label: "Ví", icon: Wallet },
-        { href: "/dashboard/payment-methods", label: "Phương thức thanh toán", icon: CreditCard },
-        { href: "/dashboard/settings", label: "Settings", icon: Settings },
+        { href: "/dashboard/guide/profile", label: "Profile", icon: Users },
+        { href: "/dashboard/guide/wallet", label: "Ví", icon: Wallet },
+        { href: "/dashboard/guide/settings", label: "Settings", icon: Settings },
       ];
     } else {
       // Admin - role-based menu

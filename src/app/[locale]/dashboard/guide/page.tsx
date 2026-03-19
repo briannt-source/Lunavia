@@ -206,7 +206,7 @@ export default function GuideDashboard() {
                 </Link>
               </div>
               <div>
-                <Link href="/tours/browse">
+                <Link href="/dashboard/guide/tours">
                   <Button variant="outline" className="w-full">
                     <MapPin className="h-4 w-4 mr-2" />
                     Tìm Tour Mới

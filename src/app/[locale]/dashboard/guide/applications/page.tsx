@@ -146,7 +146,7 @@ export default function GuideApplicationsPage() {
               title="Chưa có ứng tuyển nào"
               description="Bắt đầu tìm và ứng tuyển các tour phù hợp với bạn"
               action={
-                <Link href="/tours/browse">
+                <Link href="/dashboard/guide/tours">
                   <Button>Tìm tour</Button>
                 </Link>
               }

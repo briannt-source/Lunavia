@@ -463,7 +463,7 @@ export default function ProfilePage() {
           <Button variant="outline">Quay lại Dashboard</Button>
         </Link>
         {(user?.role === "TOUR_OPERATOR" || user?.role === "TOUR_AGENCY") && (
-          <Link href="/tours/create">
+          <Link href="/dashboard/operator/tours/new">
             <Button>Tạo Tour</Button>
           </Link>
         )}

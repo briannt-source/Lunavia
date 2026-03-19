@@ -292,7 +292,7 @@ export default function OperatorDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Link href="/tours/create">
+              <Link href="/dashboard/operator/tours/new">
                 <Button className="w-full bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]">
                   Tạo Tour Mới
                 </Button>

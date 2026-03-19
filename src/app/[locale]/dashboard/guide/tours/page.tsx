@@ -201,7 +201,7 @@ export default function GuideToursPage() {
                 title="Chưa có tour nào"
                 description="Bạn chưa được chấp nhận vào tour nào. Hãy tìm và ứng tuyển các tour phù hợp."
                 action={
-                  <Link href="/tours/browse">
+                  <Link href="/dashboard/guide/tours">
                     <Button>Tìm tour</Button>
                   </Link>
                 }
