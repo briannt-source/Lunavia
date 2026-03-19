@@ -46,13 +46,13 @@ export class PrismaTourRepository implements ITourRepository {
         return data.map(TourMapper.toDomain);
     }
 
-    async findConflictingTours(guideId: string, startTime: Date, endTime: Date): Promise<Tour[]> {
+    async findConflictingTours(guideId: string, startDate: Date, endDate: Date): Promise<Tour[]> {
         const data = await prisma.tour.findMany({
             where: {
                 assignedGuideId: guideId,
                 status: { notIn: ['CANCELLED', 'DRAFT'] },
                 OR: [
-                    { startTime: { lte: endTime }, endTime: { gte: startTime } }
+                    { startDate: { lte: endTime }, endDate: { gte: startTime } }
                 ]
             }
         });
@@ -64,7 +64,7 @@ export class PrismaTourRepository implements ITourRepository {
         const data = await prisma.tour.findMany({
             where: {
                 status: 'IN_PROGRESS',
-                endTime: { lt: new Date() }
+                endDate: { lt: new Date() }
             }
         });
         return data.map(TourMapper.toDomain);
@@ -94,7 +94,7 @@ export class PrismaTourRepository implements ITourRepository {
         const data = await prisma.tour.findMany({
             where: {
                 status: 'ASSIGNED',
-                startTime: { lt: new Date() },
+                startDate: { lt: new Date() },
                 guideCheckedInAt: null
             }
         });

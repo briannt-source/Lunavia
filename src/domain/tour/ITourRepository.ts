@@ -6,7 +6,7 @@ export interface ITourRepository {
     save(tour: Tour): Promise<void>;
     updateStatus(id: string, status: TourStatus): Promise<void>;
     findActiveByOperator(operatorId: string): Promise<Tour[]>;
-    findConflictingTours(guideId: string, startTime: Date, endTime: Date): Promise<Tour[]>;
+    findConflictingTours(guideId: string, startDate: Date, endDate: Date): Promise<Tour[]>;
 
     // Automation Support
     findCompletedTours(): Promise<Tour[]>;

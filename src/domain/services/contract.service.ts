@@ -88,10 +88,10 @@ export class ContractService {
     });
 
     // Get tour for title
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
       where: { id: input.tourId },
       include: { operator: true },
-    });
+    }));
 
     if (!tour) {
       throw new Error("Tour not found");
@@ -182,9 +182,9 @@ export class ContractService {
    */
   static async createCustomContract(input: CreateCustomContractInput) {
     // Get tour
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
       where: { id: input.tourId },
-    });
+    }));
 
     if (!tour) {
       throw new Error("Tour not found");

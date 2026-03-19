@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * FinanceDomain — Mutation Boundary for ALL Financial Operations
  *
@@ -681,7 +682,7 @@ interface PublishTourInput {
 export async function publishTour(input: PublishTourInput) {
     const { requestId, userId, userRole, operatorModeInfo } = input;
 
-    const request = await prisma.tour.findUnique({ where: { id: requestId } });
+    const request = await findTourCompat({ id: requestId });
     if (!request) throw new Error('Request not found');
     if (request.operatorId !== userId) throw new Error('Forbidden');
     const beforeState = snapshotRecord(request);
@@ -806,7 +807,7 @@ interface ReleaseEscrowInput {
 export async function releaseEscrow(input: ReleaseEscrowInput) {
     const { tourId, actorId, actorRole, notes, ipAddress } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             escrowTransaction: true,
@@ -823,7 +824,7 @@ export async function releaseEscrow(input: ReleaseEscrowInput) {
                 include: { guide: { select: { id: true, guideMode: true, trustScore: true } } },
             },
         },
-    });
+    }));
 
     const beforeState = snapshotRecord(tour);
     if (!tour) throw new Error('Tour not found');
@@ -1018,7 +1019,7 @@ export async function refundEscrow(input: RefundEscrowInput) {
     const escrowLib = await getEscrowLib();
     const refundReason = reason as any;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             escrowTransaction: true,
@@ -1029,7 +1030,7 @@ export async function refundEscrow(input: RefundEscrowInput) {
                 },
             },
         },
-    });
+    }));
 
     const beforeState = snapshotRecord(tour);
     if (!tour) throw new Error('Tour not found');
@@ -1200,10 +1201,10 @@ interface AcceptCancellationInput {
 export async function acceptCancellation(input: AcceptCancellationInput) {
     const { tourId, userId } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         include: { escrowTransaction: true },
-    });
+    }));
     if (!tour) throw new Error('Tour not found');
     if (tour.status !== CANCELLATION_STATUSES.PENDING_MUTUAL_CANCEL) throw new Error('No pending cancellation');
     if (tour.cancellationInitiator === userId) throw new Error('Cannot accept own cancellation');
@@ -1408,10 +1409,10 @@ interface ReviewForceCancellationInput {
 export async function reviewForceCancellation(input: ReviewForceCancellationInput) {
     const { tourId, actorId, actorRole, action, faultParty, notes, supervisorId } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         include: { escrowTransaction: true },
-    });
+    }));
     if (!tour) throw new Error('Tour not found');
     if (tour.status !== CANCELLATION_STATUSES.FORCE_CANCEL_PENDING_REVIEW) throw new Error('Not pending review');
 

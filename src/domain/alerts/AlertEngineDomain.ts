@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * AlertEngineDomain — Operational Alert Detection & Management
  *
@@ -72,7 +73,7 @@ async function runDetection(): Promise<{ created: number; scanned: number }> {
     const activeTours = await (prisma as any).serviceRequest.findMany({
         where: {
             status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
-            startTime: { lt: now }, // Only tours that should have started
+            startDate: { lt: now }, // Only tours that should have started
         },
         include: {
             segments: {
@@ -91,7 +92,7 @@ async function runDetection(): Promise<{ created: number; scanned: number }> {
 
         // Rule 1 — Tour departure delay: ASSIGNED but past start time
         if (tour.status === 'ASSIGNED' && !tour.operatorStartedAt) {
-            const delayMin = Math.round((now.getTime() - tour.startTime.getTime()) / 60000);
+            const delayMin = Math.round((now.getTime() - tour.startDate.getTime()) / 60000);
             if (delayMin >= 15) {
                 const newSeverity = delayMin >= 60 ? ALERT_SEVERITY.CRITICAL : delayMin >= 30 ? ALERT_SEVERITY.HIGH : ALERT_SEVERITY.MEDIUM;
                 const existingAlert = tour.operationalAlerts.find((a: any) => a.alertType === ALERT_TYPES.TOUR_DELAYED);
@@ -102,7 +103,7 @@ async function runDetection(): Promise<{ created: number; scanned: number }> {
                         alertType: ALERT_TYPES.TOUR_DELAYED,
                         severity: newSeverity,
                         message: `Tour "${tour.title}" is delayed by ${delayMin} minutes. No operator start recorded.`,
-                        metadata: { delayMinutes: delayMin, plannedStart: tour.startTime.toISOString() },
+                        metadata: { delayMinutes: delayMin, plannedStart: tour.startDate.toISOString() },
                         operatorId: tour.operatorId,
                     });
                 } else if (existingAlert.severity !== newSeverity && shouldEscalate(existingAlert.severity, newSeverity)) {
@@ -113,7 +114,7 @@ async function runDetection(): Promise<{ created: number; scanned: number }> {
                             data: {
                                 severity: newSeverity,
                                 message: `Tour "${tour.title}" is delayed by ${delayMin} minutes — escalated to ${newSeverity}.`,
-                                metadata: { delayMinutes: delayMin, plannedStart: tour.startTime.toISOString(), escalatedFrom: existingAlert.severity },
+                                metadata: { delayMinutes: delayMin, plannedStart: tour.startDate.toISOString(), escalatedFrom: existingAlert.severity },
                             },
                         });
                     } catch { /* escalation failed, skip */ }

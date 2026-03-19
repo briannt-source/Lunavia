@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * TourDocumentDomain — Tour Document Management
  *

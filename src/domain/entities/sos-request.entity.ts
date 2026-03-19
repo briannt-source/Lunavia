@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * SOSRequest Entity
  * 
@@ -28,7 +29,7 @@ export class SOSRequest {
     public readonly type: SOSRequestType,
     public readonly status: SOSStatus,
     public readonly location: string,
-    public readonly startTime: Date,
+    public readonly startDate: Date,
     public readonly description?: string,
     public readonly assignedGuideId?: string, // Guide assigned to replace
     public readonly matchedGuideIds: string[] = [], // Guides found by matching
@@ -47,7 +48,7 @@ export class SOSRequest {
     guideId: string | null,
     type: SOSRequestType,
     location: string,
-    startTime: Date,
+    startDate: Date,
     description?: string
   ): SOSRequest {
     return new SOSRequest(
@@ -72,7 +73,7 @@ export class SOSRequest {
    * Check if SOS is still valid (within 30-min window)
    */
   isValidWindow(currentTime: Date = new Date()): boolean {
-    const timeUntilStart = this.startTime.getTime() - currentTime.getTime();
+    const timeUntilStart = this.startDate.getTime() - currentTime.getTime();
     const thirtyMinutes = 30 * 60 * 1000;
     return timeUntilStart >= thirtyMinutes;
   }
@@ -103,7 +104,7 @@ export class SOSRequest {
       this.type,
       this.status.transitionTo(SOSStatusType.MATCHING),
       this.location,
-      this.startTime,
+      this.startDate,
       this.description,
       this.assignedGuideId,
       matchedGuideIds,
@@ -125,7 +126,7 @@ export class SOSRequest {
       this.type,
       this.status.transitionTo(SOSStatusType.ASSIGNED),
       this.location,
-      this.startTime,
+      this.startDate,
       this.description,
       guideId,
       this.matchedGuideIds,
@@ -147,7 +148,7 @@ export class SOSRequest {
       this.type,
       this.status.transitionTo(SOSStatusType.RESOLVED),
       this.location,
-      this.startTime,
+      this.startDate,
       this.description,
       this.assignedGuideId,
       this.matchedGuideIds,
@@ -169,7 +170,7 @@ export class SOSRequest {
       this.type,
       this.status.transitionTo(SOSStatusType.FAILED),
       this.location,
-      this.startTime,
+      this.startDate,
       this.description,
       this.assignedGuideId,
       this.matchedGuideIds,

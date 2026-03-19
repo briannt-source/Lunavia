@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * TourHealthDomain — Real-time Tour Health Monitoring
  *
@@ -53,7 +54,7 @@ async function calculateTourHealth(tourId: string): Promise<{
         select: {
             id: true,
             status: true,
-            startTime: true,
+            startDate: true,
             tourHealth: true,
         },
     });
@@ -91,7 +92,7 @@ async function calculateTourHealth(tourId: string): Promise<{
 
     const tourStartedEvent = executionEvents.find((e: any) => e.eventType === 'TOUR_STARTED');
     if (tourStartedEvent) {
-        const scheduledStart = new Date(tour.startTime);
+        const scheduledStart = new Date(tour.startDate);
         const actualStart = new Date(tourStartedEvent.createdAt);
         const delayMin = (actualStart.getTime() - scheduledStart.getTime()) / 60000;
         if (delayMin > 15 && HEALTH_PRIORITY[health] < HEALTH_PRIORITY.DELAYED) {
@@ -102,7 +103,7 @@ async function calculateTourHealth(tourId: string): Promise<{
 
     // 4. Check for at-risk signals
     if (tour.status === 'ASSIGNED' || tour.status === 'READY') {
-        const scheduledStart = new Date(tour.startTime);
+        const scheduledStart = new Date(tour.startDate);
         const minutesUntilStart = (scheduledStart.getTime() - now.getTime()) / 60000;
 
         // Pickup should start before scheduled time
@@ -157,21 +158,21 @@ async function getOperatorHealthSummary(operatorId: string) {
     const tours = await (prisma as any).serviceRequest.findMany({
         where: {
             operatorId,
-            startTime: { gte: today, lt: tomorrow },
+            startDate: { gte: today, lt: tomorrow },
             status: { notIn: ['CANCELLED', 'DRAFT'] },
         },
         select: {
             id: true,
             title: true,
             status: true,
-            startTime: true,
-            endTime: true,
+            startDate: true,
+            endDate: true,
             tourHealth: true,
             groupSize: true,
             location: true,
             assignedGuideId: true,
         },
-        orderBy: { startTime: 'asc' },
+        orderBy: { startDate: 'asc' },
     });
 
     // Count by health

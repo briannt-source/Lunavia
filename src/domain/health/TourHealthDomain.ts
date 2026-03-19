@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * TourHealthDomain — Real-Time Tour Health Score
  *
@@ -43,7 +44,7 @@ export interface TourHealthResult {
 async function computeHealth(tourId: string): Promise<TourHealthResult> {
     const now = new Date();
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
             segments: {
@@ -52,7 +53,7 @@ async function computeHealth(tourId: string): Promise<TourHealthResult> {
             },
             incidents: { where: { status: 'OPEN' } },
         },
-    });
+    }));
 
     if (!tour) {
         return makeResult(0, { startDelay: 0, segmentProgress: 0, skippedSegments: 0, incidents: 0, guideReliability: 0 });
@@ -62,14 +63,14 @@ async function computeHealth(tourId: string): Promise<TourHealthResult> {
     let startDelayScore = 100;
     let startDelayDetail = 'On time';
 
-    if (tour.status === 'ASSIGNED' && tour.startTime < now) {
-        const delayMin = Math.round((now.getTime() - tour.startTime.getTime()) / 60000);
+    if (tour.status === 'ASSIGNED' && tour.startDate < now) {
+        const delayMin = Math.round((now.getTime() - tour.startDate.getTime()) / 60000);
         if (delayMin >= 60) { startDelayScore = 0; startDelayDetail = `${delayMin}min late — critical`; }
         else if (delayMin >= 30) { startDelayScore = 25; startDelayDetail = `${delayMin}min late`; }
         else if (delayMin >= 15) { startDelayScore = 50; startDelayDetail = `${delayMin}min late`; }
         else if (delayMin >= 5) { startDelayScore = 75; startDelayDetail = `${delayMin}min late`; }
-    } else if (tour.operatorStartedAt && tour.startTime) {
-        const startDiff = Math.round((tour.operatorStartedAt.getTime() - tour.startTime.getTime()) / 60000);
+    } else if (tour.operatorStartedAt && tour.startDate) {
+        const startDiff = Math.round((tour.operatorStartedAt.getTime() - tour.startDate.getTime()) / 60000);
         if (startDiff <= 5) { startDelayScore = 100; startDelayDetail = 'Started on time'; }
         else if (startDiff <= 15) { startDelayScore = 80; startDelayDetail = `Started ${startDiff}min late`; }
         else if (startDiff <= 30) { startDelayScore = 50; startDelayDetail = `Started ${startDiff}min late`; }
@@ -87,8 +88,8 @@ async function computeHealth(tourId: string): Promise<TourHealthResult> {
         const actualRatio = started / totalSegments;
 
         // Time-aware: compare actual progress against expected progress
-        if (tour.operatorStartedAt && tour.endTime) {
-            const totalDuration = tour.endTime.getTime() - tour.operatorStartedAt.getTime();
+        if (tour.operatorStartedAt && tour.endDate) {
+            const totalDuration = tour.endDate.getTime() - tour.operatorStartedAt.getTime();
             const elapsed = now.getTime() - tour.operatorStartedAt.getTime();
             const expectedRatio = totalDuration > 0 ? Math.min(1, elapsed / totalDuration) : 0;
             // Score = how well actual matches expected (ratio of ratios, capped at 100)

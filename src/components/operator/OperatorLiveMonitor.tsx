@@ -9,7 +9,7 @@ interface TourCard {
     id: string;
     title: string;
     status: string;
-    startTime: string;
+    startDate: string;
     guide: { name: string; id: string } | null;
     currentSegment: string | null;
     lastEventTime: string | null;
@@ -55,7 +55,7 @@ function TourCardRow({ tour, showProgress }: { tour: TourCard; showProgress?: bo
                     </div>
                     <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
                         {tour.guide && <span>👤 {tour.guide.name}</span>}
-                        <span>⏰ {formatTime(tour.startTime)}</span>
+                        <span>⏰ {formatTime(tour.startDate)}</span>
                         {tour.currentSegment && <span>📍 {tour.currentSegment}</span>}
                         <HealthBadge health={tour.tourHealth} color={tour.healthColor} />
                     </div>

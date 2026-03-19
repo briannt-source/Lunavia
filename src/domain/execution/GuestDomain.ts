@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * GuestDomain — Tour Guest Management & Check-in
  *
@@ -30,10 +31,10 @@ export interface GuestHeadcount {
 // ── Add Guest (Operator only) ────────────────────────────────────────
 
 export async function addGuest(tourId: string, operatorId: string, input: GuestInput) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
-    });
+    }));
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.operatorId !== operatorId) throw new Error('FORBIDDEN');
 
@@ -58,10 +59,10 @@ export async function addGuest(tourId: string, operatorId: string, input: GuestI
 // ── Remove Guest (Operator only, before tour starts) ─────────────────
 
 export async function removeGuest(tourId: string, operatorId: string, guestId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
-    });
+    }));
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.operatorId !== operatorId) throw new Error('FORBIDDEN');
 
@@ -82,10 +83,10 @@ export async function removeGuest(tourId: string, operatorId: string, guestId: s
 // ── Guide Check-in Guest ─────────────────────────────────────────────
 
 export async function guideCheckInGuest(tourId: string, guideId: string, guestId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true, title: true },
-    });
+    }));
     if (!tour) throw new Error('NOT_FOUND');
 
     // Allow operator or assigned guide to check in guests
@@ -121,8 +122,8 @@ export async function guestSelfCheckIn(checkInToken: string) {
         include: {
             tour: {
                 select: {
-                    id: true, title: true, status: true, startTime: true,
-                    endTime: true, location: true, operator: { select: { name: true } },
+                    id: true, title: true, status: true, startDate: true,
+                    endDate: true, location: true, operator: { select: { name: true } },
                 },
             },
         },
@@ -154,8 +155,8 @@ export async function getGuestByToken(checkInToken: string) {
         include: {
             tour: {
                 select: {
-                    id: true, title: true, status: true, startTime: true,
-                    endTime: true, location: true, province: true,
+                    id: true, title: true, status: true, startDate: true,
+                    endDate: true, location: true, province: true,
                     operator: { select: { name: true } },
                     tourTeamMembers: {
                         where: { status: 'ACTIVE' },
@@ -174,10 +175,10 @@ export async function getGuestByToken(checkInToken: string) {
 // ── Mark No-Show (Guide) ─────────────────────────────────────────────
 
 export async function markNoShow(tourId: string, guideId: string, guestId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true },
-    });
+    }));
     if (!tour) throw new Error('NOT_FOUND');
 
     const isGuide = tour.assignedGuideId === guideId;
@@ -204,10 +205,10 @@ export async function markNoShow(tourId: string, guideId: string, guestId: strin
 // ── Mark Early Leave (Guide) ──────────────────────────────────────────
 
 export async function markEarlyLeave(tourId: string, guideId: string, guestId: string, notes: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, assignedGuideId: true, status: true },
-    });
+    }));
     if (!tour) throw new Error('NOT_FOUND');
 
     const isGuide = tour.assignedGuideId === guideId;

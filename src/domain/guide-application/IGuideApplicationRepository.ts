@@ -8,7 +8,7 @@ export interface IGuideApplicationRepository {
     findByGuideId(guideId: string): Promise<GuideApplication[]>;
     findByRequestId(requestId: string): Promise<GuideApplication[]>;
     countActiveByGuide(guideId: string, role?: RoleType): Promise<number>;
-    findConflictingApplications(guideId: string, startTime: Date, endTime: Date, excludeRequestId?: string): Promise<GuideApplication[]>;
+    findConflictingApplications(guideId: string, startDate: Date, endDate: Date, excludeRequestId?: string): Promise<GuideApplication[]>;
     save(application: GuideApplication): Promise<void>;
 
     // Batch operations for assignment

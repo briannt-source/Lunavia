@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 interface GuideCalendarProps {
     initialAvailability: { date: Date; status: string }[];
-    assignments: { startTime: Date; endTime: Date; title: string }[];
+    assignments: { startDate: Date; endDate: Date; title: string }[];
 }
 
 export function GuideCalendar({ initialAvailability, assignments }: GuideCalendarProps) {
@@ -47,7 +47,7 @@ export function GuideCalendar({ initialAvailability, assignments }: GuideCalenda
 
     const getDayStatus = (date: Date) => {
         const assignment = assignments.find(a =>
-            isSameDay(new Date(a.startTime), date) || (isBefore(new Date(a.startTime), date) && isBefore(date, new Date(a.endTime)))
+            isSameDay(new Date(a.startDate), date) || (isBefore(new Date(a.startDate), date) && isBefore(date, new Date(a.endDate)))
         );
         if (assignment) return { type: 'ASSIGNED', label: 'Assigned' };
 

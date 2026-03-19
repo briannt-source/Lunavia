@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * TourDomain — Mutation Boundary for Tour Operations
  *
@@ -33,7 +34,7 @@ interface CompleteTourInput {
 export async function completeTour(input: CompleteTourInput) {
     const { tourId, actorId, actorRole, ipAddress } = input;
 
-    const request = await prisma.tour.findUnique({ where: { id: tourId } });
+    const request = await findTourCompat({ id: tourId });
     if (!request) throw new Error('Request not found');
     if (request.operatorId !== actorId) throw new Error('Not your request');
 
@@ -96,10 +97,10 @@ interface CreateSegmentsInput {
 export async function createSegments(input: CreateSegmentsInput) {
     const { tourId, actorId, segments } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, operatorId: true, status: true },
-    });
+    }));
 
     if (!tour) throw new Error('Tour not found');
     if (tour.operatorId !== actorId) throw new Error('Only the tour operator can create segments');
@@ -218,13 +219,13 @@ export async function bulkCloseTours(input: BulkCloseInput) {
 
     for (const tourId of tourIds) {
         try {
-            const tour = await prisma.tour.findUnique({
+            const tour = enrichTourCompat(await prisma.tour.findUnique({
                 where: { id: tourId },
                 include: {
                     incidents: { where: { status: 'OPEN' } },
                     feedback: { where: { severity: { not: 'OK' } } },
                 },
-            });
+            }));
             if (!tour || tour.operatorId !== operatorId) throw new Error('Tour not found or unauthorized');
             if (tour.status !== TOUR_STATUS.COMPLETED) throw new Error(`Tour in ${tour.status} state`);
             if (tour.incidents.length > 0) throw new Error('Tour has open incidents');

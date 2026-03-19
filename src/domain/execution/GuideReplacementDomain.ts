@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * GuideReplacementDomain — Guide Replacement Control
  *
@@ -50,10 +51,10 @@ interface RequestReplacementInput {
 async function requestReplacement(input: RequestReplacementInput) {
     const { tourId, guideId, reason, suggestedReplacementId } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, title: true, operatorId: true, assignedGuideId: true, status: true, startTime: true },
-    });
+        select: { id: true, title: true, operatorId: true, assignedGuideId: true, status: true, startDate: true },
+    }));
 
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.assignedGuideId !== guideId) throw new Error('NOT_ASSIGNED');
@@ -66,7 +67,7 @@ async function requestReplacement(input: RequestReplacementInput) {
     if (existing) throw new Error('REPLACEMENT_ALREADY_PENDING');
 
     // Determine if this is an emergency (<3h before start)
-    const hoursUntilStart = (tour.startTime.getTime() - Date.now()) / (1000 * 60 * 60);
+    const hoursUntilStart = (tour.startDate.getTime() - Date.now()) / (1000 * 60 * 60);
     const isEmergency = hoursUntilStart < EMERGENCY_THRESHOLD_HOURS;
 
     const request = await executeGovernedMutation({
@@ -303,10 +304,10 @@ async function cancelFromReplacement(request: any, operatorId: string, note?: st
  * this constitutes abandonment. Called by automation (NoShowPolicy).
  */
 async function markGuideAbandoned(tourId: string, guideId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { id: true, title: true, operatorId: true },
-    });
+    }));
     if (!tour) return;
 
     // Check if there was a replacement request
@@ -357,10 +358,10 @@ async function markGuideAbandoned(tourId: string, guideId: string) {
 // ── Suggest Available Guides (for operator) ───────────────────────────
 
 async function suggestAvailableGuides(tourId: string, operatorId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, startTime: true, endTime: true, province: true, language: true },
-    });
+        select: { id: true, startDate: true, endDate: true, province: true, language: true },
+    }));
     if (!tour) throw new Error('NOT_FOUND');
 
     // 1. Find in-house (affiliated) guides
@@ -383,8 +384,8 @@ async function suggestAvailableGuides(tourId: string, operatorId: string) {
                 operatorRequests: {
                     some: {
                         status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
-                        startTime: { lte: tour.endTime },
-                        endTime: { gte: tour.startTime },
+                        startDate: { lte: tour.endDate },
+                        endDate: { gte: tour.startDate },
                     },
                 },
             },

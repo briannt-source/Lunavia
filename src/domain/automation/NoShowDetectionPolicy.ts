@@ -11,7 +11,7 @@ export class NoShowDetectionPolicy {
             return { isNoShow: false };
         }
 
-        const noShowThreshold = new Date(tour.startTime.getTime() + 30 * 60 * 1000); // Start + 30m (tourism-appropriate grace period)
+        const noShowThreshold = new Date(tour.startDate.getTime() + 30 * 60 * 1000); // Start + 30m (tourism-appropriate grace period)
         if (Date.now() > noShowThreshold.getTime()) {
             return { isNoShow: true, reason: 'Guide failed to check in 30m after start time' };
         }

@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 // ══════════════════════════════════════════════════════════════════════
 // GuideBlacklistService — Operator-specific guide blocking
 //

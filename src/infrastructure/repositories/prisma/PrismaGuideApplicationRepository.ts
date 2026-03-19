@@ -79,7 +79,7 @@ export class PrismaGuideApplicationRepository implements IGuideApplicationReposi
         });
     }
 
-    async findConflictingApplications(guideId: string, startTime: Date, endTime: Date, excludeRequestId?: string): Promise<GuideApplication[]> {
+    async findConflictingApplications(guideId: string, startDate: Date, endDate: Date, excludeRequestId?: string): Promise<GuideApplication[]> {
         const rawApps = await prisma.guideApplication.findMany({
             where: {
                 guideId,
@@ -87,8 +87,8 @@ export class PrismaGuideApplicationRepository implements IGuideApplicationReposi
                 requestId: excludeRequestId ? { not: excludeRequestId } : undefined,
                 request: {
                     AND: [
-                        { startTime: { lt: endTime } },
-                        { endTime: { gt: startTime } },
+                        { startDate: { lt: endTime } },
+                        { endDate: { gt: startTime } },
                     ]
                 }
             },

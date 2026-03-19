@@ -13,8 +13,8 @@ interface TourAlert {
     alertType: string;
     urgency: 'info' | 'warning' | 'critical' | 'urgent';
     message: string;
-    startTime: string;
-    endTime: string;
+    startDate: string;
+    endDate: string;
     icon: string;
     actionUrl: string;
 }
@@ -265,9 +265,9 @@ export default function TourReminderPopup() {
                                         {alert.message}
                                     </p>
                                     <div className="flex items-center gap-2 mt-1.5 text-[11px] text-gray-500">
-                                        {alert.startTime && (
+                                        {alert.startDate && (
                                             <span>
-                                                🕒 {new Date(alert.startTime).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+                                                🕒 {new Date(alert.startDate).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
                                             </span>
                                         )}
                                     </div>

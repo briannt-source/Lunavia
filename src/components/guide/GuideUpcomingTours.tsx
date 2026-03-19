@@ -9,7 +9,7 @@ interface UpcomingTour {
     id: string;
     title: string;
     status: string;
-    startTime: string;
+    startDate: string;
     operatorName: string | null;
 }
 
@@ -74,8 +74,8 @@ export function GuideUpcomingTours({ userId }: { userId: string }) {
                             <div className="min-w-0">
                                 <h4 className="font-medium text-sm text-gray-900 truncate">{tour.title}</h4>
                                 <div className="flex items-center gap-2 mt-0.5 text-xs text-gray-500">
-                                    <span>📅 {formatDateLabel(tour.startTime)}</span>
-                                    <span>⏰ {formatTime(tour.startTime)}</span>
+                                    <span>📅 {formatDateLabel(tour.startDate)}</span>
+                                    <span>⏰ {formatTime(tour.startDate)}</span>
                                     {tour.operatorName && <span>🏢 {tour.operatorName}</span>}
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ interface TourItem {
     id: string;
     title: string;
     location: string;
-    startTime: string;
+    startDate: string;
     status: string;
 }
 
@@ -196,7 +196,7 @@ export default function OperatorPublicProfile({ operator, stats, tours, reviews 
                                                     </svg>
                                                     {tour.location}
                                                     <span className="text-gray-300 mx-0.5">·</span>
-                                                    {new Date(tour.startTime).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                    {new Date(tour.startDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                 </p>
                                             </div>
                                             <StatusBadge status={tour.status} />

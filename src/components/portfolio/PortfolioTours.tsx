@@ -29,7 +29,7 @@ export default function PortfolioTours({ tours }: { tours: any[] }) {
                         <div className="p-4 text-sm text-gray-500 space-y-2">
                             <div className="flex items-center gap-2">
                                 <CalendarIcon className="h-4 w-4 text-gray-400" />
-                                <span>{new Date(tour.startTime).toLocaleDateString()}</span>
+                                <span>{new Date(tour.startDate).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <MapPinIcon className="h-4 w-4 text-gray-400" />

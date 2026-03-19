@@ -44,7 +44,7 @@ export default function ServiceView({ data, viewerRole }: ServiceViewProps) {
                             {request.status.replace('_', ' ')}
                         </span>
                     </div>
-                    <p className="text-gray-500 mt-2">{request.location} • {new Date(request.startTime).toLocaleDateString()}</p>
+                    <p className="text-gray-500 mt-2">{request.location} • {new Date(request.startDate).toLocaleDateString()}</p>
                 </div>
                 {canCancel && (
                     <button
@@ -66,11 +66,11 @@ export default function ServiceView({ data, viewerRole }: ServiceViewProps) {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-sm text-gray-500">Start Time</p>
-                                <p className="font-medium">{new Date(request.startTime).toLocaleString()}</p>
+                                <p className="font-medium">{new Date(request.startDate).toLocaleString()}</p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">End Time</p>
-                                <p className="font-medium">{new Date(request.endTime).toLocaleString()}</p>
+                                <p className="font-medium">{new Date(request.endDate).toLocaleString()}</p>
                             </div>
                         </div>
                     </div>

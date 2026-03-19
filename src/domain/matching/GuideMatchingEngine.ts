@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * GuideMatchingEngine — Intelligent Guide Ranking
  *
@@ -45,7 +46,7 @@ function calculateGuideMatchScore(params: {
     };
     tour: {
         language: string | null;
-        startTime: Date;
+        startDate: Date;
         operatorId: string;
     };
     isAvailable: boolean;
@@ -107,13 +108,13 @@ function calculateGuideMatchScore(params: {
  */
 async function rankGuidesForTour(tourId: string): Promise<RankedGuide[]> {
     // Fetch tour details
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true, operatorId: true, language: true,
-            startTime: true, endTime: true, status: true,
+            startDate: true, endDate: true, status: true,
         },
-    });
+    }));
 
     if (!tour) throw new Error('Tour not found');
 
@@ -135,7 +136,7 @@ async function rankGuidesForTour(tourId: string): Promise<RankedGuide[]> {
     const availabilityBlocks = await prisma.guideAvailability.findMany({
         where: {
             userId: { in: guides.map(g => g.id) },
-            date: tour.startTime,
+            date: tour.startDate,
             status: 'AVAILABLE',
         },
         select: { userId: true },

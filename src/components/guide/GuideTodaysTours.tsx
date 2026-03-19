@@ -9,8 +9,8 @@ interface TodayTour {
     id: string;
     title: string;
     status: string;
-    startTime: string;
-    endTime: string | null;
+    startDate: string;
+    endDate: string | null;
     pickupLocation: string | null;
     guideCheckedInAt: string | null;
     operatorStartedAt: string | null;
@@ -92,7 +92,7 @@ export function GuideTodaysTours({ userId }: { userId: string }) {
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
-                                            <span>⏰ {formatTime(tour.startTime)}{tour.endTime ? ` – ${formatTime(tour.endTime)}` : ''}</span>
+                                            <span>⏰ {formatTime(tour.startDate)}{tour.endDate ? ` – ${formatTime(tour.endDate)}` : ''}</span>
                                             {tour.pickupLocation && <span>📍 {tour.pickupLocation}</span>}
                                         </div>
                                         {isInProgress && tour.segmentCount > 0 && (

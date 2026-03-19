@@ -15,11 +15,11 @@ export class TourAutoClosePolicy {
         }
 
         // Use endTime as reference; if not set, cannot determine close window
-        if (!tour.endTime) {
+        if (!tour.endDate) {
             return { close: false, reason: 'No endTime — cannot determine close window' };
         }
 
-        const closeTimeThreshold = new Date(tour.endTime.getTime() + 24 * 60 * 60 * 1000); // endTime + 24h
+        const closeTimeThreshold = new Date(tour.endDate.getTime() + 24 * 60 * 60 * 1000); // endTime + 24h
         if (Date.now() < closeTimeThreshold.getTime()) {
             return { close: false, reason: 'Less than 24h since completion' };
         }

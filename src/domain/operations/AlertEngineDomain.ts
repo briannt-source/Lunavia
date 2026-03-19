@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * AlertEngineDomain — Automatic Operational Alert System
  *
@@ -63,17 +64,17 @@ async function createAlert(params: {
 // ── Scan Tour for Alerts ──────────────────────────────────────────────
 
 async function scanTourForAlerts(tourId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, status: true, startTime: true, assignedGuideId: true },
-    });
+        select: { id: true, status: true, startDate: true, assignedGuideId: true },
+    }));
     if (!tour) return [];
 
     const now = new Date();
     const alerts: any[] = [];
 
     // 1. Pickup delay — pickup not started 15+ min after scheduled start
-    const minutesPastStart = (now.getTime() - new Date(tour.startTime).getTime()) / 60000;
+    const minutesPastStart = (now.getTime() - new Date(tour.startDate).getTime()) / 60000;
     if (minutesPastStart > 15 && ['ASSIGNED', 'READY'].includes(tour.status)) {
         const pickupEvent = await (prisma as any).tourExecutionEvent.findFirst({
             where: { tourId, eventType: 'PICKUP_STARTED', isSimulation: false },
@@ -152,7 +153,7 @@ async function getActiveAlerts(operatorId: string) {
             createdAt: { gte: today },
         },
         include: {
-            tour: { select: { id: true, title: true, assignedGuideId: true, startTime: true } },
+            tour: { select: { id: true, title: true, assignedGuideId: true, startDate: true } },
         },
         orderBy: [
             { severity: 'desc' },
@@ -185,7 +186,7 @@ async function scanOperatorTours(operatorId: string) {
     const tours = await prisma.tour.findMany({
         where: {
             operatorId,
-            startTime: { gte: today, lt: tomorrow },
+            startDate: { gte: today, lt: tomorrow },
             status: { notIn: ['CANCELLED', 'COMPLETED', 'DRAFT'] },
         },
         select: { id: true },

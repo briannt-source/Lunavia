@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 // ServiceRequest domain types - aligns with Prisma schema
 // Status values: OPEN | OFFERED | ASSIGNED | IN_PROGRESS | COMPLETED | CANCELLED
 
@@ -15,8 +16,8 @@ export interface ServiceRequest {
   assignedGuideId: string | null;
   title: string;
   description: string | null;
-  startTime: Date;
-  endTime: Date;
+  startDate: Date;
+  endDate: Date;
   location: string;
   status: ServiceRequestStatus;
   createdAt: Date;
@@ -26,7 +27,7 @@ export interface ServiceRequest {
 export interface CreateServiceRequestInput {
   title: string;
   description?: string;
-  startTime: string; // ISO string
-  endTime: string;   // ISO string
+  startDate: string; // ISO string
+  endDate: string;   // ISO string
   location: string;
 }

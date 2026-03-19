@@ -74,9 +74,9 @@ export class ReviewService {
     }
 
     // Check if tour is completed
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
       where: { id: tourId },
-    });
+    }));
 
     if (!tour || tour.status !== "COMPLETED") {
       return false;

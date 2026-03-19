@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * CheckinDomain — Segment Check-In & Tour Side-Effect Mutations
  *

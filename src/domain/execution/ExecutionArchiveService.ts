@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * ExecutionArchiveService — Immutable Execution Snapshots
  *
@@ -14,14 +15,14 @@ import { createHash } from 'crypto';
  */
 async function createArchive(tourId: string) {
     // Fetch full execution data
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
             title: true,
             status: true,
-            startTime: true,
-            endTime: true,
+            startDate: true,
+            endDate: true,
             operatorId: true,
             assignedGuideId: true,
             operatorStartedAt: true,
@@ -29,7 +30,7 @@ async function createArchive(tourId: string) {
             guideReturnedAt: true,
             operatorClosedAt: true,
         },
-    });
+    }));
 
     if (!tour) throw new Error('Tour not found');
 

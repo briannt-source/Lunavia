@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 import { prisma } from '@/lib/prisma';
 import { createDomainNotification, NotificationDomain } from '@/domain/notification/NotificationService';
 
@@ -135,7 +136,7 @@ async function createNotificationsForEvent(eventId: string, tourId: string, even
     if (!rules) return;
 
     // Get tour with operator and guide info
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -143,7 +144,7 @@ async function createNotificationsForEvent(eventId: string, tourId: string, even
             operatorId: true,
             assignedGuideId: true,
         },
-    });
+    }));
 
     if (!tour) return;
 

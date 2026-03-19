@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * TourChatDomain — Secure In-App Tour Messaging
  * 
@@ -21,10 +22,10 @@ export interface ChatMessageInput {
 // ── Validation ────────────────────────────────────────────────────────
 
 async function validateChatAccess(tourId: string, userId: string, userRole: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { operatorId: true, assignedGuideId: true, title: true }
-    });
+    }));
 
     if (!tour) throw new Error('Tour not found');
 

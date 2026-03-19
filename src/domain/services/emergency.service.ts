@@ -31,10 +31,10 @@ export class EmergencyService {
    */
   static async createSOS(input: CreateSOSInput) {
     // Get tour
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
       where: { id: input.tourId },
       include: { operator: true },
-    });
+    }));
 
     if (!tour) {
       throw new Error("Tour not found");

@@ -251,7 +251,7 @@ export function buildCancellationContext(
 /**
  * Determine if cancellation is EARLY or LATE based on tour start time
  */
-export function getCancellationTiming(startTime: Date): CancellationTiming {
+export function getCancellationTiming(startDate: Date): CancellationTiming {
     const now = new Date();
     const hoursUntilStart = (startTime.getTime() - now.getTime()) / (1000 * 60 * 60);
     return hoursUntilStart >= LATE_WINDOW_HOURS

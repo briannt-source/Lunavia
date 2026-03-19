@@ -15,8 +15,8 @@ interface Invite {
         title: string;
         location: string;
         province: string | null;
-        startTime: string;
-        endTime: string;
+        startDate: string;
+        endDate: string;
         language: string | null;
         totalPayout: number | null;
         currency: string;
@@ -175,7 +175,7 @@ export function GuideInviteList() {
                                         </p>
                                         <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
                                             <span>📍 {invite.tour.location}</span>
-                                            <span>📅 {format(new Date(invite.tour.startTime), 'MMM d, yyyy')}</span>
+                                            <span>📅 {format(new Date(invite.tour.startDate), 'MMM d, yyyy')}</span>
                                             {invite.tour.totalPayout && (
                                                 <span>💰 {invite.tour.totalPayout.toLocaleString()} {invite.tour.currency}</span>
                                             )}

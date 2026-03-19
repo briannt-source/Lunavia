@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 // ══════════════════════════════════════════════════════════════════════
 // TourIncidentService — Typed incident reporting during tour execution
 //
@@ -24,10 +25,10 @@ export class TourIncidentService {
         const { tourId, reportedBy, type, description, isSimulation = false } = params;
 
         // Verify tour exists
-        const tour = await prisma.tour.findUnique({
+        const tour = enrichTourCompat(await prisma.tour.findUnique({
             where: { id: tourId },
             select: { id: true, operatorId: true, assignedGuideId: true },
-        });
+        }));
         if (!tour) throw new Error('Tour not found');
 
         // Create incident

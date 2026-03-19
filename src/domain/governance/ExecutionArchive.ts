@@ -41,7 +41,7 @@ export async function createExecutionArchive(tourId: string): Promise<{
     snapshot: ExecutionSnapshot;
     hash: string;
 }> {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -50,7 +50,7 @@ export async function createExecutionArchive(tourId: string): Promise<{
             status: true,
             updatedAt: true,
         },
-    });
+    }));
 
     if (!tour) throw new Error(`Tour ${tourId} not found`);
     if (tour.status !== 'COMPLETED') {

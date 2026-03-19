@@ -26,9 +26,9 @@ export class SafetyCheckInService {
    * Schedule check-ins for a tour
    */
   static async scheduleCheckInsForTour(tourId: string, guideId: string) {
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
       where: { id: tourId },
-    });
+    }));
 
     if (!tour) {
       throw new Error("Tour not found");

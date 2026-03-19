@@ -49,7 +49,7 @@ export function CommandCenter() {
                 .map((tour: any) => ({
                     id: tour.id,
                     title: `Completed Tour: ${tour.title}`,
-                    subtitle: `Ended: ${new Date(tour.endTime).toLocaleDateString()}`,
+                    subtitle: `Ended: ${new Date(tour.endDate).toLocaleDateString()}`,
                     type: 'TOUR',
                     status: 'Ready to Close',
                     warning: tour.incidents?.length > 0 ? '🚫 Open Incidents' : undefined

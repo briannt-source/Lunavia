@@ -12,7 +12,7 @@ export default function MaintenanceScreen() {
             .then(res => res.json())
             .then(data => {
                 if (data.message) setMessage(data.message);
-                if (data.endTime) setEndTime(data.endTime);
+                if (data.endDate) setEndTime(data.endDate);
                 if (data.type) setType(data.type);
                 // If maintenance is off, redirect back
                 if (!data.maintenanceMode) {

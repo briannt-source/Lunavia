@@ -7,7 +7,7 @@ interface SOSBroadcast {
     tourId: string;
     tourTitle: string;
     location: string;
-    startTime: string;
+    startDate: string;
     payout: number;
     urgency: string;
     expiresAt: string;
@@ -80,7 +80,7 @@ export function GuideSOSAlerts() {
                     const expiresAt = new Date(broadcast.expiresAt);
                     const now = new Date();
                     const minutesLeft = Math.max(0, Math.floor((expiresAt.getTime() - now.getTime()) / 60000));
-                    const startDate = new Date(broadcast.startTime);
+                    const startDate = new Date(broadcast.startDate);
 
                     return (
                         <div key={broadcast.id} className="bg-white rounded-xl p-4 border border-red-100 shadow-sm">

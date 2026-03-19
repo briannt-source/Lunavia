@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * SOSBroadcastDomain — Emergency SOS Guide Search
  *
@@ -101,8 +102,8 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
         tourId: tour.id,
         title: tour.title,
         operator: { id: tour.operator.id, name: tour.operator.name, avatarUrl: tour.operator.avatarUrl },
-        startTime: tour.startTime.toISOString(),
-        endTime: tour.endTime.toISOString(),
+        startDate: tour.startDate.toISOString(),
+        endDate: tour.endDate.toISOString(),
         durationMinutes: tour.durationMinutes,
         location: tour.location,
         province: tour.province,
@@ -176,7 +177,7 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
                 targetUrl: `/dashboard/guide/sos/${broadcast.id}`,
                 type: 'SOS_GUIDE_BROADCAST',
                 title: '🚨 URGENT TOUR REQUEST',
-                message: `${tour.operator.name} needs a guide urgently! "${tour.title}" starting ${formatTimeUntil(tour.startTime)} in ${tour.location}. ${tour.groupSize || '?'} guests, ${tour.language || 'N/A'}. Payment: ${formatCurrency(tour.totalPayout, tour.currency)}`,
+                message: `${tour.operator.name} needs a guide urgently! "${tour.title}" starting ${formatTimeUntil(tour.startDate)} in ${tour.location}. ${tour.groupSize || '?'} guests, ${tour.language || 'N/A'}. Payment: ${formatCurrency(tour.totalPayout, tour.currency)}`,
                 relatedId: broadcast.id,
             });
             notifiedCount++;
@@ -317,7 +318,7 @@ async function getActiveSOSBroadcasts(guideId: string) {
     // Enrich with time-until-start and check if guide already applied
     const enriched = await Promise.all(broadcasts.map(async (b: any) => {
         const snapshot = b.tourSnapshot as any;
-        const startTime = new Date(snapshot.startTime);
+        const startTime = new Date(snapshot.startDate);
         const minutesUntilStart = Math.round((startTime.getTime() - now.getTime()) / 60000);
         const minutesUntilExpiry = Math.round((new Date(b.expiresAt).getTime() - now.getTime()) / 60000);
 
@@ -355,7 +356,7 @@ async function getSOSBroadcastDetails(broadcastId: string) {
     if (!broadcast) throw new Error('NOT_FOUND');
 
     const snapshot = broadcast.tourSnapshot as any;
-    const startTime = new Date(snapshot.startTime);
+    const startTime = new Date(snapshot.startDate);
     const minutesUntilStart = Math.round((startTime.getTime() - Date.now()) / 60000);
 
     return {
@@ -397,8 +398,8 @@ async function findMatchingGuides(tour: any) {
     const overlappingGuideIds = await prisma.tour.findMany({
         where: {
             status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
-            startTime: { lte: tour.endTime },
-            endTime: { gte: tour.startTime },
+            startDate: { lte: tour.endDate },
+            endDate: { gte: tour.startDate },
             assignedGuideId: { not: null },
         },
         select: { assignedGuideId: true },
@@ -423,7 +424,7 @@ async function findMatchingGuides(tour: any) {
     });
 }
 
-function formatTimeUntil(startTime: Date): string {
+function formatTimeUntil(startDate: Date): string {
     const minutes = Math.round((startTime.getTime() - Date.now()) / 60000);
     if (minutes < 60) return `in ${minutes}m`;
     const hours = Math.floor(minutes / 60);

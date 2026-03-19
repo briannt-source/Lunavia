@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * Tour Lifecycle Management
  * 
@@ -56,7 +57,7 @@ export async function processAutoStart(): Promise<{ processed: number; errors: s
         const toursToStart = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
-                startTime: { lte: now },
+                startDate: { lte: now },
                 guideCheckedInAt: { not: null },
             },
             select: {
@@ -125,7 +126,7 @@ export async function processAutoReady(): Promise<{ processed: number; errors: s
         const toursToReady = await prisma.tour.findMany({
             where: {
                 status: 'ASSIGNED',
-                startTime: { lte: readyWindow },
+                startDate: { lte: readyWindow },
             },
             select: {
                 id: true,
@@ -181,7 +182,7 @@ export async function processCheckInEscalation(): Promise<{ processed: number; e
         const toursToEscalate = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
-                startTime: { lte: escalationThreshold },
+                startDate: { lte: escalationThreshold },
                 guideCheckedInAt: null,
                 assignedGuideId: { not: null },
             },
@@ -255,7 +256,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
         const noShowTours = await (prisma.tour as any).findMany({
             where: {
                 status: { in: ['ASSIGNED', 'READY'] },
-                startTime: { lt: now },
+                startDate: { lt: now },
                 guideCheckedInAt: null,
                 assignedGuideId: { not: null },
             },
@@ -382,7 +383,7 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
         const overdueTours = await prisma.tour.findMany({
             where: {
                 status: 'IN_PROGRESS',
-                endTime: { lt: autoCloseThreshold },
+                endDate: { lt: autoCloseThreshold },
             },
             select: {
                 id: true,
@@ -445,12 +446,12 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
  * Check if operator can manually start a tour
  * Window: startAt - 10min to startAt
  */
-export function canOperatorStart(tour: { startTime: Date; status: string; guideCheckedInAt: Date | null }): {
+export function canOperatorStart(tour: { startDate: Date; status: string; guideCheckedInAt: Date | null }): {
     allowed: boolean;
     reason?: string
 } {
     const now = new Date();
-    const startTime = new Date(tour.startTime);
+    const startTime = new Date(tour.startDate);
     const windowStart = new Date(startTime.getTime() - TIME_BUFFERS.OPERATOR_START_WINDOW);
 
     if (!['ASSIGNED', 'READY'].includes(tour.status)) {

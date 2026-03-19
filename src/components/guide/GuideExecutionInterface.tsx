@@ -19,7 +19,7 @@ interface Segment {
 }
 
 interface TourData {
-    tour: { id: string; title: string; status: string; startTime: string; endTime: string | null };
+    tour: { id: string; title: string; status: string; startDate: string; endDate: string | null };
     segments: Segment[];
 }
 
@@ -256,8 +256,8 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                         <div className="min-w-0 flex-1">
                             <h1 className="text-lg font-bold text-gray-900 truncate">{tour.title}</h1>
                             <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
-                                <span>{new Date(tour.startTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-                                {tour.endTime && <span>– {new Date(tour.endTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>}
+                                <span>{new Date(tour.startDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+                                {tour.endDate && <span>– {new Date(tour.endDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>}
                                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${isInProgress ? 'bg-green-100 text-green-700' :
                                         isCompleted ? 'bg-amber-100 text-amber-700' :
                                         isClosed ? 'bg-green-100 text-green-700' :

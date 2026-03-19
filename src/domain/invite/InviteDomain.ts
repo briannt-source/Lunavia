@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * InviteDomain — Guide Invite Flow
  *
@@ -29,10 +30,10 @@ async function createInvite(params: {
     const { tourId, guideId, operatorId, message } = params;
 
     // Validation
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, operatorId: true, status: true, title: true, startTime: true, assignedGuideId: true },
-    });
+        select: { id: true, operatorId: true, status: true, title: true, startDate: true, assignedGuideId: true },
+    }));
 
     if (!tour) throw new Error('Tour not found');
     if (tour.operatorId !== operatorId) throw new Error('Not your tour');
@@ -50,7 +51,7 @@ async function createInvite(params: {
     if (guide.role.name !== 'TOUR_GUIDE') throw new Error('User is not a guide');
 
     // Check guide availability on tour date
-    const isAvailable = await AvailabilityDomain.isAvailableOn(guideId, tour.startTime);
+    const isAvailable = await AvailabilityDomain.isAvailableOn(guideId, tour.startDate);
     if (!isAvailable) {
         throw new Error('Guide is not available on the tour date');
     }
@@ -107,7 +108,7 @@ async function acceptInvite(params: {
     const invite = await prisma.guideInvite.findUnique({
         where: { id: inviteId },
         include: {
-            tour: { select: { id: true, title: true, startTime: true, assignedGuideId: true, operatorId: true } },
+            tour: { select: { id: true, title: true, startDate: true, assignedGuideId: true, operatorId: true } },
         },
     });
 
@@ -118,7 +119,7 @@ async function acceptInvite(params: {
     if (invite.tour.assignedGuideId) throw new Error('Tour already has an assigned guide');
 
     // Re-check availability
-    const isAvailable = await AvailabilityDomain.isAvailableOn(guideId, invite.tour.startTime);
+    const isAvailable = await AvailabilityDomain.isAvailableOn(guideId, invite.tour.startDate);
     if (!isAvailable) {
         throw new Error('You are no longer available on the tour date');
     }
@@ -252,7 +253,7 @@ async function getGuideInvites(guideId: string) {
             tour: {
                 select: {
                     id: true, title: true, location: true, province: true,
-                    startTime: true, endTime: true, language: true, totalPayout: true,
+                    startDate: true, endDate: true, language: true, totalPayout: true,
                     currency: true, status: true,
                 },
             },
@@ -275,7 +276,7 @@ async function getOperatorInvites(operatorId: string) {
         where: { operatorId },
         include: {
             tour: {
-                select: { id: true, title: true, startTime: true, status: true },
+                select: { id: true, title: true, startDate: true, status: true },
             },
             guide: {
                 select: {

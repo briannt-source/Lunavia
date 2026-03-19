@@ -9,7 +9,7 @@ interface ActiveTour {
     id: string;
     title: string;
     status: string;
-    startTime: string;
+    startDate: string;
     operator: string;
     guide: string;
     incidentCount: number;
@@ -30,7 +30,7 @@ interface OpsIncident {
 interface DelayedTour {
     id: string;
     title: string;
-    startTime: string;
+    startDate: string;
     delayMinutes: number;
     operator: string;
     guide: string;
@@ -140,7 +140,7 @@ export function OpsOperationsCenter() {
                                                     <span className={`px-2 py-0.5 rounded text-xs font-medium ${t.status === 'IN_PROGRESS' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                                                         }`}>{t.status}</span>
                                                 </td>
-                                                <td className="px-4 py-3 text-gray-500 font-mono text-xs">{formatTime(t.startTime)}</td>
+                                                <td className="px-4 py-3 text-gray-500 font-mono text-xs">{formatTime(t.startDate)}</td>
                                                 <td className="px-4 py-3">
                                                     <div className="flex gap-1">
                                                         {t.isDelayed && <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">DELAYED</span>}
@@ -209,7 +209,7 @@ export function OpsOperationsCenter() {
                                                 +{t.delayMinutes}min late
                                             </span>
                                             <div className="text-xs text-gray-400 mt-0.5">
-                                                Planned: {formatTime(t.startTime)}
+                                                Planned: {formatTime(t.startDate)}
                                             </div>
                                         </div>
                                     </div>

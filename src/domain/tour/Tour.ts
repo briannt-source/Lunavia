@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 import { TourStatus } from './TourStatus';
 
 export interface TourProps {
@@ -9,8 +10,8 @@ export interface TourProps {
     status: TourStatus;
 
     // Timing
-    startTime: Date;
-    endTime: Date;
+    startDate: Date;
+    endDate: Date;
 
     // Assignment
     assignedGuideId?: string | null;
@@ -37,8 +38,8 @@ export class Tour {
     get title() { return this.props.title; }
     get operatorId() { return this.props.operatorId; }
     get status() { return this.props.status; }
-    get startTime() { return this.props.startTime; }
-    get endTime() { return this.props.endTime; }
+    get startTime() { return this.props.startDate; }
+    get endTime() { return this.props.endDate; }
     get assignedGuideId() { return this.props.assignedGuideId; }
     get guideCheckedInAt() { return this.props.guideCheckedInAt; }
     get guideReturnedAt() { return this.props.guideReturnedAt; } // Added for Payment logic
@@ -50,14 +51,14 @@ export class Tour {
     // Validation Methods (Domain Logic)
 
     public isStartsInFuture(): boolean {
-        return this.startTime.getTime() > Date.now();
+        return this.startDate.getTime() > Date.now();
     }
 
     public canCheckIn(): boolean {
         // Can check in if Assigned and within window (30 mins before)
         if (this.status !== 'ASSIGNED' && this.status !== 'READY') return false;
 
-        const windowStart = new Date(this.startTime.getTime() - 30 * 60 * 1000);
+        const windowStart = new Date(this.startDate.getTime() - 30 * 60 * 1000);
         return Date.now() >= windowStart.getTime();
     }
 

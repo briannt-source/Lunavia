@@ -103,8 +103,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
     const [location, setLocation] = useState(initialData?.location || '');
     const [province, setProvince] = useState(initialData?.province || '');
     const formatDateTime = (isoString: string) => isoString ? new Date(isoString).toISOString().slice(0, 16) : '';
-    const [startTime, setStartTime] = useState(initialData?.startTime ? formatDateTime(initialData.startTime) : '');
-    const [endTime, setEndTime] = useState(initialData?.endTime ? formatDateTime(initialData.endTime) : '');
+    const [startTime, setStartTime] = useState(initialData?.startDate ? formatDateTime(initialData.startDate) : '');
+    const [endTime, setEndTime] = useState(initialData?.endDate ? formatDateTime(initialData.endDate) : '');
     const [language, setLanguage] = useState(initialData?.language || 'EN');
     const [visibility, setVisibility] = useState(initialData?.visibility || 'PUBLIC');
 
@@ -235,8 +235,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                     description: description.trim() || null,
                     location: location.trim(),
                     province: province || null,
-                    startTime: startTime || null,
-                    endTime: endTime || null,
+                    startDate: startTime || null,
+                    endDate: endTime || null,
                     language, visibility,
                     itinerary: itinerary.trim() || null,
                     inclusion: inclusion.trim() || null,
@@ -444,8 +444,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                 description: description.trim() || null,
                 location: location.trim(),
                 province: province || null,
-                startTime: startTime || null,
-                endTime: endTime || null,
+                startDate: startTime || null,
+                endDate: endTime || null,
                 language,
                 visibility,
                 itinerary: itinerary.trim() || null,

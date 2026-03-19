@@ -169,10 +169,10 @@ export class TrustService {
             notification: async () => {
                 // Post-transaction: evaluate risk + update compliance (best-effort)
                 try {
-                    const sr = await prisma.tour.findUnique({
+                    const sr = enrichTourCompat(await prisma.tour.findUnique({
                         where: { id: serviceRequestId },
                         select: { operatorId: true },
-                    });
+                    }));
                     if (sr) {
                         const operatorId = sr.operatorId;
                         const riskResult = await evaluateOperatorRisk(operatorId);
@@ -195,7 +195,7 @@ export class TrustService {
                     console.error('Risk evaluation after tour completion failed (best-effort):', err);
                 }
             },
-        });
+        }));
 
         // Post-transaction: send trust score notifications (non-critical, best-effort)
         for (const g of result.guideNotifs ?? []) {
@@ -249,7 +249,7 @@ export class TrustService {
                 }
 
                 const now = new Date();
-                const hoursUntilStart = differenceInHours(new Date(request.startTime), now);
+                const hoursUntilStart = differenceInHours(new Date(request.startDate), now);
                 let penaltyPoints = 0;
                 let isLastMinute = false;
 

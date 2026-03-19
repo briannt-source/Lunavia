@@ -13,8 +13,8 @@ interface AvailabilityBlock {
 interface AssignedTour {
     id: string;
     title: string;
-    startTime: string;
-    endTime: string;
+    startDate: string;
+    endDate: string;
     status: string;
 }
 
@@ -57,7 +57,7 @@ export default function GuideCalendarWidget() {
     // Build tour map: dateStr -> tour[]
     const tourMap = new Map<string, AssignedTour[]>();
     tours.forEach(t => {
-        const key = new Date(t.startTime).toISOString().slice(0, 10);
+        const key = new Date(t.startDate).toISOString().slice(0, 10);
         if (!tourMap.has(key)) tourMap.set(key, []);
         tourMap.get(key)!.push(t);
     });
@@ -180,7 +180,7 @@ export default function GuideCalendarWidget() {
                             <div key={t.id} className="flex items-center justify-between bg-indigo-50 rounded-lg px-3 py-2 text-sm">
                                 <span className="font-medium text-indigo-900 truncate max-w-[200px]">{t.title}</span>
                                 <span className="text-indigo-500 text-xs">
-                                    {new Date(t.startTime).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                                    {new Date(t.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
                                 </span>
                             </div>
                         ))}

@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * GuideAvailabilityDomain — Guide Matching & Availability Tracking
  *
@@ -37,7 +38,7 @@ async function getGuideAvailability(guideId: string, date: Date): Promise<string
     const assignedTour = await prisma.tour.findFirst({
         where: {
             assignedGuideId: guideId,
-            startTime: { gte: startOfDay, lt: endOfDay },
+            startDate: { gte: startOfDay, lt: endOfDay },
             status: { notIn: ['CANCELLED', 'DRAFT'] },
         },
     });
@@ -77,8 +78,8 @@ async function findAvailableGuides(criteria: GuideMatchCriteria) {
 
     // Find guides booked for overlapping tours
     const bookedFilter: any = {
-        startTime: { lt: endTime || endOfDay },
-        endTime: { gt: startTime || startOfDay },
+        startDate: { lt: endTime || endOfDay },
+        endDate: { gt: startTime || startOfDay },
         status: { notIn: ['CANCELLED', 'DRAFT'] },
     };
     const bookedTours = await prisma.tour.findMany({

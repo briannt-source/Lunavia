@@ -11,17 +11,17 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
 
     // Query condition based on role
     const whereCondition = role === 'TOUR_OPERATOR'
-        ? { operatorId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startTime: { gte: now } }
-        : { assignedGuideId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startTime: { gte: now } };
+        ? { operatorId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startDate: { gte: now } }
+        : { assignedGuideId: userId, status: { in: ['ASSIGNED', 'READY', 'IN_PROGRESS'] }, startDate: { gte: now } };
 
     const upcomingTours = await prisma.tour.findMany({
         where: whereCondition as any,
-        orderBy: { startTime: 'asc' },
+        orderBy: { startDate: 'asc' },
         take: 3,
         select: {
             id: true,
             title: true,
-            startTime: true,
+            startDate: true,
             location: true,
             status: true,
         }
@@ -64,15 +64,15 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
                     <Link href={`/dashboard/service-requests/${tour.id}`} key={tour.id} className="block group">
                         <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                             <div className="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg text-center min-w-[60px]">
-                                <div className="text-xs font-bold uppercase">{tour.startTime.toLocaleString('default', { month: 'short' })}</div>
-                                <div className="text-lg font-bold">{tour.startTime.getDate()}</div>
+                                <div className="text-xs font-bold uppercase">{tour.startDate.toLocaleString('default', { month: 'short' })}</div>
+                                <div className="text-lg font-bold">{tour.startDate.getDate()}</div>
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h4 className="font-medium text-gray-900 truncate group-hover:text-indigo-600 transition-colors">{tour.title}</h4>
                                 <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                                     <span>📍 {tour.location}</span>
                                     <span>•</span>
-                                    <span>{tour.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                    <span>{tour.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col items-end gap-1">

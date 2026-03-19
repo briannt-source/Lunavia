@@ -21,11 +21,11 @@ export class ApplicationPolicy {
     static isTimeConflict(
         tourStart: Date,
         tourEnd: Date,
-        existingTours: { startTime: Date; endTime: Date }[]
+        existingTours: { startDate: Date; endDate: Date }[]
     ): boolean {
         // Simple overlap check
         return existingTours.some(existing => {
-            return (tourStart < existing.endTime && tourEnd > existing.startTime);
+            return (tourStart < existing.endDate && tourEnd > existing.startDate);
         });
     }
 }

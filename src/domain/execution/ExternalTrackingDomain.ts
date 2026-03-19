@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 /**
  * ExternalTrackingDomain — Token-based Tour Tracking for Partner Agencies
  *
@@ -39,10 +40,10 @@ interface CreateTrackingLinkInput {
 async function createTrackingLink(input: CreateTrackingLinkInput) {
     const { tourId, operatorId, agencyName, permissions } = input;
 
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, operatorId: true, endTime: true, title: true },
-    });
+        select: { id: true, operatorId: true, endDate: true, title: true },
+    }));
 
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.operatorId !== operatorId) throw new Error('FORBIDDEN');
@@ -51,7 +52,7 @@ async function createTrackingLink(input: CreateTrackingLinkInput) {
     const token = randomBytes(TOKEN_LENGTH).toString('hex');
 
     // Expiry: 48h after tour end time
-    const expiresAt = new Date(tour.endTime.getTime() + DEFAULT_EXPIRY_HOURS_AFTER_COMPLETION * 3600000);
+    const expiresAt = new Date(tour.endDate.getTime() + DEFAULT_EXPIRY_HOURS_AFTER_COMPLETION * 3600000);
 
     const defaultPerms = {
         viewTimeline: true,
@@ -93,14 +94,14 @@ async function getTrackingData(token: string) {
     const permissions = access.permissions as any;
 
     // Fetch tour data (sanitized — no financials)
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: access.tourId },
         select: {
             id: true,
             title: true,
             status: true,
-            startTime: true,
-            endTime: true,
+            startDate: true,
+            endDate: true,
             durationMinutes: true,
             location: true,
             province: true,
@@ -109,7 +110,7 @@ async function getTrackingData(token: string) {
             // NO financial fields (totalPayout, currency, etc.)
             // NO internal fields (operatorMetadata, etc.)
         },
-    });
+    }));
 
     if (!tour) throw new Error('TOUR_NOT_FOUND');
 
@@ -122,10 +123,10 @@ async function getTrackingData(token: string) {
     // Guide info (if permitted)
     let guide = null;
     if (permissions.viewGuide) {
-        const tourFull = await prisma.tour.findUnique({
+        const tourFull = enrichTourCompat(await prisma.tour.findUnique({
             where: { id: access.tourId },
             select: { assignedGuideId: true },
-        });
+        }));
         if (tourFull?.assignedGuideId) {
             guide = await prisma.user.findUnique({
                 where: { id: tourFull.assignedGuideId },

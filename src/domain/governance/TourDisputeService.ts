@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 // ══════════════════════════════════════════════════════════════════════
 // TourDisputeService — Tour-level dispute resolution
 //
@@ -58,10 +59,10 @@ export class TourDisputeService {
         const { tourId, openedById, reason, description, evidenceUrl, isSimulation = false } = params;
 
         // Verify tour exists
-        const tour = await prisma.tour.findUnique({
+        const tour = enrichTourCompat(await prisma.tour.findUnique({
             where: { id: tourId },
             select: { id: true, operatorId: true, assignedGuideId: true, escrowStatus: true },
-        });
+        }));
         if (!tour) throw new Error('Tour not found');
 
         // Verify opener is involved in the tour

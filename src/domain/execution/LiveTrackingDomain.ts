@@ -1,3 +1,4 @@
+import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
@@ -20,10 +21,10 @@ async function logLocationPing(input: LogLocationPingInput) {
 
     // Fast check: Ensure tour is actually in progress and guide is assigned.
     // If we want ultra-high throughput, we could cache this in Redis. For now DB is fine.
-    const tour = await prisma.tour.findUnique({
+    const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
         select: { status: true, assignedGuideId: true }
-    });
+    }));
 
     if (!tour) throw new Error('NOT_FOUND');
     if (tour.status !== 'IN_PROGRESS') throw new Error('TOUR_NOT_ACTIVE');

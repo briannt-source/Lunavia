@@ -12,7 +12,7 @@ interface SentInvite {
     tour: {
         id: string;
         title: string;
-        startTime: string;
+        startDate: string;
         status: string;
     };
     guide: {
@@ -28,7 +28,7 @@ interface Tour {
     id: string;
     title: string;
     status: string;
-    startTime: string;
+    startDate: string;
 }
 
 const STATUS_STYLES: Record<string, string> = {
@@ -109,7 +109,7 @@ function InviteModal({ tours, guideId, guideName, onClose, onSent }: InviteModal
                                 <option value="">Choose a tour...</option>
                                 {eligibleTours.map(t => (
                                     <option key={t.id} value={t.id}>
-                                        {t.title} — {format(new Date(t.startTime), 'MMM d, yyyy')}
+                                        {t.title} — {format(new Date(t.startDate), 'MMM d, yyyy')}
                                     </option>
                                 ))}
                             </select>
