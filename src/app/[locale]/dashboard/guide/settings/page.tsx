@@ -14,45 +14,31 @@ export default async function SettingsPage() {
     const user = session.user;
 
     try {
-        // Fetch fresh status in realtime
         const dbUser = await prisma.user.findUnique({
             where: { id: user.id },
             select: {
                 id: true,
                 role: true,
-                kybStatus: true,
-                kycStatus: true,
-                verificationStatus: true,
-                paymentInfo: true, // Fetch payment details
+                verifiedStatus: true,
             }
         });
 
         if (!dbUser) redirect('/login');
 
-        // Fetch Trust Score using Repo
         const trustState = await PrismaUserTrustRepo.getTrustState(dbUser.id);
-
-        let parsedPaymentInfo = null;
-        if (dbUser.paymentInfo) {
-            try {
-                parsedPaymentInfo = JSON.parse(dbUser.paymentInfo);
-            } catch (e) {
-                console.error("Failed to parse paymentInfo", e);
-            }
-        }
 
         return (
             <SettingsForm
                 user={{
-                    ...user, // existing session user details
-                    kybStatus: dbUser.kybStatus, // Ensure consistent status from DB
-                    kycStatus: dbUser.kycStatus,
-                    verificationStatus: dbUser.verificationStatus
+                    ...user,
+                    kybStatus: dbUser.verifiedStatus,
+                    kycStatus: dbUser.verifiedStatus,
+                    verificationStatus: dbUser.verifiedStatus
                 }}
                 trustScore={trustState.score}
-                kybStatus={dbUser.kybStatus}
-                kycStatus={dbUser.kycStatus}
-                paymentInfo={parsedPaymentInfo}
+                kybStatus={dbUser.verifiedStatus}
+                kycStatus={dbUser.verifiedStatus}
+                paymentInfo={null}
             />
         );
     } catch (e) {

@@ -15,19 +15,17 @@ export default async function VerificationStatus() {
   // Fetch fresh status
   const dbUser = await prisma.user.findUnique({
     where: { id: user.id },
-    select: { verificationStatus: true, kycStatus: true, kybStatus: true } // Assuming field exists or using mock
-    // If maxVerificationAttempts missing, ignore. 
+    select: { verifiedStatus: true }
   });
 
-  const status = dbUser?.verificationStatus || 'NOT_SUBMITTED';
-  const roleStatus = user.role === 'TOUR_OPERATOR' ? dbUser?.kybStatus : dbUser?.kycStatus;
+  const status = dbUser?.verifiedStatus || 'NOT_SUBMITTED';
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {roleStatus === 'APPROVED' ? 'Verification Complete!' :
-            roleStatus === 'REJECTED' ? 'Verification Failed' :
+          {status === 'APPROVED' ? 'Verification Complete!' :
+            status === 'REJECTED' ? 'Verification Failed' :
               status === 'SUBMITTED' ? 'Application Received' : 'Verification Status'}
         </h2>
       </div>
@@ -35,7 +33,7 @@ export default async function VerificationStatus() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 space-y-6 text-center">
 
-          {roleStatus === 'APPROVED' && (
+          {status === 'APPROVED' && (
             <div className="bg-green-50 p-4 rounded-md">
               <div className="text-5xl mb-4">🎉</div>
               <p className="text-green-800 font-medium">You are officially verified!</p>
@@ -45,7 +43,7 @@ export default async function VerificationStatus() {
             </div>
           )}
 
-          {roleStatus === 'PENDING' || status === 'SUBMITTED' ? (
+          {(status === 'PENDING' || status === 'SUBMITTED') && (
             <div className="bg-blue-50 p-4 rounded-md">
               <div className="text-5xl mb-4">⏳</div>
               <p className="text-blue-800 font-medium">Under Review</p>
@@ -54,23 +52,22 @@ export default async function VerificationStatus() {
               </p>
               <p className="text-xs text-blue-600 mt-4">Estimated review time: 24-48 hours</p>
             </div>
-          ) : null}
+          )}
 
-          {roleStatus === 'REJECTED' && (
+          {status === 'REJECTED' && (
             <div className="bg-red-50 p-4 rounded-md">
               <div className="text-5xl mb-4">❌</div>
               <p className="text-red-800 font-medium">Action Required</p>
               <p className="text-sm text-red-700 mt-2">
                 Unfortunately, we could not verify your documents. Please check your email for details or try again.
               </p>
-              {/* Resubmit CTA */}
               <Link href={`/dashboard/${user.role === 'TOUR_OPERATOR' ? 'operator' : 'guide'}/verification`} className="mt-4 inline-block text-sm font-bold text-red-600 underline">
                 Resubmit Documents
               </Link>
             </div>
           )}
 
-          {roleStatus === 'NOT_STARTED' && (
+          {status === 'NOT_SUBMITTED' && (
             <div className="bg-gray-50 p-4 rounded-md">
               <p className="text-gray-600">You have not submitted verification yet.</p>
               <Link href={`/dashboard/${user.role === 'TOUR_OPERATOR' ? 'operator' : 'guide'}/verification`} className="block mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700">

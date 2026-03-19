@@ -1,0 +1,12 @@
+src/components/admin/VerificationCard.tsx(4,9): error TS1003: Identifier expected.
+src/components/admin/VerificationCard.tsx(4,16): error TS1005: ',' expected.
+src/components/admin/VerificationCard.tsx(4,22): error TS1005: ',' expected.
+src/components/guide/GuideCalendarWidget.tsx(4,9): error TS1003: Identifier expected.
+src/components/guide/GuideCalendarWidget.tsx(4,16): error TS1005: ',' expected.
+src/components/guide/GuideCalendarWidget.tsx(4,22): error TS1005: ',' expected.
+src/components/operator/CommandCenter.tsx(4,9): error TS1003: Identifier expected.
+src/components/operator/CommandCenter.tsx(4,16): error TS1005: ',' expected.
+src/components/operator/CommandCenter.tsx(4,22): error TS1005: ',' expected.
+src/components/SOSButton.tsx(5,9): error TS1003: Identifier expected.
+src/components/SOSButton.tsx(5,16): error TS1005: ',' expected.
+src/components/SOSButton.tsx(5,22): error TS1005: ',' expected.

@@ -3,7 +3,6 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
 import { prisma } from '@/lib/prisma';
-import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
 export const metadata = { title: 'Profile — Lunavia' };
@@ -14,40 +13,37 @@ export default async function ProfilePage() {
 
     const user = await prisma.user.findUnique({
         where: { id: session.user.id },
-        include: { verificationSubmission: true, operatorWallet: true, role: true },
+        select: {
+            id: true,
+            email: true,
+            verifiedStatus: true,
+            trustScore: true,
+            createdAt: true,
+            profile: { select: { fullName: true, avatarUrl: true } },
+            wallet: { select: { balance: true } },
+        },
     });
 
     if (!user) redirect('/login');
 
-    const verificationStatus = user.kybStatus || 'NOT_STARTED';
-    const plan = user.plan || 'FREE';
-    const planExpiresAt = user.planExpiresAt;
-    const walletBalance = user.operatorWallet?.availableBalance || 0;
+    const verificationStatus = user.verifiedStatus || 'NOT_SUBMITTED';
+    const displayName = user.profile?.fullName || session.user.name || user.email;
+    const initials = displayName[0]?.toUpperCase() || '?';
+    const walletBalance = user.wallet?.balance || 0;
 
-    const [createdToursCount, completedToursCount, teamSize, successRate] = await Promise.all([
+    const [createdToursCount, completedToursCount, teamSize] = await Promise.all([
         prisma.serviceRequest.count({ where: { operatorId: user.id } }),
         prisma.serviceRequest.count({ where: { operatorId: user.id, status: 'COMPLETED' } }),
         prisma.teamInvitation.count({ where: { operatorId: user.id, status: 'ACCEPTED' } }),
-        prisma.serviceRequest.count({ where: { operatorId: user.id, status: { in: ['COMPLETED', 'CLOSED'] } } })
-            .then(async completed => {
-                const total = await prisma.serviceRequest.count({
-                    where: { operatorId: user.id, status: { notIn: ['DRAFT'] } }
-                });
-                const forceMajeureCancels = await prisma.serviceRequest.count({
-                    where: { operatorId: user.id, status: 'CANCELLED', closeReason: 'FORCE_MAJEURE' }
-                });
-                // Fallback check: cancellationReason is used for mutual/force cancels
-                const mutualForceMajeureCancels = await prisma.serviceRequest.count({
-                    where: { operatorId: user.id, status: 'CANCELLED', cancellationReason: 'FORCE_MAJEURE' }
-                });
-                
-                const validTotal = Math.max(0, total - forceMajeureCancels - mutualForceMajeureCancels);
-                return validTotal > 0 ? Math.round((completed / validTotal) * 100) : 0;
-            })
     ]);
 
+    const totalActive = await prisma.serviceRequest.count({ 
+        where: { operatorId: user.id, status: { notIn: ['DRAFT'] } } 
+    });
+    const successRate = totalActive > 0 ? Math.round((completedToursCount / totalActive) * 100) : 0;
+
     const verif = {
-        NOT_STARTED: { color: 'bg-gray-100 text-gray-600', icon: '○', label: 'Not Started' },
+        NOT_SUBMITTED: { color: 'bg-gray-100 text-gray-600', icon: '○', label: 'Not Started' },
         PENDING: { color: 'bg-amber-100 text-amber-700', icon: '⏳', label: 'Under Review' },
         APPROVED: { color: 'bg-emerald-100 text-emerald-700', icon: '✓', label: 'Verified' },
         REJECTED: { color: 'bg-red-100 text-red-700', icon: '✕', label: 'Rejected' },
@@ -63,29 +59,25 @@ export default async function ProfilePage() {
             }
         >
             <div className="max-w-3xl mx-auto space-y-6">
-                {/* ── Profile Header ────────────────────── */}
+                {/* ── Profile Header */}
                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
                     <div className="h-28 bg-gradient-to-r from-indigo-500 to-purple-600" />
                     <div className="px-6 pb-6 -mt-12">
                         <div className="flex items-end gap-5">
                             <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-indigo-600 shrink-0 overflow-hidden relative">
-                                {user.avatarUrl ? (
-                                    <img src={user.avatarUrl} alt={user.name || 'User'} className="h-full w-full object-cover" />
+                                {user.profile?.avatarUrl ? (
+                                    <img src={user.profile.avatarUrl} alt={displayName} className="h-full w-full object-cover" />
                                 ) : (
-                                    user.name?.[0]?.toUpperCase() || user.email[0].toUpperCase()
+                                    initials
                                 )}
                             </div>
                             <div className="min-w-0 flex-1 pb-1">
-                                <h2 className="text-lg font-semibold text-gray-900 truncate">{user.name || user.email}</h2>
+                                <h2 className="text-lg font-semibold text-gray-900 truncate">{displayName}</h2>
                                 <p className="text-sm text-gray-500 truncate">{user.email}</p>
                                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                                     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${verif.color}`}>
                                         {verif.icon} {verif.label}
                                     </span>
-                                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">{plan} Plan</span>
-                                    {planExpiresAt && (
-                                        <span className="text-[10px] text-gray-400">Expires {formatDate(planExpiresAt)}</span>
-                                    )}
                                 </div>
                             </div>
                             <div className="text-right hidden sm:block pb-1">
@@ -95,24 +87,16 @@ export default async function ProfilePage() {
                         </div>
                     </div>
 
-                    {/* Verification CTA */}
-                    {verificationStatus === 'NOT_STARTED' && (
+                    {verificationStatus === 'NOT_SUBMITTED' && (
                         <div className="mx-6 mb-6 flex items-center gap-3 bg-indigo-50 rounded-xl p-3 border border-indigo-100">
                             <span className="text-lg">🛡️</span>
                             <div className="flex-1 text-sm text-indigo-700">Verify your account to publish tours.</div>
                             <a href="/dashboard/operator/verification" className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">Get Verified</a>
                         </div>
                     )}
-                    {verificationStatus === 'REJECTED' && (
-                        <div className="mx-6 mb-6 flex items-center gap-3 bg-red-50 rounded-xl p-3 border border-red-100">
-                            <span className="text-lg">⚠️</span>
-                            <div className="flex-1 text-sm text-red-700">Verification rejected. Please review and resubmit.</div>
-                            <a href="/dashboard/operator/verification" className="px-3 py-1.5 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700 transition">Resubmit</a>
-                        </div>
-                    )}
                 </div>
 
-                {/* ── Quick Stats ────────────────────────── */}
+                {/* ── Quick Stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {[
                         { value: createdToursCount, label: 'Tours Created', color: 'text-indigo-600' },
@@ -127,7 +111,7 @@ export default async function ProfilePage() {
                     ))}
                 </div>
 
-                {/* ── Navigation Cards ───────────────────── */}
+                {/* ── Navigation Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Link href="/dashboard/operator/portfolio" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-md transition-all">
                         <div className="flex items-center gap-4">
@@ -151,17 +135,6 @@ export default async function ProfilePage() {
                         <div className="mt-4 text-xs font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform">Edit →</div>
                     </Link>
 
-                    <Link href="/dashboard/operator/profile/trust" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-amber-300 hover:shadow-md transition-all">
-                        <div className="flex items-center gap-4">
-                            <div className="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-lg group-hover:bg-amber-100 transition">📊</div>
-                            <div>
-                                <h3 className="font-semibold text-gray-900">Trust Score</h3>
-                                <p className="text-xs text-gray-500">View your trust history graph</p>
-                            </div>
-                        </div>
-                        <div className="mt-4 text-xs font-semibold text-amber-600 group-hover:translate-x-1 transition-transform">View →</div>
-                    </Link>
-
                     <Link href="/dashboard/operator/profile/security" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-emerald-300 hover:shadow-md transition-all">
                         <div className="flex items-center gap-4">
                             <div className="h-10 w-10 rounded-lg bg-emerald-50 flex items-center justify-center text-lg group-hover:bg-emerald-100 transition">🔐</div>
@@ -178,7 +151,7 @@ export default async function ProfilePage() {
                             <div className="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-lg group-hover:bg-green-100 transition">💰</div>
                             <div>
                                 <h3 className="font-semibold text-gray-900">Wallet</h3>
-                                <p className="text-xs text-gray-500">{walletBalance.toLocaleString()} VND available</p>
+                                <p className="text-xs text-gray-500">{Number(walletBalance).toLocaleString()} VND available</p>
                             </div>
                         </div>
                         <div className="mt-4 text-xs font-semibold text-green-600 group-hover:translate-x-1 transition-transform">Manage →</div>

@@ -9,11 +9,11 @@ export default async function OperatorInsightsPage() {
 
     const user = await prisma.user.findUnique({
         where: { id: session.user.id },
-        select: { verificationStatus: true, kybStatus: true }
+        select: { verifiedStatus: true }
     });
 
     // Verification Gate
-    const isVerified = (user as any)?.kybStatus === 'APPROVED' || user?.verificationStatus === 'APPROVED';
+    const isVerified = user?.verifiedStatus === 'APPROVED';
 
     if (!isVerified) {
         return (

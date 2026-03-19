@@ -44,9 +44,7 @@ export default async function ServiceRequestParamsPage({
         where: { id: request.operatorId },
         select: {
             id: true,
-            roleMetadata: true,
-            verificationStatus: true,
-            kybStatus: true,
+            verifiedStatus: true,
             createdAt: true
         }
     });
@@ -58,9 +56,7 @@ export default async function ServiceRequestParamsPage({
             where: { id: request.assignedGuideId },
             select: {
                 id: true,
-                roleMetadata: true,
-                verificationStatus: true,
-                kycStatus: true,
+                verifiedStatus: true,
                 createdAt: true
             }
         });
@@ -80,7 +76,7 @@ export default async function ServiceRequestParamsPage({
 
         operatorData = {
             ...operator,
-            roleMetadata: operator.roleMetadata ? JSON.parse(operator.roleMetadata) : {},
+            roleMetadata: {},
             trustScore: opTrustScore,
             trustState: opTrustState,
             completedTours: opCompletedTours,
@@ -102,7 +98,7 @@ export default async function ServiceRequestParamsPage({
 
         guideData = {
             ...assignedGuide,
-            roleMetadata: assignedGuide.roleMetadata ? JSON.parse(assignedGuide.roleMetadata) : {},
+            roleMetadata: {},
             trustScore: gTrustScore,
             trustState: gTrustState,
             completedTours: gCompletedTours,
