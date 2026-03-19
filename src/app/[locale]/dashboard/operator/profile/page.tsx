@@ -31,13 +31,14 @@ export default async function ProfilePage() {
     const initials = displayName[0]?.toUpperCase() || '?';
     const walletBalance = user.wallet?.balance || 0;
 
+    // Use correct Prisma models: Tour (has operatorId), CompanyMember
     const [createdToursCount, completedToursCount, teamSize] = await Promise.all([
-        prisma.serviceRequest.count({ where: { operatorId: user.id } }),
-        prisma.serviceRequest.count({ where: { operatorId: user.id, status: 'COMPLETED' } }),
-        prisma.teamInvitation.count({ where: { operatorId: user.id, status: 'ACCEPTED' } }),
+        prisma.tour.count({ where: { operatorId: user.id } }),
+        prisma.tour.count({ where: { operatorId: user.id, status: 'COMPLETED' } }),
+        prisma.companyMember.count({ where: { userId: user.id } }),
     ]);
 
-    const totalActive = await prisma.serviceRequest.count({ 
+    const totalActive = await prisma.tour.count({ 
         where: { operatorId: user.id, status: { notIn: ['DRAFT'] } } 
     });
     const successRate = totalActive > 0 ? Math.round((completedToursCount / totalActive) * 100) : 0;

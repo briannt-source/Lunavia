@@ -29,15 +29,19 @@ export default async function ProfilePage() {
     const displayName = user.profile?.fullName || session.user.name || user.email;
     const initials = displayName[0]?.toUpperCase() || '?';
 
-    const [completedToursCount, avgRating, totalReviews] = await Promise.all([
-        prisma.serviceRequest.count({ where: { assignedGuideId: user.id, status: { in: ['COMPLETED', 'CLOSED'] } } }),
-        prisma.tourFeedback.aggregate({
-            where: { request: { assignedGuideId: user.id }, role: 'TOUR_OPERATOR' },
-            _avg: { rating: true },
-            _count: { rating: true }
-        }),
-        prisma.tourFeedback.count({ where: { request: { assignedGuideId: user.id } } })
+    // Use correct Prisma models: Application (guide applies), Review
+    const [acceptedApplications, completedTours, totalReviews] = await Promise.all([
+        prisma.application.count({ where: { guideId: user.id, status: 'ACCEPTED' } }),
+        prisma.application.count({ where: { guideId: user.id, status: 'ACCEPTED', tour: { status: 'COMPLETED' } } }),
+        prisma.review.count({ where: { revieweeId: user.id } }),
     ]);
+
+    // Get average rating from reviews
+    const avgRatingResult = await prisma.review.aggregate({
+        where: { revieweeId: user.id },
+        _avg: { rating: true },
+    });
+    const avgRating = avgRatingResult._avg.rating;
 
     const verif = {
         NOT_SUBMITTED: { color: 'bg-gray-100 text-gray-600', icon: '○', label: 'Not Started' },
@@ -96,8 +100,8 @@ export default async function ProfilePage() {
                 {/* ── Quick Stats */}
                 <div className="grid grid-cols-3 gap-3">
                     {[
-                        { value: completedToursCount, label: 'Completed Tours', color: 'text-emerald-600' },
-                        { value: avgRating._avg.rating ? avgRating._avg.rating.toFixed(1) : '—', label: 'Avg Rating', color: 'text-amber-600' },
+                        { value: completedTours, label: 'Completed Tours', color: 'text-emerald-600' },
+                        { value: avgRating ? avgRating.toFixed(1) : '—', label: 'Avg Rating', color: 'text-amber-600' },
                         { value: totalReviews, label: 'Reviews', color: 'text-purple-600' },
                     ].map((stat, i) => (
                         <div key={i} className="bg-white rounded-xl border border-gray-200 p-4 text-center">

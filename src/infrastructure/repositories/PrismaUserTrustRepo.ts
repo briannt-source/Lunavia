@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import { getTrustMax } from '@/domain/operator/OperatorGovernance';
-// import { IUserTrustRepository } from '@/domain/trust/IUserTrustRepository'; // Not needed if just exporting object, or if interface matches
 
 type PrismaClient = Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
 
@@ -15,7 +14,7 @@ export const PrismaUserTrustRepo = {
     async getTrustState(userId: string) {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: { trustScore: true, operatorCategory: true }
+            select: { trustScore: true }
         });
         return {
             score: user?.trustScore ?? 0,
@@ -32,7 +31,8 @@ export const PrismaUserTrustRepo = {
             const user = await tx.user.findUnique({ where: { id: userId } });
             if (!user) throw new Error('User not found');
 
-            const trustMax = getTrustMax(user.operatorCategory);
+            // Default to SOLE category (max 70) — operatorCategory field not in schema
+            const trustMax = getTrustMax(null);
             const newScore = Math.max(0, Math.min(trustMax, user.trustScore + delta));
             const actualDelta = newScore - user.trustScore;
 
@@ -42,14 +42,14 @@ export const PrismaUserTrustRepo = {
                     data: { trustScore: newScore }
                 });
 
-                // Create TrustEvent with actual mathematical change
-                await tx.trustEvent.create({
+                // Create TrustRecord with actual mathematical change
+                await tx.trustRecord.create({
                     data: {
                         userId,
-                        changeValue: actualDelta,
-                        newScore: newScore,
-                        type: reason,
-                        description: `Score change: ${actualDelta > 0 ? '+' : ''}${actualDelta}`
+                        delta: actualDelta,
+                        reason: reason,
+                        source: 'AUTO',
+                        metadata: { description: `Score change: ${actualDelta > 0 ? '+' : ''}${actualDelta}` }
                     }
                 });
             }
@@ -65,7 +65,7 @@ export const PrismaUserTrustRepo = {
     },
 
     async getHistory(userId: string) {
-        return await prisma.trustEvent.findMany({
+        return await prisma.trustRecord.findMany({
             where: { userId },
             orderBy: { createdAt: 'desc' }
         });
