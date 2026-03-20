@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { VerificationService } from "@/domain/services/verification.service";
 import { AvailabilityService } from "@/domain/services/availability.service";
 import { NotificationService } from "@/domain/services/notification.service";
+import { GuideBlacklistService } from "@/domain/governance/GuideBlacklistService";
 
 export interface ApplyToTourInput {
   guideId: string;
@@ -35,18 +36,59 @@ export class ApplyToTourUseCase {
       throw new Error(canApply.reason);
     }
 
-    // Check minimum balance (500k VND)
-    if (!guide.wallet || guide.wallet.balance < 500000) {
-      throw new Error("Cần số dư tối thiểu 500,000 VND để ứng tuyển tour");
-    }
-
-    // Get tour
+    // Get tour early so we can check blacklist
     const tour = await prisma.tour.findUnique({
       where: { id: input.tourId },
     });
 
     if (!tour) {
       throw new Error("Tour not found");
+    }
+
+    // Check blacklist — operator may have blocked this guide
+    const isBlocked = await GuideBlacklistService.isBlacklisted(
+      tour.operatorId,
+      input.guideId
+    );
+    if (isBlocked) {
+      throw new Error(
+        "Bạn không thể ứng tuyển tour này. Nhà điều hành đã hạn chế quyền ứng tuyển của bạn."
+      );
+    }
+
+    // Check minimum balance (500k VND)
+    if (!guide.wallet || guide.wallet.balance < 500000) {
+      throw new Error("Cần số dư tối thiểu 500,000 VND để ứng tuyển tour");
+    }
+
+    // Check deposit lock requirements via DepositService
+    try {
+      const { DepositService } = await import("@/domain/services/deposit.service");
+      const depositConfig = await prisma.depositConfig.findFirst({
+        orderBy: { createdAt: "desc" },
+      });
+
+      if (depositConfig) {
+        const depositCheck = DepositService.canApplyToTour({
+          walletBalance: guide.wallet.balance,
+          onboardingDepositPaid: guide.onboardingDepositPaid ?? false,
+          config: {
+            operatorOnboardingLock: depositConfig.operatorOnboardingLock,
+            guideOnboardingLock: depositConfig.guideOnboardingLock,
+            perTourLockAmount: depositConfig.perTourLockAmount,
+          },
+        });
+
+        if (!depositCheck.allowed) {
+          throw new Error(depositCheck.reason || "Deposit requirement not met");
+        }
+      }
+    } catch (depositError: any) {
+      // Only throw if it's a deposit validation error, not a missing-config error
+      if (depositError.message && !depositError.message.includes("does not exist")) {
+        throw depositError;
+      }
+      // If DepositConfig table doesn't exist yet, skip the check gracefully
     }
 
     if (tour.status !== "OPEN") {

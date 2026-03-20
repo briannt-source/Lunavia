@@ -244,8 +244,6 @@ export class DisputeService {
         case DisputeResolution.FULL_PAYMENT:
         case DisputeResolution.PARTIAL_PAYMENT:
           // Release escrow (full or partial)
-          // Note: For partial payment, we need to handle it differently
-          // For now, release full amount. Partial payment can be handled via separate payment
           if (dispute.escrowAccount.status === "LOCKED") {
             await EscrowService.releaseEscrow(
               dispute.escrowAccountId,
@@ -258,6 +256,52 @@ export class DisputeService {
           // No action on escrow, but dispute is resolved
           break;
       }
+    }
+
+    // Trust adjustment — penalize responsible party based on resolution
+    try {
+      if (
+        input.resolution === DisputeResolution.FULL_REFUND ||
+        input.resolution === DisputeResolution.PARTIAL_REFUND
+      ) {
+        // Refund means the service provider was at fault
+        if (dispute.tour) {
+          const isFiledByGuide = dispute.userId !== dispute.tour.operatorId;
+          const penalizedUserId = isFiledByGuide
+            ? dispute.tour.operatorId
+            : dispute.userId;
+
+          // Directly decrement trust score via Prisma
+          await prisma.user.update({
+            where: { id: penalizedUserId },
+            data: { trustScore: { decrement: 5 } },
+          });
+        }
+      } else if (input.resolution === DisputeResolution.NO_ACTION) {
+        // Dispute dismissed — minor penalty to filer for frivolous dispute
+        await prisma.user.update({
+          where: { id: dispute.userId },
+          data: { trustScore: { decrement: 2 } },
+        });
+      }
+    } catch (trustError) {
+      // Non-critical — log but don't fail the resolution
+      console.error("Trust adjustment failed (non-critical):", trustError);
+    }
+
+    // Notify dispute filer about resolution
+    try {
+      await prisma.notification.create({
+        data: {
+          userId: dispute.userId,
+          type: "DISPUTE",
+          title: "Dispute resolved",
+          message: `Your dispute #${dispute.id.slice(-6)} has been resolved: ${input.resolution}`,
+          link: `/dashboard/disputes/${dispute.id}`,
+        },
+      });
+    } catch (notifyError) {
+      console.error("Dispute notification failed (non-critical):", notifyError);
     }
 
     return updatedDispute;
