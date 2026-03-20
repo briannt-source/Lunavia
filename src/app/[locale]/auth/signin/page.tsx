@@ -38,20 +38,22 @@ export default function SignInPage() {
         const checkSession = async () => {
           let attempts = 0;
           const maxAttempts = 10;
+          const ADMIN_ROLES = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
           
           while (attempts < maxAttempts) {
             const session = await getSession();
             if (session?.user) {
               // Session is ready, redirect based on role
               const role = (session.user as any)?.role;
-              if (role?.startsWith("ADMIN_") || role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF") {
-                window.location.href = "/dashboard/admin";
-              } else if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
+              if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
                 window.location.href = "/dashboard/operator";
               } else if (role === "TOUR_GUIDE") {
                 window.location.href = "/dashboard/guide";
+              } else if (role?.startsWith("ADMIN_") || ADMIN_ROLES.includes(role)) {
+                window.location.href = "/dashboard/admin";
               } else {
-                window.location.href = "/home";
+                // Fallback: middleware will handle role-based redirect
+                window.location.href = "/dashboard";
               }
               return;
             }
@@ -59,8 +61,8 @@ export default function SignInPage() {
             await new Promise(resolve => setTimeout(resolve, 100));
           }
           
-          // Fallback: redirect to home if session not ready after max attempts
-          window.location.href = "/home";
+          // Fallback: let middleware handle the redirect based on JWT
+          window.location.href = "/dashboard";
         };
         
         checkSession();

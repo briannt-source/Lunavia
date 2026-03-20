@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
+const ADMIN_ROLES = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
+
 export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -33,13 +35,14 @@ export default function HomePage() {
     hasRedirected.current = true;
     
     // Redirect to role-specific dashboard
-    if (role?.startsWith("ADMIN_") || role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF") {
-      router.replace("/dashboard/admin");
-    } else if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
+    if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
       router.replace("/dashboard/operator");
     } else if (role === "TOUR_GUIDE") {
       router.replace("/dashboard/guide");
+    } else if (role?.startsWith("ADMIN_") || ADMIN_ROLES.includes(role)) {
+      router.replace("/dashboard/admin");
     } else {
+      // Unknown role — let middleware handle via /dashboard
       router.replace("/dashboard");
     }
   }, [session, status, router, pathname]);
@@ -53,4 +56,5 @@ export default function HomePage() {
       </div>
   );
 }
+
 
