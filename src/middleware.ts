@@ -6,6 +6,8 @@ import { routing } from './navigation';
 
 const intlMiddleware = createMiddleware(routing);
 
+const ADMIN_ROLES = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -41,7 +43,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // 2. Role-based Access Control
+  // 2. Authenticated user on bare /dashboard → redirect to role-specific dashboard
   if (isProtectedPath && token) {
     const role = token.role as string | undefined;
 
@@ -49,34 +51,50 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
     }
 
+    // Handle bare /dashboard (no role suffix) — redirect immediately based on role
+    if (routeWithoutLocale === "/dashboard" || routeWithoutLocale === "/dashboard/") {
+      if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") {
+        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
+      } else if (role === "TOUR_GUIDE") {
+        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
+      } else if (role.startsWith("ADMIN_") || ADMIN_ROLES.includes(role)) {
+        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/admin`, req.url));
+      }
+      // Unknown role: show signin instead of looping
+      return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
+    }
 
-
+    // 3. Role-based Access Control for specific dashboard sections
     if (routeWithoutLocale.startsWith("/dashboard/operator")) {
       if (role !== "TOUR_OPERATOR" && role !== "TOUR_AGENCY") {
-        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
+        if (role === "TOUR_GUIDE") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
+        if (role.startsWith("ADMIN_") || ADMIN_ROLES.includes(role)) return NextResponse.redirect(new URL(`${localePrefix}/dashboard/admin`, req.url));
+        return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
       }
     }
 
     if (routeWithoutLocale.startsWith("/dashboard/guide")) {
       if (role !== "TOUR_GUIDE") {
-        return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
+        if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
+        if (role.startsWith("ADMIN_") || ADMIN_ROLES.includes(role)) return NextResponse.redirect(new URL(`${localePrefix}/dashboard/admin`, req.url));
+        return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
       }
     }
 
     if (routeWithoutLocale.startsWith("/dashboard/admin")) {
-      const validAdminRoles = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
-      if (!role.startsWith("ADMIN_") && !validAdminRoles.includes(role)) {
+      if (!role.startsWith("ADMIN_") && !ADMIN_ROLES.includes(role)) {
         if (role === "TOUR_OPERATOR" || role === "TOUR_AGENCY") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/operator`, req.url));
         if (role === "TOUR_GUIDE") return NextResponse.redirect(new URL(`${localePrefix}/dashboard/guide`, req.url));
-        return NextResponse.redirect(new URL(`${localePrefix}/`, req.url));
+        return NextResponse.redirect(new URL(`${localePrefix}/auth/signin`, req.url));
       }
     }
   }
 
-  // 3. Fall through to next-intl to handle URL rewriting
+  // 4. Fall through to next-intl to handle URL rewriting
   return intlMiddleware(req);
 }
 
 export const config = {
   matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };
+
