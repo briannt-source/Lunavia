@@ -1,13 +1,27 @@
 import { Link } from '@/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authOptions } from '@/lib/auth-config';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+
+const ADMIN_ROLES = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_LEAD", "SUPPORT_STAFF"];
 
 export default async function HomePage() {
     const t = await getTranslations('Home');
     const session = await getServerSession(authOptions);
-    if (session?.user) redirect('/dashboard');
+
+    // Role-based redirect for authenticated users (avoids loop through bare /dashboard)
+    if (session?.user) {
+        const role = (session.user as any).role as string;
+        if (role === 'TOUR_OPERATOR' || role === 'TOUR_AGENCY') {
+            redirect('/dashboard/operator');
+        } else if (role === 'TOUR_GUIDE') {
+            redirect('/dashboard/guide');
+        } else if (role?.startsWith('ADMIN_') || ADMIN_ROLES.includes(role)) {
+            redirect('/dashboard/admin');
+        }
+        // If role doesn't match anything, just show the landing page (no redirect loop)
+    }
 
     return (
         <div className="overflow-hidden">
