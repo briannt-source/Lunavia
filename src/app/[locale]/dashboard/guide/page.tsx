@@ -17,6 +17,9 @@ import {
   Calendar,
   ArrowRight,
   Search,
+  Wallet,
+  Coins,
+  MessageCircle,
 } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatVND, formatDate } from "@/lib/utils";
@@ -191,6 +194,15 @@ export default function GuideDashboard() {
           </CardContent>
         </Card>
       )}
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <QuickAction href="/dashboard/guide/available" icon={<Search className="h-4 w-4" />} label="Tìm Tour" primary />
+        <QuickAction href="/dashboard/guide/wallet" icon={<Wallet className="h-4 w-4" />} label="Ví" />
+        <QuickAction href="/dashboard/guide/earnings" icon={<Coins className="h-4 w-4" />} label="Thu Nhập" />
+        <QuickAction href="/dashboard/guide/calendar" icon={<Calendar className="h-4 w-4" />} label="Lịch" />
+        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Tin Nhắn" />
+      </div>
     </div>
   );
 }
@@ -222,5 +234,19 @@ function PerformanceRow({ label, value, color }: { label: string; value: string 
       <span className="text-xs text-gray-600">{label}</span>
       <span className={`text-sm font-bold ${color}`}>{value}</span>
     </div>
+  );
+}
+
+function QuickAction({ href, icon, label, primary }: { href: string; icon: React.ReactNode; label: string; primary?: boolean }) {
+  return (
+    <Link href={href}
+      className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold transition-all active:scale-[0.98] ${
+        primary
+          ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 hover:shadow-md'
+          : 'bg-white text-gray-700 border border-gray-200 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30'
+      }`}>
+      {icon}
+      {label}
+    </Link>
   );
 }

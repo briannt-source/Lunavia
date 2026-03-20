@@ -55,6 +55,29 @@ export default function OperatorWalletPage() {
 
     const [submitting, setSubmitting] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [exporting, setExporting] = useState(false);
+
+    const handleExportCSV = async () => {
+        setExporting(true);
+        try {
+            const res = await fetch('/api/export/earnings?format=csv');
+            if (!res.ok) throw new Error('Export failed');
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lunavia-tours-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            toast.success(t('export.success'));
+        } catch {
+            toast.error(t('export.failed'));
+        } finally {
+            setExporting(false);
+        }
+    };
 
 
 
@@ -527,8 +550,15 @@ export default function OperatorWalletPage() {
 
             {/* Transaction History */}
             <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-                <div className="px-5 py-4 border-b border-gray-100">
+                <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                     <h3 className="text-sm font-semibold text-gray-900">{t('history.title')}</h3>
+                    <button
+                        onClick={handleExportCSV}
+                        disabled={exporting || transactions.length === 0}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 transition"
+                    >
+                        📥 {exporting ? t('export.exporting') : t('export.btn')}
+                    </button>
                 </div>
                 {transactions.length === 0 ? (
                     <div className="p-8 text-center">

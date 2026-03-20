@@ -28,6 +28,29 @@ export default function GuideEarningsPage() {
     const [summary, setSummary] = useState<EarringSummary | null>(null);
     const [history, setHistory] = useState<TourEarning[]>([]);
     const [loading, setLoading] = useState(true);
+    const [exporting, setExporting] = useState(false);
+
+    const handleExportCSV = async () => {
+        setExporting(true);
+        try {
+            const res = await fetch('/api/export/earnings?format=csv');
+            if (!res.ok) throw new Error('Export failed');
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lunavia-earnings-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            toast.success(t('export.success'));
+        } catch {
+            toast.error(t('export.failed'));
+        } finally {
+            setExporting(false);
+        }
+    };
 
     useEffect(() => {
         fetch('/api/guide/earnings')
@@ -52,9 +75,18 @@ export default function GuideEarningsPage() {
 
     return (
         <BaseDashboardLayout header={
-            <div>
-                <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
-                <p className="mt-1 text-sm text-gray-500">{t('subtitle')}</p>
+            <div className="flex items-center justify-between w-full">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
+                    <p className="mt-1 text-sm text-gray-500">{t('subtitle')}</p>
+                </div>
+                <button
+                    onClick={handleExportCSV}
+                    disabled={exporting || history.length === 0}
+                    className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition shadow-sm"
+                >
+                    📥 {exporting ? t('export.exporting') : t('export.btn')}
+                </button>
             </div>
         }>
             <div className="space-y-6">

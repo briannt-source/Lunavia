@@ -117,14 +117,14 @@ export default async function AdminDashboard() {
   ]);
 
   return (
-    <>
+    <div className="space-y-6 animate-fade-in">
       <PageHeader
         title="Admin Dashboard"
         description={
           <span>
             Quản lý hệ thống LUNAVIA
             {adminUser && (
-              <span className="ml-2 text-sm font-normal text-slate-500">
+              <span className="ml-2 text-sm font-normal text-gray-500">
                 ({adminUser.role} - {adminUser.permissions.join(", ")})
               </span>
             )}
@@ -219,17 +219,17 @@ export default async function AdminDashboard() {
                     <Link
                       key={dispute.id}
                       href={`/dashboard/admin/disputes/${dispute.id}`}
-                      className="block p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+                      className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-slate-900 mb-1">
+                          <h3 className="font-semibold text-gray-900 mb-1">
                             {dispute.user.profile?.name || dispute.user.email}
                           </h3>
-                          <p className="text-sm text-slate-600 mb-2">
+                          <p className="text-sm text-gray-500 mb-2">
                             {dispute.type} • {formatDateTime(dispute.createdAt)}
                           </p>
-                          <p className="text-sm text-slate-500 line-clamp-2">
+                          <p className="text-sm text-gray-400 line-clamp-2">
                             {dispute.description}
                           </p>
                         </div>
@@ -266,17 +266,17 @@ export default async function AdminDashboard() {
                     <Link
                       key={verification.id}
                       href={`/dashboard/admin/verifications/${verification.id}`}
-                      className="block p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+                      className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-slate-900 mb-1">
+                          <h3 className="font-semibold text-gray-900 mb-1">
                             {verification.user.profile?.name || verification.user.email}
                           </h3>
-                          <p className="text-sm text-slate-600">
+                          <p className="text-sm text-gray-500">
                             {verification.user.role} • {formatDateTime(verification.createdAt)}
                           </p>
-                          <p className="text-xs text-slate-500 mt-1">
+                          <p className="text-xs text-gray-400 mt-1">
                             {verification.user.role === "TOUR_GUIDE" ? "Xác minh danh tính (KYC)" : "Xác minh doanh nghiệp (KYB)"}
                           </p>
                         </div>
@@ -307,17 +307,17 @@ export default async function AdminDashboard() {
                   <Link
                     key={request.id}
                     href={`/dashboard/admin/requests?tab=topup&id=${request.id}`}
-                    className="block p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+                    className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900 mb-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">
                           {request.user.profile?.name || request.user.email}
                         </h3>
-                        <p className="text-lg font-bold text-teal-600">
+                        <p className="text-lg font-bold text-[rgb(var(--color-primary))]">
                           {formatVND(request.amount)}
                         </p>
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-gray-500">
                           {request.method} • {formatDateTime(request.createdAt)}
                         </p>
                       </div>
@@ -347,17 +347,17 @@ export default async function AdminDashboard() {
                   <Link
                     key={request.id}
                     href={`/dashboard/admin/requests?tab=withdrawal&id=${request.id}`}
-                    className="block p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+                    className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900 mb-1">
+                        <h3 className="font-semibold text-gray-900 mb-1">
                           {request.user.profile?.name || request.user.email}
                         </h3>
                         <p className="text-lg font-bold text-red-600">
                           {formatVND(request.amount)}
                         </p>
-                        <p className="text-sm text-slate-600">
+                        <p className="text-sm text-gray-500">
                           {request.method} • {formatDateTime(request.createdAt)}
                         </p>
                       </div>
@@ -370,7 +370,7 @@ export default async function AdminDashboard() {
           </Card>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

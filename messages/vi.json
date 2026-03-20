@@ -646,7 +646,20 @@
                 "simulation": "Giả lập Vận hành",
                 "investor": "Báo cáo Nhà đầu tư",
                 "demo": "Tạo lại Dữ liệu Mẫu",
-                "myProfile": "Thông tin cá nhân"
+                "myProfile": "Thông tin cá nhân",
+                "applications": "Đơn ứng tuyển",
+                "emergencies": "Quản lý Khẩn cấp",
+                "payments": "Thanh toán",
+                "standbyRequests": "Yêu cầu Standby",
+                "company": "Công ty",
+                "trustScore": "Điểm Uy tín",
+                "assignments": "Phân công",
+                "availability": "Lịch rảnh",
+                "invites": "Lời mời",
+                "contract": "Hợp đồng",
+                "notifications": "Thông báo",
+                "messages": "Tin nhắn",
+                "paymentMethods": "Phương thức Thanh toán"
             },
             "footer": {
                 "tourOperator": "Cty Điều hành Tour",
@@ -869,6 +882,12 @@
                 "cancelTopUpSuccess": "Đã hủy yêu cầu nạp tiền.",
                 "cancelTopUpFailed": "Lỗi: Không thể hủy yêu cầu nạp tiền.",
                 "networkError": "Đã xảy ra lỗi mạng. Vui lòng thử lại sau."
+            },
+            "export": {
+                "btn": "Xuất CSV",
+                "exporting": "Đang xuất...",
+                "success": "Xuất dữ liệu thành công",
+                "failed": "Lỗi: Không thể xuất dữ liệu"
             }
         }
     },
@@ -1046,6 +1065,80 @@
             },
             "alerts": {
                 "networkError": "Lỗi kết nối mạng"
+            },
+            "export": {
+                "btn": "Xuất CSV",
+                "exporting": "Đang xuất...",
+                "success": "Xuất thu nhập thành công",
+                "failed": "Lỗi: Không thể xuất thu nhập"
+            }
+        },
+        "Wallet": {
+            "title": "Ví điện tử",
+            "subtitle": "Xem số dư và yêu cầu rút tiền",
+            "backToDashboard": "← Tổng quan",
+            "balances": {
+                "available": "Số dư Khả dụng",
+                "pendingEarnings": "Thu nhập Đang chờ",
+                "totalEarned": "Tổng Thu nhập"
+            },
+            "withdraw": {
+                "title": "Rút tiền về Ngân hàng",
+                "desc": "Yêu cầu rút tiền thu nhập khả dụng về tài khoản ngân hàng của bạn. Thời gian xử lý từ 1–3 ngày làm việc.",
+                "availableText": "Có thể rút tối đa:",
+                "requestBtn": "Yêu cầu Rút tiền",
+                "amountLabel": "Số tiền muốn Rút (VNĐ) *",
+                "amountPlaceholder": "VD: 2,000,000",
+                "maxAmount": "Tối đa: {amount} VNĐ",
+                "bankNameLabel": "Tên Ngân hàng *",
+                "bankNamePlaceholder": "VD: MB Bank",
+                "accountNoLabel": "Số Tài khoản *",
+                "accountNoPlaceholder": "0001...",
+                "accountNameLabel": "Chủ Tài khoản *",
+                "accountNamePlaceholder": "NGUYEN VAN A",
+                "cancelBtn": "Hủy",
+                "processingBtn": "Đang xử lý..."
+            },
+            "links": {
+                "viewEarnings": "Xem Chi tiết Thu nhập",
+                "viewEarningsDesc": "Lịch sử thanh toán chi tiết từ các tour đã hoàn thành",
+                "payoutSettings": "Cài đặt Thanh toán",
+                "payoutSettingsDesc": "Quản lý tài khoản ngân hàng và tùy chọn thanh toán"
+            },
+            "history": {
+                "title": "Lịch sử Giao dịch",
+                "emptyState": "Chưa có giao dịch",
+                "emptyDesc": "Hoàn thành tour đầu tiên để bắt đầu",
+                "colType": "Loại",
+                "colDesc": "Nội dung",
+                "colAmount": "Số tiền",
+                "colStatus": "Trạng thái",
+                "colDate": "Ngày",
+                "invoiceBtn": "📄 Hóa đơn"
+            },
+            "status": {
+                "PENDING": "Đang xử lý",
+                "COMPLETED": "Thành công",
+                "CANCELLED": "Đã hủy",
+                "FAILED": "Thất bại",
+                "REJECTED": "Bị Từ chối"
+            },
+            "types": {
+                "TOP_UP": "Nạp tiền",
+                "PAYOUT": "Thanh toán",
+                "HOLD": "Tạm giữ",
+                "RELEASE": "Giải ngân",
+                "REFUND": "Hoàn tiền",
+                "PENALTY": "Phạt vi phạm",
+                "SUBSCRIPTION": "Gói phần mềm"
+            },
+            "alerts": {
+                "invalidAmount": "Số tiền rút không hợp lệ",
+                "insufficientBalance": "Số dư khả dụng không đủ",
+                "withdrawSuccess": "Đã tạo Yêu cầu Rút tiền",
+                "withdrawMessage": "Yêu cầu rút tiền đã được gửi. Vui lòng đợi xử lý.",
+                "withdrawFailed": "Lỗi: Không thể gửi yêu cầu rút tiền",
+                "networkError": "Đã xảy ra lỗi mạng. Vui lòng thử lại."
             }
         },
         "Profile": {

@@ -15,7 +15,7 @@ export function PageHeader({
   breadcrumbs,
 }: PageHeaderProps) {
   return (
-    <div className="mb-8">
+    <div className="mb-8 animate-fade-in">
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav className="flex mb-4" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -23,7 +23,7 @@ export function PageHeader({
               <li key={index} className="inline-flex items-center">
                 {index > 0 && (
                   <svg
-                    className="w-6 h-6 text-slate-400"
+                    className="w-6 h-6 text-gray-300"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -37,12 +37,12 @@ export function PageHeader({
                 {crumb.href ? (
                   <a
                     href={crumb.href}
-                    className="text-sm font-medium text-slate-700 hover:text-teal-600"
+                    className="text-sm font-medium text-gray-600 hover:text-[rgb(var(--color-primary))] transition-colors"
                   >
                     {crumb.label}
                   </a>
                 ) : (
-                  <span className="text-sm font-medium text-slate-500">
+                  <span className="text-sm font-medium text-gray-400">
                     {crumb.label}
                   </span>
                 )}
@@ -53,9 +53,9 @@ export function PageHeader({
       )}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
           {description && (
-            <div className="mt-2 text-sm text-slate-600">{description}</div>
+            <div className="mt-2 text-sm text-gray-500">{description}</div>
           )}
         </div>
         {action && <div>{action}</div>}
@@ -63,6 +63,3 @@ export function PageHeader({
     </div>
   );
 }
-
-
-

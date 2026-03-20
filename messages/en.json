@@ -646,7 +646,20 @@
                 "simulation": "Simulation",
                 "investor": "Investor Overview",
                 "demo": "Demo Reset",
-                "myProfile": "My Profile"
+                "myProfile": "My Profile",
+                "applications": "Applications",
+                "emergencies": "Emergencies",
+                "payments": "Payments",
+                "standbyRequests": "Standby Requests",
+                "company": "Company",
+                "trustScore": "Trust Score",
+                "assignments": "Assignments",
+                "availability": "Availability",
+                "invites": "Invites",
+                "contract": "Contract",
+                "notifications": "Notifications",
+                "messages": "Messages",
+                "paymentMethods": "Payment Methods"
             },
             "footer": {
                 "tourOperator": "Tour Operator",
@@ -869,6 +882,12 @@
                 "cancelTopUpSuccess": "Top-up request cancelled.",
                 "cancelTopUpFailed": "Failed to cancel top-up request",
                 "networkError": "Network error. Please try again."
+            },
+            "export": {
+                "btn": "Export CSV",
+                "exporting": "Exporting...",
+                "success": "Data exported successfully",
+                "failed": "Failed to export data"
             }
         }
     },
@@ -1046,6 +1065,80 @@
             },
             "alerts": {
                 "networkError": "Network error"
+            },
+            "export": {
+                "btn": "Export CSV",
+                "exporting": "Exporting...",
+                "success": "Earnings exported successfully",
+                "failed": "Failed to export earnings"
+            }
+        },
+        "Wallet": {
+            "title": "Wallet",
+            "subtitle": "View your balance and request withdrawals",
+            "backToDashboard": "← Dashboard",
+            "balances": {
+                "available": "Available Balance",
+                "pendingEarnings": "Pending Earnings",
+                "totalEarned": "Total Earned"
+            },
+            "withdraw": {
+                "title": "Withdraw Funds",
+                "desc": "Request a withdrawal of your available earnings to your bank account. Processing takes 1–3 business days.",
+                "availableText": "Available to Withdraw:",
+                "requestBtn": "Request Withdrawal",
+                "amountLabel": "Amount to Withdraw (VND) *",
+                "amountPlaceholder": "e.g. 2,000,000",
+                "maxAmount": "Max: {amount} VND",
+                "bankNameLabel": "Bank Name *",
+                "bankNamePlaceholder": "e.g. MB Bank",
+                "accountNoLabel": "Account Number *",
+                "accountNoPlaceholder": "0001...",
+                "accountNameLabel": "Account Name *",
+                "accountNamePlaceholder": "NGUYEN VAN A",
+                "cancelBtn": "Cancel",
+                "processingBtn": "Processing..."
+            },
+            "links": {
+                "viewEarnings": "View Earnings Breakdown",
+                "viewEarningsDesc": "See detailed payout history from completed tours",
+                "payoutSettings": "Payout Settings",
+                "payoutSettingsDesc": "Manage your bank account and payout preferences"
+            },
+            "history": {
+                "title": "Transaction History",
+                "emptyState": "No transactions yet",
+                "emptyDesc": "Complete tours to start earning",
+                "colType": "Type",
+                "colDesc": "Description",
+                "colAmount": "Amount",
+                "colStatus": "Status",
+                "colDate": "Date",
+                "invoiceBtn": "📄 Invoice"
+            },
+            "status": {
+                "PENDING": "Pending",
+                "COMPLETED": "Completed",
+                "CANCELLED": "Cancelled",
+                "FAILED": "Failed",
+                "REJECTED": "Rejected"
+            },
+            "types": {
+                "TOP_UP": "Top Up",
+                "PAYOUT": "Payout",
+                "HOLD": "Escrow Hold",
+                "RELEASE": "Escrow Release",
+                "REFUND": "Refund",
+                "PENALTY": "Penalty",
+                "SUBSCRIPTION": "Subscription"
+            },
+            "alerts": {
+                "invalidAmount": "Invalid withdrawal amount",
+                "insufficientBalance": "Insufficient available balance",
+                "withdrawSuccess": "Withdrawal request submitted",
+                "withdrawMessage": "Withdrawal request submitted. Pending processing.",
+                "withdrawFailed": "Failed to request withdrawal",
+                "networkError": "Network error. Please try again."
             }
         },
         "Profile": {

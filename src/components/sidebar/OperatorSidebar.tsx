@@ -12,16 +12,25 @@ import {
     Search,
     Wallet,
     Coins,
+    Receipt,
     Map,
     Monitor,
     TrendingUp,
     Scale,
     Ban,
+    Siren,
+    Clock,
+    FileText,
     User,
     Briefcase,
+    Building2,
+    Award,
     Star,
     ShieldCheck,
     Settings,
+    Bell,
+    MessageCircle,
+    CreditCard,
 } from 'lucide-react';
 
 export default function OperatorSidebar() {
@@ -41,6 +50,9 @@ export default function OperatorSidebar() {
                 </NavItem>
                 <NavItem href="/dashboard/operator/tours" icon={ClipboardList} active={isActive('/dashboard/operator/tours')}>
                     {t('links.myTours')}
+                </NavItem>
+                <NavItem href="/dashboard/operator/applications" icon={FileText} active={isActive('/dashboard/operator/applications')}>
+                    {t('links.applications')}
                 </NavItem>
             </NavSection>
 
@@ -69,6 +81,12 @@ export default function OperatorSidebar() {
                     </NavItem>
                     <NavItem href="/dashboard/operator/finance" icon={Coins} active={isActive('/dashboard/operator/finance')}>
                         {t('links.commission')}
+                    </NavItem>
+                    <NavItem href="/dashboard/operator/payments" icon={Receipt} active={isActive('/dashboard/operator/payments')}>
+                        {t('links.payments')}
+                    </NavItem>
+                    <NavItem href="/dashboard/payment-methods" icon={CreditCard} active={isActive('/dashboard/payment-methods')}>
+                        {t('links.paymentMethods')}
                     </NavItem>
                 </NavSection>
             )}
@@ -102,6 +120,12 @@ export default function OperatorSidebar() {
                         {t('links.insights')}
                     </NavItem>
                 </FeatureGate>
+                <NavItem href="/dashboard/operator/emergencies" icon={Siren} active={isActive('/dashboard/operator/emergencies')}>
+                    {t('links.emergencies')}
+                </NavItem>
+                <NavItem href="/dashboard/operator/standby-requests" icon={Clock} active={isActive('/dashboard/operator/standby-requests')}>
+                    {t('links.standbyRequests')}
+                </NavItem>
                 <NavItem href="/dashboard/operator/disputes" icon={Scale} active={isActive('/dashboard/operator/disputes')}>
                     {t('links.disputes')}
                 </NavItem>
@@ -115,8 +139,14 @@ export default function OperatorSidebar() {
                 <NavItem href="/dashboard/operator/profile" icon={User} active={isActive('/dashboard/operator/profile')}>
                     {t('links.profile')}
                 </NavItem>
+                <NavItem href="/dashboard/operator/profile/trust" icon={Award} active={isActive('/dashboard/operator/profile/trust')}>
+                    {t('links.trustScore')}
+                </NavItem>
                 <NavItem href="/dashboard/operator/portfolio" icon={Briefcase} active={isActive('/dashboard/operator/portfolio')}>
                     {t('links.portfolio')}
+                </NavItem>
+                <NavItem href="/dashboard/operator/company" icon={Building2} active={isActive('/dashboard/operator/company')}>
+                    {t('links.company')}
                 </NavItem>
                 <NavItem href="/dashboard/account/subscription" icon={Star} active={isActive('/dashboard/account/subscription')}>
                     {t('links.subscription')}
@@ -126,6 +156,12 @@ export default function OperatorSidebar() {
                 </NavItem>
                 <NavItem href="/dashboard/operator/settings" icon={Settings} active={isActive('/dashboard/operator/settings')}>
                     {t('links.settings')}
+                </NavItem>
+                <NavItem href="/dashboard/notifications" icon={Bell} active={isActive('/dashboard/notifications')}>
+                    {t('links.notifications')}
+                </NavItem>
+                <NavItem href="/messages" icon={MessageCircle} active={isActive('/messages')}>
+                    {t('links.messages')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

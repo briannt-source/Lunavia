@@ -15,6 +15,10 @@ import {
   Eye,
   Shield,
   Briefcase,
+  Wallet,
+  Map,
+  Users,
+  MessageCircle,
 } from "lucide-react";
 import { api } from "@/lib/api-client";
 import Link from "next/link";
@@ -204,12 +208,17 @@ export default function OperatorDashboard() {
         </Card>
       </div>
 
-      {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <QuickAction href="/dashboard/operator/tours/new" icon={<Plus className="h-4 w-4" />} label="Tạo Tour Mới" primary />
+        <QuickAction href="/dashboard/operator/wallet" icon={<Wallet className="h-4 w-4" />} label="Ví" />
+        <QuickAction href="/dashboard/operator/team" icon={<Users className="h-4 w-4" />} label="Quản Lý Team" />
+        <QuickAction href="/dashboard/operator/fleet" icon={<Map className="h-4 w-4" />} label="Fleet Tracking" />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <QuickAction href="/dashboard/operator/tours" icon={<Eye className="h-4 w-4" />} label="Tất Cả Tours" />
-        <QuickAction href="/dashboard/operator/disputes" icon={<FileText className="h-4 w-4" />} label="Disputes" />
         <QuickAction href="/dashboard/operator/applications" icon={<Briefcase className="h-4 w-4" />} label="Ứng Tuyển" />
+        <QuickAction href="/dashboard/operator/disputes" icon={<FileText className="h-4 w-4" />} label="Disputes" />
+        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Tin Nhắn" />
       </div>
     </div>
   );

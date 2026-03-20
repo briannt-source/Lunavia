@@ -28,15 +28,27 @@ export function StatsCard({
   const content = (
     <div
       className={cn(
-        "bg-white rounded-lg border border-slate-200 p-6 shadow-sm transition-shadow",
-        href ? "hover:shadow-md cursor-pointer" : "",
+        "bg-white rounded-xl border border-gray-100 p-6 animate-fade-in",
+        "transition-all duration-200",
+        href ? "cursor-pointer" : "",
         className
       )}
+      style={{
+        boxShadow: 'var(--shadow-xs)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+        e.currentTarget.style.transform = 'translateY(-2px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'var(--shadow-xs)';
+        e.currentTarget.style.transform = 'translateY(0)';
+      }}
     >
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-slate-600 mb-1">{title}</p>
-          <p className="text-2xl font-bold text-slate-900">{value}</p>
+          <p className="text-sm font-medium text-gray-500 mb-1">{title}</p>
+          <p className="text-2xl font-bold text-gray-900">{value}</p>
           {trend && trendValue && (
             <div
               className={cn(
@@ -53,13 +65,13 @@ export function StatsCard({
             </div>
           )}
           {description && (
-            <p className="text-xs text-slate-500 mt-1">{description}</p>
+            <p className="text-xs text-gray-400 mt-1">{description}</p>
           )}
           {subtitle && (
-            <p className="text-xs text-slate-500 mt-1">{subtitle}</p>
+            <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
           )}
         </div>
-        <div className="ml-4 p-3 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
+        <div className="ml-4 p-3 rounded-xl trust-gradient">
           <Icon className="h-6 w-6 text-white" />
         </div>
       </div>
@@ -76,6 +88,3 @@ export function StatsCard({
 
   return content;
 }
-
-
-
