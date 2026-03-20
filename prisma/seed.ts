@@ -40,20 +40,23 @@ async function generateCompanyId(prisma: PrismaClient, companyName: string): Pro
 async function main() {
   console.log('🌱 Starting seed...');
 
+  const PASSWORD = 'Lunavia@123';
+  const hashedPassword = await bcrypt.hash(PASSWORD, 10);
+
   // Seed Cities
   console.log('📍 Seeding cities...');
   const cities = [
-    { name: 'Hà Nội', region: 'Miền Bắc', code: 'HAN' },
-    { name: 'TP. Hồ Chí Minh', region: 'Miền Nam', code: 'SGN' },
-    { name: 'Đà Nẵng', region: 'Miền Trung', code: 'DAD' },
-    { name: 'Hội An', region: 'Miền Trung', code: 'HOA' },
-    { name: 'Đà Lạt', region: 'Miền Nam', code: 'DLI' },
-    { name: 'Nha Trang', region: 'Miền Trung', code: 'NHA' },
+    { name: 'Hà Nội', region: 'Miền Bắc', code: 'HAN', country: 'VN' },
+    { name: 'TP. Hồ Chí Minh', region: 'Miền Nam', code: 'SGN', country: 'VN' },
+    { name: 'Đà Nẵng', region: 'Miền Trung', code: 'DAD', country: 'VN' },
+    { name: 'Hội An', region: 'Miền Trung', code: 'HOA', country: 'VN' },
+    { name: 'Đà Lạt', region: 'Miền Nam', code: 'DLI', country: 'VN' },
+    { name: 'Nha Trang', region: 'Miền Trung', code: 'NHA', country: 'VN' },
   ];
 
   for (const city of cities) {
     await prisma.city.upsert({
-      where: { name: city.name },
+      where: { name_country: { name: city.name, country: city.country } },
       update: {},
       create: city,
     });
@@ -76,7 +79,6 @@ async function main() {
   // Create 8 Tour Operators
   const operators = [];
   for (let i = 1; i <= 8; i++) {
-    const hashedPassword = await bcrypt.hash('password123', 10);
     const operator = await prisma.user.upsert({
       where: { email: `operator${i}@lunavia.com` },
       update: {},
@@ -97,8 +99,6 @@ async function main() {
         wallet: {
           create: {
             balance: 5000000,
-            lockedDeposit: 1000000,
-            reserved: 0,
           },
         },
       },
@@ -128,7 +128,6 @@ async function main() {
   // Create 5 Tour Agencies
   const agencies = [];
   for (let i = 1; i <= 5; i++) {
-    const hashedPassword = await bcrypt.hash('password123', 10);
     const agency = await prisma.user.upsert({
       where: { email: `agency${i}@lunavia.com` },
       update: {},
@@ -149,8 +148,6 @@ async function main() {
         wallet: {
           create: {
             balance: 8000000,
-            lockedDeposit: 1000000,
-            reserved: 0,
           },
         },
       },
@@ -161,7 +158,6 @@ async function main() {
   // Create 25 Tour Guides
   const guides = [];
   for (let i = 1; i <= 25; i++) {
-    const hashedPassword = await bcrypt.hash('password123', 10);
     const guide = await prisma.user.upsert({
       where: { email: `guide${i}@lunavia.com` },
       update: {},
@@ -191,8 +187,6 @@ async function main() {
         wallet: {
           create: {
             balance: 500000 + Math.random() * 2000000,
-            lockedDeposit: 0,
-            reserved: 0,
           },
         },
       },
@@ -200,47 +194,114 @@ async function main() {
     guides.push(guide);
   }
 
-  // Create Admin Users
-  const adminPassword = await bcrypt.hash('admin123', 10);
-  const superAdmin = await prisma.adminUser.upsert({
+  // Create Admin Users (internal staff)
+  console.log('👑 Seeding admin accounts...');
+  
+  // Super Admin
+  await prisma.adminUser.upsert({
     where: { email: 'admin@lunavia.com' },
-    update: {},
+    update: { password: hashedPassword },
     create: {
       email: 'admin@lunavia.com',
-      password: adminPassword,
+      password: hashedPassword,
       role: 'SUPER_ADMIN',
-      permissions: ['DISPUTES', 'TRANSFERS', 'PASSWORD_RESET', 'PROFILE_MGMT'],
+      permissions: ['TRUST_ADJUST', 'TRUST_RESET', 'TRUST_VIEW_HISTORY', 'FINANCE_APPROVE_TOPUP', 'FINANCE_APPROVE_REFUND', 'FINANCE_ADJUST_CREDIT', 'FINANCE_VIEW_TRANSACTIONS', 'DISPUTE_VIEW', 'DISPUTE_RESOLVE', 'SOS_VIEW', 'SOS_OPEN'],
     },
   });
 
+  // OPS/CS Staff
+  for (let i = 1; i <= 2; i++) {
+    await prisma.adminUser.upsert({
+      where: { email: `ops${i}@lunavia.com` },
+      update: { password: hashedPassword },
+      create: {
+        email: `ops${i}@lunavia.com`,
+        password: hashedPassword,
+        role: 'OPS_CS',
+        permissions: ['DISPUTE_VIEW', 'DISPUTE_OPEN', 'SOS_VIEW', 'SOS_OPEN'],
+      },
+    });
+  }
+
+  // Moderators
   for (let i = 1; i <= 3; i++) {
     await prisma.adminUser.upsert({
       where: { email: `moderator${i}@lunavia.com` },
-      update: {},
+      update: { password: hashedPassword },
       create: {
         email: `moderator${i}@lunavia.com`,
-        password: adminPassword,
+        password: hashedPassword,
         role: 'MODERATOR',
-        permissions: ['DISPUTES', 'TRANSFERS'],
+        permissions: ['DISPUTE_VIEW', 'DISPUTE_RESOLVE', 'TRUST_VIEW_HISTORY'],
       },
     });
   }
 
+  // Finance
+  for (let i = 1; i <= 2; i++) {
+    await prisma.adminUser.upsert({
+      where: { email: `finance${i}@lunavia.com` },
+      update: { password: hashedPassword },
+      create: {
+        email: `finance${i}@lunavia.com`,
+        password: hashedPassword,
+        role: 'FINANCE',
+        permissions: ['FINANCE_APPROVE_TOPUP', 'FINANCE_APPROVE_REFUND', 'FINANCE_ADJUST_CREDIT', 'FINANCE_VIEW_TRANSACTIONS'],
+      },
+    });
+  }
+
+  // Finance Lead
+  await prisma.adminUser.upsert({
+    where: { email: 'finance-lead@lunavia.com' },
+    update: { password: hashedPassword },
+    create: {
+      email: 'finance-lead@lunavia.com',
+      password: hashedPassword,
+      role: 'FINANCE_LEAD',
+      permissions: ['FINANCE_APPROVE_TOPUP', 'FINANCE_APPROVE_REFUND', 'FINANCE_ADJUST_CREDIT', 'FINANCE_VIEW_TRANSACTIONS', 'TRUST_VIEW_HISTORY'],
+    },
+  });
+
+  // Support Staff
   for (let i = 1; i <= 5; i++) {
     await prisma.adminUser.upsert({
       where: { email: `support${i}@lunavia.com` },
-      update: {},
+      update: { password: hashedPassword },
       create: {
         email: `support${i}@lunavia.com`,
-        password: adminPassword,
+        password: hashedPassword,
         role: 'SUPPORT_STAFF',
-        permissions: ['PASSWORD_RESET', 'PROFILE_MGMT'],
+        permissions: ['DISPUTE_VIEW', 'SOS_VIEW'],
       },
     });
   }
 
-  // Tours and Applications are not created in seed
-  // They should be created by real operators through the application
+  // Seed Trust & Deposit Configs
+  console.log('⚙️  Seeding platform configs...');
+  await prisma.trustConfig.upsert({
+    where: { id: 'global' },
+    update: {},
+    create: {
+      id: 'global',
+      goodMin: 80,
+      atRiskMin: 50,
+      restrictedMax: 49,
+      blockCreateTourBelow: 50,
+      blockApplyTourBelow: 50,
+    },
+  });
+
+  await prisma.depositConfig.upsert({
+    where: { id: 'global' },
+    update: {},
+    create: {
+      id: 'global',
+      operatorOnboardingLock: 1000000,
+      guideOnboardingLock: 500000,
+      perTourLockAmount: 0,
+    },
+  });
 
   // Create 20 Disputes
   const disputeTypes: Array<'PAYMENT' | 'ASSIGNMENT' | 'NO_SHOW' | 'QUALITY'> = 
@@ -260,12 +321,26 @@ async function main() {
     });
   }
 
+  console.log('');
   console.log('✅ Seed completed!');
-  console.log(`   - ${operators.length} Tour Operators`);
-  console.log(`   - ${agencies.length} Tour Agencies`);
-  console.log(`   - ${guides.length} Tour Guides`);
-  console.log(`   - 20 Disputes`);
-  console.log('\n⚠️  Note: Tours and Applications should be created by real users through the application.');
+  console.log('');
+  console.log('📊 Summary:');
+  console.log(`   🏢 ${operators.length} Tour Operators (operator1-8@lunavia.com)`);
+  console.log(`   🏬 ${agencies.length} Tour Agencies (agency1-5@lunavia.com)`);
+  console.log(`   🧑‍🏫 ${guides.length} Tour Guides (guide1-25@lunavia.com)`);
+  console.log('');
+  console.log('   👑 Internal Staff:');
+  console.log('      • admin@lunavia.com (SUPER_ADMIN)');
+  console.log('      • ops1-2@lunavia.com (OPS_CS)');
+  console.log('      • moderator1-3@lunavia.com (MODERATOR)');
+  console.log('      • finance1-2@lunavia.com (FINANCE)');
+  console.log('      • finance-lead@lunavia.com (FINANCE_LEAD)');
+  console.log('      • support1-5@lunavia.com (SUPPORT_STAFF)');
+  console.log('');
+  console.log('   🔑 All passwords: Lunavia@123');
+  console.log('   📈 20 Disputes (sample data)');
+  console.log('');
+  console.log('⚠️  Note: Tours should be created by operators through the application.');
 }
 
 main()
@@ -276,4 +351,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
