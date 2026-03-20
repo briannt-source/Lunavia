@@ -1,12 +1,14 @@
-import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour-compat';
 // ══════════════════════════════════════════════════════════════════════
 // TourIncidentService — Typed incident reporting during tour execution
 //
 // Creates structured incidents with type categories, links to timeline,
 // and provides stats for tour health monitoring.
+//
+// Part of the Incident Governance Layer (separate from EmergencyReport)
 // ══════════════════════════════════════════════════════════════════════
 
 import { prisma } from '@/lib/prisma';
+import { getAssignedGuideId } from '@/lib/tour-compat';
 import type { IncidentType } from '@prisma/client';
 
 export class TourIncidentService {
@@ -25,10 +27,10 @@ export class TourIncidentService {
         const { tourId, reportedBy, type, description, isSimulation = false } = params;
 
         // Verify tour exists
-        const tour = enrichTourCompat(await prisma.tour.findUnique({
+        const tour = await prisma.tour.findUnique({
             where: { id: tourId },
-            select: { id: true, operatorId: true, assignedGuideId: true },
-        }));
+            select: { id: true, operatorId: true },
+        });
         if (!tour) throw new Error('Tour not found');
 
         // Create incident
@@ -38,8 +40,12 @@ export class TourIncidentService {
 
         // Determine actor role
         let actorRole = 'SYSTEM';
-        if (tour.operatorId === reportedBy) actorRole = 'OPERATOR';
-        else if (tour.assignedGuideId === reportedBy) actorRole = 'GUIDE';
+        if (tour.operatorId === reportedBy) {
+            actorRole = 'OPERATOR';
+        } else {
+            const assignedGuideId = await getAssignedGuideId(tourId);
+            if (assignedGuideId === reportedBy) actorRole = 'GUIDE';
+        }
 
         // Create timeline event
         await prisma.tourTimelineEvent.create({
@@ -69,7 +75,7 @@ export class TourIncidentService {
             where: { tourId },
             include: {
                 reporter: {
-                    select: { id: true, name: true, email: true },
+                    select: { id: true, email: true, profile: { select: { name: true } } },
                 },
             },
             orderBy: { createdAt: 'desc' },
@@ -101,7 +107,7 @@ export class TourIncidentService {
 
         return {
             totalIncidents: total,
-            byType: byType.reduce((acc, e) => {
+            byType: byType.reduce((acc: Record<string, number>, e: any) => {
                 acc[e.type] = e._count;
                 return acc;
             }, {} as Record<string, number>),

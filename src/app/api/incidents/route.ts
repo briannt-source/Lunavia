@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
+import { TourIncidentService } from "@/domain/governance/TourIncidentService";
 import { prisma } from "@/lib/prisma";
 
 /**
  * GET /api/incidents
- * List incidents (EmergencyReports) with optional filters: status, id, tourId
- * Used by /dashboard/admin/incidents
+ * List incidents with optional filters: status, id, tourId
+ * Uses the dedicated TourIncident governance model (separate from EmergencyReport)
  */
 export async function GET(req: NextRequest) {
   try {
@@ -22,11 +23,11 @@ export async function GET(req: NextRequest) {
 
     // Single incident by ID
     if (id) {
-      const incident = await prisma.emergencyReport.findUnique({
+      const incident = await prisma.tourIncident.findUnique({
         where: { id },
         include: {
           tour: { select: { id: true, title: true, operatorId: true } },
-          guide: {
+          reporter: {
             select: {
               id: true,
               email: true,
@@ -54,16 +55,16 @@ export async function GET(req: NextRequest) {
     // Non-admin users can only see their own incidents
     if (session.user.role !== "ADMIN" && session.user.role !== "SUPER_ADMIN") {
       where.OR = [
-        { guideId: session.user.id },
+        { reportedBy: session.user.id },
         { tour: { operatorId: session.user.id } },
       ];
     }
 
-    const incidents = await prisma.emergencyReport.findMany({
+    const incidents = await prisma.tourIncident.findMany({
       where,
       include: {
         tour: { select: { id: true, title: true, operatorId: true } },
-        guide: {
+        reporter: {
           select: {
             id: true,
             email: true,
@@ -90,7 +91,7 @@ export async function GET(req: NextRequest) {
 
 /**
  * POST /api/incidents
- * Report a new incident during tour execution
+ * Report a new incident via TourIncidentService
  */
 export async function POST(req: NextRequest) {
   try {
@@ -100,7 +101,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { tourId, type, description, severity, location, latitude, longitude } = body;
+    const { tourId, type, description } = body;
 
     if (!tourId || !type || !description) {
       return NextResponse.json(
@@ -109,17 +110,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const incident = await prisma.emergencyReport.create({
-      data: {
-        tourId,
-        guideId: session.user.id,
-        type: type || "INCIDENT",
-        description,
-        severity: severity || "LOW",
-        location,
-        latitude,
-        longitude,
-      },
+    const incident = await TourIncidentService.reportIncident({
+      tourId,
+      reportedBy: session.user.id,
+      type,
+      description,
     });
 
     return NextResponse.json({ incident }, { status: 201 });
@@ -135,12 +130,12 @@ export async function POST(req: NextRequest) {
 function formatIncident(incident: any) {
   return {
     ...incident,
-    reporter: incident.guide
+    reporter: incident.reporter
       ? {
-          id: incident.guide.id,
-          name: incident.guide.profile?.name || incident.guide.email,
-          email: incident.guide.email,
-          role: incident.guide.role,
+          id: incident.reporter.id,
+          name: incident.reporter.profile?.name || incident.reporter.email,
+          email: incident.reporter.email,
+          role: incident.reporter.role,
         }
       : null,
   };

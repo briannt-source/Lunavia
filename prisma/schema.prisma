@@ -242,6 +242,26 @@ enum DepositLockStatus {
   FORFEITED
 }
 
+enum IncidentType {
+  GUEST_COMPLAINT
+  GUIDE_NO_SHOW
+  TOUR_DELAY
+  PAYMENT_ISSUE
+  GUEST_MISCONDUCT
+  POLICY_VIOLATION
+  SAFETY_CONCERN
+  EQUIPMENT_DAMAGE
+  WEATHER_DISRUPTION
+  OTHER
+}
+
+enum IncidentStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
+}
+
 enum CompanyMemberRole {
   OWNER           // Full control — company creator
   MANAGER         // Create/edit tours, manage staff/guides, view finance
@@ -331,6 +351,8 @@ model User {
   invoicesReceived         Invoice[]            @relation("InvoiceRecipients")
   SafetyCheckIn            SafetyCheckIn[]
   EmergencyContact         EmergencyContact[]
+  reportedIncidents        TourIncident[]       @relation("IncidentReporters")
+  tourTimelineActions       TourTimelineEvent[]  @relation("TimelineActors")
 
   @@map("users")
 }
@@ -472,6 +494,8 @@ model Tour {
   paymentMilestones PaymentMilestone[]
   invoices          Invoice[]
   SafetyCheckIn     SafetyCheckIn[]
+  incidents         TourIncident[]
+  timelineEvents    TourTimelineEvent[]
 
   // Trust & Deposit fields (Phase 3C.1)
   depositLockRequired Boolean       @default(false)
@@ -1742,5 +1766,67 @@ model ObserverToken {
   @@index([type])
   @@index([isActive])
   @@map("observer_tokens")
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// Incident Governance Layer — Post-incident reporting, audit & trust
+// Separate from EmergencyReport (real-time safety / SOS)
+// ══════════════════════════════════════════════════════════════════════════
+
+model TourIncident {
+  id           String         @id @default(cuid())
+  tourId       String
+  tour         Tour           @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  reportedBy   String
+  reporter     User           @relation("IncidentReporters", fields: [reportedBy], references: [id], onDelete: Cascade)
+
+  type         IncidentType
+  description  String         @db.Text
+  status       IncidentStatus @default(OPEN)
+  isSimulation Boolean        @default(false) // For testing/drills
+
+  // Evidence
+  evidence     String[]       // URLs to photos/documents
+
+  // Resolution
+  resolvedAt       DateTime?
+  resolvedBy       String?    // Admin user ID
+  resolutionNotes  String?    @db.Text
+
+  // Governance outcome
+  trustPenalty     Int?       // Trust score penalty applied
+  disputeId        String?    // Linked dispute if escalated
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt
+
+  @@index([tourId])
+  @@index([reportedBy])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+  @@map("tour_incidents")
+}
+
+model TourTimelineEvent {
+  id          String   @id @default(cuid())
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  actorId     String?
+  actor       User?    @relation("TimelineActors", fields: [actorId], references: [id], onDelete: SetNull)
+
+  actorRole   String   // OPERATOR, GUIDE, ADMIN, SYSTEM
+  eventType   String   // INCIDENT_REPORTED, INCIDENT_RESOLVED, CHECKIN_MISSED, TOUR_STARTED, etc.
+  title       String
+  description String?  @db.Text
+  metadata    String?  @db.Text // JSON string for extra data
+
+  createdAt   DateTime @default(now())
+
+  @@index([tourId])
+  @@index([actorId])
+  @@index([eventType])
+  @@index([createdAt])
+  @@map("tour_timeline_events")
 }
 

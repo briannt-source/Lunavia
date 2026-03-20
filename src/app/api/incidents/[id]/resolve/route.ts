@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 /**
  * POST /api/incidents/[id]/resolve
  * Resolve an incident (admin only)
+ * Updates TourIncident status + creates TourTimelineEvent
  */
 export async function POST(
   req: NextRequest,
@@ -26,9 +27,9 @@ export async function POST(
 
     const { id } = await params;
     const body = await req.json();
-    const { resolution, notes } = body;
+    const { resolution, notes, trustPenalty } = body;
 
-    const incident = await prisma.emergencyReport.findUnique({
+    const incident = await prisma.tourIncident.findUnique({
       where: { id },
     });
 
@@ -40,13 +41,31 @@ export async function POST(
       return NextResponse.json({ error: "Incident already resolved" }, { status: 400 });
     }
 
-    const updated = await prisma.emergencyReport.update({
+    const updated = await prisma.tourIncident.update({
       where: { id },
       data: {
         status: "RESOLVED",
         resolvedAt: new Date(),
         resolvedBy: session.user.id,
         resolutionNotes: notes || resolution || "Resolved by admin",
+        trustPenalty: trustPenalty || null,
+      },
+    });
+
+    // Create timeline event for audit trail
+    await prisma.tourTimelineEvent.create({
+      data: {
+        tourId: incident.tourId,
+        actorId: session.user.id,
+        actorRole: "ADMIN",
+        eventType: "INCIDENT_RESOLVED",
+        title: "Incident resolved",
+        description: notes || resolution || "Resolved by admin",
+        metadata: JSON.stringify({
+          incidentId: id,
+          type: incident.type,
+          trustPenalty: trustPenalty || null,
+        }),
       },
     });
 
