@@ -397,32 +397,41 @@
         "moneyFlow": {
             "badge": "Transparent Payments",
             "title": "See exactly where every dong goes",
-            "subtitle": "No hidden fees. All payments flow through regulated escrow. Both operators and guides see the full breakdown before confirming.",
+            "subtitle": "No hidden fees. All payments flow through regulated Escrow. Both operators and guides see the full breakdown before confirming.",
             "step1": {
-                "title": "Operator pays",
-                "desc": "The full guide rate is deposited into Lunavia's escrow account before the tour starts.",
-                "example": "Example: Guide rate"
+                "title": "Deposit 10% upfront",
+                "desc": "Operator deposits only 10% of the guide rate into Escrow to secure the booking. Low commitment, high trust.",
+                "example": "Deposit (10% of 1,000,000₫)",
+                "amount": "100,000₫"
             },
             "step2": {
-                "title": "Escrow holds safely",
-                "desc": "Funds are held in a regulated escrow account until the tour is completed and confirmed by both parties.",
-                "example": "Tour in progress",
+                "title": "Full Escrow before tour",
+                "desc": "The remaining balance is locked in Escrow before the tour begins. Both parties are fully protected.",
+                "example": "Total in Escrow",
+                "amount": "1,050,000₫",
                 "status": "Protected"
             },
             "step3": {
+                "title": "Tour completed",
+                "desc": "Both operator and guide confirm tour completion. Funds are released from Escrow automatically.",
+                "example": "Tour confirmed",
+                "status": "✓ Completed"
+            },
+            "step4": {
                 "title": "Guide receives payout",
-                "desc": "After tour confirmation, the guide receives their payout minus a small platform service fee.",
-                "example": "Guide receives (after 5% fee)"
+                "desc": "After confirmation, guide receives their full rate minus a small platform service fee.",
+                "example": "Guide receives",
+                "amount": "950,000₫"
             },
             "fees": {
                 "operator": "Marketplace Commission",
-                "operatorNote": "Free plan rate — lower with Pro, Elite",
-                "inHouse": "In-House Commission",
-                "inHouseNote": "Verified contract = zero fees",
+                "operatorNote": "Only 50,000₫ per 1,000,000₫ tour (Free plan)",
+                "deposit": "Upfront Deposit",
+                "depositNote": "Only 10% to secure booking — rest paid later",
                 "guide": "Guide Platform Fee",
                 "guideNote": "Free = 5%, Guide Pro = 2%"
             },
-            "disclaimer": "Lunavia operates as a licensed escrow intermediary. Funds are never commingled with operating revenue. Vietnamese law compliant."
+            "disclaimer": "Lunavia operates as a licensed Escrow intermediary. Funds are never commingled with operating revenue. Vietnamese law compliant."
         },
         "howItWorks": {
             "badge": "How It Works",

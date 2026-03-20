@@ -236,39 +236,50 @@ export default async function HomePage() {
                         <p className="text-slate-500 text-lg">{t('moneyFlow.subtitle')}</p>
                     </div>
 
-                    {/* Flow Diagram */}
-                    <div className="max-w-4xl mx-auto">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-                            {/* Step 1: Operator Pays */}
+                    {/* Flow Diagram — 4 steps */}
+                    <div className="max-w-5xl mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+                            {/* Step 1: Deposit 10% */}
                             <div className="rounded-2xl bg-blue-50 border border-blue-200 p-6 text-center">
                                 <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
                                 <h3 className="font-bold text-blue-900 mb-2">{t('moneyFlow.step1.title')}</h3>
                                 <p className="text-sm text-blue-700 leading-relaxed">{t('moneyFlow.step1.desc')}</p>
                                 <div className="mt-4 px-3 py-2 rounded-xl bg-blue-100 border border-blue-200">
                                     <div className="text-xs text-blue-600 font-medium">{t('moneyFlow.step1.example')}</div>
-                                    <div className="text-lg font-bold text-blue-800">10,000,000₫</div>
+                                    <div className="text-lg font-bold text-blue-800">{t('moneyFlow.step1.amount')}</div>
                                 </div>
                             </div>
 
-                            {/* Step 2: Escrow Holds */}
+                            {/* Step 2: Full Escrow */}
                             <div className="rounded-2xl bg-amber-50 border border-amber-200 p-6 text-center">
                                 <div className="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
                                 <h3 className="font-bold text-amber-900 mb-2">{t('moneyFlow.step2.title')}</h3>
                                 <p className="text-sm text-amber-700 leading-relaxed">{t('moneyFlow.step2.desc')}</p>
                                 <div className="mt-4 px-3 py-2 rounded-xl bg-amber-100 border border-amber-200">
                                     <div className="text-xs text-amber-600 font-medium">{t('moneyFlow.step2.example')}</div>
-                                    <div className="text-lg font-bold text-amber-800">🔒 {t('moneyFlow.step2.status')}</div>
+                                    <div className="text-lg font-bold text-amber-800">🔒 {t('moneyFlow.step2.amount')}</div>
                                 </div>
                             </div>
 
-                            {/* Step 3: Guide Receives */}
+                            {/* Step 3: Tour Completed */}
+                            <div className="rounded-2xl bg-violet-50 border border-violet-200 p-6 text-center">
+                                <div className="w-12 h-12 rounded-xl bg-violet-600 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                                <h3 className="font-bold text-violet-900 mb-2">{t('moneyFlow.step3.title')}</h3>
+                                <p className="text-sm text-violet-700 leading-relaxed">{t('moneyFlow.step3.desc')}</p>
+                                <div className="mt-4 px-3 py-2 rounded-xl bg-violet-100 border border-violet-200">
+                                    <div className="text-xs text-violet-600 font-medium">{t('moneyFlow.step3.example')}</div>
+                                    <div className="text-lg font-bold text-violet-800">{t('moneyFlow.step3.status')}</div>
+                                </div>
+                            </div>
+
+                            {/* Step 4: Guide Payout */}
                             <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-                                <h3 className="font-bold text-emerald-900 mb-2">{t('moneyFlow.step3.title')}</h3>
-                                <p className="text-sm text-emerald-700 leading-relaxed">{t('moneyFlow.step3.desc')}</p>
+                                <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+                                <h3 className="font-bold text-emerald-900 mb-2">{t('moneyFlow.step4.title')}</h3>
+                                <p className="text-sm text-emerald-700 leading-relaxed">{t('moneyFlow.step4.desc')}</p>
                                 <div className="mt-4 px-3 py-2 rounded-xl bg-emerald-100 border border-emerald-200">
-                                    <div className="text-xs text-emerald-600 font-medium">{t('moneyFlow.step3.example')}</div>
-                                    <div className="text-lg font-bold text-emerald-800">9,500,000₫</div>
+                                    <div className="text-xs text-emerald-600 font-medium">{t('moneyFlow.step4.example')}</div>
+                                    <div className="text-lg font-bold text-emerald-800">{t('moneyFlow.step4.amount')}</div>
                                 </div>
                             </div>
                         </div>
@@ -282,9 +293,9 @@ export default async function HomePage() {
                                     <div className="text-xs text-slate-400 mt-0.5">{t('moneyFlow.fees.operatorNote')}</div>
                                 </div>
                                 <div>
-                                    <div className="text-2xl font-bold text-emerald-600">0%</div>
-                                    <div className="text-sm text-slate-600 mt-1">{t('moneyFlow.fees.inHouse')}</div>
-                                    <div className="text-xs text-slate-400 mt-0.5">{t('moneyFlow.fees.inHouseNote')}</div>
+                                    <div className="text-2xl font-bold text-amber-600">10%</div>
+                                    <div className="text-sm text-slate-600 mt-1">{t('moneyFlow.fees.deposit')}</div>
+                                    <div className="text-xs text-slate-400 mt-0.5">{t('moneyFlow.fees.depositNote')}</div>
                                 </div>
                                 <div>
                                     <div className="text-2xl font-bold text-indigo-600">2-5%</div>

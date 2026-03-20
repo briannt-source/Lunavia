@@ -210,7 +210,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
       {/* User info */}
       <div className="p-4 border-b border-slate-200">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#0096C7] to-[#0077B6] flex items-center justify-center">
             <span className="text-white font-semibold text-sm">
               {userEmail?.charAt(0).toUpperCase()}
             </span>
@@ -238,8 +238,8 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                     active
-                      ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-sm"
-                      : "text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                      ? "bg-gradient-to-r from-[#0096C7] to-[#0077B6] text-white shadow-sm"
+                      : "text-slate-700 hover:bg-lunavia-light hover:text-[#0077B6]"
                   )}
                 >
                   <Icon className="h-5 w-5" />

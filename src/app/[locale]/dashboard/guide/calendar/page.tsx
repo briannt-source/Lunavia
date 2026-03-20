@@ -14,10 +14,16 @@ export default async function GuideCalendarPage() {
     const t = await getTranslations('Guide.Calendar');
 
     // Fetch Availability Blocks
-    const availability = await prisma.guideAvailability.findMany({
+    const rawAvailability = await prisma.guideAvailability.findMany({
         where: { guideId: session.user.id },
-        select: { date: true, status: true }
+        select: { date: true, slots: true }
     });
+
+    // Derive status from slots — if any slots exist, mark as AVAILABLE
+    const availability = rawAvailability.map(a => ({
+        date: a.date,
+        status: (a.slots && Array.isArray(a.slots) && a.slots.length > 0) ? 'AVAILABLE' : 'UNAVAILABLE',
+    }));
 
     // Fetch Assigned Tours via accepted Applications
     const acceptedApps = await prisma.application.findMany({
@@ -33,11 +39,13 @@ export default async function GuideCalendarPage() {
         }
     });
 
-    const assignedTours = acceptedApps.map(a => ({
-        startTime: a.tour.startDate,
-        endTime: a.tour.endDate,
-        title: a.tour.title,
-    }));
+    const assignedTours = acceptedApps
+        .filter(a => a.tour.endDate !== null)
+        .map(a => ({
+            startDate: a.tour.startDate,
+            endDate: a.tour.endDate!,
+            title: a.tour.title,
+        }));
 
     return (
         <BaseDashboardLayout

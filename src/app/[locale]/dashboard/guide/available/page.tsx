@@ -63,7 +63,16 @@ export default function GuideAvailablePage() {
   const [startDate, setStartDate] = useState('');
   const [category, setCategory] = useState('');
   const [groupSize, setGroupSize] = useState('');
-  const [sortBy, setSortBy] = useState<'date_posted' | 'high_payout' | 'urgent'>('date_posted');
+  const [language, setLanguage] = useState('');
+  const [sortBy, setSortBy] = useState<'suggested' | 'date_posted' | 'high_payout' | 'urgent' | 'trust'>('suggested');
+
+  // Guide's own profile for region-based suggestions
+  const [guideCity, setGuideCity] = useState('');
+  useEffect(() => {
+    fetch('/api/user/profile').then(r => r.json()).then(d => {
+      if (d?.profile?.city) setGuideCity(d.profile.city);
+    }).catch(() => {});
+  }, []);
 
   const trustState = (session?.user as any)?.trustState;
   const isUnverified = !trustState || trustState === 'UNVERIFIED' || trustState === 'PENDING';
@@ -90,6 +99,7 @@ export default function GuideAvailablePage() {
         if (startDate) params.append('startDate', startDate);
         if (category) params.append('category', category);
         if (groupSize) params.append('groupSize', groupSize);
+        if (language) params.append('language', language);
 
         const res = await fetch(`/api/requests?${params.toString()}`);
         const response = await res.json();
@@ -107,7 +117,7 @@ export default function GuideAvailablePage() {
     } finally {
       setLoading(false);
     }
-  }, [province, startDate, category, groupSize, activeTab]);
+  }, [province, startDate, category, groupSize, language, activeTab]);
 
   useEffect(() => {
     fetchRequests();
@@ -142,10 +152,28 @@ export default function GuideAvailablePage() {
   // Sort requests based on selected sort option
   const sortedRequests = [...requests].sort((a, b) => {
     switch (sortBy) {
-      case 'high_payout':
+      case 'suggested': {
+        // Region match first, then trust score, then payout
+        const regionA = guideCity && (a.province === guideCity || a.location === guideCity) ? 1 : 0;
+        const regionB = guideCity && (b.province === guideCity || b.location === guideCity) ? 1 : 0;
+        if (regionA !== regionB) return regionB - regionA;
+        const trustA = Number(a.operatorTrust) || 0;
+        const trustB = Number(b.operatorTrust) || 0;
+        if (trustA !== trustB) return trustB - trustA;
+        const pA = a.totalPayout || 0;
+        const pB = b.totalPayout || 0;
+        return pB - pA;
+      }
+      case 'trust': {
+        const tA = Number(a.operatorTrust) || 0;
+        const tB = Number(b.operatorTrust) || 0;
+        return tB - tA;
+      }
+      case 'high_payout': {
         const payoutA = a.rolesNeeded?.reduce((sum, r) => sum + (r.quantity * r.rate), 0) || a.totalPayout || 0;
         const payoutB = b.rolesNeeded?.reduce((sum, r) => sum + (r.quantity * r.rate), 0) || b.totalPayout || 0;
         return payoutB - payoutA;
+      }
       case 'urgent':
         return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
       case 'date_posted':
@@ -241,7 +269,7 @@ export default function GuideAvailablePage() {
                   {t('filters.title')}
                 </h2>
                 <button
-                  onClick={() => { setProvince(''); setStartDate(''); setCategory(''); setGroupSize(''); }}
+                  onClick={() => { setProvince(''); setStartDate(''); setCategory(''); setGroupSize(''); setLanguage(''); }}
                   className="text-xs font-medium text-gray-400 hover:text-indigo-600 transition"
                 >
                   {t('filters.clear')}
@@ -296,6 +324,26 @@ export default function GuideAvailablePage() {
                   </select>
                 </div>
 
+                {/* Language */}
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">🗣️ Ngôn ngữ</label>
+                  <select
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
+                  >
+                    <option value="">Tất cả ngôn ngữ</option>
+                    <option value="Vietnamese">Tiếng Việt</option>
+                    <option value="English">English</option>
+                    <option value="Chinese">中文</option>
+                    <option value="Japanese">日本語</option>
+                    <option value="Korean">한국어</option>
+                    <option value="French">Français</option>
+                    <option value="Spanish">Español</option>
+                    <option value="German">Deutsch</option>
+                  </select>
+                </div>
+
                 {/* Group Size */}
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1.5">{t('filters.groupSize')}</label>
@@ -338,6 +386,8 @@ export default function GuideAvailablePage() {
                   onChange={(e) => setSortBy(e.target.value as any)}
                   className="bg-transparent border-none text-sm font-bold text-gray-900 focus:ring-0 p-0 pr-8 cursor-pointer"
                 >
+                  <option value="suggested">✨ Gợi ý cho bạn</option>
+                  <option value="trust">🛡️ Uy tín cao nhất</option>
                   <option value="date_posted">{t('main.sortPosted')}</option>
                   <option value="high_payout">{t('main.sortRate')}</option>
                   <option value="urgent">{t('main.sortUrgent')}</option>
@@ -425,7 +475,14 @@ export default function GuideAvailablePage() {
             ) : (
               <div className="space-y-4 animate-fade-in">
                 {sortedRequests.map(req => (
-                  <div key={req.id} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200">
+                  <div key={req.id} className={`bg-white rounded-xl overflow-hidden border shadow-sm hover:shadow-md transition-all duration-200 ${guideCity && (req.province === guideCity || req.location === guideCity) ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-gray-100'}`}>
+                    {/* Region match badge */}
+                    {guideCity && (req.province === guideCity || req.location === guideCity) && (
+                      <div className="bg-indigo-50 px-5 py-1.5 border-b border-indigo-100 flex items-center gap-1.5">
+                        <span className="text-xs">📍</span>
+                        <span className="text-[11px] font-semibold text-indigo-600">Cùng khu vực của bạn</span>
+                      </div>
+                    )}
                     <div className="p-5">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <div className="min-w-0 flex-1">
@@ -466,9 +523,14 @@ export default function GuideAvailablePage() {
                       </div>
 
                       <div className="flex items-center justify-between pt-3 border-t border-gray-50">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-semibold text-indigo-700 shrink-0">
-                            {req.operatorName?.[0]?.toUpperCase() || 'O'}
+                        <div className="flex items-center gap-3">
+                          {/* Operator Avatar */}
+                          <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700 shrink-0 overflow-hidden border-2 border-white shadow-sm">
+                            {req.operatorAvatar ? (
+                              <img src={req.operatorAvatar} alt={req.operatorName || ''} className="w-full h-full object-cover" />
+                            ) : (
+                              req.operatorName?.[0]?.toUpperCase() || 'O'
+                            )}
                           </div>
                           <div>
                             <div className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
@@ -479,15 +541,25 @@ export default function GuideAvailablePage() {
                                 <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-700">{t('regular.noLicense')}</span>
                               )}
                             </div>
-                            {(req as any).unlicensedWarning ? (
-                              <span className="text-[10px] font-medium text-amber-600">
-                                {t('regular.noLicenseWarning', { trust: (req as any).operatorTrustCeiling || 70 })}
-                              </span>
-                            ) : (
-                              req.operatorTrust && (
-                                <span className="text-xs font-medium text-emerald-600">{t('regular.trustLabel', { trust: req.operatorTrust })}</span>
-                              )
-                            )}
+                            <div className="flex items-center gap-2 mt-0.5">
+                              {req.operatorTrust && (
+                                <span className="inline-flex items-center gap-1 text-xs font-medium">
+                                  <span className={`inline-block w-2 h-2 rounded-full ${
+                                    Number(req.operatorTrust) >= 80 ? 'bg-emerald-500' :
+                                    Number(req.operatorTrust) >= 60 ? 'bg-amber-500' : 'bg-red-400'
+                                  }`} />
+                                  <span className={`${
+                                    Number(req.operatorTrust) >= 80 ? 'text-emerald-600' :
+                                    Number(req.operatorTrust) >= 60 ? 'text-amber-600' : 'text-red-500'
+                                  }`}>Trust {req.operatorTrust}</span>
+                                </span>
+                              )}
+                              {(req as any).unlicensedWarning && (
+                                <span className="text-[10px] font-medium text-amber-600">
+                                  {t('regular.noLicenseWarning', { trust: (req as any).operatorTrustCeiling || 70 })}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">

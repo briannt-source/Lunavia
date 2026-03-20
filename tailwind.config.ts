@@ -32,20 +32,16 @@ const config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        sea: {
-          blue: "#0077B6",        // Primary blue
-          "blue-dark": "#003049",  // Dark blue
-          "blue-darker": "#001D3D", // Darkest blue
-          "blue-light": "#E6F2F8", // Light blue (tint)
-          "blue-lighter": "#F0F8FB", // Lighter blue
-          dark: "#001D3D",         // Darkest
-        },
+        // Lunavia Design System Colors
         lunavia: {
-          primary: "#0077B6",      // Main brand color
-          secondary: "#003049",    // Secondary/dark
-          accent: "#001D3D",       // Accent/darkest
-          light: "#E6F2F8",        // Light tint
-          lighter: "#F0F8FB",      // Lighter tint
+          primary: "#0077B6",
+          "primary-dark": "#005A8C",
+          secondary: "#003049",
+          accent: "#00B4D8",
+          dark: "#001D3D",
+          light: "#E8F4FD",
+          lighter: "#F0F8FB",
+          muted: "#B2DBF1",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -67,14 +63,15 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Stitch custom colors
-        "background-light": "#f6f7f8",
-        "background-dark": "#111418",
-        "surface-dark": "#1c2127",
-        "border-dark": "#283039",
+        // Layout surface colors
+        "background-light": "#F0F8FB",
+        "background-dark": "#001D3D",
+        "surface-dark": "#003049",
+        "border-dark": "#004466",
       },
       fontFamily: {
-        display: ["Public Sans", "sans-serif"],
+        display: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+        body: ["Inter", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -101,4 +98,3 @@ const config = {
 } satisfies Config
 
 export default config
-

@@ -10,12 +10,12 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#4f46e5',
+  themeColor: '#0077B6',
 };
 
 export const metadata: Metadata = {
-  title: "Lunavia — Tour Marketplace",
-  description: "Nền tảng AI-powered của Sea You Travel — Kết nối thông minh Tour Operator & HDV",
+  title: "Lunavia — Tour Operations & Guide Marketplace",
+  description: "Lunavia by Sea You Travel — AI-powered tour management, guide marketplace, escrow payment, and governance platform.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

@@ -397,32 +397,41 @@
         "moneyFlow": {
             "badge": "Thanh Toán Minh Bạch",
             "title": "Biết chính xác từng đồng đi đâu",
-            "subtitle": "Không phí ẩn. Mọi khoản thanh toán đều đi qua hệ thống ký quỹ có quy chế. Cả operator và guide đều thấy bảng phân tích chi tiết trước khi xác nhận.",
+            "subtitle": "Không phí ẩn. Mọi khoản thanh toán đều đi qua hệ thống Escrow có quy chế. Cả operator và guide đều thấy bảng phân tích chi tiết trước khi xác nhận.",
             "step1": {
-                "title": "Operator thanh toán",
-                "desc": "Toàn bộ số tiền cho guide được nạp vào tài khoản ký quỹ Lunavia trước khi tour bắt đầu.",
-                "example": "Ví dụ: Mức thù lao HDV"
+                "title": "Deposit 10% giữ chỗ",
+                "desc": "Operator chỉ cần deposit 10% thù lao guide vào Escrow để xác nhận booking. Chi phí thấp, độ tin cậy cao.",
+                "example": "Deposit (10% của 1,000,000₫)",
+                "amount": "100,000₫"
             },
             "step2": {
-                "title": "Ký quỹ bảo đảm",
-                "desc": "Tiền được giữ an toàn trong tài khoản ký quỹ cho đến khi cả hai bên xác nhận tour hoàn thành.",
-                "example": "Tour đang tiến hành",
+                "title": "Escrow đầy đủ trước tour",
+                "desc": "Phần còn lại được khóa vào Escrow trước khi tour bắt đầu. Cả hai bên đều được bảo vệ hoàn toàn.",
+                "example": "Tổng trong Escrow",
+                "amount": "1,050,000₫",
                 "status": "Đang bảo vệ"
             },
             "step3": {
+                "title": "Tour hoàn thành",
+                "desc": "Cả operator và guide xác nhận tour hoàn thành. Tiền Escrow tự động được giải phóng.",
+                "example": "Tour đã xác nhận",
+                "status": "✓ Hoàn thành"
+            },
+            "step4": {
                 "title": "Guide nhận tiền",
-                "desc": "Sau khi tour được xác nhận, guide nhận thù lao trừ đi phí dịch vụ nền tảng nhỏ.",
-                "example": "Guide nhận (sau phí 5%)"
+                "desc": "Sau khi xác nhận, guide nhận đầy đủ thù lao trừ đi phí dịch vụ nền tảng nhỏ.",
+                "example": "Guide nhận",
+                "amount": "950,000₫"
             },
             "fees": {
                 "operator": "Hoa hồng Marketplace",
-                "operatorNote": "Gói Free — giảm với Pro, Elite",
-                "inHouse": "Hoa hồng In-House",
-                "inHouseNote": "Có hợp đồng xác thực = 0% phí",
+                "operatorNote": "Chỉ 50,000₫ cho mỗi tour 1,000,000₫ (gói Free)",
+                "deposit": "Deposit giữ chỗ",
+                "depositNote": "Chỉ 10% để giữ booking — phần còn lại trả sau",
                 "guide": "Phí dịch vụ Guide",
                 "guideNote": "Free = 5%, Guide Pro = 2%"
             },
-            "disclaimer": "Lunavia hoạt động như đơn vị trung gian ký quỹ có giấy phép. Tiền ký quỹ không bao giờ trộn lẫn với doanh thu hoạt động. Tuân thủ pháp luật Việt Nam."
+            "disclaimer": "Lunavia hoạt động như đơn vị trung gian Escrow có giấy phép. Tiền Escrow không bao giờ trộn lẫn với doanh thu hoạt động. Tuân thủ pháp luật Việt Nam."
         },
         "howItWorks": {
             "badge": "Quy trình Hoạt động",
@@ -586,24 +595,24 @@
                 "operations": "Vận hành",
                 "account": "Tài khoản",
                 "tours": "Quản lý Tour",
-                "commandCenter": "Trung tâm Điều hành",
+                "commandCenter": "Command Center",
                 "system": "Hệ thống",
                 "pitchMode": "Chế độ Thuyết minh (Pitch)"
             },
             "links": {
-                "dashboard": "Bảng Điều khiển",
+                "dashboard": "Dashboard",
                 "myTours": "Tour của tôi",
                 "myTeam": "Đội ngũ",
                 "discoverGuides": "Tìm Hướng Dẫn Viên",
                 "wallet": "Ví tài khoản",
                 "commission": "Chiết khấu & Hoa hồng",
                 "liveFleetTracking": "Định vị đoàn thực tế",
-                "commandCenter": "Trung tâm Điều hành",
-                "insights": "Phân tích Báo cáo",
+                "commandCenter": "Command Center",
+                "insights": "Insights",
                 "disputes": "Khiếu nại",
                 "guideBlacklist": "Danh sách đen",
                 "profile": "Thông tin cá nhân",
-                "portfolio": "Hồ sơ năng lực",
+                "portfolio": "Portfolio",
                 "subscription": "Gói phần mềm (Subscription)",
                 "verification": "Định danh bảo mật",
                 "settings": "Cài đặt tham số",
@@ -612,7 +621,7 @@
                 "earnings": "Doanh thu",
                 "godMode": "⚡ Quyền tối thượng (God Mode)",
                 "globalFleet": "🗺️ Giám sát Toàn cầu",
-                "analytics": "Phân tích số liệu",
+                "analytics": "Analytics",
                 "marketplaceUsers": "Người dùng Mạng lưới",
                 "tourControl": "Kiểm soát Hành trình",
                 "incidents": "Báo cáo Sự cố",
@@ -633,7 +642,7 @@
                 "maintenance": "Bảo trì Hệ thống",
                 "permissions": "Phân quyền Truy cập",
                 "governance": "Chính sách Cốt lõi",
-                "systemHealth": "Sức khỏe Hệ thống",
+                "systemHealth": "System Health",
                 "simulation": "Giả lập Vận hành",
                 "investor": "Báo cáo Nhà đầu tư",
                 "demo": "Tạo lại Dữ liệu Mẫu",
@@ -765,7 +774,7 @@
         },
         "Wallet": {
             "title": "Ví điện tử",
-            "subtitle": "Quản lý số dư để thực hiện ký quỹ trên các Tour",
+            "subtitle": "Quản lý số dư để thực hiện Escrow trên các Tour",
             "backToDashboard": "← Tổng quan",
             "balances": {
                 "available": "Số dư Khả dụng",
@@ -871,7 +880,7 @@
                 "today": "Hôm nay",
                 "thisMonth": "Tháng này",
                 "toursCompleted": "Tour đã dẫn",
-                "trustScore": "Điểm Tín nhiệm",
+                "trustScore": "Trust Score",
                 "goodStanding": "Tốt",
                 "fair": "Trung bình",
                 "atRisk": "Có rủi ro",
@@ -1042,7 +1051,7 @@
         "Profile": {
             "title": "Hồ sơ cá nhân",
             "subtitle": "Quản lý thông tin tài khoản của bạn",
-            "trustScore": "Điểm Tin Cậy",
+            "trustScore": "Trust Score",
             "planExpires": "Hết hạn {date}",
             "verification": {
                 "notStarted": "Chưa xác thực",
@@ -1066,14 +1075,14 @@
                 "contractApproved": "Hợp đồng đã được duyệt. Bạn chính thức là Hướng Dẫn Viên Nội Bộ."
             },
             "nav": {
-                "portfolio": "Hồ Sơ Năng Lực (Portfolio)",
+                "portfolio": "Portfolio",
                 "portfolioDesc": "Xem và chia sẻ hồ sơ công khai của bạn",
                 "portfolioBtn": "Xem Portfolio →",
                 "editProfile": "Chỉnh sửa Hồ Sơ",
                 "editProfileDesc": "Cập nhật tiểu sử, kỹ năng, ngôn ngữ",
                 "editProfileBtn": "Chỉnh sửa →",
-                "trustScore": "Điểm Tin Cậy",
-                "trustScoreDesc": "Xem biểu đồ lịch sử điểm tin cậy",
+                "trustScore": "Trust Score",
+                "trustScoreDesc": "Xem biểu đồ lịch sử Trust Score",
                 "trustScoreBtn": "Xem chi tiết →",
                 "security": "Bảo Mật",
                 "securityDesc": "Đổi mật khẩu, quản lý phiên đăng nhập",
@@ -1160,7 +1169,7 @@
             },
             "operator": {
                 "sectionTitle": "Công ty Lữ hành",
-                "trust": "Điểm Tin Cậy"
+                "trust": "Trust Score"
             },
             "application": {
                 "sectionTitle": "Hồ sơ Ứng tuyển",
@@ -1234,7 +1243,7 @@
                 "desc": "Bảo mật nền tảng thông qua xác thực Know Your Customer (KYC). Nó giúp củng cố niềm tin và là cầu nối vững bền giữa HDV và Lữ hành, cho phép bạn sử dụng ví quỹ Escrow một cách an toàn và tuân thủ các quy định du lịch.",
                 "perk1": "✅ Ứng tuyển mọi Tour",
                 "perk2": "💰 Nhận các Quỹ bảo lãnh",
-                "perk3": "🏆 Mở khóa Điểm Tin Cậy",
+                "perk3": "🏆 Mở khóa Trust Score",
                 "link": "Xem bài viết chi tiết để hiểu rõ →"
             },
             "form": {
@@ -1376,8 +1385,8 @@
     },
     "Admin": {
         "Dashboard": {
-            "pageTitle": "Trung tâm Điều hành — Lunavia",
-            "headerTitle": "Trung tâm Điều hành (God Mode)",
+            "pageTitle": "Command Center — Lunavia",
+            "headerTitle": "Command Center (God Mode)",
             "headerSubtitle": "Tổng quan vận hành và quản lý hệ thống nền tảng Lunavia",
             "maintenanceAlert": "Hệ thống đang bảo trì. Một số tính năng giới hạn.",
             "roles": {
@@ -1900,7 +1909,7 @@
             }
         },
         "FinanceSubscriptions": {
-            "title": "Bảng Điều khiển Gói Đăng ký",
+            "title": "Dashboard Gói Đăng ký",
             "subtitle": "Phân bổ gói dịch vụ, tổng quan tài chính, và quản lý thanh toán",
             "roles": {
                 "operator": "Nhà lữ hành",

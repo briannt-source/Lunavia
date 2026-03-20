@@ -4,6 +4,7 @@ import { Link, usePathname } from '@/navigation';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from '../LanguageSwitcher';
+import { Logo } from '@/components/logo';
 
 const NAV_LINKS = [
     { href: '/', labelKey: 'nav.home' },
@@ -18,12 +19,9 @@ export default function MarketingNavbar() {
     const t = useTranslations('Home');
 
     return (
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-600/20">L</div>
-                    <span className="text-xl font-bold tracking-tight text-slate-900">Lunavia</span>
-                </Link>
+                <Logo size="md" variant="dark" showText={true} showSubtitle={false} />
 
                 {/* Desktop nav */}
                 <nav className="hidden md:flex items-center gap-1">
@@ -32,7 +30,7 @@ export default function MarketingNavbar() {
                             key={link.href}
                             href={link.href}
                             className={`px-4 py-2 text-sm font-medium rounded-lg transition ${pathname === link.href
-                                ? 'text-blue-600 bg-blue-50'
+                                ? 'text-lunavia-primary bg-lunavia-light'
                                 : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
                                 }`}
                         >
@@ -45,7 +43,7 @@ export default function MarketingNavbar() {
                     <LanguageSwitcher />
 
                     <Link href="/login" className="hidden sm:block px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition">{t('nav.login')}</Link>
-                    <Link href="/signup" className="hidden sm:block px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25">
+                    <Link href="/signup" className="hidden sm:block px-5 py-2.5 rounded-xl bg-lunavia-primary text-white text-sm font-semibold hover:bg-lunavia-primary-dark transition shadow-lg shadow-[#0077B6]/20">
                         {t('nav.startFree')}
                     </Link>
 
@@ -73,7 +71,7 @@ export default function MarketingNavbar() {
                             href={link.href}
                             onClick={() => setOpen(false)}
                             className={`block px-4 py-3 rounded-lg text-sm font-medium transition ${pathname === link.href
-                                ? 'text-blue-600 bg-blue-50'
+                                ? 'text-lunavia-primary bg-lunavia-light'
                                 : 'text-slate-600 hover:bg-slate-100'
                                 }`}
                         >
@@ -84,7 +82,7 @@ export default function MarketingNavbar() {
                     <Link href="/login" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100">
                         {t('nav.login')}
                     </Link>
-                    <Link href="/signup" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-white bg-blue-600 text-center hover:bg-blue-700">
+                    <Link href="/signup" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-white bg-lunavia-primary text-center hover:bg-lunavia-primary-dark">
                         {t('nav.startFree')}
                     </Link>
                 </div>

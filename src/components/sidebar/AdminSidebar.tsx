@@ -41,7 +41,7 @@ export default function AdminSidebar() {
     const roleLabel = isSuperAdmin ? 'Super Admin' : isOps ? 'Operations' : isFinance ? 'Finance' : 'Admin';
 
     return (
-        <SidebarShell brandColor="text-rose-600" roleLabel={roleLabel}>
+        <SidebarShell roleLabel={roleLabel}>
             {/* ── Command Center ─────────────── */}
             <SectionLabel>{t('sections.commandCenter')}</SectionLabel>
             <NavLink href="/dashboard/admin">{t('links.dashboard')}</NavLink>

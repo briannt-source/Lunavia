@@ -3,8 +3,8 @@ import Link from 'next/link';
 import MarketingFooter from '@/components/marketing/MarketingFooter';
 
 export const metadata = {
-    title: 'Lunavia — Tour Operations & Guide Marketplace Platform',
-    description: 'Tour management, guide marketplace, escrow payment, and governance — in one platform. Choose Marketplace or Operations plans.',
+    title: 'Lunavia by Sea You Travel — Tour Operations & Guide Marketplace',
+    description: 'Tour management, guide marketplace, escrow payment, and governance — in one platform. Lunavia by Sea You Travel.',
 };
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
