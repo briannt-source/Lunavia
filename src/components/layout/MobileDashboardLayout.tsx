@@ -80,7 +80,7 @@ export default function MobileDashboardLayout({ children, sidebar, role, bottomN
 
             {/* ── Mobile Bottom Nav ── */}
             {bottomNav && (
-                <nav className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 safe-area-bottom">
+                <nav className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white border-t border-gray-100 safe-area-bottom shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
                     {bottomNav}
                 </nav>
             )}

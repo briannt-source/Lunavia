@@ -332,4 +332,17 @@ body {
     padding-top: env(safe-area-inset-top, 0px);
     height: calc(var(--topbar-height) + env(safe-area-inset-top, 0px));
   }
+
+  /* ── Safari PWA flicker fix ──
+     Safari standalone mode has a compositing bug when multiple
+     backdrop-blur layers overlap with sticky/fixed positioning.
+     Force GPU layers and disable blur to prevent repaint loops. */
+  .topbar,
+  nav.fixed {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
