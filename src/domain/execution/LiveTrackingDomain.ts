@@ -81,7 +81,7 @@ async function getLiveOperatorFleet(operatorId: string) {
     const guideIds = [...new Set(activeTours.map(t => t.assignedGuideId).filter(Boolean) as string[])];
     const guides = await prisma.user.findMany({
         where: { id: { in: guideIds } },
-        select: { id: true, name: true, email: true, avatarUrl: true }
+        select: { id: true, email: true, profile: { select: { name: true, photoUrl: true } } }
     });
     const guideMap = new Map(guides.map(g => [g.id, g]));
 
@@ -108,8 +108,8 @@ async function getLiveOperatorFleet(operatorId: string) {
         return {
             tourId: tour.id,
             tourTitle: tour.title,
-            guideName: guide?.name || guide?.email?.split('@')[0] || 'Unknown Guide',
-            guideAvatar: guide?.avatarUrl,
+            guideName: guide?.profile?.name || guide?.email?.split('@')[0] || 'Unknown Guide',
+            guideAvatar: guide?.profile?.photoUrl,
             startedAt: tour.operatorStartedAt,
             plannedLocation: tour.location,
             currentLocation: latestPing ? {
@@ -148,7 +148,7 @@ async function getLivePlatformFleet() {
     
     const users = await prisma.user.findMany({
         where: { id: { in: userIds } },
-        select: { id: true, name: true, email: true }
+        select: { id: true, email: true, profile: { select: { name: true } } }
     });
     const userMap = new Map(users.map(u => [u.id, u]));
     
@@ -173,8 +173,8 @@ async function getLivePlatformFleet() {
         return {
             tourId: tour.id,
             tourTitle: tour.title,
-            operatorName: op?.name || op?.email || 'Unknown',
-            guideName: g?.name || g?.email || 'Unknown',
+            operatorName: op?.profile?.name || op?.email || 'Unknown',
+            guideName: g?.profile?.name || g?.email || 'Unknown',
             currentLocation: latestPing ? {
                 latitude: latestPing.latitude,
                 longitude: latestPing.longitude,

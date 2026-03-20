@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 import { WalletService } from "@/domain/services/wallet.service";
+import { getCompanyMembership, canCreateTour } from "@/lib/company-permissions";
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,6 +33,15 @@ export async function POST(req: NextRequest) {
     if (!canCreate.canCreate) {
       return NextResponse.json(
         { error: canCreate.reason },
+        { status: 403 }
+      );
+    }
+
+    // Check company membership and permissions
+    const membership = await getCompanyMembership(session.user.id);
+    if (membership && !canCreateTour(membership.role)) {
+      return NextResponse.json(
+        { error: "You don't have permission to create tours in this company" },
         { status: 403 }
       );
     }
@@ -135,9 +145,13 @@ export async function POST(req: NextRequest) {
 
     const tour = await useCase.execute({
       operatorId: session.user.id,
+      companyId: membership?.companyId || null,
       title: body.title,
       description: body.description,
       city: body.city,
+      marketType: body.marketType || "INBOUND",
+      country: body.country || "VN",
+      province: body.province || null,
       visibility: body.visibility || "PUBLIC",
       status: body.status || "DRAFT", // Default to DRAFT
       currency: body.currency || "VND",
@@ -179,6 +193,9 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const city = searchParams.get("city");
     const search = searchParams.get("search");
+    const marketType = searchParams.get("marketType");
+    const countryFilter = searchParams.get("country");
+    const provinceFilter = searchParams.get("province");
 
     // Exclude test operators (operator1@lunavia.com to operator8@lunavia.com, agency1@lunavia.com to agency5@lunavia.com)
     const testOperatorEmails = [
@@ -198,6 +215,18 @@ export async function GET(req: NextRequest) {
 
     if (city && city !== "all") {
       where.city = city; // Exact match for city
+    }
+
+    if (marketType && marketType !== "all") {
+      where.marketType = marketType;
+    }
+
+    if (countryFilter && countryFilter !== "all") {
+      where.country = countryFilter;
+    }
+
+    if (provinceFilter && provinceFilter !== "all") {
+      where.province = provinceFilter;
     }
 
     if (search) {

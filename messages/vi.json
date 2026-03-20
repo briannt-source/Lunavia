@@ -394,6 +394,36 @@
                 "desc": "Qũy tiền tour được thanh lý độc lập hai chiều ngay khi chuyến tour vừa kết thúc an toàn."
             }
         },
+        "moneyFlow": {
+            "badge": "Thanh Toán Minh Bạch",
+            "title": "Biết chính xác từng đồng đi đâu",
+            "subtitle": "Không phí ẩn. Mọi khoản thanh toán đều đi qua hệ thống ký quỹ có quy chế. Cả operator và guide đều thấy bảng phân tích chi tiết trước khi xác nhận.",
+            "step1": {
+                "title": "Operator thanh toán",
+                "desc": "Toàn bộ số tiền cho guide được nạp vào tài khoản ký quỹ Lunavia trước khi tour bắt đầu.",
+                "example": "Ví dụ: Mức thù lao HDV"
+            },
+            "step2": {
+                "title": "Ký quỹ bảo đảm",
+                "desc": "Tiền được giữ an toàn trong tài khoản ký quỹ cho đến khi cả hai bên xác nhận tour hoàn thành.",
+                "example": "Tour đang tiến hành",
+                "status": "Đang bảo vệ"
+            },
+            "step3": {
+                "title": "Guide nhận tiền",
+                "desc": "Sau khi tour được xác nhận, guide nhận thù lao trừ đi phí dịch vụ nền tảng nhỏ.",
+                "example": "Guide nhận (sau phí 5%)"
+            },
+            "fees": {
+                "operator": "Hoa hồng Marketplace",
+                "operatorNote": "Gói Free — giảm với Pro, Elite",
+                "inHouse": "Hoa hồng In-House",
+                "inHouseNote": "Có hợp đồng xác thực = 0% phí",
+                "guide": "Phí dịch vụ Guide",
+                "guideNote": "Free = 5%, Guide Pro = 2%"
+            },
+            "disclaimer": "Lunavia hoạt động như đơn vị trung gian ký quỹ có giấy phép. Tiền ký quỹ không bao giờ trộn lẫn với doanh thu hoạt động. Tuân thủ pháp luật Việt Nam."
+        },
         "howItWorks": {
             "badge": "Quy trình Hoạt động",
             "title": "Mất vài phút để bắt đầu cuộc hành trình",

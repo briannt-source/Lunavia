@@ -394,6 +394,36 @@
                 "desc": "All financial transactions flow through escrow until service delivery is confirmed by both parties."
             }
         },
+        "moneyFlow": {
+            "badge": "Transparent Payments",
+            "title": "See exactly where every dong goes",
+            "subtitle": "No hidden fees. All payments flow through regulated escrow. Both operators and guides see the full breakdown before confirming.",
+            "step1": {
+                "title": "Operator pays",
+                "desc": "The full guide rate is deposited into Lunavia's escrow account before the tour starts.",
+                "example": "Example: Guide rate"
+            },
+            "step2": {
+                "title": "Escrow holds safely",
+                "desc": "Funds are held in a regulated escrow account until the tour is completed and confirmed by both parties.",
+                "example": "Tour in progress",
+                "status": "Protected"
+            },
+            "step3": {
+                "title": "Guide receives payout",
+                "desc": "After tour confirmation, the guide receives their payout minus a small platform service fee.",
+                "example": "Guide receives (after 5% fee)"
+            },
+            "fees": {
+                "operator": "Marketplace Commission",
+                "operatorNote": "Free plan rate — lower with Pro, Elite",
+                "inHouse": "In-House Commission",
+                "inHouseNote": "Verified contract = zero fees",
+                "guide": "Guide Platform Fee",
+                "guideNote": "Free = 5%, Guide Pro = 2%"
+            },
+            "disclaimer": "Lunavia operates as a licensed escrow intermediary. Funds are never commingled with operating revenue. Vietnamese law compliant."
+        },
         "howItWorks": {
             "badge": "How It Works",
             "title": "Get started in minutes",

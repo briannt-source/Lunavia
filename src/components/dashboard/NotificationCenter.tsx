@@ -38,15 +38,21 @@ export function NotificationCenter() {
             const res = await fetch(url.toString());
             const json = await res.json();
 
+            if (!res.ok || !json.data) {
+                console.warn('Notifications API returned unexpected format', json);
+                return;
+            }
+
             if (reset) {
                 setNotifications(json.data);
             } else {
                 setNotifications(prev => [...prev, ...json.data]);
             }
 
-            cursorRef.current = json.meta.nextCursor;
-            setCursor(json.meta.nextCursor);
-            setHasNextPage(json.meta.hasNextPage);
+            const meta = json.meta || {};
+            cursorRef.current = meta.nextCursor;
+            setCursor(meta.nextCursor);
+            setHasNextPage(meta.hasNextPage ?? false);
 
             // Recalculate unread (simplified, ideally backend sends count)
             const unread = json.data.filter((n: Notification) => !n.isRead).length;

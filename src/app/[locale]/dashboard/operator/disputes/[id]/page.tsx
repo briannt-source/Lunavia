@@ -47,7 +47,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-[#64748B]">Đang tải...</p>
+          <p className="text-gray-500">Đang tải...</p>
         </div>
       </>
     );
@@ -57,7 +57,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-[#64748B]">Dispute không tồn tại</p>
+          <p className="text-gray-500">Dispute không tồn tại</p>
         </div>
       </>
     );
@@ -79,8 +79,8 @@ export default function DisputeDetailPage() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-semibold text-[#1E293B]">Dispute Details</h1>
-              <p className="text-[#64748B] mt-1">ID: {dispute.id}</p>
+              <h1 className="text-3xl font-semibold text-gray-900">Dispute Details</h1>
+              <p className="text-gray-500 mt-1">ID: {dispute.id}</p>
             </div>
           </div>
           <Badge variant="outline" className={`${statusColor} border`}>
@@ -92,29 +92,29 @@ export default function DisputeDetailPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Dispute Info */}
-            <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Card className="rounded-xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                <CardTitle className="text-lg font-semibold text-gray-900">
                   Thông Tin Dispute
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-[#64748B] mb-1">Loại</p>
-                    <Badge variant="outline" className="border-[#003049] text-[#003049]">
+                    <p className="text-sm text-gray-500 mb-1">Loại</p>
+                    <Badge variant="outline" className="border-indigo-600 text-indigo-700">
                       {DISPUTE_TYPE_LABELS[dispute.type] || dispute.type}
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-[#64748B] mb-1">Trạng thái</p>
+                    <p className="text-sm text-gray-500 mb-1">Trạng thái</p>
                     <Badge variant="outline" className={`${statusColor} border`}>
                       {dispute.status}
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-[#64748B] mb-1">Ngày tạo</p>
-                    <p className="font-medium text-[#1E293B]">
+                    <p className="text-sm text-gray-500 mb-1">Ngày tạo</p>
+                    <p className="font-medium text-gray-900">
                       {format(
                         new Date(dispute.createdAt || new Date()),
                         "dd/MM/yyyy HH:mm"
@@ -123,22 +123,22 @@ export default function DisputeDetailPage() {
                   </div>
                   {dispute.resolvedAt && (
                     <div>
-                      <p className="text-sm text-[#64748B] mb-1">Ngày giải quyết</p>
-                      <p className="font-medium text-[#1E293B]">
+                      <p className="text-sm text-gray-500 mb-1">Ngày giải quyết</p>
+                      <p className="font-medium text-gray-900">
                         {format(new Date(dispute.resolvedAt), "dd/MM/yyyy HH:mm")}
                       </p>
                     </div>
                   )}
                 </div>
                 <div className="pt-4 border-t">
-                  <p className="text-sm text-[#64748B] mb-2">Lý do / Mô tả</p>
-                  <p className="text-[#1E293B] whitespace-pre-wrap">
+                  <p className="text-sm text-gray-500 mb-2">Lý do / Mô tả</p>
+                  <p className="text-gray-900 whitespace-pre-wrap">
                     {dispute.description || dispute.reason || "Không có mô tả"}
                   </p>
                 </div>
                 {dispute.evidence && dispute.evidence.length > 0 && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-[#64748B] mb-2">Bằng chứng</p>
+                    <p className="text-sm text-gray-500 mb-2">Bằng chứng</p>
                     <div className="space-y-2">
                       {dispute.evidence.map((url: string, index: number) => (
                         <a
@@ -146,7 +146,7 @@ export default function DisputeDetailPage() {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block text-sm text-[#0077B6] hover:text-[#003049] underline"
+                          className="block text-sm text-indigo-600 hover:text-indigo-700 underline"
                         >
                           {url}
                         </a>
@@ -159,9 +159,9 @@ export default function DisputeDetailPage() {
 
             {/* Timeline */}
             {dispute.timeline && dispute.timeline.length > 0 && (
-              <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+              <Card className="rounded-xl shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                  <CardTitle className="text-lg font-semibold text-gray-900">
                     Timeline
                   </CardTitle>
                 </CardHeader>
@@ -169,15 +169,15 @@ export default function DisputeDetailPage() {
                   <div className="space-y-4">
                     {dispute.timeline.map((entry: any, index: number) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#0077B6] mt-2"></div>
+                        <div className="w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
                         <div className="flex-1">
-                          <p className="font-medium text-[#1E293B] text-sm">
+                          <p className="font-medium text-gray-900 text-sm">
                             {entry.action || entry.status}
                           </p>
                           {entry.details && (
-                            <p className="text-sm text-[#64748B] mt-1">{entry.details}</p>
+                            <p className="text-sm text-gray-500 mt-1">{entry.details}</p>
                           )}
-                          <p className="text-xs text-[#64748B] mt-1">
+                          <p className="text-xs text-gray-500 mt-1">
                             {format(new Date(entry.createdAt || new Date()), "dd/MM/yyyy HH:mm")}
                           </p>
                         </div>
@@ -193,21 +193,21 @@ export default function DisputeDetailPage() {
           <div className="space-y-6">
             {/* Tour Info */}
             {dispute.tourId && (
-              <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+              <Card className="rounded-xl shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                  <CardTitle className="text-lg font-semibold text-gray-900">
                     Tour Liên Quan
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Link
                     href={`/dashboard/operator/tours/${dispute.tourId}`}
-                    className="block p-3 rounded-[6px] bg-[#F8FAFC] hover:bg-[#E6F2F8] transition-colors"
+                    className="block p-3 rounded-lg bg-gray-50 hover:bg-indigo-50 transition-colors"
                   >
-                    <p className="font-medium text-[#1E293B] text-sm">
+                    <p className="font-medium text-gray-900 text-sm">
                       {dispute.tour?.title || `Tour ${dispute.tourId}`}
                     </p>
-                    <p className="text-xs text-[#64748B] mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       Xem chi tiết tour →
                     </p>
                   </Link>
@@ -216,9 +216,9 @@ export default function DisputeDetailPage() {
             )}
 
             {/* Status Info */}
-            <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Card className="rounded-xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                <CardTitle className="text-lg font-semibold text-gray-900">
                   Trạng Thái
                 </CardTitle>
               </CardHeader>
@@ -237,12 +237,12 @@ export default function DisputeDetailPage() {
                     {dispute.status === "REJECTED" && (
                       <XCircle className="h-4 w-4 text-red-600" />
                     )}
-                    <span className="text-sm text-[#1E293B]">{dispute.status}</span>
+                    <span className="text-sm text-gray-900">{dispute.status}</span>
                   </div>
                   {dispute.resolution && (
                     <div className="pt-2 border-t">
-                      <p className="text-xs text-[#64748B] mb-1">Resolution</p>
-                      <p className="text-sm text-[#1E293B]">{dispute.resolution}</p>
+                      <p className="text-xs text-gray-500 mb-1">Resolution</p>
+                      <p className="text-sm text-gray-900">{dispute.resolution}</p>
                     </div>
                   )}
                 </div>

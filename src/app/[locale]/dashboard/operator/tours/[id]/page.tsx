@@ -139,7 +139,7 @@ export default function TourDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-[#64748B]">Đang tải...</p>
+          <p className="text-gray-500">Đang tải...</p>
         </div>
       </>
     );
@@ -149,7 +149,7 @@ export default function TourDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-[#64748B]">Tour không tồn tại</p>
+          <p className="text-gray-500">Tour không tồn tại</p>
         </div>
       </>
     );
@@ -230,8 +230,8 @@ export default function TourDetailPage() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-semibold text-[#1E293B]">{tour.title}</h1>
-              <p className="text-[#64748B] mt-1">
+              <h1 className="text-3xl font-semibold text-gray-900">{tour.title}</h1>
+              <p className="text-gray-500 mt-1">
                 {tour.city} • {format(new Date(tour.startDate), "dd/MM/yyyy")}
               </p>
             </div>
@@ -243,53 +243,53 @@ export default function TourDetailPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Tour Info */}
-            <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Card className="rounded-xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                <CardTitle className="text-lg font-semibold text-gray-900">
                   Thông Tin Tour
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-start gap-3">
-                    <Calendar className="h-5 w-5 text-[#0077B6] mt-0.5" />
+                    <Calendar className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-[#64748B]">Ngày bắt đầu</p>
-                      <p className="font-medium text-[#1E293B]">
+                      <p className="text-sm text-gray-500">Ngày bắt đầu</p>
+                      <p className="font-medium text-gray-900">
                         {format(new Date(tour.startDate), "dd/MM/yyyy HH:mm")}
                       </p>
                     </div>
                   </div>
                   {tour.endDate && (
                     <div className="flex items-start gap-3">
-                      <Clock className="h-5 w-5 text-[#0077B6] mt-0.5" />
+                      <Clock className="h-5 w-5 text-indigo-600 mt-0.5" />
                       <div>
-                        <p className="text-sm text-[#64748B]">Ngày kết thúc</p>
-                        <p className="font-medium text-[#1E293B]">
+                        <p className="text-sm text-gray-500">Ngày kết thúc</p>
+                        <p className="font-medium text-gray-900">
                           {format(new Date(tour.endDate), "dd/MM/yyyy HH:mm")}
                         </p>
                       </div>
                     </div>
                   )}
                   <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-[#0077B6] mt-0.5" />
+                    <MapPin className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-[#64748B]">Thành phố</p>
-                      <p className="font-medium text-[#1E293B]">{tour.city}</p>
+                      <p className="text-sm text-gray-500">Thành phố</p>
+                      <p className="font-medium text-gray-900">{tour.city}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Users className="h-5 w-5 text-[#0077B6] mt-0.5" />
+                    <Users className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-[#64748B]">Số khách</p>
-                      <p className="font-medium text-[#1E293B]">{tour.pax}</p>
+                      <p className="text-sm text-gray-500">Số khách</p>
+                      <p className="font-medium text-gray-900">{tour.pax}</p>
                     </div>
                   </div>
                 </div>
                 {tour.description && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-[#64748B] mb-2">Mô tả</p>
-                    <p className="text-[#1E293B]">{tour.description}</p>
+                    <p className="text-sm text-gray-500 mb-2">Mô tả</p>
+                    <p className="text-gray-900">{tour.description}</p>
                   </div>
                 )}
               </CardContent>
@@ -297,9 +297,9 @@ export default function TourDetailPage() {
 
             {/* Assigned Guides */}
             {assignedGuides.length > 0 && (
-              <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+              <Card className="rounded-xl shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                  <CardTitle className="text-lg font-semibold text-gray-900">
                     HDV Đã Phân Công
                   </CardTitle>
                 </CardHeader>
@@ -308,13 +308,13 @@ export default function TourDetailPage() {
                     {assignedGuides.map((app: any) => (
                       <div
                         key={app.id}
-                        className="p-3 rounded-[6px] bg-[#F8FAFC] flex items-center justify-between"
+                        className="p-3 rounded-lg bg-gray-50 flex items-center justify-between"
                       >
                         <div>
-                          <p className="font-medium text-[#1E293B]">
+                          <p className="font-medium text-gray-900">
                             {app.guide?.profile?.name || app.guide?.email}
                           </p>
-                          <p className="text-sm text-[#64748B]">
+                          <p className="text-sm text-gray-500">
                             {app.role === "MAIN" ? "HDV Chính" : "HDV Phụ"}
                           </p>
                         </div>
@@ -330,9 +330,9 @@ export default function TourDetailPage() {
 
             {/* Active Disputes */}
             {activeDisputes.length > 0 && (
-              <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-amber-200">
+              <Card className="rounded-xl shadow-sm border-amber-200">
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-[#1E293B] flex items-center gap-2">
+                  <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                     <AlertCircle className="h-5 w-5 text-amber-600" />
                     Disputes Đang Mở
                   </CardTitle>
@@ -343,14 +343,14 @@ export default function TourDetailPage() {
                       <Link
                         key={dispute.id}
                         href={`/dashboard/operator/disputes/${dispute.id}`}
-                        className="block p-3 rounded-[6px] bg-amber-50 hover:bg-amber-100 transition-colors"
+                        className="block p-3 rounded-lg bg-amber-50 hover:bg-amber-100 transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="font-medium text-[#1E293B] text-sm">
+                            <p className="font-medium text-gray-900 text-sm">
                               {dispute.type} • {dispute.status}
                             </p>
-                            <p className="text-xs text-[#64748B] mt-1 line-clamp-1">
+                            <p className="text-xs text-gray-500 mt-1 line-clamp-1">
                               {dispute.description}
                             </p>
                           </div>
@@ -372,9 +372,9 @@ export default function TourDetailPage() {
           {/* Actions Sidebar */}
           <div className="space-y-6">
             {/* Actions Card */}
-            <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Card className="rounded-xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                <CardTitle className="text-lg font-semibold text-gray-900">
                   Thao Tác
                 </CardTitle>
               </CardHeader>
@@ -383,7 +383,7 @@ export default function TourDetailPage() {
                 {allowedStates.length > 0 && (
                   <Button
                     onClick={() => setTransitionDialogOpen(true)}
-                    className="w-full bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]"
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
                   >
                     Chuyển Trạng Thái
                   </Button>
@@ -394,7 +394,7 @@ export default function TourDetailPage() {
                   <Button
                     onClick={() => setSosDialogOpen(true)}
                     variant="destructive"
-                    className="w-full rounded-[12px]"
+                    className="w-full rounded-xl"
                   >
                     <AlertTriangle className="h-4 w-4 mr-2" />
                     Kích Hoạt SOS
@@ -408,7 +408,7 @@ export default function TourDetailPage() {
                     <Button
                       onClick={() => setDisputeDialogOpen(true)}
                       variant="outline"
-                      className="w-full border-[#003049] text-[#003049] hover:bg-[#E6F2F8] rounded-[12px]"
+                      className="w-full border-indigo-600 text-indigo-700 hover:bg-indigo-50 rounded-xl"
                     >
                       <FileText className="h-4 w-4 mr-2" />
                       Mở Dispute
@@ -418,19 +418,19 @@ export default function TourDetailPage() {
             </Card>
 
             {/* Timeline (Simplified) */}
-            <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Card className="rounded-xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#1E293B]">
+                <CardTitle className="text-lg font-semibold text-gray-900">
                   Trạng Thái Hiện Tại
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#0077B6]"></div>
+                    <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
                     <div>
-                      <p className="font-medium text-[#1E293B] text-sm">{stateInfo.label}</p>
-                      <p className="text-xs text-[#64748B]">
+                      <p className="font-medium text-gray-900 text-sm">{stateInfo.label}</p>
+                      <p className="text-xs text-gray-500">
                         {format(new Date(tour.updatedAt || tour.createdAt), "dd/MM/yyyy HH:mm")}
                       </p>
                     </div>
@@ -444,7 +444,7 @@ export default function TourDetailPage() {
 
       {/* Transition State Dialog */}
       <Dialog open={transitionDialogOpen} onOpenChange={setTransitionDialogOpen}>
-        <DialogContent className="rounded-[12px]">
+        <DialogContent className="rounded-xl">
           <DialogHeader>
             <DialogTitle>Chuyển Trạng Thái Tour</DialogTitle>
             <DialogDescription>
@@ -453,13 +453,13 @@ export default function TourDetailPage() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Trạng thái hiện tại
               </label>
-              <Input value={stateInfo.label} disabled className="rounded-[6px]" />
+              <Input value={stateInfo.label} disabled className="rounded-lg" />
             </div>
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Trạng thái mới
               </label>
               <Select
@@ -468,7 +468,7 @@ export default function TourDetailPage() {
                   setTransitionData({ ...transitionData, toState: value })
                 }
               >
-                <SelectTrigger className="rounded-[6px]">
+                <SelectTrigger className="rounded-lg">
                   <SelectValue placeholder="Chọn trạng thái" />
                 </SelectTrigger>
                 <SelectContent>
@@ -481,7 +481,7 @@ export default function TourDetailPage() {
               </Select>
             </div>
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Lý do (tùy chọn)
               </label>
               <Textarea
@@ -490,7 +490,7 @@ export default function TourDetailPage() {
                   setTransitionData({ ...transitionData, reason: e.target.value })
                 }
                 placeholder="Nhập lý do chuyển trạng thái..."
-                className="rounded-[6px]"
+                className="rounded-lg"
                 rows={3}
               />
             </div>
@@ -499,14 +499,14 @@ export default function TourDetailPage() {
             <Button
               variant="outline"
               onClick={() => setTransitionDialogOpen(false)}
-              className="rounded-[12px]"
+              className="rounded-xl"
             >
               Hủy
             </Button>
             <Button
               onClick={handleTransition}
               disabled={!transitionData.toState || transitionMutation.isPending}
-              className="bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
             >
               {transitionMutation.isPending ? "Đang xử lý..." : "Xác nhận"}
             </Button>
@@ -516,14 +516,14 @@ export default function TourDetailPage() {
 
       {/* SOS Dialog */}
       <Dialog open={sosDialogOpen} onOpenChange={setSosDialogOpen}>
-        <DialogContent className="rounded-[12px]">
+        <DialogContent className="rounded-xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
               Kích Hoạt SOS
             </DialogTitle>
             <DialogDescription>
-              <div className="mt-2 p-3 bg-red-50 rounded-[6px] border border-red-200">
+              <div className="mt-2 p-3 bg-red-50 rounded-lg border border-red-200">
                 <p className="text-sm text-red-800 font-medium">
                   Cảnh báo: SOS chỉ nên được kích hoạt trong trường hợp khẩn cấp thực sự.
                 </p>
@@ -536,14 +536,14 @@ export default function TourDetailPage() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Lý do kích hoạt SOS <span className="text-red-600">*</span>
               </label>
               <Textarea
                 value={sosReason}
                 onChange={(e) => setSosReason(e.target.value)}
                 placeholder="Mô tả chi tiết lý do kích hoạt SOS..."
-                className="rounded-[6px]"
+                className="rounded-lg"
                 rows={4}
                 required
               />
@@ -553,7 +553,7 @@ export default function TourDetailPage() {
             <Button
               variant="outline"
               onClick={() => setSosDialogOpen(false)}
-              className="rounded-[12px]"
+              className="rounded-xl"
             >
               Hủy
             </Button>
@@ -561,7 +561,7 @@ export default function TourDetailPage() {
               onClick={handleSOS}
               disabled={!sosReason.trim() || sosMutation.isPending}
               variant="destructive"
-              className="rounded-[12px]"
+              className="rounded-xl"
             >
               {sosMutation.isPending ? "Đang xử lý..." : "Xác nhận Kích Hoạt SOS"}
             </Button>
@@ -571,7 +571,7 @@ export default function TourDetailPage() {
 
       {/* Open Dispute Dialog */}
       <Dialog open={disputeDialogOpen} onOpenChange={setDisputeDialogOpen}>
-        <DialogContent className="rounded-[12px]">
+        <DialogContent className="rounded-xl">
           <DialogHeader>
             <DialogTitle>Mở Dispute</DialogTitle>
             <DialogDescription>
@@ -580,14 +580,14 @@ export default function TourDetailPage() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Loại dispute
               </label>
               <Select
                 value={disputeData.type}
                 onValueChange={(value) => setDisputeData({ ...disputeData, type: value })}
               >
-                <SelectTrigger className="rounded-[6px]">
+                <SelectTrigger className="rounded-lg">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -599,27 +599,27 @@ export default function TourDetailPage() {
               </Select>
             </div>
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Lý do <span className="text-red-600">*</span>
               </label>
               <Textarea
                 value={disputeData.reason}
                 onChange={(e) => setDisputeData({ ...disputeData, reason: e.target.value })}
                 placeholder="Mô tả chi tiết vấn đề..."
-                className="rounded-[6px]"
+                className="rounded-lg"
                 rows={4}
                 required
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-[#1E293B] mb-2 block">
+              <label className="text-sm font-medium text-gray-900 mb-2 block">
                 Bằng chứng (URLs, cách nhau bởi dấu phẩy)
               </label>
               <Input
                 value={disputeData.evidence}
                 onChange={(e) => setDisputeData({ ...disputeData, evidence: e.target.value })}
                 placeholder="https://example.com/evidence1.jpg, https://example.com/evidence2.jpg"
-                className="rounded-[6px]"
+                className="rounded-lg"
               />
             </div>
           </div>
@@ -627,14 +627,14 @@ export default function TourDetailPage() {
             <Button
               variant="outline"
               onClick={() => setDisputeDialogOpen(false)}
-              className="rounded-[12px]"
+              className="rounded-xl"
             >
               Hủy
             </Button>
             <Button
               onClick={handleOpenDispute}
               disabled={!disputeData.reason.trim() || disputeMutation.isPending}
-              className="bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
             >
               {disputeMutation.isPending ? "Đang xử lý..." : "Mở Dispute"}
             </Button>

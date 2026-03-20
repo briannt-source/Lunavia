@@ -115,9 +115,9 @@ async function getTrackingData(token: string) {
     if (!tour) throw new Error('TOUR_NOT_FOUND');
 
     // Operator name (sanitized)
-    const operator = await prisma.user.findFirst({
-        where: { operatorRequests: { some: { id: access.tourId } } },
-        select: { name: true },
+    const operator = await prisma.user.findUnique({
+        where: { id: (await prisma.tour.findUnique({ where: { id: access.tourId }, select: { operatorId: true } }))?.operatorId || '' },
+        select: { email: true, profile: { select: { name: true } } },
     });
 
     // Guide info (if permitted)
@@ -130,7 +130,7 @@ async function getTrackingData(token: string) {
         if (tourFull?.assignedGuideId) {
             guide = await prisma.user.findUnique({
                 where: { id: tourFull.assignedGuideId },
-                select: { name: true, avatarUrl: true },
+                select: { email: true, profile: { select: { name: true, photoUrl: true } } },
             });
         }
     }
@@ -166,7 +166,7 @@ async function getTrackingData(token: string) {
     return {
         tour: {
             ...tour,
-            operatorName: operator?.name || 'Operator',
+            operatorName: operator?.profile?.name || operator?.email || 'Operator',
         },
         guide,
         segments,

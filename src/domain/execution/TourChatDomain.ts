@@ -52,7 +52,7 @@ async function getTourMessages(tourId: string, userId: string, userRole: string)
     const messages = await (prisma as any).tourMessage.findMany({
         where: { tourId },
         include: {
-            sender: { select: { id: true, name: true, email: true, avatarUrl: true } }
+            sender: { select: { id: true, email: true, profile: { select: { name: true, photoUrl: true } } } }
         },
         orderBy: { createdAt: 'asc' }
     });
@@ -74,14 +74,14 @@ async function sendTourMessage(input: ChatMessageInput) {
             content: input.content,
         },
         include: {
-            sender: { select: { id: true, name: true, email: true, avatarUrl: true } }
+            sender: { select: { id: true, email: true, profile: { select: { name: true, photoUrl: true } } } }
         }
     });
 
     // Create Notification for the OTHER party
     const targetUserId = roleLabel === 'GUIDE' ? tour.operatorId : tour.assignedGuideId;
     if (targetUserId && targetUserId !== input.senderId) {
-        const senderName = message.sender.name || 'User';
+        const senderName = message.sender.profile?.name || message.sender.email || 'User';
         const roleDisplay = roleLabel === 'INTERNAL_ADMIN' ? 'Lunavia Support' : roleLabel === 'OPERATOR' ? 'Operator' : 'Guide';
         
         // Let's not await this so it doesn't block the message return

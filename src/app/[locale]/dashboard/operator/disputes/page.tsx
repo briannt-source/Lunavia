@@ -34,19 +34,19 @@ export default function DisputesListPage() {
     <>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-semibold text-[#1E293B] mb-2">Disputes</h1>
-          <p className="text-[#64748B]">Quản lý và theo dõi các disputes</p>
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">Disputes</h1>
+          <p className="text-gray-500">Quản lý và theo dõi các disputes</p>
         </div>
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <p className="text-[#64748B]">Đang tải...</p>
+            <p className="text-gray-500">Đang tải...</p>
           </div>
         ) : disputes.length === 0 ? (
-          <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+          <Card className="rounded-xl shadow-sm">
             <CardContent className="pt-6 text-center py-12">
-              <FileText className="h-12 w-12 text-[#64748B] mx-auto mb-4" />
-              <p className="text-[#64748B]">Không có dispute nào</p>
+              <FileText className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+              <p className="text-gray-500">Không có dispute nào</p>
             </CardContent>
           </Card>
         ) : (
@@ -57,7 +57,7 @@ export default function DisputesListPage() {
                 "bg-gray-100 text-gray-700 border-gray-300";
               return (
                 <Link key={dispute.id} href={`/dashboard/operator/disputes/${dispute.id}`}>
-                  <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(0,29,61,0.1)] transition-shadow cursor-pointer">
+                  <Card className="rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <CardContent className="pt-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -68,19 +68,19 @@ export default function DisputesListPage() {
                             >
                               {dispute.status}
                             </Badge>
-                            <Badge variant="outline" className="border-[#003049] text-[#003049]">
+                            <Badge variant="outline" className="border-indigo-600 text-indigo-700">
                               {DISPUTE_TYPE_LABELS[dispute.type] || dispute.type}
                             </Badge>
                             {dispute.tourId && (
-                              <span className="text-xs text-[#64748B]">
+                              <span className="text-xs text-gray-500">
                                 Tour: {dispute.tour?.title || dispute.tourId}
                               </span>
                             )}
                           </div>
-                          <p className="text-[#1E293B] mb-2 line-clamp-2">
+                          <p className="text-gray-900 mb-2 line-clamp-2">
                             {dispute.description || dispute.reason}
                           </p>
-                          <div className="flex items-center gap-4 text-sm text-[#64748B]">
+                          <div className="flex items-center gap-4 text-sm text-gray-500">
                             <div className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               {format(
@@ -94,7 +94,7 @@ export default function DisputesListPage() {
                           {dispute.status === "PENDING" && (
                             <AlertCircle className="h-5 w-5 text-amber-600" />
                           )}
-                          <span className="text-[#0077B6]">Xem chi tiết →</span>
+                          <span className="text-indigo-600">Xem chi tiết →</span>
                         </div>
                       </div>
                     </CardContent>

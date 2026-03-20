@@ -43,22 +43,22 @@ export default function SubscriptionPage() {
     <>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-semibold text-[#1E293B] mb-2">Subscription</h1>
-          <p className="text-[#64748B]">Quản lý gói đăng ký của bạn</p>
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">Subscription</h1>
+          <p className="text-gray-500">Quản lý gói đăng ký của bạn</p>
         </div>
 
         {/* Current Plan */}
-        <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <Card className="rounded-xl shadow-sm">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-[#1E293B]">
+              <CardTitle className="text-lg font-semibold text-gray-900">
                 Gói Hiện Tại
               </CardTitle>
               <Badge
                 variant="outline"
                 className={`${
                   currentPlan === "PRO"
-                    ? "bg-[#0077B6] text-white border-[#0077B6]"
+                    ? "bg-indigo-600 text-white border-indigo-500"
                     : currentPlan === "TRIAL"
                     ? "bg-amber-50 text-amber-700 border-amber-300"
                     : "bg-gray-100 text-gray-700 border-gray-300"
@@ -70,12 +70,12 @@ export default function SubscriptionPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-[#64748B] mb-2">Tính năng bao gồm:</p>
+              <p className="text-sm text-gray-500 mb-2">Tính năng bao gồm:</p>
               <ul className="space-y-2">
                 {planInfo.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-[#1E293B]">{feature}</span>
+                    <span className="text-sm text-gray-900">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -83,7 +83,7 @@ export default function SubscriptionPage() {
 
             {currentPlan === "TRIAL" && trialDaysLeft !== null && (
               <div className="pt-4 border-t">
-                <div className="flex items-center gap-2 p-3 bg-amber-50 rounded-[6px] border border-amber-200">
+                <div className="flex items-center gap-2 p-3 bg-amber-50 rounded-lg border border-amber-200">
                   <Clock className="h-5 w-5 text-amber-600" />
                   <div>
                     <p className="text-sm font-medium text-amber-900">
@@ -99,7 +99,7 @@ export default function SubscriptionPage() {
 
             {isExpired && (
               <div className="pt-4 border-t">
-                <div className="flex items-center gap-2 p-3 bg-red-50 rounded-[6px] border border-red-200">
+                <div className="flex items-center gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
                   <XCircle className="h-5 w-5 text-red-600" />
                   <div>
                     <p className="text-sm font-medium text-red-900">Gói đã hết hạn</p>
@@ -115,24 +115,24 @@ export default function SubscriptionPage() {
 
         {/* Upgrade CTA */}
         {currentPlan !== "PRO" && (
-          <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-[#0077B6]">
+          <Card className="rounded-xl shadow-sm border-indigo-500">
             <CardHeader>
-              <CardTitle className="text-lg font-semibold text-[#1E293B] flex items-center gap-2">
-                <Crown className="h-5 w-5 text-[#0077B6]" />
+              <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <Crown className="h-5 w-5 text-indigo-600" />
                 Nâng Cấp Lên Pro
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-[#64748B] mb-4">
+              <p className="text-sm text-gray-500 mb-4">
                 Nâng cấp để mở khóa tất cả tính năng và không giới hạn số lượng tours.
               </p>
               <Button
-                className="bg-[#0077B6] hover:bg-[#003049] text-white rounded-[12px]"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
                 disabled
               >
                 Nâng Cấp (Sắp có)
               </Button>
-              <p className="text-xs text-[#64748B] mt-2">
+              <p className="text-xs text-gray-500 mt-2">
                 Tính năng thanh toán đang được phát triển
               </p>
             </CardContent>
@@ -140,9 +140,9 @@ export default function SubscriptionPage() {
         )}
 
         {/* Plan Comparison (Read-only) */}
-        <Card className="rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <Card className="rounded-xl shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-[#1E293B]">
+            <CardTitle className="text-lg font-semibold text-gray-900">
               So Sánh Gói
             </CardTitle>
           </CardHeader>
@@ -151,30 +151,30 @@ export default function SubscriptionPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 text-[#64748B] font-medium">Tính năng</th>
-                    <th className="text-center p-3 text-[#64748B] font-medium">Free</th>
-                    <th className="text-center p-3 text-[#64748B] font-medium">Trial</th>
-                    <th className="text-center p-3 text-[#0077B6] font-medium">Pro</th>
+                    <th className="text-left p-3 text-gray-500 font-medium">Tính năng</th>
+                    <th className="text-center p-3 text-gray-500 font-medium">Free</th>
+                    <th className="text-center p-3 text-gray-500 font-medium">Trial</th>
+                    <th className="text-center p-3 text-indigo-600 font-medium">Pro</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td className="p-3 text-[#1E293B]">Số tours/tháng</td>
-                    <td className="p-3 text-center text-[#64748B]">5</td>
-                    <td className="p-3 text-center text-[#64748B]">20</td>
-                    <td className="p-3 text-center text-[#1E293B] font-medium">Không giới hạn</td>
+                    <td className="p-3 text-gray-900">Số tours/tháng</td>
+                    <td className="p-3 text-center text-gray-500">5</td>
+                    <td className="p-3 text-center text-gray-500">20</td>
+                    <td className="p-3 text-center text-gray-900 font-medium">Không giới hạn</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="p-3 text-[#1E293B]">Hỗ trợ</td>
-                    <td className="p-3 text-center text-[#64748B]">Email</td>
-                    <td className="p-3 text-center text-[#64748B]">Ưu tiên</td>
-                    <td className="p-3 text-center text-[#1E293B] font-medium">24/7</td>
+                    <td className="p-3 text-gray-900">Hỗ trợ</td>
+                    <td className="p-3 text-center text-gray-500">Email</td>
+                    <td className="p-3 text-center text-gray-500">Ưu tiên</td>
+                    <td className="p-3 text-center text-gray-900 font-medium">24/7</td>
                   </tr>
                   <tr>
-                    <td className="p-3 text-[#1E293B]">Analytics</td>
-                    <td className="p-3 text-center text-[#64748B]">Cơ bản</td>
-                    <td className="p-3 text-center text-[#64748B]">Cơ bản</td>
-                    <td className="p-3 text-center text-[#1E293B] font-medium">Nâng cao</td>
+                    <td className="p-3 text-gray-900">Analytics</td>
+                    <td className="p-3 text-center text-gray-500">Cơ bản</td>
+                    <td className="p-3 text-center text-gray-500">Cơ bản</td>
+                    <td className="p-3 text-center text-gray-900 font-medium">Nâng cao</td>
                   </tr>
                 </tbody>
               </table>

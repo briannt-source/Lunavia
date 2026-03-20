@@ -45,6 +45,7 @@ const SEGMENT_TYPES = [
 
 const LANGUAGES = [
     { value: 'EN', label: 'English' },
+    { value: 'VI', label: 'Vietnamese' },
     { value: 'TH', label: 'Thai' },
     { value: 'ZH', label: 'Chinese' },
     { value: 'JA', label: 'Japanese' },
@@ -52,6 +53,11 @@ const LANGUAGES = [
     { value: 'FR', label: 'French' },
     { value: 'DE', label: 'German' },
     { value: 'ES', label: 'Spanish' },
+    { value: 'RU', label: 'Russian' },
+    { value: 'IT', label: 'Italian' },
+    { value: 'PT', label: 'Portuguese' },
+    { value: 'AR', label: 'Arabic' },
+    { value: 'HI', label: 'Hindi' },
     { value: 'OTHER', label: 'Other' },
 ];
 
@@ -61,6 +67,18 @@ const CATEGORIES = [
     { value: 'CULTURAL', label: 'Cultural' },
     { value: 'FOOD_TOUR', label: 'Food Tour' },
     { value: 'NATURE', label: 'Nature' },
+    { value: 'HISTORICAL', label: 'Historical' },
+    { value: 'PHOTOGRAPHY', label: 'Photography' },
+    { value: 'WELLNESS', label: 'Wellness & Spa' },
+    { value: 'NIGHTLIFE', label: 'Nightlife' },
+    { value: 'CRUISE', label: 'Cruise / Boat' },
+    { value: 'TREKKING', label: 'Trekking / Hiking' },
+    { value: 'DIVING', label: 'Diving / Snorkeling' },
+    { value: 'WORKSHOP', label: 'Workshop / Class' },
+    { value: 'TEAMBUILDING', label: 'Team Building' },
+    { value: 'INBOUND', label: 'Inbound (International → VN)' },
+    { value: 'OUTBOUND', label: 'Outbound (VN → International)' },
+    { value: 'OTHER', label: 'Other' },
 ];
 
 interface TourFormProps {
@@ -102,6 +120,9 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
     const [title, setTitle] = useState(initialData?.title || '');
     const [location, setLocation] = useState(initialData?.location || '');
     const [province, setProvince] = useState(initialData?.province || '');
+    const [marketType, setMarketType] = useState<'INBOUND' | 'OUTBOUND'>(initialData?.marketType || 'INBOUND');
+    const [country, setCountry] = useState(initialData?.country || 'VN');
+    const [outboundCountries, setOutboundCountries] = useState<any[]>([]);
     const formatDateTime = (isoString: string) => isoString ? new Date(isoString).toISOString().slice(0, 16) : '';
     const [startTime, setStartTime] = useState(initialData?.startDate ? formatDateTime(initialData.startDate) : '');
     const [endTime, setEndTime] = useState(initialData?.endDate ? formatDateTime(initialData.endDate) : '');
@@ -115,6 +136,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
     const [exclusion, setExclusion] = useState(initialData?.exclusion || '');
     const [groupSize, setGroupSize] = useState<number | ''>(initialData?.groupSize || '');
     const [category, setCategory] = useState(initialData?.category || '');
+    const [customCategory, setCustomCategory] = useState(initialData?.customCategory || '');
+    const [customLanguage, setCustomLanguage] = useState(initialData?.customLanguage || '');
 
     // Step 2 — Documents
     const MAX_DOCUMENTS = 10;
@@ -147,15 +170,25 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
     // Auto-calculated Total Payout
     const totalPayout = rolesNeeded.reduce((sum, role) => sum + (role.quantity * role.rate), 0);
 
+    // Fetch outbound countries on mount
     useEffect(() => {
-        fetch('/api/provinces')
+        fetch('/api/locations/countries?market=outbound')
+            .then(res => res.json())
+            .then(data => setOutboundCountries(data.countries || []))
+            .catch(console.error);
+    }, []);
+
+    // Fetch provinces/cities whenever country changes
+    useEffect(() => {
+        const activeCountry = marketType === 'OUTBOUND' ? country : 'VN';
+        fetch(`/api/locations?country=${activeCountry}`)
             .then(res => res.json())
             .then(data => {
-                setProvinces(data.provinces || []);
+                setProvinces(data.cities || []);
                 setGroupedProvinces(data.grouped || {});
             })
             .catch(console.error);
-    }, []);
+    }, [country, marketType]);
 
     // Fetch existing segments when editing
     useEffect(() => {
@@ -235,6 +268,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                     description: description.trim() || null,
                     location: location.trim(),
                     province: province || null,
+                    marketType,
+                    country: marketType === 'OUTBOUND' ? country : 'VN',
                     startDate: startTime || null,
                     endDate: endTime || null,
                     language, visibility,
@@ -444,6 +479,8 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                 description: description.trim() || null,
                 location: location.trim(),
                 province: province || null,
+                marketType,
+                country: marketType === 'OUTBOUND' ? country : 'VN',
                 startDate: startTime || null,
                 endDate: endTime || null,
                 language,
@@ -618,6 +655,61 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
             {currentStep === 1 && (
                 <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
                     <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
+
+                    {/* ── Market Type Selector ── */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Market Type <span className="text-red-500">*</span></label>
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                type="button"
+                                onClick={() => { setMarketType('INBOUND'); setCountry('VN'); setProvince(''); }}
+                                className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                                    marketType === 'INBOUND'
+                                        ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-500/20'
+                                        : 'border-gray-200 bg-white hover:border-gray-300'
+                                }`}
+                            >
+                                <span className="text-2xl">🌍→🇻🇳</span>
+                                <div className="text-left">
+                                    <p className={`font-semibold ${marketType === 'INBOUND' ? 'text-indigo-700' : 'text-gray-700'}`}>Inbound</p>
+                                    <p className="text-xs text-gray-500">Tours within Vietnam</p>
+                                </div>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => { setMarketType('OUTBOUND'); setCountry(''); setProvince(''); }}
+                                className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                                    marketType === 'OUTBOUND'
+                                        ? 'border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/20'
+                                        : 'border-gray-200 bg-white hover:border-gray-300'
+                                }`}
+                            >
+                                <span className="text-2xl">🇻🇳→🌍</span>
+                                <div className="text-left">
+                                    <p className={`font-semibold ${marketType === 'OUTBOUND' ? 'text-emerald-700' : 'text-gray-700'}`}>Outbound</p>
+                                    <p className="text-xs text-gray-500">Tours abroad</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* ── Country Selector (only for OUTBOUND) ── */}
+                    {marketType === 'OUTBOUND' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Destination Country <span className="text-red-500">*</span></label>
+                            <select
+                                value={country}
+                                onChange={(e) => { setCountry(e.target.value); setProvince(''); }}
+                                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition"
+                            >
+                                <option value="">Select country...</option>
+                                {outboundCountries.map((c: any) => (
+                                    <option key={c.code} value={c.code}>{c.flag} {c.name} ({c.nameLocal})</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Title <span className="text-red-500">*</span>
@@ -626,38 +718,42 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="e.g., Full-day Temple Tour in Bangkok"
+                            placeholder={marketType === 'OUTBOUND' ? 'e.g., 5-Day Tokyo Highlights Tour' : 'e.g., Full-day Temple Tour in Ho Chi Minh'}
                             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                {marketType === 'OUTBOUND' ? 'City/Region' : 'Province'} <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={province}
+                                onChange={(e) => setProvince(e.target.value)}
+                                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                            >
+                                <option value="">{marketType === 'OUTBOUND' ? 'Select city/region...' : 'Select province...'}</option>
+                                {Object.entries(groupedProvinces).map(([region, pList]) => (
+                                    <optgroup key={region} label={region}>
+                                        {(pList as any[]).map((p: any) => (
+                                            <option key={p.code || p.id} value={p.code}>
+                                                {p.nameLocal || p.name}
+                                            </option>
+                                        ))}
+                                    </optgroup>
+                                ))}
+                            </select>
+                            <p className="text-xs text-gray-400 mt-1">Used for marketplace filtering</p>
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Location <span className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
-                                placeholder="e.g., Grand Palace, Bangkok"
+                                placeholder={marketType === 'OUTBOUND' ? 'e.g., Shibuya Crossing, Tokyo' : 'e.g., Grand Palace, Ho Chi Minh'}
                                 className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                             />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Province <span className="text-red-500">*</span></label>
-                            <select
-                                value={province}
-                                onChange={(e) => setProvince(e.target.value)}
-                                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
-                            >
-                                <option value="">Select province...</option>
-                                {Object.entries(groupedProvinces).map(([region, pList]) => (
-                                    <optgroup key={region} label={region}>
-                                        {pList.map(p => (
-                                            <option key={p.code} value={p.code}>{p.name}</option>
-                                        ))}
-                                    </optgroup>
-                                ))}
-                            </select>
-                            <p className="text-xs text-gray-400 mt-1">Used for marketplace filtering</p>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -704,6 +800,19 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             <p className="text-xs text-gray-400 mt-1">Private tours are only visible to your in-house team</p>
                         </div>
                     </div>
+                    {/* Custom language input if OTHER */}
+                    {language === 'OTHER' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Specify Language</label>
+                            <input
+                                type="text"
+                                value={customLanguage}
+                                onChange={(e) => setCustomLanguage(e.target.value)}
+                                placeholder="e.g., Malay, Khmer, Tagalog..."
+                                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                            />
+                        </div>
+                    )}
                 </section>
             )}
 
@@ -763,6 +872,15 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                 <option value="">Select category...</option>
                                 {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                             </select>
+                            {category === 'OTHER' && (
+                                <input
+                                    type="text"
+                                    value={customCategory}
+                                    onChange={(e) => setCustomCategory(e.target.value)}
+                                    placeholder="Specify category..."
+                                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition text-sm"
+                                />
+                            )}
                         </div>
                     </div>
 

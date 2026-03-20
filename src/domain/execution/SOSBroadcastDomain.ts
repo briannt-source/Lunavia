@@ -66,11 +66,10 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
     const { tourId, operatorId, ttlMinutes = SOS_DEFAULT_TTL_MINUTES } = input;
 
     // 1. Fetch full tour data for snapshot
-    const tour = await (prisma as any).serviceRequest.findUnique({
+    const tour = await prisma.tour.findUnique({
         where: { id: tourId },
         include: {
-            operator: { select: { id: true, name: true, avatarUrl: true } },
-            segments: { orderBy: { orderIndex: 'asc' }, select: { title: true, type: true, orderIndex: true, latitude: true, longitude: true } },
+            operator: { select: { id: true, email: true, profile: { select: { name: true, photoUrl: true } } } },
         },
     });
 
@@ -87,7 +86,7 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
     const eligibility = await checkEligibility(operatorId);
     
     const wallet = await prisma.wallet.findUnique({
-        where: { operatorId }
+        where: { userId: operatorId }
     });
 
     if (!wallet) throw new Error('NOT_FOUND');
@@ -101,27 +100,22 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
     const tourSnapshot = {
         tourId: tour.id,
         title: tour.title,
-        operator: { id: tour.operator.id, name: tour.operator.name, avatarUrl: tour.operator.avatarUrl },
+        operator: { id: tour.operator.id, name: tour.operator.profile?.name || tour.operator.email, photoUrl: tour.operator.profile?.photoUrl },
         startDate: tour.startDate.toISOString(),
-        endDate: tour.endDate.toISOString(),
-        durationMinutes: tour.durationMinutes,
-        location: tour.location,
-        province: tour.province,
-        language: tour.language,
-        groupSize: tour.groupSize,
-        totalPayout: tour.totalPayout,
+        endDate: tour.endDate?.toISOString() || null,
+        durationHours: tour.durationHours,
+        city: tour.city,
+        languages: tour.languages,
+        pax: tour.pax,
+        priceMain: tour.priceMain,
         currency: tour.currency,
-        itinerary: tour.segments.map((s: any) => ({ title: s.title, type: s.type, order: s.orderIndex })),
+        itinerary: (tour.itinerary || []).map((s: any, i: number) => ({ title: s.title || `Stop ${i+1}`, type: s.type || 'STOP', order: i })),
         description: tour.description,
-        eligibilityNotes: tour.eligibilityNotes,
-        // Geo coordinates for distance calculation
-        latitude: tour.segments[0]?.latitude || null,
-        longitude: tour.segments[0]?.longitude || null,
     };
 
     const targetCriteria = {
-        language: tour.language,
-        province: tour.province,
+        languages: tour.languages,
+        city: tour.city,
     };
 
     const expiresAt = new Date(Date.now() + ttlMinutes * 60 * 1000);
@@ -151,14 +145,14 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
 
     // Always log the transaction for ledger transparency (either 0 or 200k)
     transactionQueries.push(
-        prisma.walletTransaction.create({
+        (prisma as any).walletTransaction.create({
             data: {
                 walletId: wallet.id,
                 type: 'SOS_BROADCAST_FEE',
-                amount: -eligibility.cost, // 0 if free, -200000 if paid
+                amount: -eligibility.cost,
                 relatedTourId: tourId,
                 status: 'COMPLETED',
-                description: eligibility.isFree ? `Emergency SOS Broadcast (Free Weekly Allowance) for tour: ${tour.title}` : `Emergency SOS Broadcast Fee for tour: ${tour.title}`,
+                description: eligibility.isFree ? `Emergency SOS Broadcast (Free) for: ${tour.title}` : `SOS Broadcast Fee for: ${tour.title}`,
             }
         })
     );
@@ -177,7 +171,7 @@ async function triggerSOSBroadcast(input: TriggerSOSInput) {
                 targetUrl: `/dashboard/guide/sos/${broadcast.id}`,
                 type: 'SOS_GUIDE_BROADCAST',
                 title: '🚨 URGENT TOUR REQUEST',
-                message: `${tour.operator.name} needs a guide urgently! "${tour.title}" starting ${formatTimeUntil(tour.startDate)} in ${tour.location}. ${tour.groupSize || '?'} guests, ${tour.language || 'N/A'}. Payment: ${formatCurrency(tour.totalPayout, tour.currency)}`,
+                message: `${tour.operator.profile?.name || 'Operator'} needs a guide urgently! "${tour.title}" in ${tour.city}. ${tour.pax || '?'} guests. Payment: ${formatCurrency(tour.priceMain, tour.currency)}`,
                 relatedId: broadcast.id,
             });
             notifiedCount++;
@@ -232,19 +226,18 @@ async function acceptSOSBroadcast(broadcastId: string, guideId: string) {
     if (broadcast.acceptCount >= SOS_MAX_ACCEPTS) throw new Error('ACCEPT_LIMIT_REACHED');
 
     // Check if guide already applied for this tour
-    const existingApp = await prisma.guideApplication.findFirst({
-        where: { requestId: broadcast.tourId, guideId },
+    const existingApp = await prisma.application.findFirst({
+        where: { tourId: broadcast.tourId, guideId },
     });
     if (existingApp) throw new Error('ALREADY_APPLIED');
 
     const tourSnapshot = broadcast.tourSnapshot as any;
 
-    // Create a GuideApplication (operator must still approve)
-    await prisma.guideApplication.create({
+    // Create an Application (operator must still approve)
+    await prisma.application.create({
         data: {
-            requestId: broadcast.tourId,
+            tourId: broadcast.tourId,
             guideId,
-            roleApplied: 'LEAD_GUIDE',
             status: 'APPLIED',
         },
     });
@@ -260,9 +253,9 @@ async function acceptSOSBroadcast(broadcastId: string, guideId: string) {
     });
 
     // Notify operator
-    const guide = await (prisma as any).user.findUnique({
+    const guide = await prisma.user.findUnique({
         where: { id: guideId },
-        select: { name: true, trustScore: true, reliabilityScore: true },
+        select: { email: true, trustScore: true, profile: { select: { name: true } } },
     });
 
     await createDomainNotification({
@@ -271,7 +264,7 @@ async function acceptSOSBroadcast(broadcastId: string, guideId: string) {
         targetUrl: `/dashboard/operator/tours/${broadcast.tourId}`,
         type: 'SOS_GUIDE_ACCEPTED',
         title: '✅ Guide Responded to SOS',
-        message: `${guide?.name || 'A guide'} accepted your urgent request for "${tourSnapshot.title}". Trust: ${guide?.trustScore ?? 0}, Reliability: ${guide?.reliabilityScore ?? 100}%. Review and approve.`,
+        message: `${guide?.profile?.name || guide?.email || 'A guide'} accepted your urgent request for "${tourSnapshot.title}". Trust score: ${guide?.trustScore ?? 0}. Review and approve.`,
         relatedId: broadcast.tourId,
     });
 
@@ -284,7 +277,7 @@ async function acceptSOSBroadcast(broadcastId: string, guideId: string) {
             eventType: 'SOS_GUIDE_ACCEPTED',
             title: 'Guide Accepted SOS',
             description: `Guide responded to SOS broadcast. Awaiting operator approval.`,
-            metadata: JSON.stringify({ broadcastId, guideName: guide?.name }),
+            metadata: JSON.stringify({ broadcastId, guideName: guide?.profile?.name }),
         },
     });
 
@@ -303,7 +296,7 @@ async function getActiveSOSBroadcasts(guideId: string) {
     // Get guide info for matching
     const guide = await prisma.user.findUnique({
         where: { id: guideId },
-        select: { languages: true, skills: true },
+        select: { profile: { select: { languages: true, specialties: true } } },
     });
 
     const broadcasts = await (prisma as any).sOSGuideBroadcast.findMany({
@@ -323,8 +316,8 @@ async function getActiveSOSBroadcasts(guideId: string) {
         const minutesUntilExpiry = Math.round((new Date(b.expiresAt).getTime() - now.getTime()) / 60000);
 
         // Check if guide already applied
-        const existingApp = await prisma.guideApplication.findFirst({
-            where: { requestId: b.tourId, guideId },
+        const existingApp = await prisma.application.findFirst({
+            where: { tourId: b.tourId, guideId },
         });
 
         return {
@@ -409,15 +402,15 @@ async function findMatchingGuides(tour: any) {
         .filter((id): id is string => id !== null);
     const allExcluded = [...new Set([...excludeIds, ...busyGuideIds])];
 
-    return (prisma as any).user.findMany({
+    return prisma.user.findMany({
         where: {
-            role: { name: 'TOUR_GUIDE' },
-            accountStatus: 'ACTIVE',
+            role: 'TOUR_GUIDE',
+            verifiedStatus: 'APPROVED',
+            isBlocked: false,
             id: { notIn: allExcluded },
         },
-        select: { id: true, name: true, languages: true, skills: true },
+        select: { id: true, email: true, profile: { select: { name: true, languages: true, specialties: true } } },
         orderBy: [
-            { reliabilityScore: 'desc' },
             { trustScore: 'desc' },
         ],
         take: 50,
@@ -425,7 +418,7 @@ async function findMatchingGuides(tour: any) {
 }
 
 function formatTimeUntil(startDate: Date): string {
-    const minutes = Math.round((startTime.getTime() - Date.now()) / 60000);
+    const minutes = Math.round((startDate.getTime() - Date.now()) / 60000);
     if (minutes < 60) return `in ${minutes}m`;
     const hours = Math.floor(minutes / 60);
     const remainingMin = minutes % 60;

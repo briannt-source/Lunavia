@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import { getCompanyTourFilter } from "@/lib/company-permissions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,12 +13,16 @@ export async function GET(req: NextRequest) {
 
     const userId = session.user.id;
 
-    // Get only tours created by this operator
+    // If user belongs to a company, show ALL company tours
+    // Otherwise show only their own tours
+    const tourFilter = await getCompanyTourFilter(userId);
+
     const tours = await prisma.tour.findMany({
-      where: {
-        operatorId: userId,
-      },
+      where: tourFilter,
       include: {
+        operator: {
+          select: { email: true, profile: { select: { name: true } } },
+        },
         _count: {
           select: {
             applications: true,

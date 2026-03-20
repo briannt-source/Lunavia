@@ -50,7 +50,7 @@ export async function PUT(
     const member = await prisma.companyMember.findFirst({
       where: {
         companyId,
-        guideId,
+        userId: guideId,
       },
     });
 
@@ -83,7 +83,7 @@ export async function PUT(
         contractVerifiedAt: verified === true ? new Date() : null,
       },
       include: {
-        guide: {
+        user: {
           include: {
             profile: true,
           },

@@ -190,9 +190,9 @@ async function approveReplacement(request: any, operatorId: string, note?: strin
             });
 
             // Remove guide assignment, tour → OPEN
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tourId },
-                data: { assignedGuideId: null, status: 'OPEN' },
+                data: { status: 'OPEN' },
             });
 
             // Mark TourTeamMember as REPLACED if exists
@@ -360,44 +360,48 @@ async function markGuideAbandoned(tourId: string, guideId: string) {
 async function suggestAvailableGuides(tourId: string, operatorId: string) {
     const tour = enrichTourCompat(await prisma.tour.findUnique({
         where: { id: tourId },
-        select: { id: true, startDate: true, endDate: true, province: true, language: true },
+        select: { id: true, startDate: true, endDate: true, city: true, languages: true },
     }));
     if (!tour) throw new Error('NOT_FOUND');
 
-    // 1. Find in-house (affiliated) guides
-    const affiliatedGuides = await prisma.user.findMany({
-        where: {
-            affiliatedOperatorId: operatorId,
-            accountStatus: 'ACTIVE',
-        },
-        select: { id: true, name: true, trustScore: true, languages: true, skills: true, avatarUrl: true },
-        take: 20,
+    // 1. Find company guides (affiliated with operator's company)
+    const company = await prisma.company.findUnique({
+        where: { operatorId },
+        include: { members: { where: { status: 'APPROVED' }, include: { guide: { select: { id: true, email: true, trustScore: true, profile: { select: { name: true, photoUrl: true, languages: true, specialties: true } } } } } } },
     });
+    const affiliatedGuides = company?.members?.map(m => ({
+        id: m.guide.id,
+        email: m.guide.email,
+        name: m.guide.profile?.name,
+        photoUrl: m.guide.profile?.photoUrl,
+        trustScore: m.guide.trustScore,
+        languages: m.guide.profile?.languages || [],
+        specialties: m.guide.profile?.specialties || [],
+    })) || [];
 
-    // 2. Find marketplace guides with availability
+    // 2. Find marketplace guides
     const availableGuides = await prisma.user.findMany({
         where: {
-            role: { name: 'TOUR_GUIDE' },
-            accountStatus: 'ACTIVE',
-            affiliatedOperatorId: null, // Freelance only
-            NOT: {
-                operatorRequests: {
-                    some: {
-                        status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
-                        startDate: { lte: tour.endDate },
-                        endDate: { gte: tour.startDate },
-                    },
-                },
-            },
+            role: 'TOUR_GUIDE',
+            verifiedStatus: 'APPROVED',
+            isBlocked: false,
         },
-        select: { id: true, name: true, trustScore: true, languages: true, skills: true, avatarUrl: true },
+        select: { id: true, email: true, trustScore: true, profile: { select: { name: true, photoUrl: true, languages: true, specialties: true } } },
         orderBy: { trustScore: 'desc' },
         take: 20,
     });
 
     return {
         inhouse: affiliatedGuides,
-        marketplace: availableGuides,
+        marketplace: availableGuides.map(g => ({
+            id: g.id,
+            email: g.email,
+            name: g.profile?.name,
+            photoUrl: g.profile?.photoUrl,
+            trustScore: g.trustScore,
+            languages: g.profile?.languages || [],
+            specialties: g.profile?.specialties || [],
+        })),
     };
 }
 

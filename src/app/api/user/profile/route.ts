@@ -37,6 +37,20 @@ export async function PUT(req: NextRequest) {
       },
     });
 
+    // ── Avatar & Name Sync ──
+    // When profile photo or name changes, sync to User model as well.
+    // This ensures consistency across: profile, portfolio, marketplace, verification, topbar.
+    const userUpdates: Record<string, any> = {};
+    if (photoUrl !== undefined) userUpdates.image = photoUrl;
+    if (name !== undefined) userUpdates.name = name;
+
+    if (Object.keys(userUpdates).length > 0) {
+      await prisma.user.update({
+        where: { id: session.user.id },
+        data: userUpdates,
+      });
+    }
+
     return NextResponse.json(profile);
   } catch (error: any) {
     console.error("Error updating profile:", error);

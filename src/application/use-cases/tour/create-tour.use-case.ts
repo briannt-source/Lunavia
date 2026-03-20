@@ -4,9 +4,13 @@ import { generateTourCode } from "@/lib/tour-code-generator";
 
 export interface CreateTourInput {
   operatorId: string;
+  companyId?: string | null;
   title: string;
   description: string;
   city: string;
+  marketType?: "INBOUND" | "OUTBOUND";
+  country?: string;
+  province?: string;
   visibility: "PUBLIC" | "PRIVATE";
   status?: "DRAFT" | "OPEN" | "IN_PROGRESS" | "COMPLETED";
   priceMain?: number;
@@ -44,9 +48,13 @@ export class CreateTourUseCase {
       data: {
         code,
         operatorId: input.operatorId,
+        companyId: input.companyId || null,
         title: input.title,
         description: input.description,
         city: input.city,
+        marketType: input.marketType || "INBOUND",
+        country: input.country || "VN",
+        province: input.province || null,
         visibility: input.visibility,
         priceMain: input.priceMain,
         priceSub: input.priceSub,

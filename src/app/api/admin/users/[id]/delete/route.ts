@@ -122,7 +122,7 @@ export async function DELETE(
 
       // Delete company member if exists
       await tx.companyMember.deleteMany({
-        where: { guideId: userId },
+        where: { userId: userId },
       });
 
       // Delete company invitations

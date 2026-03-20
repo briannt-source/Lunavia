@@ -2,7 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { ExecutionTimeline, type SegmentData } from '@/components/execution/ExecutionTimeline';
+import { canAccessFeature, getEffectivePlan, type UserPlan } from '@/lib/plans';
 
 interface TourInfo {
     id: string;
@@ -27,7 +29,13 @@ const REJECT_REASONS = [
 export default function OperatorLiveTourPage() {
     const params = useParams();
     const router = useRouter();
+    const { data: session } = useSession();
     const tourId = params.id as string;
+
+    // Feature gate: COMMAND_CENTER = PRO+ only
+    const userPlan = (session?.user as any)?.plan || 'FREE';
+    const effectivePlan = getEffectivePlan(userPlan, (session?.user as any)?.planExpiresAt);
+    const hasCommandCenter = canAccessFeature(effectivePlan as UserPlan, 'COMMAND_CENTER');
 
     const [tour, setTour] = useState<TourInfo | null>(null);
     const [segments, setSegments] = useState<SegmentData[]>([]);
@@ -62,9 +70,12 @@ export default function OperatorLiveTourPage() {
 
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, POLL_INTERVAL_MS);
-        return () => clearInterval(interval);
-    }, [fetchData]);
+        // Auto-refresh only for PRO+ with COMMAND_CENTER feature
+        if (hasCommandCenter) {
+            const interval = setInterval(fetchData, POLL_INTERVAL_MS);
+            return () => clearInterval(interval);
+        }
+    }, [fetchData, hasCommandCenter]);
 
     const confirmTour = async () => {
         setActing('confirm');
@@ -234,14 +245,37 @@ export default function OperatorLiveTourPage() {
                 </div>
             </div>
 
-            {/* Live indicator */}
-            {tour.status === 'IN_PROGRESS' && (
+            {/* Live indicator / Plan banner */}
+            {tour.status === 'IN_PROGRESS' && hasCommandCenter && (
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
                     <div className="flex items-center gap-2 text-xs text-gray-400">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                         <span>Auto-refreshing every 15s</span>
                         {lastUpdated && <span>• Last: {lastUpdated.toLocaleTimeString()}</span>}
                     </div>
+                </div>
+            )}
+
+            {/* Free plan — manual refresh + upgrade banner */}
+            {!hasCommandCenter && (
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-4 space-y-3">
+                    <div className="flex items-center justify-between bg-amber-50 border border-amber-200 rounded-xl p-3">
+                        <div className="flex items-center gap-2 text-sm text-amber-800">
+                            <span>📡</span>
+                            <span>Basic view — upgrade to <strong>Pro</strong> for live auto-refresh & command center</span>
+                        </div>
+                        <button
+                            onClick={fetchData}
+                            className="px-3 py-1 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-lg text-xs font-medium transition"
+                        >
+                            🔄 Refresh
+                        </button>
+                    </div>
+                    {lastUpdated && (
+                        <div className="text-xs text-gray-400 text-right">
+                            Last refreshed: {lastUpdated.toLocaleTimeString()}
+                        </div>
+                    )}
                 </div>
             )}
 

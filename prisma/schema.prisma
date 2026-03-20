@@ -39,6 +39,11 @@ enum Visibility {
   PRIVATE
 }
 
+enum MarketType {
+  INBOUND   // International tourists → Vietnam (includes domestic)
+  OUTBOUND  // Vietnamese tourists → abroad
+}
+
 enum TourStatus {
   DRAFT
   OPEN
@@ -51,6 +56,7 @@ enum TourStatus {
 enum GuideRole {
   MAIN
   SUB
+  INTERN
 }
 
 enum AppStatus {
@@ -236,6 +242,26 @@ enum DepositLockStatus {
   FORFEITED
 }
 
+enum CompanyMemberRole {
+  OWNER           // Full control — company creator
+  MANAGER         // Create/edit tours, manage staff/guides, view finance
+  OPERATOR_STAFF  // Create tours, follow assigned tours
+  VIEWER          // Read-only dashboard access
+  GUIDE           // Existing guide behavior (apply for tours)
+}
+
+enum CompanyType {
+  IN_HOUSE  // Only uses internal guides, 0% commission
+  HYBRID    // Uses both in-house and marketplace guides
+}
+
+enum ContractType {
+  FULL_TIME
+  PART_TIME
+  PROBATION
+  INTERNSHIP
+}
+
 model User {
   id             String              @id @default(cuid())
   code           String?             @unique // Mã ID cho guide/agency (ví dụ: GUIDE-20250115-0001, AGENCY-20250115-0001)
@@ -285,6 +311,8 @@ model User {
   notifications            Notification[]
   trustRecords             TrustRecord[]
   depositLocks             DepositLock[]
+  createdTrackingTokens    TourTrackingToken[] @relation("TrackingTokenCreators")
+  createdObserverTokens    ObserverToken[]     @relation("ObserverTokenCreators")
   contractAcceptances      ContractAcceptance[]
   contractsAsOperator      Contract[]           @relation("ContractOperators")
   contractsAsGuide         Contract[]           @relation("ContractGuides")
@@ -392,9 +420,14 @@ model Tour {
   code                   String?          @unique // Mã tour duy nhất (ví dụ: TOUR-20250115-0001)
   operatorId             String
   operator               User             @relation(fields: [operatorId], references: [id])
+  companyId              String?
+  company                Company?         @relation(fields: [companyId], references: [id])
   title                  String
   description            String           @db.Text
   city                   String
+  marketType             MarketType       @default(INBOUND)
+  country                String           @default("VN") // ISO country code
+  province               String?          // Province/region code for filtering
   visibility             Visibility       @default(PUBLIC)
   status                 TourStatus       @default(DRAFT)
   priceMain              Float?
@@ -444,6 +477,7 @@ model Tour {
   depositLockRequired Boolean       @default(false)
   depositLockAmount   Int           @default(0)
   depositLocks        DepositLock[]
+  trackingTokens      TourTrackingToken[]
 
   @@map("tours")
 }
@@ -798,58 +832,68 @@ model WalletTransaction {
 
 // Company & Employment Module
 model Company {
-  id                    String   @id @default(cuid())
-  companyId             String   @unique // Auto-generated: SYT-001, etc.
+  id                    String      @id @default(cuid())
+  companyId             String      @unique // Auto-generated: SYT-001, etc.
   name                  String
   logo                  String? // Bắt buộc cho operator
-  email                 String?  @unique // Email công ty phải là duy nhất
+  email                 String?     @unique // Email công ty phải là duy nhất
   website               String?
   address               String?
-  businessLicenseNumber String?  @unique // Số đăng ký kinh doanh phải là duy nhất (tránh giả mạo)
-  travelLicenseNumber   String?  @unique // Số giấy phép lữ hành phải là duy nhất (tránh giả mạo)
-  operatorId            String   @unique
-  operator              User     @relation(fields: [operatorId], references: [id], onDelete: Cascade)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @default(now()) @updatedAt
+  businessLicenseNumber String?     @unique // Số đăng ký kinh doanh phải là duy nhất (tránh giả mạo)
+  travelLicenseNumber   String?     @unique // Số giấy phép lữ hành phải là duy nhất (tránh giả mạo)
+  companyType           CompanyType @default(HYBRID) // IN_HOUSE or HYBRID
+  operatorId            String      @unique
+  operator              User        @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @default(now()) @updatedAt
 
   members      CompanyMember[]
   invitations  CompanyInvitation[]
   joinRequests JoinRequest[]
+  tours        Tour[]
 
   @@map("companies")
 }
 
 model CompanyMember {
-  id                    String        @id @default(cuid())
+  id                    String            @id @default(cuid())
   companyId             String
-  company               Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  guideId               String        @unique
-  guide                 User          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  company               Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  userId                String            @unique
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role                  CompanyMemberRole @default(GUIDE)
+  permissions           Json?
   companyEmail          String?
-  status                RequestStatus @default(PENDING)
-  employmentContractUrl String?       @db.Text // URL to employment contract document (required for in-house)
-  contractVerified      Boolean       @default(false) // Admin verified the contract
-  contractVerifiedBy    String? // Admin user ID who verified
-  contractVerifiedAt    DateTime?
-  approvedAt            DateTime?
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @default(now()) @updatedAt
+  status                RequestStatus     @default(PENDING)
+  employmentContractUrl   String?           @db.Text
+  contractVerified        Boolean           @default(false)
+  contractVerifiedBy      String?
+  contractVerifiedAt      DateTime?
+  contractType            ContractType?     // FULL_TIME, PART_TIME, PROBATION, INTERNSHIP
+  contractStartDate       DateTime?         // Start of employment period
+  contractEndDate         DateTime?         // End (null = permanent/indefinite)
+  contractRejectionReason String?           @db.Text
+  approvedAt              DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @default(now()) @updatedAt
 
+  @@unique([companyId, userId])
   @@map("company_members")
 }
 
 model CompanyInvitation {
-  id          String        @id @default(cuid())
+  id          String            @id @default(cuid())
   companyId   String
-  company     Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
   guideId     String?
-  guide       User?         @relation(fields: [guideId], references: [id], onDelete: Cascade)
-  email       String? // For invite link without guide
-  inviteToken String        @unique
-  status      RequestStatus @default(PENDING)
+  guide       User?             @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  email       String?
+  role        CompanyMemberRole @default(GUIDE)
+  inviteToken String            @unique
+  status      RequestStatus     @default(PENDING)
   invitedBy   String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now()) @updatedAt
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @default(now()) @updatedAt
 
   @@map("company_invitations")
 }
@@ -1408,12 +1452,16 @@ model UserSettings {
 // City & Region Module
 model City {
   id        String   @id @default(cuid())
-  name      String   @unique
+  name      String
+  nameLocal String?  // Local language name (e.g., Hà Nội, 東京)
   region    String
-  code      String?  @unique
+  code      String?  // Province/city code
+  country   String   @default("VN") // ISO country code
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
+  @@unique([name, country])
+  @@index([country])
   @@map("cities")
 }
 
@@ -1596,3 +1644,103 @@ model AuditLog {
   @@index([createdAt])
   @@map("audit_logs")
 }
+
+// Platform Revenue Ledger — SEPARATE from escrow pass-through
+// This tracks ONLY money that belongs to Lunavia (commission fees + subscriptions)
+enum RevenueType {
+  OPERATOR_COMMISSION  // % fee from operator on marketplace tours
+  GUIDE_PLATFORM_FEE   // % fee from guide earnings
+  SUBSCRIPTION         // Monthly plan payments
+  BOOST_FEE            // Tour visibility boost
+  OTHER                // Misc revenue
+}
+
+model PlatformRevenue {
+  id            String      @id @default(cuid())
+  type          RevenueType
+  amount        Float       // Revenue amount in VND
+  description   String?
+  // Source references
+  tourId        String?     // Which tour generated this revenue
+  userId        String?     // Which user this is related to
+  paymentId     String?     // Related payment record
+  subscriptionId String?    // Related subscription
+  // Metadata
+  metadata      Json?       // Additional context
+  createdAt     DateTime    @default(now())
+
+  @@index([type])
+  @@index([tourId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("platform_revenue")
+}
+
+// ============================================
+// Token-Based Tracking & Observer Access
+// ============================================
+
+enum ObserverType {
+  SYSTEM              // Government / regulatory oversight
+  INVESTOR            // Founder, investors, board
+  PARTNER             // External operator partner
+}
+
+// Tour Tracking Token — Shareable link for external partners to monitor a specific tour
+// Security: NO GPS data exposed, only progress + timeline + itinerary
+// Only the tour's operator can generate tracking links
+model TourTrackingToken {
+  id          String   @id @default(cuid())
+  token       String   @unique @default(cuid()) // Public-facing token
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  createdById String   // Operator who created this link
+  createdBy   User     @relation("TrackingTokenCreators", fields: [createdById], references: [id], onDelete: Cascade)
+
+  // Scope & Security
+  agencyName  String?  // Label: "ABC Travel Agency" (for partner display)
+  expiresAt   DateTime // Auto-expire (default: tour end + 24h)
+  revokedAt   DateTime? // Admin or operator can revoke
+  isActive    Boolean  @default(true)
+
+  // Usage audit
+  lastAccessedAt DateTime?
+  accessCount    Int      @default(0)
+
+  createdAt   DateTime @default(now())
+
+  @@index([tourId])
+  @@index([token])
+  @@index([createdById])
+  @@index([isActive])
+  @@map("tour_tracking_tokens")
+}
+
+// Observer Token — Read-only dashboard access for government, investors, partners
+// Admin-only creation; scoped by ObserverType
+model ObserverToken {
+  id          String       @id @default(cuid())
+  token       String       @unique @default(cuid()) // Public-facing token
+  type        ObserverType // SYSTEM, INVESTOR, PARTNER
+  label       String       // "Sở Du Lịch TP.HCM", "Series A Board", etc.
+  createdById String       // Admin who created this link
+  createdBy   User         @relation("ObserverTokenCreators", fields: [createdById], references: [id], onDelete: Cascade)
+
+  // Scope
+  linkedOperatorId String? // Only for PARTNER type — restrict to specific operator data
+  expiresAt        DateTime // Auto-expire
+  revokedAt        DateTime?
+  isActive         Boolean  @default(true)
+
+  // Usage audit
+  lastAccessedAt DateTime?
+  accessCount    Int      @default(0)
+
+  createdAt   DateTime @default(now())
+
+  @@index([token])
+  @@index([type])
+  @@index([isActive])
+  @@map("observer_tokens")
+}
+

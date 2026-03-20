@@ -19,7 +19,7 @@ export default async function ProfilePage() {
             verifiedStatus: true,
             trustScore: true,
             createdAt: true,
-            profile: { select: { fullName: true, avatarUrl: true } },
+            profile: { select: { name: true, photoUrl: true } },
             wallet: { select: { balance: true } },
         },
     });
@@ -27,7 +27,7 @@ export default async function ProfilePage() {
     if (!user) redirect('/login');
 
     const verificationStatus = user.verifiedStatus || 'NOT_SUBMITTED';
-    const displayName = user.profile?.fullName || session.user.name || user.email;
+    const displayName = user.profile?.name || session.user.name || user.email;
     const initials = displayName[0]?.toUpperCase() || '?';
     const walletBalance = user.wallet?.balance || 0;
 
@@ -35,7 +35,7 @@ export default async function ProfilePage() {
     const [createdToursCount, completedToursCount, teamSize] = await Promise.all([
         prisma.tour.count({ where: { operatorId: user.id } }),
         prisma.tour.count({ where: { operatorId: user.id, status: 'COMPLETED' } }),
-        prisma.companyMember.count({ where: { userId: user.id } }),
+        prisma.company.findUnique({ where: { operatorId: user.id }, select: { _count: { select: { members: true } } } }).then(c => c?._count?.members || 0),
     ]);
 
     const totalActive = await prisma.tour.count({ 
@@ -66,8 +66,8 @@ export default async function ProfilePage() {
                     <div className="px-6 pb-6 -mt-12">
                         <div className="flex items-end gap-5">
                             <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-indigo-600 shrink-0 overflow-hidden relative">
-                                {user.profile?.avatarUrl ? (
-                                    <img src={user.profile.avatarUrl} alt={displayName} className="h-full w-full object-cover" />
+                                {user.profile?.photoUrl ? (
+                                    <img src={user.profile.photoUrl} alt={displayName} className="h-full w-full object-cover" />
                                 ) : (
                                     initials
                                 )}

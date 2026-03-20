@@ -1,139 +1,134 @@
+import { NextRequest, NextResponse } from 'next/server';
+
 /**
- * Rate Limiting — In-Memory Sliding Window
+ * In-memory rate limiter for API routes.
+ * Uses a sliding window counter per IP address.
  *
- * MVP implementation using in-memory Map.
- * For production, replace with Redis-based implementation.
- *
- * PROTECTED ACTIONS:
- * - Signup: 5 / 10min per IP
- * - Login fail: 5 / 10min per IP
- * - Withdraw: 3 / 10min per user
- * - Verification submit: 5 / 1hr per user
+ * In production, replace with Redis-based limiter (e.g., Upstash Ratelimit).
  */
 
-interface RateLimitConfig {
-    maxRequests: number;
-    windowMs: number;
-    keyPrefix: string;
+interface RateLimitRecord {
+  count: number;
+  resetAt: number;
 }
 
-interface RateLimitEntry {
-    timestamps: number[];
-}
+const store = new Map<string, RateLimitRecord>();
 
-// In-memory store (replace with Redis for production)
-const store = new Map<string, RateLimitEntry>();
-
-// Cleanup interval: every 5 minutes, remove expired entries
-const CLEANUP_INTERVAL = 5 * 60 * 1000;
-let lastCleanup = Date.now();
-
-function cleanupExpired(windowMs: number): void {
-    const now = Date.now();
-    if (now - lastCleanup < CLEANUP_INTERVAL) return;
-    lastCleanup = now;
-
-    for (const [key, entry] of store.entries()) {
-        entry.timestamps = entry.timestamps.filter(t => now - t < windowMs);
-        if (entry.timestamps.length === 0) {
-            store.delete(key);
-        }
+// Cleanup stale entries every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, record] of store) {
+    if (record.resetAt < now) {
+      store.delete(key);
     }
-}
+  }
+}, 5 * 60 * 1000);
 
-// ============================================
-// RATE LIMIT CONFIGS
-// ============================================
-
-export const RATE_LIMITS = {
-    SIGNUP: {
-        maxRequests: 5,
-        windowMs: 10 * 60 * 1000, // 10 minutes
-        keyPrefix: 'signup',
-    },
-    LOGIN_FAIL: {
-        maxRequests: 5,
-        windowMs: 10 * 60 * 1000, // 10 minutes
-        keyPrefix: 'login_fail',
-    },
-    WITHDRAW: {
-        maxRequests: 3,
-        windowMs: 10 * 60 * 1000, // 10 minutes
-        keyPrefix: 'withdraw',
-    },
-    VERIFICATION_SUBMIT: {
-        maxRequests: 5,
-        windowMs: 60 * 60 * 1000, // 1 hour
-        keyPrefix: 'verification',
-    },
-} as const satisfies Record<string, RateLimitConfig>;
-
-// ============================================
-// CORE FUNCTIONS
-// ============================================
-
-export interface RateLimitResult {
-    allowed: boolean;
-    remaining: number;
-    retryAfterMs: number;
+export interface RateLimitOptions {
+  /** Max requests allowed in the window */
+  limit?: number;
+  /** Window duration in seconds */
+  windowSeconds?: number;
+  /** Optional key prefix for different route groups */
+  prefix?: string;
 }
 
 /**
- * Check and consume a rate limit token.
- *
- * @param config - The rate limit configuration
- * @param identifier - IP address or user ID
- * @returns Whether the request is allowed, remaining count, and retry-after
+ * Check rate limit for a request.
+ * Returns null if allowed, or a NextResponse 429 if rate-limited.
  */
 export function checkRateLimit(
-    config: RateLimitConfig,
-    identifier: string
-): RateLimitResult {
-    const key = `${config.keyPrefix}:${identifier}`;
-    const now = Date.now();
+  req: NextRequest,
+  options: RateLimitOptions = {}
+): NextResponse | null {
+  const {
+    limit = 60,
+    windowSeconds = 60,
+    prefix = 'global',
+  } = options;
 
-    cleanupExpired(config.windowMs);
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown';
 
-    // Get or create entry
-    let entry = store.get(key);
-    if (!entry) {
-        entry = { timestamps: [] };
-        store.set(key, entry);
-    }
+  const key = `${prefix}:${ip}`;
+  const now = Date.now();
+  const windowMs = windowSeconds * 1000;
 
-    // Remove expired timestamps
-    entry.timestamps = entry.timestamps.filter(t => now - t < config.windowMs);
+  let record = store.get(key);
 
-    // Check limit
-    if (entry.timestamps.length >= config.maxRequests) {
-        const oldestInWindow = entry.timestamps[0];
-        const retryAfterMs = config.windowMs - (now - oldestInWindow);
+  if (!record || record.resetAt < now) {
+    record = { count: 1, resetAt: now + windowMs };
+    store.set(key, record);
+    return null;
+  }
 
-        return {
-            allowed: false,
-            remaining: 0,
-            retryAfterMs: Math.max(0, retryAfterMs),
-        };
-    }
+  record.count++;
 
-    // Consume token
-    entry.timestamps.push(now);
+  if (record.count > limit) {
+    const retryAfter = Math.ceil((record.resetAt - now) / 1000);
+    return NextResponse.json(
+      {
+        error: 'Too many requests',
+        message: `Rate limit exceeded. Try again in ${retryAfter} seconds.`,
+        retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(retryAfter),
+          'X-RateLimit-Limit': String(limit),
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': String(Math.ceil(record.resetAt / 1000)),
+        },
+      }
+    );
+  }
 
-    return {
-        allowed: true,
-        remaining: config.maxRequests - entry.timestamps.length,
-        retryAfterMs: 0,
-    };
+  return null;
 }
 
 /**
- * Helper to create a rate limit error response (for API routes).
+ * Higher-order function to wrap an API route handler with rate limiting.
+ *
+ * Usage:
+ * ```ts
+ * import { withRateLimit } from '@/lib/rate-limit';
+ *
+ * export const POST = withRateLimit(
+ *   async (req: NextRequest) => {
+ *     // ... your handler
+ *   },
+ *   { limit: 10, windowSeconds: 60 }
+ * );
+ * ```
  */
-export function rateLimitResponse(result: RateLimitResult) {
-    const retryAfterSeconds = Math.ceil(result.retryAfterMs / 1000);
-
-    return {
-        error: 'Too many requests. Please try again later.',
-        retryAfterSeconds,
-    };
+export function withRateLimit(
+  handler: (req: NextRequest, ...args: any[]) => Promise<NextResponse>,
+  options: RateLimitOptions = {}
+) {
+  return async (req: NextRequest, ...args: any[]): Promise<NextResponse> => {
+    const rateLimitResponse = checkRateLimit(req, options);
+    if (rateLimitResponse) return rateLimitResponse;
+    return handler(req, ...args);
+  };
 }
+
+// Pre-configured limiters for common use cases
+export const AUTH_RATE_LIMIT: RateLimitOptions = {
+  limit: 10,
+  windowSeconds: 300, // 10 attempts per 5 minutes
+  prefix: 'auth',
+};
+
+export const UPLOAD_RATE_LIMIT: RateLimitOptions = {
+  limit: 20,
+  windowSeconds: 60,
+  prefix: 'upload',
+};
+
+export const API_RATE_LIMIT: RateLimitOptions = {
+  limit: 100,
+  windowSeconds: 60,
+  prefix: 'api',
+};

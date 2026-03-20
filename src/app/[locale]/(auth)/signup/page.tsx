@@ -92,7 +92,7 @@ function SignupContent() {
       toast.success('Account created! Please log in.');
       router.push('/login');
     } else {
-      toast.error(data.message || 'Signup failed');
+      toast.error(data.error || data.message || 'Signup failed');
     }
   }
 

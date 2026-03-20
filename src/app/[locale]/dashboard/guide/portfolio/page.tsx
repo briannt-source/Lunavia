@@ -8,6 +8,7 @@ import PortfolioTours from '@/components/portfolio/PortfolioTours';
 import PortfolioAbout from '@/components/portfolio/PortfolioAbout';
 import PortfolioTimeline from '@/components/portfolio/PortfolioTimeline';
 import PortfolioShareCard from '@/components/portfolio/PortfolioShareCard';
+import GuidePerformanceCard from '@/components/guide/GuidePerformanceCard';
 import { useTranslations } from 'next-intl';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -82,53 +83,10 @@ export default function GuidePortfolioPage() {
                             isEditable={isOwner}
                             onUpdate={handleUpdate}
                         />
-                        {/* Guide Rating Card */}
-                        <GuideRatingCard stats={data.stats} user={data.profile} />
+                        {/* Guide Performance Card — THE core differentiator */}
+                        <GuidePerformanceCard guideId={data.profile.id} />
                     </div>
                 </div>
-        </div>
-    );
-}
-
-// ─── Guide-Specific Rating Card ──────────────────────────────────────
-
-function GuideRatingCard({ stats, user }: { stats: any; user: any }) {
-    const t = useTranslations('Guide.Portfolio.ratingCard');
-    return (
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-            <h3 className="text-sm font-bold text-gray-900 mb-4">{t('title')}</h3>
-            <div className="text-center py-3">
-                <div className="flex items-center justify-center gap-2">
-                    <span className="text-4xl font-black text-indigo-600">
-                        {stats.rating > 0 ? stats.rating : '-'}
-                    </span>
-                    {stats.rating > 0 && <span className="text-yellow-400 text-3xl">★</span>}
-                </div>
-                {stats.reviewCount > 0 && (
-                    <div className="text-xs text-gray-500 mt-1">{t('reviews', { count: stats.reviewCount })}</div>
-                )}
-            </div>
-            <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
-                <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">{t('toursCompleted')}</span>
-                    <span className="font-bold text-gray-900">{stats.toursCompleted || 0}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">{t('completionRate')}</span>
-                    <span className={`font-bold ${(stats.completionRate || 0) >= 90 ? 'text-emerald-600' : 'text-gray-900'}`}>
-                        {stats.completionRate || 0}%
-                    </span>
-                </div>
-                {user.experienceYears > 0 && (
-                    <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">{t('experience')}</span>
-                        <span className="font-bold text-gray-900">{t('years', { count: user.experienceYears })}</span>
-                    </div>
-                )}
-            </div>
-            <div className="mt-4 pt-4 border-t border-gray-100 text-center">
-                <p className="text-xs text-gray-400 italic">{t('verifiedData')}</p>
-            </div>
         </div>
     );
 }
