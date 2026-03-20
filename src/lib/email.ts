@@ -5,7 +5,7 @@ const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587;
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM || '"Lunavia Team" <no-reply@lunavia.com>';
+const SMTP_FROM = process.env.SMTP_FROM || '"Lunavia Team" <no-reply@lunavia.vn>';
 
 // Validate SMTP config
 if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {

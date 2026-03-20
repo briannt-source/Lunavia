@@ -47,7 +47,7 @@ export default async function FAQPage() {
 
                 <div className="mt-16 pt-8 border-t border-gray-100 text-center">
                     <p className="text-gray-500">{t('more')}</p>
-                    <Link href="mailto:support@lunavia.com" className="text-indigo-600 font-bold hover:underline mt-2 inline-block">{t('contact')}</Link>
+                    <Link href="mailto:support@lunavia.vn" className="text-indigo-600 font-bold hover:underline mt-2 inline-block">{t('contact')}</Link>
                 </div>
             </div>
         </div>

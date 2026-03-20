@@ -197,10 +197,10 @@ export async function GET(req: NextRequest) {
     const countryFilter = searchParams.get("country");
     const provinceFilter = searchParams.get("province");
 
-    // Exclude test operators (operator1@lunavia.com to operator8@lunavia.com, agency1@lunavia.com to agency5@lunavia.com)
+    // Exclude test operators (operator1@lunavia.vn to operator8@lunavia.vn, agency1@lunavia.vn to agency5@lunavia.vn)
     const testOperatorEmails = [
-      ...Array.from({ length: 8 }, (_, i) => `operator${i + 1}@lunavia.com`),
-      ...Array.from({ length: 5 }, (_, i) => `agency${i + 1}@lunavia.com`),
+      ...Array.from({ length: 8 }, (_, i) => `operator${i + 1}@lunavia.vn`),
+      ...Array.from({ length: 5 }, (_, i) => `agency${i + 1}@lunavia.vn`),
     ];
 
     const where: any = {

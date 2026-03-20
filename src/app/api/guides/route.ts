@@ -19,8 +19,8 @@ export async function GET(req: NextRequest) {
     const specialties = searchParams.get("specialties")?.split(",").filter(Boolean);
     const languages = searchParams.get("languages")?.split(",").filter(Boolean);
 
-    // Exclude test guides (guide1@lunavia.com to guide25@lunavia.com)
-    const testGuideEmails = Array.from({ length: 25 }, (_, i) => `guide${i + 1}@lunavia.com`);
+    // Exclude test guides (guide1@lunavia.vn to guide25@lunavia.vn)
+    const testGuideEmails = Array.from({ length: 25 }, (_, i) => `guide${i + 1}@lunavia.vn`);
 
     const where: any = {
       role: "TOUR_GUIDE",

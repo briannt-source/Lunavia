@@ -10,7 +10,7 @@
 
 import { transporter } from './email';
 
-const SMTP_FROM = process.env.SMTP_FROM || '"Lunavia Team" <no-reply@lunavia.com>';
+const SMTP_FROM = process.env.SMTP_FROM || '"Lunavia Team" <no-reply@lunavia.vn>';
 
 interface SendEmailParams {
     to: string;
