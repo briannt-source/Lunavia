@@ -112,7 +112,7 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                                             </div>
                                             <p className="mt-1 text-sm text-gray-600 whitespace-pre-wrap">{ev.message}</p>
                                             {ev.fileUrl && (
-                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center text-xs font-medium text-indigo-600 hover:text-indigo-800">
+                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center text-xs font-medium text-lunavia-primary hover:text-lunavia-primary/80">
                                                     {t('dispute.viewEvidence')}
                                                 </a>
                                             )}
@@ -256,7 +256,7 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                             <div className="flex items-center gap-6 p-4 bg-gray-50 rounded-xl">
                                 <div>
                                     <p className="text-sm text-gray-500">{t('finance.escrowStatus')}</p>
-                                    <span className={`inline-flex items-center px-2 py-1 mt-1 rounded-md text-xs font-bold border ${tour.escrowStatus === 'HELD' ? 'bg-amber-100 text-amber-800' : tour.escrowStatus === 'RELEASED' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}`}>
+                                    <span className={`inline-flex items-center px-2 py-1 mt-1 rounded-md text-xs font-bold border ${tour.escrowStatus === 'HELD' ? 'bg-amber-100 text-amber-800' : tour.escrowStatus === 'RELEASED' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
                                         {tour.escrowStatus || 'NOT_FUNDED'}
                                     </span>
                                 </div>
@@ -268,7 +268,7 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                                 <div className="h-10 w-px bg-gray-200"></div>
                                 <div>
                                     <p className="text-sm text-gray-500">{t('finance.guidePayout')}</p>
-                                    <p className="font-bold text-emerald-600 mt-1">{fmtVND(tour.assignedGuidePayout || 0)}</p>
+                                    <p className="font-bold text-green-600 mt-1">{fmtVND(tour.assignedGuidePayout || 0)}</p>
                                 </div>
                             </div>
                         </div>
@@ -285,12 +285,12 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                             <h4 className="font-bold text-gray-900">{tour.operator.companyName || tour.operator.email}</h4>
                             <p className="text-sm text-gray-500">{tour.operator.email}</p>
                             <div className="mt-3 flex items-center gap-2">
-                                <span className="px-2 py-1 bg-indigo-50 text-indigo-700 text-xs font-medium rounded-full">{t('users.trust')}: {tour.operator.trustScore}</span>
+                                <span className="px-2 py-1 bg-lunavia-primary-light text-lunavia-primary text-xs font-medium rounded-full">{t('users.trust')}: {tour.operator.trustScore}</span>
                                 {tour.operator.operatorCategory && (
                                     <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">{tour.operator.operatorCategory}</span>
                                 )}
                             </div>
-                            <Link href={`/dashboard/admin/users/${tour.operator.id}`} className="mt-4 text-sm text-indigo-600 font-medium hover:underline">
+                            <Link href={`/dashboard/admin/users/${tour.operator.id}`} className="mt-4 text-sm text-lunavia-primary font-medium hover:underline">
                                 {t('users.viewProfile')}
                             </Link>
                         </div>
@@ -303,7 +303,7 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                                 <h4 className="font-bold text-gray-900">{tour.assignedGuide.name || tour.assignedGuide.email}</h4>
                                 <p className="text-sm text-gray-500">{tour.assignedGuide.email}</p>
                                 <div className="mt-3 flex items-center gap-2">
-                                    <span className="px-2 py-1 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-full">{t('users.trust')}: {tour.assignedGuide.trustScore}</span>
+                                    <span className="px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">{t('users.trust')}: {tour.assignedGuide.trustScore}</span>
                                     {tour.assignedGuide.verificationStatus === 'VERIFIED' && (
                                         <span className="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">{t('users.verified')}</span>
                                     )}
@@ -318,7 +318,7 @@ export default function AdminTourDetailClient({ initialData }: { initialData: an
                                         <span className="font-medium text-gray-900">{tour.payoutStatus || 'PENDING'}</span>
                                     </div>
                                 </div>
-                                <Link href={`/dashboard/admin/users/${tour.assignedGuide.id}`} className="mt-4 text-sm text-indigo-600 font-medium hover:underline">
+                                <Link href={`/dashboard/admin/users/${tour.assignedGuide.id}`} className="mt-4 text-sm text-lunavia-primary font-medium hover:underline">
                                     {t('users.viewProfile')}
                                 </Link>
                             </div>

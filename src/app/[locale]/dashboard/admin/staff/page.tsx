@@ -19,7 +19,7 @@ export default async function InternalStaffPage() {
             <div className="p-8 text-center text-red-600">
                 <h1 className="text-xl font-bold">Access Denied</h1>
                 <p>Only Super Administrators can manage internal staff.</p>
-                <Link href="/dashboard/admin" className="text-indigo-600 underline mt-4 block">
+                <Link href="/dashboard/admin" className="text-lunavia-primary underline mt-4 block">
                     Return to Dashboard
                 </Link>
             </div>
@@ -62,7 +62,7 @@ export default async function InternalStaffPage() {
                 </div>
                 <Link
                     href="/dashboard/admin/staff/create"
-                    className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700"
+                    className="bg-lunavia-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-lunavia-primary-hover"
                 >
                     + Add New Staff
                 </Link>
@@ -84,7 +84,7 @@ export default async function InternalStaffPage() {
                             <tr key={member.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
-                                        <div className="h-10 w-10 flex-shrink-0 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold">
+                                        <div className="h-10 w-10 flex-shrink-0 bg-lunavia-primary-light rounded-full flex items-center justify-center text-lunavia-primary font-bold">
                                             {member.name?.[0] || member.email[0].toUpperCase()}
                                         </div>
                                         <div className="ml-4">
@@ -95,7 +95,7 @@ export default async function InternalStaffPage() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        ${member.role === 'SUPER_ADMIN' ? 'bg-purple-100 text-purple-800' :
+                                        ${member.role === 'SUPER_ADMIN' ? 'bg-lunavia-accent-light text-lunavia-accent' :
                                             member.role === 'OPS' ? 'bg-blue-100 text-blue-800' :
                                                 member.role === 'KYC_ANALYST' ? 'bg-green-100 text-green-800' :
                                                     'bg-gray-100 text-gray-800'}`}>

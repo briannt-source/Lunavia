@@ -93,7 +93,7 @@ export default function TourApplicationsPage() {
                       key={app.id}
                       className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                         selectedApplication === app.id
-                          ? "border-teal-500 bg-teal-50"
+                          ? "border-lunavia-primary bg-lunavia-primary-light"
                           : "hover:bg-slate-50"
                       }`}
                       onClick={() => setSelectedApplication(app.id)}
@@ -140,7 +140,7 @@ export default function TourApplicationsPage() {
                           <div className="flex gap-2">
                             <Button
                               size="sm"
-                              className="bg-emerald-600 hover:bg-emerald-700"
+                              className="bg-green-600 hover:bg-green-700"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleAccept(app.id);
@@ -249,7 +249,7 @@ export default function TourApplicationsPage() {
                           {guideProfile.profile.languages.map((lang: string) => (
                             <span
                               key={lang}
-                              className="px-2 py-1 bg-teal-50 text-teal-700 rounded text-xs"
+                              className="px-2 py-1 bg-lunavia-primary-light text-lunavia-primary rounded text-xs"
                             >
                               {lang}
                             </span>
@@ -270,7 +270,7 @@ export default function TourApplicationsPage() {
                             (spec: string) => (
                               <span
                                 key={spec}
-                                className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded text-xs"
+                                className="px-2 py-1 bg-green-50 text-green-700 rounded text-xs"
                               >
                                 {spec}
                               </span>

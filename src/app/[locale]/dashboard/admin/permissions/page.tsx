@@ -321,7 +321,7 @@ export default function PermissionsAdminPage() {
                                         key={role.id}
                                         onClick={() => setSelectedRoleId(role.id)}
                                         className={`w-full px-4 py-3 text-left transition-all border-b border-gray-50 last:border-b-0 ${isSelected
-                                            ? 'bg-indigo-50 border-l-2 border-l-indigo-600'
+                                            ? 'bg-lunavia-primary-light border-l-2 border-l-lunavia-primary'
                                             : 'hover:bg-gray-50 border-l-2 border-l-transparent'
                                             }`}
                                     >
@@ -332,7 +332,7 @@ export default function PermissionsAdminPage() {
                                                         ⚠
                                                     </span>
                                                 )}
-                                                <span className={`text-sm font-medium truncate ${isSelected ? 'text-indigo-900' : 'text-gray-900'}`}>
+                                                <span className={`text-sm font-medium truncate ${isSelected ? 'text-lunavia-primary' : 'text-gray-900'}`}>
                                                     {role.name}
                                                 </span>
                                             </div>
@@ -343,7 +343,7 @@ export default function PermissionsAdminPage() {
                                                     </span>
                                                 )}
                                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium ${isSelected
-                                                    ? 'bg-indigo-100 text-indigo-700'
+                                                    ? 'bg-lunavia-primary-light text-lunavia-primary'
                                                     : 'bg-gray-100 text-gray-600'
                                                     }`}>
                                                     {editedCount}/{availablePermissions.length}
@@ -370,7 +370,7 @@ export default function PermissionsAdminPage() {
                                 placeholder="Search permissions..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full rounded-lg border border-gray-200 bg-white pl-9 pr-4 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition outline-none"
+                                className="w-full rounded-lg border border-gray-200 bg-white pl-9 pr-4 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/10 transition outline-none"
                             />
                             <svg className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -379,7 +379,7 @@ export default function PermissionsAdminPage() {
                         <select
                             value={categoryFilter}
                             onChange={(e) => setCategoryFilter(e.target.value)}
-                            className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition outline-none"
+                            className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/10 transition outline-none"
                         >
                             <option value="">All categories</option>
                             {categories.map((c) => (
@@ -393,7 +393,7 @@ export default function PermissionsAdminPage() {
                         <div className="flex items-center gap-2 mb-4 flex-shrink-0">
                             <button
                                 onClick={grantAll}
-                                className="px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition"
+                                className="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition"
                             >
                                 Grant All
                             </button>
@@ -410,7 +410,7 @@ export default function PermissionsAdminPage() {
                                         if (e.target.value) copyFrom(e.target.value);
                                         e.target.value = '';
                                     }}
-                                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs text-gray-700 focus:border-indigo-500 transition outline-none"
+                                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs text-gray-700 focus:border-lunavia-primary transition outline-none"
                                     defaultValue=""
                                 >
                                     <option value="" disabled>Select role…</option>
@@ -456,7 +456,7 @@ export default function PermissionsAdminPage() {
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${enabledCount === perms.length
-                                                        ? 'bg-emerald-100 text-emerald-700'
+                                                        ? 'bg-green-100 text-green-700'
                                                         : enabledCount > 0
                                                             ? 'bg-amber-100 text-amber-700'
                                                             : 'bg-gray-100 text-gray-500'
@@ -468,7 +468,7 @@ export default function PermissionsAdminPage() {
                                                             e.stopPropagation();
                                                             toggleCategoryAll(category);
                                                         }}
-                                                        className="text-[11px] text-indigo-600 hover:text-indigo-800 font-medium transition"
+                                                        className="text-[11px] text-lunavia-primary hover:text-lunavia-primary/80 font-medium transition"
                                                     >
                                                         {enabledCount === perms.length ? 'Deselect all' : 'Select all'}
                                                     </button>
@@ -488,7 +488,7 @@ export default function PermissionsAdminPage() {
                                                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg border cursor-pointer transition-all ${enabled
                                                                     ? isHighRisk
                                                                         ? 'bg-amber-50/50 border-amber-200'
-                                                                        : 'bg-indigo-50/50 border-indigo-200'
+                                                                        : 'bg-lunavia-primary-light/50 border-lunavia-primary/20'
                                                                     : 'bg-white border-gray-100 hover:border-gray-200'
                                                                     }`}
                                                             >
@@ -501,7 +501,7 @@ export default function PermissionsAdminPage() {
                                                                         className="sr-only peer"
                                                                     />
                                                                     <div className={`w-9 h-5 rounded-full transition-colors ${enabled
-                                                                        ? isHighRisk ? 'bg-amber-500' : 'bg-indigo-600'
+                                                                        ? isHighRisk ? 'bg-amber-500' : 'bg-lunavia-primary'
                                                                         : 'bg-gray-200'
                                                                         }`} />
                                                                     <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${enabled ? 'translate-x-4' : ''
@@ -581,7 +581,7 @@ export default function PermissionsAdminPage() {
                                                                         <div className={`inline-flex h-5 w-5 items-center justify-center rounded transition ${hasIt
                                                                             ? isHighRisk
                                                                                 ? 'bg-amber-100 text-amber-700'
-                                                                                : 'bg-emerald-100 text-emerald-700'
+                                                                                : 'bg-green-100 text-green-700'
                                                                             : 'bg-gray-100 text-gray-300'
                                                                             }`}>
                                                                             {hasIt ? '✓' : '·'}
@@ -641,7 +641,7 @@ export default function PermissionsAdminPage() {
                             <button
                                 onClick={saveChanges}
                                 disabled={saving}
-                                className="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
+                                className="px-5 py-2 text-sm font-medium text-white bg-lunavia-primary rounded-lg hover:bg-lunavia-primary/90 disabled:opacity-50 transition shadow-sm"
                             >
                                 {saving ? 'Saving…' : 'Save Changes'}
                             </button>

@@ -104,7 +104,7 @@ export default function AdminAuditPage() {
                 </div>
                 <button
                     onClick={fetchLogs}
-                    className="text-gray-500 hover:text-indigo-600 text-sm flex items-center gap-1"
+                    className="text-gray-500 hover:text-lunavia-primary text-sm flex items-center gap-1"
                 >
                     ↻ Refresh
                 </button>
@@ -177,7 +177,7 @@ export default function AdminAuditPage() {
                     </button>
                     <button
                         onClick={handleSearch}
-                        className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                        className="px-4 py-2 text-sm bg-lunavia-primary text-white rounded-lg hover:bg-lunavia-primary-hover"
                     >
                         Search Logs
                     </button>
@@ -247,7 +247,7 @@ export default function AdminAuditPage() {
                                         <td className="px-6 py-3">
                                             <button
                                                 onClick={() => setSelectedLog(log)}
-                                                className="text-indigo-600 hover:text-indigo-800 font-medium text-xs border border-indigo-200 rounded px-2 py-1 hover:bg-indigo-50"
+                                                className="text-lunavia-primary hover:text-lunavia-primary-hover font-medium text-xs border border-lunavia-primary/20 rounded px-2 py-1 hover:bg-lunavia-primary-light"
                                             >
                                                 Inspect
                                             </button>
@@ -313,7 +313,7 @@ export default function AdminAuditPage() {
                                 </div>
                                 <div className="p-3 bg-gray-50 rounded-lg">
                                     <span className="block text-xs font-semibold text-gray-500">ACTION</span>
-                                    <span className="font-medium text-indigo-700">{selectedLog.action}</span>
+                                    <span className="font-medium text-lunavia-primary">{selectedLog.action}</span>
                                 </div>
                                 <div className="p-3 bg-gray-50 rounded-lg">
                                     <span className="block text-xs font-semibold text-gray-500">ENTITY</span>

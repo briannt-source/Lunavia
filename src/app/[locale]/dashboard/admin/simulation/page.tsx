@@ -100,7 +100,7 @@ export default function SimulationPage() {
                             onClick={() => setSelectedScenario(s.key)}
                             className={`text-left p-4 rounded-xl border-2 transition-all ${
                                 selectedScenario === s.key
-                                    ? 'border-indigo-500 bg-indigo-50 shadow-sm'
+                                    ? 'border-lunavia-primary bg-lunavia-primary-light shadow-sm'
                                     : 'border-gray-200 hover:border-gray-300 bg-white'
                             }`}
                         >
@@ -121,7 +121,7 @@ export default function SimulationPage() {
                 <h2 className="text-sm font-bold text-gray-900 mb-4">Configuration</h2>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Tour Count: <span className="font-bold text-indigo-600">{tourCount}</span>
+                        Tour Count: <span className="font-bold text-lunavia-primary">{tourCount}</span>
                     </label>
                     <input
                         type="range"
@@ -129,7 +129,7 @@ export default function SimulationPage() {
                         max={100}
                         value={tourCount}
                         onChange={(e) => setTourCount(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-lunavia-primary"
                     />
                     <div className="flex justify-between text-[10px] text-gray-400 mt-1">
                         <span>1</span>
@@ -146,7 +146,7 @@ export default function SimulationPage() {
                 <button
                     onClick={handleRun}
                     disabled={running || cleaning}
-                    className="flex-1 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700 disabled:opacity-50 transition-all text-sm"
+                    className="flex-1 rounded-xl bg-lunavia-primary px-6 py-3 font-semibold text-white hover:bg-lunavia-primary/90 disabled:opacity-50 transition-all text-sm"
                 >
                     {running ? (
                         <span className="flex items-center justify-center gap-2">
@@ -184,11 +184,11 @@ export default function SimulationPage() {
                     {result.data?.summary && (
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <div className="bg-white border border-gray-200 rounded-xl p-4 text-center">
-                                <div className="text-2xl font-bold text-indigo-600">{result.data.summary.success}</div>
+                                <div className="text-2xl font-bold text-lunavia-primary">{result.data.summary.success}</div>
                                 <div className="text-[11px] text-gray-500 mt-1">Tours Created</div>
                             </div>
                             <div className="bg-white border border-gray-200 rounded-xl p-4 text-center">
-                                <div className="text-2xl font-bold text-emerald-600">{result.data.summary.totalEvents}</div>
+                                <div className="text-2xl font-bold text-green-600">{result.data.summary.totalEvents}</div>
                                 <div className="text-[11px] text-gray-500 mt-1">Events Generated</div>
                             </div>
                             <div className="bg-white border border-gray-200 rounded-xl p-4 text-center">
@@ -242,7 +242,7 @@ export default function SimulationPage() {
                                                 </td>
                                                 <td className="px-4 py-2 text-gray-900">{tour.title}</td>
                                                 <td className="px-4 py-2 text-center">
-                                                    <span className="inline-flex items-center justify-center bg-indigo-50 text-indigo-700 rounded-full px-2 py-0.5 font-semibold">
+                                                    <span className="inline-flex items-center justify-center bg-lunavia-primary-light text-lunavia-primary rounded-full px-2 py-0.5 font-semibold">
                                                         {tour.eventsGenerated}
                                                     </span>
                                                 </td>

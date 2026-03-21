@@ -160,7 +160,7 @@ export default function GuideApplicationsPage() {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
                           <Link href={`/tours/${application.tour.id}`}>
-                            <h3 className="text-lg font-semibold text-slate-900 hover:text-teal-600 transition-colors">
+                            <h3 className="text-lg font-semibold text-slate-900 hover:text-lunavia-primary transition-colors">
                               {application.tour.title}
                             </h3>
                           </Link>

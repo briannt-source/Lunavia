@@ -100,7 +100,7 @@ export default function CompanyPage() {
                       href={companyInfo.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-teal-600 hover:underline"
+                      className="text-sm text-lunavia-primary hover:underline"
                     >
                       {companyInfo.website}
                     </a>

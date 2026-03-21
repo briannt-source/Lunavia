@@ -35,9 +35,13 @@ const config = {
         // Lunavia Design System Colors
         lunavia: {
           primary: "#0077B6",
+          "primary-hover": "#005A8C",
           "primary-dark": "#005A8C",
+          "primary-light": "#E8F4FD",
           secondary: "#003049",
           accent: "#00B4D8",
+          "accent-hover": "#0096C7",
+          "accent-light": "#E0F7FA",
           dark: "#001D3D",
           light: "#E8F4FD",
           lighter: "#F0F8FB",

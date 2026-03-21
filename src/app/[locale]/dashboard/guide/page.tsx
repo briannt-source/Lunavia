@@ -96,8 +96,8 @@ export default function GuideDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-        <StatCard icon={<Briefcase className="h-4 w-4" />} label="Applications" value={stats.totalApplications} color="indigo" />
-        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Approve" value={stats.acceptedApplications} color="emerald" />
+        <StatCard icon={<Briefcase className="h-4 w-4" />} label="Applications" value={stats.totalApplications} color="brand" />
+        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Approve" value={stats.acceptedApplications} color="green" />
         <StatCard icon={<Clock className="h-4 w-4" />} label="Pending" value={stats.pendingApplications} color="amber" />
         <StatCard icon={<XCircle className="h-4 w-4" />} label="Reject" value={stats.rejectedApplications} color="red" />
         <StatCard icon={<DollarSign className="h-4 w-4" />} label="Earnings" value={formatVND(stats.totalEarned)} color="slate" small />
@@ -110,13 +110,13 @@ export default function GuideDashboard() {
         <Card className="card-elevated border-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <BarChart3 className="h-4 w-4 text-indigo-500" />
+              <BarChart3 className="h-4 w-4 text-lunavia-primary" />
               Hiệu Suất
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2.5">
-            <PerformanceRow label="Success Rate" value={`${stats.successRate}%`} color="text-emerald-600" />
-            <PerformanceRow label="Tours Completed" value={stats.completedTours} color="text-blue-600" />
+            <PerformanceRow label="Success Rate" value={`${stats.successRate}%`} color="text-green-600" />
+            <PerformanceRow label="Tours Completed" value={stats.completedTours} color="text-lunavia-primary" />
             <PerformanceRow label="Total Earnings" value={formatVND(stats.totalEarned)} color="text-gray-900" />
             <PerformanceRow label="Current Balance" value={formatVND(stats.walletBalance)} color="text-gray-900" />
           </CardContent>
@@ -126,18 +126,18 @@ export default function GuideDashboard() {
         <Card className="card-elevated border-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Activity className="h-4 w-4 text-emerald-500" />
+              <Activity className="h-4 w-4 text-lunavia-accent" />
               Hoạt Động (7 ngày)
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2.5">
-            <div className="flex items-center justify-between p-3 rounded-lg bg-blue-50/60">
-              <span className="text-xs font-medium text-blue-700">Ứng tuyển mới</span>
-              <span className="text-sm font-bold text-blue-900">{stats.recentApplications}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-lunavia-primary-light/60">
+              <span className="text-xs font-medium text-lunavia-primary">Ứng tuyển mới</span>
+              <span className="text-sm font-bold text-lunavia-primary-hover">{stats.recentApplications}</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-50/60">
-              <span className="text-xs font-medium text-emerald-700">Đã chấp nhận</span>
-              <span className="text-sm font-bold text-emerald-900">{stats.acceptedApplications}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-green-50/60">
+              <span className="text-xs font-medium text-green-700">Đã chấp nhận</span>
+              <span className="text-sm font-bold text-green-900">{stats.acceptedApplications}</span>
             </div>
             <div className="grid grid-cols-2 gap-2 pt-2">
               <Link href="/dashboard/guide/applications">
@@ -162,7 +162,7 @@ export default function GuideDashboard() {
         <Card className="card-elevated border-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-violet-500" />
+              <Calendar className="h-4 w-4 text-lunavia-accent" />
               Tour Sắp Tới
             </CardTitle>
           </CardHeader>
@@ -170,7 +170,7 @@ export default function GuideDashboard() {
             <div className="space-y-2">
               {analytics.upcomingTours.map((tour: any) => (
                 <Link key={tour.id} href={`/tours/${tour.id}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/50 hover:bg-violet-50/50 transition group">
+                  className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/50 hover:bg-lunavia-accent-light/50 transition group">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
                       <h3 className="text-sm font-semibold text-gray-900 truncate">{tour.title}</h3>
@@ -179,7 +179,7 @@ export default function GuideDashboard() {
                           {tour.code}
                         </span>
                       )}
-                      <span className="text-[10px] px-1.5 py-0.5 bg-indigo-50 text-indigo-600 rounded-full font-semibold shrink-0">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-lunavia-primary-light text-lunavia-primary rounded-full font-semibold shrink-0">
                         {tour.role === "MAIN" ? "Lead Guide" : "Sub Guide"}
                       </span>
                     </div>
@@ -187,7 +187,7 @@ export default function GuideDashboard() {
                       {tour.city} • {formatDate(tour.startDate)}
                     </p>
                   </div>
-                  <ArrowRight className="h-3.5 w-3.5 text-gray-300 group-hover:text-violet-500 transition shrink-0" />
+                  <ArrowRight className="h-3.5 w-3.5 text-gray-300 group-hover:text-lunavia-accent transition shrink-0" />
                 </Link>
               ))}
             </div>
@@ -213,8 +213,8 @@ function StatCard({ icon, label, value, color, small }: {
   icon: React.ReactNode; label: string; value: string | number; color: string; small?: boolean;
 }) {
   const colorMap: Record<string, string> = {
-    indigo: 'bg-indigo-50 text-indigo-600',
-    emerald: 'bg-emerald-50 text-emerald-600',
+    brand: 'bg-lunavia-primary-light text-lunavia-primary',
+    green: 'bg-green-50 text-green-600',
     amber: 'bg-amber-50 text-amber-600',
     red: 'bg-red-50 text-red-600',
     slate: 'bg-gray-50 text-gray-600',
@@ -242,8 +242,8 @@ function QuickAction({ href, icon, label, primary }: { href: string; icon: React
     <Link href={href}
       className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold transition-all active:scale-[0.98] ${
         primary
-          ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 hover:shadow-md'
-          : 'bg-white text-gray-700 border border-gray-200 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30'
+          ? 'bg-lunavia-primary text-white shadow-sm hover:bg-lunavia-primary-hover hover:shadow-md'
+          : 'bg-white text-gray-700 border border-gray-200 hover:border-lunavia-primary-light hover:text-lunavia-primary hover:bg-lunavia-primary-light/30'
       }`}>
       {icon}
       {label}

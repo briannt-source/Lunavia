@@ -95,10 +95,10 @@ export default async function AdminVerificationsPage({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Đã duyệt</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-green-600">
               {statusStats["APPROVED"] || 0}
             </div>
           </CardContent>
@@ -185,7 +185,7 @@ export default async function AdminVerificationsPage({
                           {verification.user.profile?.name || verification.user.email}
                         </h3>
                         <StatusBadge status={verification.status} />
-                        <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs font-medium">
+                        <span className="px-2 py-0.5 bg-lunavia-primary-light text-lunavia-primary rounded text-xs font-medium">
                           {verification.user.role === "TOUR_GUIDE" ? "KYC" : "KYB"}
                         </span>
                       </div>

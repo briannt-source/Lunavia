@@ -22,7 +22,7 @@ export default function SecurityPage() {
             {/* Password Change Card */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center text-lg">
+                    <div className="h-10 w-10 rounded-lg bg-lunavia-primary-light flex items-center justify-center text-lg">
                         🔑
                     </div>
                     <div>

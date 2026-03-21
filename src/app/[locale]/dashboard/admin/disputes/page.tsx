@@ -104,10 +104,10 @@ export default async function AdminDisputesPage({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Đã giải quyết</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-green-600">
               {statusStats["RESOLVED"] || 0}
             </div>
           </CardContent>
@@ -184,7 +184,7 @@ export default async function AdminDisputesPage({
                           {dispute.user.profile?.name || dispute.user.email}
                         </h3>
                         <StatusBadge status={dispute.status} />
-                        <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs font-medium">
+                        <span className="px-2 py-0.5 bg-lunavia-primary-light text-lunavia-primary rounded text-xs font-medium">
                           {dispute.type}
                         </span>
                       </div>
@@ -202,7 +202,7 @@ export default async function AdminDisputesPage({
                           </span>
                         )}
                         {dispute.resolutionAmount && (
-                          <span className="text-emerald-600 font-medium">
+                          <span className="text-green-600 font-medium">
                             Hoàn tiền: {formatVND(dispute.resolutionAmount)}
                           </span>
                         )}

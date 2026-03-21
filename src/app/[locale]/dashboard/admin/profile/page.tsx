@@ -26,9 +26,9 @@ export default async function InternalProfilePage() {
 
     const roleName = user.role?.name || 'UNKNOWN';
     const roleColors: Record<string, string> = {
-        SUPER_ADMIN: 'from-purple-500 to-indigo-600',
+        SUPER_ADMIN: 'from-lunavia-primary to-lunavia-accent',
         OPS: 'from-blue-500 to-cyan-600',
-        FINANCE: 'from-emerald-500 to-teal-600',
+        FINANCE: 'from-green-500 to-teal-600',
         KYC_ANALYST: 'from-amber-500 to-orange-600',
     };
 
@@ -78,9 +78,9 @@ export default async function InternalProfilePage() {
 
             {/* Navigation Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Link href="/dashboard/admin/profile/security" className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+                <Link href="/dashboard/admin/profile/security" className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:border-lunavia-primary/30 hover:shadow-md transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center text-lg group-hover:bg-indigo-100 transition">
+                        <div className="h-10 w-10 rounded-lg bg-lunavia-primary-light flex items-center justify-center text-lg group-hover:bg-lunavia-primary/10 transition">
                             🔐
                         </div>
                         <div>
@@ -88,14 +88,14 @@ export default async function InternalProfilePage() {
                             <p className="text-xs text-gray-500">Change password, manage sessions</p>
                         </div>
                     </div>
-                    <div className="mt-4 text-xs font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                    <div className="mt-4 text-xs font-semibold text-lunavia-primary group-hover:translate-x-1 transition-transform">
                         Manage →
                     </div>
                 </Link>
 
-                <Link href="/dashboard/admin/profile/settings" className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:border-purple-300 hover:shadow-md transition-all">
+                <Link href="/dashboard/admin/profile/settings" className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:border-lunavia-accent/30 hover:shadow-md transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-lg bg-purple-50 flex items-center justify-center text-lg group-hover:bg-purple-100 transition">
+                        <div className="h-10 w-10 rounded-lg bg-lunavia-accent-light flex items-center justify-center text-lg group-hover:bg-lunavia-accent/10 transition">
                             ⚙️
                         </div>
                         <div>
@@ -103,7 +103,7 @@ export default async function InternalProfilePage() {
                             <p className="text-xs text-gray-500">Avatar, display name, theme</p>
                         </div>
                     </div>
-                    <div className="mt-4 text-xs font-semibold text-purple-600 group-hover:translate-x-1 transition-transform">
+                    <div className="mt-4 text-xs font-semibold text-lunavia-accent group-hover:translate-x-1 transition-transform">
                         Manage →
                     </div>
                 </Link>

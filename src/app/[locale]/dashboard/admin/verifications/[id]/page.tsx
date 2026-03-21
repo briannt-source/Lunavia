@@ -240,7 +240,7 @@ export default function VerificationDetailPage() {
               <div>
                 <Label className="text-sm font-medium text-slate-500">Loại xác minh</Label>
                 <p className="mt-1">
-                  <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-sm font-medium">
+                  <span className="px-2 py-0.5 bg-lunavia-primary-light text-lunavia-primary rounded text-sm font-medium">
                     {verificationType}
                   </span>
                 </p>

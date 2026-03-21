@@ -88,7 +88,7 @@ export default function AdminToursClientPage() {
             <CardTitle className="text-sm font-medium">Đang mở</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-green-600">
               {stats["OPEN"] || 0}
             </div>
           </CardContent>

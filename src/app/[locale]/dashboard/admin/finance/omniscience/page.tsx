@@ -51,7 +51,7 @@ export default function FinancialOmnisciencePage() {
                 <div>
                     <h1 className="text-2xl font-black text-gray-900 flex items-center gap-2">
                         {t('title')}
-                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-emerald-100 text-emerald-800 rounded-full">{t('levelGod')}</span>
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-green-100 text-green-800 rounded-full">{t('levelGod')}</span>
                     </h1>
                     <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
                 </div>
@@ -64,7 +64,7 @@ export default function FinancialOmnisciencePage() {
             {/* ── MACRO METRICS ── */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <MetricCard label={t('metrics.escrowHeld')} value={fmtCurrency(system.totalPendingEstimated)} icon="🏦" color="amber" subline={t('metrics.escrowSubline')} />
-                <MetricCard label={t('metrics.subRevenue')} value={fmtCurrency(revenue.totalSubscriptions)} icon="💎" color="violet" subline={t('metrics.subRevenueSubline', { amount: fmtCurrency(monthlyFlow.subscriptions) })} />
+                <MetricCard label={t('metrics.subRevenue')} value={fmtCurrency(revenue.totalSubscriptions)} icon="💎" color="accent" subline={t('metrics.subRevenueSubline', { amount: fmtCurrency(monthlyFlow.subscriptions) })} />
                 <MetricCard label={t('metrics.pendingWithdrawals')} value={fmtCurrency(pending.withdrawalsAmount)} icon="📤" color="orange" subline={t('metrics.requests', { count: pending.withdrawalsCount })} alert={pending.withdrawalsCount > 0} />
                 <MetricCard label={t('metrics.pendingTopups')} value={fmtCurrency(pending.topupsAmount)} icon="📥" color="blue" subline={t('metrics.requests', { count: pending.topupsCount })} alert={pending.topupsCount > 0} />
             </div>
@@ -90,7 +90,7 @@ export default function FinancialOmnisciencePage() {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-sm font-black text-emerald-700">{fmtCurrency(w.available)}</p>
+                                        <p className="text-sm font-black text-green-700">{fmtCurrency(w.available)}</p>
                                         {w.pending > 0 && <p className="text-[10px] font-bold text-amber-600 mt-0.5">{t('wallets.inEscrow', { amount: fmtCurrency(w.pending) })}</p>}
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@ export default function FinancialOmnisciencePage() {
                 <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                         <h2 className="font-bold text-gray-900 flex items-center gap-2">{t('escrow.title')}</h2>
-                        <Link href="/dashboard/admin/tours" className="text-xs font-medium text-indigo-600 hover:text-indigo-800">{t('escrow.viewAll')}</Link>
+                        <Link href="/dashboard/admin/tours" className="text-xs font-medium text-lunavia-primary hover:text-lunavia-primary-hover">{t('escrow.viewAll')}</Link>
                     </div>
                     {activeEscrowHolds.length === 0 ? (
                         <p className="p-6 text-center text-sm text-gray-400">{t('escrow.empty')}</p>
@@ -112,7 +112,7 @@ export default function FinancialOmnisciencePage() {
                             {activeEscrowHolds.map(h => (
                                 <div key={h.id} className="flex flex-col p-4 hover:bg-gray-50 transition">
                                     <div className="flex justify-between items-start mb-1">
-                                        <Link href={`/dashboard/admin/tours/${h.id}`} className="text-sm font-semibold text-gray-900 hover:text-indigo-600 hover:underline line-clamp-1">
+                                        <Link href={`/dashboard/admin/tours/${h.id}`} className="text-sm font-semibold text-gray-900 hover:text-lunavia-primary hover:underline line-clamp-1">
                                             {h.title}
                                         </Link>
                                         <span className="text-sm font-black text-amber-600 shrink-0 ml-3">{fmtCurrency(h.amount)}</span>
@@ -136,11 +136,11 @@ export default function FinancialOmnisciencePage() {
                         <p className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-2">{t('flow.moneyIn')}</p>
                         <p className="text-2xl font-black text-blue-900">{fmtCurrency(monthlyFlow.topups)}</p>
                     </div>
-                    <div className="text-center p-4 bg-violet-50 rounded-xl border border-violet-100 flex flex-col justify-center relative">
+                    <div className="text-center p-4 bg-lunavia-accent-light rounded-xl border border-lunavia-accent/20 flex flex-col justify-center relative">
                         <div className="absolute top-1/2 -left-4 w-8 border-t-2 border-dashed border-gray-300 transform -translate-y-1/2"></div>
                         <div className="absolute top-1/2 -right-4 w-8 border-t-2 border-dashed border-gray-300 transform -translate-y-1/2"></div>
-                        <p className="text-xs font-bold text-violet-800 uppercase tracking-wider mb-2">{t('flow.platformSubs')}</p>
-                        <p className="text-2xl font-black text-violet-900">{fmtCurrency(monthlyFlow.subscriptions)}</p>
+                        <p className="text-xs font-bold text-lunavia-accent uppercase tracking-wider mb-2">{t('flow.platformSubs')}</p>
+                        <p className="text-2xl font-black text-lunavia-accent">{fmtCurrency(monthlyFlow.subscriptions)}</p>
                     </div>
                     <div className="text-center p-4 bg-orange-50 rounded-xl border border-orange-100">
                         <p className="text-xs font-bold text-orange-800 uppercase tracking-wider mb-2">{t('flow.moneyOut')}</p>
@@ -153,8 +153,8 @@ export default function FinancialOmnisciencePage() {
 }
 
 function MetricCard({ label, value, icon, color, subline, alert }: { label: string; value: string; icon: string; color: string; subline?: string; alert?: boolean }) {
-    const bg: Record<string, string> = { amber: 'bg-amber-50 border-amber-200', violet: 'bg-violet-50 border-violet-200', orange: 'bg-orange-50 border-orange-200', blue: 'bg-blue-50 border-blue-200' };
-    const txt: Record<string, string> = { amber: 'text-amber-900', violet: 'text-violet-900', orange: 'text-orange-900', blue: 'text-blue-900' };
+    const bg: Record<string, string> = { amber: 'bg-amber-50 border-amber-200', accent: 'bg-lunavia-accent-light border-lunavia-accent/20', orange: 'bg-orange-50 border-orange-200', blue: 'bg-blue-50 border-blue-200' };
+    const txt: Record<string, string> = { amber: 'text-amber-900', accent: 'text-lunavia-accent', orange: 'text-orange-900', blue: 'text-blue-900' };
     return (
         <div className={`rounded-2xl border p-5 ${bg[color]} shadow-sm relative overflow-hidden`}>
             {alert && <span className="absolute top-3 right-3 h-2 w-2 rounded-full bg-red-500 animate-pulse" />}

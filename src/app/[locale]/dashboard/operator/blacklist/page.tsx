@@ -169,7 +169,7 @@ export default function BlacklistPage() {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4">
-                                        <span className="font-semibold text-indigo-600">{entry.guide.trustScore}</span>
+                                        <span className="font-semibold text-lunavia-primary">{entry.guide.trustScore}</span>
                                         <span className="text-gray-400 text-xs ml-1">/ {entry.guide.reliabilityScore}%</span>
                                     </td>
                                     <td className="px-5 py-4 text-gray-600 max-w-xs truncate">{entry.reason}</td>

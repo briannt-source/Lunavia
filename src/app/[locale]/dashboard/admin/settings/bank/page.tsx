@@ -87,7 +87,7 @@ export default function BankConfigPage() {
     if (loading) return <div className="p-8 text-center text-gray-500">Loading configuration...</div>;
 
     const inputBase = "w-full rounded-xl border bg-white px-4 py-3 text-gray-900 transition-all outline-none";
-    const inputEditing = `${inputBase} border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20`;
+    const inputEditing = `${inputBase} border-gray-200 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20`;
     const inputReadonly = `${inputBase} border-gray-100 bg-gray-50 text-gray-700 cursor-default`;
 
     return (
@@ -97,7 +97,7 @@ export default function BankConfigPage() {
                 {!editing && (
                     <button
                         onClick={() => setEditing(true)}
-                        className="px-4 py-2 text-sm font-semibold text-indigo-600 border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors"
+                        className="px-4 py-2 text-sm font-semibold text-lunavia-primary border border-lunavia-primary/20 rounded-xl hover:bg-lunavia-primary-light transition-colors"
                     >
                         ✏️ Edit
                     </button>
@@ -106,7 +106,7 @@ export default function BankConfigPage() {
             <p className="text-gray-500 text-sm mb-8">Manage the bank account details displayed to Operators for wallet top-ups.</p>
 
             {message && (
-                <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
                     {message.text}
                 </div>
             )}

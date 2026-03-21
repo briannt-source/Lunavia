@@ -9,7 +9,7 @@ import { Logo } from '@/components/logo';
 import { ChevronDown, LogOut } from 'lucide-react';
 
 // ── NavItem ──────────────────────────────────────────────────────
-export function NavItem({ href, icon: Icon, iconEmoji, children, active, badge, locked, badgeLabel }: {
+export function NavItem({ href, icon: Icon, iconEmoji, children, active, badge, locked, badgeLabel, iconColor }: {
     href: string;
     icon?: React.ComponentType<{ className?: string }>;
     iconEmoji?: string;
@@ -18,11 +18,12 @@ export function NavItem({ href, icon: Icon, iconEmoji, children, active, badge, 
     badge?: number;
     locked?: boolean;
     badgeLabel?: string;
+    iconColor?: string;
 }) {
     if (locked) {
         return (
             <div className="nav-item opacity-50 cursor-not-allowed" title="Upgrade to unlock">
-                {Icon ? <Icon className="w-[18px] h-[18px] shrink-0" /> : <span className="text-[15px] w-5 text-center shrink-0">{iconEmoji}</span>}
+                {Icon ? <Icon className={`w-[18px] h-[18px] shrink-0 ${iconColor || ''}`} /> : <span className="text-[15px] w-5 text-center shrink-0">{iconEmoji}</span>}
                 <span className="flex-1 truncate">{children}</span>
                 <span className="text-[9px] font-bold bg-lunavia-light text-lunavia-primary px-1.5 py-0.5 rounded-full">
                     {badgeLabel || 'PRO'}
@@ -33,7 +34,7 @@ export function NavItem({ href, icon: Icon, iconEmoji, children, active, badge, 
 
     return (
         <Link href={href} className={`nav-item ${active ? 'active' : ''}`}>
-            {Icon ? <Icon className="w-[18px] h-[18px] shrink-0" /> : <span className="text-[15px] w-5 text-center shrink-0">{iconEmoji}</span>}
+            {Icon ? <Icon className={`w-[18px] h-[18px] shrink-0 ${!active && iconColor ? iconColor : ''}`} /> : <span className="text-[15px] w-5 text-center shrink-0">{iconEmoji}</span>}
             <span className="flex-1 truncate">{children}</span>
             {badge !== undefined && badge > 0 && (
                 <span className="flex items-center justify-center min-w-[18px] h-[18px] text-[10px] font-bold bg-red-500 text-white rounded-full px-1">

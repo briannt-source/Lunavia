@@ -122,7 +122,7 @@ export default function IncidentDetail({ params }: { params: { id: string } }) {
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-lunavia-primary focus:outline-none focus:ring-lunavia-primary sm:text-sm"
                         >
                             <option value="OPEN">Open</option>
                             <option value="INVESTIGATING">Investigating</option>
@@ -136,7 +136,7 @@ export default function IncidentDetail({ params }: { params: { id: string } }) {
                             rows={3}
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-lunavia-primary focus:outline-none focus:ring-lunavia-primary sm:text-sm"
                             placeholder="Notes about the investigation..."
                         />
                     </div>
@@ -147,7 +147,7 @@ export default function IncidentDetail({ params }: { params: { id: string } }) {
                             rows={3}
                             value={resolution}
                             onChange={(e) => setResolution(e.target.value)}
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-lunavia-primary focus:outline-none focus:ring-lunavia-primary sm:text-sm"
                             placeholder="How was this issue resolved?"
                         />
                     </div>
@@ -156,7 +156,7 @@ export default function IncidentDetail({ params }: { params: { id: string } }) {
                         <button
                             onClick={handleResolve}
                             disabled={submitting}
-                            className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+                            className="rounded-md bg-lunavia-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-lunavia-primary-hover focus:outline-none focus:ring-2 focus:ring-lunavia-primary focus:ring-offset-2 disabled:opacity-50"
                         >
                             {submitting ? 'Updating...' : 'Update Incident'}
                         </button>

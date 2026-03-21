@@ -77,7 +77,7 @@ export default function AdminSettingsPage() {
                 {!editing && (
                     <button
                         onClick={() => setEditing(true)}
-                        className="px-4 py-2 text-sm font-semibold text-indigo-600 border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors"
+                        className="px-4 py-2 text-sm font-semibold text-lunavia-primary border border-lunavia-primary/20 rounded-xl hover:bg-lunavia-primary-light transition-colors"
                     >
                         ✏️ Edit
                     </button>
@@ -85,7 +85,7 @@ export default function AdminSettingsPage() {
             </div>
 
             {message && (
-                <div className={`p-4 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                <div className={`p-4 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
                     {message.text}
                 </div>
             )}
@@ -98,7 +98,7 @@ export default function AdminSettingsPage() {
                         {avatarPreview ? (
                             <img src={avatarPreview} alt="Avatar" className="h-20 w-20 rounded-2xl object-cover border-2 border-gray-100" />
                         ) : (
-                            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl font-bold text-white border-2 border-indigo-200">
+                            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-lunavia-primary to-lunavia-accent flex items-center justify-center text-2xl font-bold text-white border-2 border-lunavia-primary/20">
                                 {initials}
                             </div>
                         )}
@@ -133,7 +133,7 @@ export default function AdminSettingsPage() {
                     readOnly={!editing}
                     className={`w-full rounded-xl border px-4 py-3 text-gray-900 transition-all outline-none ${
                         editing
-                            ? 'border-gray-200 bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
+                            ? 'border-gray-200 bg-white focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20'
                             : 'border-gray-100 bg-gray-50 cursor-default'
                     }`}
                     placeholder="Your display name"
@@ -150,7 +150,7 @@ export default function AdminSettingsPage() {
                         onClick={() => setTheme('light')}
                         className={`p-4 rounded-xl border-2 text-center transition-all ${
                             theme === 'light'
-                                ? 'border-indigo-500 bg-indigo-50'
+                                ? 'border-lunavia-primary bg-lunavia-primary-light'
                                 : editing ? 'border-gray-100 hover:border-gray-200' : 'border-gray-100 opacity-60 cursor-default'
                         }`}
                     >
@@ -163,7 +163,7 @@ export default function AdminSettingsPage() {
                         onClick={() => setTheme('dark')}
                         className={`p-4 rounded-xl border-2 text-center transition-all ${
                             theme === 'dark'
-                                ? 'border-indigo-500 bg-indigo-50'
+                                ? 'border-lunavia-primary bg-lunavia-primary-light'
                                 : editing ? 'border-gray-100 hover:border-gray-200' : 'border-gray-100 opacity-60 cursor-default'
                         }`}
                     >

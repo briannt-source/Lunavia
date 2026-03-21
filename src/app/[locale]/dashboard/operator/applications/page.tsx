@@ -174,7 +174,7 @@ export default function ApplicationsPage() {
                         <>
                           <Button
                             size="sm"
-                            className="bg-emerald-600 hover:bg-emerald-700"
+                            className="bg-green-600 hover:bg-green-700"
                             onClick={() => handleAccept(app.tourId, app.id)}
                           >
                             <CheckCircle2 className="h-4 w-4 mr-2" />

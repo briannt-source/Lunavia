@@ -97,7 +97,7 @@ export default function AnalyticsDashboard() {
                                 onClick={() => setMonths(opt.value)}
                                 className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
                                     months === opt.value
-                                        ? 'bg-white text-indigo-600 shadow-sm'
+                                        ? 'bg-white text-lunavia-primary shadow-sm'
                                         : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
@@ -132,7 +132,7 @@ export default function AnalyticsDashboard() {
                 <Card className="card-elevated border-0">
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                            <TrendingUp className="h-4 w-4 text-indigo-500" />
+                            <TrendingUp className="h-4 w-4 text-lunavia-primary" />
                             Tour Volume
                         </CardTitle>
                     </CardHeader>
@@ -152,7 +152,7 @@ export default function AnalyticsDashboard() {
                 <Card className="card-elevated border-0">
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                            <DollarSign className="h-4 w-4 text-emerald-500" />
+                            <DollarSign className="h-4 w-4 text-green-500" />
                             Revenue Trend
                         </CardTitle>
                     </CardHeader>
@@ -172,7 +172,7 @@ export default function AnalyticsDashboard() {
                 <Card className="card-elevated border-0">
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                            <CheckCircle2 className="h-4 w-4 text-green-500" />
                             Service Health
                         </CardTitle>
                     </CardHeader>
@@ -195,7 +195,7 @@ export default function AnalyticsDashboard() {
                 <Card className="card-elevated border-0">
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-violet-500" />
+                            <MapPin className="h-4 w-4 text-lunavia-accent" />
                             Market Split
                         </CardTitle>
                     </CardHeader>
@@ -268,7 +268,7 @@ export default function AnalyticsDashboard() {
                     <Card className="card-elevated border-0">
                         <CardHeader className="pb-1">
                             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <DollarSign className="h-4 w-4 text-emerald-500" />
+                                <DollarSign className="h-4 w-4 text-green-500" />
                                 Monetization
                             </CardTitle>
                         </CardHeader>
@@ -283,7 +283,7 @@ export default function AnalyticsDashboard() {
                             </div>
                             <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                                 <span className="text-xs font-medium text-gray-700">Revenue Est.</span>
-                                <span className="text-sm font-bold text-emerald-600">
+                                <span className="text-sm font-bold text-green-600">
                                     {formatVND(adminData.monetization.totalRevenue)}₫
                                 </span>
                             </div>
@@ -304,8 +304,8 @@ function KPI({ icon, label, value, trend, color, suffix }: {
     trend?: number; color: string; suffix?: string;
 }) {
     const c: Record<string, string> = {
-        indigo: 'text-indigo-600', emerald: 'text-emerald-600', amber: 'text-amber-600',
-        blue: 'text-blue-600', violet: 'text-violet-600',
+        indigo: 'text-lunavia-primary', emerald: 'text-green-600', amber: 'text-amber-600',
+        blue: 'text-lunavia-primary', violet: 'text-lunavia-accent',
     };
     return (
         <div className="p-3.5 rounded-xl bg-white border border-gray-100" style={{ boxShadow: 'var(--shadow-xs)' }}>

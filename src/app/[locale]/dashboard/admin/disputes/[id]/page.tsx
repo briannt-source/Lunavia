@@ -164,7 +164,7 @@ export default function DisputeDetailPage() {
               {dispute.resolutionAmount && (
                 <div>
                   <Label className="text-sm font-medium text-slate-500">Amount hoàn</Label>
-                  <p className="mt-1 text-lg font-bold text-emerald-600">
+                  <p className="mt-1 text-lg font-bold text-green-600">
                     {formatVND(dispute.resolutionAmount || 0)}
                   </p>
                 </div>

@@ -98,10 +98,10 @@ export default function GuideEarningsPage() {
                     </div>
                 ) : summary && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 shadow-sm">
-                            <p className="text-sm font-semibold text-emerald-800">{t('summary.totalReleased')}</p>
-                            <p className="text-3xl font-black text-emerald-600 mt-2">{fmtVND(summary.totalReleased)}</p>
-                            <p className="text-xs text-emerald-600/70 mt-1">{t('summary.totalReleasedDesc')}</p>
+                        <div className="bg-green-50 border border-green-100 rounded-2xl p-5 shadow-sm">
+                            <p className="text-sm font-semibold text-green-800">{t('summary.totalReleased')}</p>
+                            <p className="text-3xl font-black text-green-600 mt-2">{fmtVND(summary.totalReleased)}</p>
+                            <p className="text-xs text-green-600/70 mt-1">{t('summary.totalReleasedDesc')}</p>
                         </div>
                         <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 shadow-sm">
                             <p className="text-sm font-semibold text-amber-800">{t('summary.pendingRelease')}</p>
@@ -149,7 +149,7 @@ export default function GuideEarningsPage() {
                                     {history.map((tour) => (
                                         <tr key={tour.id} className="hover:bg-gray-50/50 transition-colors">
                                             <td className="px-5 py-4">
-                                                <Link href={`/dashboard/guide/tours/${tour.id}`} className="font-semibold text-gray-900 hover:text-indigo-600 transition-colors line-clamp-1">
+                                                <Link href={`/dashboard/guide/tours/${tour.id}`} className="font-semibold text-gray-900 hover:text-lunavia-primary transition-colors line-clamp-1">
                                                     {tour.title}
                                                 </Link>
                                                 {tour.status === 'CANCELLED' && (
@@ -166,10 +166,10 @@ export default function GuideEarningsPage() {
                                                 {tour.status === 'COMPLETED' ? (
                                                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border ${
                                                         tour.released 
-                                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                                                            ? 'bg-green-50 text-green-700 border-green-200' 
                                                             : 'bg-amber-50 text-amber-700 border-amber-200'
                                                     }`}>
-                                                        <span className={`h-1.5 w-1.5 rounded-full ${tour.released ? 'bg-emerald-500' : 'bg-amber-500/80 animate-pulse'}`} />
+                                                        <span className={`h-1.5 w-1.5 rounded-full ${tour.released ? 'bg-green-500' : 'bg-amber-500/80 animate-pulse'}`} />
                                                         {tour.released ? t('history.statusLabels.released') : t('history.statusLabels.pendingEscrow')}
                                                     </span>
                                                 ) : (

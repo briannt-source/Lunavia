@@ -96,7 +96,7 @@ export default function RiskMonitoringPage() {
                     <p className="text-sm text-gray-500 mt-1">Domain: RISK — Displays financial integrity checks and risk signals</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 text-sm font-medium">
+                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-lunavia-accent-light text-lunavia-accent text-sm font-medium">
                         🛡️ RISK
                     </span>
                     {data && data.pending > 0 && (

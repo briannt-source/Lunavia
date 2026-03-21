@@ -57,7 +57,7 @@ export default function PlatformIntelligencePage() {
     const alertColors: Record<string, string> = {
         UNDERSUPPLY: 'bg-red-50 text-red-700 border-red-200',
         OVERSUPPLY: 'bg-amber-50 text-amber-700 border-amber-200',
-        BALANCED: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        BALANCED: 'bg-green-50 text-green-700 border-green-200',
     };
 
     return (
@@ -67,7 +67,7 @@ export default function PlatformIntelligencePage() {
                     <h1 className="text-2xl font-bold text-gray-900">🧠 Platform Intelligence</h1>
                     <p className="mt-1 text-sm text-gray-500">Network analysis, demand patterns, and marketplace optimization insights</p>
                 </div>
-                <button onClick={fetchData} className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
+                <button onClick={fetchData} className="px-4 py-2 bg-lunavia-primary text-white text-sm font-medium rounded-lg hover:bg-lunavia-primary/90 transition">
                     ↻ Refresh
                 </button>
             </div>
@@ -108,9 +108,9 @@ export default function PlatformIntelligencePage() {
                             )}
                         </div>
                         <div className="grid grid-cols-3 gap-3">
-                            <div className="text-center p-3 bg-emerald-50 rounded-lg">
-                                <div className="text-xl font-bold text-emerald-700">{data.supplyDemand.availableGuides}</div>
-                                <div className="text-[10px] text-emerald-600 font-medium mt-1">Available</div>
+                            <div className="text-center p-3 bg-green-50 rounded-lg">
+                                <div className="text-xl font-bold text-green-700">{data.supplyDemand.availableGuides}</div>
+                                <div className="text-[10px] text-green-600 font-medium mt-1">Available</div>
                             </div>
                             <div className="text-center p-3 bg-amber-50 rounded-lg">
                                 <div className="text-xl font-bold text-amber-700">{data.supplyDemand.busyGuides}</div>
@@ -128,9 +128,9 @@ export default function PlatformIntelligencePage() {
                         <h2 className="font-bold text-gray-900 text-sm flex items-center gap-2 mb-4">📈 Demand Forecast</h2>
                         <div className="space-y-3">
                             {[
-                                { label: 'Next 7 Days', value: data.demandForecast.next7Days, avg: data.demandForecast.avgDaily7d, color: 'indigo' },
-                                { label: 'Next 14 Days', value: data.demandForecast.next14Days, avg: null, color: 'purple' },
-                                { label: 'Next 30 Days', value: data.demandForecast.next30Days, avg: data.demandForecast.avgDaily30d, color: 'violet' },
+                                { label: 'Next 7 Days', value: data.demandForecast.next7Days, avg: data.demandForecast.avgDaily7d, color: 'lunavia-primary' },
+                                { label: 'Next 14 Days', value: data.demandForecast.next14Days, avg: null, color: 'lunavia-accent' },
+                                { label: 'Next 30 Days', value: data.demandForecast.next30Days, avg: data.demandForecast.avgDaily30d, color: 'lunavia-primary' },
                             ].map(f => (
                                 <div key={f.label} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                                     <div>
@@ -162,7 +162,7 @@ export default function PlatformIntelligencePage() {
                                                     <span className="text-gray-500">{fmtVND(r.totalRevenue)}</span>
                                                 </div>
                                             </div>
-                                            <div className="absolute inset-0 bg-indigo-50 rounded-lg" style={{ width: `${pct}%` }} />
+                                            <div className="absolute inset-0 bg-lunavia-primary-light rounded-lg" style={{ width: `${pct}%` }} />
                                         </div>
                                     );
                                 })}
@@ -191,7 +191,7 @@ export default function PlatformIntelligencePage() {
                                         {data.priceBenchmarks.map(p => (
                                             <tr key={p.category}>
                                                 <td className="py-2 pr-4 font-medium text-gray-900">{p.category}</td>
-                                                <td className="py-2 pr-4 text-right text-indigo-700 font-semibold">{fmtVND(p.avgPrice)}</td>
+                                                <td className="py-2 pr-4 text-right text-lunavia-primary font-semibold">{fmtVND(p.avgPrice)}</td>
                                                 <td className="py-2 pr-4 text-right text-gray-500">{fmtVND(p.minPrice)}</td>
                                                 <td className="py-2 pr-4 text-right text-gray-500">{fmtVND(p.maxPrice)}</td>
                                                 <td className="py-2 text-right text-gray-400">{p.tourCount}</td>
@@ -223,7 +223,7 @@ export default function PlatformIntelligencePage() {
                                             <div className="text-sm font-medium text-gray-900 truncate">{c.guide}</div>
                                             <div className="text-xs text-gray-500">Guide</div>
                                         </div>
-                                        <div className="shrink-0 px-2 py-1 bg-indigo-100 text-indigo-700 rounded-md text-xs font-bold">
+                                        <div className="shrink-0 px-2 py-1 bg-lunavia-primary-light text-lunavia-primary rounded-md text-xs font-bold">
                                             {c.completedTours} tours
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@ export default function PlatformIntelligencePage() {
                                     <div key={g.month} className="flex items-center gap-3">
                                         <span className="text-xs text-gray-500 w-16 shrink-0 font-mono">{g.month}</span>
                                         <div className="flex-1 bg-gray-100 rounded-full h-5 relative overflow-hidden">
-                                            <div className="bg-gradient-to-r from-indigo-400 to-indigo-600 h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
+                                            <div className="bg-gradient-to-r from-lunavia-primary/60 to-lunavia-primary h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
                                             <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-gray-700">
                                                 {g.tours} tours
                                             </span>

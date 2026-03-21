@@ -113,7 +113,7 @@ export default function MaintenanceAdminPage() {
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value as 'SOFT' | 'HARD')}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                     >
                         <option value="SOFT">🟡 Soft Lock — Read-only dashboards</option>
                         <option value="HARD">🔴 Hard Lock — All actions disabled</option>
@@ -129,7 +129,7 @@ export default function MaintenanceAdminPage() {
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="We are performing scheduled maintenance..."
                         rows={3}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                     />
                 </div>
 
@@ -141,7 +141,7 @@ export default function MaintenanceAdminPage() {
                         type="datetime-local"
                         value={endTime}
                         onChange={(e) => setEndTime(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                     />
                 </div>
 
@@ -149,7 +149,7 @@ export default function MaintenanceAdminPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="rounded-lg bg-indigo-600 px-6 py-2 font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                        className="rounded-lg bg-lunavia-primary px-6 py-2 font-medium text-white hover:bg-lunavia-primary-hover disabled:opacity-50 transition"
                     >
                         {saving ? 'Saving...' : 'Save Changes'}
                     </button>

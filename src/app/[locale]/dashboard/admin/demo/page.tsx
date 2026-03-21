@@ -52,31 +52,31 @@ export default async function DemoPage() {
                 <h3 className="mb-4 font-semibold text-gray-900">Demo Flow Script</h3>
                 <ol className="space-y-2 text-sm text-gray-700">
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">1</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">1</span>
                         <span>Login as Operator (Saigon City Tours)</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">2</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">2</span>
                         <span>Create new Service Request</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">3</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">3</span>
                         <span>Switch to Guide view, apply for tour</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">4</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">4</span>
                         <span>Show trust ranking in applicant list</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">5</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">5</span>
                         <span>Assign guide, show check-in process</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">6</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">6</span>
                         <span>Complete tour, request payment</span>
                     </li>
                     <li className="flex gap-2">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">7</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lunavia-primary-light text-xs font-medium text-lunavia-primary">7</span>
                         <span>Confirm payment, show trust update</span>
                     </li>
                 </ol>

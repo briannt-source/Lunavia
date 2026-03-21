@@ -4,6 +4,8 @@ import { ReactNode, useState, useEffect, useCallback } from 'react';
 import { usePathname } from '@/navigation';
 import Topbar from './Topbar';
 
+import Breadcrumbs from './Breadcrumbs';
+
 interface Props {
     children: ReactNode;
     sidebar: ReactNode;
@@ -74,6 +76,7 @@ export default function MobileDashboardLayout({ children, sidebar, role, bottomN
                     sidebarOpen={sidebarOpen}
                 />
                 <main className="flex-1 p-4 sm:p-6 pb-20 lg:pb-6">
+                    <Breadcrumbs />
                     {children}
                 </main>
             </div>

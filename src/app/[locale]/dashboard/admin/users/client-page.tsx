@@ -195,7 +195,7 @@ export default function AdminUsersClientPage() {
                   className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-teal-500 to-green-600 flex items-center justify-center">
                       <span className="text-white font-semibold">
                         {user.email.charAt(0).toUpperCase()}
                       </span>

@@ -114,13 +114,13 @@ export default function EscrowLedgerPage() {
             <div className="flex border-b border-gray-200">
                 <button
                     onClick={() => setActiveTab('ESCROW')}
-                    className={`pb-3 px-4 transition-colors font-medium text-sm border-b-2 ${activeTab === 'ESCROW' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300'}`}
+                    className={`pb-3 px-4 transition-colors font-medium text-sm border-b-2 ${activeTab === 'ESCROW' ? 'border-lunavia-primary text-lunavia-primary' : 'border-transparent text-gray-500 hover:border-gray-300'}`}
                 >
                     {t('tabs.escrow')}
                 </button>
                 <button
                     onClick={() => setActiveTab('REVENUE')}
-                    className={`pb-3 px-4 transition-colors font-medium text-sm border-b-2 ${activeTab === 'REVENUE' ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:border-gray-300'}`}
+                    className={`pb-3 px-4 transition-colors font-medium text-sm border-b-2 ${activeTab === 'REVENUE' ? 'border-green-600 text-green-600' : 'border-transparent text-gray-500 hover:border-gray-300'}`}
                 >
                     {t('tabs.revenue')}
                 </button>

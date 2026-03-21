@@ -210,7 +210,7 @@ export default async function AdminDashboard() {
             <CardContent>
               {recentDisputes.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-emerald-500" />
+                  <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-green-500" />
                   <p>Không có dispute nào đang chờ</p>
                 </div>
               ) : (
@@ -257,7 +257,7 @@ export default async function AdminDashboard() {
             <CardContent>
               {pendingVerificationsList.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-emerald-500" />
+                  <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-green-500" />
                   <p>Không có yêu cầu xác minh nào</p>
                 </div>
               ) : (

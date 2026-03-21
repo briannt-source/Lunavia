@@ -210,7 +210,7 @@ export default async function AdminUserDetailPage({
                       {user.profile.specialties.map((spec, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-xs"
+                          className="px-2 py-1 bg-lunavia-primary-light text-lunavia-primary rounded text-xs"
                         >
                           {spec}
                         </span>

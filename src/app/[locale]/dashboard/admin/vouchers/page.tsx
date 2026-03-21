@@ -115,7 +115,7 @@ export default function VoucherAdminPage() {
                 </div>
                 <button
                     onClick={() => setShowCreate(true)}
-                    className="rounded-lg bg-indigo-600 px-4 py-2.5 font-medium text-white hover:bg-indigo-700 transition"
+                    className="rounded-lg bg-lunavia-primary px-4 py-2.5 font-medium text-white hover:bg-lunavia-primary-hover transition"
                 >
                     + Create Voucher
                 </button>
@@ -161,7 +161,7 @@ export default function VoucherAdminPage() {
                                     <span className="font-mono font-medium text-gray-900">{voucher.code}</span>
                                 </td>
                                 <td className="px-4 py-3">
-                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${voucher.plan === 'PREMIUM' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
+                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${voucher.plan === 'PREMIUM' ? 'bg-lunavia-accent-light text-lunavia-accent' : 'bg-blue-100 text-blue-700'
                                         }`}>
                                         {voucher.plan}
                                     </span>
@@ -211,7 +211,7 @@ export default function VoucherAdminPage() {
                                         value={code}
                                         onChange={(e) => setCode(e.target.value.toUpperCase())}
                                         placeholder="e.g., LV-LAUNCH2026"
-                                        className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-mono focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                        className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-mono focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                     />
                                     <button
                                         type="button"
@@ -229,7 +229,7 @@ export default function VoucherAdminPage() {
                                     <select
                                         value={plan}
                                         onChange={(e) => setPlan(e.target.value as 'PRO' | 'PREMIUM')}
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                     >
                                         <option value="PRO">PRO</option>
                                         <option value="PREMIUM">PREMIUM</option>
@@ -240,7 +240,7 @@ export default function VoucherAdminPage() {
                                     <select
                                         value={durationType}
                                         onChange={(e) => setDurationType(e.target.value as 'DAYS' | 'USES')}
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                     >
                                         <option value="DAYS">Days</option>
                                         <option value="USES">Uses</option>
@@ -258,7 +258,7 @@ export default function VoucherAdminPage() {
                                     onChange={(e) => setDurationValue(e.target.value)}
                                     placeholder="e.g., 30"
                                     min="1"
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                 />
                             </div>
 
@@ -271,7 +271,7 @@ export default function VoucherAdminPage() {
                                         type="date"
                                         value={expiresAt}
                                         onChange={(e) => setExpiresAt(e.target.value)}
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                     />
                                 </div>
                                 <div>
@@ -284,7 +284,7 @@ export default function VoucherAdminPage() {
                                         onChange={(e) => setMaxRedemptions(e.target.value)}
                                         placeholder="Unlimited"
                                         min="1"
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-lunavia-primary focus:ring-2 focus:ring-lunavia-primary/20 transition"
                                     />
                                 </div>
                             </div>
@@ -300,7 +300,7 @@ export default function VoucherAdminPage() {
                                 <button
                                     type="submit"
                                     disabled={creating}
-                                    className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                                    className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-lunavia-primary-hover disabled:opacity-50 transition"
                                 >
                                     {creating ? 'Creating...' : 'Create Voucher'}
                                 </button>

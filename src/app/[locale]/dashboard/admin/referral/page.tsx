@@ -61,7 +61,7 @@ export default async function AdminReferralPage() {
                     <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Top Referrer</div>
                     <div className="text-lg font-bold text-gray-900 mt-1 truncate">{topReferrerName}</div>
                     {topReferrerCount > 0 && (
-                        <div className="text-xs text-indigo-600 font-semibold mt-0.5">{topReferrerCount} referrals</div>
+                        <div className="text-xs text-lunavia-primary font-semibold mt-0.5">{topReferrerCount} referrals</div>
                     )}
                 </div>
             </div>
@@ -84,7 +84,7 @@ export default async function AdminReferralPage() {
                                         <div className="text-xs text-gray-500">{data.email}</div>
                                     </div>
                                 </div>
-                                <span className="text-sm font-bold text-indigo-600">{data.count} referrals</span>
+                                <span className="text-sm font-bold text-lunavia-primary">{data.count} referrals</span>
                             </div>
                         ))}
                     </div>

@@ -287,7 +287,7 @@ export default function OperatorRequestDetailPage({
                 onSuccess={() => fetchRequest()}
             />
 
-            <a href="/dashboard/operator" className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+            <a href="/dashboard/operator" className="text-sm text-lunavia-primary hover:text-lunavia-primary-hover font-medium">
                 ← Back to requests
             </a>
 
@@ -414,7 +414,7 @@ export default function OperatorRequestDetailPage({
                                     type="checkbox"
                                     checked={acknowledgement}
                                     onChange={(e) => setAcknowledgement(e.target.checked)}
-                                    className="mt-1 h-4 w-4 rounded border-amber-300 text-indigo-600 focus:ring-indigo-600"
+                                    className="mt-1 h-4 w-4 rounded border-amber-300 text-lunavia-primary focus:ring-lunavia-primary"
                                 />
                                 <span className="text-sm text-amber-900 font-medium">
                                     I acknowledge the warnings above and wish to proceed.
@@ -443,25 +443,25 @@ export default function OperatorRequestDetailPage({
 
             {/* Payment Details (For Operator) */}
             {request.assignedGuideId && request.status === 'ASSIGNED' && applicant?.paymentInfo && (
-                <div className="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6">
-                    <h3 className="text-lg font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                <div className="mt-6 rounded-xl border border-lunavia-muted bg-lunavia-primary-light p-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                         <span>💳</span> Guide Payment Details
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <p className="text-xs text-indigo-600 font-medium uppercase tracking-wider">Bank Name</p>
+                            <p className="text-xs text-lunavia-primary font-medium uppercase tracking-wider">Bank Name</p>
                             <p className="text-base font-semibold text-gray-900 mt-1">{applicant.paymentInfo.bankName}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-indigo-600 font-medium uppercase tracking-wider">Account Number</p>
+                            <p className="text-xs text-lunavia-primary font-medium uppercase tracking-wider">Account Number</p>
                             <p className="font-mono text-base font-semibold text-gray-900 mt-1">{applicant.paymentInfo.accountNumber}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-indigo-600 font-medium uppercase tracking-wider">Account Name</p>
+                            <p className="text-xs text-lunavia-primary font-medium uppercase tracking-wider">Account Name</p>
                             <p className="text-base font-semibold text-gray-900 mt-1">{applicant.paymentInfo.accountName}</p>
                         </div>
                     </div>
-                    <p className="text-xs text-indigo-600 mt-4 opacity-80">
+                    <p className="text-xs text-lunavia-primary mt-4 opacity-80">
                         * Please use these details to process payments for the guide. Ensure to verify before transfer.
                     </p>
                 </div>
@@ -488,9 +488,9 @@ export default function OperatorRequestDetailPage({
 
             {/* Applicant Section via OFFERED */}
             {request.status === 'OFFERED' && request.assignedGuideId && !mismatchWarning && (
-                <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-6">
+                <div className="rounded-xl border border-lunavia-muted bg-lunavia-primary-light p-6">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-lg font-semibold text-indigo-900">Pending Application</h2>
+                        <h2 className="text-lg font-semibold text-gray-900">Pending Application</h2>
                         {matchingResult && (
                             <RecommendedBadge
                                 score={matchingResult.score}
@@ -509,7 +509,7 @@ export default function OperatorRequestDetailPage({
                     {applicant ? (
                         <div className="flex items-center justify-between bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
                             <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                                <div className="h-10 w-10 rounded-full bg-lunavia-primary-light flex items-center justify-center text-lunavia-primary font-bold">
                                     {applicant.email[0].toUpperCase()}
                                 </div>
                                 <div>
@@ -527,7 +527,7 @@ export default function OperatorRequestDetailPage({
                             <button
                                 onClick={() => handleAssignClick(request.assignedGuideId!)}
                                 disabled={checkingGuide}
-                                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
+                                className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-lunavia-primary-hover disabled:opacity-50 transition shadow-sm"
                             >
                                 {checkingGuide ? 'Checking...' : 'Accept Application'}
                             </button>
@@ -540,9 +540,9 @@ export default function OperatorRequestDetailPage({
 
             {/* Applicant List via OPEN / PUBLISHED state */}
             {['PUBLISHED', 'OPEN'].includes(request.status) && request.applications && request.applications.length > 0 && !mismatchWarning && (
-                <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-6">
+                <div className="rounded-xl border border-lunavia-muted bg-lunavia-primary-light p-6">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-lg font-semibold text-indigo-900">
+                        <h2 className="text-lg font-semibold text-gray-900">
                             Pending Applications ({request.applications.length})
                         </h2>
                     </div>
@@ -558,7 +558,7 @@ export default function OperatorRequestDetailPage({
                             } catch {}
 
                             const certConfig: Record<string, { badge: string; label: string; color: string; notice: string }> = {
-                                MAIN_GUIDE: { badge: '✅', label: 'Licensed Guide', color: 'bg-emerald-50 border-emerald-200 text-emerald-700', notice: 'Holds a professional Tour Guide License.' },
+                                MAIN_GUIDE: { badge: '✅', label: 'Licensed Guide', color: 'bg-green-50 border-green-200 text-green-700', notice: 'Holds a professional Tour Guide License.' },
                                 SUPPORT_GUIDE: { badge: '⚠️', label: 'No Tour Guide License', color: 'bg-amber-50 border-amber-200 text-amber-700', notice: 'Does not hold a professional Tour Guide License. May assist but cannot lead independently.' },
                                 INTERN: { badge: '📘', label: 'Intern Guide', color: 'bg-blue-50 border-blue-200 text-blue-700', notice: 'A trainee guide still building experience. Max trust score: 60/100.' },
                             };
@@ -568,7 +568,7 @@ export default function OperatorRequestDetailPage({
                             <div key={app.id} className="bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
                                 <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <Link href={`/marketplace/guide/${app.guideId}`} target="_blank" className="shrink-0 h-12 w-12 rounded-full overflow-hidden bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold border-2 border-transparent hover:border-indigo-300 transition group">
+                                    <Link href={`/marketplace/guide/${app.guideId}`} target="_blank" className="shrink-0 h-12 w-12 rounded-full overflow-hidden bg-lunavia-primary-light flex items-center justify-center text-lunavia-primary font-bold border-2 border-transparent hover:border-lunavia-muted transition group">
                                         {app.guide.avatarUrl ? (
                                             <img src={app.guide.avatarUrl} alt={app.guide.name || 'Guide Avatar'} className="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
                                         ) : (
@@ -577,7 +577,7 @@ export default function OperatorRequestDetailPage({
                                     </Link>
                                     <div>
                                         <div className="flex items-center gap-2">
-                                            <Link href={`/marketplace/guide/${app.guideId}`} target="_blank" className="font-semibold text-gray-900 hover:text-indigo-600 transition truncate">
+                                            <Link href={`/marketplace/guide/${app.guideId}`} target="_blank" className="font-semibold text-gray-900 hover:text-lunavia-primary transition truncate">
                                                 {app.guide.name || app.guide.email}
                                             </Link>
                                             <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold ${cert.color}`}>
@@ -594,7 +594,7 @@ export default function OperatorRequestDetailPage({
                                                     {app.guide.trustScore}
                                                 </span>
                                             )}
-                                            {app.guide.kycStatus === 'APPROVED' && <span className="text-emerald-600">✓ KYC</span>}
+                                            {app.guide.kycStatus === 'APPROVED' && <span className="text-green-600">✓ KYC</span>}
                                         </div>
                                         <div className="mt-1 text-xs text-gray-400">
                                             Applied on {new Date(app.createdAt).toLocaleDateString()}
@@ -612,7 +612,7 @@ export default function OperatorRequestDetailPage({
                                     <button
                                         onClick={() => handleAssignClick(app.guideId)}
                                         disabled={checkingGuide}
-                                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
+                                        className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-lunavia-primary-hover disabled:opacity-50 transition shadow-sm"
                                     >
                                         {checkingGuide ? 'Processing...' : 'Approve & Assign'}
                                     </button>

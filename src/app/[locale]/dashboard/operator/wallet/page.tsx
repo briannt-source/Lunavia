@@ -278,8 +278,8 @@ export default function OperatorWalletPage() {
         TOP_UP: 'bg-green-50 text-green-700',
         HOLD: 'bg-amber-50 text-amber-700',
         RELEASE: 'bg-blue-50 text-blue-700',
-        REFUND: 'bg-indigo-50 text-indigo-700',
-        PAYOUT: 'bg-purple-50 text-purple-700',
+        REFUND: 'bg-lunavia-primary-light text-lunavia-primary',
+        PAYOUT: 'bg-lunavia-accent-light text-lunavia-accent',
     };
 
     const statusColors: Record<string, string> = {
@@ -358,14 +358,14 @@ export default function OperatorWalletPage() {
                     </p>
 
                     {/* Bank Details */}
-                    <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-4 mb-6">
-                        <h4 className="text-xs font-bold text-indigo-800 uppercase tracking-wider mb-3">{t('topUp.bankAccountTitle')}</h4>
+                    <div className="bg-lunavia-primary-light border border-lunavia-muted rounded-lg p-4 mb-6">
+                        <h4 className="text-xs font-bold text-lunavia-primary-hover uppercase tracking-wider mb-3">{t('topUp.bankAccountTitle')}</h4>
                         {bankLoading ? (
-                            <div className="text-sm text-indigo-600 animate-pulse">{t('topUp.loadingBankDetails')}</div>
+                            <div className="text-sm text-lunavia-primary animate-pulse">{t('topUp.loadingBankDetails')}</div>
                         ) : !bankConfig ? (
                             <div className="text-sm text-red-600">{t('topUp.bankDetailsNotAvailable')}</div>
                         ) : (
-                        <div className="space-y-2 text-sm text-indigo-900">
+                        <div className="space-y-2 text-sm text-gray-800">
                             <div className="flex justify-between border-b border-indigo-100 pb-1">
                                 <span className="opacity-70">{t('topUp.bankName')}</span>
                                 <span className="font-medium">{bankConfig.bankName}</span>
@@ -395,7 +395,7 @@ export default function OperatorWalletPage() {
                     {!showTopUp ? (
                         <button
                             onClick={() => setShowTopUp(true)}
-                            className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition"
+                            className="w-full rounded-lg bg-lunavia-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-lunavia-primary-hover transition"
                         >
                             {t('topUp.submitProofBtn')}
                         </button>
@@ -447,7 +447,7 @@ export default function OperatorWalletPage() {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className="flex-1 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                                    className="flex-1 rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-lunavia-primary-hover disabled:opacity-50 transition"
                                 >
                                     {submitting ? t('topUp.submittingBtn') : t('topUp.submitRequestBtn')}
                                 </button>
@@ -612,7 +612,7 @@ export default function OperatorWalletPage() {
                                                 <Link
                                                     href={`/invoice/${tx.id}`}
                                                     target="_blank"
-                                                    className="px-3 py-1 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition"
+                                                    className="px-3 py-1 text-xs font-medium text-lunavia-primary bg-lunavia-primary-light border border-lunavia-muted rounded-lg hover:bg-lunavia-primary-light/80 transition"
                                                 >
                                                     {t('history.invoiceBtn')}
                                                 </Link>

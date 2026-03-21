@@ -66,7 +66,7 @@ export default function OperatorDashboard() {
 
       {/* Stats Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatPill label={t("stats.toursToday")} value={toursToday.length} color="indigo" />
+        <StatPill label={t("stats.toursToday")} value={toursToday.length} color="brand" />
         <StatPill label={t("stats.needsAttention")} value={toursNeedingAttention.length} color="amber" />
         <StatPill label={t("stats.sos24h")} value={sosCount} color="red" />
         <StatPill label={t("stats.disputes")} value={disputesTotal} color="slate" />
@@ -78,7 +78,7 @@ export default function OperatorDashboard() {
         <Card className="card-elevated border-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-indigo-500" />
+              <Calendar className="h-4 w-4 text-lunavia-primary" />
               {t("cards.toursToday")}
             </CardTitle>
           </CardHeader>
@@ -98,7 +98,7 @@ export default function OperatorDashboard() {
                 ))}
                 {toursToday.length > 3 && (
                   <Link href="/dashboard/operator/tours?filter=today"
-                    className="block text-center text-xs font-medium text-indigo-600 hover:text-indigo-700 py-2">
+                    className="block text-center text-xs font-medium text-lunavia-primary hover:text-lunavia-primary-hover py-2">
                     {t("cards.viewMore", { count: toursToday.length - 3 })}
                   </Link>
                 )}
@@ -192,7 +192,7 @@ export default function OperatorDashboard() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50">
                   <span className="text-xs text-gray-600">{t("cards.disputesOpen")}</span>
-                  <span className="text-sm font-bold text-blue-600">{disputesOpen}</span>
+                  <span className="text-sm font-bold text-lunavia-primary">{disputesOpen}</span>
                 </div>
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50">
                   <span className="text-xs text-gray-600">{t("cards.disputesInReview")}</span>
@@ -229,7 +229,7 @@ export default function OperatorDashboard() {
 
 function StatPill({ label, value, color }: { label: string; value: number; color: string }) {
   const colorMap: Record<string, string> = {
-    indigo: 'bg-indigo-50 text-indigo-700',
+    brand: 'bg-lunavia-primary-light text-lunavia-primary',
     amber: 'bg-amber-50 text-amber-700',
     red: 'bg-red-50 text-red-700',
     slate: 'bg-gray-50 text-gray-700',
@@ -246,14 +246,14 @@ function StatPill({ label, value, color }: { label: string; value: number; color
 function TourRow({ tour }: { tour: any }) {
   return (
     <Link href={`/dashboard/operator/tours/${tour.id}`}
-      className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/50 hover:bg-indigo-50/50 transition group">
+      className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/50 hover:bg-lunavia-primary-light/50 transition group">
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-gray-900 truncate">{tour.title}</p>
         <p className="text-xs text-gray-500 mt-0.5">
           {format(new Date(tour.startDate), "HH:mm")} • {tour.city}
         </p>
       </div>
-      <ArrowRight className="h-3.5 w-3.5 text-gray-300 group-hover:text-indigo-500 transition" />
+      <ArrowRight className="h-3.5 w-3.5 text-gray-300 group-hover:text-lunavia-primary transition" />
     </Link>
   );
 }
@@ -263,8 +263,8 @@ function QuickAction({ href, icon, label, primary }: { href: string; icon: React
     <Link href={href}
       className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold transition-all active:scale-[0.98] ${
         primary
-          ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 hover:shadow-md'
-          : 'bg-white text-gray-700 border border-gray-200 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30'
+          ? 'bg-lunavia-primary text-white shadow-sm hover:bg-lunavia-primary-hover hover:shadow-md'
+          : 'bg-white text-gray-700 border border-gray-200 hover:border-lunavia-primary-light hover:text-lunavia-primary hover:bg-lunavia-primary-light/30'
       }`}>
       {icon}
       {label}

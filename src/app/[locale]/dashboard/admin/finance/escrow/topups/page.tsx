@@ -145,9 +145,9 @@ export default function EscrowTopUpsPage() {
                         <div className="text-2xl font-bold text-red-700">{stats.rejected}</div>
                         <div className="text-sm text-red-600">{t('stats.rejected')}</div>
                     </div>
-                    <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                        <div className="text-xl font-bold text-emerald-700">{formatVND(stats.totalAmount)}</div>
-                        <div className="text-sm text-emerald-600">{t('stats.totalApproved')}</div>
+                    <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                        <div className="text-xl font-bold text-green-700">{formatVND(stats.totalAmount)}</div>
+                        <div className="text-sm text-green-600">{t('stats.totalApproved')}</div>
                     </div>
                 </div>
             )}
@@ -203,7 +203,7 @@ export default function EscrowTopUpsPage() {
                                     <td className="px-4 py-3 text-sm text-gray-500">{formatDate(req.createdAt)}</td>
                                     <td className="px-4 py-3 text-right">
                                         {req.status === 'PENDING' ? (
-                                            <span className="text-xs text-indigo-600 font-medium">{t('table.clickToReview')}</span>
+                                            <span className="text-xs text-lunavia-primary font-medium">{t('table.clickToReview')}</span>
                                         ) : req.internalNotes ? (
                                             <span className="text-xs text-gray-500" title={req.internalNotes}>{t('table.hasNotes')}</span>
                                         ) : req.rejectionReason ? (
@@ -261,7 +261,7 @@ export default function EscrowTopUpsPage() {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">{t('modal.internalNotesLabel')}</label>
                                         <textarea value={internalNote} onChange={e => setInternalNote(e.target.value)} rows={3}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-lunavia-primary focus:border-lunavia-primary"
                                             placeholder={t('modal.internalNotesPlaceholder')} />
                                     </div>
                                     <div className="flex gap-3 pt-2 border-t border-gray-200">

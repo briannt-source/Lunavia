@@ -136,8 +136,8 @@ export default function GodModeConsolePage() {
             {/* ── STAT ROW ── */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                 <GodStatCard label="Active Tours" value={live.activeTours} icon="🗺️" color="blue" pulse={live.activeTours > 0} />
-                <GodStatCard label="In Progress" value={live.inProgressTours.length} icon="▶️" color="emerald" pulse={live.inProgressTours.length > 0} />
-                <GodStatCard label="Today's Tours" value={live.todayTours} icon="📅" color="indigo" />
+                <GodStatCard label="In Progress" value={live.inProgressTours.length} icon="▶️" color="green" pulse={live.inProgressTours.length > 0} />
+                <GodStatCard label="Today's Tours" value={live.todayTours} icon="📅" color="primary" />
                 <GodStatCard label="Open Incidents" value={safety.openIncidents} icon="🚨" color={safety.openIncidents > 0 ? 'red' : 'gray'} />
                 <GodStatCard label="SOS Open" value={safety.openSOS} icon="🆘" color={safety.openSOS > 0 ? 'red' : 'gray'} />
                 <GodStatCard label="Disputed" value={safety.disputedTours} icon="⚖️" color={safety.disputedTours > 0 ? 'amber' : 'gray'} />
@@ -153,7 +153,7 @@ export default function GodModeConsolePage() {
                             <h3 className="font-bold text-gray-900 flex items-center gap-2">
                                 <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" /> Live Tours ({live.inProgressTours.length})
                             </h3>
-                            <Link href="/dashboard/admin/tours" className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View All →</Link>
+                            <Link href="/dashboard/admin/tours" className="text-xs text-lunavia-primary hover:text-lunavia-primary-hover font-medium">View All →</Link>
                         </div>
                         {live.inProgressTours.length === 0 ? (
                             <div className="p-8 text-center">
@@ -165,7 +165,7 @@ export default function GodModeConsolePage() {
                                 {live.inProgressTours.map(tour => (
                                     <div key={tour.id} className="flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition">
                                         <div className="min-w-0 flex-1">
-                                            <Link href={`/dashboard/admin/tours/${tour.id}`} className="text-sm font-semibold text-gray-900 hover:text-indigo-600 truncate block">
+                                            <Link href={`/dashboard/admin/tours/${tour.id}`} className="text-sm font-semibold text-gray-900 hover:text-lunavia-primary truncate block">
                                                 {tour.title}
                                             </Link>
                                             <p className="text-xs text-gray-400 mt-0.5">
@@ -202,7 +202,7 @@ export default function GodModeConsolePage() {
                                         <div className="min-w-0 flex-1">
                                             <p className="text-xs font-semibold text-gray-900">{ev.type.replace(/_/g, ' ')}</p>
                                             {ev.tourTitle && (
-                                                <Link href={`/dashboard/admin/tours/${ev.tourId}`} className="text-xs text-indigo-600 hover:underline truncate block">
+                                                <Link href={`/dashboard/admin/tours/${ev.tourId}`} className="text-xs text-lunavia-primary hover:underline truncate block">
                                                     {ev.tourTitle}
                                                 </Link>
                                             )}
@@ -289,11 +289,11 @@ export default function GodModeConsolePage() {
                         <div className="p-5 space-y-3">
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-500">Active Operators</span>
-                                <span className="font-semibold text-indigo-600">{platform.totalOperators}</span>
+                                <span className="font-semibold text-lunavia-primary">{platform.totalOperators}</span>
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-500">Active Guides</span>
-                                <span className="font-semibold text-emerald-600">{platform.totalGuides}</span>
+                                <span className="font-semibold text-green-600">{platform.totalGuides}</span>
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-500">Total Tours</span>
@@ -336,8 +336,8 @@ function GodStatCard({ label, value, icon, color, pulse }: {
 }) {
     const colors: Record<string, string> = {
         blue: 'bg-blue-50 border-blue-200 text-blue-900',
-        emerald: 'bg-emerald-50 border-emerald-200 text-emerald-900',
-        indigo: 'bg-indigo-50 border-indigo-200 text-indigo-900',
+        green: 'bg-green-50 border-green-200 text-green-900',
+        primary: 'bg-lunavia-primary-light border-blue-200 text-lunavia-primary',
         red: 'bg-red-50 border-red-200 text-red-900',
         amber: 'bg-amber-50 border-amber-200 text-amber-900',
         gray: 'bg-gray-50 border-gray-200 text-gray-500',

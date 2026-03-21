@@ -180,7 +180,7 @@ export default function AdminVerificationPage() {
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => setSelectedSubmission(sub)}
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      className="text-sm font-medium text-lunavia-primary hover:text-lunavia-primary-hover"
                     >
                       Review
                     </button>
@@ -211,7 +211,7 @@ export default function AdminVerificationPage() {
             <div className="p-6 space-y-6">
               {/* User Info */}
               <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                <div className="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold">
+                <div className="h-12 w-12 rounded-full bg-lunavia-primary-light flex items-center justify-center text-lunavia-primary font-semibold">
                   {selectedSubmission.userEmail[0].toUpperCase()}
                 </div>
                 <div>
@@ -243,13 +243,13 @@ export default function AdminVerificationPage() {
                   {selectedSubmission.documents.map((doc) => (
                     <div key={doc.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                        <div className="h-10 w-10 rounded-lg bg-lunavia-primary-light flex items-center justify-center">
                           {doc.mimeType === 'application/pdf' ? (
-                            <svg className="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="h-5 w-5 text-lunavia-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
                           ) : (
-                            <svg className="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="h-5 w-5 text-lunavia-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           )}
@@ -263,7 +263,7 @@ export default function AdminVerificationPage() {
                         href={`/api/admin/verification/document/${doc.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-indigo-600 hover:text-indigo-500"
+                        className="text-sm text-lunavia-primary hover:text-lunavia-primary-hover"
                       >
                         View
                       </a>
@@ -356,7 +356,7 @@ export default function AdminVerificationPage() {
                     value={reviewNotes}
                     onChange={(e) => setReviewNotes(e.target.value)}
                     rows={2}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-lunavia-primary focus:ring-1 focus:ring-lunavia-primary"
                     placeholder="Add internal notes for this review..."
                   />
                 </div>
@@ -441,7 +441,7 @@ export default function AdminVerificationPage() {
               value={rejectReason}
               onChange={(e) => setRejectReason(e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-lunavia-primary focus:ring-1 focus:ring-lunavia-primary"
               placeholder="Explain why this submission is being rejected..."
             />
             <div className="flex gap-3 mt-4">

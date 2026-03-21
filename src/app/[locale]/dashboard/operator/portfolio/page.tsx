@@ -41,7 +41,7 @@ export default function OperatorPortfolioPage() {
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">My Portfolio</h1>
                     <p className="text-sm text-gray-500">Your public business profile on Lunavia.</p>
-                    <a href={`/operators/${data.profile.id}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                    <a href={`/operators/${data.profile.id}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-lunavia-primary hover:text-lunavia-primary-hover font-medium">
                         View Public Profile ↗
                     </a>
                 </div>
@@ -100,7 +100,7 @@ function OperatorAbout({ user, isEditable, onUpdate }: { user: any; isEditable: 
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-bold text-gray-900">Company Overview</h2>
                 {isEditable && !editing && (
-                    <button onClick={() => setEditing(true)} className="text-indigo-600 hover:text-indigo-800 text-sm flex items-center gap-1">
+                    <button onClick={() => setEditing(true)} className="text-lunavia-primary hover:text-lunavia-primary-hover text-sm flex items-center gap-1">
                         <PencilIcon className="h-4 w-4" /> Edit
                     </button>
                 )}
@@ -192,7 +192,7 @@ function OperatorGuideNetwork({ stats }: { stats: any }) {
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
             <h3 className="text-sm font-bold text-gray-900 mb-4">Guide Network</h3>
             <div className="text-center py-4">
-                <div className="text-4xl font-black text-indigo-600">{stats.collaborators || 0}</div>
+                <div className="text-4xl font-black text-lunavia-primary">{stats.collaborators || 0}</div>
                 <div className="text-xs text-gray-500 mt-1">Active Collaborating Guides</div>
             </div>
             <div className="mt-4 pt-4 border-t border-gray-100">
@@ -202,7 +202,7 @@ function OperatorGuideNetwork({ stats }: { stats: any }) {
                 </div>
                 <div className="flex justify-between text-sm mt-2">
                     <span className="text-gray-500">Completion Rate</span>
-                    <span className={`font-bold ${(stats.completionRate || 0) >= 90 ? 'text-emerald-600' : 'text-gray-900'}`}>
+                    <span className={`font-bold ${(stats.completionRate || 0) >= 90 ? 'text-green-600' : 'text-gray-900'}`}>
                         {stats.completionRate || 0}%
                     </span>
                 </div>

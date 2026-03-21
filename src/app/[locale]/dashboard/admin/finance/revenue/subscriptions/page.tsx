@@ -47,12 +47,12 @@ interface SubscriptionStats {
 
 const PLAN_COLORS: Record<string, string> = {
     FREE: 'bg-gray-100 text-gray-700',
-    PRO: 'bg-indigo-100 text-indigo-700',
+    PRO: 'bg-lunavia-primary-light text-lunavia-primary',
     ELITE: 'bg-amber-100 text-amber-700',
     OPS_STARTER: 'bg-cyan-100 text-cyan-700',
     OPS_BUSINESS: 'bg-teal-100 text-teal-700',
-    GUIDE_FREE: 'bg-emerald-100 text-emerald-700',
-    GUIDE_PRO: 'bg-violet-100 text-violet-700',
+    GUIDE_FREE: 'bg-green-100 text-green-700',
+    GUIDE_PRO: 'bg-lunavia-accent-light text-lunavia-accent',
     ENTERPRISE: 'bg-rose-100 text-rose-700',
 };
 
@@ -166,7 +166,7 @@ export default function RevenueSubscriptionsPage() {
                             <div className="text-sm text-gray-500 mt-1">{t('stats.totalAccounts')}</div>
                         </div>
                         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                            <div className="text-3xl font-black text-indigo-600">{subStats.activePaid}</div>
+                            <div className="text-3xl font-black text-lunavia-primary">{subStats.activePaid}</div>
                             <div className="text-sm text-gray-500 mt-1">{t('stats.activePaid')}</div>
                         </div>
                         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
@@ -175,7 +175,7 @@ export default function RevenueSubscriptionsPage() {
                         </div>
                         {canSeeRevenue && (
                             <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-                                <div className="text-2xl font-black text-emerald-600">{formatVND(subStats.totalApprovedRevenue)}</div>
+                                <div className="text-2xl font-black text-green-600">{formatVND(subStats.totalApprovedRevenue)}</div>
                                 <div className="text-sm text-gray-500 mt-1">{t('stats.totalRevenue')}</div>
                             </div>
                         )}
@@ -209,7 +209,7 @@ export default function RevenueSubscriptionsPage() {
                                             <td className="px-5 py-3 text-right text-gray-500">{p.percentage}%</td>
                                             <td className="px-5 py-3">
                                                 <div className="w-full bg-gray-100 rounded-full h-2">
-                                                    <div className="bg-indigo-500 h-2 rounded-full transition-all" style={{ width: `${Math.min(p.percentage, 100)}%` }} />
+                                                    <div className="bg-lunavia-primary h-2 rounded-full transition-all" style={{ width: `${Math.min(p.percentage, 100)}%` }} />
                                                 </div>
                                             </td>
                                         </tr>
@@ -268,9 +268,9 @@ export default function RevenueSubscriptionsPage() {
                         <div className="text-sm text-red-600">{t('stats.rejected')}</div>
                     </div>
                     {canSeeRevenue && stats.totalRevenue !== null && (
-                        <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-                            <div className="text-xl font-bold text-indigo-700">{formatVND(stats.totalRevenue)}</div>
-                            <div className="text-sm text-indigo-600">{t('stats.totalRevenue')}</div>
+                        <div className="bg-lunavia-primary-light border border-lunavia-primary/20 rounded-xl p-4">
+                            <div className="text-xl font-bold text-lunavia-primary">{formatVND(stats.totalRevenue)}</div>
+                            <div className="text-sm text-lunavia-primary">{t('stats.totalRevenue')}</div>
                         </div>
                     )}
                 </div>
@@ -280,7 +280,7 @@ export default function RevenueSubscriptionsPage() {
             <div className="flex gap-2 border-b border-gray-200 pb-2">
                 {['PENDING', 'APPROVED', 'REJECTED'].map(status => (
                     <button key={status} onClick={() => setFilter(status)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === status ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}>
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === status ? 'bg-lunavia-primary-light text-lunavia-primary' : 'text-gray-600 hover:bg-gray-100'}`}>
                         {t(`stats.${status.toLowerCase()}`)}
                     </button>
                 ))}
@@ -313,7 +313,7 @@ export default function RevenueSubscriptionsPage() {
                                         <div className="text-xs text-gray-500">{req.currentPlan} → {req.requestedPlan}</div>
                                     </td>
                                     <td className="px-4 py-3">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${req.requestedPlan === 'ELITE' ? 'bg-amber-100 text-amber-800' : 'bg-indigo-100 text-indigo-800'}`}>
+                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${req.requestedPlan === 'ELITE' ? 'bg-amber-100 text-amber-800' : 'bg-lunavia-primary-light text-lunavia-primary'}`}>
                                             {req.requestedPlan}
                                         </span>
                                     </td>
@@ -321,13 +321,13 @@ export default function RevenueSubscriptionsPage() {
                                     {canSeeRevenue && <td className="px-4 py-3 text-sm font-medium text-gray-900">{formatVND(req.amount)}</td>}
                                     <td className="px-4 py-3">
                                         {req.proofImageUrl ? (
-                                            <a href={req.proofImageUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline text-sm">{t('table.view')}</a>
+                                            <a href={req.proofImageUrl} target="_blank" rel="noopener noreferrer" className="text-lunavia-primary hover:underline text-sm">{t('table.view')}</a>
                                         ) : <span className="text-gray-400 text-sm">{t('table.none')}</span>}
                                     </td>
                                     <td className="px-4 py-3 text-sm text-gray-500">{formatDate(req.createdAt)}</td>
                                     <td className="px-4 py-3">
                                         {req.status === 'PENDING' ? (
-                                            <button onClick={() => setSelectedRequest(req)} className="text-indigo-600 hover:underline text-sm font-medium">{t('table.review')}</button>
+                                            <button onClick={() => setSelectedRequest(req)} className="text-lunavia-primary hover:underline text-sm font-medium">{t('table.review')}</button>
                                         ) : req.status === 'REJECTED' && req.rejectionReason ? (
                                             <span className="text-xs text-red-600">{req.rejectionReason}</span>
                                         ) : <span className="text-xs text-green-600">{t('table.approved')}</span>}
@@ -352,7 +352,7 @@ export default function RevenueSubscriptionsPage() {
                             <div className="flex justify-between">
                                 <span className="text-gray-500">{t('modal.proof')}</span>
                                 {selectedRequest.proofImageUrl ? (
-                                    <a href={selectedRequest.proofImageUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">{t('modal.viewReceipt')}</a>
+                                    <a href={selectedRequest.proofImageUrl} target="_blank" rel="noopener noreferrer" className="text-lunavia-primary hover:underline">{t('modal.viewReceipt')}</a>
                                 ) : <span className="text-gray-400">{t('modal.noProof')}</span>}
                             </div>
                         </div>
@@ -360,7 +360,7 @@ export default function RevenueSubscriptionsPage() {
                             <label className="block text-sm font-medium text-gray-700 mb-2">{t('modal.rejectionReasonLabel')}</label>
                             <textarea value={rejectReason} onChange={e => setRejectReason(e.target.value)}
                                 placeholder={t('modal.rejectionReasonPlaceholder')} rows={3}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-lunavia-primary focus:border-lunavia-primary" />
                         </div>
                         <div className="flex gap-3">
                             <button onClick={() => handleApprove(selectedRequest.id)} disabled={processing}

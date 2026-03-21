@@ -104,7 +104,7 @@ export default function IncidentDashboard() {
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <Link
                                             href={`/dashboard/admin/incidents/${incident.id}`}
-                                            className="text-indigo-600 hover:text-indigo-900"
+                                            className="text-lunavia-primary hover:text-lunavia-primary-hover"
                                         >
                                             Resolve
                                         </Link>

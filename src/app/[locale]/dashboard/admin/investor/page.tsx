@@ -88,20 +88,20 @@ export default function InvestorDashboardPage() {
                     <FunnelStep label="Retained (90d)" value={retention.active90d} sub={`${retention.retentionRate90d}% retention`} width={Math.max(8, retention.retentionRate90d)} color="purple" />
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-4">
-                    <div className="bg-indigo-50 rounded-xl p-4">
-                        <p className="text-xs font-bold text-indigo-500 uppercase tracking-wider">Operators</p>
+                    <div className="bg-lunavia-primary-light rounded-xl p-4">
+                        <p className="text-xs font-bold text-lunavia-primary uppercase tracking-wider">Operators</p>
                         <div className="mt-2 grid grid-cols-3 gap-2 text-center">
-                            <div><p className="text-lg font-black text-indigo-900">{userGrowth.verified.operators}</p><p className="text-[10px] text-indigo-600">Verified</p></div>
-                            <div><p className="text-lg font-black text-indigo-900">{userGrowth.firstTour.operators}</p><p className="text-[10px] text-indigo-600">1st Tour</p></div>
-                            <div><p className="text-lg font-black text-indigo-900">{userGrowth.active30d.operators}</p><p className="text-[10px] text-indigo-600">Active 30d</p></div>
+                            <div><p className="text-lg font-black text-gray-900">{userGrowth.verified.operators}</p><p className="text-[10px] text-lunavia-primary">Verified</p></div>
+                            <div><p className="text-lg font-black text-gray-900">{userGrowth.firstTour.operators}</p><p className="text-[10px] text-lunavia-primary">1st Tour</p></div>
+                            <div><p className="text-lg font-black text-gray-900">{userGrowth.active30d.operators}</p><p className="text-[10px] text-lunavia-primary">Active 30d</p></div>
                         </div>
                     </div>
-                    <div className="bg-emerald-50 rounded-xl p-4">
-                        <p className="text-xs font-bold text-emerald-500 uppercase tracking-wider">Guides</p>
+                    <div className="bg-green-50 rounded-xl p-4">
+                        <p className="text-xs font-bold text-green-500 uppercase tracking-wider">Guides</p>
                         <div className="mt-2 grid grid-cols-3 gap-2 text-center">
-                            <div><p className="text-lg font-black text-emerald-900">{userGrowth.verified.guides}</p><p className="text-[10px] text-emerald-600">Verified</p></div>
-                            <div><p className="text-lg font-black text-emerald-900">{userGrowth.firstTour.guides}</p><p className="text-[10px] text-emerald-600">1st Tour</p></div>
-                            <div><p className="text-lg font-black text-emerald-900">{userGrowth.active30d.guides}</p><p className="text-[10px] text-emerald-600">Active 30d</p></div>
+                            <div><p className="text-lg font-black text-green-900">{userGrowth.verified.guides}</p><p className="text-[10px] text-green-600">Verified</p></div>
+                            <div><p className="text-lg font-black text-green-900">{userGrowth.firstTour.guides}</p><p className="text-[10px] text-green-600">1st Tour</p></div>
+                            <div><p className="text-lg font-black text-green-900">{userGrowth.active30d.guides}</p><p className="text-[10px] text-green-600">Active 30d</p></div>
                         </div>
                     </div>
                 </div>
@@ -136,19 +136,19 @@ export default function InvestorDashboardPage() {
                     <div className="space-y-4">
                         <div className="flex justify-between items-baseline border-b border-gray-100 pb-3">
                             <span className="text-sm text-gray-500">Gross Merchandise Value</span>
-                            <span className="text-xl font-black text-emerald-700">{fmtCurrency(revenue.totalGMV)}</span>
+                            <span className="text-xl font-black text-green-700">{fmtCurrency(revenue.totalGMV)}</span>
                         </div>
                         <div className="flex justify-between items-baseline border-b border-gray-100 pb-3">
                             <span className="text-sm text-gray-500">GMV This Month</span>
-                            <span className="text-lg font-bold text-emerald-600">{fmtCurrency(revenue.gmvThisMonth)}</span>
+                            <span className="text-lg font-bold text-green-600">{fmtCurrency(revenue.gmvThisMonth)}</span>
                         </div>
                         <div className="flex justify-between items-baseline border-b border-gray-100 pb-3">
                             <span className="text-sm text-gray-500">Subscription Revenue</span>
-                            <span className="text-lg font-bold text-violet-600">{fmtCurrency(revenue.subscriptionRevenue)}</span>
+                            <span className="text-lg font-bold text-lunavia-accent">{fmtCurrency(revenue.subscriptionRevenue)}</span>
                         </div>
                         <div className="flex justify-between items-baseline border-b border-gray-100 pb-3">
                             <span className="text-sm text-gray-500">Sub Revenue (Month)</span>
-                            <span className="text-base font-bold text-violet-500">{fmtCurrency(revenue.subscriptionRevenueMonth)}</span>
+                            <span className="text-base font-bold text-lunavia-accent">{fmtCurrency(revenue.subscriptionRevenueMonth)}</span>
                         </div>
                         <div className="flex justify-between items-baseline">
                             <span className="text-sm text-gray-500">Avg Revenue / Tour</span>
@@ -170,7 +170,7 @@ export default function InvestorDashboardPage() {
                                 <span className="text-xs font-medium text-gray-700 w-32 truncate shrink-0">{p.province}</span>
                                 <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
                                     <div
-                                        className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+                                        className="h-full bg-gradient-to-r from-lunavia-primary to-lunavia-accent rounded-full transition-all duration-500 flex items-center justify-end pr-2"
                                         style={{ width: `${Math.max(8, (p.count / maxProvinceCount) * 100)}%` }}
                                     >
                                         <span className="text-[10px] font-bold text-white">{p.count}</span>
@@ -200,11 +200,11 @@ export default function InvestorDashboardPage() {
 // ── Reusable Components ──
 function HeroCard({ label, value, icon, color }: { label: string; value: string; icon: string; color: string }) {
     const bg: Record<string, string> = {
-        emerald: 'bg-emerald-50 border-emerald-200', green: 'bg-green-50 border-green-200',
-        blue: 'bg-blue-50 border-blue-200', indigo: 'bg-indigo-50 border-indigo-200', violet: 'bg-violet-50 border-violet-200',
+        emerald: 'bg-green-50 border-green-200', green: 'bg-green-50 border-green-200',
+        blue: 'bg-blue-50 border-blue-200', indigo: 'bg-lunavia-primary-light border-blue-200', violet: 'bg-lunavia-accent-light border-blue-200',
     };
     const txt: Record<string, string> = {
-        emerald: 'text-emerald-800', green: 'text-green-800', blue: 'text-blue-800', indigo: 'text-indigo-800', violet: 'text-violet-800',
+        emerald: 'text-green-800', green: 'text-green-800', blue: 'text-blue-800', indigo: 'text-lunavia-primary', violet: 'text-lunavia-accent',
     };
     return (
         <div className={`rounded-2xl border p-4 ${bg[color]} shadow-sm`}>
@@ -217,7 +217,7 @@ function HeroCard({ label, value, icon, color }: { label: string; value: string;
 
 function FunnelStep({ label, value, sub, width, color }: { label: string; value: number; sub: string; width: number; color: string }) {
     const bg: Record<string, string> = {
-        gray: 'bg-gray-200', blue: 'bg-blue-400', indigo: 'bg-indigo-500', violet: 'bg-violet-500', purple: 'bg-purple-600',
+        gray: 'bg-gray-200', blue: 'bg-blue-400', indigo: 'bg-lunavia-primary', violet: 'bg-lunavia-accent', purple: 'bg-lunavia-accent',
     };
     return (
         <div className="text-center">

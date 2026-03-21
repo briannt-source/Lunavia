@@ -55,13 +55,13 @@ export default async function SystemHealthDashboard() {
 
                 {/* ── ALERTS & OVERVIEW ── */}
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    <div className={`p-4 rounded-xl border ${dbStatus === 'ONLINE' ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'}`}>
+                    <div className={`p-4 rounded-xl border ${dbStatus === 'ONLINE' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
                         <div className="flex items-center gap-2 mb-1">
                             <span className="text-xl">🗄️</span>
-                            <span className={`h-2 w-2 rounded-full ${dbStatus === 'ONLINE' ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`} />
+                            <span className={`h-2 w-2 rounded-full ${dbStatus === 'ONLINE' ? 'bg-green-500' : 'bg-red-500 animate-pulse'}`} />
                         </div>
-                        <p className={`text-xl font-black ${dbStatus === 'ONLINE' ? 'text-emerald-900' : 'text-red-900'}`}>{dbStatus}</p>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Database ({dbLatency}ms)</p>
+                        <p className={`text-xl font-black ${dbStatus === 'ONLINE' ? 'text-green-900' : 'text-red-900'}`}>{dbStatus}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-green-700">Database ({dbLatency}ms)</p>
                     </div>
                     
                     <div className="p-4 rounded-xl border bg-white shadow-sm">

@@ -130,7 +130,7 @@ export default function CompanyGuidesPage() {
               Bạn chưa có công ty.{" "}
               <Link
                 href="/dashboard/operator/company/create"
-                className="text-teal-600 hover:underline"
+                className="text-lunavia-primary hover:underline"
               >
                 Tạo công ty
               </Link>
@@ -177,7 +177,7 @@ export default function CompanyGuidesPage() {
           <CardContent>
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-teal-600" />
+                <Loader2 className="h-8 w-8 animate-spin text-lunavia-primary" />
               </div>
             ) : guides.length === 0 ? (
               <div className="text-center py-12">

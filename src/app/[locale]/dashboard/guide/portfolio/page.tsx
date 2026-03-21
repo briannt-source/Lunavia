@@ -44,7 +44,7 @@ export default function GuidePortfolioPage() {
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
                     <p className="text-sm text-gray-500">{t('subtitle')}</p>
-                    <a href={`/guides/${data.profile.id}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                    <a href={`/guides/${data.profile.id}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-lunavia-primary hover:text-lunavia-primary-hover font-medium">
                         {t('viewPublic')}
                     </a>
                 </div>
