@@ -8,25 +8,40 @@ import CategoryBadge from '@/components/CategoryBadge';
 import toast from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 
-interface ServiceRequest {
+interface AvailableTour {
   id: string;
+  code?: string;
   title: string;
-  location: string;
+  city: string;
   province?: string;
-  startTime: string;
-  endTime: string;
+  country?: string;
+  marketType?: string;
+  startDate: string;
+  endDate?: string;
   status: string;
-  assignedGuideId: string | null;
-  language?: string;
-  rolesNeeded?: { role: string; quantity: number; rate: number }[];
-  totalPayout?: number;
+  durationHours?: number | null;
+  pax: number;
+  languages?: string[];
+  specialties?: string[];
+  priceMain?: number | null;
+  priceSub?: number | null;
   currency?: string;
+  mainGuideSlots?: number;
+  subGuideSlots?: number;
+  inclusions?: string[];
+  exclusions?: string[];
+  guideNotes?: string;
   category?: string | null;
-  groupSize?: number | null;
-  durationMinutes?: number | null;
-  operatorName?: string;
-  operatorTrust?: string;
-  operatorAvatar?: string;
+  operator?: {
+    id: string;
+    trustScore?: number;
+    licenseNumber?: string | null;
+    profile?: {
+      name?: string;
+      photoUrl?: string;
+    };
+  };
+  _count?: { applications: number };
   hasApplied?: boolean;
   applicationStatus?: string;
 }
@@ -50,7 +65,7 @@ export default function GuideAvailablePage() {
   const t = useTranslations('Guide.Available');
   const [activeTab, setActiveTab] = useState<'REGULAR' | 'SOS'>('REGULAR');
   
-  const [requests, setRequests] = useState<ServiceRequest[]>([]);
+  const [requests, setRequests] = useState<AvailableTour[]>([]);
   const [sosBroadcasts, setSosBroadcasts] = useState<SOSBroadcast[]>([]);
   const [hiddenSosIds, setHiddenSosIds] = useState<string[]>([]);
   
@@ -80,7 +95,10 @@ export default function GuideAvailablePage() {
   useEffect(() => {
     fetch('/api/provinces')
       .then(res => res.json())
-      .then(data => setProvinces(data.provinces || []))
+      .then(data => {
+        const list = data.provinces || data || [];
+        setProvinces(Array.isArray(list) ? list : []);
+      })
       .catch(console.error);
       
     // Load hidden SOS from local storage
@@ -103,8 +121,8 @@ export default function GuideAvailablePage() {
 
         const res = await fetch(`/api/requests?${params.toString()}`);
         const response = await res.json();
-        if (!response.success) throw new Error(response.error);
-        setRequests(response.data?.requests || []);
+        if (response.error) throw new Error(response.error);
+        setRequests(response.requests || []);
       } else {
         // Fetch SOS
         const res = await fetch(`/api/guide/sos-broadcasts`);
@@ -136,12 +154,12 @@ export default function GuideAvailablePage() {
     localStorage.setItem('lunavia_hidden_sos', JSON.stringify(newHidden));
   }
 
-  function formatDuration(minutes: number | null | undefined): string {
-    if (!minutes) return '—';
-    if (minutes < 60) return t('regular.formatMin', { mins: minutes });
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return mins > 0 ? t('regular.formatHm', { hours, mins }) : t('regular.formatHours', { hours });
+  function formatDuration(hours: number | null | undefined): string {
+    if (!hours) return '—';
+    if (hours < 1) return t('regular.formatMin', { mins: Math.round(hours * 60) });
+    const wholeHours = Math.floor(hours);
+    const mins = Math.round((hours - wholeHours) * 60);
+    return mins > 0 ? t('regular.formatHm', { hours: wholeHours, mins }) : t('regular.formatHours', { hours: wholeHours });
   }
 
   function formatGroupSize(size: number | null | undefined): string {
@@ -154,28 +172,28 @@ export default function GuideAvailablePage() {
     switch (sortBy) {
       case 'suggested': {
         // Region match first, then trust score, then payout
-        const regionA = guideCity && (a.province === guideCity || a.location === guideCity) ? 1 : 0;
-        const regionB = guideCity && (b.province === guideCity || b.location === guideCity) ? 1 : 0;
+        const regionA = guideCity && (a.province === guideCity || a.city === guideCity) ? 1 : 0;
+        const regionB = guideCity && (b.province === guideCity || b.city === guideCity) ? 1 : 0;
         if (regionA !== regionB) return regionB - regionA;
-        const trustA = Number(a.operatorTrust) || 0;
-        const trustB = Number(b.operatorTrust) || 0;
+        const trustA = a.operator?.trustScore || 0;
+        const trustB = b.operator?.trustScore || 0;
         if (trustA !== trustB) return trustB - trustA;
-        const pA = a.totalPayout || 0;
-        const pB = b.totalPayout || 0;
+        const pA = a.priceMain || 0;
+        const pB = b.priceMain || 0;
         return pB - pA;
       }
       case 'trust': {
-        const tA = Number(a.operatorTrust) || 0;
-        const tB = Number(b.operatorTrust) || 0;
+        const tA = a.operator?.trustScore || 0;
+        const tB = b.operator?.trustScore || 0;
         return tB - tA;
       }
       case 'high_payout': {
-        const payoutA = a.rolesNeeded?.reduce((sum, r) => sum + (r.quantity * r.rate), 0) || a.totalPayout || 0;
-        const payoutB = b.rolesNeeded?.reduce((sum, r) => sum + (r.quantity * r.rate), 0) || b.totalPayout || 0;
+        const payoutA = a.priceMain || 0;
+        const payoutB = b.priceMain || 0;
         return payoutB - payoutA;
       }
       case 'urgent':
-        return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+        return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
       case 'date_posted':
       default:
         return 0;
@@ -288,7 +306,19 @@ export default function GuideAvailablePage() {
                       className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
                     >
                       <option value="">{t('filters.whereTo')}</option>
-                      {provinces.map(p => <option key={p.code} value={p.code}>{p.name}</option>)}
+                      {(() => {
+                        const grouped: Record<string, typeof provinces> = {};
+                        provinces.forEach(p => {
+                          const region = p.region || 'Other';
+                          if (!grouped[region]) grouped[region] = [];
+                          grouped[region].push(p);
+                        });
+                        return Object.entries(grouped).map(([region, list]) => (
+                          <optgroup key={region} label={region}>
+                            {list.map((p: any) => <option key={p.code} value={p.code}>{p.nameLocal || p.name}</option>)}
+                          </optgroup>
+                        ));
+                      })()}
                     </select>
                   </div>
                 </div>
@@ -475,9 +505,9 @@ export default function GuideAvailablePage() {
             ) : (
               <div className="space-y-4 animate-fade-in">
                 {sortedRequests.map(req => (
-                  <div key={req.id} className={`bg-white rounded-xl overflow-hidden border shadow-sm hover:shadow-md transition-all duration-200 ${guideCity && (req.province === guideCity || req.location === guideCity) ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-gray-100'}`}>
+                  <div key={req.id} className={`bg-white rounded-xl overflow-hidden border shadow-sm hover:shadow-md transition-all duration-200 ${guideCity && (req.province === guideCity || req.city === guideCity) ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-gray-100'}`}>
                     {/* Region match badge */}
-                    {guideCity && (req.province === guideCity || req.location === guideCity) && (
+                    {guideCity && (req.province === guideCity || req.city === guideCity) && (
                       <div className="bg-indigo-50 px-5 py-1.5 border-b border-indigo-100 flex items-center gap-1.5">
                         <span className="text-xs">📍</span>
                         <span className="text-[11px] font-semibold text-indigo-600">Cùng khu vực của bạn</span>
@@ -488,37 +518,56 @@ export default function GuideAvailablePage() {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <CategoryBadge label={req.category || 'TOUR'} />
+                            {req.marketType && (
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${req.marketType === 'INBOUND' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-purple-50 text-purple-700 border border-purple-200'}`}>
+                                {req.marketType === 'INBOUND' ? '🇻🇳 Inbound' : '✈️ Outbound'}
+                              </span>
+                            )}
                             <h3 className="text-lg font-bold text-gray-900 truncate">{req.title}</h3>
                           </div>
                           <div className="flex items-center gap-2 text-sm text-gray-500">
                             <span>📅</span>
-                            <span>{new Date(req.startTime).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                            <span className="text-gray-300">·</span>
-                            <span>{new Date(req.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} – {new Date(req.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                            <span>{new Date(req.startDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                            {req.endDate && (
+                              <>
+                                <span className="text-gray-300">→</span>
+                                <span>{new Date(req.endDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                              </>
+                            )}
+                            {req.code && (
+                              <>
+                                <span className="text-gray-300">·</span>
+                                <span className="font-mono text-xs text-gray-400">{req.code}</span>
+                              </>
+                            )}
                           </div>
                         </div>
                         <div className="text-right shrink-0">
                           <span className="text-xs font-semibold text-gray-400 uppercase">{t('regular.estRate')}</span>
-                          <div className="text-xl font-bold text-gray-900">{(req.totalPayout || 0).toLocaleString()} <span className="text-sm font-medium text-gray-500">{req.currency || 'VND'}</span></div>
+                          <div className="text-xl font-bold text-gray-900">{(req.priceMain || 0).toLocaleString()} <span className="text-sm font-medium text-gray-500">{req.currency || 'VND'}</span></div>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-4">
                         <div>
                           <span className="block text-xs font-medium text-gray-400 uppercase mb-0.5">{t('regular.duration')}</span>
-                          <span className="text-sm font-semibold text-gray-800">{formatDuration(req.durationMinutes)}</span>
+                          <span className="text-sm font-semibold text-gray-800">{formatDuration(req.durationHours)}</span>
                         </div>
                         <div>
                           <span className="block text-xs font-medium text-gray-400 uppercase mb-0.5">{t('regular.language')}</span>
-                          <span className="text-sm font-semibold text-gray-800">{req.language || '—'}</span>
+                          <span className="text-sm font-semibold text-gray-800">{req.languages?.join(', ') || '—'}</span>
                         </div>
                         <div>
                           <span className="block text-xs font-medium text-gray-400 uppercase mb-0.5">{t('regular.groupSizeKey')}</span>
-                          <span className="text-sm font-semibold text-gray-800">{formatGroupSize(req.groupSize)}</span>
+                          <span className="text-sm font-semibold text-gray-800">{formatGroupSize(req.pax)}</span>
                         </div>
                         <div>
                           <span className="block text-xs font-medium text-gray-400 uppercase mb-0.5">{t('regular.location')}</span>
-                          <span className="text-sm font-semibold text-gray-800">{req.province || req.location || '—'}</span>
+                          <span className="text-sm font-semibold text-gray-800">{req.province || req.city || '—'}</span>
+                        </div>
+                        <div>
+                          <span className="block text-xs font-medium text-gray-400 uppercase mb-0.5">Guides</span>
+                          <span className="text-sm font-semibold text-gray-800">{req.mainGuideSlots || 1} main{(req.subGuideSlots || 0) > 0 ? ` + ${req.subGuideSlots} sub` : ''}</span>
                         </div>
                       </div>
 
@@ -526,37 +575,32 @@ export default function GuideAvailablePage() {
                         <div className="flex items-center gap-3">
                           {/* Operator Avatar */}
                           <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700 shrink-0 overflow-hidden border-2 border-white shadow-sm">
-                            {req.operatorAvatar ? (
-                              <img src={req.operatorAvatar} alt={req.operatorName || ''} className="w-full h-full object-cover" />
+                            {req.operator?.profile?.photoUrl ? (
+                              <img src={req.operator.profile.photoUrl} alt={req.operator?.profile?.name || ''} className="w-full h-full object-cover" />
                             ) : (
-                              req.operatorName?.[0]?.toUpperCase() || 'O'
+                              req.operator?.profile?.name?.[0]?.toUpperCase() || 'O'
                             )}
                           </div>
                           <div>
                             <div className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
-                              {req.operatorName}
-                              {(req as any).isLicensed ? (
+                              {req.operator?.profile?.name || 'Operator'}
+                              {req.operator?.licenseNumber ? (
                                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold text-emerald-700">{t('regular.licensed')}</span>
                               ) : (
                                 <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-700">{t('regular.noLicense')}</span>
                               )}
                             </div>
                             <div className="flex items-center gap-2 mt-0.5">
-                              {req.operatorTrust && (
+                              {req.operator?.trustScore != null && (
                                 <span className="inline-flex items-center gap-1 text-xs font-medium">
                                   <span className={`inline-block w-2 h-2 rounded-full ${
-                                    Number(req.operatorTrust) >= 80 ? 'bg-emerald-500' :
-                                    Number(req.operatorTrust) >= 60 ? 'bg-amber-500' : 'bg-red-400'
+                                    req.operator.trustScore >= 80 ? 'bg-emerald-500' :
+                                    req.operator.trustScore >= 60 ? 'bg-amber-500' : 'bg-red-400'
                                   }`} />
                                   <span className={`${
-                                    Number(req.operatorTrust) >= 80 ? 'text-emerald-600' :
-                                    Number(req.operatorTrust) >= 60 ? 'text-amber-600' : 'text-red-500'
-                                  }`}>Trust {req.operatorTrust}</span>
-                                </span>
-                              )}
-                              {(req as any).unlicensedWarning && (
-                                <span className="text-[10px] font-medium text-amber-600">
-                                  {t('regular.noLicenseWarning', { trust: (req as any).operatorTrustCeiling || 70 })}
+                                    req.operator.trustScore >= 80 ? 'text-emerald-600' :
+                                    req.operator.trustScore >= 60 ? 'text-amber-600' : 'text-red-500'
+                                  }`}>Trust {req.operator.trustScore}</span>
                                 </span>
                               )}
                             </div>

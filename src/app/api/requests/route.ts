@@ -16,9 +16,17 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const mine = searchParams.get("mine") === "true";
+    const available = searchParams.get("available") === "true";
     const status = searchParams.getAll("status");
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "20");
+
+    // Filters (guide-facing)
+    const provinceFilter = searchParams.get("province");
+    const categoryFilter = searchParams.get("category");
+    const languageFilter = searchParams.get("language");
+    const groupSizeFilter = searchParams.get("groupSize");
+    const startDateFilter = searchParams.get("startDate");
 
     const where: any = {};
 
@@ -26,8 +34,40 @@ export async function GET(req: NextRequest) {
       where.operatorId = session.user.id;
     }
 
-    if (status.length > 0) {
+    // Guide-facing: show only published/open tours
+    if (available) {
+      where.status = { in: ["OPEN", "PUBLISHED"] };
+      where.visibility = "PUBLIC";
+    } else if (status.length > 0) {
       where.status = { in: status };
+    }
+
+    // Province filter (matches Tour.province field)
+    if (provinceFilter) {
+      where.province = { equals: provinceFilter, mode: "insensitive" };
+    }
+
+    // Category filter
+    if (categoryFilter) {
+      where.category = categoryFilter;
+    }
+
+    // Language filter (Tour.language is a string field)
+    if (languageFilter) {
+      where.language = { equals: languageFilter, mode: "insensitive" };
+    }
+
+    // Group size filter (max pax)
+    if (groupSizeFilter) {
+      const maxSize = parseInt(groupSizeFilter);
+      if (!isNaN(maxSize)) {
+        where.pax = { lte: maxSize };
+      }
+    }
+
+    // Start date filter (tours starting on or after this date)
+    if (startDateFilter) {
+      where.startDate = { gte: new Date(startDateFilter) };
     }
 
     const [tours, total] = await Promise.all([
