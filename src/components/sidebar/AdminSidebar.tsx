@@ -36,6 +36,14 @@ import {
     PieChart,
     Monitor,
     User,
+    Building2,
+    FileText,
+    BrainCircuit,
+    Banknote,
+    Settings,
+    ArrowRightLeft,
+    Binoculars,
+    Shield,
 } from 'lucide-react';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
@@ -99,6 +107,11 @@ export default function AdminSidebar() {
                         </NavItem>
                     )}
                     {isOps && (
+                        <NavItem href="/dashboard/admin/companies" icon={Building2} active={isActive('/dashboard/admin/companies')}>
+                            {t('links.companies')}
+                        </NavItem>
+                    )}
+                    {isOps && (
                         <NavItem href="/dashboard/admin/tours" icon={Map} active={isActive('/dashboard/admin/tours')}>
                             {t('links.tourControl')}
                         </NavItem>
@@ -129,8 +142,18 @@ export default function AdminSidebar() {
                         </NavItem>
                     )}
                     {isOps && (
+                        <NavItem href="/dashboard/admin/requests" icon={FileText} active={isActive('/dashboard/admin/requests')}>
+                            {t('links.serviceRequests')}
+                        </NavItem>
+                    )}
+                    {isOps && (
                         <NavItem href="/dashboard/admin/feedback" icon={MessageSquare} active={isActive('/dashboard/admin/feedback')}>
                             {t('links.feedback')}
+                        </NavItem>
+                    )}
+                    {isSuperAdmin && (
+                        <NavItem href="/dashboard/admin/platform-intelligence" icon={BrainCircuit} active={isActive('/dashboard/admin/platform-intelligence')}>
+                            {t('links.platformIntelligence')}
                         </NavItem>
                     )}
                 </NavSection>
@@ -156,6 +179,12 @@ export default function AdminSidebar() {
                         </NavItem>
                     </NavSection>
 
+                    <NavItem href="/dashboard/admin/payments" icon={Banknote} active={isActive('/dashboard/admin/payments')}>
+                        {t('links.paymentOverview')}
+                    </NavItem>
+                    <NavItem href="/dashboard/admin/transfers" icon={ArrowRightLeft} active={isActive('/dashboard/admin/transfers')}>
+                        {t('links.transfers')}
+                    </NavItem>
                     <NavItem href="/dashboard/admin/finance/revenue/subscriptions" icon={CreditCard} active={isActive('/dashboard/admin/finance/revenue/subscriptions')} badge={stats?.subscriptions}>
                         {t('links.subscriptions')}
                     </NavItem>
@@ -164,6 +193,9 @@ export default function AdminSidebar() {
                     </NavItem>
                     <NavItem href="/dashboard/admin/referral" icon={Gift} active={isActive('/dashboard/admin/referral')}>
                         {t('links.referrals')}
+                    </NavItem>
+                    <NavItem href="/dashboard/admin/payment-settings" icon={Settings} active={isActive('/dashboard/admin/payment-settings')}>
+                        {t('links.paymentSettings')}
                     </NavItem>
                     <NavItem href="/dashboard/admin/settings/bank" icon={Landmark} active={isActive('/dashboard/admin/settings/bank')}>
                         {t('links.bankSettings')}
@@ -176,6 +208,9 @@ export default function AdminSidebar() {
                 <NavSection title={t('sections.system')}>
                     <NavItem href="/dashboard/admin/staff" icon={UserCog} active={isActive('/dashboard/admin/staff')}>
                         {t('links.staff')}
+                    </NavItem>
+                    <NavItem href="/dashboard/admin/admins" icon={Shield} active={isActive('/dashboard/admin/admins')}>
+                        {t('links.adminManagement')}
                     </NavItem>
                     <NavItem href="/dashboard/admin/maintenance" icon={Wrench} active={isActive('/dashboard/admin/maintenance')}>
                         {t('links.maintenance')}
@@ -191,6 +226,9 @@ export default function AdminSidebar() {
                     </NavItem>
                     <NavItem href="/dashboard/admin/simulation" icon={FlaskConical} active={isActive('/dashboard/admin/simulation')}>
                         {t('links.simulation')}
+                    </NavItem>
+                    <NavItem href="/dashboard/observer" icon={Binoculars} active={isActive('/dashboard/observer')}>
+                        {t('links.observer')}
                     </NavItem>
                 </NavSection>
             )}
@@ -211,6 +249,9 @@ export default function AdminSidebar() {
             <NavSection>
                 <NavItem href="/dashboard/admin/profile" icon={User} active={isActive('/dashboard/admin/profile')}>
                     {t('links.myProfile')}
+                </NavItem>
+                <NavItem href="/dashboard/admin/settings" icon={Settings} active={isActive('/dashboard/admin/settings')}>
+                    {t('links.adminSettings')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

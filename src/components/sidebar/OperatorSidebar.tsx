@@ -31,6 +31,7 @@ import {
     Bell,
     MessageCircle,
     CreditCard,
+    FileText as FileTextIcon,
 } from 'lucide-react';
 
 export default function OperatorSidebar() {
@@ -131,6 +132,9 @@ export default function OperatorSidebar() {
                 </NavItem>
                 <NavItem href="/dashboard/operator/blacklist" icon={Ban} active={isActive('/dashboard/operator/blacklist')}>
                     {t('links.guideBlacklist')}
+                </NavItem>
+                <NavItem href="/dashboard/operator/request" icon={FileTextIcon} active={isActive('/dashboard/operator/request')}>
+                    {t('links.serviceRequests')}
                 </NavItem>
             </NavSection>
 
