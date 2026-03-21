@@ -22,7 +22,7 @@
  *       async (tx) => assertAllSegmentsResolved(tx, tourId),
  *     ],
  *     atomicMutation: async (tx) => {
- *       return tx.serviceRequest.update({ ... });
+ *       return tx.tour.update({ ... });
  *     },
  *     auditAction: 'TOUR_COMPLETED',
  *     auditBefore: snapshotRecord(tour),

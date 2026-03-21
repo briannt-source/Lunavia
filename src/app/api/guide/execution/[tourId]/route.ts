@@ -60,7 +60,7 @@ export async function GET(
       pax: tour.pax,
       operator: {
         id: tour.operator.id,
-        name: tour.operator.profile?.fullName || tour.operator.name,
+        name: tour.operator.profile?.name || tour.operator.name,
         phone: tour.operator.profile?.phone || null,
       },
       myRole: tour.applications[0]?.role || tour.assignments[0]?.role || "MAIN",

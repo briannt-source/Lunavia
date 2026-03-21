@@ -34,11 +34,11 @@ export const TRUST_IMPACT = {
 // ── Start Investigation ───────────────────────────────────────────────
 
 async function startInvestigation(incidentId: string, adminId: string) {
-    const incident = await prisma.incident.findUnique({ where: { id: incidentId } });
+    const incident = await (prisma as any).tourIncident.findUnique({ where: { id: incidentId } });
     if (!incident) throw new Error('INCIDENT_NOT_FOUND');
     if (incident.status !== 'OPEN') throw new Error('INCIDENT_NOT_OPEN');
 
-    return prisma.incident.update({
+    return (prisma as any).tourIncident.update({
         where: { id: incidentId },
         data: {
             status: INCIDENT_STATUS.INVESTIGATING,
@@ -58,15 +58,15 @@ async function resolveIncident(params: {
 }) {
     const { incidentId, resolvedBy, resolution, trustImpact, internalNotes } = params;
 
-    const incident = await prisma.incident.findUnique({
+    const incident = await (prisma as any).tourIncident.findUnique({
         where: { id: incidentId },
-        include: { request: { select: { assignedGuideId: true } } },
+        include: { tour: { select: { assignedGuideId: true } } },
     });
     if (!incident) throw new Error('INCIDENT_NOT_FOUND');
     if (['RESOLVED', 'DISMISSED'].includes(incident.status)) throw new Error('INCIDENT_ALREADY_CLOSED');
 
     // Update incident
-    const updated = await (prisma as any).incident.update({
+    const updated = await (prisma as any).tourIncident.update({
         where: { id: incidentId },
         data: {
             status: INCIDENT_STATUS.RESOLVED,
@@ -80,18 +80,18 @@ async function resolveIncident(params: {
     });
 
     // Apply trust impact to guide
-    const guideId = incident.request.assignedGuideId;
+    const guideId = incident.tour.assignedGuideId;
     if (guideId && trustImpact !== TRUST_IMPACT.NONE) {
         await applyTrustImpact(guideId, trustImpact);
     }
 
     // Update tour health — if no more open incidents, revert to HEALTHY
-    const remainingOpenIncidents = await (prisma as any).incident.count({
-        where: { requestId: incident.requestId, resolved: false },
+    const remainingOpenIncidents = await (prisma as any).tourIncident.count({
+        where: { tourId: incident.tourId, resolved: false },
     });
     if (remainingOpenIncidents === 0) {
-        await (prisma as any).serviceRequest.update({
-            where: { id: incident.requestId },
+        await (prisma as any).tour.update({
+            where: { id: incident.tourId },
             data: { tourHealth: 'HEALTHY' },
         });
     }
@@ -102,10 +102,10 @@ async function resolveIncident(params: {
 // ── Dismiss Incident ──────────────────────────────────────────────────
 
 async function dismissIncident(incidentId: string, dismissedBy: string, reason: string) {
-    const incident = await prisma.incident.findUnique({ where: { id: incidentId } });
+    const incident = await (prisma as any).tourIncident.findUnique({ where: { id: incidentId } });
     if (!incident) throw new Error('INCIDENT_NOT_FOUND');
 
-    return (prisma as any).incident.update({
+    return (prisma as any).tourIncident.update({
         where: { id: incidentId },
         data: {
             status: INCIDENT_STATUS.DISMISSED,
@@ -121,7 +121,7 @@ async function dismissIncident(incidentId: string, dismissedBy: string, reason: 
 // ── Apply Trust Impact ────────────────────────────────────────────────
 
 async function applyTrustImpact(guideId: string, impact: string) {
-    const guide = await prisma.user.findUnique({
+    const guide = await (prisma as any).user.findUnique({
         where: { id: guideId },
         select: { reliabilityScore: true, trustScore: true },
     });
@@ -130,7 +130,7 @@ async function applyTrustImpact(guideId: string, impact: string) {
     switch (impact) {
         case TRUST_IMPACT.WARNING:
             // Log warning, minor reliability hit
-            await prisma.user.update({
+            await (prisma as any).user.update({
                 where: { id: guideId },
                 data: {
                     reliabilityScore: Math.max(0, (guide.reliabilityScore || 50) - 3),
@@ -140,7 +140,7 @@ async function applyTrustImpact(guideId: string, impact: string) {
 
         case TRUST_IMPACT.SCORE_REDUCTION:
             // Significant reliability + trust reduction
-            await prisma.user.update({
+            await (prisma as any).user.update({
                 where: { id: guideId },
                 data: {
                     reliabilityScore: Math.max(0, (guide.reliabilityScore || 50) - 10),
@@ -168,14 +168,14 @@ async function applyTrustImpact(guideId: string, impact: string) {
 async function getOpenIncidents(operatorId?: string) {
     const where: any = { resolved: false };
     if (operatorId) {
-        where.request = { operatorId };
+        where.tour = { operatorId };
     }
 
-    return prisma.incident.findMany({
+    return (prisma as any).tourIncident.findMany({
         where,
         include: {
             reporter: { select: { id: true, name: true, email: true } },
-            request: { select: { id: true, title: true, operatorId: true, assignedGuideId: true } },
+            tour: { select: { id: true, title: true, operatorId: true, assignedGuideId: true } },
         },
         orderBy: [
             { severity: 'desc' },

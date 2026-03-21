@@ -98,13 +98,13 @@ export default function SettingsForm({ user, trustScore, kybStatus, kycStatus }:
                     <h3 className="font-semibold text-gray-900">Payment Methods</h3>
                 </div>
                 <p className="text-sm text-gray-500 mb-4">
-                    Manage your bank accounts, MoMo, ZaloPay, and other payout methods.
+                    Manage your bank accounts, MoMo, ZaloPay, and other payout methods from the Wallet page.
                 </p>
                 <Link
-                    href="/dashboard/payment-methods"
+                    href={isOperator ? "/dashboard/operator/wallet" : "/dashboard/guide/wallet"}
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition border border-indigo-200"
                 >
-                    Manage Payment Methods →
+                    Go to Wallet →
                 </Link>
             </div>
             {/* ── Notification Preferences ── */}

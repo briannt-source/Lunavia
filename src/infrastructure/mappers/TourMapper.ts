@@ -1,9 +1,9 @@
 import { Tour } from '@/domain/tour/Tour';
 import { TourStatus } from '@/domain/tour/TourStatus';
-import { ServiceRequest } from '@prisma/client';
+import { Tour } from '@prisma/client';
 
 export class TourMapper {
-    static toDomain(raw: ServiceRequest): Tour {
+    static toDomain(raw: Tour): Tour {
         return new Tour({
             id: raw.id,
             operatorId: raw.operatorId,
@@ -21,7 +21,7 @@ export class TourMapper {
         });
     }
 
-    static toPersistence(domain: Tour): Partial<ServiceRequest> {
+    static toPersistence(domain: Tour): Partial<Tour> {
         return {
             id: domain.id,
             operatorId: domain.operatorId,

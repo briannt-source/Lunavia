@@ -15,11 +15,11 @@ import { logDomainViolation } from '@/lib/audit';
 // ══════════════════════════════════════════════════════════════════════
 
 async function existsInVerification(entityId: string): Promise<boolean> {
-    const sub = await prisma.verificationSubmission.findUnique({
+    const v = await prisma.verification.findUnique({
         where: { id: entityId },
         select: { id: true },
     });
-    return !!sub;
+    return !!v;
 }
 
 async function existsInPayments(entityId: string): Promise<boolean> {
@@ -31,7 +31,7 @@ async function existsInPayments(entityId: string): Promise<boolean> {
 }
 
 async function existsInIncidents(entityId: string): Promise<boolean> {
-    const incident = await prisma.incident.findUnique({
+    const incident = await prisma.tourIncident.findUnique({
         where: { id: entityId },
         select: { id: true },
     });
@@ -42,7 +42,7 @@ async function existsInCancellation(entityId: string): Promise<boolean> {
     const sr = await prisma.tour.findFirst({
         where: {
             id: entityId,
-            status: { in: ['FORCE_CANCEL_PENDING_REVIEW', 'CANCELLED'] },
+            status: 'CANCELLED',
         },
         select: { id: true },
     });

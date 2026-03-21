@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const [activeTours, pendingApps, activeEmergencies] = await Promise.all([
       prisma.tour.count({ where: { status: "IN_PROGRESS" } }),
       prisma.application.count({ where: { status: "PENDING" } }),
-      prisma.emergency.count({ where: { status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { status: "PENDING" } }),
     ]);
     return NextResponse.json({ activeTours, pendingApps, activeEmergencies });
   } catch (error: any) {

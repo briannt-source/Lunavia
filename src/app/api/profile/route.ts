@@ -24,23 +24,22 @@ export async function PUT(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = await req.json();
-    const updated = await prisma.userProfile.upsert({
+    const updated = await prisma.profile.upsert({
       where: { userId: session.user.id },
       update: {
-        ...(body.fullName && { fullName: body.fullName }),
-        ...(body.about !== undefined && { about: body.about }),
-        ...(body.city && { city: body.city }),
+        ...(body.name && { name: body.name }),
+        ...(body.bio !== undefined && { bio: body.bio }),
         ...(body.languages && { languages: body.languages }),
-        ...(body.skills && { skills: body.skills }),
+        ...(body.specialties && { specialties: body.specialties }),
         ...(body.phone && { phone: body.phone }),
+        ...(body.photoUrl && { photoUrl: body.photoUrl }),
       },
       create: {
         userId: session.user.id,
-        fullName: body.fullName || "",
-        about: body.about || "",
-        city: body.city || "",
+        name: body.name || "",
+        bio: body.bio || "",
         languages: body.languages || [],
-        skills: body.skills || [],
+        specialties: body.specialties || [],
       },
     });
     return NextResponse.json(updated);

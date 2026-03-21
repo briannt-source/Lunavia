@@ -1,19 +1,19 @@
 /**
  * Tour Compatibility Helpers
  * 
- * The old `serviceRequest` model had several fields that don't exist on the new `Tour` model.
+ * The old `tour` model had several fields that don't exist on the new `Tour` model.
  * These helpers bridge the gap, providing backward-compatible lookups for domain logic.
  * 
  * Field migration map:
- *   serviceRequest.assignedGuideId → Application/Assignment (guide is assigned via relations)
- *   serviceRequest.startTime       → tour.startDate
- *   serviceRequest.endTime         → tour.endDate
- *   serviceRequest.location        → tour.city
- *   serviceRequest.totalPayout     → computed from escrowAccounts/payments
- *   serviceRequest.escrowStatus    → escrowAccount.status
- *   serviceRequest.escrowTransaction → tour.escrowAccounts (relation)
- *   serviceRequest.walletId        → wallet.userId (wallet is per-user, not per-tour)
- *   serviceRequest.rolesNeeded     → tour.mainGuideSlots + tour.subGuideSlots
+ *   tour.assignedGuideId → Application/Assignment (guide is assigned via relations)
+ *   tour.startTime       → tour.startDate
+ *   tour.endTime         → tour.endDate
+ *   tour.location        → tour.city
+ *   tour.totalPayout     → computed from escrowAccounts/payments
+ *   tour.escrowStatus    → escrowAccount.status
+ *   tour.escrowTransaction → tour.escrowAccounts (relation)
+ *   tour.walletId        → wallet.userId (wallet is per-user, not per-tour)
+ *   tour.rolesNeeded     → tour.mainGuideSlots + tour.subGuideSlots
  */
 
 import { prisma } from '@/lib/prisma';

@@ -1,47 +1,92 @@
 /**
- * VerificationDomain — Verification Document Mutations
+ * VerificationDomain — Verification Mutations
  *
- * Handles verification submission creation, document upload records,
- * document deletion, review actions, and rejection.
+ * Handles verification submission, review actions, and rejection
+ * using the Verification model from the schema.
  */
 
 import { prisma } from '@/lib/prisma';
 import { executeSimpleMutation } from '@/domain/governance/executeSimpleMutation';
 import { createDomainNotification, NotificationDomain } from '@/domain/notification/NotificationService';
-import { PrismaVerificationRepository } from '@/infrastructure/repositories/PrismaVerificationRepository';
 
 // ── Create Verification Submission ──────────────────────────────────
 
-async function createSubmission(input: { userId: string; type: string }) {
-    return prisma.verificationSubmission.create({
-        data: { userId: input.userId, type: input.type, status: 'DRAFT' },
-        include: { documents: true },
+async function createSubmission(input: { userId: string; type?: string }) {
+    // Create or update the verification record for this user
+    return prisma.verification.upsert({
+        where: { id: `verification-${input.userId}` },
+        update: { status: 'PENDING', updatedAt: new Date() },
+        create: {
+            userId: input.userId,
+            status: 'PENDING',
+        },
     });
 }
 
-// ── Create Document Record ──────────────────────────────────────────
+// ── Upload Document URL ─────────────────────────────────────────────
 
-async function createDocumentRecord(input: {
-    submissionId: string; filename: string;
-    originalName: string; mimeType: string; size: number; storagePath: string;
+async function addDocumentUrl(input: {
+    userId: string; documentType: string; url: string;
 }) {
-    return prisma.verificationDocument.create({ data: input });
+    const fieldMap: Record<string, string> = {
+        photo: 'photoUrl',
+        id_document: 'idDocumentUrl',
+        license: 'licenseUrl',
+        travel_license: 'travelLicenseUrl',
+        proof_of_address: 'proofOfAddressUrl',
+    };
+
+    const field = fieldMap[input.documentType];
+    if (field) {
+        return prisma.verification.updateMany({
+            where: { userId: input.userId },
+            data: { [field]: input.url },
+        });
+    }
+
+    // Fallback: append to documents array
+    const existing = await prisma.verification.findFirst({ where: { userId: input.userId } });
+    if (existing) {
+        return prisma.verification.update({
+            where: { id: existing.id },
+            data: { documents: { push: input.url } },
+        });
+    }
+    return null;
 }
 
-// ── Delete Document Record ──────────────────────────────────────────
+// ── Delete Document URL ─────────────────────────────────────────────
 
-async function deleteDocument(documentId: string) {
-    return prisma.verificationDocument.delete({ where: { id: documentId } });
+async function removeDocumentUrl(userId: string, documentType: string) {
+    const fieldMap: Record<string, string> = {
+        photo: 'photoUrl',
+        id_document: 'idDocumentUrl',
+        license: 'licenseUrl',
+        travel_license: 'travelLicenseUrl',
+        proof_of_address: 'proofOfAddressUrl',
+    };
+
+    const field = fieldMap[documentType];
+    if (field) {
+        const existing = await prisma.verification.findFirst({ where: { userId } });
+        if (existing) {
+            return prisma.verification.update({
+                where: { id: existing.id },
+                data: { [field]: null },
+            });
+        }
+    }
+    return null;
 }
 
 // ── Review Verification (Approve/Reject via UseCase) ────────────────
 
 async function logVerificationReview(input: {
-    reviewerId: string; submissionId: string; action: string; reason?: string;
+    reviewerId: string; verificationId: string; action: string; reason?: string;
 }) {
     return executeSimpleMutation({
-        entityName: 'VerificationSubmission',
-        entityId: input.submissionId,
+        entityName: 'Verification',
+        entityId: input.verificationId,
         actorId: input.reviewerId,
         actorRole: 'ADMIN',
         auditAction: input.action === 'APPROVE' ? 'VERIFICATION_APPROVED' : 'VERIFICATION_REJECTED',
@@ -55,29 +100,38 @@ async function logVerificationReview(input: {
 // ── Admin Reject Verification ───────────────────────────────────────
 
 async function rejectVerification(input: {
-    submissionId: string; reviewerId: string; reason: string; submissionUserId: string;
+    verificationId: string; reviewerId: string; reason: string; userId: string;
 }) {
-    const repo = new PrismaVerificationRepository(prisma);
-
     return executeSimpleMutation({
-        entityName: 'VerificationSubmission',
-        entityId: input.submissionId,
+        entityName: 'Verification',
+        entityId: input.verificationId,
         actorId: input.reviewerId,
         actorRole: 'ADMIN',
         auditAction: 'VERIFICATION_REJECTED',
         metadata: { reason: input.reason },
         atomicMutation: async () => {
-            await repo.rejectSubmission(input.submissionId, input.reason);
+            await prisma.verification.update({
+                where: { id: input.verificationId },
+                data: {
+                    status: 'REJECTED',
+                    rejectionReason: input.reason,
+                },
+            });
+            // Also update user verifiedStatus
+            await prisma.user.update({
+                where: { id: input.userId },
+                data: { verifiedStatus: 'REJECTED' },
+            });
             return { ok: true };
         },
         notification: async () => {
             await createDomainNotification({
-                userId: input.submissionUserId,
+                userId: input.userId,
                 domain: NotificationDomain.VERIFICATION,
                 targetUrl: '/dashboard/verification/status',
                 type: 'VERIFICATION_REJECTED',
                 title: 'Verification Requires Action',
-                message: `Your verification requires additional information. Please review the feedback and resubmit.${input.reason ? ` Reason: ${input.reason}` : ''}`,
+                message: `Your verification requires additional information.${input.reason ? ` Reason: ${input.reason}` : ''}`,
             });
         },
     });
@@ -87,7 +141,7 @@ async function rejectVerification(input: {
 
 async function logVerificationRequest(input: { reviewerId: string; targetId: string }) {
     return executeSimpleMutation({
-        entityName: 'VerificationSubmission',
+        entityName: 'Verification',
         entityId: input.targetId,
         actorId: input.reviewerId,
         actorRole: 'ADMIN',
@@ -100,8 +154,8 @@ async function logVerificationRequest(input: { reviewerId: string; targetId: str
 
 export const VerificationDomain = {
     createSubmission,
-    createDocumentRecord,
-    deleteDocument,
+    addDocumentUrl,
+    removeDocumentUrl,
     logVerificationReview,
     rejectVerification,
     logVerificationRequest,

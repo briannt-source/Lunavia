@@ -11,28 +11,43 @@ import { TourDocumentList } from '@/components/documents/TourDocumentList';
 
 interface TourDetail {
     id: string;
+    code?: string;
     title: string;
     description?: string | null;
-    itinerary?: string | null;
-    inclusion?: string | null;
-    exclusion?: string | null;
-    location: string;
+    city: string;
     province?: string;
-    language?: string;
-    startTime: string;
-    endTime: string;
+    country?: string;
+    marketType?: string;
+    startDate: string;
+    endDate?: string | null;
     status: string;
-    category?: string;
-    groupSize?: number;
-    durationMinutes?: number;
-    totalPayout?: number;
+    durationHours?: number | null;
+    pax: number;
+    languages?: string[];
+    specialties?: string[];
+    priceMain?: number | null;
+    priceSub?: number | null;
     currency?: string;
-    rolesNeeded?: { role: string; quantity: number; rate: number }[];
-    segments?: { id: string; label: string; location: string; startTime: string; endTime: string; order: number }[];
-    operatorName?: string;
-    operatorTrust?: number;
-    operatorAvatar?: string;
-    assignedGuideId?: string | null;
+    mainGuideSlots?: number;
+    subGuideSlots?: number;
+    itinerary?: any[];
+    inclusions?: string[];
+    exclusions?: string[];
+    additionalRequirements?: string | null;
+    guideNotes?: string | null;
+    category?: string;
+    operator?: {
+        id: string;
+        trustScore?: number;
+        licenseNumber?: string | null;
+        profile?: {
+            name?: string;
+            photoUrl?: string;
+        };
+    };
+    applications?: any[];
+    assignments?: any[];
+    _count?: { applications: number };
     guideCheckedInAt?: string | null;
     myApplication?: { id: string; status: string; createdAt: string } | null;
     tourDisputes?: any[];
@@ -50,11 +65,11 @@ function fmtTime(d: string) {
     return new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-function fmtDuration(minutes: number | undefined): string {
-    if (!minutes) return '—';
-    if (minutes < 60) return `${minutes} min`;
-    const h = Math.floor(minutes / 60);
-    const m = minutes % 60;
+function fmtDuration(hours: number | null | undefined): string {
+    if (!hours) return '—';
+    if (hours < 1) return `${Math.round(hours * 60)} min`;
+    const h = Math.floor(hours);
+    const m = Math.round((hours - h) * 60);
     return m > 0 ? `${h}h ${m}m` : `${h} hours`;
 }
 
@@ -104,13 +119,8 @@ export default function GuideTourDetailPage() {
                 setError(data.error || 'Failed to load tour');
                 return;
             }
-            // API returns { request: {...}, operator: {...}, assignedGuide: {...} }
-            const t = data.request || data.data?.request || data;
-            // Merge operator info into tour object for display
-            if (data.operator) {
-                t.operatorName = data.operator.roleMetadata?.companyName || data.operator.roleMetadata?.name || data.operator.email || 'Operator';
-                t.operatorTrust = data.operator.trustScore;
-            }
+            // API returns tour object directly with nested operator, applications, assignments
+            const t = data;
             // Check if current user already applied
             if (t.applications) {
                 const myApp = t.applications.find((a: any) => a.status !== 'WITHDRAWN');
@@ -285,7 +295,7 @@ export default function GuideTourDetailPage() {
                     <div className="text-right shrink-0">
                         <p className="text-xs font-medium text-gray-400 uppercase mb-1">{t('summary.totalRate')}</p>
                         <p className="text-3xl font-black text-gray-900">
-                            ₫{fmt(tour.totalPayout || 0)}
+                            ₫{fmt(tour.priceMain || 0)}
                         </p>
                         <p className="text-xs text-gray-400 mt-0.5">{tour.currency || 'VND'}</p>
                     </div>
@@ -294,10 +304,10 @@ export default function GuideTourDetailPage() {
 
             {/* ───── STAT CARDS ───── */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <InfoCard icon="📅" label={t('summary.date')} value={fmtDate(tour.startTime)} />
-                <InfoCard icon="🕐" label={t('summary.time')} value={`${fmtTime(tour.startTime)} – ${fmtTime(tour.endTime)}`} />
-                <InfoCard icon="⏱" label={t('summary.duration')} value={fmtDuration(tour.durationMinutes)} />
-                <InfoCard icon="👥" label={t('summary.groupSize')} value={tour.groupSize ? `${tour.groupSize} pax` : '—'} />
+                <InfoCard icon="📅" label={t('summary.date')} value={fmtDate(tour.startDate)} />
+                <InfoCard icon="🕐" label="End Date" value={tour.endDate ? fmtDate(tour.endDate) : '—'} />
+                <InfoCard icon="⏱" label={t('summary.duration')} value={fmtDuration(tour.durationHours)} />
+                <InfoCard icon="👥" label={t('summary.groupSize')} value={tour.pax ? `${tour.pax} pax` : '—'} />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -307,71 +317,80 @@ export default function GuideTourDetailPage() {
                     <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
                         <h3 className="font-semibold text-gray-900 text-sm mb-3">{t('details.sectionTitle')}</h3>
                         <div className="space-y-3 text-sm">
-                            <Row label={t('details.location')} value={tour.province || tour.location || '—'} />
-                            <Row label={t('details.language')} value={tour.language || '—'} />
-                            <Row label={t('details.tourId')} value={tour.id} mono />
+                            <Row label={t('details.location')} value={tour.province || tour.city || '—'} />
+                            <Row label="Market" value={tour.marketType === 'OUTBOUND' ? '✈️ Outbound' : '🇻🇳 Inbound'} />
+                            <Row label={t('details.language')} value={tour.languages?.join(', ') || '—'} />
+                            <Row label="Guides" value={`${tour.mainGuideSlots || 1} main${(tour.subGuideSlots || 0) > 0 ? ` + ${tour.subGuideSlots} sub` : ''}`} />
+                            {tour.priceSub != null && tour.priceSub > 0 && (
+                                <Row label="Sub-guide Rate" value={`₫${fmt(tour.priceSub)}`} />
+                            )}
+                            {tour.code && <Row label={t('details.tourId')} value={tour.code} mono />}
+                            <Row label="ID" value={tour.id} mono />
                         </div>
                     </div>
 
-                    {/* Roles Needed */}
-                    {tour.rolesNeeded && tour.rolesNeeded.length > 0 && (
-                        <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
-                            <h3 className="font-semibold text-gray-900 text-sm mb-3">{t('roles.sectionTitle')}</h3>
-                            <div className="space-y-2">
-                                {tour.rolesNeeded.map((r, i) => (
-                                    <div key={i} className="flex items-center justify-between py-2 px-3 rounded-lg bg-gray-50">
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">{r.role.replace('_', ' ')}</p>
-                                            <p className="text-xs text-gray-500">{t('roles.qty')}: {r.quantity}</p>
-                                        </div>
-                                        <span className="font-bold text-gray-900">₫{fmt(r.rate)}</span>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Guide Notes */}
+                    {tour.guideNotes && (
+                        <div className="rounded-2xl bg-amber-50 border border-amber-200 p-5 shadow-sm">
+                            <h3 className="font-semibold text-amber-900 text-sm mb-2 flex items-center gap-2">
+                                <span>📝</span> Ghi chú cho Guide
+                            </h3>
+                            <div className="text-sm text-amber-800 whitespace-pre-wrap">{tour.guideNotes}</div>
                         </div>
                     )}
 
-                    {/* Itinerary & Inclusions */}
-                    {(tour.itinerary || tour.inclusion || tour.exclusion) && (
+                    {/* Itinerary & Inclusions/Exclusions */}
+                    {(tour.itinerary?.length || tour.inclusions?.length || tour.exclusions?.length || tour.additionalRequirements) && (
                         <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm space-y-6">
-                            {tour.itinerary && (
+                            {tour.itinerary && tour.itinerary.length > 0 && (
                                 <div>
-                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">Itinerary / Overview</h3>
-                                    <div className="text-sm text-gray-700 whitespace-pre-wrap">{tour.itinerary}</div>
-                                </div>
-                            )}
-                            {tour.inclusion && (
-                                <div>
-                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">Inclusions</h3>
-                                    <div className="text-sm text-emerald-700 whitespace-pre-wrap">{tour.inclusion}</div>
-                                </div>
-                            )}
-                            {tour.exclusion && (
-                                <div>
-                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">Exclusions</h3>
-                                    <div className="text-sm text-red-700 whitespace-pre-wrap">{tour.exclusion}</div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Segments/Itinerary */}
-                    {tour.segments && tour.segments.length > 0 && (
-                        <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
-                            <h3 className="font-semibold text-gray-900 text-sm mb-3">{t('itinerary.sectionTitle')}</h3>
-                            <div className="space-y-3">
-                                {tour.segments.sort((a, b) => a.order - b.order).map((seg) => (
-                                    <div key={seg.id} className="flex items-start gap-3">
-                                        <div className="mt-1 h-6 w-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700">
-                                            {seg.order}
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">{seg.label}</p>
-                                            <p className="text-xs text-gray-500">{seg.location} · {fmtTime(seg.startTime)} – {fmtTime(seg.endTime)}</p>
-                                        </div>
+                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">Itinerary</h3>
+                                    <div className="space-y-2">
+                                        {tour.itinerary.map((item: any, i: number) => (
+                                            <div key={i} className="flex items-start gap-3 py-2 px-3 rounded-lg bg-gray-50">
+                                                <div className="mt-0.5 h-6 w-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700 shrink-0">
+                                                    {i + 1}
+                                                </div>
+                                                <div className="text-sm text-gray-700">
+                                                    {typeof item === 'string' ? item : (item.title || item.label || item.description || JSON.stringify(item))}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
+                                </div>
+                            )}
+                            {tour.inclusions && tour.inclusions.length > 0 && (
+                                <div>
+                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">✅ Inclusions</h3>
+                                    <ul className="space-y-1">
+                                        {tour.inclusions.map((item, i) => (
+                                            <li key={i} className="text-sm text-emerald-700 flex items-start gap-2">
+                                                <span className="mt-1 text-emerald-400">•</span>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            {tour.exclusions && tour.exclusions.length > 0 && (
+                                <div>
+                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">❌ Exclusions</h3>
+                                    <ul className="space-y-1">
+                                        {tour.exclusions.map((item, i) => (
+                                            <li key={i} className="text-sm text-red-700 flex items-start gap-2">
+                                                <span className="mt-1 text-red-400">•</span>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            {tour.additionalRequirements && (
+                                <div>
+                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">📌 Yêu cầu thêm</h3>
+                                    <div className="text-sm text-gray-700 whitespace-pre-wrap">{tour.additionalRequirements}</div>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
@@ -382,13 +401,20 @@ export default function GuideTourDetailPage() {
                     <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
                         <h3 className="font-semibold text-gray-900 text-sm mb-3">{t('operator.sectionTitle')}</h3>
                         <div className="flex items-center gap-3">
-                            <div className="h-12 w-12 rounded-xl bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-700">
-                                {tour.operatorName?.[0]?.toUpperCase() || '🏢'}
+                            <div className="h-12 w-12 rounded-xl bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-700 overflow-hidden">
+                                {tour.operator?.profile?.photoUrl ? (
+                                    <img src={tour.operator.profile.photoUrl} alt={tour.operator?.profile?.name || ''} className="w-full h-full object-cover" />
+                                ) : (
+                                    tour.operator?.profile?.name?.[0]?.toUpperCase() || '🏢'
+                                )}
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900">{tour.operatorName || t('operator.sectionTitle')}</p>
-                                {tour.operatorTrust != null && (
-                                    <p className="text-xs text-emerald-600 font-medium">{t('operator.trust')}: {tour.operatorTrust}</p>
+                                <p className="font-semibold text-gray-900">{tour.operator?.profile?.name || t('operator.sectionTitle')}</p>
+                                {tour.operator?.trustScore != null && (
+                                    <p className="text-xs text-emerald-600 font-medium">{t('operator.trust')}: {tour.operator.trustScore}</p>
+                                )}
+                                {tour.operator?.licenseNumber && (
+                                    <p className="text-xs text-gray-400 font-mono">{tour.operator.licenseNumber}</p>
                                 )}
                             </div>
                         </div>

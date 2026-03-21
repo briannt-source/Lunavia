@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     const { prisma } = await import("@/lib/prisma");
     const guides = await prisma.user.findMany({
-      where: { role: "TOUR_GUIDE", verificationStatus: "APPROVED" },
+      where: { role: "TOUR_GUIDE", verifiedStatus: "APPROVED" },
       select: { id: true, name: true, trustScore: true },
       orderBy: { trustScore: "desc" },
       take: 50,

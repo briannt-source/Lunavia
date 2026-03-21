@@ -12,7 +12,7 @@ import SuggestionHint from '@/components/ai/SuggestionHint';
 import TourExecutionTimeline from '@/components/tour/TourExecutionTimeline';
 import TourChatPanel from '@/components/tour/TourChatPanel';
 
-interface ServiceRequest {
+interface TourDetail {
     id: string;
     title: string;
     location: string;
@@ -82,7 +82,7 @@ export default function OperatorRequestDetailPage({
 }: {
     params: { id: string };
 }) {
-    const [request, setRequest] = useState<ServiceRequest | null>(null);
+    const [request, setRequest] = useState<TourDetail | null>(null);
     const [applicant, setApplicant] = useState<GuideProfile | null>(null);
     const [assignedGuide, setAssignedGuide] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -263,7 +263,7 @@ export default function OperatorRequestDetailPage({
         }
     }
 
-    const hasGivenFeedback = (req: ServiceRequest) => {
+    const hasGivenFeedback = (req: TourDetail) => {
         return req.feedback?.some(f => f.role === 'TOUR_OPERATOR');
     };
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,16 +24,16 @@ export default function MessagesPage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center py-12">
           <p className="text-slate-600">Đang tải cuộc trò chuyện...</p>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
+    <div className="max-w-4xl mx-auto px-4 py-8">
       <PageHeader
         title="Tin nhắn"
         description="Trao đổi với tour operator và guides"
@@ -106,7 +106,7 @@ export default function MessagesPage() {
           })}
         </div>
       )}
-    </DashboardLayout>
+    </div>
   );
 }
 

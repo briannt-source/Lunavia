@@ -57,7 +57,7 @@ export async function completeTour(input: CompleteTourInput) {
             },
         ],
         atomicMutation: async (tx) => {
-            const result = await tx.serviceRequest.update({
+            const result = await tx.tour.update({
                 where: { id: tourId },
                 data: { status: 'COMPLETED' },
             });
@@ -172,7 +172,7 @@ export async function bulkAcceptApplications(input: BulkAcceptInput) {
                     if (application.status !== 'APPLIED') {
                         throw new Error(`Application in ${application.status} state`);
                     }
-                    await tx.serviceRequest.update({
+                    await tx.tour.update({
                         where: { id: application.requestId },
                         data: { status: TOUR_STATUS.ASSIGNED, assignedGuideId: application.guideId },
                     });
@@ -231,14 +231,14 @@ export async function bulkCloseTours(input: BulkCloseInput) {
             if (tour.incidents.length > 0) throw new Error('Tour has open incidents');
 
             await executeSimpleMutation({
-                entityName: 'ServiceRequest',
+                entityName: 'Tour',
                 entityId: tourId,
                 actorId: operatorId,
                 actorRole: 'OPERATOR',
                 auditAction: 'BULK_CLOSE_TOUR',
                 metadata: { method: 'COMMAND_CENTER' },
                 atomicMutation: async (tx) => {
-                    await tx.serviceRequest.update({
+                    await tx.tour.update({
                         where: { id: tourId },
                         data: { status: TOUR_STATUS.CLOSED, operatorClosedAt: new Date(), closeReason: 'CONFIRMED' },
                     });

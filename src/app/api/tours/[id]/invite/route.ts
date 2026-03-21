@@ -38,13 +38,14 @@ export async function POST(
     }
 
     // Create notification for the guide
-    const { NotificationService } = await import("@/domain/services/notification.service");
-    await NotificationService.create({
-      userId: guideId,
-      title: "Tour Invitation",
-      message: `You've been invited to apply for tour: ${tour.title}`,
-      type: "TOUR_INVITE",
-      link: `/dashboard/guide/tours/${tourId}`,
+    await prisma.notification.create({
+      data: {
+        userId: guideId,
+        title: "Tour Invitation",
+        message: `You've been invited to apply for tour: ${tour.title}`,
+        type: "TOUR_INVITE",
+        link: `/dashboard/guide/tours/${tourId}`,
+      },
     });
 
     return NextResponse.json({

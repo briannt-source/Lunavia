@@ -78,7 +78,7 @@ export async function processAutoStart(): Promise<{ processed: number; errors: s
                 await logAudit({
                     userId: 'SYSTEM',
                     action: 'AUTO_START_TOUR',
-                    targetType: 'ServiceRequest',
+                    targetType: 'Tour',
                     targetId: tour.id,
                     meta: { tourTitle: tour.title, startedAt: now.toISOString() }
                 });
@@ -123,7 +123,7 @@ export async function processAutoReady(): Promise<{ processed: number; errors: s
 
     try {
         // Find tours approaching start time
-        const toursToReady = await prisma.tour.findMany({
+        const toursToReady = await (prisma as any).tour.findMany({
             where: {
                 status: 'ASSIGNED',
                 startDate: { lte: readyWindow },
@@ -137,7 +137,7 @@ export async function processAutoReady(): Promise<{ processed: number; errors: s
 
         for (const tour of toursToReady) {
             try {
-                await prisma.tour.update({
+                await (prisma as any).tour.update({
                     where: { id: tour.id },
                     data: { status: TOUR_STATUS.READY }
                 });
@@ -220,7 +220,7 @@ export async function processCheckInEscalation(): Promise<{ processed: number; e
                 await logAudit({
                     userId: 'SYSTEM',
                     action: 'CHECKIN_ESCALATED',
-                    targetType: 'ServiceRequest',
+                    targetType: 'Tour',
                     targetId: tour.id,
                     meta: { tourTitle: tour.title }
                 });
@@ -290,7 +290,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
                 );
 
                 // Count recent NO_SHOWs for this guide
-                const recentNoShows = await prisma.trustRecord.count({
+                const recentNoShows = await (prisma as any).trustRecord.count({
                     where: {
                         userId: tour.assignedGuideId!,
                         description: { contains: 'NO_SHOW' },
@@ -312,10 +312,10 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
                     });
 
                     // Create incident for ops review
-                    await prisma.incident.create({
+                    await (prisma as any).tourIncident.create({
                         data: {
-                            requestId: tour.id,
-                            reporterId: 'SYSTEM',
+                            tourId: tour.id,
+                            reportedBy: 'SYSTEM',
                             description: `[NO_SHOW] Guide has ${recentNoShows} NO_SHOWs in the last 30 days. Consider suspension.`,
                             status: 'OPEN',
                             severity: 'HIGH',
@@ -348,7 +348,7 @@ export async function processNoShows(): Promise<{ processed: number; errors: str
                 await logAudit({
                     userId: 'SYSTEM',
                     action: 'GUIDE_NO_SHOW',
-                    targetType: 'ServiceRequest',
+                    targetType: 'Tour',
                     targetId: tour.id,
                     meta: {
                         tourTitle: tour.title,
@@ -380,7 +380,7 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
 
     try {
         // Find IN_PROGRESS tours past auto-close threshold
-        const overdueTours = await prisma.tour.findMany({
+        const overdueTours = await (prisma as any).tour.findMany({
             where: {
                 status: 'IN_PROGRESS',
                 endDate: { lt: autoCloseThreshold },
@@ -425,7 +425,7 @@ export async function processAutoClose(): Promise<{ processed: number; errors: s
                 await logAudit({
                     userId: 'SYSTEM',
                     action: 'AUTO_COMPLETE_TOUR',
-                    targetType: 'ServiceRequest',
+                    targetType: 'Tour',
                     targetId: tour.id,
                     meta: { tourTitle: tour.title, description: 'overdue' }
                 });

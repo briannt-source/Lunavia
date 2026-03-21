@@ -18,7 +18,7 @@ export async function POST(
 
     const { id: emergencyId } = await params;
 
-    const emergency = await prisma.emergency.findUnique({
+    const emergency = await prisma.emergencyReport.findUnique({
       where: { id: emergencyId },
       include: { tour: { select: { operatorId: true, title: true } } },
     });
@@ -28,7 +28,7 @@ export async function POST(
     }
 
     // Update emergency status
-    const updated = await prisma.emergency.update({
+    const updated = await prisma.emergencyReport.update({
       where: { id: emergencyId },
       data: {
         status: "ACKNOWLEDGED",

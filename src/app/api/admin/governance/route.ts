@@ -12,9 +12,9 @@ export async function GET(req: NextRequest) {
 
     const [totalUsers, verifiedUsers, activeDisputes, activeEmergencies] = await Promise.all([
       prisma.user.count(),
-      prisma.user.count({ where: { verificationStatus: "APPROVED" } }),
+      prisma.user.count({ where: { verifiedStatus: "APPROVED" } }),
       prisma.dispute.count({ where: { status: { in: ["PENDING", "IN_REVIEW"] } } }),
-      prisma.emergency.count({ where: { status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { status: "PENDING" } }),
     ]);
 
     return NextResponse.json({ totalUsers, verifiedUsers, activeDisputes, activeEmergencies });

@@ -51,7 +51,7 @@ async function startTour(input: StartTourInput) {
     const startedBy = isOperator ? 'OPERATOR' : 'GUIDE';
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: startedBy,
@@ -60,7 +60,7 @@ async function startTour(input: StartTourInput) {
         auditAfter: () => ({ status: TOUR_STATUS.IN_PROGRESS, startedAt: now.toISOString() }),
         metadata: { tourTitle: request.title, startedBy },
         atomicMutation: async (tx) => {
-            const updated = await tx.serviceRequest.update({
+            const updated = await tx.tour.update({
                 where: { id: tourId },
                 data: { status: TOUR_STATUS.IN_PROGRESS, operatorStartedAt: now },
             });
@@ -131,7 +131,7 @@ async function guideCheckIn(input: GuideCheckInInput) {
     if (now > windowEnd) throw new Error('WINDOW_CLOSED');
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: 'GUIDE',
@@ -140,7 +140,7 @@ async function guideCheckIn(input: GuideCheckInInput) {
         auditAfter: () => ({ status: 'READY', checkedInAt: now.toISOString() }),
         metadata: { tourTitle: tour.title },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: { guideCheckedInAt: now, status: 'READY' },
             });
@@ -203,7 +203,7 @@ async function returnTour(input: ReturnTourInput) {
     const isLateReturn = now > windowEnd;
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: 'GUIDE',
@@ -215,7 +215,7 @@ async function returnTour(input: ReturnTourInput) {
             guestHeadcount: headcount.total > 0 ? headcount : undefined,
         },
         atomicMutation: async (tx) => {
-            const updatedTour = await tx.serviceRequest.update({
+            const updatedTour = await tx.tour.update({
                 where: { id: tourId },
                 data: { guideReturnedAt: now, returnStatus: completionStatus, returnNotes: notes || null, status: 'COMPLETED' },
             });
@@ -272,7 +272,7 @@ async function confirmTour(input: ConfirmTourInput) {
 
     if (action === 'CONFIRM') {
         const result = await executeGovernedMutation({
-            entityName: 'ServiceRequest',
+            entityName: 'Tour',
             entityId: tourId,
             actorId: userId,
             actorRole: 'OPERATOR',
@@ -281,7 +281,7 @@ async function confirmTour(input: ConfirmTourInput) {
             auditAfter: () => ({ status: 'CLOSED', action: 'CONFIRM' }),
             metadata: { tourTitle: tour.title, action: 'CONFIRM' },
             atomicMutation: async (tx) => {
-                return tx.serviceRequest.update({
+                return tx.tour.update({
                     where: { id: tourId },
                     data: { operatorClosedAt: now, closeReason: 'CONFIRMED', closeNotes: notes || null, status: 'CLOSED' },
                 });
@@ -332,7 +332,7 @@ async function confirmTour(input: ConfirmTourInput) {
 
     // REJECT → Create dispute instead of silently closing
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: 'OPERATOR',
@@ -342,7 +342,7 @@ async function confirmTour(input: ConfirmTourInput) {
         metadata: { tourTitle: tour.title, action: 'REJECT', reason },
         atomicMutation: async (tx) => {
             // Set tour to DISPUTED — requires OPS resolution
-            const updated = await tx.serviceRequest.update({
+            const updated = await tx.tour.update({
                 where: { id: tourId },
                 data: { status: 'DISPUTED', closeReason: reason, closeNotes: notes || null },
             });
@@ -396,7 +396,7 @@ async function reopenTour(input: ReopenTourInput) {
     const now = new Date();
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: userRole,
@@ -405,7 +405,7 @@ async function reopenTour(input: ReopenTourInput) {
         auditAfter: () => ({ status: 'REOPENED', reopenedAt: now.toISOString() }),
         metadata: { tourTitle: tour.title, reason, notes, previousCloseReason: tour.closeReason },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: { status: 'REOPENED' },
             });
@@ -480,7 +480,7 @@ async function reassignGuide(input: ReassignGuideInput) {
     if (!isAffiliated) throw new Error('NEW_GUIDE_NOT_AFFILIATED');
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: operatorId,
         actorRole: 'OPERATOR',
@@ -489,7 +489,7 @@ async function reassignGuide(input: ReassignGuideInput) {
         auditAfter: () => ({ assignedGuideId: newGuideId }),
         metadata: { oldGuideId, newGuideId, reason: 'In-house operational reassignment' },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: { assignedGuideId: newGuideId },
             });
@@ -545,7 +545,7 @@ async function cancelTour(input: CancelTourInput) {
     const hasEscrowHeld = tour.escrowStatus === 'HELD' && tour.escrowTransaction;
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: userRole,
@@ -555,7 +555,7 @@ async function cancelTour(input: CancelTourInput) {
         metadata: { reason, explanation, isForceMajeure, isGuideNoShow, tourTitle: tour.title },
         atomicMutation: async (tx) => {
             if (userRole === 'TOUR_OPERATOR') {
-                await tx.serviceRequest.update({
+                await tx.tour.update({
                     where: { id: tourId },
                     data: { status: 'CANCELLED', closeReason: reason, closeNotes: explanation, operatorClosedAt: new Date() },
                 });
@@ -566,7 +566,7 @@ async function cancelTour(input: CancelTourInput) {
                     });
                 }
             } else if (userRole === 'TOUR_GUIDE') {
-                await tx.serviceRequest.update({
+                await tx.tour.update({
                     where: { id: tourId },
                     data: { status: 'OPEN', assignedGuideId: null },
                 });
@@ -656,7 +656,7 @@ async function proposeMutualCancel(input: ProposeMutualCancelInput) {
     const timing = getCancellationTiming(tour.startDate);
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: isOperator ? 'OPERATOR' : 'GUIDE',
@@ -665,7 +665,7 @@ async function proposeMutualCancel(input: ProposeMutualCancelInput) {
         auditAfter: () => ({ status: CANCELLATION_STATUSES.PENDING_MUTUAL_CANCEL, timing }),
         metadata: { timing, reason, initiatorRole: isOperator ? 'OPERATOR' : 'GUIDE' },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: CANCELLATION_STATUSES.PENDING_MUTUAL_CANCEL,
@@ -716,7 +716,7 @@ async function rejectMutualCancel(input: RejectMutualCancelInput) {
     const previousStatus = tour.assignedGuideId ? 'ASSIGNED' : 'PUBLISHED';
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: isOperator ? 'OPERATOR' : 'GUIDE',
@@ -725,7 +725,7 @@ async function rejectMutualCancel(input: RejectMutualCancelInput) {
         auditAfter: () => ({ status: previousStatus }),
         metadata: { restoredStatus: previousStatus },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: previousStatus, cancellationType: null, cancellationTiming: null,
@@ -771,7 +771,7 @@ async function approveGuideWithdrawal(input: ApproveGuideWithdrawalInput) {
     const oldGuideId = tour.assignedGuideId;
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: operatorId,
         actorRole: 'OPERATOR',
@@ -780,7 +780,7 @@ async function approveGuideWithdrawal(input: ApproveGuideWithdrawalInput) {
         auditAfter: () => ({ status: 'OPEN', assignedGuideId: null }),
         metadata: { timing, trustImpact },
         atomicMutation: async (tx) => {
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: 'OPEN',
@@ -859,7 +859,7 @@ async function claimForceCancel(input: ClaimForceCancelInput) {
     const timing = getCancellationTiming(tour.startDate);
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: isOperator ? 'OPERATOR' : 'GUIDE',
@@ -868,7 +868,7 @@ async function claimForceCancel(input: ClaimForceCancelInput) {
         auditAfter: () => ({ status: CANCELLATION_STATUSES.FORCE_CANCEL_PENDING_REVIEW, timing }),
         metadata: { reason, evidenceUrl, timing, claimantRole: isOperator ? 'OPERATOR' : 'GUIDE' },
         atomicMutation: async (tx) => {
-            return tx.serviceRequest.update({
+            return tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: CANCELLATION_STATUSES.FORCE_CANCEL_PENDING_REVIEW,
@@ -946,7 +946,7 @@ async function forceResolveDispute(input: ForceResolveDisputeInput) {
     const adminName = adminUser?.email?.split('@')[0] || 'Admin';
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: adminId,
         actorRole: 'ADMIN',
@@ -956,7 +956,7 @@ async function forceResolveDispute(input: ForceResolveDisputeInput) {
         metadata: { resolution, notes, adminId },
         atomicMutation: async (tx) => {
             // 1. Update Tour Status
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: targetStatus,
@@ -1057,7 +1057,7 @@ async function forceResolveDispute(input: ForceResolveDisputeInput) {
 // CREATE SERVICE REQUEST
 // ══════════════════════════════════════════════════════════════════════
 
-interface CreateServiceRequestInput {
+interface CreateTourInput {
     operatorId: string;
     data: {
         title?: string; description?: string; location?: string; province?: string;
@@ -1068,7 +1068,7 @@ interface CreateServiceRequestInput {
     };
 }
 
-async function createServiceRequest(input: CreateServiceRequestInput) {
+async function createTour(input: CreateTourInput) {
     const { operatorId, data: body } = input;
 
     const request = await prisma.tour.create({
@@ -1105,7 +1105,7 @@ async function createServiceRequest(input: CreateServiceRequestInput) {
 // UPDATE SERVICE REQUEST (Metadata — PATCH)
 // ══════════════════════════════════════════════════════════════════════
 
-interface UpdateServiceRequestInput {
+interface UpdateTourInput {
     tourId: string; userId: string;
     updateData: any;
     changedFields: string[];
@@ -1115,7 +1115,7 @@ interface UpdateServiceRequestInput {
     assignedGuideId: string | null;
 }
 
-async function updateServiceRequest(input: UpdateServiceRequestInput) {
+async function updateTour(input: UpdateTourInput) {
     const { tourId, userId, updateData, changedFields, createChangeNotice, affectedGuideIds, existingTitle, assignedGuideId } = input;
 
     // Change notice notifications (if critical fields changed on published tour)
@@ -1132,7 +1132,7 @@ async function updateServiceRequest(input: UpdateServiceRequestInput) {
 
         const { executeSimpleMutation: execMutation } = await import('@/domain/governance/executeSimpleMutation');
         await execMutation({
-            entityName: 'ServiceRequest',
+            entityName: 'Tour',
             entityId: tourId,
             actorId: userId,
             actorRole: 'OPERATOR',
@@ -1355,8 +1355,8 @@ export const ExecutionDomain = {
     approveGuideWithdrawal,
     claimForceCancel,
     forceResolveDispute,
-    createServiceRequest,
-    updateServiceRequest,
+    createTour,
+    updateTour,
     // Tour Operations Management v2
     assertExecutionAuthority,
     verifyGuideIdentity,

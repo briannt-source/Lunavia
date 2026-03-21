@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   try {
     const admin = await getAdminUserFromSession();
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    const docs = await prisma.verificationDocument.findMany({
+    const docs = await prisma.verification.findMany({
       include: { user: { select: { id: true, name: true, email: true, role: true } } },
       orderBy: { createdAt: "desc" }, take: 100,
     });

@@ -63,7 +63,7 @@ export async function processAutoClose24h(): Promise<{ processed: number; errors
                 await logAudit({
                     userId: 'SYSTEM',
                     action: 'AUTO_CLOSE_TOUR',
-                    targetType: 'ServiceRequest',
+                    targetType: 'Tour',
                     targetId: tour.id,
                     meta: {
                         reason: '24h safety window passed with no signals',
@@ -117,7 +117,7 @@ export async function reopenTour(
     await logAudit({
         userId: actorId,
         action: 'REOPEN_TOUR',
-        targetType: 'ServiceRequest',
+        targetType: 'Tour',
         targetId: tourId,
         meta: { reason }
     });

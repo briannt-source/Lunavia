@@ -137,7 +137,7 @@ async function acceptInvite(params: {
             });
 
             // Assign guide to tour
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: invite.tourId },
                 data: {
                     assignedGuideId: guideId,

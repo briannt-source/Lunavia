@@ -3,7 +3,7 @@ import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour
  * TourHealthDomain — Real-Time Tour Health Score
  *
  * Computes a 0–100 health score from real execution data.
- * No stored field — computed on demand from ServiceRequest,
+ * No stored field — computed on demand from Tour,
  * SegmentCheckIn, and Incident tables.
  *
  * Weights:

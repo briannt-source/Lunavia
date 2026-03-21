@@ -9,7 +9,7 @@ export class ConflictService {
      * Triggers automatic Trust Score deduction.
      */
     static async reportConflict(data: {
-        serviceRequestId: string,
+        tourId: string,
         filedById: string,
         receivedById: string,
         category: string,
@@ -21,12 +21,12 @@ export class ConflictService {
             actorId: data.filedById,
             actorRole: 'USER',
             auditAction: 'CONFLICT_REPORTED',
-            metadata: { category: data.category, serviceRequestId: data.serviceRequestId },
+            metadata: { category: data.category, tourId: data.tourId },
             atomicMutation: async (tx) => {
                 // 1. Create Conflict Record
                 const conflict = await tx.conflict.create({
                     data: {
-                        serviceRequestId: data.serviceRequestId,
+                        tourId: data.tourId,
                         filedById: data.filedById,
                         receivedById: data.receivedById,
                         category: data.category,
@@ -34,7 +34,7 @@ export class ConflictService {
                         evidenceUrl: data.evidenceUrl,
                         status: 'REPORTED'
                     },
-                    include: { serviceRequest: true }
+                    include: { tour: true }
                 });
 
                 // 2. Immediate Trust Deduction
@@ -56,7 +56,7 @@ export class ConflictService {
                             type: 'DISPUTE_FILED',
                             description: `Conflict reported: ${data.category}`,
                             relatedConflictId: conflict.id,
-                            relatedRequestId: data.serviceRequestId
+                            relatedRequestId: data.tourId
                         }
                     });
                 }
@@ -66,8 +66,8 @@ export class ConflictService {
             notification: async () => {
                 // 3. Notify the accused (post-commit, non-critical)
                 const conflict = await prisma.conflict.findFirst({
-                    where: { serviceRequestId: data.serviceRequestId, filedById: data.filedById },
-                    include: { serviceRequest: true },
+                    where: { tourId: data.tourId, filedById: data.filedById },
+                    include: { tour: true },
                     orderBy: { createdAt: 'desc' },
                 });
 
@@ -78,7 +78,7 @@ export class ConflictService {
                         targetUrl: `/dashboard/admin/incidents`,
                         type: 'CONFLICT_REPORTED',
                         title: 'New Conflict Reported',
-                        message: `A conflict has been filed against you regarding tour ${conflict.serviceRequest.title}. Your trust score has been impacted.`,
+                        message: `A conflict has been filed against you regarding tour ${conflict.tour.title}. Your trust score has been impacted.`,
                         relatedId: conflict.id,
                     });
                 }

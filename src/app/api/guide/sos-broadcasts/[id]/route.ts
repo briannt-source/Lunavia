@@ -13,7 +13,7 @@ export async function GET(
     const { id } = await params;
 
     const { prisma } = await import("@/lib/prisma");
-    const emergency = await prisma.emergency.findUnique({
+    const emergency = await prisma.emergencyReport.findUnique({
       where: { id },
       include: { tour: { select: { id: true, title: true, city: true, operatorId: true } } },
     });

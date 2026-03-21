@@ -4,8 +4,8 @@ import { authOptions } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 
 /**
- * GET /api/alerts — List alerts
- * POST /api/alerts — Create alert
+ * GET /api/alerts — List alerts (uses Notification model as alert system)
+ * POST /api/alerts — Create alert notification
  */
 export async function GET(req: NextRequest) {
   try {
@@ -15,10 +15,14 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const status = searchParams.get("status") || "OPEN";
+    const unreadOnly = searchParams.get("status") === "unread";
 
-    const alerts = await prisma.operationalAlert.findMany({
-      where: status === "all" ? {} : { status },
+    const alerts = await prisma.notification.findMany({
+      where: {
+        userId: session.user.id,
+        type: { startsWith: "ALERT" },
+        ...(unreadOnly ? { read: false } : {}),
+      },
       orderBy: { createdAt: "desc" },
       take: 50,
     });
@@ -39,13 +43,12 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const alert = await prisma.operationalAlert.create({
+    const alert = await prisma.notification.create({
       data: {
-        type: body.type || "INFO",
+        userId: session.user.id,
+        type: `ALERT_${body.type || "INFO"}`,
         title: body.title || "Alert",
         message: body.message || "",
-        status: "OPEN",
-        severity: body.severity || "LOW",
       },
     });
 

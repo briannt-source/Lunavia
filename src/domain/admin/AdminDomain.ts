@@ -33,7 +33,7 @@ export const ENTITY_DOMAIN_MAP = {
     WalletTransaction: AdminDomain.PAYMENTS,
     Incident: AdminDomain.INCIDENTS,
     SOSRequest: AdminDomain.INCIDENTS,
-    ServiceRequest_FORCE_CANCEL: AdminDomain.CANCELLATION,
+    Tour_FORCE_CANCEL: AdminDomain.CANCELLATION,
     UserRoleChange: AdminDomain.GOVERNANCE,
     SystemConfig: AdminDomain.SYSTEM,
 } as const;

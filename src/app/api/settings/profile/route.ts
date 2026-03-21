@@ -23,10 +23,10 @@ export async function PUT(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = await req.json();
-    const updated = await prisma.userProfile.upsert({
+    const updated = await prisma.profile.upsert({
       where: { userId: session.user.id },
       update: { ...body },
-      create: { userId: session.user.id, fullName: body.fullName || "", ...body },
+      create: { userId: session.user.id, name: body.name || "", ...body },
     });
     return NextResponse.json(updated);
   } catch (error: any) {

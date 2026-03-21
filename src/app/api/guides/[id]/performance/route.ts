@@ -174,7 +174,7 @@ export async function GET(
         const performanceCard = {
             guide: {
                 id: guide.id,
-                name: guide.profile?.fullName || guide.name || guide.email,
+                name: guide.profile?.name || guide.name || guide.email,
                 avatar: (guide.profile as any)?.avatar || null,
                 about: (guide.profile as any)?.about || null,
                 plan: (guide as any).plan || "FREE",

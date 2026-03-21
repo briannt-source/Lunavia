@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
       prisma.user.count({ where: { createdAt: { gte: since } } }),
       prisma.tour.count({ where: { createdAt: { gte: since } } }),
       prisma.dispute.count({ where: { createdAt: { gte: since } } }),
-      prisma.emergency.count({ where: { createdAt: { gte: since } } }),
+      prisma.emergencyReport.count({ where: { createdAt: { gte: since } } }),
     ]);
 
     return NextResponse.json({ range, since, newUsers, newTours, disputes, emergencies });

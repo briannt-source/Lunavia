@@ -13,9 +13,9 @@ export async function GET(req: NextRequest) {
       prisma.user.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
       prisma.tour.count({ where: { status: "IN_PROGRESS" } }),
       prisma.tour.count({ where: { status: "COMPLETED" } }),
-      prisma.transaction.aggregate({ where: { type: "EARNING" }, _sum: { amount: true } }),
+      prisma.walletTransaction.aggregate({ where: { type: "CREDIT" }, _sum: { amount: true } }),
     ]);
-    return NextResponse.json({ totalUsers, newUsers, activeTours, completedTours, totalRevenue: totalRevenue._sum.amount || 0 });
+    return NextResponse.json({ totalUsers, newUsers, activeTours, completedTours, totalRevenue: totalRevenue?._sum?.amount || 0 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Internal server error" }, { status: 500 });
   }

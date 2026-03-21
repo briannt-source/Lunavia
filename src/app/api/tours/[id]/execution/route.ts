@@ -67,20 +67,20 @@ export async function GET(
       pax: tour.pax,
       operator: {
         id: tour.operator.id,
-        name: tour.operator.profile?.fullName || tour.operator.name,
+        name: tour.operator.profile?.name || tour.operator.name,
         avatar: tour.operator.profile?.avatarUrl || tour.operator.image,
       },
       guides: [
         ...tour.applications.map((a) => ({
           id: a.guide.id,
-          name: a.guide.profile?.fullName || a.guide.name,
+          name: a.guide.profile?.name || a.guide.name,
           avatar: a.guide.profile?.avatarUrl || a.guide.image,
           role: a.role,
           source: "application",
         })),
         ...tour.assignments.map((a) => ({
           id: a.guide.id,
-          name: a.guide.profile?.fullName || a.guide.name,
+          name: a.guide.profile?.name || a.guide.name,
           avatar: a.guide.profile?.avatarUrl || a.guide.image,
           role: a.role,
           source: "assignment",

@@ -70,7 +70,7 @@ async function runDetection(): Promise<{ created: number; scanned: number }> {
     const thirtyMinAgo = new Date(now.getTime() - 30 * 60 * 1000);
 
     // Fetch active tours with related data
-    const activeTours = await (prisma as any).serviceRequest.findMany({
+    const activeTours = await (prisma as any).tour.findMany({
         where: {
             status: { in: ['ASSIGNED', 'IN_PROGRESS'] },
             startDate: { lt: now }, // Only tours that should have started

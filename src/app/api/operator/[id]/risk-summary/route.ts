@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     const { id: operatorId } = await params;
     const { prisma } = await import("@/lib/prisma");
     const [emergencies, disputes] = await Promise.all([
-      prisma.emergency.count({ where: { tour: { operatorId }, status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { tour: { operatorId }, status: "PENDING" } }),
       prisma.dispute.count({ where: { tour: { operatorId }, status: { in: ["PENDING", "IN_REVIEW"] } } }),
     ]);
     return NextResponse.json({ operatorId, emergencies, disputes, riskLevel: emergencies > 0 ? "HIGH" : disputes > 0 ? "MEDIUM" : "LOW" });

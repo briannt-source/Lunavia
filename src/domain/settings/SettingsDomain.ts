@@ -151,12 +151,12 @@ async function demoReset(input: DemoResetInput) {
             const results: string[] = [];
 
             if (action === 'tours' || action === 'all') {
-                await tx.serviceRequest.updateMany({
+                await tx.tour.updateMany({
                     where: { id: { startsWith: 'demo-tour-' } },
                     data: { status: 'PUBLISHED' },
                 });
-                await tx.serviceRequest.update({ where: { id: 'demo-tour-in-progress' }, data: { status: 'IN_PROGRESS' } }).catch(() => { });
-                await tx.serviceRequest.update({ where: { id: 'demo-tour-upcoming-1' }, data: { status: 'ASSIGNED' } }).catch(() => { });
+                await tx.tour.update({ where: { id: 'demo-tour-in-progress' }, data: { status: 'IN_PROGRESS' } }).catch(() => { });
+                await tx.tour.update({ where: { id: 'demo-tour-upcoming-1' }, data: { status: 'ASSIGNED' } }).catch(() => { });
                 results.push('Demo tours reset');
             }
 

@@ -11,40 +11,26 @@ export class PrismaVerificationRepository {
   async save(submission: VerificationSubmission): Promise<void> {
     const { id, userId, type, status, data, submittedAt, reviewedAt, rejectReason } = submission;
 
-    // Check if exists to upsert or create
-    // Since ID is UUID, we can just upsert or create. 
-    // Domain model relies on unique userId for one active submission usually, 
-    // but the schema says userId is unique per submission (one-to-one for now?). 
-    // Schema: userId @unique. So one submission per user.
-
-    await this.prisma.verificationSubmission.upsert({
+    // Verification model uses userId (unique per user)
+    await (this.prisma as any).verification.upsert({
       where: { userId },
       update: {
-        type,
         status,
-        documentMeta: JSON.stringify(data),
-        submittedAt,
-        reviewedAt,
-        rejectReason
+        documents: data ? Object.values(data).filter(Boolean) as string[] : [],
+        rejectionReason: rejectReason || null,
       },
       create: {
         id,
         userId,
-        type,
         status,
-        documentMeta: JSON.stringify(data),
-        submittedAt,
-        reviewedAt,
-        rejectReason
+        documents: data ? Object.values(data).filter(Boolean) as string[] : [],
+        rejectionReason: rejectReason || null,
       }
     });
-
-    // Also update User status flags if needed by MSC, but normally that's a domain event handler.
-    // For now, we strictly persist the submission.
   }
 
   async findByUserId(userId: string): Promise<VerificationSubmission | null> {
-    const record = await this.prisma.verificationSubmission.findUnique({
+    const record = await this.prisma.verification.findFirst({
       where: { userId }
     });
 
@@ -53,35 +39,35 @@ export class PrismaVerificationRepository {
     return {
       id: record.id,
       userId: record.userId,
-      type: record.type,
+      type: 'KYC',
       status: record.status as VerificationStatus,
-      data: record.documentMeta ? JSON.parse(record.documentMeta) : {},
-      submittedAt: record.submittedAt,
-      reviewedAt: record.reviewedAt,
-      rejectReason: record.rejectReason
+      data: {},
+      submittedAt: record.createdAt,
+      reviewedAt: record.updatedAt,
+      rejectReason: record.rejectionReason
     };
   }
 
   async findAllPending(): Promise<VerificationSubmission[]> {
-    const records = await this.prisma.verificationSubmission.findMany({
+    const records = await this.prisma.verification.findMany({
       where: { status: 'PENDING' },
-      orderBy: { submittedAt: 'asc' }
+      orderBy: { createdAt: 'asc' }
     });
 
     return records.map(record => ({
       id: record.id,
       userId: record.userId,
-      type: record.type,
+      type: 'KYC',
       status: record.status as VerificationStatus,
-      data: record.documentMeta ? JSON.parse(record.documentMeta) : {},
-      submittedAt: record.submittedAt,
-      reviewedAt: record.reviewedAt,
-      rejectReason: record.rejectReason
+      data: {},
+      submittedAt: record.createdAt,
+      reviewedAt: record.updatedAt,
+      rejectReason: record.rejectionReason
     }));
   }
 
   async findById(id: string): Promise<VerificationSubmission | null> {
-    const record = await this.prisma.verificationSubmission.findUnique({
+    const record = await this.prisma.verification.findUnique({
       where: { id }
     });
 
@@ -90,42 +76,40 @@ export class PrismaVerificationRepository {
     return {
       id: record.id,
       userId: record.userId,
-      type: record.type,
+      type: 'KYC',
       status: record.status as VerificationStatus,
-      data: record.documentMeta ? JSON.parse(record.documentMeta) : {},
-      submittedAt: record.submittedAt,
-      reviewedAt: record.reviewedAt,
-      rejectReason: record.rejectReason
+      data: {},
+      submittedAt: record.createdAt,
+      reviewedAt: record.updatedAt,
+      rejectReason: record.rejectionReason
     };
   }
 
-  async updateStatus(id: string, status: VerificationStatus, updates?: { rejectReason?: string, reviewNotes?: string }): Promise<void> {
-    await this.prisma.verificationSubmission.update({
+  async updateStatus(id: string, status: VerificationStatus, updates?: { rejectReason?: string }): Promise<void> {
+    await this.prisma.verification.update({
       where: { id },
       data: {
         status,
-        reviewedAt: new Date(),
-        ...updates
+        ...(updates?.rejectReason && { rejectionReason: updates.rejectReason }),
       }
     });
   }
 
   async rejectSubmission(id: string, reason: string, adminId?: string): Promise<void> {
-    const submission = await this.prisma.verificationSubmission.findUnique({ where: { id } });
-    if (!submission) throw new Error("Submission not found");
+    const verification = await this.prisma.verification.findUnique({ where: { id } });
+    if (!verification) throw new Error("Verification not found");
 
     await this.prisma.$transaction([
-      this.prisma.verificationSubmission.update({
+      this.prisma.verification.update({
         where: { id },
         data: {
           status: 'REJECTED',
-          reviewedAt: new Date(),
-          rejectReason: reason,
+          rejectionReason: reason,
         },
       }),
       this.prisma.user.update({
-        where: { id: submission.userId },
-        data: { verificationStatus: 'REJECTED' },
+        where: { id: verification.userId },
+        data: { verifiedStatus: 'REJECTED' },
       }),
     ]);
   }

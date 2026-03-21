@@ -56,7 +56,7 @@ export async function assertEscrowHoldIntegrity(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -157,7 +157,7 @@ export async function assertEscrowReleaseIntegrity(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -369,7 +369,7 @@ export async function assertCommissionIntegrity(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,

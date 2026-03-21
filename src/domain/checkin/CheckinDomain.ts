@@ -162,7 +162,7 @@ async function logAssignSideEffects(input: LogAssignInput) {
     const { createTourEvent, TOUR_EVENT_TYPES, ACTOR_ROLES } = await import('@/lib/tour-events');
 
     return executeSimpleMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: input.tourId,
         actorId: input.actorId,
         actorRole: 'OPERATOR',
@@ -202,7 +202,7 @@ interface LogDocumentUploadInput {
 
 async function logDocumentUpload(input: LogDocumentUploadInput) {
     return executeSimpleMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: input.tourId,
         actorId: input.actorId,
         actorRole: input.actorRole,

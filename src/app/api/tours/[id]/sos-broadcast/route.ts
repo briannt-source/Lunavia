@@ -19,13 +19,14 @@ export async function POST(
     const { id: tourId } = await params;
     const body = await req.json().catch(() => ({}));
 
-    const emergency = await prisma.emergency.create({
+    const emergency = await prisma.emergencyReport.create({
       data: {
         tourId,
-        type: "SOS_BROADCAST",
+        type: "SOS",
         description: body.description || body.message || "SOS broadcast from tour",
-        status: "ACTIVE",
-        reportedBy: session.user.id,
+        severity: "CRITICAL",
+        status: "PENDING",
+        guideId: session.user.id,
       },
     });
 

@@ -8,7 +8,7 @@
 // for marketplace ranking (how guides see operators).
 // ══════════════════════════════════════════════════════════════════════
 
-import type { ServiceRequest, User, TrustEvent } from '@prisma/client';
+import type { Tour, User, TrustEvent } from '@prisma/client';
 
 export interface MatchingScoreBreakdown {
     trust: number;
@@ -34,7 +34,7 @@ export interface MatchingResult {
  */
 export function calculateMatchingScore(
     guide: User & { trustEvents?: TrustEvent[] },
-    tour: ServiceRequest,
+    tour: Tour,
     trustScore: number,
     completedTourCount: number
 ): MatchingResult {

@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
       prisma.tour.count({ where: { operatorId: session.user.id, status: "IN_PROGRESS" } }),
       prisma.application.count({ where: { tour: { operatorId: session.user.id }, status: "PENDING" } }),
       prisma.application.count({ where: { tour: { operatorId: session.user.id }, status: "ACCEPTED" } }),
-      prisma.emergency.count({ where: { tour: { operatorId: session.user.id }, status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { tour: { operatorId: session.user.id }, status: "PENDING" } }),
     ]);
 
     return NextResponse.json({

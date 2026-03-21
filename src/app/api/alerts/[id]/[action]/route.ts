@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 
 /**
- * POST /api/alerts/:id/:action — Acknowledge or resolve an alert
+ * POST /api/alerts/:id/:action — Acknowledge or resolve an alert notification
  */
 export async function POST(
   req: NextRequest,
@@ -22,17 +22,12 @@ export async function POST(
       return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }
 
-    const statusMap: Record<string, string> = {
-      acknowledge: "ACKNOWLEDGED",
-      resolve: "RESOLVED",
-      dismiss: "DISMISSED",
-    };
-
-    const updated = await prisma.operationalAlert.update({
+    // Mark notification as read for acknowledge/resolve/dismiss
+    const updated = await prisma.notification.update({
       where: { id: alertId },
       data: {
-        status: statusMap[action],
-        resolvedAt: action === "resolve" ? new Date() : undefined,
+        read: true,
+        readAt: new Date(),
       },
     });
 

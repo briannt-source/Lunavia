@@ -11,10 +11,10 @@ export async function GET(req: NextRequest) {
       prisma.user.count(),
       prisma.tour.count(),
       prisma.dispute.count({ where: { status: { in: ["PENDING", "IN_REVIEW"] } } }),
-      prisma.emergency.count({ where: { status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { status: "PENDING" } }),
       prisma.topUpRequest.count({ where: { status: "PENDING" } }),
       prisma.withdrawalRequest.count({ where: { status: "PENDING" } }),
-      prisma.verificationDocument.count({ where: { status: "PENDING" } }),
+      prisma.verification.count({ where: { status: "PENDING" } }),
     ]);
     return NextResponse.json({ users, tours, disputes, emergencies, topups, withdrawals, verifications });
   } catch (error: any) {

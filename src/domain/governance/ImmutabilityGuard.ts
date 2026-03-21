@@ -114,27 +114,27 @@ export async function assertCanDeleteUser(
 }
 
 /**
- * Assert that a ServiceRequest cannot be hard-deleted if execution data exists.
+ * Assert that a Tour cannot be hard-deleted if execution data exists.
  */
-export async function assertCanDeleteServiceRequest(
+export async function assertCanDeleteTour(
     tx: any,
     requestId: string,
 ): Promise<void> {
     const segmentCount = await tx.tourSegment.count({ where: { tourId: requestId } });
     if (segmentCount > 0) {
         throw new Error(
-            `DELETION_BLOCKED: ServiceRequest ${requestId} has ${segmentCount} segments. ` +
+            `DELETION_BLOCKED: Tour ${requestId} has ${segmentCount} segments. ` +
             `Cannot delete tours with execution history.`
         );
     }
 
-    const request = await tx.serviceRequest.findUnique({
+    const request = await tx.tour.findUnique({
         where: { id: requestId },
         select: { status: true },
     });
     if (request && ['IN_PROGRESS', 'COMPLETED'].includes(request.status)) {
         throw new Error(
-            `DELETION_BLOCKED: ServiceRequest ${requestId} has status ${request.status}. ` +
+            `DELETION_BLOCKED: Tour ${requestId} has status ${request.status}. ` +
             `Cannot delete in-progress or completed tours.`
         );
     }

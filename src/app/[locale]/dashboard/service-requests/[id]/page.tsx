@@ -10,7 +10,7 @@ import { PrismaUserTrustRepo } from '@/infrastructure/repositories/PrismaUserTru
 
 export const metadata = { title: 'Tour Details — Lunavia' };
 
-export default async function ServiceRequestParamsPage({
+export default async function TourDetailParamsPage({
     params
 }: {
     params: { id: string };
@@ -22,7 +22,7 @@ export default async function ServiceRequestParamsPage({
     const userId = user.id;
     const userRole = user.role;
 
-    // Fetch Tour (renamed from serviceRequest)
+    // Fetch Tour (renamed from Tour)
     const request = await prisma.tour.findUnique({
         where: { id: params.id },
         include: {

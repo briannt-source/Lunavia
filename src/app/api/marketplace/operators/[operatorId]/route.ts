@@ -36,13 +36,13 @@ export async function GET(
 
     return NextResponse.json({
       id: operator.id,
-      name: operator.profile?.fullName || operator.name || "Operator",
+      name: operator.profile?.name || operator.name || "Operator",
       avatar: operator.profile?.avatarUrl || operator.image,
       about: operator.profile?.about || "",
       city: operator.profile?.city || "",
       trustScore: operator.trustScore,
       totalTours: operator._count?.operatorTours || 0,
-      verificationStatus: operator.verificationStatus,
+      verifiedStatus: operator.verifiedStatus,
       recentTours: operator.operatorTours,
       joinedAt: operator.createdAt,
     });

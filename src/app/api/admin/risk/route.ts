@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const admin = await getAdminUserFromSession();
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     const [emergencies, disputes, lowTrustUsers] = await Promise.all([
-      prisma.emergency.count({ where: { status: "ACTIVE" } }),
+      prisma.emergencyReport.count({ where: { status: "PENDING" } }),
       prisma.dispute.count({ where: { status: { in: ["PENDING", "IN_REVIEW"] } } }),
       prisma.user.count({ where: { trustScore: { lt: 30 } } }),
     ]);

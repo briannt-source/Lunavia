@@ -18,13 +18,13 @@ export async function GET(req: NextRequest) {
 
     const where: any = {
       role: "TOUR_GUIDE",
-      verificationStatus: "APPROVED",
+      verifiedStatus: "APPROVED",
       isActive: true,
     };
 
     if (search) {
       where.OR = [
-        { profile: { fullName: { contains: search, mode: "insensitive" } } },
+        { profile: { name: { contains: search, mode: "insensitive" } } },
         { profile: { about: { contains: search, mode: "insensitive" } } },
       ];
     }
@@ -74,16 +74,16 @@ export async function GET(req: NextRequest) {
 
     const sanitized = guides.map((g) => ({
       id: g.id,
-      name: g.profile?.fullName || g.name || "Guide",
+      name: g.profile?.name || g.name || "Guide",
       avatar: g.profile?.avatarUrl || g.image,
       about: g.profile?.about || "",
       languages: g.profile?.languages || [],
-      skills: g.profile?.skills || [],
+      specialties: g.profile?.specialties || [],
       city: g.profile?.city || "",
       experienceYears: g.profile?.experienceYears || 0,
       trustScore: g.trustScore,
       completedTours: (g._count?.guideApplications || 0) + (g._count?.guideAssignments || 0),
-      verificationStatus: g.verificationStatus,
+      verifiedStatus: g.verifiedStatus,
     }));
 
     return NextResponse.json({

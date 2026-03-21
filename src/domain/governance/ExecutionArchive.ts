@@ -108,7 +108,7 @@ export async function createExecutionArchive(tourId: string): Promise<{
             userId: 'SYSTEM',
             actorRole: 'SYSTEM',
             action: 'EXECUTION_ARCHIVE_CREATED',
-            entityType: 'ServiceRequest',
+            entityType: 'Tour',
             entityId: tourId,
             beforeState: undefined,
             afterState: snapshot as any,
@@ -137,7 +137,7 @@ export async function verifyExecutionArchive(tourId: string): Promise<{
     const archive = await prisma.auditLog.findFirst({
         where: {
             action: 'EXECUTION_ARCHIVE_CREATED',
-            entityType: 'ServiceRequest',
+            entityType: 'Tour',
             entityId: tourId,
         },
         orderBy: { createdAt: 'desc' },

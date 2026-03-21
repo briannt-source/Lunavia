@@ -30,7 +30,6 @@ import {
     Settings,
     Bell,
     MessageCircle,
-    CreditCard,
     FileText as FileTextIcon,
 } from 'lucide-react';
 
@@ -85,9 +84,6 @@ export default function OperatorSidebar() {
                     </NavItem>
                     <NavItem href="/dashboard/operator/payments" icon={Receipt} active={isActive('/dashboard/operator/payments')}>
                         {t('links.payments')}
-                    </NavItem>
-                    <NavItem href="/dashboard/payment-methods" icon={CreditCard} active={isActive('/dashboard/payment-methods')}>
-                        {t('links.paymentMethods')}
                     </NavItem>
                 </NavSection>
             )}

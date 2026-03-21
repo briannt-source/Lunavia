@@ -258,7 +258,7 @@ async function logReconciliationAudit(input: ReconciliationAuditInput) {
 
 async function sendDocumentReminder(operatorId: string, tourId: string, tourTitle: string) {
     return executeSimpleMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: 'SYSTEM',
         actorRole: 'SYSTEM',
@@ -283,7 +283,7 @@ async function sendDocumentReminder(operatorId: string, tourId: string, tourTitl
 
 async function notifyGuideApplication(operatorId: string, tourId: string, tourTitle: string) {
     return executeSimpleMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: 'SYSTEM',
         actorRole: 'SYSTEM',

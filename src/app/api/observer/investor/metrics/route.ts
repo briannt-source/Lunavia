@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const [users, tours, revenue] = await Promise.all([
       prisma.user.count(),
       prisma.tour.count(),
-      prisma.transaction.aggregate({ _sum: { amount: true } }),
+      prisma.walletTransaction.aggregate({ _sum: { amount: true } }),
     ]);
     return NextResponse.json({ totalUsers: users, totalTours: tours, totalRevenue: revenue._sum.amount || 0, currency: "VND" });
   } catch (error: any) {

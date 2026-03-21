@@ -54,7 +54,7 @@ export async function assertCanHoldEscrow(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -109,7 +109,7 @@ export async function assertCanHoldEscrow(
  * Assert that escrow can be released for this tour.
  *
  * Allowed only if:
- * - serviceRequest.status in ['COMPLETED', 'CLOSED']
+ * - tour.status in ['COMPLETED', 'CLOSED']
  * - escrowStatus === 'HELD'
  * - settlementType === 'ESCROW'
  * - No open (unresolved) Conflicts exist
@@ -118,7 +118,7 @@ export async function assertCanReleaseEscrow(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -163,7 +163,7 @@ export async function assertCanReleaseEscrow(
     // Check for unresolved conflicts
     const openConflicts = await (tx as any).conflict.count({
         where: {
-            serviceRequestId: tourId,
+            tourId: tourId,
             status: { not: 'RESOLVED' },
         },
     });
@@ -185,14 +185,14 @@ export async function assertCanReleaseEscrow(
  * Assert that escrow can be refunded for this tour.
  *
  * Allowed only if:
- * - serviceRequest.status in ['CANCELLED', 'FORCE_CANCELLED']
+ * - tour.status in ['CANCELLED', 'FORCE_CANCELLED']
  * - escrowStatus === 'HELD'
  */
 export async function assertCanRefundEscrow(
     tx: TxClient,
     tourId: string,
 ): Promise<void> {
-    const tour = await (tx as any).serviceRequest.findUnique({
+    const tour = await (tx as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -268,7 +268,7 @@ export async function assertCanApproveWithdraw(
     }
 
     // Check for any HELD escrows belonging to this operator
-    const heldEscrows = await (tx as any).serviceRequest.count({
+    const heldEscrows = await (tx as any).tour.count({
         where: {
             operatorId: wallet.operatorId,
             escrowStatus: 'HELD',

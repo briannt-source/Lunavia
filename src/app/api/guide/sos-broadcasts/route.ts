@@ -15,9 +15,9 @@ export async function GET(req: NextRequest) {
     }
 
     // Find active SOS broadcasts for tours in the guide's area
-    const broadcasts = await prisma.emergency.findMany({
+    const broadcasts = await prisma.emergencyReport.findMany({
       where: {
-        status: { in: ["ACTIVE", "PENDING"] },
+        status: { in: ["PENDING", "ACKNOWLEDGED", "IN_PROGRESS"] },
         tour: {
           OR: [
             { applications: { some: { guideId: session.user.id, status: "ACCEPTED" } } },
@@ -55,15 +55,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "tourId is required" }, { status: 400 });
     }
 
-    const emergency = await prisma.emergency.create({
+    const emergency = await prisma.emergencyReport.create({
       data: {
         tourId,
         type: type || "SOS",
         description: description || "SOS broadcast initiated by guide",
-        status: "ACTIVE",
+        severity: "CRITICAL",
+        status: "PENDING",
         latitude: latitude ? parseFloat(latitude) : null,
         longitude: longitude ? parseFloat(longitude) : null,
-        reportedBy: session.user.id,
+        guideId: session.user.id,
       },
     });
 
@@ -74,13 +75,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (tour) {
-      const { NotificationService } = await import("@/domain/services/notification.service");
-      await NotificationService.create({
-        userId: tour.operatorId,
-        title: "🚨 SOS Alert",
-        message: `SOS triggered for tour: ${tour.title}`,
-        type: "SOS",
-        link: `/dashboard/operator/tours/${tourId}/live`,
+      await prisma.notification.create({
+        data: {
+          userId: tour.operatorId,
+          title: "🚨 SOS Alert",
+          message: `SOS triggered for tour: ${tour.title}`,
+          type: "SOS",
+          link: `/dashboard/operator/tours/${tourId}/live`,
+        },
       });
     }
 

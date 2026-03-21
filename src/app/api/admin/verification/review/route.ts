@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     const body = await req.json();
     const { prisma } = await import("@/lib/prisma");
-    const updated = await prisma.verificationDocument.update({
+    const updated = await prisma.verification.update({
       where: { id: body.documentId },
       data: { status: body.action === "approve" ? "APPROVED" : "REJECTED", reviewedBy: admin.id, reviewedAt: new Date() },
     });

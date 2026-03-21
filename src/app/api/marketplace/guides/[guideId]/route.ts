@@ -57,16 +57,16 @@ export async function GET(
 
     return NextResponse.json({
       id: guide.id,
-      name: guide.profile?.fullName || guide.name || "Guide",
+      name: guide.profile?.name || guide.name || "Guide",
       avatar: guide.profile?.avatarUrl || guide.image,
       about: guide.profile?.about || "",
       languages: guide.profile?.languages || [],
-      skills: guide.profile?.skills || [],
+      specialties: guide.profile?.specialties || [],
       city: guide.profile?.city || "",
       experienceYears: guide.profile?.experienceYears || 0,
       trustScore: guide.trustScore,
       completedTours: (guide._count?.guideApplications || 0) + (guide._count?.guideAssignments || 0),
-      verificationStatus: guide.verificationStatus,
+      verifiedStatus: guide.verifiedStatus,
       recentTours: pastTours.slice(0, 10),
       joinedAt: guide.createdAt,
     });

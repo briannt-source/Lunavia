@@ -10,8 +10,8 @@ export async function GET(req: NextRequest) {
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const wallet = await prisma.wallet.findUnique({ where: { userId: session.user.id } });
-    const recentTx = wallet ? await prisma.transaction.findMany({
-      where: { walletId: wallet.id, type: { in: ["EARNING", "PAYMENT", "GUIDE_PAYMENT"] } },
+    const recentTx = wallet ? await prisma.walletTransaction.findMany({
+      where: { walletId: wallet.id, type: "CREDIT" },
       orderBy: { createdAt: "desc" }, take: 20,
     }) : [];
 

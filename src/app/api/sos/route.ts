@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
+import { prisma } from "@/lib/prisma";
 
-/** GET /api/sos — Get SOS status */
+/** GET /api/sos — Get active SOS reports */
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const { prisma } = await import("@/lib/prisma");
-    const active = await prisma.emergency.findMany({
-      where: { reportedBy: session.user.id, status: "ACTIVE" },
+    const active = await prisma.emergencyReport.findMany({
+      where: { guideId: session.user.id, status: { in: ["PENDING", "ACKNOWLEDGED", "IN_PROGRESS"] } },
       include: { tour: { select: { id: true, title: true } } },
       orderBy: { createdAt: "desc" },
     });
@@ -25,14 +25,14 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = await req.json();
-    const { prisma } = await import("@/lib/prisma");
-    const emergency = await prisma.emergency.create({
+    const emergency = await prisma.emergencyReport.create({
       data: {
         tourId: body.tourId,
+        guideId: session.user.id,
         type: "SOS",
         description: body.description || "Emergency SOS triggered",
-        status: "ACTIVE",
-        reportedBy: session.user.id,
+        severity: "CRITICAL",
+        status: "PENDING",
       },
     });
     return NextResponse.json(emergency, { status: 201 });

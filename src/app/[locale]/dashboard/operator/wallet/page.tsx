@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Link } from '@/navigation';
 import toast from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
+import SavedPaymentMethods from '@/components/wallet/SavedPaymentMethods';
 
 interface WalletData {
     id: string;
@@ -547,6 +548,16 @@ export default function OperatorWalletPage() {
                     )}
                 </div>
             </div>
+
+            {/* Saved Payment Methods */}
+            <SavedPaymentMethods
+                onSelectForWithdraw={(method) => {
+                    setWithdrawBankName(method.bankName);
+                    setWithdrawAccountNumber(method.accountNumber);
+                    setWithdrawAccountName(method.accountName);
+                    setShowWithdraw(true);
+                }}
+            />
 
             {/* Transaction History */}
             <div className="rounded-xl border border-gray-200 bg-white shadow-sm">

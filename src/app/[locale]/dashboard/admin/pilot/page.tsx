@@ -18,7 +18,7 @@ export default async function SystemHealthDashboard() {
     const now = new Date();
     const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    // Use correct models: Tour instead of serviceRequest
+    // Use correct models: Tour instead of tour
     const [
         totalTours,
         statusCounts,

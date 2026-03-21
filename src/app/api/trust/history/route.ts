@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
       where: { id: session.user.id },
       select: { trustScore: true, createdAt: true },
     });
-    const events = await prisma.trustEvent.findMany({
+    const events = await prisma.trustRecord.findMany({
       where: { userId: session.user.id },
       orderBy: { createdAt: "desc" },
       take: 50,

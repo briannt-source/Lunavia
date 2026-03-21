@@ -20,6 +20,17 @@ export async function GET(req: NextRequest) {
         const search = searchParams.get("search");
         const region = searchParams.get("region");
 
+        // "Others" free-text country — no predefined cities, UI shows text input
+        if (country === "OTHER") {
+            return NextResponse.json({
+                country: "OTHER",
+                cities: [],
+                grouped: {},
+                total: 0,
+                freeText: true,
+            });
+        }
+
         // Try DB first
         const where: any = { country };
         if (region) where.region = region;

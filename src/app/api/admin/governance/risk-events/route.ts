@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const admin = await getAdminUserFromSession();
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-    const riskEvents = await prisma.emergency.findMany({
+    const riskEvents = await prisma.emergencyReport.findMany({
       include: { tour: { select: { id: true, title: true, city: true } } },
       orderBy: { createdAt: "desc" },
       take: 50,

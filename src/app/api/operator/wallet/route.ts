@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ balance: 0, currency: "VND", transactions: [] });
     }
 
-    const recentTransactions = await prisma.transaction.findMany({
+    const recentTransactions = await prisma.walletTransaction.findMany({
       where: { walletId: wallet.id },
       orderBy: { createdAt: "desc" },
       take: 10,

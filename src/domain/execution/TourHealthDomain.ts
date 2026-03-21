@@ -49,7 +49,7 @@ async function calculateTourHealth(tourId: string): Promise<{
     color: string;
     reasons: string[];
 }> {
-    const tour = await (prisma as any).serviceRequest.findUnique({
+    const tour = await (prisma as any).tour.findUnique({
         where: { id: tourId },
         select: {
             id: true,
@@ -135,7 +135,7 @@ async function calculateTourHealth(tourId: string): Promise<{
     }
 
     // Persist the calculated health
-    await (prisma as any).serviceRequest.update({
+    await (prisma as any).tour.update({
         where: { id: tourId },
         data: { tourHealth: health },
     });
@@ -155,7 +155,7 @@ async function getOperatorHealthSummary(operatorId: string) {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const tours = await (prisma as any).serviceRequest.findMany({
+    const tours = await (prisma as any).tour.findMany({
         where: {
             operatorId,
             startDate: { gte: today, lt: tomorrow },

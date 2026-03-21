@@ -3,7 +3,7 @@ import { findTourCompat, enrichTourCompat, getAssignedGuideId } from '@/lib/tour
  * ExecutionTimelineDomain — Read-Only Execution Timeline
  *
  * Constructs a chronological timeline from REAL database records.
- * No writes — aggregates from ServiceRequest, SegmentCheckIn, Incident.
+ * No writes — aggregates from Tour, SegmentCheckIn, Incident.
  * All entries are derived from existing data, not stored separately.
  */
 

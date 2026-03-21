@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = await req.json();
     const { prisma } = await import("@/lib/prisma");
-    const doc = await prisma.verificationDocument.create({
+    const doc = await prisma.verification.create({
       data: {
         userId: session.user.id,
         type: body.type || "ID_CARD",

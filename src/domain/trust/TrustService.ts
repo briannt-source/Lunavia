@@ -12,18 +12,18 @@ export class TrustService {
      * Logic to handle tour completion and award points to all parties.
      * Recomputes full trust score with all components including decay.
      */
-    static async completeTourAndAwardPoints(serviceRequestId: string) {
+    static async completeTourAndAwardPoints(tourId: string) {
         const result = await executeSimpleMutation({
             entityName: 'TrustEvent',
-            entityId: serviceRequestId,
+            entityId: tourId,
             actorId: 'SYSTEM',
             actorRole: 'SYSTEM',
             auditAction: 'TRUST_TOUR_COMPLETED',
-            metadata: { serviceRequestId },
+            metadata: { tourId },
             atomicMutation: async (tx) => {
                 // 1. Fetch Service Request and Participants
-                const request = await (tx as any).serviceRequest.findUnique({
-                    where: { id: serviceRequestId },
+                const request = await (tx as any).tour.findUnique({
+                    where: { id: tourId },
                     include: {
                         operator: {
                             select: {
@@ -46,8 +46,8 @@ export class TrustService {
                 }
 
                 // 2. Update Status to COMPLETED
-                await tx.serviceRequest.update({
-                    where: { id: serviceRequestId },
+                await tx.tour.update({
+                    where: { id: tourId },
                     data: { status: 'COMPLETED' }
                 });
 
@@ -57,9 +57,9 @@ export class TrustService {
 
                 // Gather operator stats for full recomputation
                 const [completedTours, totalTours, totalPayments, disputeCount, negativeEvents] = await Promise.all([
-                    tx.serviceRequest.count({ where: { operatorId, status: 'COMPLETED' } }),
-                    tx.serviceRequest.count({ where: { operatorId } }),
-                    tx.serviceRequest.count({ where: { operatorId, status: 'COMPLETED' } }),
+                    tx.tour.count({ where: { operatorId, status: 'COMPLETED' } }),
+                    tx.tour.count({ where: { operatorId } }),
+                    tx.tour.count({ where: { operatorId, status: 'COMPLETED' } }),
                     tx.conflict.count({ where: { OR: [{ filedById: operatorId }, { receivedById: operatorId }] } }),
                     tx.trustEvent.findMany({
                         where: {
@@ -112,7 +112,7 @@ export class TrustService {
                         newScore: newOperatorScore,
                         type: 'TOUR_COMPLETED',
                         description: `Completed tour: ${request.title}`,
-                        relatedRequestId: serviceRequestId,
+                        relatedRequestId: tourId,
                         legalBase: components.legalBase,
                         complianceScore: components.complianceScore,
                         performanceScore: components.performanceScore,
@@ -149,7 +149,7 @@ export class TrustService {
                             newScore: newGuideScore,
                             type: 'TOUR_COMPLETED',
                             description: `Completed tour as ${app.roleApplied}: ${request.title}`,
-                            relatedRequestId: serviceRequestId
+                            relatedRequestId: tourId
                         }
                     });
 
@@ -160,7 +160,7 @@ export class TrustService {
                     success: true,
                     message: 'Tour completed and scores updated.',
                     operatorId,
-                    serviceRequestId,
+                    tourId,
                     requestTitle: request.title,
                     guideNotifs,
                     newOperatorScore,
@@ -170,7 +170,7 @@ export class TrustService {
                 // Post-transaction: evaluate risk + update compliance (best-effort)
                 try {
                     const sr = enrichTourCompat(await prisma.tour.findUnique({
-                        where: { id: serviceRequestId },
+                        where: { id: tourId },
                         select: { operatorId: true },
                     }));
                     if (sr) {
@@ -206,7 +206,7 @@ export class TrustService {
                 type: 'TRUST_SCORE_CHANGE',
                 title: 'Trust Score Update',
                 message: `You earned +${g.points} Trust Points for completing ${result.requestTitle}.`,
-                relatedId: result.serviceRequestId,
+                relatedId: result.tourId,
             }).catch(() => { });
         }
 
@@ -217,7 +217,7 @@ export class TrustService {
             type: 'TRUST_SCORE_CHANGE',
             title: 'Trust Score Update',
             message: `Tour completed. Trust score updated to ${result.newOperatorScore}.`,
-            relatedId: result.serviceRequestId,
+            relatedId: result.tourId,
         }).catch(() => { });
 
         return result;
@@ -226,17 +226,17 @@ export class TrustService {
     /**
      * Logic for Late Cancellation Penalty
      */
-    static async cancelTourWithPenalty(serviceRequestId: string, operatorId: string) {
+    static async cancelTourWithPenalty(tourId: string, operatorId: string) {
         return executeSimpleMutation({
-            entityName: 'ServiceRequest',
-            entityId: serviceRequestId,
+            entityName: 'Tour',
+            entityId: tourId,
             actorId: operatorId,
             actorRole: 'OPERATOR',
             auditAction: 'LATE_CANCELLATION_PENALTY',
-            metadata: { serviceRequestId },
+            metadata: { tourId },
             atomicMutation: async (tx) => {
-                const request = await tx.serviceRequest.findUnique({
-                    where: { id: serviceRequestId },
+                const request = await tx.tour.findUnique({
+                    where: { id: tourId },
                     include: { operator: true }
                 });
 
@@ -261,8 +261,8 @@ export class TrustService {
                     isLastMinute = true;
                 }
 
-                await tx.serviceRequest.update({
-                    where: { id: serviceRequestId },
+                await tx.tour.update({
+                    where: { id: tourId },
                     data: { status: 'CANCELLED' }
                 });
 
@@ -281,7 +281,7 @@ export class TrustService {
                             newScore: newScore,
                             type: 'MANUAL_ADJUSTMENT',
                             description: `Last-minute cancellation (${hoursUntilStart}h before): ${request.title}`,
-                            relatedRequestId: serviceRequestId
+                            relatedRequestId: tourId
                         }
                     });
                 }

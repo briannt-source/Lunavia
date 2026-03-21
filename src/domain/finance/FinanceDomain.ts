@@ -708,7 +708,7 @@ export async function publishTour(input: PublishTourInput) {
     const escrowRequired = hasLayer(modeInfo, 'ESCROW_ENABLED');
 
     const result = await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: requestId,
         actorId: userId,
         actorRole: userRole,
@@ -751,7 +751,7 @@ export async function publishTour(input: PublishTourInput) {
 
                 await syncWalletBalances(tx, wallet.id);
 
-                const updated = await tx.serviceRequest.update({
+                const updated = await tx.tour.update({
                     where: { id: requestId },
                     data: {
                         status: 'PUBLISHED', settlementType: 'ESCROW',
@@ -765,7 +765,7 @@ export async function publishTour(input: PublishTourInput) {
 
                 return { holdTransaction, updated };
             } else {
-                const updated = await tx.serviceRequest.update({
+                const updated = await tx.tour.update({
                     where: { id: requestId },
                     data: {
                         status: 'PUBLISHED', settlementType: 'INTERNAL',
@@ -913,7 +913,7 @@ export async function releaseEscrow(input: ReleaseEscrowInput) {
 
             await syncWalletBalances(tx, wallet.id);
 
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tour.id },
                 data: { escrowStatus: 'RELEASED', escrowReleasedAt: new Date() },
             });
@@ -979,9 +979,9 @@ export async function releaseEscrow(input: ReleaseEscrowInput) {
             // Risk recompute
             const riskResult = await evaluateOperatorRisk(tour.operatorId);
             const [completedTours, conflictCount, totalTours] = await Promise.all([
-                tx.serviceRequest.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
+                tx.tour.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
                 tx.conflict.count({ where: { OR: [{ filedById: tour.operatorId }, { receivedById: tour.operatorId }] } }),
-                tx.serviceRequest.count({ where: { operatorId: tour.operatorId } }),
+                tx.tour.count({ where: { operatorId: tour.operatorId } }),
             ]);
             const disputeRate = totalTours > 0 ? conflictCount / totalTours : 0;
             const compLevel = computeComplianceLevel({
@@ -1084,7 +1084,7 @@ export async function refundEscrow(input: RefundEscrowInput) {
 
             await syncWalletBalances(tx, wallet.id);
 
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tour.id },
                 data: { escrowStatus: 'REFUNDED', escrowReleasedAt: new Date() },
             });
@@ -1172,9 +1172,9 @@ export async function refundEscrow(input: RefundEscrowInput) {
             // Risk recompute
             const riskResult = await evaluateOperatorRisk(tour.operatorId);
             const [completedTours, conflictCount, totalTours] = await Promise.all([
-                tx.serviceRequest.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
+                tx.tour.count({ where: { operatorId: tour.operatorId, status: 'COMPLETED' } }),
                 tx.conflict.count({ where: { OR: [{ filedById: tour.operatorId }, { receivedById: tour.operatorId }] } }),
-                tx.serviceRequest.count({ where: { operatorId: tour.operatorId } }),
+                tx.tour.count({ where: { operatorId: tour.operatorId } }),
             ]);
             const disputeRate = totalTours > 0 ? conflictCount / totalTours : 0;
             const compLevel = computeComplianceLevel({
@@ -1232,7 +1232,7 @@ export async function acceptCancellation(input: AcceptCancellationInput) {
     });
 
     await executeGovernedMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId: userId,
         actorRole: isOperator ? 'OPERATOR' : 'GUIDE',
@@ -1241,7 +1241,7 @@ export async function acceptCancellation(input: AcceptCancellationInput) {
         auditAfter: () => ({ status: 'CANCELLED', escrowStatus: 'REFUNDED' }),
         metadata: { timing, refundReason, trustImpact, tourWasAssigned, context: cancellationContext },
         atomicMutation: async (tx) => {
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tourId },
                 data: { status: CANCELLATION_STATUSES.CANCELLED, escrowStatus: 'REFUNDED', escrowReleasedAt: new Date(), updatedAt: new Date() },
             });
@@ -1495,14 +1495,14 @@ export async function reviewForceCancellation(input: ReviewForceCancellationInpu
     );
 
     await executeSimpleMutation({
-        entityName: 'ServiceRequest',
+        entityName: 'Tour',
         entityId: tourId,
         actorId,
         actorRole,
         auditAction: 'FORCE_CANCEL_APPROVED',
         metadata: { faultParty: fault, notes, trustImpact, supervisorId: supervisorId || null, harmedPartyId, context: cancellationContext },
         atomicMutation: async (tx) => {
-            await tx.serviceRequest.update({
+            await tx.tour.update({
                 where: { id: tourId },
                 data: {
                     status: CANCELLATION_STATUSES.CANCELLED, cancellationFaultParty: fault,

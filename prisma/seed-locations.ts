@@ -1,7 +1,7 @@
 /**
  * Seed Location Data — Market-based location hierarchy
  * 
- * INBOUND: Vietnamese provinces grouped by region
+ * INBOUND: All 63 Vietnamese provinces/cities grouped by region
  * OUTBOUND: International destinations (countries + major cities)
  */
 
@@ -14,11 +14,11 @@ export interface SeedCity {
 }
 
 // ══════════════════════════════════════════════════════════════════════
-// VIETNAM PROVINCES (INBOUND)
+// VIETNAM PROVINCES — All 63 provinces/cities (INBOUND)
 // ══════════════════════════════════════════════════════════════════════
 
 export const VN_PROVINCES: SeedCity[] = [
-    // Miền Bắc (North)
+    // ── Miền Bắc (North) — 25 provinces/cities ──
     { name: 'Ha Noi', nameLocal: 'Hà Nội', region: 'Miền Bắc', code: 'HN', country: 'VN' },
     { name: 'Hai Phong', nameLocal: 'Hải Phòng', region: 'Miền Bắc', code: 'HP', country: 'VN' },
     { name: 'Quang Ninh', nameLocal: 'Quảng Ninh', region: 'Miền Bắc', code: 'QN', country: 'VN' },
@@ -32,8 +32,20 @@ export const VN_PROVINCES: SeedCity[] = [
     { name: 'Dien Bien', nameLocal: 'Điện Biên', region: 'Miền Bắc', code: 'DB', country: 'VN' },
     { name: 'Hai Duong', nameLocal: 'Hải Dương', region: 'Miền Bắc', code: 'HD', country: 'VN' },
     { name: 'Bac Ninh', nameLocal: 'Bắc Ninh', region: 'Miền Bắc', code: 'BN', country: 'VN' },
+    { name: 'Bac Giang', nameLocal: 'Bắc Giang', region: 'Miền Bắc', code: 'BG', country: 'VN' },
+    { name: 'Bac Kan', nameLocal: 'Bắc Kạn', region: 'Miền Bắc', code: 'BK', country: 'VN' },
+    { name: 'Hung Yen', nameLocal: 'Hưng Yên', region: 'Miền Bắc', code: 'HY', country: 'VN' },
+    { name: 'Ha Nam', nameLocal: 'Hà Nam', region: 'Miền Bắc', code: 'HNA', country: 'VN' },
+    { name: 'Lai Chau', nameLocal: 'Lai Châu', region: 'Miền Bắc', code: 'LCH', country: 'VN' },
+    { name: 'Lang Son', nameLocal: 'Lạng Sơn', region: 'Miền Bắc', code: 'LS', country: 'VN' },
+    { name: 'Nam Dinh', nameLocal: 'Nam Định', region: 'Miền Bắc', code: 'ND', country: 'VN' },
+    { name: 'Phu Tho', nameLocal: 'Phú Thọ', region: 'Miền Bắc', code: 'PT', country: 'VN' },
+    { name: 'Thai Binh', nameLocal: 'Thái Bình', region: 'Miền Bắc', code: 'TB', country: 'VN' },
+    { name: 'Tuyen Quang', nameLocal: 'Tuyên Quang', region: 'Miền Bắc', code: 'TQ', country: 'VN' },
+    { name: 'Vinh Phuc', nameLocal: 'Vĩnh Phúc', region: 'Miền Bắc', code: 'VP', country: 'VN' },
+    { name: 'Yen Bai', nameLocal: 'Yên Bái', region: 'Miền Bắc', code: 'YB', country: 'VN' },
 
-    // Miền Trung (Central)
+    // ── Miền Trung (Central) — 19 provinces/cities ──
     { name: 'Da Nang', nameLocal: 'Đà Nẵng', region: 'Miền Trung', code: 'DN', country: 'VN' },
     { name: 'Thua Thien Hue', nameLocal: 'Thừa Thiên Huế', region: 'Miền Trung', code: 'TTH', country: 'VN' },
     { name: 'Quang Nam', nameLocal: 'Quảng Nam (Hội An)', region: 'Miền Trung', code: 'QNA', country: 'VN' },
@@ -46,15 +58,17 @@ export const VN_PROVINCES: SeedCity[] = [
     { name: 'Ha Tinh', nameLocal: 'Hà Tĩnh', region: 'Miền Trung', code: 'HT', country: 'VN' },
     { name: 'Ninh Thuan', nameLocal: 'Ninh Thuận', region: 'Miền Trung', code: 'NT', country: 'VN' },
     { name: 'Binh Thuan', nameLocal: 'Bình Thuận (Phan Thiết)', region: 'Miền Trung', code: 'BTN', country: 'VN' },
+    { name: 'Quang Ngai', nameLocal: 'Quảng Ngãi', region: 'Miền Trung', code: 'QNG', country: 'VN' },
+    { name: 'Thanh Hoa', nameLocal: 'Thanh Hoá', region: 'Miền Trung', code: 'TH', country: 'VN' },
 
-    // Tây Nguyên (Central Highlands)
+    // ── Tây Nguyên (Central Highlands) — 5 provinces ──
     { name: 'Lam Dong', nameLocal: 'Lâm Đồng (Đà Lạt)', region: 'Tây Nguyên', code: 'LD', country: 'VN' },
     { name: 'Dak Lak', nameLocal: 'Đắk Lắk', region: 'Tây Nguyên', code: 'DL', country: 'VN' },
     { name: 'Gia Lai', nameLocal: 'Gia Lai', region: 'Tây Nguyên', code: 'GL', country: 'VN' },
     { name: 'Kon Tum', nameLocal: 'Kon Tum', region: 'Tây Nguyên', code: 'KT', country: 'VN' },
     { name: 'Dak Nong', nameLocal: 'Đắk Nông', region: 'Tây Nguyên', code: 'DNo', country: 'VN' },
 
-    // Miền Nam (South)
+    // ── Miền Nam (South) — 17 provinces/cities ──
     { name: 'Ho Chi Minh City', nameLocal: 'TP. Hồ Chí Minh', region: 'Miền Nam', code: 'HCM', country: 'VN' },
     { name: 'Ba Ria - Vung Tau', nameLocal: 'Bà Rịa - Vũng Tàu', region: 'Miền Nam', code: 'VT', country: 'VN' },
     { name: 'Kien Giang', nameLocal: 'Kiên Giang (Phú Quốc)', region: 'Miền Nam', code: 'KG', country: 'VN' },
@@ -66,6 +80,14 @@ export const VN_PROVINCES: SeedCity[] = [
     { name: 'Ben Tre', nameLocal: 'Bến Tre', region: 'Miền Nam', code: 'BT', country: 'VN' },
     { name: 'An Giang', nameLocal: 'An Giang', region: 'Miền Nam', code: 'AG', country: 'VN' },
     { name: 'Tay Ninh', nameLocal: 'Tây Ninh', region: 'Miền Nam', code: 'TNI', country: 'VN' },
+    { name: 'Binh Phuoc', nameLocal: 'Bình Phước', region: 'Miền Nam', code: 'BP', country: 'VN' },
+    { name: 'Vinh Long', nameLocal: 'Vĩnh Long', region: 'Miền Nam', code: 'VL', country: 'VN' },
+    { name: 'Dong Thap', nameLocal: 'Đồng Tháp', region: 'Miền Nam', code: 'DT', country: 'VN' },
+    { name: 'Tra Vinh', nameLocal: 'Trà Vinh', region: 'Miền Nam', code: 'TV', country: 'VN' },
+    { name: 'Hau Giang', nameLocal: 'Hậu Giang', region: 'Miền Nam', code: 'HGI', country: 'VN' },
+    { name: 'Soc Trang', nameLocal: 'Sóc Trăng', region: 'Miền Nam', code: 'ST', country: 'VN' },
+    { name: 'Bac Lieu', nameLocal: 'Bạc Liêu', region: 'Miền Nam', code: 'BL', country: 'VN' },
+    { name: 'Ca Mau', nameLocal: 'Cà Mau', region: 'Miền Nam', code: 'CM', country: 'VN' },
 ];
 
 // ══════════════════════════════════════════════════════════════════════
@@ -119,6 +141,27 @@ export const OUTBOUND_CITIES: SeedCity[] = [
     { name: 'Siem Reap', nameLocal: 'សៀមរាប', region: 'Northwest', code: 'REP', country: 'KH' },
     { name: 'Phnom Penh', nameLocal: 'ភ្នំពេញ', region: 'Central', code: 'PNH', country: 'KH' },
 
+    // 🇹🇼 Taiwan
+    { name: 'Taipei', nameLocal: '台北', region: 'Northern Taiwan', code: 'TPE', country: 'TW' },
+    { name: 'Kaohsiung', nameLocal: '高雄', region: 'Southern Taiwan', code: 'KHH', country: 'TW' },
+    { name: 'Taichung', nameLocal: '台中', region: 'Central Taiwan', code: 'TXG', country: 'TW' },
+    { name: 'Hualien', nameLocal: '花蓮', region: 'Eastern Taiwan', code: 'HUN', country: 'TW' },
+
+    // 🇮🇩 Indonesia
+    { name: 'Bali', nameLocal: 'Bali', region: 'Bali & Nusa Tenggara', code: 'DPS', country: 'ID' },
+    { name: 'Jakarta', nameLocal: 'Jakarta', region: 'Java', code: 'JKT', country: 'ID' },
+    { name: 'Yogyakarta', nameLocal: 'Yogyakarta', region: 'Java', code: 'JOG', country: 'ID' },
+    { name: 'Lombok', nameLocal: 'Lombok', region: 'Bali & Nusa Tenggara', code: 'LOP', country: 'ID' },
+
+    // 🇱🇦 Laos
+    { name: 'Vientiane', nameLocal: 'ວຽງຈັນ', region: 'Central', code: 'VTE', country: 'LA' },
+    { name: 'Luang Prabang', nameLocal: 'ຫຼວງພະບາງ', region: 'North', code: 'LPQ', country: 'LA' },
+
+    // 🇲🇲 Myanmar
+    { name: 'Yangon', nameLocal: 'ရန်ကုန်', region: 'Lower Myanmar', code: 'RGN', country: 'MM' },
+    { name: 'Mandalay', nameLocal: 'မန္တလေး', region: 'Upper Myanmar', code: 'MDL', country: 'MM' },
+    { name: 'Bagan', nameLocal: 'ပုဂံ', region: 'Upper Myanmar', code: 'NYU', country: 'MM' },
+
     // 🇪🇺 Europe (grouped as regions within "EU")
     { name: 'Paris', nameLocal: 'Paris', region: 'France', code: 'PAR', country: 'EU' },
     { name: 'Rome', nameLocal: 'Roma', region: 'Italy', code: 'ROM', country: 'EU' },
@@ -154,6 +197,8 @@ export interface Country {
     nameLocal: string;
     flag: string;
     region: string;
+    /** If true, this is a free-text placeholder — UI should show a text input instead of city dropdown */
+    isFreeText?: boolean;
 }
 
 export const SUPPORTED_COUNTRIES: Country[] = [
@@ -161,13 +206,19 @@ export const SUPPORTED_COUNTRIES: Country[] = [
     { code: 'CN', name: 'China', nameLocal: '中国', flag: '🇨🇳', region: 'East Asia' },
     { code: 'KR', name: 'South Korea', nameLocal: '대한민국', flag: '🇰🇷', region: 'East Asia' },
     { code: 'JP', name: 'Japan', nameLocal: '日本', flag: '🇯🇵', region: 'East Asia' },
+    { code: 'TW', name: 'Taiwan', nameLocal: '台灣', flag: '🇹🇼', region: 'East Asia' },
     { code: 'SG', name: 'Singapore', nameLocal: 'Singapore', flag: '🇸🇬', region: 'Southeast Asia' },
     { code: 'MY', name: 'Malaysia', nameLocal: 'Malaysia', flag: '🇲🇾', region: 'Southeast Asia' },
     { code: 'TH', name: 'Thailand', nameLocal: 'ประเทศไทย', flag: '🇹🇭', region: 'Southeast Asia' },
     { code: 'KH', name: 'Cambodia', nameLocal: 'កម្ពុជា', flag: '🇰🇭', region: 'Southeast Asia' },
+    { code: 'ID', name: 'Indonesia', nameLocal: 'Indonesia', flag: '🇮🇩', region: 'Southeast Asia' },
+    { code: 'LA', name: 'Laos', nameLocal: 'ລາວ', flag: '🇱🇦', region: 'Southeast Asia' },
+    { code: 'MM', name: 'Myanmar', nameLocal: 'မြန်မာ', flag: '🇲🇲', region: 'Southeast Asia' },
     { code: 'EU', name: 'Europe', nameLocal: 'Europe', flag: '🇪🇺', region: 'Europe' },
     { code: 'US', name: 'United States', nameLocal: 'United States', flag: '🇺🇸', region: 'Americas' },
     { code: 'AU', name: 'Australia', nameLocal: 'Australia', flag: '🇦🇺', region: 'Oceania' },
+    // "Others" — free-text entry for unlisted countries
+    { code: 'OTHER', name: 'Others', nameLocal: 'Khác', flag: '🌍', region: 'Other', isFreeText: true },
 ];
 
 // Outbound-only countries (exclude VN)

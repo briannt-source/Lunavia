@@ -7,11 +7,11 @@
 import { prisma } from '@/lib/prisma';
 
 /**
- * Returns the count of PENDING verification submissions.
+ * Returns the count of PENDING verifications.
  * Used by dashboard metrics and signals API.
  */
 export async function getPendingVerificationCount(): Promise<number> {
-    return prisma.verificationSubmission.count({
+    return prisma.verification.count({
         where: { status: 'PENDING' },
     });
 }
