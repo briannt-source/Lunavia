@@ -52,9 +52,43 @@ export async function GET(req: NextRequest) {
       select: { availabilityStatus: true },
     });
 
+    // Fetch assigned tours (accepted applications + approved assignments)
+    const [acceptedApps, approvedAssignments] = await Promise.all([
+      prisma.application.findMany({
+        where: {
+          guideId: session.user.id,
+          status: "ACCEPTED",
+          tour: { status: { in: ["OPEN", "CLOSED", "IN_PROGRESS"] } },
+        },
+        select: {
+          tour: {
+            select: { id: true, title: true, startDate: true, endDate: true, status: true },
+          },
+        },
+      }),
+      prisma.assignment.findMany({
+        where: {
+          guideId: session.user.id,
+          status: "APPROVED",
+          tour: { status: { in: ["OPEN", "CLOSED", "IN_PROGRESS"] } },
+        },
+        select: {
+          tour: {
+            select: { id: true, title: true, startDate: true, endDate: true, status: true },
+          },
+        },
+      }),
+    ]);
+
+    const assignedTours = [
+      ...acceptedApps.filter((a) => a.tour.endDate !== null).map((a) => a.tour),
+      ...approvedAssignments.filter((a) => a.tour.endDate !== null).map((a) => a.tour),
+    ];
+
     return NextResponse.json({
       availabilities,
       currentStatus: profile?.availabilityStatus || "AVAILABLE",
+      assignedTours,
     });
   } catch (error: any) {
     console.error("Error fetching availability:", error);

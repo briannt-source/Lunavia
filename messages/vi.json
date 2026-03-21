@@ -1068,17 +1068,35 @@
         "fri": "T6",
         "sat": "T7"
       },
+      "globalStatus": {
+        "title": "Trạng thái Hiện tại",
+        "description": "Trạng thái mặc định áp dụng cho các ngày chưa thiết lập",
+        "available": "Rảnh",
+        "busy": "Bận",
+        "on_tour": "Đang đi Tour"
+      },
       "status": {
         "assigned": "Đã có Tour",
         "available": "Đang rảnh",
-        "unavailable": "Bận",
-        "markUnavailable": "Đánh dấu Bận",
-        "markAvailable": "Đánh dấu Rảnh"
+        "busy": "Bận",
+        "onTour": "Đang đi Tour",
+        "unavailable": "Chưa thiết lập",
+        "markAvailable": "Nhấn: Đánh dấu Rảnh",
+        "markBusy": "Nhấn: Đánh dấu Bận",
+        "markClear": "Nhấn: Xóa trạng thái",
+        "markUnavailable": "Đánh dấu Bận"
       },
       "legend": {
         "available": "Ngày Rảnh",
         "assigned": "Ngày Cấn Tour",
-        "unavailable": "Bận (Mặc định)"
+        "busy": "Bận",
+        "onTour": "Đang đi Tour",
+        "unavailable": "Chưa thiết lập (Mặc định)"
+      },
+      "toast": {
+        "statusUpdated": "Đã cập nhật trạng thái!",
+        "updateFailed": "Không thể cập nhật lịch trống",
+        "onTourRestricted": "Không thể sửa lịch khi đang đi Tour"
       }
     },
     "Earnings": {

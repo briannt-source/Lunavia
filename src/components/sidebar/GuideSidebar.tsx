@@ -25,7 +25,6 @@ import {
     CheckCircle,
     Bell,
     MessageCircle,
-    CreditCard,
 } from 'lucide-react';
 
 export default function GuideSidebar() {
@@ -83,9 +82,6 @@ export default function GuideSidebar() {
                 </NavItem>
                 <NavItem href="/dashboard/guide/earnings" icon={Coins} active={isActive('/dashboard/guide/earnings')}>
                     {t('links.earnings')}
-                </NavItem>
-                <NavItem href="/dashboard/payment-methods" icon={CreditCard} active={isActive('/dashboard/payment-methods')}>
-                    {t('links.paymentMethods')}
                 </NavItem>
             </NavSection>
 

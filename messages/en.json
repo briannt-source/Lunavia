@@ -1068,17 +1068,35 @@
         "fri": "Fri",
         "sat": "Sat"
       },
+      "globalStatus": {
+        "title": "Current Status",
+        "description": "Your default status applied to all unset dates",
+        "available": "Available",
+        "busy": "Busy",
+        "on_tour": "On Tour"
+      },
       "status": {
         "assigned": "Assigned",
         "available": "Available",
+        "busy": "Busy",
+        "onTour": "On Tour",
         "unavailable": "Unavailable",
-        "markUnavailable": "Mark Unavailable",
-        "markAvailable": "Mark Available"
+        "markAvailable": "Click: Mark Available",
+        "markBusy": "Click: Mark Busy",
+        "markClear": "Click: Clear",
+        "markUnavailable": "Mark Unavailable"
       },
       "legend": {
         "available": "Available",
         "assigned": "Assigned Tour",
-        "unavailable": "Unavailable (Default)"
+        "busy": "Busy",
+        "onTour": "On Tour",
+        "unavailable": "Unset (Default)"
+      },
+      "toast": {
+        "statusUpdated": "Status updated!",
+        "updateFailed": "Failed to update availability",
+        "onTourRestricted": "Cannot modify dates while status is On Tour"
       }
     },
     "Earnings": {
