@@ -4,7 +4,7 @@ import SidebarShell, { NavItem, NavSection, useIsActive } from './SidebarShell';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 import {
     LayoutDashboard,
     Eye,

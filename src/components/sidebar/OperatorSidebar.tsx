@@ -3,7 +3,7 @@
 import SidebarShell, { NavItem, NavSection, useIsActive } from './SidebarShell';
 import { FeatureGate } from '@/components/plans/FeatureGate';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 import { useSession } from 'next-auth/react';
 import {
     BarChart3,

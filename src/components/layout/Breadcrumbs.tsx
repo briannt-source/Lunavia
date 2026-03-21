@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 
 const ROUTE_LABELS: Record<string, string> = {
     dashboard: 'Dashboard',

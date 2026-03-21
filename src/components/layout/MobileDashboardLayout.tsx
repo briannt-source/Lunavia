@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useState, useEffect, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 import Topbar from './Topbar';
 
 interface Props {

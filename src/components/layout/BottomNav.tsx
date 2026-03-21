@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 import { Home, MapPin, Wallet, User, Search, BarChart3, ShieldCheck, Users, Calendar, Briefcase } from 'lucide-react';
 
 interface NavItem {

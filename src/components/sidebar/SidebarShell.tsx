@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@/navigation';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
