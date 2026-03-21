@@ -24,24 +24,24 @@ export default function OperatorPaymentsPage() {
   const handleApprove = async (requestId: string) => {
     try {
       await api.operator.approvePaymentRequest(requestId);
-      toast.success("Đã chấp nhận yêu cầu thanh toán");
+      toast.success("Payment request approved");
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi chấp nhận");
+      toast.error(error.message || "Error approving request");
     }
   };
 
   const handlePay = async (tourId: string, guideId: string, amount: number) => {
-    if (!confirm(`Xác nhận thanh toán ${formatVND(amount)} cho hướng dẫn viên?`)) {
+    if (!confirm(`Confirm payment of ${formatVND(amount)} to guide?`)) {
       return;
     }
 
     try {
       await api.tours.pay(tourId, { guideId, amount });
-      toast.success("Đã thanh toán thành công");
+      toast.success("Payment completed successfully");
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi thanh toán");
+      toast.error(error.message || "Error processing payment");
     }
   };
 
@@ -55,8 +55,8 @@ export default function OperatorPaymentsPage() {
   return (
     <>
       <PageHeader
-        title="Thanh toán"
-        description="Quản lý các yêu cầu thanh toán từ hướng dẫn viên"
+        title="Payments"
+        description="Manage payment requests from guides"
       />
 
       {/* Stats */}
@@ -94,7 +94,7 @@ export default function OperatorPaymentsPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Yêu cầu thanh toán</CardTitle>
+            <CardTitle>Requirements thanh toán</CardTitle>
             <div className="flex gap-2">
               <Button
                 variant={selectedStatus === "all" ? "default" : "outline"}
@@ -124,8 +124,8 @@ export default function OperatorPaymentsPage() {
           {paymentRequests.length === 0 ? (
             <EmptyState
               icon={DollarSign}
-              title="Chưa có yêu cầu thanh toán nào"
-              description="Các yêu cầu thanh toán từ hướng dẫn viên sẽ xuất hiện ở đây"
+              title="No payment requests yet"
+              description="Payment requests from guides will appear here"
             />
           ) : (
             <div className="space-y-4">
@@ -141,7 +141,7 @@ export default function OperatorPaymentsPage() {
                           <StatusBadge status={request.paymentRequestStatus || request.status} />
                         </div>
                         <p className="text-sm text-slate-600 mb-2">
-                          Hướng dẫn viên: {request.guide?.profile?.name || request.guide?.email}
+                          Tour guide: {request.guide?.profile?.name || request.guide?.email}
                         </p>
                         <div className="flex items-center gap-4 text-sm text-slate-600 mb-3">
                           <div className="flex items-center gap-1">
@@ -185,10 +185,10 @@ export default function OperatorPaymentsPage() {
                               onClick={async () => {
                                 try {
                                   await api.operator.rejectPaymentRequest(request.id);
-                                  toast.success("Đã từ chối yêu cầu");
+                                  toast.success("Request rejected");
                                   refetch();
                                 } catch (error: any) {
-                                  toast.error(error.message || "Lỗi khi từ chối");
+                                  toast.error(error.message || "Error rejecting request");
                                 }
                               }}
                             >

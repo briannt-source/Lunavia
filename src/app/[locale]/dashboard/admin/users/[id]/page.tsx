@@ -76,7 +76,7 @@ export default async function AdminUserDetailPage({
   return (
     <>
       <PageHeader
-        title="Chi tiết User"
+        title="User Details"
         description={user.email}
         action={
           <Link href="/dashboard/admin/users">
@@ -94,7 +94,7 @@ export default async function AdminUserDetailPage({
           {/* User Info */}
           <Card>
             <CardHeader>
-              <CardTitle>Thông tin cơ bản</CardTitle>
+              <CardTitle>Information cơ bản</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -139,7 +139,7 @@ export default async function AdminUserDetailPage({
                   <div>
                     <p className="text-sm text-slate-500">Loại việc làm</p>
                     <p className="font-medium">
-                      {user.employmentType === "FREELANCE" ? "Tự do" : "Nội bộ"}
+                      {user.employmentType === "FREELANCE" ? "Freelance" : "In-house"}
                     </p>
                   </div>
                 )}
@@ -151,31 +151,31 @@ export default async function AdminUserDetailPage({
           {user.profile && (
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin Profile</CardTitle>
+                <CardTitle>Information Profile</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   {user.profile.phone && (
                     <div>
-                      <p className="text-sm text-slate-500">Số điện thoại</p>
+                      <p className="text-sm text-slate-500">Phone number</p>
                       <p className="font-medium">{user.profile.phone}</p>
                     </div>
                   )}
                   {user.profile.address && (
                     <div>
-                      <p className="text-sm text-slate-500">Địa chỉ</p>
+                      <p className="text-sm text-slate-500">Address</p>
                       <p className="font-medium">{user.profile.address}</p>
                     </div>
                   )}
                   {user.profile.experienceYears && (
                     <div>
-                      <p className="text-sm text-slate-500">Kinh nghiệm</p>
+                      <p className="text-sm text-slate-500">Experience</p>
                       <p className="font-medium">{user.profile.experienceYears} năm</p>
                     </div>
                   )}
                   {user.profile.rating && (
                     <div>
-                      <p className="text-sm text-slate-500">Đánh giá</p>
+                      <p className="text-sm text-slate-500">Reviews</p>
                       <p className="font-medium">
                         {user.profile.rating.toFixed(1)} ⭐ ({user.profile.reviewCount} đánh giá)
                       </p>
@@ -184,13 +184,13 @@ export default async function AdminUserDetailPage({
                 </div>
                 {user.profile.bio && (
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">Giới thiệu</p>
+                    <p className="text-sm text-slate-500 mb-1">About</p>
                     <p className="text-slate-700">{user.profile.bio}</p>
                   </div>
                 )}
                 {user.profile.languages && user.profile.languages.length > 0 && (
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">Ngôn ngữ</p>
+                    <p className="text-sm text-slate-500 mb-1">Languages</p>
                     <div className="flex flex-wrap gap-2">
                       {user.profile.languages.map((lang, idx) => (
                         <span
@@ -205,7 +205,7 @@ export default async function AdminUserDetailPage({
                 )}
                 {user.profile.specialties && user.profile.specialties.length > 0 && (
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">Chuyên môn</p>
+                    <p className="text-sm text-slate-500 mb-1">Specialties</p>
                     <div className="flex flex-wrap gap-2">
                       {user.profile.specialties.map((spec, idx) => (
                         <span
@@ -226,7 +226,7 @@ export default async function AdminUserDetailPage({
           {user.wallet && (
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin Ví</CardTitle>
+                <CardTitle>Information Ví</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-4">
@@ -267,7 +267,7 @@ export default async function AdminUserDetailPage({
                         <StatusBadge status={verification.status} />
                         <Link href={`/dashboard/admin/verifications/${verification.id}`}>
                           <Button variant="outline" size="sm">
-                            Xem chi tiết
+                            View Details
                           </Button>
                         </Link>
                       </div>

@@ -46,24 +46,24 @@ export default function TourReportsPage() {
         paymentAmount,
         notes,
       });
-      toast.success("Đã xác nhận tour và khóa số tiền thanh toán");
+      toast.success("Tour confirmed and payment amount locked");
       setConfirmDialogOpen(false);
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi xác nhận tour");
+      toast.error(error.message || "Error confirming tour");
     }
   };
 
   return (
     <>
       <PageHeader
-        title="Báo cáo Tour"
+        title="Tour Reports"
         description={`Tour: ${tour?.title || ""}`}
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard/operator" },
           { label: "Tours", href: "/tours" },
           { label: tour?.title || "Tour", href: `/tours/${tourId}` },
-          { label: "Báo cáo" },
+          { label: "Reports" },
         ]}
       />
 
@@ -73,8 +73,8 @@ export default function TourReportsPage() {
             <CardContent className="pt-6">
               <EmptyState
                 icon={FileText}
-                title="Chưa có báo cáo nào"
-                description="Các báo cáo từ hướng dẫn viên sẽ xuất hiện ở đây"
+                title="No reports yet"
+                description="Reports from guides will appear here"
               />
             </CardContent>
           </Card>
@@ -106,14 +106,14 @@ export default function TourReportsPage() {
                   {/* Ratings */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-slate-600">Đánh giá tổng thể</p>
+                      <p className="text-sm text-slate-600">Reviews tổng thể</p>
                       <p className="text-2xl font-bold">
                         {report.overallRating || "N/A"}
                         {report.overallRating && "/5"}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-600">Hài lòng khách hàng</p>
+                      <p className="text-sm text-slate-600">Hài lòng guests hàng</p>
                       <p className="text-2xl font-bold">
                         {report.clientSatisfaction || "N/A"}
                         {report.clientSatisfaction && "/5"}
@@ -155,7 +155,7 @@ export default function TourReportsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm font-medium text-blue-900">
-                            Yêu cầu thanh toán
+                            Requirements thanh toán
                           </p>
                           <p className="text-xl font-bold text-blue-700">
                             {formatVND(report.paymentRequestAmount)}
@@ -169,7 +169,7 @@ export default function TourReportsPage() {
                   {report.paymentLockedAmount && (
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm font-medium text-green-900 mb-1">
-                        ✓ Số tiền đã khóa
+                        ✓ Amount đã khóa
                       </p>
                       <p className="text-lg font-bold text-green-700">
                         {formatVND(report.paymentLockedAmount)}
@@ -201,7 +201,7 @@ export default function TourReportsPage() {
                   {report.approvedAt && report.paymentRequestStatus === "PENDING" && (
                     <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
                       <p className="text-sm text-amber-700">
-                        ⚠️ Hướng dẫn viên đã yêu cầu thanh toán. Vui lòng xử lý trong vòng 24h.
+                        ⚠️ Tour guide đã yêu cầu thanh toán. Vui lòng xử lý trong vòng 24h.
                       </p>
                     </div>
                   )}

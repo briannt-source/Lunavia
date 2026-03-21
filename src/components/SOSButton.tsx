@@ -6,7 +6,7 @@ import {import toast from 'react-hot-toast';
 
 const SOS_CATEGORIES = [
   { id: 'GUIDE_NO_SHOW', label: 'HDV không xuất hiện', icon: '🚨', description: 'Guide đã được phân công nhưng không có mặt' },
-  { id: 'SAFETY_CONCERN', label: 'Vấn đề an toàn', icon: '⚠️', description: 'Có vấn đề liên quan đến an toàn của tour hoặc khách' },
+  { id: 'SAFETY_CONCERN', label: 'Vấn đề an toàn', icon: '⚠️', description: 'Có vấn đề liên quan đến an toàn của tour hoặc guests' },
   { id: 'URGENT_OPERATIONAL', label: 'Vấn đề vận hành khẩn cấp', icon: '🔴', description: 'Cần hỗ trợ ngay lập tức từ Lunavia' },
   { id: 'OTHER', label: 'Vấn đề khác', icon: '📞', description: 'Cần liên hệ với đội ngũ hỗ trợ' }
 ];
@@ -49,7 +49,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
       }
 
       setSubmitted(true);
-      toast.success('Yêu cầu SOS đã được gửi. Đội ngũ sẽ liên hệ bạn sớm.');
+      toast.success('Requirements SOS đã được gửi. Đội ngũ sẽ liên hệ bạn sớm.');
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -86,7 +86,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
             <div className="flex items-center gap-3">
               <span className="text-2xl">🆘</span>
               <div>
-                <h2 className="text-lg font-bold text-white">Yêu cầu hỗ trợ khẩn cấp</h2>
+                <h2 className="text-lg font-bold text-white">Requirements hỗ trợ khẩn cấp</h2>
                 <p className="text-red-100 text-sm">Đội ngũ sẽ được thông báo ngay lập tức</p>
               </div>
             </div>
@@ -133,12 +133,12 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Mô tả thêm (tùy chọn)
+              Description thêm (tùy chọn)
             </label>
             <textarea
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="Mô tả tình huống để đội ngũ hỗ trợ nhanh hơn..."
+              placeholder="Describe the situation so the support team can help faster..."
               rows={3}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500"
             />
@@ -157,7 +157,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
               disabled={!selectedCategory || submitting}
               className="flex-1 rounded-lg bg-red-600 px-4 py-3 font-medium text-white hover:bg-red-700 disabled:opacity-50"
             >
-              {submitting ? 'Đang gửi...' : 'Gửi yêu cầu SOS'}
+              {submitting ? 'Submitting...' : 'Gửi yêu cầu SOS'}
             </button>
           </div>
         </div>

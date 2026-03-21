@@ -62,15 +62,15 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
         },
         { href: "/dashboard/operator/tours", label: "Browse", icon: MapPin },
         { href: "/dashboard/operator/tours", label: "My Tours", icon: MapPin },
-        { href: "/dashboard/operator/tours/new", label: "Tạo Tour", icon: Plus },
+        { href: "/dashboard/operator/tours/new", label: "Create Tour", icon: Plus },
         {
           href: "/dashboard/operator/applications",
-          label: "Ứng tuyển",
+          label: "Applications",
           icon: Briefcase,
         },
         {
           href: "/dashboard/operator/payments",
-          label: "Thanh toán",
+          label: "Payments",
           icon: DollarSign,
         },
         {
@@ -78,10 +78,10 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
           label: "SOS Reports",
           icon: AlertTriangle,
         },
-        { href: "/dashboard/operator/company", label: "Công ty", icon: Building2 },
+        { href: "/dashboard/operator/company", label: "Company", icon: Building2 },
         { href: "/dashboard/operator/standby-requests", label: "Standby Requests", icon: AlertTriangle },
         { href: "/dashboard/operator/profile", label: "Profile", icon: Users },
-        { href: "/dashboard/operator/wallet", label: "Ví", icon: Wallet },
+        { href: "/dashboard/operator/wallet", label: "Wallet", icon: Wallet },
         { href: "/dashboard/operator/settings", label: "Settings", icon: Settings },
       ];
     } else if (role === "TOUR_GUIDE") {
@@ -91,19 +91,19 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
           label: "Dashboard",
           icon: LayoutDashboard,
         },
-        { href: "/dashboard/guide/tours", label: "Tìm Tour", icon: MapPin },
+        { href: "/dashboard/guide/tours", label: "Find Tours", icon: MapPin },
         { href: "/dashboard/guide/tours", label: "Tours", icon: MapPin },
         {
           href: "/dashboard/guide/applications",
-          label: "Ứng tuyển",
+          label: "Applications",
           icon: Briefcase,
         },
-        { href: "/dashboard/guide/assignments", label: "Phân công", icon: FileText },
-        { href: "/dashboard/guide/tours", label: "Tours của tôi", icon: MapPin },
+        { href: "/dashboard/guide/assignments", label: "Assignments", icon: FileText },
+        { href: "/dashboard/guide/tours", label: "My Tours", icon: MapPin },
         { href: "/dashboard/guide/standby-requests", label: "Standby Requests", icon: AlertTriangle },
         { href: "/dashboard/guide/availability", label: "Availability", icon: Calendar },
         { href: "/dashboard/guide/profile", label: "Profile", icon: Users },
-        { href: "/dashboard/guide/wallet", label: "Ví", icon: Wallet },
+        { href: "/dashboard/guide/wallet", label: "Wallet", icon: Wallet },
         { href: "/dashboard/guide/settings", label: "Settings", icon: Settings },
       ];
     } else {
@@ -141,7 +141,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
       if (isModerator) {
         menuItems.push({
           href: "/dashboard/admin/verifications",
-          label: "Xác minh",
+          label: "Verifications",
           icon: CheckCircle2,
         });
       }
@@ -150,7 +150,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
       if (isSuperAdmin) {
         menuItems.push({
           href: "/dashboard/admin/requests",
-          label: "Yêu cầu tài chính",
+          label: "Financial Requests",
           icon: CreditCard,
         });
         menuItems.push({
@@ -169,7 +169,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
         });
         menuItems.push({
           href: "/dashboard/admin/payment-settings",
-          label: "Cài đặt thanh toán",
+          label: "Payment Settings",
           icon: CreditCard,
         });
       }

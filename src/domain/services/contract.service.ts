@@ -77,7 +77,7 @@ export class ContractService {
     const allVariables = {
       ...input.variables,
       ...Object.fromEntries(
-        acceptanceVariables.map((v) => [v, "Chưa ký"])
+        acceptanceVariables.map((v) => [v, "Not signed"])
       ),
     };
 

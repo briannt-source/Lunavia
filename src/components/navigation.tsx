@@ -32,14 +32,14 @@ export function Navigation() {
       return [
         { href: "/dashboard/operator", label: "Dashboard", icon: LayoutDashboard },
         { href: "/dashboard/operator/tours", label: "Tours", icon: MapPin },
-        { href: "/dashboard/operator/tours/new", label: "Tạo Tour", icon: Plus },
+        { href: "/dashboard/operator/tours/new", label: "Create Tour", icon: Plus },
         { href: "/dashboard/operator/profile", label: "Profile", icon: Users },
       ];
     } else if (role === "TOUR_GUIDE") {
       return [
         { href: "/dashboard/guide", label: "Dashboard", icon: LayoutDashboard },
         { href: "/dashboard/guide/tours", label: "Tours", icon: MapPin },
-        { href: "/dashboard/guide/applications", label: "Ứng tuyển", icon: Briefcase },
+        { href: "/dashboard/guide/applications", label: "Applications", icon: Briefcase },
         { href: "/dashboard/guide/profile", label: "Profile", icon: Users },
       ];
     } else if (role && role.startsWith("ADMIN_")) {
@@ -54,7 +54,7 @@ export function Navigation() {
       if (adminRole === "SUPER_ADMIN" || adminRole === "MODERATOR") {
         menuItems.splice(1, 0,
           { href: "/dashboard/admin/disputes", label: "Disputes", icon: Shield },
-          { href: "/dashboard/admin/verifications", label: "Xác minh", icon: Shield }
+          { href: "/dashboard/admin/verifications", label: "Verifications", icon: Shield }
         );
       }
       if (adminRole === "SUPER_ADMIN") {

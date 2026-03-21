@@ -55,7 +55,7 @@ export class ConfirmTourAndLockPaymentUseCase {
     }
 
     if (report.approvedAt) {
-      throw new Error("Tour đã được xác nhận và thanh toán rồi");
+      throw new Error("Tour has already been confirmed and paid");
     }
 
     // Verify operator has enough balance
@@ -65,7 +65,7 @@ export class ConfirmTourAndLockPaymentUseCase {
 
     if (tour.operator.wallet.balance < input.paymentAmount) {
       throw new Error(
-        `Số dư không đủ. Cần ${input.paymentAmount.toLocaleString("vi-VN")} VND, hiện có ${tour.operator.wallet.balance.toLocaleString("vi-VN")} VND`
+        `Insufficient balance. Need ${input.paymentAmount.toLocaleString("vi-VN")} VND, currently have ${tour.operator.wallet.balance.toLocaleString("vi-VN")} VND`
       );
     }
 
@@ -102,7 +102,7 @@ export class ConfirmTourAndLockPaymentUseCase {
     await notifyUseCase.execute({
       userId: input.guideId,
       type: "PAYMENT",
-      title: "Tour đã được xác nhận - Thanh toán đã được khóa",
+      title: "Tour confirmed - Payment has been locked",
       message: `Tour operator đã xác nhận tour và khóa số tiền ${input.paymentAmount.toLocaleString("vi-VN")} VND. Thanh toán sẽ được thực hiện trong vòng 24 giờ.`,
       link: `/dashboard/guide/tours/${input.tourId}`,
     });

@@ -49,11 +49,11 @@ export default function AvailabilityPage() {
     mutationFn: (status: "AVAILABLE" | "BUSY" | "ON_TOUR") =>
       api.availability.update({ status }),
     onSuccess: () => {
-      toast.success("Đã cập nhật trạng thái availability!");
+      toast.success("Availability status updated!");
       queryClient.invalidateQueries({ queryKey: ["availability"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể cập nhật availability");
+      toast.error(error.message || "Unable to update availability");
     },
   });
 
@@ -61,11 +61,11 @@ export default function AvailabilityPage() {
     mutationFn: (data: { date: string; slots: any[] }) =>
       api.availability.update(data),
     onSuccess: () => {
-      toast.success("Đã cập nhật availability cho ngày này!");
+      toast.success("Availability updated for this date!");
       queryClient.invalidateQueries({ queryKey: ["availability"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể cập nhật availability");
+      toast.error(error.message || "Unable to update availability");
     },
   });
 
@@ -87,11 +87,11 @@ export default function AvailabilityPage() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case "AVAILABLE":
-        return "Sẵn sàng";
+        return "Available";
       case "BUSY":
-        return "Bận";
+        return "Busy";
       case "ON_TOUR":
-        return "Đang tour";
+        return "On Tour";
       default:
         return status;
     }
@@ -155,14 +155,14 @@ export default function AvailabilityPage() {
     <>
       <div className="space-y-6">
         <PageHeader
-          title="Quản lý Availability"
-          description="Cập nhật trạng thái sẵn sàng của bạn"
+          title="Manage Availability"
+          description="Update your availability status"
         />
 
         {/* Current Status */}
         <Card>
           <CardHeader>
-            <CardTitle>Trạng thái hiện tại</CardTitle>
+            <CardTitle>Status hiện tại</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
@@ -188,7 +188,7 @@ export default function AvailabilityPage() {
               </Select>
             </div>
             <p className="text-sm text-slate-500 mt-2">
-              Trạng thái này sẽ áp dụng cho tất cả các ngày chưa được set cụ thể
+              Status này sẽ áp dụng cho tất cả các ngày chưa được set cụ thể
             </p>
           </CardContent>
         </Card>
@@ -212,7 +212,7 @@ export default function AvailabilityPage() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="text-center py-12 text-slate-500">Đang tải...</div>
+              <div className="text-center py-12 text-slate-500">Loading...</div>
             ) : (
               <>
                 {/* Calendar Grid */}

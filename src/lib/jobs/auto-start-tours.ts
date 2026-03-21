@@ -117,7 +117,7 @@ export async function autoStartTours() {
         await useCase.execute({
           userId: tour.operatorId,
           type: "TOUR_START_WARNING",
-          title: "Tour đã đến giờ khởi hành - Chưa có guide được chấp nhận",
+          title: "Tour departure time reached - No guide accepted yet",
           message: `Tour "${tour.title}" đã đến giờ khởi hành (${startDateTime}) nhưng chưa có guide nào được chấp nhận. Hiện có ${pendingApplications.length} ứng tuyển đang chờ bạn duyệt. Vui lòng kiểm tra và chấp nhận guide ngay hoặc hủy tour nếu không tìm được guide phù hợp.`,
           link: `/tours/${tour.id}/applications`,
         });
@@ -141,7 +141,7 @@ export async function autoStartTours() {
         // Notify operator
         await NotificationService.notifyTourCancelled(
           tour.id,
-          `Tour đã đến giờ khởi hành (${startDateTime}) nhưng không có guide nào ứng tuyển hoặc được chấp nhận. Tour đã được tự động hủy. Vui lòng tìm phương án khác hoặc tạo tour mới.`
+          `Tour departure time reached (${startDateTime}) nhưng không có guide nào ứng tuyển hoặc được chấp nhận. Tour đã được tự động hủy. Vui lòng tìm phương án khác hoặc tạo tour mới.`
         );
 
         results.push({

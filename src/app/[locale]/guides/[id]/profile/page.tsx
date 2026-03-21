@@ -46,7 +46,7 @@ export default function GuideProfilePage() {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải thông tin...</p>
+          <p className="text-slate-600">Đang tải information...</p>
         </div>
       </DashboardLayout>
     );
@@ -57,8 +57,8 @@ export default function GuideProfilePage() {
       <DashboardLayout>
         <EmptyState
           icon={AlertCircle}
-          title="Không tìm thấy hướng dẫn viên"
-          description="Hướng dẫn viên này không tồn tại hoặc đã bị xóa"
+          title="Guide not found"
+          description="This tour guide does not exist or has been deleted"
           action={
             <Button onClick={() => router.back()}>Quay lại</Button>
           }
@@ -82,8 +82,8 @@ export default function GuideProfilePage() {
   return (
     <DashboardLayout>
       <PageHeader
-        title="Profile Hướng dẫn viên"
-        description="Thông tin chi tiết về hướng dẫn viên"
+        title="Profile Tour guide"
+        description="Detailed guide information"
         action={
           <Button variant="outline" onClick={() => router.back()}>
             Quay lại
@@ -97,7 +97,7 @@ export default function GuideProfilePage() {
           {/* Basic Info */}
           <Card>
             <CardHeader>
-              <CardTitle>Thông tin cơ bản</CardTitle>
+              <CardTitle>Information cơ bản</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-start gap-6">
@@ -210,7 +210,7 @@ export default function GuideProfilePage() {
           {profile?.bio && (
             <Card>
               <CardHeader>
-                <CardTitle>Giới thiệu</CardTitle>
+                <CardTitle>About</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 whitespace-pre-wrap">{profile.bio}</p>
@@ -221,13 +221,13 @@ export default function GuideProfilePage() {
           {/* Skills & Languages */}
           <Card>
             <CardHeader>
-              <CardTitle>Kỹ năng & Ngôn ngữ</CardTitle>
+              <CardTitle>Skills & Languages</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {profile?.languages && profile.languages.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-slate-700 mb-2">Ngôn ngữ</h4>
+                    <h4 className="text-sm font-medium text-slate-700 mb-2">Languages</h4>
                     <div className="flex flex-wrap gap-2">
                       {profile.languages.map((lang: string, idx: number) => (
                         <span
@@ -242,7 +242,7 @@ export default function GuideProfilePage() {
                 )}
                 {profile?.specialties && profile.specialties.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-slate-700 mb-2">Chuyên môn</h4>
+                    <h4 className="text-sm font-medium text-slate-700 mb-2">Specialties</h4>
                     <div className="flex flex-wrap gap-2">
                       {profile.specialties.map((spec: string, idx: number) => (
                         <span
@@ -257,9 +257,9 @@ export default function GuideProfilePage() {
                 )}
                 {profile?.experienceYears && (
                   <div>
-                    <h4 className="text-sm font-medium text-slate-700 mb-2">Kinh nghiệm</h4>
+                    <h4 className="text-sm font-medium text-slate-700 mb-2">Experience</h4>
                     <p className="text-slate-600">
-                      {profile.experienceYears} năm kinh nghiệm
+                      {profile.experienceYears} years of experience
                     </p>
                   </div>
                 )}
@@ -271,7 +271,7 @@ export default function GuideProfilePage() {
           {guideProfile.companyMember && (
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin công ty</CardTitle>
+                <CardTitle>Information công ty</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-4">
@@ -299,7 +299,7 @@ export default function GuideProfilePage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Đánh giá & Testimonials</CardTitle>
+                <CardTitle>Reviews & Testimonials</CardTitle>
                 {stats.totalReviews > 0 && (
                   <span className="text-sm text-slate-600">
                     {stats.totalReviews} đánh giá
@@ -386,7 +386,7 @@ export default function GuideProfilePage() {
                   <Star className="h-12 w-12 text-slate-300 mx-auto mb-3" />
                   <p className="text-slate-600">Chưa có đánh giá nào</p>
                   <p className="text-sm text-slate-500 mt-1">
-                    Đánh giá sẽ xuất hiện sau khi hoàn thành tour
+                    Reviews sẽ xuất hiện sau khi hoàn thành tour
                   </p>
                 </div>
               )}
@@ -469,7 +469,7 @@ export default function GuideProfilePage() {
           {/* Verification Status */}
           <Card>
             <CardHeader>
-              <CardTitle>Trạng thái xác minh</CardTitle>
+              <CardTitle>Status xác minh</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -479,12 +479,12 @@ export default function GuideProfilePage() {
                 {verification && (
                   <div className="text-sm text-slate-600">
                     <p>
-                      <span className="font-medium">Ngày nộp:</span>{" "}
+                      <span className="font-medium">Submitted:</span>{" "}
                       {formatDate(verification.createdAt)}
                     </p>
                     {verification.updatedAt && (
                       <p>
-                        <span className="font-medium">Cập nhật:</span>{" "}
+                        <span className="font-medium">Updated:</span>{" "}
                         {formatDate(verification.updatedAt)}
                       </p>
                     )}

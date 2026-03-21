@@ -60,13 +60,13 @@ export default function PaymentSettingsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã tạo tài khoản ngân hàng");
+      toast.success("Bank account created");
       queryClient.invalidateQueries({ queryKey: ["lunaviaBankAccounts"] });
       setDialogOpen(false);
       resetForm();
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi tạo tài khoản");
+      toast.error(error.message || "Error creating account");
     },
   });
 
@@ -84,14 +84,14 @@ export default function PaymentSettingsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã cập nhật tài khoản ngân hàng");
+      toast.success("Bank account updated");
       queryClient.invalidateQueries({ queryKey: ["lunaviaBankAccounts"] });
       setDialogOpen(false);
       setEditingAccount(null);
       resetForm();
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi cập nhật");
+      toast.error(error.message || "Error updating method");
     },
   });
 
@@ -106,11 +106,11 @@ export default function PaymentSettingsPage() {
       }
     },
     onSuccess: () => {
-      toast.success("Đã xóa tài khoản ngân hàng");
+      toast.success("Bank account deleted");
       queryClient.invalidateQueries({ queryKey: ["lunaviaBankAccounts"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi xóa");
+      toast.error(error.message || "Error deleting method");
     },
   });
 
@@ -157,8 +157,8 @@ export default function PaymentSettingsPage() {
   return (
     <>
       <PageHeader
-        title="Cài đặt Thanh toán"
-        description="Quản lý thông tin tài khoản ngân hàng Lunavia"
+        title="Payment Settings"
+        description="Manage Lunavia bank account information"
         action={
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
@@ -170,12 +170,12 @@ export default function PaymentSettingsPage() {
             <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle>
-                  {editingAccount ? "Chỉnh sửa tài khoản" : "Thêm tài khoản ngân hàng"}
+                  {editingAccount ? "Edit Account" : "Add Bank Account"}
                 </DialogTitle>
                 <DialogDescription>
                   {editingAccount
-                    ? "Cập nhật thông tin tài khoản ngân hàng Lunavia"
-                    : "Thêm tài khoản ngân hàng mới để nhận thanh toán từ users"}
+                    ? "Update Lunavia bank account information"
+                    : "Add a new bank account to receive payments from users"}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -188,7 +188,7 @@ export default function PaymentSettingsPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, bankName: e.target.value })
                       }
-                      placeholder="VD: Vietcombank, Techcombank..."
+                      placeholder="e.g. Vietcombank, Techcombank..."
                       required
                     />
                   </div>
@@ -200,7 +200,7 @@ export default function PaymentSettingsPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, accountName: e.target.value })
                       }
-                      placeholder="Tên chủ tài khoản"
+                      placeholder="Account Holder Name"
                       required
                     />
                   </div>
@@ -214,7 +214,7 @@ export default function PaymentSettingsPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, accountNumber: e.target.value })
                       }
-                      placeholder="Số tài khoản"
+                      placeholder="Account Number"
                       required
                     />
                   </div>
@@ -226,7 +226,7 @@ export default function PaymentSettingsPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, branchName: e.target.value })
                       }
-                      placeholder="Chi nhánh (tùy chọn)"
+                      placeholder="Branch (optional)"
                     />
                   </div>
                 </div>
@@ -243,14 +243,14 @@ export default function PaymentSettingsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="notes">Ghi chú</Label>
+                  <Label htmlFor="notes">Notes</Label>
                   <Textarea
                     id="notes"
                     value={formData.notes}
                     onChange={(e) =>
                       setFormData({ ...formData, notes: e.target.value })
                     }
-                    placeholder="Ghi chú về tài khoản này..."
+                    placeholder="Notes about this account..."
                     rows={3}
                   />
                 </div>
@@ -281,7 +281,7 @@ export default function PaymentSettingsPage() {
                     Hủy
                   </Button>
                   <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
-                    {editingAccount ? "Cập nhật" : "Tạo mới"}
+                    {editingAccount ? "Update" : "Create"}
                   </Button>
                 </DialogFooter>
               </form>
@@ -297,13 +297,13 @@ export default function PaymentSettingsPage() {
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-slate-600">Đang tải...</p>
+              <p className="text-slate-600">Loading...</p>
             </div>
           ) : accounts.length === 0 ? (
             <EmptyState
               icon={Building2}
-              title="Chưa có tài khoản ngân hàng"
-              description="Thêm tài khoản ngân hàng đầu tiên để users có thể nạp tiền"
+              title="No bank accounts yet"
+              description="Add your first bank account so users can make deposits"
             />
           ) : (
             <div className="space-y-4">
@@ -369,7 +369,7 @@ export default function PaymentSettingsPage() {
                           size="sm"
                           className="text-red-600 hover:text-red-700 hover:bg-red-50"
                           onClick={() => {
-                            if (confirm("Bạn có chắc muốn xóa tài khoản này?")) {
+                            if (confirm("Are you sure you want to delete this account?")) {
                               deleteMutation.mutate(account.id);
                             }
                           }}

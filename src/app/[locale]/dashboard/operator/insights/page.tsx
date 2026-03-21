@@ -77,20 +77,20 @@ export default function OperatorInsightsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <KPICard
                     icon={<Calendar className="h-4 w-4" />}
-                    label="Tổng Tours"
+                    label="Total Tours"
                     value={summary.totalTours}
                     trend={trends.tours}
                     color="indigo"
                 />
                 <KPICard
                     icon={<CheckCircle2 className="h-4 w-4" />}
-                    label="Hoàn Thành"
+                    label="Completed"
                     value={`${summary.completionRate}%`}
                     color="emerald"
                 />
                 <KPICard
                     icon={<DollarSign className="h-4 w-4" />}
-                    label="Tổng Chi"
+                    label="Total Spent"
                     value={formatVND(summary.totalRevenue)}
                     trend={trends.revenue}
                     color="amber"
@@ -98,7 +98,7 @@ export default function OperatorInsightsPage() {
                 />
                 <KPICard
                     icon={<Users className="h-4 w-4" />}
-                    label="Ứng Tuyển"
+                    label="Applications"
                     value={summary.totalApplications}
                     trend={trends.applications}
                     color="blue"
@@ -165,7 +165,7 @@ export default function OperatorInsightsPage() {
                             size={110}
                             thickness={14}
                             centerValue={`${summary.completionRate}%`}
-                            centerLabel="Hoàn thành"
+                            centerLabel="Completed"
                         />
                     </CardContent>
                 </Card>

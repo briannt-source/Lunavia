@@ -25,14 +25,14 @@ export default function NotificationsPage() {
       await api.notifications.markRead(id);
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi đánh dấu đã đọc");
+      toast.error(error.message || "Error marking as read");
     }
   };
 
   return (
     <>
       <PageHeader
-        title="Thông báo"
+        title="Notifications"
         description={`${data?.unreadCount || 0} thông báo chưa đọc`}
       />
 
@@ -41,8 +41,8 @@ export default function NotificationsPage() {
           {notifications.length === 0 ? (
             <EmptyState
               icon={Bell}
-              title="Chưa có thông báo nào"
-              description="Các thông báo sẽ xuất hiện ở đây"
+              title="No notifications yet"
+              description="Notifications will appear here"
             />
           ) : (
             <div className="space-y-4">

@@ -37,16 +37,16 @@ interface UserModerationDialogProps {
 }
 
 const BLOCK_REASONS = [
-  { value: "FRAUD", label: "Gian lận/Lừa đảo" },
-  { value: "POLICY_VIOLATION", label: "Vi phạm quy định" },
-  { value: "INAPPROPRIATE_BEHAVIOR", label: "Hành vi không phù hợp" },
-  { value: "SPAM", label: "Spam/Lạm dụng hệ thống" },
-  { value: "FALSE_INFORMATION", label: "Thông tin sai sự thật" },
-  { value: "UNAUTHORIZED_ACTIVITY", label: "Hoạt động trái phép" },
-  { value: "LEGAL_VIOLATION", label: "Vi phạm pháp luật" },
-  { value: "UNETHICAL_BEHAVIOR", label: "Hành vi không đạo đức" },
-  { value: "SAFETY_CONCERN", label: "Lo ngại về an toàn" },
-  { value: "OTHER", label: "Lý do khác" },
+  { value: "FRAUD", label: "Fraud/Scam" },
+  { value: "POLICY_VIOLATION", label: "Policy Violation" },
+  { value: "INAPPROPRIATE_BEHAVIOR", label: "Inappropriate Behavior" },
+  { value: "SPAM", label: "Spam/System Abuse" },
+  { value: "FALSE_INFORMATION", label: "False Information" },
+  { value: "UNAUTHORIZED_ACTIVITY", label: "Unauthorized Activity" },
+  { value: "LEGAL_VIOLATION", label: "Legal Violation" },
+  { value: "UNETHICAL_BEHAVIOR", label: "Unethical Behavior" },
+  { value: "SAFETY_CONCERN", label: "Safety Concern" },
+  { value: "OTHER", label: "Other" },
 ];
 
 export function UserModerationDialog({
@@ -64,7 +64,7 @@ export function UserModerationDialog({
 
   const handleSubmit = async () => {
     if (action === "block" && !reason) {
-      toast.error("Vui lòng chọn lý do block user");
+      toast.error("Please select a reason for blocking user");
       return;
     }
 
@@ -77,8 +77,8 @@ export function UserModerationDialog({
 
       toast.success(
         action === "block"
-          ? "User đã được block thành công"
-          : "User đã được unblock thành công"
+          ? "User blocked successfully"
+          : "User unblocked successfully"
       );
       onOpenChange(false);
       setReason("");
@@ -87,7 +87,7 @@ export function UserModerationDialog({
         onSuccess();
       }
     } catch (error: any) {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -121,10 +121,10 @@ export function UserModerationDialog({
           {action === "block" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="reason">Lý do block *</Label>
+                <Label htmlFor="reason">Reason block *</Label>
                 <Select value={reason} onValueChange={setReason}>
                   <SelectTrigger id="reason">
-                    <SelectValue placeholder="Chọn lý do block" />
+                    <SelectValue placeholder="Select reason for blocking" />
                   </SelectTrigger>
                   <SelectContent>
                     {BLOCK_REASONS.map((r) => (
@@ -137,10 +137,10 @@ export function UserModerationDialog({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="notes">Ghi chú (tùy chọn)</Label>
+                <Label htmlFor="notes">Notes (tùy chọn)</Label>
                 <Textarea
                   id="notes"
-                  placeholder="Thêm ghi chú chi tiết về lý do block..."
+                  placeholder="Add detailed notes about the blocking reason..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={4}
@@ -168,7 +168,7 @@ export function UserModerationDialog({
             disabled={loading}
           >
             {loading
-              ? "Đang xử lý..."
+              ? "Processing..."
               : action === "block"
               ? "Block User"
               : "Unblock User"}

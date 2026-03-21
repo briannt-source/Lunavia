@@ -39,24 +39,24 @@ export function InviteGuideDialog({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
-      toast.success("Đã gửi lời mời thành công!");
+      toast.success("Invitation sent successfully!");
       setEmail("");
       setGuideId("");
       onOpenChange(false);
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra khi gửi lời mời");
+      toast.error(error.message || "An error occurred sending invitation");
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inviteType === "email" && !email.trim()) {
-      toast.error("Vui lòng nhập email");
+      toast.error("Please enter email");
       return;
     }
     if (inviteType === "guideId" && !guideId.trim()) {
-      toast.error("Vui lòng nhập Guide ID");
+      toast.error("Please enter Guide ID");
       return;
     }
 
@@ -73,7 +73,7 @@ export function InviteGuideDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <UserPlus className="h-5 w-5" />
-            Mời Guide vào Công ty
+            Mời Guide vào Company
           </DialogTitle>
           <DialogDescription>
             Mời guide vào công ty của bạn bằng email hoặc Guide ID
@@ -162,7 +162,7 @@ export function InviteGuideDialog({
               {inviteMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Đang gửi...
+                  Submitting...
                 </>
               ) : (
                 <>

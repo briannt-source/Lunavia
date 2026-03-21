@@ -75,8 +75,8 @@ export default async function AdminVerificationsPage({
   return (
     <>
       <PageHeader
-        title="Quản lý Xác minh"
-        description="Duyệt các yêu cầu xác minh KYC/KYB"
+        title="Manage Verifications"
+        description="Review KYC/KYB verification requests"
       />
 
       {/* Stats */}
@@ -133,10 +133,10 @@ export default async function AdminVerificationsPage({
           <form method="get" className="flex gap-4">
             <Select name="status" defaultValue={params.status || "all"}>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Trạng thái" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả trạng thái</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 <SelectItem value="PENDING">Đang chờ</SelectItem>
                 <SelectItem value="APPROVED">Đã duyệt</SelectItem>
                 <SelectItem value="REJECTED">Đã từ chối</SelectItem>
@@ -144,7 +144,7 @@ export default async function AdminVerificationsPage({
             </Select>
             <Select name="type" defaultValue={params.type || "all"}>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Loại" />
+                <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tất cả loại</SelectItem>
@@ -196,18 +196,18 @@ export default async function AdminVerificationsPage({
                         <span>Nộp: {formatDateTime(verification.createdAt)}</span>
                         {verification.status !== "PENDING" && verification.updatedAt && (
                           <span>
-                            {verification.status === "APPROVED" ? "Duyệt" : "Từ chối"}: {formatDateTime(verification.updatedAt)}
+                            {verification.status === "APPROVED" ? "Approved" : "Reject"}: {formatDateTime(verification.updatedAt)}
                           </span>
                         )}
                       </div>
                       {verification.rejectionReason && (
                         <p className="text-sm text-red-600 mt-2">
-                          Lý do từ chối: {verification.rejectionReason}
+                          Reason từ chối: {verification.rejectionReason}
                         </p>
                       )}
                     </div>
                     <Button variant="outline" size="sm">
-                      {verification.status === "PENDING" ? "Xem và duyệt" : "Xem chi tiết"}
+                      {verification.status === "PENDING" ? "Review" : "View Details"}
                     </Button>
                   </div>
                 </Link>

@@ -28,7 +28,7 @@ export async function POST(
 
     if (!isModerator) {
       return NextResponse.json(
-        { error: "Chỉ admin và moderator mới có quyền thực hiện hành động này" },
+        { error: "Only admin and moderator can perform this action" },
         { status: 403 }
       );
     }
@@ -74,7 +74,7 @@ export async function POST(
 
       if (!reason || !validReasons.includes(reason)) {
         return NextResponse.json(
-          { error: "Vui lòng chọn lý do đóng tour hợp lệ" },
+          { error: "Please select a valid reason for closing tour" },
           { status: 400 }
         );
       }
@@ -99,7 +99,7 @@ export async function POST(
       );
 
       return NextResponse.json({
-        message: "Tour đã được đóng thành công",
+        message: "Tour closed successfully",
         tour: updatedTour,
       });
     } else if (action === "unblock") {
@@ -119,12 +119,12 @@ export async function POST(
       await NotificationService.notifyTourUnblocked(tourId);
 
       return NextResponse.json({
-        message: "Tour đã được mở lại thành công",
+        message: "Tour reopened successfully",
         tour: updatedTour,
       });
     } else {
       return NextResponse.json(
-        { error: "Action không hợp lệ. Chỉ chấp nhận 'block' hoặc 'unblock'" },
+        { error: "Invalid action. Only 'block' or 'unblock' accepted" },
         { status: 400 }
       );
     }
@@ -139,17 +139,17 @@ export async function POST(
 
 function getReasonText(reason: string): string {
   const reasonMap: Record<string, string> = {
-    MISINFORMATION: "Thông tin sai lệch",
-    INAPPROPRIATE_CONTENT: "Nội dung không phù hợp",
-    POLICY_VIOLATION: "Vi phạm quy định",
-    MISSING_INFO: "Thiếu thông tin",
-    SPAM: "Spam/Lạm dụng hệ thống",
-    FALSE_CLAIMS: "Tuyên bố sai sự thật",
-    COPYRIGHT_VIOLATION: "Vi phạm bản quyền",
-    UNAUTHORIZED_CONTACT: "Thông tin liên hệ không được phép",
-    LEGAL_VIOLATION: "Vi phạm pháp luật",
-    UNETHICAL_BEHAVIOR: "Hành vi không đạo đức",
-    OTHER: "Lý do khác",
+    MISINFORMATION: "Misinformation",
+    INAPPROPRIATE_CONTENT: "Inappropriate content",
+    POLICY_VIOLATION: "Policy violation",
+    MISSING_INFO: "Missing information",
+    SPAM: "Spam/System abuse",
+    FALSE_CLAIMS: "False claims",
+    COPYRIGHT_VIOLATION: "Copyright violation",
+    UNAUTHORIZED_CONTACT: "Unauthorized contact information",
+    LEGAL_VIOLATION: "Legal violation",
+    UNETHICAL_BEHAVIOR: "Unethical behavior",
+    OTHER: "Other reason",
   };
   return reasonMap[reason] || reason;
 }

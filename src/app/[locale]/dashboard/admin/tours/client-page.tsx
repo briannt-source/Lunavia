@@ -60,8 +60,8 @@ export default function AdminToursClientPage() {
   return (
     <>
       <PageHeader
-        title="Quản lý Tours"
-        description="Xem và quản lý tất cả tours trong hệ thống. Có thể đóng/mở tour nếu vi phạm quy định."
+        title="Manage Tours"
+        description="View and manage all tours. Tours violating policies can be suspended."
       />
 
       {/* Stats */}
@@ -133,7 +133,7 @@ export default function AdminToursClientPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input
-                  placeholder="Tìm tour..."
+                  placeholder="Search tours..."
                   defaultValue={search}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -149,10 +149,10 @@ export default function AdminToursClientPage() {
               onValueChange={(value) => handleFilter(value, city, search)}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Trạng thái" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả trạng thái</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 <SelectItem value="DRAFT">Draft</SelectItem>
                 <SelectItem value="OPEN">Đang mở</SelectItem>
                 <SelectItem value="IN_PROGRESS">Đang diễn ra</SelectItem>
@@ -162,7 +162,7 @@ export default function AdminToursClientPage() {
             </Select>
             <Button
               onClick={() => {
-                const searchInput = document.querySelector("input[placeholder='Tìm tour...']") as HTMLInputElement;
+                const searchInput = document.querySelector("input[placeholder='Search tours...']") as HTMLInputElement;
                 handleFilter(status, city, searchInput?.value || "");
               }}
             >
@@ -181,7 +181,7 @@ export default function AdminToursClientPage() {
           {tours.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <MapPin className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Không tìm thấy tour nào</p>
+              <p>No tours found</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -232,7 +232,7 @@ export default function AdminToursClientPage() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Users className="h-3 w-3" />
-                          {tour.pax} khách
+                          {tour.pax} guests
                         </span>
                         {tour.priceMain && (
                           <span className="flex items-center gap-1">
@@ -249,7 +249,7 @@ export default function AdminToursClientPage() {
                         <span>Tạo: {formatDateTime(tour.createdAt)}</span>
                         {tour.isBlocked && tour.blockReason && (
                           <span className="text-red-600">
-                            Lý do: {tour.blockReason}
+                            Reason: {tour.blockReason}
                           </span>
                         )}
                       </div>
@@ -257,7 +257,7 @@ export default function AdminToursClientPage() {
                     <div className="flex gap-2">
                       <Link href={`/tours/${tour.id}`}>
                         <Button variant="outline" size="sm">
-                          Xem chi tiết
+                          View Details
                         </Button>
                       </Link>
                       <Button

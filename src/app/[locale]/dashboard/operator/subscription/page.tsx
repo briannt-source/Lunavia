@@ -10,19 +10,19 @@ import { CheckCircle2, XCircle, Clock, Crown } from "lucide-react";
 const PLANS = {
   FREE: {
     name: "Free",
-    features: ["Tạo tour cơ bản", "Tối đa 5 tours/tháng"],
+    features: ["Basic tour creation", "Up to 5 tours/month"],
   },
   TRIAL: {
     name: "Trial",
-    features: ["Tất cả tính năng Free", "Tối đa 20 tours/tháng", "Hỗ trợ ưu tiên"],
+    features: ["All Free features", "Up to 20 tours/month", "Priority support"],
   },
   PRO: {
     name: "Pro",
     features: [
-      "Tất cả tính năng Trial",
-      "Không giới hạn tours",
-      "Hỗ trợ 24/7",
-      "Analytics nâng cao",
+      "All Trial features",
+      "Unlimited tours",
+      "24/7 support",
+      "Advanced analytics",
     ],
   },
 };
@@ -87,7 +87,7 @@ export default function SubscriptionPage() {
                   <Clock className="h-5 w-5 text-amber-600" />
                   <div>
                     <p className="text-sm font-medium text-amber-900">
-                      Còn {trialDaysLeft} ngày dùng thử
+                      Remaining {trialDaysLeft} ngày dùng thử
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
                       Nâng cấp lên Pro để tiếp tục sử dụng tất cả tính năng

@@ -36,7 +36,7 @@ export class SubmitSOSUseCase {
     });
 
     if (!application && !assignment) {
-      throw new Error("Bạn không được gán cho tour này");
+      throw new Error("You are not assigned to this tour");
     }
 
     const tour = application?.tour || assignment?.tour;
@@ -45,7 +45,7 @@ export class SubmitSOSUseCase {
     }
 
     if (tour.status !== "IN_PROGRESS") {
-      throw new Error("Tour phải đang chạy mới có thể báo cáo SOS");
+      throw new Error("Tour must be running to submit SOS report");
     }
 
     // Create emergency report
@@ -67,7 +67,7 @@ export class SubmitSOSUseCase {
       userId: tour.operatorId,
       type: "EMERGENCY",
       title: `🚨 ${input.type} - ${input.severity} Severity`,
-      message: `Hướng dẫn viên đã báo cáo ${input.type.toLowerCase()}: ${input.description.substring(0, 100)}...`,
+      message: `Tour guide đã báo cáo ${input.type.toLowerCase()}: ${input.description.substring(0, 100)}...`,
       link: `/dashboard/operator/tours/${input.tourId}/emergencies/${emergencyReport.id}`,
     });
 

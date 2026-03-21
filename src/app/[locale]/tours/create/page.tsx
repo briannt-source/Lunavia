@@ -99,40 +99,40 @@ export default function CreateTourPage() {
     const validationErrors: string[] = [];
     
     if (!formData.title || formData.title.trim().length === 0) {
-      validationErrors.push("Vui lòng nhập tiêu đề tour");
+      validationErrors.push("Please enter tour title");
     }
 
     if (!formData.description || formData.description.trim().length === 0) {
-      validationErrors.push("Vui lòng nhập mô tả tour");
+      validationErrors.push("Please enter tour description");
     }
 
     if (!formData.city || formData.city.trim().length === 0) {
-      validationErrors.push("Vui lòng chọn thành phố");
+      validationErrors.push("Please select a city");
     }
 
     if (!formData.startDate) {
-      validationErrors.push("Vui lòng nhập ngày bắt đầu tour");
+      validationErrors.push("Please enter tour start date");
     } else {
       const startDate = new Date(formData.startDate);
       if (isNaN(startDate.getTime())) {
-        validationErrors.push("Ngày bắt đầu không hợp lệ. Vui lòng nhập đúng định dạng");
+        validationErrors.push("Start date is invalid. Please enter correct format");
       }
     }
 
     if (formData.endDate) {
       const endDate = new Date(formData.endDate);
       if (isNaN(endDate.getTime())) {
-        validationErrors.push("Ngày kết thúc không hợp lệ. Vui lòng nhập đúng định dạng");
+        validationErrors.push("End date is invalid. Please enter correct format");
       } else if (formData.startDate) {
         const startDate = new Date(formData.startDate);
         if (!isNaN(startDate.getTime()) && endDate < startDate) {
-          validationErrors.push("Ngày kết thúc phải sau ngày bắt đầu");
+          validationErrors.push("End date must be after start date");
         }
       }
     }
 
     if (!formData.pax || parseInt(formData.pax) <= 0) {
-      validationErrors.push("Vui lòng nhập số lượng khách hợp lệ (lớn hơn 0)");
+      validationErrors.push("Please enter valid guest count (greater than 0)");
     }
 
     if (validationErrors.length > 0) {
@@ -211,7 +211,7 @@ export default function CreateTourPage() {
       if (!response.ok) {
         const errorData = await response.json();
         // Show detailed error messages
-        const errorMessage = errorData.error || "Không thể tạo tour. Vui lòng kiểm tra lại thông tin đã nhập.";
+        const errorMessage = errorData.error || "Unable to create tour. Please check your input.";
         
         // If error contains multiple messages (separated by .), show each one
         if (errorMessage.includes(". ")) {
@@ -229,9 +229,9 @@ export default function CreateTourPage() {
 
       const tour = await response.json();
       if (submitAction === "publish") {
-        toast.success("Tour đã được publish lên marketplace!");
+        toast.success("Tour published to marketplace!");
       } else {
-        toast.success("Tour đã được lưu làm bản nháp!");
+        toast.success("Tour saved as draft!");
       }
       router.push(`/tours/${tour.id}`);
     } catch (error: any) {
@@ -260,8 +260,8 @@ export default function CreateTourPage() {
   return (
     <DashboardLayout>
       <PageHeader
-        title="Tạo Tour mới"
-        description="Điền thông tin để tạo tour mới"
+        title="Create New Tour"
+        description="Fill in details to create a new tour"
         action={
           <Button
             type="button"
@@ -301,8 +301,8 @@ export default function CreateTourPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <Tabs defaultValue="basic" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="basic">Thông tin cơ bản</TabsTrigger>
-                <TabsTrigger value="pricing">Giá & Ngày</TabsTrigger>
+                <TabsTrigger value="basic">Information cơ bản</TabsTrigger>
+                <TabsTrigger value="pricing">Price & Ngày</TabsTrigger>
                 <TabsTrigger value="details">Chi tiết</TabsTrigger>
                 <TabsTrigger value="files">Files</TabsTrigger>
               </TabsList>
@@ -317,13 +317,13 @@ export default function CreateTourPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
                     }
-                    placeholder="Ví dụ: Tour khám phá Hà Nội"
+                    placeholder="e.g. Hanoi Discovery Tour"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Mô tả *</Label>
+                  <Label htmlFor="description">Description *</Label>
                   <textarea
                     id="description"
                     className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -331,14 +331,14 @@ export default function CreateTourPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    placeholder="Mô tả chi tiết về tour..."
+                    placeholder="Describe your tour in detail..."
                     required
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="city">Thành phố *</Label>
+                    <Label htmlFor="city">City *</Label>
                     <Select
                       value={formData.city}
                       onValueChange={(value) =>
@@ -346,7 +346,7 @@ export default function CreateTourPage() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Chọn thành phố" />
+                        <SelectValue placeholder="Select city" />
                       </SelectTrigger>
                       <SelectContent>
                         {cities.map((city: any) => (
@@ -359,7 +359,7 @@ export default function CreateTourPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="pax">Số khách *</Label>
+                    <Label htmlFor="pax">Số guests *</Label>
                     <Input
                       id="pax"
                       type="number"
@@ -368,14 +368,14 @@ export default function CreateTourPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, pax: e.target.value })
                       }
-                      placeholder="Ví dụ: 15"
+                      placeholder="e.g. 15"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="visibility">Hiển thị</Label>
+                  <Label htmlFor="visibility">Visibility</Label>
                   <Select
                     value={formData.visibility}
                     onValueChange={(value) =>
@@ -386,8 +386,8 @@ export default function CreateTourPage() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="PUBLIC">Công khai (Public)</SelectItem>
-                      <SelectItem value="PRIVATE">Riêng tư (Private - chỉ in-house)</SelectItem>
+                      <SelectItem value="PUBLIC">Public (Public)</SelectItem>
+                      <SelectItem value="PRIVATE">Private (Private - chỉ in-house)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -416,7 +416,7 @@ export default function CreateTourPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="priceMain">
-                      Giá Main Guide ({formData.currency})
+                      Price Main Guide ({formData.currency})
                     </Label>
                     <Input
                       id="priceMain"
@@ -426,7 +426,7 @@ export default function CreateTourPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, priceMain: e.target.value })
                       }
-                      placeholder="Không bắt buộc"
+                      placeholder="Optional"
                     />
                     {formData.priceMain && formData.currency === "USD" && (
                       <p className="text-xs text-slate-500">
@@ -437,7 +437,7 @@ export default function CreateTourPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="priceSub">
-                      Giá Sub Guide ({formData.currency})
+                      Price Sub Guide ({formData.currency})
                     </Label>
                     <Input
                       id="priceSub"
@@ -447,7 +447,7 @@ export default function CreateTourPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, priceSub: e.target.value })
                       }
-                      placeholder="Không bắt buộc"
+                      placeholder="Optional"
                     />
                     {formData.priceSub && formData.currency === "USD" && (
                       <p className="text-xs text-slate-500">
@@ -459,28 +459,28 @@ export default function CreateTourPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <DateTimePicker
-                    label="Ngày bắt đầu"
+                    label="Start date"
                     value={formData.startDate}
                     onChange={(value) =>
                       setFormData({ ...formData, startDate: value })
                     }
                     required
-                    placeholder="Chọn ngày và giờ bắt đầu tour"
+                    placeholder="Select tour start date and time"
                   />
 
                   <DateTimePicker
-                    label="Ngày kết thúc"
+                    label="End date"
                     value={formData.endDate}
                     onChange={(value) =>
                       setFormData({ ...formData, endDate: value })
                     }
                     min={formData.startDate || undefined}
-                    placeholder="Chọn ngày và giờ kết thúc tour (tùy chọn)"
+                    placeholder="Select tour end date and time (optional)"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="durationHours">Thời lượng (giờ)</Label>
+                  <Label htmlFor="durationHours">Duration (hours)</Label>
                   <Input
                     id="durationHours"
                     type="number"
@@ -489,7 +489,7 @@ export default function CreateTourPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, durationHours: e.target.value })
                     }
-                    placeholder="Ví dụ: 8 (không bắt buộc)"
+                    placeholder="e.g. 8 (optional)"
                   />
                 </div>
               </TabsContent>
@@ -497,10 +497,10 @@ export default function CreateTourPage() {
               {/* Details Tab */}
               <TabsContent value="details" className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label htmlFor="languages">Ngôn ngữ *</Label>
+                  <Label htmlFor="languages">Languages *</Label>
                   <Input
                     id="languages"
-                    placeholder="Tiếng Việt, English, 中文 (phân cách bởi dấu phẩy)"
+                    placeholder="Vietnamese, English, Chinese (comma-separated)"
                     value={formData.languages}
                     onChange={(e) =>
                       setFormData({ ...formData, languages: e.target.value })
@@ -510,10 +510,10 @@ export default function CreateTourPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="specialties">Chuyên môn</Label>
+                  <Label htmlFor="specialties">Specialties</Label>
                   <Input
                     id="specialties"
-                    placeholder="Văn hóa, Lịch sử, Ẩm thực (phân cách bởi dấu phẩy)"
+                    placeholder="Culture, History, Cuisine (comma-separated)"
                     value={formData.specialties}
                     onChange={(e) =>
                       setFormData({ ...formData, specialties: e.target.value })
@@ -523,7 +523,7 @@ export default function CreateTourPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="guideNotes">
-                    Ghi chú cho Tour Guide
+                    Notes cho Tour Guide
                     <span className="text-slate-400 text-sm font-normal ml-2">
                       (Chỉ Tour Guide mới thấy phần này)
                     </span>
@@ -532,14 +532,14 @@ export default function CreateTourPage() {
                     id="guideNotes"
                     rows={6}
                     className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-y"
-                    placeholder="Nhập các lưu ý, dặn dò, hoặc thông tin quan trọng dành riêng cho Tour Guide..."
+                    placeholder="Enter notes, reminders, or important information for Tour Guides..."
                     value={formData.guideNotes}
                     onChange={(e) =>
                       setFormData({ ...formData, guideNotes: e.target.value })
                     }
                   />
                   <p className="text-xs text-slate-500">
-                    Phần này chỉ hiển thị cho Tour Guide khi họ xem chi tiết tour. Bạn có thể thêm các lưu ý đặc biệt, yêu cầu cụ thể, hoặc thông tin quan trọng.
+                    Phần này chỉ hiển thị cho Tour Guide khi họ xem chi tiết tour. Bạn có thể thêm các lưu ý đặc biệt, yêu cầu cụ thể, hoặc information quan trọng.
                   </p>
                 </div>
               </TabsContent>
@@ -569,7 +569,7 @@ export default function CreateTourPage() {
                   className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 flex-1"
                 >
                   <Globe className="h-4 w-4 mr-2" />
-                  {loading ? "Đang xử lý..." : "Publish"}
+                  {loading ? "Processing..." : "Publish"}
                 </Button>
                 <Button
                   type="button"
@@ -583,7 +583,7 @@ export default function CreateTourPage() {
                   className="flex-1"
                 >
                   <Save className="h-4 w-4 mr-2" />
-                  {loading ? "Đang xử lý..." : "Lưu Bản Nháp"}
+                  {loading ? "Processing..." : "Save Draft"}
                 </Button>
                 <Button
                   type="button"

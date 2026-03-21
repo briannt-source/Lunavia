@@ -49,10 +49,10 @@ export function EscrowActions({
     setIsLoading(true);
     try {
       await api.escrow.lock(escrowAccount.id);
-      toast.success("Đã khóa escrow thành công!");
+      toast.success("Escrow locked successfully!");
       onUpdate?.();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi khóa escrow");
+      toast.error(error.message || "Error locking escrow");
     } finally {
       setIsLoading(false);
     }
@@ -60,19 +60,19 @@ export function EscrowActions({
 
   const handleRelease = async () => {
     if (!reason.trim()) {
-      toast.error("Vui lòng nhập lý do giải phóng escrow");
+      toast.error("Please enter a reason for releasing escrow");
       return;
     }
 
     setIsLoading(true);
     try {
       await api.escrow.release(escrowAccount.id, reason);
-      toast.success("Đã giải phóng escrow thành công!");
+      toast.success("Escrow released successfully!");
       setIsDialogOpen(false);
       setReason("");
       onUpdate?.();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi giải phóng escrow");
+      toast.error(error.message || "Error releasing escrow");
     } finally {
       setIsLoading(false);
     }
@@ -80,19 +80,19 @@ export function EscrowActions({
 
   const handleRefund = async () => {
     if (!reason.trim()) {
-      toast.error("Vui lòng nhập lý do hoàn tiền escrow");
+      toast.error("Please enter a reason for refunding escrow");
       return;
     }
 
     setIsLoading(true);
     try {
       await api.escrow.refund(escrowAccount.id, reason);
-      toast.success("Đã hoàn tiền escrow thành công!");
+      toast.success("Escrow refunded successfully!");
       setIsDialogOpen(false);
       setReason("");
       onUpdate?.();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi hoàn tiền escrow");
+      toast.error(error.message || "Error refunding escrow");
     } finally {
       setIsLoading(false);
     }
@@ -107,21 +107,21 @@ export function EscrowActions({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted-foreground">Trạng thái Escrow</p>
+          <p className="text-sm text-muted-foreground">Status Escrow</p>
           <EscrowStatusBadge status={escrowAccount.status} className="mt-1" />
         </div>
         <div className="text-right">
-          <p className="text-sm text-muted-foreground">Số tiền</p>
+          <p className="text-sm text-muted-foreground">Amount</p>
           <p className="text-lg font-semibold">
             {escrowAccount.amount.toLocaleString("vi-VN")} VND
           </p>
           {escrowAccount.platformFee > 0 && (
             <p className="text-xs text-muted-foreground">
-              Phí nền tảng: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
+              Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
             </p>
           )}
           <p className="text-xs text-muted-foreground">
-            Số tiền nhận: {escrowAccount.netAmount.toLocaleString("vi-VN")} VND
+            Amount nhận: {escrowAccount.netAmount.toLocaleString("vi-VN")} VND
           </p>
         </div>
       </div>
@@ -161,22 +161,22 @@ export function EscrowActions({
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label>Lý do giải phóng</Label>
+                  <Label>Reason giải phóng</Label>
                   <Textarea
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    placeholder="Ví dụ: Tour đã hoàn thành và guide đã nộp báo cáo"
+                    placeholder="e.g. Tour completed and guide submitted report"
                     rows={3}
                   />
                 </div>
                 <div className="bg-muted p-3 rounded-md">
-                  <p className="text-sm font-medium">Thông tin thanh toán:</p>
+                  <p className="text-sm font-medium">Information thanh toán:</p>
                   <p className="text-sm">
-                    Số tiền: {escrowAccount.amount.toLocaleString("vi-VN")} VND
+                    Amount: {escrowAccount.amount.toLocaleString("vi-VN")} VND
                   </p>
                   {escrowAccount.platformFee > 0 && (
                     <p className="text-sm">
-                      Phí nền tảng: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
+                      Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
                     </p>
                   )}
                   <p className="text-sm font-medium">
@@ -228,22 +228,22 @@ export function EscrowActions({
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label>Lý do hoàn tiền</Label>
+                  <Label>Reason hoàn tiền</Label>
                   <Textarea
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    placeholder="Ví dụ: Tour đã bị hủy hoặc tranh chấp đã được giải quyết"
+                    placeholder="e.g. Tour cancelled or dispute resolved"
                     rows={3}
                   />
                 </div>
                 <div className="bg-muted p-3 rounded-md">
-                  <p className="text-sm font-medium">Thông tin hoàn tiền:</p>
+                  <p className="text-sm font-medium">Information hoàn tiền:</p>
                   <p className="text-sm">
-                    Số tiền sẽ được hoàn: {escrowAccount.amount.toLocaleString("vi-VN")} VND
+                    Amount sẽ được hoàn: {escrowAccount.amount.toLocaleString("vi-VN")} VND
                   </p>
                   {escrowAccount.platformFee > 0 && (
                     <p className="text-sm">
-                      Phí nền tảng: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
+                      Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
                     </p>
                   )}
                 </div>
@@ -272,7 +272,7 @@ export function EscrowActions({
         <div className="bg-green-50 border border-green-200 rounded-md p-3">
           <p className="text-sm text-green-800">
             <CheckCircle2 className="h-4 w-4 inline mr-1" />
-            Escrow đã được giải phóng vào{" "}
+            Escrow has been released vào{" "}
             {new Date(escrowAccount.releasedAt).toLocaleString("vi-VN")}
           </p>
         </div>

@@ -32,7 +32,7 @@ export async function DELETE(
 
     if (!isSuperAdmin) {
       return NextResponse.json(
-        { error: "Chỉ SUPER_ADMIN mới có quyền xóa user" },
+        { error: "Only SUPER_ADMIN can delete users" },
         { status: 403 }
       );
     }
@@ -40,7 +40,7 @@ export async function DELETE(
     // Cannot delete yourself
     if (userId === session.user.id) {
       return NextResponse.json(
-        { error: "Bạn không thể xóa chính mình" },
+        { error: "You cannot delete yourself" },
         { status: 400 }
       );
     }
@@ -60,7 +60,7 @@ export async function DELETE(
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User không tồn tại" }, { status: 404 });
+      return NextResponse.json({ error: "User does not exist" }, { status: 404 });
     }
 
     // Delete user and all related data
@@ -165,7 +165,7 @@ export async function DELETE(
     revalidatePath("/dashboard/admin", "page");
 
     return NextResponse.json({
-      message: "User đã được xóa thành công",
+      message: "User deleted successfully",
       deletedUser: {
         id: user.id,
         email: user.email,

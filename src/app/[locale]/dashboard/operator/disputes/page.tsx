@@ -40,7 +40,7 @@ export default function DisputesListPage() {
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <p className="text-gray-500">Đang tải...</p>
+            <p className="text-gray-500">Loading...</p>
           </div>
         ) : disputes.length === 0 ? (
           <Card className="rounded-xl shadow-sm">
@@ -94,7 +94,7 @@ export default function DisputesListPage() {
                           {dispute.status === "PENDING" && (
                             <AlertCircle className="h-5 w-5 text-amber-600" />
                           )}
-                          <span className="text-indigo-600">Xem chi tiết →</span>
+                          <span className="text-indigo-600">View Details →</span>
                         </div>
                       </div>
                     </CardContent>

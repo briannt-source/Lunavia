@@ -103,7 +103,7 @@ export class CompanyService {
       if (existingByLicense) {
         duplicateFields.push("businessLicenseNumber");
         conditions.push(
-          `Số đăng ký kinh doanh "${data.businessLicenseNumber}" đã được sử dụng`
+          `Business registration number "${data.businessLicenseNumber}" đã được sử dụng`
         );
       }
     }
@@ -121,7 +121,7 @@ export class CompanyService {
       if (existingByTravelLicense) {
         duplicateFields.push("travelLicenseNumber");
         conditions.push(
-          `Số giấy phép lữ hành "${data.travelLicenseNumber}" đã được sử dụng`
+          `Travel license number "${data.travelLicenseNumber}" đã được sử dụng`
         );
       }
     }
@@ -167,7 +167,7 @@ export class CompanyService {
     if (user.role !== "TOUR_OPERATOR" && user.role !== "TOUR_AGENCY") {
       return {
         canCreate: false,
-        reason: "Chỉ Tour Operator/Agency được tạo company",
+        reason: "Only Tour Operators/Agencies can create companies",
       };
     }
 
@@ -179,7 +179,7 @@ export class CompanyService {
     if (existingCompany) {
       return {
         canCreate: false,
-        reason: "Company đã tồn tại cho operator này",
+        reason: "Company already exists for this operator",
       };
     }
 
@@ -216,7 +216,7 @@ export class CompanyService {
 
     if (duplicateCheck.hasDuplicate) {
       throw new Error(
-        `Thông tin công ty bị trùng lặp: ${duplicateCheck.reason}. Vui lòng kiểm tra lại thông tin để tránh giả mạo.`
+        `Information công ty bị trùng lặp: ${duplicateCheck.reason}. Vui lòng kiểm tra lại information để tránh giả mạo.`
       );
     }
 
@@ -240,12 +240,12 @@ export class CompanyService {
       // Handle Prisma unique constraint errors
       if (error.code === "P2002") {
         const field = error.meta?.target?.[0];
-        let fieldName = "thông tin";
-        if (field === "email") fieldName = "Email công ty";
+        let fieldName = "information";
+        if (field === "email") fieldName = "Company email";
         else if (field === "businessLicenseNumber")
-          fieldName = "Số đăng ký kinh doanh";
+          fieldName = "Business registration number";
         else if (field === "travelLicenseNumber")
-          fieldName = "Số giấy phép lữ hành";
+          fieldName = "Travel license number";
 
         throw new Error(
           `${fieldName} đã được sử dụng bởi công ty khác. Vui lòng kiểm tra lại để tránh trùng lặp và giả mạo.`

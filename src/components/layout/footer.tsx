@@ -39,7 +39,7 @@ export default function Footer() {
               </div>
               <div className="mt-10 md:mt-0">
                 <LinkList title={"Support"}>
-                  <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Help Center</Link>
+                  <Link href="/knowledge-base" className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Help Center</Link>
                   <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Verification Process</Link>
                   <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Legal & Compliance</Link>
                   <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Contact Us</Link>

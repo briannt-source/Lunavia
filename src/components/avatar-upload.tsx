@@ -27,13 +27,13 @@ export function AvatarUpload({
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      alert("Chỉ chấp nhận file ảnh");
+      alert("Only image files are accepted");
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert("File ảnh không được vượt quá 5MB");
+      alert("Image file must not exceed 5MB");
       return;
     }
 
@@ -62,11 +62,11 @@ export function AvatarUpload({
           onAvatarChange(data.urls[0]);
         }
       } else {
-        alert("Lỗi khi upload ảnh");
+        alert("Error uploading image");
       }
     } catch (error) {
       console.error("Error uploading avatar:", error);
-      alert("Lỗi khi upload ảnh");
+      alert("Error uploading image");
     } finally {
       setUploading(false);
     }
@@ -113,7 +113,7 @@ export function AvatarUpload({
             disabled={uploading}
           >
             <Upload className="h-4 w-4 mr-2" />
-            {uploading ? "Đang upload..." : "Chọn ảnh"}
+            {uploading ? "Uploading..." : "Choose Photo"}
           </Button>
           {preview && (
             <Button

@@ -54,14 +54,14 @@ export default function AdminAdminsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Cập nhật quyền thành công");
+      toast.success("Permissions updated successfully");
       queryClient.invalidateQueries({ queryKey: ["admin-admins"] });
       setEditingAdmin(null);
       setSelectedPermissions([]);
       setSelectedRole("");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -99,7 +99,7 @@ export default function AdminAdminsPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải...</p>
+          <p className="text-slate-600">Loading...</p>
         </div>
       </>
     );
@@ -108,8 +108,8 @@ export default function AdminAdminsPage() {
   return (
     <>
       <PageHeader
-        title="Quản lý Admin Users"
-        description="Quản lý quyền truy cập cho các admin users trong hệ thống"
+        title="Manage Admin Users"
+        description="Manage access permissions for admin users in the system"
       />
 
       <Card>

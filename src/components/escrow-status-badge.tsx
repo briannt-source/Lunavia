@@ -13,31 +13,31 @@ interface EscrowStatusBadgeProps {
 export function EscrowStatusBadge({ status, className }: EscrowStatusBadgeProps) {
   const statusConfig = {
     PENDING: {
-      label: "Chờ khóa",
+      label: "Pending Lock",
       variant: "secondary" as const,
       icon: Shield,
       color: "bg-gray-100 text-gray-800",
     },
     LOCKED: {
-      label: "Đã khóa",
+      label: "Locked",
       variant: "default" as const,
       icon: Lock,
       color: "bg-blue-100 text-blue-800",
     },
     RELEASED: {
-      label: "Đã giải phóng",
+      label: "Released",
       variant: "default" as const,
       icon: CheckCircle2,
       color: "bg-green-100 text-green-800",
     },
     REFUNDED: {
-      label: "Đã hoàn tiền",
+      label: "Refunded",
       variant: "outline" as const,
       icon: XCircle,
       color: "bg-orange-100 text-orange-800",
     },
     CANCELLED: {
-      label: "Đã hủy",
+      label: "Cancelled",
       variant: "destructive" as const,
       icon: AlertCircle,
       color: "bg-red-100 text-red-800",

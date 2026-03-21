@@ -75,7 +75,7 @@ function AIMatchContent() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <p className="font-semibold">Lý do phù hợp:</p>
+                  <p className="font-semibold">Reason phù hợp:</p>
                   <ul className="list-disc list-inside space-y-1">
                     {match.reasons.map((reason: string, i: number) => (
                       <li key={i} className="text-sm text-muted-foreground">
@@ -96,7 +96,7 @@ function AIMatchContent() {
 
 export default function AIMatchPage() {
   return (
-    <Suspense fallback={<div className="container mx-auto px-4 py-8">Đang tải...</div>}>
+    <Suspense fallback={<div className="container mx-auto px-4 py-8">Loading...</div>}>
       <AIMatchContent />
     </Suspense>
   );

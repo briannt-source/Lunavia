@@ -67,7 +67,7 @@ export async function DELETE(
       if (existingRequest) {
         return NextResponse.json(
           {
-            error: "Đã có yêu cầu xóa tour đang chờ admin duyệt. Vui lòng chờ admin xử lý.",
+            error: "Tour deletion request is pending admin review. Please wait for admin to process.",
             requiresAdminApproval: true,
             requestId: existingRequest.id,
           },
@@ -82,7 +82,7 @@ export async function DELETE(
         data: {
           tourId,
           operatorId: session.user.id,
-          reason: body.reason || "Yêu cầu xóa tour",
+          reason: body.reason || "Tour deletion request",
           status: "PENDING",
         },
       });
@@ -91,7 +91,7 @@ export async function DELETE(
 
       return NextResponse.json(
         {
-          message: "Tour đã có ứng tuyển. Yêu cầu xóa đã được gửi đến admin để duyệt.",
+          message: "Tour has applications. Deletion request has been sent to admin for review.",
           requiresAdminApproval: true,
           requestId: deleteRequest.id,
         },
@@ -134,7 +134,7 @@ export async function DELETE(
       where: { id: tourId },
     });
 
-    return NextResponse.json({ message: "Tour đã được xóa thành công" });
+    return NextResponse.json({ message: "Tour deleted successfully" });
   } catch (error: any) {
     console.error("Error deleting tour:", error);
     return NextResponse.json(

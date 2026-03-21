@@ -44,7 +44,7 @@ export function SOSReportDialog({
 
   const handleSubmit = async () => {
     if (!description.trim()) {
-      toast.error("Vui lòng nhập mô tả sự cố");
+      toast.error("Please describe the incident");
       return;
     }
 
@@ -63,16 +63,16 @@ export function SOSReportDialog({
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Lỗi khi gửi báo cáo");
+        throw new Error(error.error || "Error submitting report");
       }
 
-      toast.success("Đã gửi báo cáo SOS. Operator sẽ được thông báo ngay lập tức.");
+      toast.success("SOS report sent. The operator will be notified immediately.");
       setDescription("");
       setLocation("");
       onOpenChange(false);
       onSuccess?.();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi gửi báo cáo");
+      toast.error(error.message || "Error submitting report");
     } finally {
       setLoading(false);
     }
@@ -122,12 +122,12 @@ export function SOSReportDialog({
           </div>
 
           <div>
-            <Label htmlFor="description">Mô tả chi tiết *</Label>
+            <Label htmlFor="description">Description chi tiết *</Label>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Mô tả chi tiết sự cố hoặc tình huống cần hỗ trợ..."
+              placeholder="Describe the incident or situation requiring assistance..."
               className="mt-1"
               rows={4}
               required
@@ -140,7 +140,7 @@ export function SOSReportDialog({
               id="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="Địa chỉ hoặc tọa độ..."
+              placeholder="Address or coordinates..."
               className="mt-1"
             />
           </div>
@@ -159,7 +159,7 @@ export function SOSReportDialog({
             onClick={handleSubmit}
             disabled={loading || !description.trim()}
           >
-            {loading ? "Đang gửi..." : "Gửi báo cáo"}
+            {loading ? "Sending..." : "Submit Report"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -29,10 +29,10 @@ export default function SignInPage() {
       });
 
       if (result?.error) {
-        toast.error("Email hoặc mật khẩu không đúng");
+        toast.error("Incorrect email or password");
         setLoading(false);
       } else {
-        toast.success("Đăng nhập thành công");
+        toast.success("Signed in successfully");
         // Wait for session to be created, then redirect
         // Poll for session to be available
         const checkSession = async () => {
@@ -68,7 +68,7 @@ export default function SignInPage() {
         checkSession();
       }
     } catch (error) {
-      toast.error("Đã có lỗi xảy ra");
+      toast.error("An error occurred");
       setLoading(false);
     }
   };
@@ -82,9 +82,9 @@ export default function SignInPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Đăng nhập</CardTitle>
+            <CardTitle>Sign In</CardTitle>
             <CardDescription>
-              Đăng nhập vào nền tảng Lunavia của Sea You Travel
+              Sign In vào nền tảng Lunavia của Sea You Travel
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -111,14 +111,14 @@ export default function SignInPage() {
                 />
               </div>
               <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading}>
-                {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+                {loading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
 
             <div className="mt-4 text-center text-sm">
-              <span className="text-muted-foreground">Chưa có tài khoản? </span>
+              <span className="text-muted-foreground">Don't have an account? </span>
               <Link href="/auth/register" className="text-primary hover:underline">
-                Đăng ký
+                Register
               </Link>
             </div>
 
@@ -140,7 +140,7 @@ export default function SignInPage() {
                 className="w-full mt-4"
                 onClick={() => signIn("google")}
               >
-                Đăng nhập với Google
+                Sign In với Google
               </Button>
             </div>
           </CardContent>

@@ -32,11 +32,11 @@ export class RequestPaymentUseCase {
     }
 
     if (!report.approvedAt) {
-      throw new Error("Tour chưa được operator xác nhận");
+      throw new Error("Tour not yet confirmed by operator");
     }
 
     if (!report.paymentLockedAmount) {
-      throw new Error("Chưa có số tiền được khóa. Vui lòng liên hệ operator.");
+      throw new Error("No amount locked. Please contact the operator.");
     }
 
     // Check if payment is overdue (24 hours passed)
@@ -44,13 +44,13 @@ export class RequestPaymentUseCase {
     const paymentDueAt = report.paymentDueAt;
 
     if (!paymentDueAt) {
-      throw new Error("Không có thời hạn thanh toán được set");
+      throw new Error("No payment deadline set");
     }
 
     if (now < paymentDueAt) {
       const hoursRemaining = Math.ceil((paymentDueAt.getTime() - now.getTime()) / (1000 * 60 * 60));
       throw new Error(
-        `Chưa đến hạn thanh toán. Còn ${hoursRemaining} giờ nữa. Vui lòng đợi đến khi hết hạn.`
+        `Chưa đến hạn thanh toán. Remaining ${hoursRemaining} giờ nữa. Vui lòng đợi đến khi hết hạn.`
       );
     }
 
@@ -72,14 +72,14 @@ export class RequestPaymentUseCase {
     await notifyUseCase.execute({
       userId: report.tour.operatorId,
       type: "PAYMENT",
-      title: "Yêu cầu thanh toán từ hướng dẫn viên",
-      message: `Hướng dẫn viên đã yêu cầu thanh toán cho tour "${report.tour.title}". Số tiền: ${report.paymentLockedAmount.toLocaleString("vi-VN")} VND.`,
+      title: "Payment request from guide",
+      message: `Tour guide đã payment request for tour "${report.tour.title}". Amount: ${report.paymentLockedAmount.toLocaleString("vi-VN")} VND.`,
       link: `/dashboard/operator/tours/${input.tourId}/reports`,
     });
 
     return {
       report: updatedReport,
-      message: "Đã gửi yêu cầu thanh toán. Operator sẽ được thông báo.",
+      message: "Payment request sent. Operator will be notified.",
     };
   }
 }

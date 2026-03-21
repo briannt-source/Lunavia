@@ -79,7 +79,7 @@ export class AvailabilityService {
     if (guide.profile?.availabilityStatus === "BUSY") {
       return {
         available: false,
-        reason: "Guide đang đặt trạng thái BUSY",
+        reason: "Guide is currently set to BUSY",
       };
     }
 
@@ -104,7 +104,7 @@ export class AvailabilityService {
     if (allConflicts.length > 0) {
       return {
         available: false,
-        reason: "Guide đã có tour trong khoảng thời gian này",
+        reason: "Guide already has a tour during this period",
         conflictingTours: allConflicts,
       };
     }

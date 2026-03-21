@@ -52,13 +52,13 @@ export class ApplyToTourUseCase {
     );
     if (isBlocked) {
       throw new Error(
-        "Bạn không thể ứng tuyển tour này. Nhà điều hành đã hạn chế quyền ứng tuyển của bạn."
+        "You cannot apply to this tour. The operator has restricted your application rights."
       );
     }
 
     // Check minimum balance (500k VND)
     if (!guide.wallet || guide.wallet.balance < 500000) {
-      throw new Error("Cần số dư tối thiểu 500,000 VND để ứng tuyển tour");
+      throw new Error("Minimum balance of 500,000 VND required to apply for tours");
     }
 
     // Check deposit lock requirements via DepositService
@@ -93,7 +93,7 @@ export class ApplyToTourUseCase {
 
     if (tour.status !== "OPEN") {
       if (tour.status === "CLOSED") {
-        throw new Error("Tour này đã ngưng nhận thêm hướng dẫn viên");
+        throw new Error("This tour is no longer accepting guides");
       }
       throw new Error("Tour is not open for applications");
     }
@@ -102,7 +102,7 @@ export class ApplyToTourUseCase {
     const now = new Date();
     const tourStart = new Date(tour.startDate);
     if (tourStart <= now) {
-      throw new Error("Không thể ứng tuyển tour đã quá giờ khởi hành. Tour đã bắt đầu hoặc đã qua thời gian khởi hành.");
+      throw new Error("Cannot apply to tour past departure time. Tour has already started or past departure time.");
     }
 
     // Check visibility rules
@@ -124,7 +124,7 @@ export class ApplyToTourUseCase {
     });
 
     if (existingApplication) {
-      throw new Error("Bạn đã ứng tuyển tour này rồi. Vui lòng kiểm tra trạng thái ứng tuyển của bạn.");
+      throw new Error("You have already applied to this tour. Please check your application status.");
     }
 
     // Check for conflicts with other tours (including PENDING applications) within 24 hours

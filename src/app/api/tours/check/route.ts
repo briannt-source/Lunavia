@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     if (!session) {
       return NextResponse.json(
-        { canCreate: false, reason: "Chưa đăng nhập" },
+        { canCreate: false, reason: "Not logged in" },
         { status: 401 }
       );
     }
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   } catch (error: any) {
     console.error("Error checking create permission:", error);
     return NextResponse.json(
-      { canCreate: false, reason: "Lỗi kiểm tra quyền" },
+      { canCreate: false, reason: "Permission check error" },
       { status: 500 }
     );
   }

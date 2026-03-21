@@ -110,13 +110,13 @@ export class PlatformFeeService {
 
     if (isFreelance) {
       feeRate = this.FREELANCE_FEE_RATE;
-      feeDescription = "Phí nền tảng (5%) - Freelance";
+      feeDescription = "Platform fee (5%) - Freelance";
     } else if (contractVerified) {
       feeRate = this.IN_HOUSE_VERIFIED_FEE_RATE;
-      feeDescription = "Phí nền tảng (0%) - In-house (đã xác minh hợp đồng)";
+      feeDescription = "Platform fee (0%) - In-house (contract verified)";
     } else {
       feeRate = this.IN_HOUSE_FEE_RATE;
-      feeDescription = "Phí nền tảng (1%) - In-house (chưa xác minh hợp đồng)";
+      feeDescription = "Platform fee (1%) - In-house (contract not verified)";
     }
 
     const platformFee = amount * feeRate;

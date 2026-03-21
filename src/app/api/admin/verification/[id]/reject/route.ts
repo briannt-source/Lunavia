@@ -1,0 +1,19 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getAdminUserFromSession } from "@/lib/permission-helpers";
+import { prisma } from "@/lib/prisma";
+
+/** POST /api/admin/verification/:id/reject — Reject a verification document */
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const admin = await getAdminUserFromSession();
+    if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    const { id } = await params;
+    const body = await req.json().catch(() => ({}));
+    const doc = await prisma.verificationDocument.update({
+      where: { id }, data: { status: "REJECTED", reviewedBy: admin.id, reviewedAt: new Date(), rejectionReason: body.reason || "" },
+    });
+    return NextResponse.json(doc);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || "Internal server error" }, { status: 500 });
+  }
+}

@@ -65,10 +65,10 @@ export default function CompanyGuidesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
-      toast.success("Đã xóa guide khỏi công ty");
+      toast.success("Guide removed from company");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -80,10 +80,10 @@ export default function CompanyGuidesPage() {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
       setEditingId(null);
-      toast.success("Đã cập nhật thông tin guide");
+      toast.success("Guide info updated");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -144,8 +144,8 @@ export default function CompanyGuidesPage() {
   return (
     <>
       <PageHeader
-        title="Quản lý Guides"
-        description="Quản lý in-house guides trong công ty của bạn"
+        title="Manage Guides"
+        description="Manage in-house guides in your company"
         action={
           <Link href="/dashboard/operator/company">
             <Button variant="outline">
@@ -249,7 +249,7 @@ export default function CompanyGuidesPage() {
                               </div>
                               <div>
                                 <Label htmlFor={`status-${member.guideId}`}>
-                                  Trạng thái
+                                  Status
                                 </Label>
                                 <Select
                                   value={editForm.status}

@@ -78,8 +78,8 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "NEW_APPLICATION",
-      title: "Ứng tuyển mới",
-      message: `${application.guide.profile?.name || application.guide.email} đã ứng tuyển cho tour "${application.tour.title}"`,
+      title: "New application",
+      message: `${application.guide.profile?.name || application.guide.email} has applied to tour "${application.tour.title}"`,
       link: `/tours/${application.tourId}/applications`,
     });
 
@@ -89,7 +89,7 @@ export class NotificationService {
       // TODO: Implement email sending service
       // await EmailService.send({
       //   to: user.email,
-      //   subject: "Ứng tuyển mới",
+      //   subject: "New application",
       //   template: "new-application",
       //   data: { ... }
       // });
@@ -117,11 +117,11 @@ export class NotificationService {
     await useCase.execute({
       userId: guideId,
       type: `APPLICATION_${status}`,
-      title: status === "ACCEPTED" ? "Ứng tuyển được chấp nhận" : "Ứng tuyển bị từ chối",
+      title: status === "ACCEPTED" ? "Application accepted" : "Application rejected",
       message:
         status === "ACCEPTED"
-          ? `Bạn đã được chấp nhận cho tour "${application.tour.title}"`
-          : `Ứng tuyển của bạn cho tour "${application.tour.title}" đã bị từ chối`,
+          ? `You have been accepted for tour "${application.tour.title}"`
+          : `Your application for tour "${application.tour.title}" has been rejected`,
       link: `/tours/${application.tourId}`,
     });
 
@@ -148,7 +148,7 @@ export class NotificationService {
     await useCase.execute({
       userId: guideId,
       type: "NEW_ASSIGNMENT",
-      title: "Phân công mới",
+      title: "New assignment",
       message: `Bạn đã được phân công cho tour "${assignment.tour.title}"`,
       link: `/assignments/${assignmentId}`,
     });
@@ -171,7 +171,7 @@ export class NotificationService {
     await useCase.execute({
       userId: guideId,
       type: "PAYMENT_RECEIVED",
-      title: "Thanh toán nhận được",
+      title: "Payment received",
       message: `Bạn đã nhận được ${payment.amount.toLocaleString("vi-VN")} VND cho tour "${payment.tour?.title || ""}"`,
       link: `/wallet`,
     });
@@ -195,12 +195,12 @@ export class NotificationService {
       type: `VERIFICATION_${status}`,
       title:
         status === "APPROVED"
-          ? "Xác minh được duyệt"
-          : "Xác minh bị từ chối",
+          ? "Verification approved"
+          : "Verification rejected",
       message:
         status === "APPROVED"
-          ? "Yêu cầu xác minh của bạn đã được duyệt"
-          : "Yêu cầu xác minh của bạn đã bị từ chối. Vui lòng kiểm tra và nộp lại.",
+          ? "Your verification has been approved"
+          : "Your verification has been rejected. Please review and resubmit.",
       link: `/dashboard/profile`,
     });
   }
@@ -251,8 +251,8 @@ export class NotificationService {
     await useCase.execute({
       userId: tour.operatorId,
       type: "TOUR_STARTED",
-      title: "Tour đã đến giờ khởi hành",
-      message: `Tour "${tour.title}" đã đến giờ khởi hành. Ngày và giờ khởi hành: ${startDateTime}${endDateTime ? `. Ngày và giờ kết thúc: ${endDateTime}` : ""}`,
+      title: "Tour departure time reached",
+      message: `Tour "${tour.title}" departure time reached. Start date and time: ${startDateTime}${endDateTime ? `. End date and time: ${endDateTime}` : ""}`,
       link: `/tours/${tourId}`,
     });
 
@@ -276,8 +276,8 @@ export class NotificationService {
       await useCase.execute({
         userId: guide.id,
         type: "TOUR_STARTED",
-        title: "Tour đã bắt đầu chạy",
-        message: `Tour "${tour.title}" đã bắt đầu chạy. Ngày và giờ khởi hành: ${startDateTime}${endDateTime ? `. Ngày và giờ kết thúc: ${endDateTime}` : ""}. Hãy đảm bảo bạn đến đúng giờ và tuân thủ quy định của tour operator. Chúc bạn một chuyến đi tốt lành và hoàn thành tốt nhiệm vụ!`,
+        title: "Tour has started running",
+        message: `Tour "${tour.title}" has started running. Start date and time: ${startDateTime}${endDateTime ? `. End date and time: ${endDateTime}` : ""}. Make sure to arrive on time and follow the tour operator's rules. We wish you a great trip and successful assignment!`,
         link: `/tours/${tourId}`,
       });
 
@@ -315,8 +315,8 @@ export class NotificationService {
     await useCase.execute({
       userId: tour.operatorId,
       type: "TOUR_BLOCKED",
-      title: "Tour của bạn đã bị đóng",
-      message: `Tour "${tour.title}" đã bị đóng bởi admin/moderator. Lý do: ${reason}. ${notes ? `Ghi chú: ${notes}` : ""}`,
+      title: "Your tour has been closed",
+      message: `Tour "${tour.title}" has been closed by admin/moderator. Reason: ${reason}. ${notes ? `Notes: ${notes}` : ""}`,
       link: `/tours/${tourId}`,
     });
 
@@ -330,7 +330,7 @@ export class NotificationService {
       await useCase.execute({
         userId: app.guideId,
         type: "TOUR_BLOCKED",
-        title: "Tour bạn đã ứng tuyển đã bị đóng",
+        title: "The tour you applied to has been closed",
         message: `Tour "${tour.title}" mà bạn đã ứng tuyển đã bị đóng bởi admin/moderator.`,
         link: `/tours/${tourId}`,
       });
@@ -356,7 +356,7 @@ export class NotificationService {
     await useCase.execute({
       userId: tour.operatorId,
       type: "TOUR_UNBLOCKED",
-      title: "Tour của bạn đã được mở lại",
+      title: "Your tour has been reopened",
       message: `Tour "${tour.title}" đã được mở lại bởi admin/moderator.`,
       link: `/tours/${tourId}`,
     });
@@ -384,8 +384,8 @@ export class NotificationService {
     await useCase.execute({
       userId: tour.operatorId,
       type: "TOUR_CANCELLED",
-      title: "Tour đã bị hủy",
-      message: `Tour "${tour.title}" đã bị hủy. ${reason || "Không tìm được guide phù hợp."}`,
+      title: "Tour has been cancelled",
+      message: `Tour "${tour.title}" has been cancelled. ${reason || "No matching guides found."}`,
       link: `/tours/${tourId}`,
     });
 
@@ -415,8 +415,8 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "REPORT_SUBMITTED",
-      title: "Báo cáo tour mới",
-      message: `${guide?.profile?.name || guide?.email || "Guide"} đã nộp báo cáo cho tour "${tour.title}"`,
+      title: "New tour report",
+      message: `${guide?.profile?.name || guide?.email || "Guide"} has submitted report for tour "${tour.title}"`,
       link: `/tours/${tourId}/reports`,
     });
 
@@ -440,7 +440,7 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "PAYMENT_REQUEST",
-      title: "Yêu cầu thanh toán mới",
+      title: "New payment request",
       message: `Guide yêu cầu thanh toán ${amount.toLocaleString("vi-VN")} VND cho tour "${tour.title}"`,
       link: `/tours/${tourId}/reports`,
     });
@@ -484,7 +484,7 @@ export class NotificationService {
     await useCase.execute({
       userId,
       type: "NEW_MESSAGE",
-      title: "Tin nhắn mới",
+      title: "New message",
       message: `Bạn có tin nhắn mới từ ${senderName}`,
       link: `/messages/${conversationId}`,
     });
@@ -516,7 +516,7 @@ export class NotificationService {
     await useCase.execute({
       userId: guideId,
       type: "STANDBY_REQUEST",
-      title: "Yêu cầu Standby mới",
+      title: "New Standby Request",
       message: `Bạn có yêu cầu standby mới từ ${standbyRequest.operator.profile?.name || standbyRequest.operator.email}: "${standbyRequest.title}"`,
       link: `/standby-requests/${standbyRequestId}`,
     });
@@ -555,8 +555,8 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "STANDBY_ACCEPTED",
-      title: "Standby request được chấp nhận",
-      message: `${guide?.profile?.name || guide?.email || "Guide"} đã chấp nhận yêu cầu standby "${standbyRequest.title}"`,
+      title: "Standby request accepted",
+      message: `${guide?.profile?.name || guide?.email || "Guide"} has accepted standby request "${standbyRequest.title}"`,
       link: `/standby-requests/${standbyRequestId}`,
     });
 
@@ -595,8 +595,8 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "STANDBY_REJECTED",
-      title: "Standby request bị từ chối",
-      message: `${guide?.profile?.name || guide?.email || "Guide"} đã từ chối yêu cầu standby "${standbyRequest.title}"${reason ? `. Lý do: ${reason}` : ""}`,
+      title: "Standby request has been rejected",
+      message: `${guide?.profile?.name || guide?.email || "Guide"} has declined standby request "${standbyRequest.title}"${reason ? `. Reason: ${reason}` : ""}`,
       link: `/standby-requests/${standbyRequestId}`,
     });
 
@@ -648,7 +648,7 @@ export class NotificationService {
         await useCase.execute({
           userId: adminUser.id,
           type: "DISPUTE_CREATED",
-          title: "Dispute mới",
+          title: "New dispute",
           message: `Có dispute mới từ ${dispute.user.profile?.name || dispute.user.email}: ${dispute.type}${dispute.tour ? ` - Tour: ${dispute.tour.title}` : ""}`,
           link: `/dashboard/admin/disputes/${disputeId}`,
         });
@@ -673,7 +673,7 @@ export class NotificationService {
     await useCase.execute({
       userId,
       type: "DISPUTE_CREATED",
-      title: "Dispute mới",
+      title: "New dispute",
       message: `Có dispute mới liên quan đến bạn${dispute.tour ? ` - Tour: ${dispute.tour.title}` : ""}`,
       link: `/disputes/${disputeId}`,
     });
@@ -701,8 +701,8 @@ export class NotificationService {
     await useCase.execute({
       userId,
       type: "DISPUTE_RESOLVED",
-      title: "Dispute đã được giải quyết",
-      message: `Dispute của bạn đã được giải quyết: ${resolution}${dispute.tour ? ` - Tour: ${dispute.tour.title}` : ""}`,
+      title: "Dispute has been resolved",
+      message: `Dispute của bạn has been resolved: ${resolution}${dispute.tour ? ` - Tour: ${dispute.tour.title}` : ""}`,
       link: `/disputes/${disputeId}`,
     });
 
@@ -729,7 +729,7 @@ export class NotificationService {
     await useCase.execute({
       userId: recipientId,
       type: "NEW_REVIEW",
-      title: "Bạn có đánh giá mới",
+      title: "You have a new review",
       message: `${review.reviewer.profile?.name || review.reviewer.email} đã đánh giá bạn ${review.overallRating} sao${review.tour ? ` cho tour "${review.tour.title}"` : ""}.`,
       link: `/dashboard/reviews/${reviewId}`,
     });
@@ -768,7 +768,7 @@ export class NotificationService {
     await useCase.execute({
       userId: operatorId,
       type: "CONTRACT_ACCEPTED",
-      title: "Hợp đồng đã được ký",
+      title: "Contract has been signed",
       message: `${guide.profile?.name || guide.email} đã ký hợp đồng cho tour "${contract.tour.title}".`,
       link: `/contracts/${contractId}`,
     });
@@ -792,7 +792,7 @@ export class NotificationService {
     await useCase.execute({
       userId: recipientId,
       type: "EMERGENCY_RESPONSE",
-      title: "Phản hồi khẩn cấp",
+      title: "Emergency response",
       message: `Đội hỗ trợ đã phản hồi về tình huống khẩn cấp của bạn: ${response}`,
       link: `/emergency/${emergencyId}`,
     });
@@ -816,7 +816,7 @@ export class NotificationService {
     await useCase.execute({
       userId: recipientId,
       type: "NEW_CONTRACT",
-      title: "Hợp đồng mới cần ký",
+      title: "New contract needs signing",
       message: `Bạn có hợp đồng mới cần ký cho tour "${contract.tour.title}".`,
       link: `/contracts/${contractId}`,
     });

@@ -24,7 +24,7 @@ export class WalletService {
     if (user.role !== "TOUR_OPERATOR" && user.role !== "TOUR_AGENCY") {
       return {
         canCreate: false,
-        reason: "Chỉ Tour Operator/Agency được tạo tour",
+        reason: "Only Tour Operators/Agencies can create tours",
       };
     }
 
@@ -32,7 +32,7 @@ export class WalletService {
     if (!user.licenseNumber) {
       return {
         canCreate: false,
-        reason: "Cần license số đăng ký kinh doanh",
+        reason: "Business registration license number required",
       };
     }
 
@@ -40,7 +40,7 @@ export class WalletService {
     if (user.verifiedStatus !== "APPROVED") {
       return {
         canCreate: false,
-        reason: "Tài khoản chưa được xác minh",
+        reason: "Account not verified",
       };
     }
 
@@ -72,11 +72,11 @@ export class WalletService {
     }
 
     if (user.role !== "TOUR_GUIDE") {
-      return { canApply: false, reason: "Chỉ HDV được apply tour" };
+      return { canApply: false, reason: "Only tour guides can apply for tours" };
     }
 
     if (user.verifiedStatus !== "APPROVED") {
-      return { canApply: false, reason: "Tài khoản chưa được xác minh" };
+      return { canApply: false, reason: "Account not verified" };
     }
 
     const balance = user.wallet?.balance || 0;

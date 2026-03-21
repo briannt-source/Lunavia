@@ -137,14 +137,14 @@ export default async function AdminDashboard() {
         {isModerator && (
           <>
             <StatsCard
-              title="Disputes đang chờ"
+              title="Pending Disputes"
               value={pendingDisputes}
               icon={AlertTriangle}
               trend={pendingDisputes > 0 ? "up" : undefined}
               href="/dashboard/admin/disputes"
             />
             <StatsCard
-              title="Xác minh đang chờ"
+              title="Pending Verifications"
               value={pendingVerifications}
               icon={Shield}
               trend={pendingVerifications > 0 ? "up" : undefined}
@@ -155,13 +155,13 @@ export default async function AdminDashboard() {
         {canViewUsers && (
           <>
             <StatsCard
-              title="Tổng Users"
+              title="Total Users"
               value={totalUsers}
               icon={Users}
               subtitle={`${totalOperators} Operators, ${totalGuides} Guides`}
             />
             <StatsCard
-              title="Tổng Tours"
+              title="Total Tours"
               value={totalTours}
               icon={MapPin}
               subtitle={`${activeTours} đang mở`}
@@ -171,14 +171,14 @@ export default async function AdminDashboard() {
         {canViewRequests && (
           <>
             <StatsCard
-              title="Top-up chờ duyệt"
+              title="Pending Top-ups"
               value={pendingTopUps}
               icon={CreditCard}
               trend={pendingTopUps > 0 ? "up" : undefined}
               href="/dashboard/admin/requests"
             />
             <StatsCard
-              title="Rút tiền chờ duyệt"
+              title="Pending Withdrawals"
               value={pendingWithdrawals}
               icon={DollarSign}
               trend={pendingWithdrawals > 0 ? "up" : undefined}
@@ -188,7 +188,7 @@ export default async function AdminDashboard() {
         )}
         {isSuperAdmin && (
           <StatsCard
-            title="Tổng doanh thu"
+            title="Total Revenue"
             value={formatVND(totalRevenue)}
             icon={TrendingUp}
           />
@@ -277,7 +277,7 @@ export default async function AdminDashboard() {
                             {verification.user.role} • {formatDateTime(verification.createdAt)}
                           </p>
                           <p className="text-xs text-gray-400 mt-1">
-                            {verification.user.role === "TOUR_GUIDE" ? "Xác minh danh tính (KYC)" : "Xác minh doanh nghiệp (KYB)"}
+                            {verification.user.role === "TOUR_GUIDE" ? "Identity Verification (KYC)" : "Business Verification (KYB)"}
                           </p>
                         </div>
                         <StatusBadge status={verification.status} />

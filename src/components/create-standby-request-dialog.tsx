@@ -50,7 +50,7 @@ export function CreateStandbyRequestDialog({
   const mutation = useMutation({
     mutationFn: (data: any) => api.standby.create(data),
     onSuccess: () => {
-      toast.success("Standby request đã được tạo thành công!");
+      toast.success("Standby request created successfully!");
       onSuccess?.();
       // Reset form
       setFormData({
@@ -65,7 +65,7 @@ export function CreateStandbyRequestDialog({
       });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể tạo standby request");
+      toast.error(error.message || "Unable to create standby request");
     },
   });
 
@@ -73,7 +73,7 @@ export function CreateStandbyRequestDialog({
     e.preventDefault();
 
     if (!formData.title || !formData.city || !formData.requiredDate || !formData.budget) {
-      toast.error("Vui lòng điền đầy đủ thông tin bắt buộc");
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -106,19 +106,19 @@ export function CreateStandbyRequestDialog({
               id="title"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Ví dụ: Standby cho tour Hà Nội ngày 20/01"
+              placeholder="e.g. Standby for Hanoi tour on Jan 20"
               required
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="city">Thành phố *</Label>
+              <Label htmlFor="city">City *</Label>
               <Input
                 id="city"
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                placeholder="Hà Nội"
+                placeholder="Hanoi"
                 required
               />
             </div>
@@ -193,12 +193,12 @@ export function CreateStandbyRequestDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Mô tả - Tùy chọn</Label>
+            <Label htmlFor="description">Description - Tùy chọn</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Mô tả chi tiết về yêu cầu standby..."
+              placeholder="Describe standby requirements in detail..."
               rows={4}
             />
           </div>
@@ -213,7 +213,7 @@ export function CreateStandbyRequestDialog({
               Hủy
             </Button>
             <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? "Đang tạo..." : "Tạo Standby Request"}
+              {mutation.isPending ? "Creating..." : "Create Standby Request"}
             </Button>
           </DialogFooter>
         </form>

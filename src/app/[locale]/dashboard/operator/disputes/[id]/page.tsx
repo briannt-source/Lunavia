@@ -47,7 +47,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">Đang tải...</p>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </>
     );
@@ -107,7 +107,7 @@ export default function DisputeDetailPage() {
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Trạng thái</p>
+                    <p className="text-sm text-gray-500 mb-1">Status</p>
                     <Badge variant="outline" className={`${statusColor} border`}>
                       {dispute.status}
                     </Badge>
@@ -131,9 +131,9 @@ export default function DisputeDetailPage() {
                   )}
                 </div>
                 <div className="pt-4 border-t">
-                  <p className="text-sm text-gray-500 mb-2">Lý do / Mô tả</p>
+                  <p className="text-sm text-gray-500 mb-2">Reason / Description</p>
                   <p className="text-gray-900 whitespace-pre-wrap">
-                    {dispute.description || dispute.reason || "Không có mô tả"}
+                    {dispute.description || dispute.reason || "No description"}
                   </p>
                 </div>
                 {dispute.evidence && dispute.evidence.length > 0 && (
@@ -208,7 +208,7 @@ export default function DisputeDetailPage() {
                       {dispute.tour?.title || `Tour ${dispute.tourId}`}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">
-                      Xem chi tiết tour →
+                      View Details tour →
                     </p>
                   </Link>
                 </CardContent>

@@ -28,14 +28,14 @@ export async function handleApiError(error: any): Promise<string> {
 
 function isUserFriendlyMessage(message: string): boolean {
   const vietnamesePatterns = [
-    /vui lòng/i,
-    /không thể/i,
-    /đã có/i,
-    /thành công/i,
-    /thất bại/i,
-    /lỗi/i,
-    /cần/i,
-    /phải/i,
+    /please/i,
+    /cannot/i,
+    /already/i,
+    /success/i,
+    /failed/i,
+    /error/i,
+    /need/i,
+    /must/i,
   ];
 
   return vietnamesePatterns.some((pattern) => pattern.test(message));

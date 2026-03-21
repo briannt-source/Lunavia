@@ -81,7 +81,7 @@ export default function ProfilePage() {
       });
 
       if (response.ok) {
-        toast.success("Cập nhật profile thành công!");
+        toast.success("Profile updated successfully!");
         setEditMode(false);
         // Refresh user info
         const infoResponse = await fetch("/api/user/info");
@@ -94,7 +94,7 @@ export default function ProfilePage() {
         throw new Error(error.error || "Failed to update profile");
       }
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi cập nhật profile");
+      toast.error(error.message || "Error updating profile");
     } finally {
       setSaving(false);
     }
@@ -104,7 +104,7 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-12">
-          <p className="text-muted-foreground">Đang tải thông tin...</p>
+          <p className="text-muted-foreground">Đang tải information...</p>
         </div>
       </div>
     );
@@ -115,7 +115,7 @@ export default function ProfilePage() {
       <div className="container mx-auto px-4 py-8">
         <Card>
           <CardContent className="pt-6">
-            <p className="text-muted-foreground">Không thể tải thông tin tài khoản</p>
+            <p className="text-muted-foreground">Không thể tải information tài khoản</p>
           </CardContent>
         </Card>
       </div>
@@ -143,7 +143,7 @@ export default function ProfilePage() {
         <Card>
           <CardContent className="pt-6">
             <p className="text-muted-foreground">
-              Không thể tải thông tin user. Vui lòng đăng nhập lại.
+              Không thể tải information user. Vui lòng đăng nhập lại.
             </p>
           </CardContent>
         </Card>
@@ -167,19 +167,19 @@ export default function ProfilePage() {
   const getVerificationStatusText = (status: string) => {
     switch (status) {
       case "APPROVED":
-        return "Đã được xác minh";
+        return "Verified";
       case "REJECTED":
-        return "Bị từ chối";
+        return "Rejected";
       case "PENDING":
-        return "Đang chờ xử lý";
+        return "Pending Review";
       default:
-        return "Chưa gửi yêu cầu";
+        return "Not Submitted";
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-8">Thông tin tài khoản</h1>
+      <h1 className="text-3xl font-bold mb-8">Information tài khoản</h1>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* User Info */}
@@ -187,7 +187,7 @@ export default function ProfilePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              Thông tin cơ bản
+              Information cơ bản
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -218,7 +218,7 @@ export default function ProfilePage() {
             )}
 
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Trạng thái xác minh</p>
+              <p className="text-sm text-muted-foreground mb-1">Status xác minh</p>
               <div className="flex items-center gap-2">
                 {getVerificationStatusIcon(user?.verifiedStatus || "NOT_SUBMITTED")}
                 <p className="font-medium">
@@ -250,7 +250,7 @@ export default function ProfilePage() {
                 size="sm"
                 onClick={() => setEditMode(!editMode)}
               >
-                {editMode ? "Hủy chỉnh sửa" : "Chỉnh sửa Profile"}
+                {editMode ? "Cancel Edit" : "Edit Profile"}
               </Button>
             </div>
           </CardContent>
@@ -278,12 +278,12 @@ export default function ProfilePage() {
                   onChange={(e) =>
                     setProfileData({ ...profileData, name: e.target.value })
                   }
-                  placeholder="Nhập tên của bạn"
+                  placeholder="Enter your name"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="bio">Giới thiệu</Label>
+                <Label htmlFor="bio">About</Label>
                 <textarea
                   id="bio"
                   className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -291,38 +291,38 @@ export default function ProfilePage() {
                   onChange={(e) =>
                     setProfileData({ ...profileData, bio: e.target.value })
                   }
-                  placeholder="Giới thiệu về bản thân..."
+                  placeholder="Tell about yourself..."
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="languages">Ngôn ngữ (phân cách bởi dấu phẩy)</Label>
+                <Label htmlFor="languages">Languages (phân cách bởi dấu phẩy)</Label>
                 <Input
                   id="languages"
                   value={profileData.languages}
                   onChange={(e) =>
                     setProfileData({ ...profileData, languages: e.target.value })
                   }
-                  placeholder="Tiếng Việt, English, 中文"
+                  placeholder="Vietnamese, English, Chinese"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="specialties">Chuyên môn (phân cách bởi dấu phẩy)</Label>
+                <Label htmlFor="specialties">Specialties (phân cách bởi dấu phẩy)</Label>
                 <Input
                   id="specialties"
                   value={profileData.specialties}
                   onChange={(e) =>
                     setProfileData({ ...profileData, specialties: e.target.value })
                   }
-                  placeholder="Văn hóa, Lịch sử, Ẩm thực"
+                  placeholder="Culture, History, Cuisine"
                 />
               </div>
 
               <div className="flex gap-4">
                 <Button onClick={handleSave} disabled={saving}>
                   <Save className="h-4 w-4 mr-2" />
-                  {saving ? "Đang lưu..." : "Lưu thay đổi"}
+                  {saving ? "Saving..." : "Save Changes"}
                 </Button>
                 <Button
                   variant="outline"
@@ -340,7 +340,7 @@ export default function ProfilePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Wallet className="h-5 w-5" />
-              Thông tin ví
+              Information ví
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -387,7 +387,7 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="font-semibold mb-2">Tạo Tour</p>
+              <p className="font-semibold mb-2">Create Tour</p>
               {permissions.canCreateTour.canCreate ? (
                 <div className="flex items-center gap-2 text-green-600">
                   <CheckCircle className="h-5 w-5" />
@@ -407,7 +407,7 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <p className="font-semibold mb-2">Ứng tuyển Tour</p>
+              <p className="font-semibold mb-2">Apply for Tour</p>
               {permissions.canApplyToTour.canApply ? (
                 <div className="flex items-center gap-2 text-green-600">
                   <CheckCircle className="h-5 w-5" />
@@ -437,16 +437,16 @@ export default function ProfilePage() {
             <CardContent>
               <div className="space-y-2">
                 <p className="text-sm">
-                  <span className="font-medium">Trạng thái:</span>{" "}
+                  <span className="font-medium">Status:</span>{" "}
                   {getVerificationStatusText(verification.status)}
                 </p>
                 <p className="text-sm">
-                  <span className="font-medium">Ngày tạo:</span>{" "}
+                  <span className="font-medium">Created:</span>{" "}
                   {formatDateTime(verification.createdAt)}
                 </p>
                 {verification.adminNotes && (
                   <div>
-                    <p className="text-sm font-medium mb-1">Ghi chú admin:</p>
+                    <p className="text-sm font-medium mb-1">Notes admin:</p>
                     <p className="text-sm text-muted-foreground">
                       {verification.adminNotes}
                     </p>
@@ -464,7 +464,7 @@ export default function ProfilePage() {
         </Link>
         {(user?.role === "TOUR_OPERATOR" || user?.role === "TOUR_AGENCY") && (
           <Link href="/dashboard/operator/tours/new">
-            <Button>Tạo Tour</Button>
+            <Button>Create Tour</Button>
           </Link>
         )}
       </div>

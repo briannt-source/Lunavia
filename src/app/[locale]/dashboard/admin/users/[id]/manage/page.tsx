@@ -68,13 +68,13 @@ export default function AdminUserManagePage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đặt lại mật khẩu thành công");
+      toast.success("Password reset successfully");
       setNewPassword("");
       setConfirmPassword("");
       setResetReason("");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -93,26 +93,26 @@ export default function AdminUserManagePage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Cập nhật profile thành công");
+      toast.success("Profile updated successfully");
       queryClient.invalidateQueries({ queryKey: ["admin", "user", userId] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      toast.error("Mật khẩu xác nhận không khớp");
+      toast.error("Passwords do not match");
       return;
     }
     if (newPassword.length < 6) {
-      toast.error("Mật khẩu phải có ít nhất 6 ký tự");
+      toast.error("Password must be at least 6 characters");
       return;
     }
     if (!resetReason.trim()) {
-      toast.error("Vui lòng nhập lý do đặt lại mật khẩu");
+      toast.error("Please enter a reason for the password reset");
       return;
     }
     resetPasswordMutation.mutate({ newPassword, reason: resetReason });
@@ -127,7 +127,7 @@ export default function AdminUserManagePage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải...</p>
+          <p className="text-slate-600">Loading...</p>
         </div>
       </>
     );
@@ -137,7 +137,7 @@ export default function AdminUserManagePage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Không tìm thấy user</p>
+          <p className="text-slate-600">User not found</p>
           <Link href="/dashboard/admin/users">
             <Button variant="outline" className="mt-4">
               Quay lại
@@ -151,7 +151,7 @@ export default function AdminUserManagePage() {
   return (
     <>
       <PageHeader
-        title="Quản lý User"
+        title="Manage User"
         description={user.email}
         action={
           <Link href={`/dashboard/admin/users/${userId}`}>
@@ -175,7 +175,7 @@ export default function AdminUserManagePage() {
           </TabsTrigger>
           <TabsTrigger value="info">
             <Shield className="h-4 w-4 mr-2" />
-            Thông tin
+            Information
           </TabsTrigger>
         </TabsList>
 
@@ -200,7 +200,7 @@ export default function AdminUserManagePage() {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="phone">Số điện thoại</Label>
+                      <Label htmlFor="phone">Phone number</Label>
                       <Input
                         id="phone"
                         value={profileData.phone}
@@ -211,7 +211,7 @@ export default function AdminUserManagePage() {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="address">Địa chỉ</Label>
+                    <Label htmlFor="address">Address</Label>
                     <Input
                       id="address"
                       value={profileData.address}
@@ -221,7 +221,7 @@ export default function AdminUserManagePage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="bio">Giới thiệu</Label>
+                    <Label htmlFor="bio">About</Label>
                     <Textarea
                       id="bio"
                       value={profileData.bio}
@@ -247,7 +247,7 @@ export default function AdminUserManagePage() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="companyEmail">Email công ty</Label>
+                        <Label htmlFor="companyEmail">Company email</Label>
                         <Input
                           id="companyEmail"
                           type="email"
@@ -264,7 +264,7 @@ export default function AdminUserManagePage() {
                   )}
                   <Button type="submit" disabled={updateProfileMutation.isPending}>
                     <Save className="h-4 w-4 mr-2" />
-                    {updateProfileMutation.isPending ? "Đang lưu..." : "Lưu thay đổi"}
+                    {updateProfileMutation.isPending ? "Saving..." : "Save Changes"}
                   </Button>
                 </form>
               )}
@@ -300,30 +300,30 @@ export default function AdminUserManagePage() {
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Nhập mật khẩu mới"
+                    placeholder="Enter new password"
                     required
                     minLength={6}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="confirmPassword">Xác nhận mật khẩu *</Label>
+                  <Label htmlFor="confirmPassword">Confirm password *</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Nhập lại mật khẩu"
+                    placeholder="Confirm password"
                     required
                     minLength={6}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="resetReason">Lý do đặt lại mật khẩu *</Label>
+                  <Label htmlFor="resetReason">Reason đặt lại mật khẩu *</Label>
                   <Textarea
                     id="resetReason"
                     value={resetReason}
                     onChange={(e) => setResetReason(e.target.value)}
-                    placeholder="Ví dụ: User quên mật khẩu, yêu cầu hỗ trợ..."
+                    placeholder="e.g. User forgot password, support request..."
                     rows={3}
                     required
                   />
@@ -335,8 +335,8 @@ export default function AdminUserManagePage() {
                 >
                   <Key className="h-4 w-4 mr-2" />
                   {resetPasswordMutation.isPending
-                    ? "Đang xử lý..."
-                    : "Đặt lại mật khẩu"}
+                    ? "Processing..."
+                    : "Reset Password"}
                 </Button>
               </form>
             </CardContent>
@@ -348,7 +348,7 @@ export default function AdminUserManagePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin tài khoản</CardTitle>
+                <CardTitle>Information tài khoản</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div>
@@ -360,7 +360,7 @@ export default function AdminUserManagePage() {
                   <p className="font-medium">{user.role.replace(/_/g, " ")}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Trạng thái xác minh</p>
+                  <p className="text-sm text-slate-500">Status xác minh</p>
                   <StatusBadge status={user.verifiedStatus} />
                 </div>
                 <div>
@@ -373,7 +373,7 @@ export default function AdminUserManagePage() {
             {user.wallet && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Thông tin ví</CardTitle>
+                  <CardTitle>Information ví</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>

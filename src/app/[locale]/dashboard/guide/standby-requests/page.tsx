@@ -24,11 +24,11 @@ export default function GuideStandbyRequestsPage() {
   const acceptMutation = useMutation({
     mutationFn: (id: string) => api.standby.accept(id),
     onSuccess: () => {
-      toast.success("Đã chấp nhận standby request!");
+      toast.success("Standby request accepted!");
       queryClient.invalidateQueries({ queryKey: ["standbyRequests"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể chấp nhận standby request");
+      toast.error(error.message || "Unable to accept standby request");
     },
   });
 
@@ -36,11 +36,11 @@ export default function GuideStandbyRequestsPage() {
     mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
       api.standby.reject(id, reason),
     onSuccess: () => {
-      toast.success("Đã từ chối standby request!");
+      toast.success("Standby request declined!");
       queryClient.invalidateQueries({ queryKey: ["standbyRequests"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể từ chối standby request");
+      toast.error(error.message || "Unable to decline standby request");
     },
   });
 
@@ -62,13 +62,13 @@ export default function GuideStandbyRequestsPage() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case "PENDING":
-        return "Chờ phản hồi";
+        return "Awaiting Response";
       case "ACCEPTED":
-        return "Đã chấp nhận";
+        return "Approved";
       case "REJECTED":
-        return "Đã từ chối";
+        return "Rejected";
       case "COMPLETED":
-        return "Hoàn thành";
+        return "Completed";
       default:
         return status;
     }
@@ -79,20 +79,20 @@ export default function GuideStandbyRequestsPage() {
       <div className="space-y-6">
         <PageHeader
           title="Standby Requests"
-          description="Các yêu cầu standby được gửi đến bạn"
+          description="Standby requests sent to you"
         />
 
         {isLoading ? (
           <Card>
             <CardContent className="py-12">
-              <div className="text-center text-slate-500">Đang tải...</div>
+              <div className="text-center text-slate-500">Loading...</div>
             </CardContent>
           </Card>
         ) : !standbyRequests || standbyRequests.length === 0 ? (
           <EmptyState
             icon={Calendar}
-            title="Chưa có standby request nào"
-            description="Bạn sẽ nhận được thông báo khi có operator gửi standby request cho bạn"
+            title="No standby requests yet"
+            description="You will be notified when an operator sends you a standby request"
           />
         ) : (
           <div className="grid gap-4">
@@ -160,7 +160,7 @@ export default function GuideStandbyRequestsPage() {
                       )}
                       <Link href={`/standby-requests/${request.id}`}>
                         <Button variant="outline" size="sm">
-                          Xem chi tiết
+                          View Details
                         </Button>
                       </Link>
                     </div>

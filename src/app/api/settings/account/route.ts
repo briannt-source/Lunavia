@@ -32,7 +32,7 @@ export async function PUT(req: NextRequest) {
 
       if (existingUser) {
         return NextResponse.json(
-          { error: "Email đã được sử dụng" },
+          { error: "Email already in use" },
           { status: 400 }
         );
       }
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
     if (newPassword) {
       if (!currentPassword) {
         return NextResponse.json(
-          { error: "Vui lòng nhập mật khẩu hiện tại" },
+          { error: "Please enter current password" },
           { status: 400 }
         );
       }
@@ -58,7 +58,7 @@ export async function PUT(req: NextRequest) {
       // Verify current password
       if (!user.password) {
         return NextResponse.json(
-          { error: "Tài khoản chưa có mật khẩu" },
+          { error: "Account has no password" },
           { status: 400 }
         );
       }
@@ -70,7 +70,7 @@ export async function PUT(req: NextRequest) {
 
       if (!isPasswordValid) {
         return NextResponse.json(
-          { error: "Mật khẩu hiện tại không đúng" },
+          { error: "Current password is incorrect" },
           { status: 400 }
         );
       }
@@ -89,8 +89,8 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: newEmail
-        ? "Email đã được cập nhật. Vui lòng xác minh email mới."
-        : "Mật khẩu đã được cập nhật thành công.",
+        ? "Email updated. Please verify your new email."
+        : "Password updated successfully.",
     });
   } catch (error: any) {
     console.error("Error updating account:", error);

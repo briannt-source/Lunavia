@@ -74,20 +74,20 @@ export class CreateWithdrawalRequestUseCase {
 
       // If using saved method, verify it's verified or require verification
       if (!paymentMethod.isVerified && !input.accountOwnerName) {
-        throw new Error("Payment method chưa được xác nhận. Vui lòng xác nhận chủ tài khoản trước.");
+        throw new Error("Payment method not verified. Please verify account holder first.");
       }
     } else if (input.customAccountInfo) {
       // If using custom account, verify account owner name matches user's name
       if (!input.accountOwnerName) {
-        throw new Error("Vui lòng nhập tên chủ tài khoản để xác nhận");
+        throw new Error("Please enter account holder name for confirmation");
       }
 
       const userName = user.profile?.name || "";
       if (input.accountOwnerName.trim().toLowerCase() !== userName.trim().toLowerCase()) {
-        throw new Error("Tên chủ tài khoản không khớp với tên trong hồ sơ của bạn. Vui lòng kiểm tra lại.");
+        throw new Error("Account holder name does not match your profile name. Please check again.");
       }
     } else {
-      throw new Error("Vui lòng chọn phương thức thanh toán đã lưu hoặc nhập thông tin tài khoản mới");
+      throw new Error("Please select a saved payment method or enter new account details");
     }
 
     // Create withdrawal request

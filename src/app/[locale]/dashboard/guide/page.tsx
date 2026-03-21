@@ -71,22 +71,22 @@ export default function GuideDashboard() {
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-amber-900 text-sm">
               {verifiedStatus === "NOT_SUBMITTED"
-                ? "Cần hoàn tất KYC để ứng tuyển tour"
+                ? "Complete KYC to apply for tours"
                 : verifiedStatus === "PENDING"
-                ? "KYC đang chờ duyệt"
-                : "KYC bị từ chối — Vui lòng nộp lại"}
+                ? "KYC pending review"
+                : "KYC rejected — Please resubmit"}
             </p>
             <p className="text-xs text-amber-700 mt-1">
               {verifiedStatus === "NOT_SUBMITTED"
-                ? "Nộp hình ảnh thật, CMND/CCCD, thẻ HDV, proof of address để ứng tuyển."
+                ? "Submit real photos, ID card, guide license, proof of address to apply."
                 : verifiedStatus === "PENDING"
-                ? "Đang được admin xem xét. Vui lòng chờ."
-                : "Kiểm tra lại và nộp lại giấy tờ."}
+                ? "Under admin review. Please wait."
+                : "Review and resubmit your documents."}
             </p>
             {verifiedStatus !== "PENDING" && (
               <Link href="/dashboard/verification/kyc">
                 <Button size="sm" className="mt-2.5 bg-amber-600 hover:bg-amber-700 text-xs h-7">
-                  {verifiedStatus === "NOT_SUBMITTED" ? "Nộp KYC ngay" : "Nộp lại KYC"}
+                  {verifiedStatus === "NOT_SUBMITTED" ? "Submit KYC Now" : "Resubmit KYC"}
                 </Button>
               </Link>
             )}
@@ -96,12 +96,12 @@ export default function GuideDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-        <StatCard icon={<Briefcase className="h-4 w-4" />} label="Ứng tuyển" value={stats.totalApplications} color="indigo" />
-        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Chấp nhận" value={stats.acceptedApplications} color="emerald" />
-        <StatCard icon={<Clock className="h-4 w-4" />} label="Đang Chờ" value={stats.pendingApplications} color="amber" />
-        <StatCard icon={<XCircle className="h-4 w-4" />} label="Từ chối" value={stats.rejectedApplications} color="red" />
-        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Thu nhập" value={formatVND(stats.totalEarned)} color="slate" small />
-        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Số dư" value={formatVND(stats.walletBalance)} color="slate" small />
+        <StatCard icon={<Briefcase className="h-4 w-4" />} label="Applications" value={stats.totalApplications} color="indigo" />
+        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Approve" value={stats.acceptedApplications} color="emerald" />
+        <StatCard icon={<Clock className="h-4 w-4" />} label="Pending" value={stats.pendingApplications} color="amber" />
+        <StatCard icon={<XCircle className="h-4 w-4" />} label="Reject" value={stats.rejectedApplications} color="red" />
+        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Earnings" value={formatVND(stats.totalEarned)} color="slate" small />
+        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Balance" value={formatVND(stats.walletBalance)} color="slate" small />
       </div>
 
       {/* Performance + Recent Activity */}
@@ -115,10 +115,10 @@ export default function GuideDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2.5">
-            <PerformanceRow label="Tỷ lệ thành công" value={`${stats.successRate}%`} color="text-emerald-600" />
-            <PerformanceRow label="Tours hoàn thành" value={stats.completedTours} color="text-blue-600" />
-            <PerformanceRow label="Tổng thu nhập" value={formatVND(stats.totalEarned)} color="text-gray-900" />
-            <PerformanceRow label="Số dư hiện tại" value={formatVND(stats.walletBalance)} color="text-gray-900" />
+            <PerformanceRow label="Success Rate" value={`${stats.successRate}%`} color="text-emerald-600" />
+            <PerformanceRow label="Tours Completed" value={stats.completedTours} color="text-blue-600" />
+            <PerformanceRow label="Total Earnings" value={formatVND(stats.totalEarned)} color="text-gray-900" />
+            <PerformanceRow label="Current Balance" value={formatVND(stats.walletBalance)} color="text-gray-900" />
           </CardContent>
         </Card>
 
@@ -180,7 +180,7 @@ export default function GuideDashboard() {
                         </span>
                       )}
                       <span className="text-[10px] px-1.5 py-0.5 bg-indigo-50 text-indigo-600 rounded-full font-semibold shrink-0">
-                        {tour.role === "MAIN" ? "HDV Chính" : "HDV Phụ"}
+                        {tour.role === "MAIN" ? "Lead Guide" : "Sub Guide"}
                       </span>
                     </div>
                     <p className="text-xs text-gray-500">
@@ -197,11 +197,11 @@ export default function GuideDashboard() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <QuickAction href="/dashboard/guide/available" icon={<Search className="h-4 w-4" />} label="Tìm Tour" primary />
-        <QuickAction href="/dashboard/guide/wallet" icon={<Wallet className="h-4 w-4" />} label="Ví" />
-        <QuickAction href="/dashboard/guide/earnings" icon={<Coins className="h-4 w-4" />} label="Thu Nhập" />
-        <QuickAction href="/dashboard/guide/calendar" icon={<Calendar className="h-4 w-4" />} label="Lịch" />
-        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Tin Nhắn" />
+        <QuickAction href="/dashboard/guide/available" icon={<Search className="h-4 w-4" />} label="Find Tours" primary />
+        <QuickAction href="/dashboard/guide/wallet" icon={<Wallet className="h-4 w-4" />} label="Wallet" />
+        <QuickAction href="/dashboard/guide/earnings" icon={<Coins className="h-4 w-4" />} label="Earnings" />
+        <QuickAction href="/dashboard/guide/calendar" icon={<Calendar className="h-4 w-4" />} label="Calendar" />
+        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Messages" />
       </div>
     </div>
   );

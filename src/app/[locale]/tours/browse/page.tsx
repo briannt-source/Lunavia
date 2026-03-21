@@ -83,13 +83,13 @@ export default function BrowsePage() {
       <PageHeader
         title={
           role === "TOUR_GUIDE"
-            ? "Tìm Tour"
+            ? "Find Tours"
             : "Browse Tours & Guides"
         }
         description={
           role === "TOUR_GUIDE"
-            ? "Tìm và ứng tuyển vào các tour phù hợp"
-            : "Tìm tour và hướng dẫn viên cho dự án của bạn"
+            ? "Find and apply for suitable tours"
+            : "Find tours and guides for your project"
         }
       />
 
@@ -100,7 +100,7 @@ export default function BrowsePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
-                {role === "TOUR_GUIDE" ? "Tours Đang Mở" : "Public Tours"}
+                {role === "TOUR_GUIDE" ? "Open Tours" : "Public Tours"}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -109,7 +109,7 @@ export default function BrowsePage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                   <Input
-                    placeholder="Tìm tour..."
+                    placeholder="Search tours..."
                     value={tourFilters.search}
                     onChange={(e) =>
                       setTourFilters({ ...tourFilters, search: e.target.value })
@@ -124,15 +124,15 @@ export default function BrowsePage() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Chọn thành phố" />
+                    <SelectValue placeholder="Select city" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Tất cả thành phố</SelectItem>
-                    <SelectItem value="Hà Nội">Hà Nội</SelectItem>
-                    <SelectItem value="Hồ Chí Minh City">Hồ Chí Minh City</SelectItem>
-                    <SelectItem value="Đà Nẵng">Đà Nẵng</SelectItem>
-                    <SelectItem value="Hội An">Hội An</SelectItem>
-                    <SelectItem value="Đà Lạt">Đà Lạt</SelectItem>
+                    <SelectItem value="all">All cities</SelectItem>
+                    <SelectItem value="Hanoi">Hanoi</SelectItem>
+                    <SelectItem value="Ho Chi Minh City">Ho Chi Minh City</SelectItem>
+                    <SelectItem value="Da Nang">Da Nang</SelectItem>
+                    <SelectItem value="Hoi An">Hoi An</SelectItem>
+                    <SelectItem value="Da Lat">Da Lat</SelectItem>
                     <SelectItem value="Nha Trang">Nha Trang</SelectItem>
                   </SelectContent>
                 </Select>
@@ -142,11 +142,11 @@ export default function BrowsePage() {
               {filteredTours.length === 0 ? (
                 <EmptyState
                   icon={MapPin}
-                  title="Chưa có tour nào"
+                  title="No tours available"
                   description={
                     role === "TOUR_GUIDE"
-                      ? "Không có tour public nào đang mở"
-                      : "Không có tour public nào"
+                      ? "No public tours currently open"
+                      : "No public tours available"
                   }
                 />
               ) : (
@@ -180,7 +180,7 @@ export default function BrowsePage() {
                             {tour.description}
                           </p>
                           <div className="flex items-center gap-4 text-xs text-slate-500">
-                            <span>{tour.pax} khách</span>
+                            <span>{tour.pax} guests</span>
                             {tour.priceMain && (
                               <span className="flex items-center gap-1">
                                 <DollarSign className="h-3 w-3" />
@@ -225,7 +225,7 @@ export default function BrowsePage() {
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
-                      placeholder="Tìm hướng dẫn viên..."
+                      placeholder="Find guides..."
                       value={guideFilters.search}
                       onChange={(e) =>
                         setGuideFilters({
@@ -244,15 +244,15 @@ export default function BrowsePage() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Thành phố" />
+                        <SelectValue placeholder="City" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">Tất cả</SelectItem>
-                        <SelectItem value="Hà Nội">Hà Nội</SelectItem>
-                        <SelectItem value="Hồ Chí Minh City">Hồ Chí Minh City</SelectItem>
-                        <SelectItem value="Đà Nẵng">Đà Nẵng</SelectItem>
-                        <SelectItem value="Hội An">Hội An</SelectItem>
-                        <SelectItem value="Đà Lạt">Đà Lạt</SelectItem>
+                        <SelectItem value="Hanoi">Hanoi</SelectItem>
+                        <SelectItem value="Ho Chi Minh City">Ho Chi Minh City</SelectItem>
+                        <SelectItem value="Da Nang">Da Nang</SelectItem>
+                        <SelectItem value="Hoi An">Hoi An</SelectItem>
+                        <SelectItem value="Da Lat">Da Lat</SelectItem>
                         <SelectItem value="Nha Trang">Nha Trang</SelectItem>
                       </SelectContent>
                     </Select>
@@ -266,7 +266,7 @@ export default function BrowsePage() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Trạng thái" />
+                        <SelectValue placeholder="Status" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">Tất cả</SelectItem>
@@ -282,8 +282,8 @@ export default function BrowsePage() {
                 {guides.length === 0 ? (
                   <EmptyState
                     icon={Users}
-                    title="Chưa có hướng dẫn viên nào"
-                    description="Không tìm thấy hướng dẫn viên phù hợp"
+                    title="No guides available"
+                    description="No matching guides found"
                   />
                 ) : (
                   <div className="space-y-4 max-h-[600px] overflow-y-auto">

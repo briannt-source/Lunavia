@@ -34,13 +34,13 @@ export class SubmitKybUseCase {
       }
     };
 
-    validateField(input.photoUrl, "Hình ảnh thật");
-    validateField(input.idDocumentUrl, "CMND/CCCD/Hộ chiếu");
-    validateField(input.licenseUrl, "Giấy phép kinh doanh");
+    validateField(input.photoUrl, "Real Photo");
+    validateField(input.idDocumentUrl, "National ID / Passport");
+    validateField(input.licenseUrl, "Business License");
     if (user.role === "TOUR_OPERATOR") {
-      validateField(input.travelLicenseUrl, "Giấy phép lữ hành quốc tế/nội địa");
+      validateField(input.travelLicenseUrl, "Int'l/Domestic Travel License");
     }
-    validateField(input.proofOfAddressUrl, "Chứng minh nơi ở");
+    validateField(input.proofOfAddressUrl, "Proof of address");
 
     // Check if verification exists
     const existing = await prisma.verification.findFirst({

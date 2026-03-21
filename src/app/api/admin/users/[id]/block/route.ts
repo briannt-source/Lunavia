@@ -32,7 +32,7 @@ export async function POST(
 
     if (!isModerator) {
       return NextResponse.json(
-        { error: "Chỉ admin và moderator mới có quyền block/unblock user" },
+        { error: "Only admin and moderator can block/unblock users" },
         { status: 403 }
       );
     }
@@ -40,7 +40,7 @@ export async function POST(
     // Cannot block yourself
     if (userId === session.user.id) {
       return NextResponse.json(
-        { error: "Bạn không thể block chính mình" },
+        { error: "You cannot block yourself" },
         { status: 400 }
       );
     }
@@ -50,7 +50,7 @@ export async function POST(
 
     if (!action || (action !== "block" && action !== "unblock")) {
       return NextResponse.json(
-        { error: "Action phải là 'block' hoặc 'unblock'" },
+        { error: "Action must be 'block' or 'unblock'" },
         { status: 400 }
       );
     }
@@ -61,14 +61,14 @@ export async function POST(
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User không tồn tại" }, { status: 404 });
+      return NextResponse.json({ error: "User does not exist" }, { status: 404 });
     }
 
     // Update user
     if (action === "block") {
       if (!reason) {
         return NextResponse.json(
-          { error: "Vui lòng chọn lý do block user" },
+          { error: "Please select reason for blocking user" },
           { status: 400 }
         );
       }
@@ -104,7 +104,7 @@ export async function POST(
     revalidatePath(`/dashboard/admin/users/${userId}`, "page");
 
     return NextResponse.json({
-      message: action === "block" ? "User đã được block thành công" : "User đã được unblock thành công",
+      message: action === "block" ? "User blocked successfully" : "User unblocked successfully",
       user: {
         id: user.id,
         email: user.email,

@@ -44,10 +44,10 @@ export class VerificationService {
           canPerform: false,
           reason:
             user.verifiedStatus === "NOT_SUBMITTED"
-              ? "Cần hoàn tất KYB trước khi tạo tour"
+              ? "KYB must be completed before creating tours"
               : user.verifiedStatus === "PENDING"
-              ? "KYB đang chờ duyệt"
-              : "KYB bị từ chối. Vui lòng kiểm tra và nộp lại",
+              ? "KYB is pending review"
+              : "KYB has been rejected. Please review and resubmit",
           requiredStatus: "APPROVED",
         };
       }
@@ -60,10 +60,10 @@ export class VerificationService {
           canPerform: false,
           reason:
             user.verifiedStatus === "NOT_SUBMITTED"
-              ? "Cần hoàn tất KYC trước khi ứng tuyển tour"
+              ? "KYC must be completed before applying for tours"
               : user.verifiedStatus === "PENDING"
-              ? "KYC đang chờ duyệt"
-              : "KYC bị từ chối. Vui lòng kiểm tra và nộp lại",
+              ? "KYC is pending review"
+              : "KYC has been rejected. Please review and resubmit",
           requiredStatus: "APPROVED",
         };
       }
@@ -92,34 +92,34 @@ export class VerificationService {
         type: "KYB",
         documents: [
           {
-            label: "Hình ảnh thật",
+            label: "Real Photo",
             key: "photoUrl",
             required: true,
-            description: "Ảnh chân dung rõ ràng của người đại diện",
+            description: "Clear portrait photo of the representative",
           },
           {
-            label: "CMND/CCCD/Hộ chiếu",
+            label: "National ID / Passport",
             key: "idDocumentUrl",
             required: true,
-            description: "Giấy tờ pháp lý cá nhân của người đại diện",
+            description: "Personal legal documents of the representative",
           },
           {
-            label: "Giấy phép kinh doanh",
+            label: "Business License",
             key: "licenseUrl",
             required: true,
-            description: "Giấy phép đăng ký kinh doanh",
+            description: "Business registration license",
           },
           {
-            label: "Giấy phép lữ hành quốc tế/nội địa",
+            label: "Int'l/Domestic Travel License",
             key: "travelLicenseUrl",
             required: true,
-            description: "Giấy phép lữ hành quốc tế hoặc nội địa",
+            description: "International or domestic travel license",
           },
           {
-            label: "Chứng minh nơi ở (Proof of Address)",
+            label: "Proof of Address",
             key: "proofOfAddressUrl",
             required: true,
-            description: "Giấy tờ chứng minh địa chỉ công ty (hóa đơn điện nước, hợp đồng thuê, v.v.)",
+            description: "Documents proving company address (utility bills, lease agreements, etc.)",
           },
         ],
       };
@@ -129,28 +129,28 @@ export class VerificationService {
       type: "KYC",
       documents: [
         {
-          label: "Hình ảnh thật",
+          label: "Real Photo",
           key: "photoUrl",
           required: true,
-          description: "Ảnh chân dung rõ ràng của bạn",
+          description: "A clear portrait photo of yourself",
         },
         {
-          label: "CMND/CCCD/Hộ chiếu",
+          label: "National ID / Passport",
           key: "idDocumentUrl",
           required: true,
-          description: "Giấy tờ pháp lý cá nhân",
+          description: "Personal legal documents",
         },
         {
-          label: "Thẻ HDV du lịch",
+          label: "Tour Guide License",
           key: "licenseUrl",
           required: true,
-          description: "Thẻ hướng dẫn viên du lịch (bắt buộc)",
+          description: "Tour guide license (required)",
         },
         {
-          label: "Chứng minh nơi ở (Proof of Address)",
+          label: "Proof of Address",
           key: "proofOfAddressUrl",
           required: true,
-          description: "Giấy tờ chứng minh địa chỉ cư trú (hóa đơn điện nước, sổ hộ khẩu, v.v.)",
+          description: "Proof of residential address (utility bills, household register, etc.)",
         },
       ],
     };

@@ -89,9 +89,9 @@ export default async function TourDetailPage({
   if (session.user.role === "TOUR_GUIDE") {
     // Check if already applied
     if (hasApplied) {
-      applyReason = `Bạn đã ứng tuyển tour này. Trạng thái: ${userApplication?.status === "PENDING" ? "Đang chờ duyệt" : userApplication?.status === "ACCEPTED" ? "Đã được chấp nhận" : "Đã bị từ chối"}`;
+      applyReason = `You have already applied to this tour. Status: ${userApplication?.status === "PENDING" ? "Pending review" : userApplication?.status === "ACCEPTED" ? "Accepted" : "Has been rejected"}`;
     } else if (tour.status === "CLOSED") {
-      applyReason = "Tour này đã ngưng nhận thêm hướng dẫn viên";
+      applyReason = "This tour is no longer accepting guides";
     } else if (tour.status === "OPEN" && tour.visibility === "PUBLIC") {
       const user = await prisma.user.findUnique({
         where: { id: session.user.id },
@@ -105,19 +105,19 @@ export default async function TourDetailPage({
         if (wallet && wallet.balance >= 500000) {
           canApply = true;
         } else {
-          applyReason = "Cần số dư tối thiểu 500,000 VND để ứng tuyển";
+          applyReason = "Minimum balance of 500,000 VND required to apply";
         }
       } else {
         applyReason = user?.verifiedStatus === "NOT_SUBMITTED"
-          ? "Cần hoàn tất KYC trước khi ứng tuyển tour"
+          ? "KYC must be completed before applying for tours"
           : user?.verifiedStatus === "PENDING"
-          ? "KYC đang chờ duyệt"
-          : "KYC bị từ chối. Vui lòng nộp lại";
+          ? "KYC is pending review"
+          : "KYC has been rejected. Please resubmit";
       }
     } else {
       applyReason = tour.status !== "OPEN" 
-        ? "Tour này không đang mở ứng tuyển"
-        : "Tour này là riêng tư";
+        ? "This tour is not open for applications"
+        : "This tour is private";
     }
   }
 
@@ -175,7 +175,7 @@ export default async function TourDetailPage({
           </div>
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            <span>{tour.pax} khách</span>
+            <span>{tour.pax} guests</span>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export default async function TourDetailPage({
         <div className="md:col-span-2 space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Mô tả</CardTitle>
+              <CardTitle>Description</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="whitespace-pre-wrap">{tour.description}</p>
@@ -197,7 +197,7 @@ export default async function TourDetailPage({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-teal-600" />
-                  Ghi chú từ Tour Operator
+                  Notes từ Tour Operator
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -210,11 +210,11 @@ export default async function TourDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Thông tin chi tiết</CardTitle>
+              <CardTitle>Information chi tiết</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm font-medium mb-1">Ngôn ngữ yêu cầu</p>
+                <p className="text-sm font-medium mb-1">Languages yêu cầu</p>
                 <div className="flex flex-wrap gap-2">
                   {tour.languages.map((lang) => (
                     <span
@@ -229,7 +229,7 @@ export default async function TourDetailPage({
 
               {tour.specialties.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium mb-1">Chuyên môn</p>
+                  <p className="text-sm font-medium mb-1">Specialties</p>
                   <div className="flex flex-wrap gap-2">
                     {tour.specialties.map((spec) => (
                       <span
@@ -268,7 +268,7 @@ export default async function TourDetailPage({
                             {app.guide.profile?.name || app.guide.email}
                           </h3>
                           <p className="text-sm text-muted-foreground">
-                            Vai trò: {app.role} • Trạng thái: {app.status}
+                            Vai trò: {app.role} • Status: {app.status}
                           </p>
                           {escrowAccount && app.status === "ACCEPTED" && (
                             <div className="mt-2">
@@ -296,7 +296,7 @@ export default async function TourDetailPage({
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Thông tin Operator</CardTitle>
+              <CardTitle>Information Operator</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3 mb-4">
@@ -326,7 +326,7 @@ export default async function TourDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Giá tour</CardTitle>
+              <CardTitle>Price tour</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {tour.priceMain ? (
@@ -366,7 +366,7 @@ export default async function TourDetailPage({
               {tour.endDate && (
                 <div className="pt-4 border-t">
                   <p className="text-sm text-muted-foreground mb-1">
-                    Ngày kết thúc
+                    End date
                   </p>
                   <p className="text-sm font-medium">
                     {formatDate(tour.endDate)}
@@ -395,8 +395,8 @@ export default async function TourDetailPage({
                   ) : (
                     <p className="text-sm text-slate-500 italic">
                       {userRole === "TOUR_GUIDE"
-                        ? "Bạn cần được chấp nhận vào tour này để xem files"
-                        : "Chỉ tour guide đã được chấp nhận mới có thể xem files"}
+                        ? "You need to be accepted to this tour to view files"
+                        : "Only accepted tour guides can view files"}
                     </p>
                   )}
                 </div>

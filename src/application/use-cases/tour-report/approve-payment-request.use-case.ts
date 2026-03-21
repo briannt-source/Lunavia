@@ -61,13 +61,13 @@ export class ApprovePaymentRequestUseCase {
       : new Date(report.tour.startDate);
     
     if (tourEnd > now) {
-      throw new Error("Không thể duyệt thanh toán cho tour chưa kết thúc. Vui lòng đợi tour kết thúc.");
+      throw new Error("Cannot approve payment for unfinished tour. Please wait until tour ends.");
     }
 
     // Check if report was submitted within 2 hours after tour ended
     if (!report.submittedAt) {
       throw new Error(
-        "Không thể duyệt thanh toán. Guide chưa nộp báo cáo tour. Guide phải nộp báo cáo trong vòng 2 giờ sau khi tour kết thúc."
+        "Cannot approve payment. Guide has not submitted tour report. Guide must submit report within 2 hours after tour ends."
       );
     }
 
@@ -76,7 +76,7 @@ export class ApprovePaymentRequestUseCase {
     
     if (hoursAfterTourEnd > 2) {
       throw new Error(
-        "Không thể duyệt thanh toán. Báo cáo tour đã được nộp quá hạn (sau 2 giờ kể từ khi tour kết thúc). Guide không thể nhận thanh toán cho tour này."
+        "Cannot approve payment. Tour report was submitted late (after 2 hours from tour end). Guide cannot receive payment for this tour."
       );
     }
 

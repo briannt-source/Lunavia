@@ -45,16 +45,16 @@ export async function POST(req: NextRequest) {
     };
 
     const errors: string[] = [];
-    const photoError = validateField(photoUrl, "Hình ảnh thật");
+    const photoError = validateField(photoUrl, "Real Photo");
     if (photoError) errors.push(photoError);
     
-    const idError = validateField(idDocumentUrl, "CMND/CCCD/Hộ chiếu");
+    const idError = validateField(idDocumentUrl, "National ID / Passport");
     if (idError) errors.push(idError);
     
-    const licenseError = validateField(licenseUrl, "Thẻ HDV du lịch");
+    const licenseError = validateField(licenseUrl, "Tour Guide License");
     if (licenseError) errors.push(licenseError);
     
-    const proofError = validateField(proofOfAddressUrl, "Chứng minh nơi ở");
+    const proofError = validateField(proofOfAddressUrl, "Proof of address");
     if (proofError) errors.push(proofError);
 
     if (errors.length > 0) {

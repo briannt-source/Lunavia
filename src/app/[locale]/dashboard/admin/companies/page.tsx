@@ -68,14 +68,14 @@ export default async function AdminCompaniesPage({
   return (
     <>
       <PageHeader
-        title="Quản lý Công ty"
-        description="Xem và quản lý tất cả các công ty trong hệ thống"
+        title="Manage Companies"
+        description="View and manage all companies in the system"
       />
 
       {/* Companies List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách Công ty ({companies.length})</CardTitle>
+          <CardTitle>Danh sách Company ({companies.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {companies.length === 0 ? (

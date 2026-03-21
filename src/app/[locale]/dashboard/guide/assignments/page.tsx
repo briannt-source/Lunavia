@@ -46,11 +46,11 @@ export default function GuideAssignmentsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã chấp nhận phân công");
+      toast.success("Assignment accepted");
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi chấp nhận phân công");
+      toast.error(error.message || "Error accepting assignment");
     },
   });
 
@@ -68,13 +68,13 @@ export default function GuideAssignmentsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã từ chối phân công");
+      toast.success("Assignment declined");
       setRejectingId(null);
       setRejectReason("");
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi từ chối phân công");
+      toast.error(error.message || "Error declining assignment");
     },
   });
 
@@ -98,7 +98,7 @@ export default function GuideAssignmentsPage() {
 
   const handleReject = (assignmentId: string) => {
     if (!rejectReason.trim()) {
-      toast.error("Vui lòng nhập lý do từ chối");
+      toast.error("Please enter a rejection reason");
       return;
     }
     rejectMutation.mutate({ assignmentId, reason: rejectReason });
@@ -107,8 +107,8 @@ export default function GuideAssignmentsPage() {
   return (
     <>
       <PageHeader
-        title="Phân công của tôi"
-        description="Xem và quản lý các phân công tour của bạn"
+        title="My Assignments"
+        description="View and manage your tour assignments"
       />
 
       {/* Stats */}
@@ -159,10 +159,10 @@ export default function GuideAssignmentsPage() {
             onValueChange={(value) => setFilters({ ...filters, status: value })}
           >
             <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Trạng thái" />
+              <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tất cả trạng thái</SelectItem>
+              <SelectItem value="all">All statuses</SelectItem>
               <SelectItem value="PENDING">Đang chờ</SelectItem>
               <SelectItem value="APPROVED">Đã chấp nhận</SelectItem>
               <SelectItem value="REJECTED">Đã từ chối</SelectItem>
@@ -179,13 +179,13 @@ export default function GuideAssignmentsPage() {
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Đang tải...</p>
+              <p className="text-muted-foreground">Loading...</p>
             </div>
           ) : assignments.length === 0 ? (
             <EmptyState
               icon={FileText}
-              title="Chưa có phân công nào"
-              description="Bạn sẽ nhận được phân công khi operator assign bạn vào tour"
+              title="No assignments yet"
+              description="You will receive assignments when an operator assigns you to a tour"
             />
           ) : (
             <div className="space-y-4">
@@ -202,7 +202,7 @@ export default function GuideAssignmentsPage() {
                           </Link>
                           <StatusBadge status={assignment.status} />
                           <span className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-medium">
-                            {assignment.role === "MAIN" ? "HDV chính" : "HDV phụ"}
+                            {assignment.role === "MAIN" ? "Lead" : "Sub"}
                           </span>
                         </div>
                         
@@ -241,7 +241,7 @@ export default function GuideAssignmentsPage() {
                         {assignment.rejectionReason && (
                           <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                             <p className="text-sm text-red-700">
-                              <span className="font-medium">Lý do từ chối:</span> {assignment.rejectionReason}
+                              <span className="font-medium">Reason từ chối:</span> {assignment.rejectionReason}
                             </p>
                           </div>
                         )}
@@ -280,13 +280,13 @@ export default function GuideAssignmentsPage() {
                     {rejectingId === assignment.id && (
                       <div className="mt-4 p-4 border border-red-200 bg-red-50 rounded-lg">
                         <Label htmlFor="rejectReason" className="text-red-900 font-medium">
-                          Lý do từ chối *
+                          Reason từ chối *
                         </Label>
                         <Textarea
                           id="rejectReason"
                           value={rejectReason}
                           onChange={(e) => setRejectReason(e.target.value)}
-                          placeholder="Vui lòng nêu rõ lý do từ chối phân công này..."
+                          placeholder="Please specify the reason for declining this assignment..."
                           rows={3}
                           className="mt-2"
                         />
@@ -297,7 +297,7 @@ export default function GuideAssignmentsPage() {
                             onClick={() => handleReject(assignment.id)}
                             disabled={rejectMutation.isPending || !rejectReason.trim()}
                           >
-                            {rejectMutation.isPending ? "Đang xử lý..." : "Xác nhận từ chối"}
+                            {rejectMutation.isPending ? "Processing..." : "Confirm Decline"}
                           </Button>
                           <Button
                             size="sm"

@@ -112,13 +112,13 @@ export default function WalletPage() {
       }
 
       await api.wallet.topup(payload);
-      toast.success("Đã tạo yêu cầu nạp tiền");
+      toast.success("Top-up request created");
       setTopupOpen(false);
       setTopupData({ amount: "", method: "", paymentMethodId: "", customAccountInfo: "" });
       refetch();
       refetchTransactions();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi tạo yêu cầu");
+      toast.error(error.message || "Error creating request");
     }
   };
 
@@ -135,12 +135,12 @@ export default function WalletPage() {
         payload.customAccountInfo = withdrawalData.customAccountInfo;
         payload.accountOwnerName = withdrawalData.accountOwnerName;
       } else {
-        toast.error("Vui lòng chọn phương thức thanh toán hoặc nhập thông tin tài khoản");
+        toast.error("Please select a payment method or enter account details");
         return;
       }
 
       await api.wallet.withdrawal(payload);
-      toast.success("Đã tạo yêu cầu rút tiền");
+      toast.success("Withdrawal request created");
       setWithdrawalOpen(false);
       setWithdrawalData({ 
         amount: "", 
@@ -152,7 +152,7 @@ export default function WalletPage() {
       refetch();
       refetchTransactions();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi tạo yêu cầu");
+      toast.error(error.message || "Error creating request");
     }
   };
 
@@ -203,8 +203,8 @@ export default function WalletPage() {
   return (
     <>
       <PageHeader
-        title="Ví của tôi"
-        description="Quản lý số dư và giao dịch"
+        title="My Wallet"
+        description="Manage your balance and transactions"
         action={
           <div className="flex gap-2">
             <Dialog open={topupOpen} onOpenChange={setTopupOpen}>
@@ -223,14 +223,14 @@ export default function WalletPage() {
                 </DialogHeader>
                 <div className="space-y-4">
                   <div>
-                    <Label>Số tiền (VND)</Label>
+                    <Label>Amount (VND)</Label>
                     <Input
                       type="number"
                       value={topupData.amount}
                       onChange={(e) =>
                         setTopupData({ ...topupData, amount: e.target.value })
                       }
-                      placeholder="Nhập số tiền"
+                      placeholder="Enter amount"
                     />
                   </div>
                   <div>
@@ -242,7 +242,7 @@ export default function WalletPage() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Chọn phương thức" />
+                        <SelectValue placeholder="Select method" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="BANK">Chuyển khoản ngân hàng (Lunavia)</SelectItem>
@@ -256,7 +256,7 @@ export default function WalletPage() {
                   {topupData.method === "BANK" && lunaviaAccount && (
                     <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-sm font-semibold text-blue-900 mb-2">
-                        Thông tin tài khoản nhận tiền:
+                        Information tài khoản nhận tiền:
                       </p>
                       <div className="text-sm text-blue-700 space-y-1">
                         <p>
@@ -266,7 +266,7 @@ export default function WalletPage() {
                           <span className="font-medium">Chủ tài khoản:</span> {lunaviaAccount.accountName}
                         </p>
                         <p>
-                          <span className="font-medium">Số tài khoản:</span>{" "}
+                          <span className="font-medium">Account number:</span>{" "}
                           <span className="font-mono">{lunaviaAccount.accountNumber}</span>
                         </p>
                         {lunaviaAccount.branchName && (
@@ -308,13 +308,13 @@ export default function WalletPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="custom">Nhập thông tin mới</SelectItem>
+                          <SelectItem value="custom">Nhập information mới</SelectItem>
                           {paymentMethods
                             .filter((m: any) => m.type === topupData.method)
                             .map((method: any) => (
                               <SelectItem key={method.id} value={method.id}>
                                 {method.accountName} - {method.accountNumber}
-                                {method.isDefault && " (Mặc định)"}
+                                {method.isDefault && " (Default)"}
                               </SelectItem>
                             ))}
                         </SelectContent>
@@ -328,8 +328,8 @@ export default function WalletPage() {
                           }
                           placeholder={
                             topupData.method === "MOMO" || topupData.method === "ZALO"
-                              ? "Số điện thoại"
-                              : "Thông tin tài khoản"
+                              ? "Phone Number"
+                              : "Account Details"
                           }
                         />
                       )}
@@ -359,7 +359,7 @@ export default function WalletPage() {
                 </DialogHeader>
                 <div className="space-y-4">
                   <div>
-                    <Label>Số tiền (VND)</Label>
+                    <Label>Amount (VND)</Label>
                     <Input
                       type="number"
                       value={withdrawalData.amount}
@@ -369,7 +369,7 @@ export default function WalletPage() {
                           amount: e.target.value,
                         })
                       }
-                      placeholder="Nhập số tiền"
+                      placeholder="Enter amount"
                     />
                     <p className="text-xs text-slate-500 mt-1">
                       Số dư khả dụng: {formatVND(availableBalance)}
@@ -417,13 +417,13 @@ export default function WalletPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="custom">Nhập thông tin mới</SelectItem>
+                        <SelectItem value="custom">Nhập information mới</SelectItem>
                         {paymentMethods
                           .filter((m: any) => m.type === withdrawalData.method)
                           .map((method: any) => (
                             <SelectItem key={method.id} value={method.id}>
                               {method.accountName} - {method.accountNumber}
-                              {method.isDefault && " (Mặc định)"}
+                              {method.isDefault && " (Default)"}
                               {method.isVerified && " ✓"}
                             </SelectItem>
                           ))}
@@ -434,7 +434,7 @@ export default function WalletPage() {
                   {(!withdrawalData.paymentMethodId || withdrawalData.paymentMethodId === "custom") && (
                     <>
                       <div>
-                        <Label>Thông tin tài khoản *</Label>
+                        <Label>Information tài khoản *</Label>
                         <Input
                           value={withdrawalData.customAccountInfo}
                           onChange={(e) =>
@@ -445,8 +445,8 @@ export default function WalletPage() {
                           }
                           placeholder={
                             withdrawalData.method === "BANK"
-                              ? "Số tài khoản"
-                              : "Số điện thoại"
+                              ? "Account Number"
+                              : "Phone Number"
                           }
                           required={!withdrawalData.paymentMethodId}
                         />
@@ -461,7 +461,7 @@ export default function WalletPage() {
                               accountOwnerName: e.target.value,
                             })
                           }
-                          placeholder="Tên chủ tài khoản (để xác nhận)"
+                          placeholder="Account holder name (for confirmation)"
                           required={!withdrawalData.paymentMethodId}
                         />
                         <p className="text-xs text-slate-500 mt-1">
@@ -474,7 +474,7 @@ export default function WalletPage() {
                   {withdrawalData.paymentMethodId && (
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-sm text-blue-700">
-                        Sử dụng phương thức đã lưu. Thông tin sẽ được tự động điền.
+                        Sử dụng phương thức đã lưu. Information sẽ được tự động điền.
                       </p>
                     </div>
                   )}
@@ -492,17 +492,17 @@ export default function WalletPage() {
       {/* Wallet Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatsCard
-          title="Tổng số dư"
+          title="Total Balance"
           value={wallet ? formatVND(wallet.balance) : formatVND(0)}
           icon={Wallet}
         />
         <StatsCard
-          title="Deposit đã khóa"
+          title="Locked Deposit"
           value={formatVND(0)}
           icon={Lock}
         />
         <StatsCard
-          title="Số dư khả dụng"
+          title="Available Balance"
           value={formatVND(availableBalance)}
           icon={TrendingUp}
         />
@@ -517,7 +517,7 @@ export default function WalletPage() {
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="overview">Tổng quan</TabsTrigger>
-              <TabsTrigger value="requests">Yêu cầu</TabsTrigger>
+              <TabsTrigger value="requests">Requirements</TabsTrigger>
               <TabsTrigger value="deposits">Đã nạp</TabsTrigger>
               <TabsTrigger value="withdrawals">Đã rút</TabsTrigger>
             </TabsList>
@@ -527,8 +527,8 @@ export default function WalletPage() {
               {allTransactions.length === 0 ? (
                 <EmptyState
                   icon={DollarSign}
-                  title="Chưa có giao dịch"
-                  description="Các giao dịch sẽ xuất hiện ở đây"
+                  title="No transactions yet"
+                  description="Transactions will appear here"
                 />
               ) : (
                 <div className="space-y-3">
@@ -546,9 +546,9 @@ export default function WalletPage() {
                         <div>
                           <p className="font-medium text-slate-900">
                             {tx.type === "topup"
-                              ? "Yêu cầu nạp tiền"
+                              ? "Top-up Request"
                               : tx.type === "withdrawal"
-                              ? "Yêu cầu rút tiền"
+                              ? "Withdrawal Request"
                               : tx.type === "payment_sent"
                               ? `Thanh toán cho ${tx.toWallet?.user?.profile?.name || tx.toWallet?.user?.email}`
                               : `Thanh toán từ ${tx.fromWallet?.user?.profile?.name || tx.fromWallet?.user?.email}`}
@@ -588,7 +588,7 @@ export default function WalletPage() {
                   <div>
                     <h3 className="font-semibold mb-2 flex items-center gap-2">
                       <Clock className="h-4 w-4" />
-                      Yêu cầu nạp tiền đang chờ
+                      Requirements nạp tiền đang chờ
                     </h3>
                     <div className="space-y-2">
                       {pendingTopUps.map((r: any) => (
@@ -616,7 +616,7 @@ export default function WalletPage() {
                   <div>
                     <h3 className="font-semibold mb-2 flex items-center gap-2">
                       <Clock className="h-4 w-4" />
-                      Yêu cầu rút tiền đang chờ
+                      Requirements rút tiền đang chờ
                     </h3>
                     <div className="space-y-2">
                       {pendingWithdrawals.map((r: any) => (
@@ -649,8 +649,8 @@ export default function WalletPage() {
                   pendingWithdrawals.length === 0 && (
                     <EmptyState
                       icon={Clock}
-                      title="Không có yêu cầu đang chờ"
-                      description="Các yêu cầu đang chờ sẽ xuất hiện ở đây"
+                      title="No pending requests"
+                      description="Pending requests will appear here"
                     />
                   )}
               </div>
@@ -661,8 +661,8 @@ export default function WalletPage() {
               {completedTopUps.length === 0 ? (
                 <EmptyState
                   icon={ArrowUpCircle}
-                  title="Chưa có giao dịch nạp tiền"
-                  description="Các giao dịch nạp tiền đã hoàn thành sẽ xuất hiện ở đây"
+                  title="No top-up transactions yet"
+                  description="Completed top-up transactions will appear here"
                 />
               ) : (
                 <div className="space-y-3">
@@ -699,8 +699,8 @@ export default function WalletPage() {
               {completedWithdrawals.length === 0 ? (
                 <EmptyState
                   icon={ArrowDownCircle}
-                  title="Chưa có giao dịch rút tiền"
-                  description="Các giao dịch rút tiền đã hoàn thành sẽ xuất hiện ở đây"
+                  title="No withdrawal transactions yet"
+                  description="Completed withdrawal transactions will appear here"
                 />
               ) : (
                 <div className="space-y-3">

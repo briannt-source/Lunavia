@@ -63,8 +63,8 @@ export default function AdminUsersClientPage() {
   return (
     <>
       <PageHeader
-        title="Quản lý Users"
-        description="Quản lý tất cả người dùng trong hệ thống. Có thể block/unblock hoặc xóa user nếu vi phạm quy định."
+        title="Manage Users"
+        description="Manage all users. Users violating policies can be blocked/unblocked or deleted."
       />
 
       {/* Stats */}
@@ -123,7 +123,7 @@ export default function AdminUsersClientPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input
-                  placeholder="Tìm theo email hoặc tên..."
+                  placeholder="Search by email or name..."
                   defaultValue={search}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -140,7 +140,7 @@ export default function AdminUsersClientPage() {
               onValueChange={(value) => handleFilter(value, search, verified)}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Vai trò" />
+                <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tất cả vai trò</SelectItem>
@@ -154,7 +154,7 @@ export default function AdminUsersClientPage() {
               onValueChange={(value) => handleFilter(role, search, value)}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Xác minh" />
+                <SelectValue placeholder="Verification" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tất cả</SelectItem>
@@ -166,7 +166,7 @@ export default function AdminUsersClientPage() {
             </Select>
             <Button
               onClick={() => {
-                const searchInput = document.querySelector("input[placeholder='Tìm theo email hoặc tên...']") as HTMLInputElement;
+                const searchInput = document.querySelector("input[placeholder='Search by email or name...']") as HTMLInputElement;
                 handleFilter(role, searchInput?.value || "", verified);
               }}
             >
@@ -185,7 +185,7 @@ export default function AdminUsersClientPage() {
           {users.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Users className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Không tìm thấy user nào</p>
+              <p>User not found nào</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -240,10 +240,10 @@ export default function AdminUsersClientPage() {
                         {user._count?.applications > 0 && (
                           <span>{user._count.applications} applications</span>
                         )}
-                        <span>Đăng ký: {formatDateTime(user.createdAt)}</span>
+                        <span>Register: {formatDateTime(user.createdAt)}</span>
                         {user.isBlocked && user.blockReason && (
                           <span className="text-red-600">
-                            Lý do: {user.blockReason}
+                            Reason: {user.blockReason}
                           </span>
                         )}
                       </div>

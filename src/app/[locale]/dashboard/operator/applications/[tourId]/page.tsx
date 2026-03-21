@@ -46,20 +46,20 @@ export default function TourApplicationsPage() {
   const handleAccept = async (applicationId: string) => {
     try {
       await api.tours.acceptApplication(tourId, applicationId);
-      toast.success("Đã chấp nhận ứng tuyển");
+      toast.success("Application approved");
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi chấp nhận");
+      toast.error(error.message || "Error approving request");
     }
   };
 
   const handleReject = async (applicationId: string) => {
     try {
       await api.tours.rejectApplication(tourId, applicationId);
-      toast.success("Đã từ chối ứng tuyển");
+      toast.success("Application rejected");
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi từ chối");
+      toast.error(error.message || "Error rejecting request");
     }
   };
 
@@ -70,7 +70,7 @@ export default function TourApplicationsPage() {
         description={`${applications.length} ứng tuyển cho tour này`}
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard/operator" },
-          { label: "Ứng tuyển", href: "/dashboard/operator/applications" },
+          { label: "Applications", href: "/dashboard/operator/applications" },
           { label: tour?.title || "Tour" },
         ]}
       />
@@ -83,8 +83,8 @@ export default function TourApplicationsPage() {
               {applications.length === 0 ? (
                 <EmptyState
                   icon={Briefcase}
-                  title="Chưa có ứng tuyển nào"
-                  description="Các ứng tuyển sẽ xuất hiện ở đây"
+                  title="No applications yet"
+                  description="Applications will appear here"
                 />
               ) : (
                 <div className="space-y-4">
@@ -243,7 +243,7 @@ export default function TourApplicationsPage() {
                     guideProfile.profile.languages.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-slate-700 mb-2">
-                          Ngôn ngữ
+                          Languages
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {guideProfile.profile.languages.map((lang: string) => (
@@ -263,7 +263,7 @@ export default function TourApplicationsPage() {
                     guideProfile.profile.specialties.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-slate-700 mb-2">
-                          Chuyên môn
+                          Specialties
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {guideProfile.profile.specialties.map(
@@ -284,7 +284,7 @@ export default function TourApplicationsPage() {
                   {guideProfile.companyMember && (
                     <div>
                       <h4 className="text-sm font-medium text-slate-700 mb-2">
-                        Công ty
+                        Company
                       </h4>
                       <p className="text-sm text-slate-600">
                         {guideProfile.companyMember.company.name}

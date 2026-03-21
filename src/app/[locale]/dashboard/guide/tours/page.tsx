@@ -42,8 +42,8 @@ export default function GuideToursPage() {
   return (
     <>
       <PageHeader
-        title="Tours của tôi"
-        description="Quản lý các tour bạn đã được chấp nhận"
+        title="My Tours"
+        description="Manage tours you have been assigned to"
       />
 
       <div className="space-y-6">
@@ -74,7 +74,7 @@ export default function GuideToursPage() {
                     <div className="flex gap-2 pt-4 border-t">
                       <Link href={`/tours/${tour.id}`} className="flex-1">
                         <Button variant="outline" className="w-full" size="sm">
-                          Xem chi tiết
+                          View Details
                         </Button>
                       </Link>
                       <Button
@@ -138,7 +138,7 @@ export default function GuideToursPage() {
                     </div>
                     <Link href={`/tours/${tour.id}`}>
                       <Button variant="outline" className="w-full" size="sm">
-                        Xem chi tiết
+                        View Details
                       </Button>
                     </Link>
                   </CardContent>
@@ -175,7 +175,7 @@ export default function GuideToursPage() {
                     <div className="flex gap-2 pt-4 border-t">
                       <Link href={`/tours/${tour.id}`} className="flex-1">
                         <Button variant="outline" className="w-full" size="sm">
-                          Xem chi tiết
+                          View Details
                         </Button>
                       </Link>
                       <Link href={`/dashboard/guide/tours/${tour.id}/report`}>
@@ -198,8 +198,8 @@ export default function GuideToursPage() {
             <CardContent className="pt-6">
               <EmptyState
                 icon={MapPin}
-                title="Chưa có tour nào"
-                description="Bạn chưa được chấp nhận vào tour nào. Hãy tìm và ứng tuyển các tour phù hợp."
+                title="No tours yet"
+                description="You haven't been assigned to any tours yet. Find and apply for tours that match your skills."
                 action={
                   <Link href="/dashboard/guide/tours">
                     <Button>Tìm tour</Button>

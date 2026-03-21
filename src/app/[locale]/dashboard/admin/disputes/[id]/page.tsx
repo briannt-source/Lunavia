@@ -57,13 +57,13 @@ export default function DisputeDetailPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Xử lý dispute thành công");
+      toast.success("Dispute processed successfully");
       queryClient.invalidateQueries({ queryKey: ["admin", "dispute", disputeId] });
       queryClient.invalidateQueries({ queryKey: ["admin", "disputes"] });
       router.push("/dashboard/admin/disputes");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -86,7 +86,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải...</p>
+          <p className="text-slate-600">Loading...</p>
         </div>
       </>
     );
@@ -96,7 +96,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Không tìm thấy dispute</p>
+          <p className="text-slate-600">Not found dispute</p>
           <Link href="/dashboard/admin/disputes">
             <Button variant="outline" className="mt-4">
               Quay lại
@@ -110,7 +110,7 @@ export default function DisputeDetailPage() {
   return (
     <>
       <PageHeader
-        title="Chi tiết Dispute"
+        title="Dispute Details"
         description={`ID: ${dispute.id}`}
         action={
           <Link href="/dashboard/admin/disputes">
@@ -129,7 +129,7 @@ export default function DisputeDetailPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Thông tin Dispute</CardTitle>
+                <CardTitle>Information Dispute</CardTitle>
                 <StatusBadge status={dispute.status} />
               </div>
             </CardHeader>
@@ -139,7 +139,7 @@ export default function DisputeDetailPage() {
                 <p className="mt-1 font-semibold">{dispute.type}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Mô tả</Label>
+                <Label className="text-sm font-medium text-slate-500">Description</Label>
                 <p className="mt-1 text-slate-700 whitespace-pre-wrap">{dispute.description}</p>
               </div>
               <div>
@@ -152,7 +152,7 @@ export default function DisputeDetailPage() {
                 </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Thời gian</Label>
+                <Label className="text-sm font-medium text-slate-500">Duration</Label>
                 <p className="mt-1">{formatDateTime(dispute.createdAt)}</p>
               </div>
               {dispute.resolvedAt && (
@@ -163,7 +163,7 @@ export default function DisputeDetailPage() {
               )}
               {dispute.resolutionAmount && (
                 <div>
-                  <Label className="text-sm font-medium text-slate-500">Số tiền hoàn</Label>
+                  <Label className="text-sm font-medium text-slate-500">Amount hoàn</Label>
                   <p className="mt-1 text-lg font-bold text-emerald-600">
                     {formatVND(dispute.resolutionAmount || 0)}
                   </p>
@@ -240,7 +240,7 @@ export default function DisputeDetailPage() {
                   {action === "resolve" && (
                     <>
                       <div>
-                        <Label htmlFor="amountRefunded">Số tiền hoàn (VND)</Label>
+                        <Label htmlFor="amountRefunded">Amount hoàn (VND)</Label>
                         <Input
                           id="amountRefunded"
                           type="number"
@@ -254,7 +254,7 @@ export default function DisputeDetailPage() {
 
                   <div>
                     <Label htmlFor="resolution">
-                      {action === "resolve" ? "Giải pháp" : "Lý do từ chối"}
+                      {action === "resolve" ? "Resolution" : "Rejection Reason"}
                     </Label>
                     <Textarea
                       id="resolution"
@@ -262,8 +262,8 @@ export default function DisputeDetailPage() {
                       onChange={(e) => setResolution(e.target.value)}
                       placeholder={
                         action === "resolve"
-                          ? "Mô tả giải pháp..."
-                          : "Lý do từ chối..."
+                          ? "Describe resolution..."
+                          : "Rejection reason..."
                       }
                       rows={4}
                       required
@@ -275,7 +275,7 @@ export default function DisputeDetailPage() {
                     disabled={processing}
                     className="w-full"
                   >
-                    {processing ? "Đang xử lý..." : action === "resolve" ? "Giải quyết" : "Từ chối"}
+                    {processing ? "Processing..." : action === "resolve" ? "Resolve" : "Reject"}
                   </Button>
                 </form>
               </CardContent>
@@ -300,7 +300,7 @@ export default function DisputeDetailPage() {
           {/* Status Card */}
           <Card>
             <CardHeader>
-              <CardTitle>Trạng thái</CardTitle>
+              <CardTitle>Status</CardTitle>
             </CardHeader>
             <CardContent>
               <StatusBadge status={dispute.status} />

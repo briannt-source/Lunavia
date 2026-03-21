@@ -40,13 +40,13 @@ export default function StandbyRequestsPage() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case "PENDING":
-        return "Chờ phản hồi";
+        return "Awaiting Response";
       case "ACCEPTED":
-        return "Đã chấp nhận";
+        return "Approved";
       case "REJECTED":
-        return "Đã từ chối";
+        return "Rejected";
       case "COMPLETED":
-        return "Hoàn thành";
+        return "Completed";
       default:
         return status;
     }
@@ -57,7 +57,7 @@ export default function StandbyRequestsPage() {
       <div className="space-y-6">
         <PageHeader
           title="Standby Requests"
-          description="Quản lý các yêu cầu standby cho tour guides"
+          description="Manage standby requests for tour guides"
           action={
             <Button onClick={() => setIsCreateDialogOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -69,14 +69,14 @@ export default function StandbyRequestsPage() {
         {isLoading ? (
           <Card>
             <CardContent className="py-12">
-              <div className="text-center text-slate-500">Đang tải...</div>
+              <div className="text-center text-slate-500">Loading...</div>
             </CardContent>
           </Card>
         ) : !standbyRequests || standbyRequests.length === 0 ? (
           <EmptyState
             icon={Calendar}
-            title="Chưa có standby request nào"
-            description="Tạo standby request đầu tiên để tìm guide sẵn sàng trong trường hợp khẩn cấp"
+            title="No standby requests yet"
+            description="Create your first standby request to find guides ready for emergencies"
             action={
               <Button onClick={() => setIsCreateDialogOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
@@ -139,7 +139,7 @@ export default function StandbyRequestsPage() {
                     </div>
                     <Link href={`/standby-requests/${request.id}`}>
                       <Button variant="outline" size="sm">
-                        Xem chi tiết
+                        View Details
                       </Button>
                     </Link>
                   </div>

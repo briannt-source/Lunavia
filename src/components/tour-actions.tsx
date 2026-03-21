@@ -43,20 +43,20 @@ export function TourActions({
       console.log("Tour status updated:", result);
       
       if (result?.status === "OPEN") {
-        toast.success("Tour đã được publish lên marketplace!");
+        toast.success("Tour published to marketplace!");
         // Force reload để cập nhật status từ server
         window.location.reload();
       } else {
-        toast.error("Có lỗi xảy ra khi cập nhật trạng thái tour");
+        toast.error("An error occurred updating tour status");
       }
     } catch (error: any) {
       console.error("Error publishing tour:", error);
-      toast.error(error.message || "Lỗi khi publish tour");
+      toast.error(error.message || "Error publishing tour");
     }
   };
 
   const handleCloseTour = async () => {
-    if (!confirm("Bạn có chắc muốn ngưng nhận thêm hướng dẫn viên cho tour này?")) {
+    if (!confirm("Are you sure you want to stop accepting guides for this tour?")) {
       return;
     }
     try {
@@ -64,15 +64,15 @@ export function TourActions({
       console.log("Tour status updated:", result);
       
       if (result?.status === "CLOSED") {
-        toast.success("Tour đã ngưng nhận thêm hướng dẫn viên");
+        toast.success("Tour is no longer accepting guides");
         // Force reload để cập nhật status từ server
         window.location.reload();
       } else {
-        toast.error("Có lỗi xảy ra khi cập nhật trạng thái tour");
+        toast.error("An error occurred updating tour status");
       }
     } catch (error: any) {
       console.error("Error closing tour:", error);
-      toast.error(error.message || "Lỗi khi đóng tour");
+      toast.error(error.message || "Error closing tour");
     }
   };
 
@@ -87,7 +87,7 @@ export function TourActions({
             <Link href={`/tours/${tourId}/edit`}>
               <Button className="w-full" size="lg">
                 <Edit className="h-4 w-4 mr-2" />
-                Chỉnh sửa Tour
+                Edit Tour
               </Button>
             </Link>
             <Button
@@ -123,15 +123,15 @@ export function TourActions({
                   console.log("Tour status updated:", result);
                   
                   if (result?.status === "OPEN") {
-                    toast.success("Tour đã mở lại ứng tuyển");
+                    toast.success("Tour reopened for applications");
                     // Force reload để cập nhật status từ server
                     window.location.reload();
                   } else {
-                    toast.error("Có lỗi xảy ra khi cập nhật trạng thái tour");
+                    toast.error("An error occurred updating tour status");
                   }
                 } catch (error: any) {
                   console.error("Error reopening tour:", error);
-                  toast.error(error.message || "Lỗi khi mở lại tour");
+                  toast.error(error.message || "Error reopening tour");
                 }
               }}
             >
@@ -142,7 +142,7 @@ export function TourActions({
                 className="w-full"
                 size="lg"
                 onClick={async () => {
-                  if (!confirm("Bạn có chắc muốn bắt đầu tour này? Tour sẽ chuyển sang trạng thái 'Đang chạy' và guides sẽ nhận được thông báo.")) {
+                  if (!confirm("Are you sure you want to start this tour? Status will change to 'Running' and guides will be notified.")) {
                     return;
                   }
                   try {
@@ -150,15 +150,15 @@ export function TourActions({
                     console.log("Tour status updated:", result);
                     
                     if (result?.status === "IN_PROGRESS") {
-                      toast.success("Tour đã bắt đầu! Guides đã nhận được thông báo.");
+                      toast.success("Tour started! Guides have been notified.");
                       // Force reload để cập nhật status từ server
                       window.location.reload();
                     } else {
-                      toast.error("Có lỗi xảy ra khi cập nhật trạng thái tour");
+                      toast.error("An error occurred updating tour status");
                     }
                   } catch (error: any) {
                     console.error("Error starting tour:", error);
-                    toast.error(error.message || "Lỗi khi bắt đầu tour");
+                    toast.error(error.message || "Error starting tour");
                   }
                 }}
               >
@@ -172,7 +172,7 @@ export function TourActions({
             className="w-full"
             size="lg"
             onClick={async () => {
-              if (!confirm("Bạn có chắc muốn bắt đầu tour này? Tour sẽ chuyển sang trạng thái 'Đang chạy' và guides sẽ nhận được thông báo.")) {
+              if (!confirm("Are you sure you want to start this tour? Status will change to 'Running' and guides will be notified.")) {
                 return;
               }
               try {
@@ -180,15 +180,15 @@ export function TourActions({
                 console.log("Tour status updated:", result);
                 
                 if (result?.status === "IN_PROGRESS") {
-                  toast.success("Tour đã bắt đầu! Guides đã nhận được thông báo.");
+                  toast.success("Tour started! Guides have been notified.");
                   // Force reload để cập nhật status từ server
                   window.location.reload();
                 } else {
-                  toast.error("Có lỗi xảy ra khi cập nhật trạng thái tour");
+                  toast.error("An error occurred updating tour status");
                 }
               } catch (error: any) {
                 console.error("Error starting tour:", error);
-                toast.error(error.message || "Lỗi khi bắt đầu tour");
+                toast.error(error.message || "Error starting tour");
               }
             }}
           >
@@ -218,18 +218,18 @@ export function TourActions({
               tourId={tourId}
               tourVisibility={visibility as "PUBLIC" | "PRIVATE"}
               onInvite={async (guideId: string) => {
-                toast.success("Guide sẽ nhận được thông báo về tour này");
+                toast.success("Guide will receive a notification about this tour");
                 setAIMatchingOpen(false);
                 router.refresh();
               }}
               onAssign={async (guideId: string, role: "MAIN" | "SUB") => {
                 try {
                   await api.tours.assign(tourId, { guideId, role });
-                  toast.success("Đã phân công guide thành công!");
+                  toast.success("Guide assigned successfully!");
                   setAIMatchingOpen(false);
                   router.refresh();
                 } catch (error: any) {
-                  toast.error(error.message || "Có lỗi xảy ra khi phân công");
+                  toast.error(error.message || "An error occurred during assignment");
                 }
               }}
             />
@@ -241,18 +241,18 @@ export function TourActions({
 
   if (hasApplied) {
     const statusLabels: Record<string, string> = {
-      PENDING: "Đang chờ duyệt",
-      ACCEPTED: "Đã được chấp nhận",
-      REJECTED: "Đã bị từ chối",
+      PENDING: "Pending Review",
+      ACCEPTED: "Accepted",
+      REJECTED: "Rejected",
     };
     return (
       <div className="text-center space-y-2">
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm font-semibold text-blue-900 mb-1">
-            ✓ Bạn đã ứng tuyển tour này
+            ✓ You have already applied to this tour
           </p>
           <p className="text-sm text-blue-700">
-            Trạng thái: {statusLabels[applicationStatus || "PENDING"]}
+            Status: {statusLabels[applicationStatus || "PENDING"]}
           </p>
         </div>
         <Link href="/dashboard/guide/applications">
@@ -268,7 +268,7 @@ export function TourActions({
     return (
       <Link href={`/tours/${tourId}/apply`}>
         <Button className="w-full" size="lg">
-          Ứng tuyển ngay
+          Apply Now
         </Button>
       </Link>
     );
@@ -283,15 +283,15 @@ export function TourActions({
       )}
       {!applyReason && (
         <p className="text-sm text-muted-foreground mb-2">
-          {tourStatus !== "OPEN" && tourStatus !== "CLOSED" && "Tour này không đang mở ứng tuyển"}
-          {tourStatus === "CLOSED" && "Tour này đã ngưng nhận thêm hướng dẫn viên"}
-          {visibility === "PRIVATE" && "Tour này là riêng tư"}
+          {tourStatus !== "OPEN" && tourStatus !== "CLOSED" && "This tour is not accepting applications"}
+          {tourStatus === "CLOSED" && "This tour is no longer accepting guides"}
+          {visibility === "PRIVATE" && "This tour is private"}
         </p>
       )}
       {applyReason && applyReason.includes("KYC") && (
         <Link href="/dashboard/verification/kyc">
           <Button variant="outline" size="sm" className="w-full">
-            Nộp KYC ngay
+            Submit KYC Now
           </Button>
         </Link>
       )}

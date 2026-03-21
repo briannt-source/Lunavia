@@ -46,7 +46,7 @@ export function ConfirmTourDialog({
 
   const handleConfirm = async () => {
     if (!paymentAmount || parseFloat(paymentAmount) <= 0) {
-      toast.error("Vui lòng nhập số tiền thanh toán hợp lệ");
+      toast.error("Please enter a valid payment amount");
       return;
     }
 
@@ -79,13 +79,13 @@ export function ConfirmTourDialog({
           <div className="p-4 bg-slate-50 rounded-lg">
             <p className="text-sm text-slate-600 mb-1">Tour</p>
             <p className="font-semibold text-slate-900">{tourTitle}</p>
-            <p className="text-sm text-slate-600 mt-2 mb-1">Hướng dẫn viên</p>
+            <p className="text-sm text-slate-600 mt-2 mb-1">Tour guide</p>
             <p className="font-semibold text-slate-900">{guideName}</p>
           </div>
 
           <div>
             <Label htmlFor="paymentAmount">
-              Số tiền thanh toán (VND) *
+              Amount thanh toán (VND) *
             </Label>
             <div className="relative mt-1">
               <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -97,7 +97,7 @@ export function ConfirmTourDialog({
                   const value = e.target.value.replace(/[^0-9]/g, "");
                   setPaymentAmount(value);
                 }}
-                placeholder="Nhập số tiền thanh toán..."
+                placeholder="Enter payment amount..."
                 className="pl-10"
                 required
               />
@@ -109,7 +109,7 @@ export function ConfirmTourDialog({
             )}
             {requestedAmount && (
               <p className="text-xs text-blue-600 mt-1">
-                Hướng dẫn viên yêu cầu: {formatVND(requestedAmount)}
+                Tour guide yêu cầu: {formatVND(requestedAmount)}
               </p>
             )}
           </div>
@@ -119,18 +119,18 @@ export function ConfirmTourDialog({
               ⚠️ Lưu ý quan trọng
             </p>
             <p className="text-xs text-amber-700">
-              Số tiền này sẽ được khóa từ ví của bạn. Bạn có 24 giờ để thanh toán cho hướng dẫn viên.
+              Amount này sẽ được khóa từ ví của bạn. Bạn có 24 giờ để thanh toán cho hướng dẫn viên.
               Nếu quá hạn, hướng dẫn viên có thể yêu cầu thanh toán.
             </p>
           </div>
 
           <div>
-            <Label htmlFor="notes">Ghi chú (tùy chọn)</Label>
+            <Label htmlFor="notes">Notes (tùy chọn)</Label>
             <Textarea
               id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Nhập ghi chú cho hướng dẫn viên..."
+              placeholder="Enter notes for the guide..."
               className="mt-1"
               rows={3}
             />
@@ -150,7 +150,7 @@ export function ConfirmTourDialog({
             disabled={loading || !paymentAmount || parseFloat(paymentAmount) <= 0}
             className="bg-green-600 hover:bg-green-700"
           >
-            {loading ? "Đang xử lý..." : "Xác nhận & Khóa thanh toán"}
+            {loading ? "Processing..." : "Confirm & Lock Payment"}
           </Button>
         </DialogFooter>
       </DialogContent>

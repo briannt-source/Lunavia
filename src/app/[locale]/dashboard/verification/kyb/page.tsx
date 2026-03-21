@@ -83,7 +83,7 @@ export default function KYBSubmissionPage() {
       const validUrls = urls.filter((url): url is string => url != null && typeof url === 'string');
       
       if (validUrls.length === 0) {
-        throw new Error("Không có file nào được upload thành công");
+        throw new Error("No files were uploaded successfully");
       }
       
       setDocuments((prev) => ({
@@ -92,7 +92,7 @@ export default function KYBSubmissionPage() {
       }));
       toast.success(`Đã upload ${validUrls.length} file thành công!`);
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi upload file");
+      toast.error(error.message || "Error uploading file");
     } finally {
       setUploading({ ...uploading, [type]: false });
     }
@@ -110,13 +110,13 @@ export default function KYBSubmissionPage() {
     
     // Validate required fields
     const missingFields: string[] = [];
-    if (documents.photoUrl.length === 0) missingFields.push("Hình ảnh thật");
-    if (documents.idDocumentUrl.length === 0) missingFields.push("CMND/CCCD/Hộ chiếu");
-    if (documents.licenseUrl.length === 0) missingFields.push("Giấy phép kinh doanh");
+    if (documents.photoUrl.length === 0) missingFields.push("Real Photo");
+    if (documents.idDocumentUrl.length === 0) missingFields.push("National ID / Passport");
+    if (documents.licenseUrl.length === 0) missingFields.push("Business License");
     if (!isTourAgency && documents.travelLicenseUrl.length === 0) {
-      missingFields.push("Giấy phép lữ hành quốc tế/nội địa");
+      missingFields.push("Int'l/Domestic Travel License");
     }
-    if (documents.proofOfAddressUrl.length === 0) missingFields.push("Chứng minh nơi ở");
+    if (documents.proofOfAddressUrl.length === 0) missingFields.push("Proof of Address");
 
     if (missingFields.length > 0) {
       toast.error(`Vui lòng upload ít nhất 1 file cho: ${missingFields.join(", ")}`);
@@ -140,10 +140,10 @@ export default function KYBSubmissionPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Lỗi khi nộp KYB");
+        throw new Error(errorData.error || "Error submitting KYB");
       }
 
-      toast.success("Đã nộp KYB thành công! Vui lòng chờ admin duyệt.");
+      toast.success("KYB submitted successfully! Please wait for admin review.");
       // Reset form state
       setDocuments({
         photoUrl: [],
@@ -158,7 +158,7 @@ export default function KYBSubmissionPage() {
       // Refresh to show updated status
       router.refresh();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi nộp KYB");
+      toast.error(error.message || "Error submitting KYB");
     } finally {
       setLoading(false);
     }
@@ -169,21 +169,21 @@ export default function KYBSubmissionPage() {
 
   const requirements = [
     {
-      label: "Hình ảnh thật",
+      label: "Real Photo",
       key: "photoUrl" as const,
-      description: "Ảnh chân dung rõ ràng của người đại diện",
+      description: "A clear portrait photo of the representative",
       required: true,
     },
     {
-      label: "CMND/CCCD/Hộ chiếu",
+      label: "National ID / Passport",
       key: "idDocumentUrl" as const,
-      description: "Giấy tờ pháp lý cá nhân của người đại diện",
+      description: "Personal legal documents of the representative",
       required: true,
     },
     {
-      label: "Giấy phép kinh doanh",
+      label: "Business License",
       key: "licenseUrl" as const,
-      description: "Giấy phép đăng ký kinh doanh",
+      description: "Business registration license",
       required: true,
     },
     // Tour agency doesn't need travel license
@@ -191,16 +191,16 @@ export default function KYBSubmissionPage() {
       ? []
       : [
           {
-            label: "Giấy phép lữ hành quốc tế/nội địa",
+            label: "Int'l/Domestic Travel License",
             key: "travelLicenseUrl" as const,
-            description: "Giấy phép lữ hành quốc tế hoặc nội địa",
+            description: "International or domestic travel license",
             required: true,
           },
         ]),
     {
-      label: "Chứng minh nơi ở (Proof of Address)",
+      label: "Proof of Address",
       key: "proofOfAddressUrl" as const,
-      description: "Giấy tờ chứng minh địa chỉ công ty (hóa đơn điện nước, hợp đồng thuê, v.v.)",
+      description: "Documents proving company address (utility bills, lease agreements, etc.)",
       required: true,
     },
   ];
@@ -209,8 +209,8 @@ export default function KYBSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYB đã được duyệt"
-          description="Tài khoản của bạn đã được xác minh thành công"
+          title="KYB Approved"
+          description="Your account has been verified successfully"
         />
         <Card>
           <CardContent className="pt-6">
@@ -230,8 +230,8 @@ export default function KYBSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYB đang chờ duyệt"
-          description="Vui lòng chờ admin xem xét và duyệt KYB của bạn"
+          title="KYB Pending Review"
+          description="Please wait for admin to review and approve your KYB"
         />
         <Card>
           <CardContent className="pt-6">
@@ -251,8 +251,8 @@ export default function KYBSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYB bị từ chối"
-          description="Vui lòng kiểm tra và nộp lại KYB"
+          title="KYB Rejected"
+          description="Please review and resubmit your KYB"
         />
         <Card>
           <CardContent className="pt-6">
@@ -260,7 +260,7 @@ export default function KYBSubmissionPage() {
               <AlertCircle className="h-6 w-6 mt-0.5" />
               <div>
                 <p className="text-lg font-semibold mb-2">
-                  KYB của bạn đã bị từ chối
+                  Your KYB has been rejected
                 </p>
                 <p className="text-sm text-slate-600">
                   Vui lòng kiểm tra lại các giấy tờ và nộp lại.
@@ -279,8 +279,8 @@ export default function KYBSubmissionPage() {
   return (
     <>
       <PageHeader
-        title="Nộp KYB"
-        description="Hoàn tất xác minh doanh nghiệp để có thể tạo tour"
+        title="Submit KYB"
+        description="Complete business verification to create tours"
       />
 
       {verificationStatus === "REJECTED" && (
@@ -290,7 +290,7 @@ export default function KYBSubmissionPage() {
               <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
               <div>
                 <p className="font-semibold text-red-900 mb-1">
-                  KYB của bạn đã bị từ chối
+                  Your KYB has been rejected
                 </p>
                 <p className="text-sm text-red-700">
                   Vui lòng kiểm tra lại các giấy tờ và nộp lại. Đảm bảo tất cả các tài liệu đều rõ ràng và đầy đủ.
@@ -321,7 +321,7 @@ export default function KYBSubmissionPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Thông tin KYB</CardTitle>
+          <CardTitle>Information KYB</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -393,7 +393,7 @@ export default function KYBSubmissionPage() {
                 disabled={loading || Object.values(uploading).some(v => v)}
                 className="bg-gradient-to-r from-teal-500 to-emerald-500"
               >
-                {loading ? "Đang xử lý..." : "Nộp KYB"}
+                {loading ? "Processing..." : "Submit KYB"}
               </Button>
               <Button
                 type="button"

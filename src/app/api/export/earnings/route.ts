@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
             }
 
             // CSV export
-            const headers = ['Ngày', 'Loại', 'Lý do', 'Số tiền (VND)', 'Tour', 'Thành phố', 'Mô tả'];
+            const headers = ['Ngày', 'Loại', 'Reason', 'Amount (VND)', 'Tour', 'City', 'Description'];
             const csvRows = [
                 headers.join(','),
                 ...rows.map(r =>
@@ -110,7 +110,7 @@ export async function GET(req: NextRequest) {
                 return NextResponse.json({ success: true, data: rows, count: rows.length });
             }
 
-            const headers = ['Tên Tour', 'Trạng thái', 'Thành phố', 'Địa điểm', 'Ngày bắt đầu', 'Ngày kết thúc', 'Số khách', 'Giá', 'Ngôn ngữ', 'HDV'];
+            const headers = ['Tên Tour', 'Status', 'City', 'Location', 'Start date', 'End date', 'Số guests', 'Price', 'Languages', 'HDV'];
             const csvRows = [
                 headers.join(','),
                 ...rows.map(r =>

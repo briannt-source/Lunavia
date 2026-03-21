@@ -52,7 +52,7 @@ export default function TourEmergenciesPage() {
   return (
     <>
       <PageHeader
-        title="Báo cáo SOS / Sự cố"
+        title="SOS / Incident Reports"
         description={`Tour: ${tour?.title || ""}`}
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard/operator" },
@@ -68,8 +68,8 @@ export default function TourEmergenciesPage() {
             <CardContent className="pt-6">
               <EmptyState
                 icon={AlertTriangle}
-                title="Chưa có báo cáo SOS nào"
-                description="Các báo cáo SOS từ hướng dẫn viên sẽ xuất hiện ở đây"
+                title="No SOS reports yet"
+                description="SOS reports from guides will appear here"
               />
             </CardContent>
           </Card>
@@ -128,7 +128,7 @@ export default function TourEmergenciesPage() {
                 <CardContent className="space-y-4">
                   <div>
                     <p className="text-sm font-medium text-slate-700 mb-1">
-                      Mô tả
+                      Description
                     </p>
                     <p className="text-sm text-slate-600 whitespace-pre-wrap">
                       {emergency.description}
@@ -165,7 +165,7 @@ export default function TourEmergenciesPage() {
                         onClick={async () => {
                           if (
                             !confirm(
-                              "Bạn có chắc muốn đánh dấu báo cáo này là đã xử lý?"
+                              "Are you sure you want to mark this report as resolved?"
                             )
                           ) {
                             return;
@@ -178,7 +178,7 @@ export default function TourEmergenciesPage() {
                             if (!response.ok) throw new Error("Failed to acknowledge");
                             window.location.reload();
                           } catch (error: any) {
-                            alert(error.message || "Lỗi khi xử lý");
+                            alert(error.message || "Error processing");
                           }
                         }}
                       >

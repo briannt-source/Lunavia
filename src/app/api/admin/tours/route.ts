@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
     if (!isModerator) {
       return NextResponse.json(
-        { error: "Chỉ admin và moderator mới có quyền truy cập" },
+        { error: "Only admin and moderator have access" },
         { status: 403 }
       );
     }

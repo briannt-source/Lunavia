@@ -47,7 +47,7 @@ export async function POST(
 
     if (!isVerified) {
       return NextResponse.json(
-        { error: "Tên chủ tài khoản không khớp với tên trong hồ sơ của bạn. Vui lòng kiểm tra lại." },
+        { error: "Account holder name does not match your profile name. Please check again." },
         { status: 400 }
       );
     }

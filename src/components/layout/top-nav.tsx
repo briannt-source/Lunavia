@@ -74,7 +74,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input
               type="search"
-              placeholder="Tìm kiếm..."
+              placeholder="Search..."
               className="pl-10 w-full"
             />
           </div>

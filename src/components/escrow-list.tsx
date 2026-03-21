@@ -43,8 +43,8 @@ export function EscrowList({
         <CardContent className="pt-6">
           <EmptyState
             icon={Shield}
-            title="Chưa có escrow account"
-            description="Escrow accounts sẽ được tạo tự động khi operator chấp nhận application"
+            title="No escrow accounts yet"
+            description="Escrow accounts will be created automatically when operator accepts applications"
           />
         </CardContent>
       </Card>
@@ -83,19 +83,19 @@ export function EscrowList({
                 </div>
               )}
               <div>
-                <p className="text-sm text-muted-foreground">Số tiền</p>
+                <p className="text-sm text-muted-foreground">Amount</p>
                 <p className="font-semibold text-lg">
                   {formatCurrency(escrow.amount)} VND
                 </p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Số tiền nhận</p>
+                <p className="text-sm text-muted-foreground">Amount nhận</p>
                 <p className="font-semibold text-lg">
                   {formatCurrency(escrow.netAmount)} VND
                 </p>
                 {escrow.platformFee > 0 && (
                   <p className="text-xs text-muted-foreground">
-                    Phí nền tảng: {formatCurrency(escrow.platformFee)} VND
+                    Platform fee: {formatCurrency(escrow.platformFee)} VND
                   </p>
                 )}
               </div>
@@ -114,7 +114,7 @@ export function EscrowList({
                 <p className="text-sm">{formatDate(escrow.releasedAt)}</p>
                 {escrow.releaseReason && (
                   <p className="text-xs text-muted-foreground mt-1">
-                    Lý do: {escrow.releaseReason}
+                    Reason: {escrow.releaseReason}
                   </p>
                 )}
               </div>
@@ -126,7 +126,7 @@ export function EscrowList({
                 <p className="text-sm">{formatDate(escrow.refundedAt)}</p>
                 {escrow.refundReason && (
                   <p className="text-xs text-muted-foreground mt-1">
-                    Lý do: {escrow.refundReason}
+                    Reason: {escrow.refundReason}
                   </p>
                 )}
               </div>

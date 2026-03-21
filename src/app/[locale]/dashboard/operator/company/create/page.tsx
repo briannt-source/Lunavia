@@ -46,14 +46,14 @@ export default function CreateCompanyPage() {
       await queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       await queryClient.refetchQueries({ queryKey: ["userInfo"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
-      toast.success("Tạo công ty thành công!");
+      toast.success("Company created successfully!");
       // Small delay to ensure data is refreshed
       setTimeout(() => {
         router.push("/dashboard/operator/company");
       }, 100);
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra khi tạo công ty");
+      toast.error(error.message || "Error creating company");
     },
   });
 
@@ -99,8 +99,8 @@ export default function CreateCompanyPage() {
   return (
     <>
       <PageHeader
-        title="Tạo Công ty"
-        description="Tạo công ty để quản lý in-house guides"
+        title="Create Company"
+        description="Create a company to manage in-house guides"
       />
 
       <div className="max-w-3xl mx-auto">
@@ -122,7 +122,7 @@ export default function CreateCompanyPage() {
               </p>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>
-                  Chỉ các doanh nghiệp có <strong>Giấy phép kinh doanh lữ hành quốc tế</strong> mới được phép tổ chức tour.
+                  Chỉ các doanh nghiệp có <strong>Business License lữ hành quốc tế</strong> mới được phép tổ chức tour.
                 </li>
                 <li>
                   Tour Agency hiện tại chỉ có thể quản lý tour guide freelance, không được phép tổ chức tour trực tiếp.
@@ -142,10 +142,10 @@ export default function CreateCompanyPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5" />
-              Thông tin Công ty
+              Information Company
             </CardTitle>
             <CardDescription>
-              Điền thông tin công ty của bạn. Bạn chỉ có thể tạo một công ty.
+              Điền information công ty của bạn. Bạn chỉ có thể tạo một công ty.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -161,7 +161,7 @@ export default function CreateCompanyPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Ví dụ: Sea You Travel JSC"
+                  placeholder="e.g. Sea You Travel JSC"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   Tên công ty sẽ được dùng để tạo Company ID tự động
@@ -181,7 +181,7 @@ export default function CreateCompanyPage() {
               </div>
 
               <div>
-                <Label htmlFor="email">Email công ty</Label>
+                <Label htmlFor="email">Company email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -192,7 +192,7 @@ export default function CreateCompanyPage() {
                   placeholder="company@example.com"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Email công ty phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp.
+                  Company email phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp.
                 </p>
               </div>
 
@@ -210,20 +210,20 @@ export default function CreateCompanyPage() {
               </div>
 
               <div>
-                <Label htmlFor="address">Địa chỉ</Label>
+                <Label htmlFor="address">Address</Label>
                 <Input
                   id="address"
                   value={formData.address}
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
-                  placeholder="123 Đường ABC, Quận XYZ, TP.HCM"
+                  placeholder="123 Example Street, District, City"
                 />
               </div>
 
               <div>
                 <Label htmlFor="businessLicenseNumber">
-                  Số đăng ký kinh doanh <span className="text-red-500">*</span>
+                  Business registration number <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="businessLicenseNumber"
@@ -238,13 +238,13 @@ export default function CreateCompanyPage() {
                   placeholder="0123456789"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Số đăng ký kinh doanh phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp và giả mạo.
+                  Business registration number phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp và giả mạo.
                 </p>
               </div>
 
               <div>
                 <Label htmlFor="travelLicenseNumber">
-                  Số giấy phép lữ hành
+                  Travel license number
                 </Label>
                 <Input
                   id="travelLicenseNumber"
@@ -258,7 +258,7 @@ export default function CreateCompanyPage() {
                   placeholder="GP-123456"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Số giấy phép lữ hành (nếu có). Hệ thống sẽ kiểm tra để tránh trùng lặp.
+                  Travel license number (nếu có). Hệ thống sẽ kiểm tra để tránh trùng lặp.
                 </p>
               </div>
 
@@ -276,7 +276,7 @@ export default function CreateCompanyPage() {
                   ) : (
                     <>
                       <Save className="h-4 w-4 mr-2" />
-                      Tạo Công ty
+                      Tạo Company
                     </>
                   )}
                 </Button>

@@ -48,11 +48,11 @@ export default function ContractVerificationPage() {
       return res.json();
     },
     onSuccess: () => {
-      toast.success("Đã cập nhật trạng thái xác minh hợp đồng!");
+      toast.success("Contract verification status updated!");
       queryClient.invalidateQueries({ queryKey: ["adminCompanies"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể cập nhật trạng thái");
+      toast.error(error.message || "Unable to update status");
     },
   });
 
@@ -61,8 +61,8 @@ export default function ContractVerificationPage() {
     <>
       <div className="space-y-6">
         <PageHeader
-          title="Xác minh Hợp đồng Lao động"
-          description="Xác minh hợp đồng lao động cho in-house guides"
+          title="Verify Employment Contracts"
+          description="Verify employment contracts for in-house guides"
         />
 
         <Card>

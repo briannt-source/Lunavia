@@ -49,7 +49,7 @@ export async function POST(
       where: { id: reportId },
       data: {
         paymentRequestStatus: "REJECTED",
-        operatorNotes: body.reason || "Yêu cầu thanh toán bị từ chối",
+        operatorNotes: body.reason || "Payment request has been rejected",
       },
     });
 

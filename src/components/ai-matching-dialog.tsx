@@ -83,10 +83,10 @@ export function AIMatchingDialog({
     try {
       if (onInvite) {
         await onInvite(guideId);
-        toast.success("Đã gửi lời mời ứng tuyển!");
+        toast.success("Application invitation sent!");
       }
     } catch (error: any) {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     }
   };
 
@@ -94,10 +94,10 @@ export function AIMatchingDialog({
     try {
       if (onAssign) {
         await onAssign(guideId, role);
-        toast.success("Đã phân công guide!");
+        toast.success("Guide assigned!");
       }
     } catch (error: any) {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     }
   };
 
@@ -158,7 +158,7 @@ export function AIMatchingDialog({
 
               {/* Match Reasons */}
               <div className="mb-3">
-                <p className="text-xs text-slate-600 mb-1">Lý do đề xuất:</p>
+                <p className="text-xs text-slate-600 mb-1">Reason đề xuất:</p>
                 <div className="flex flex-wrap gap-1">
                   {match.reasons.slice(0, 3).map((reason: string, idx: number) => (
                     <Badge
@@ -301,7 +301,7 @@ export function AIMatchingDialog({
               <div>
                 <Input
                   type="number"
-                  placeholder="Min kinh nghiệm (năm)"
+                  placeholder="Min experience (years)"
                   value={criteria.minExperience}
                   onChange={(e) =>
                     setCriteria({ ...criteria, minExperience: e.target.value })
@@ -371,7 +371,7 @@ export function AIMatchingDialog({
               <div className="text-center py-12">
                 <XCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                 <p className="text-slate-600">
-                  Không tìm thấy guide phù hợp với tiêu chí hiện tại.
+                  Not found guide phù hợp với tiêu chí hiện tại.
                   Thử điều chỉnh các tiêu chí hoặc tạo tour với yêu cầu linh hoạt hơn.
                 </p>
               </div>

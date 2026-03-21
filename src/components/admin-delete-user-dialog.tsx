@@ -36,7 +36,7 @@ interface AdminDeleteUserDialogProps {
  * Admin Delete User Dialog
  * 
  * Dialog để admin xác nhận xóa user
- * Hiển thị thông tin user và số lượng related records sẽ bị ảnh hưởng
+ * Visibility information user và số lượng related records sẽ bị ảnh hưởng
  */
 export function AdminDeleteUserDialog({
   open,
@@ -55,7 +55,7 @@ export function AdminDeleteUserDialog({
     setIsDeleting(true);
     try {
       await api.admin.users.delete(user.id);
-      toast.success("User đã được xóa thành công");
+      toast.success("User deleted successfully");
       
       // Invalidate React Query cache
       await queryClient.invalidateQueries({ queryKey: ["admin-users"] });
@@ -70,7 +70,7 @@ export function AdminDeleteUserDialog({
       onSuccess?.();
     } catch (error: any) {
       console.error("Error deleting user:", error);
-      toast.error(error.message || "Có lỗi xảy ra khi xóa user");
+      toast.error(error.message || "An error occurred deleting user");
     } finally {
       setIsDeleting(false);
     }
@@ -153,7 +153,7 @@ export function AdminDeleteUserDialog({
             onClick={handleDelete}
             disabled={isDeleting}
           >
-            {isDeleting ? "Đang xóa..." : "Xóa User"}
+            {isDeleting ? "Deleting..." : "Delete User"}
           </Button>
         </DialogFooter>
       </DialogContent>

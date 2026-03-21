@@ -51,8 +51,8 @@ export default function GuideApplicationsPage() {
   return (
     <>
       <PageHeader
-        title="Ứng tuyển của tôi"
-        description="Xem và quản lý các ứng tuyển tour của bạn"
+        title="My Applications"
+        description="View and manage your tour applications"
       />
 
       {/* Stats */}
@@ -104,10 +104,10 @@ export default function GuideApplicationsPage() {
               onValueChange={(value) => setFilters({ ...filters, status: value })}
             >
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Trạng thái" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả trạng thái</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 <SelectItem value="PENDING">Đang chờ</SelectItem>
                 <SelectItem value="ACCEPTED">Đã chấp nhận</SelectItem>
                 <SelectItem value="REJECTED">Đã từ chối</SelectItem>
@@ -118,7 +118,7 @@ export default function GuideApplicationsPage() {
               onValueChange={(value) => setFilters({ ...filters, role: value })}
             >
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Vai trò" />
+                <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tất cả vai trò</SelectItem>
@@ -138,13 +138,13 @@ export default function GuideApplicationsPage() {
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Đang tải...</p>
+              <p className="text-muted-foreground">Loading...</p>
             </div>
           ) : applications.length === 0 ? (
             <EmptyState
               icon={Briefcase}
-              title="Chưa có ứng tuyển nào"
-              description="Bắt đầu tìm và ứng tuyển các tour phù hợp với bạn"
+              title="No applications yet"
+              description="Start finding and applying for tours that match your skills"
               action={
                 <Link href="/dashboard/guide/tours">
                   <Button>Tìm tour</Button>
@@ -166,7 +166,7 @@ export default function GuideApplicationsPage() {
                           </Link>
                           <StatusBadge status={application.status} />
                           <span className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-medium">
-                            {application.role === "MAIN" ? "HDV chính" : "HDV phụ"}
+                            {application.role === "MAIN" ? "Lead" : "Sub"}
                           </span>
                         </div>
                         

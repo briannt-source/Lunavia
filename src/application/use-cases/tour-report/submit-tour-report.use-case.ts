@@ -53,13 +53,13 @@ export class SubmitTourReportUseCase {
     const tourEnd = tour.endDate ? new Date(tour.endDate) : new Date(tour.startDate);
     
     if (tourEnd > now) {
-      throw new Error("Chỉ có thể nộp báo cáo tour sau khi tour đã kết thúc");
+      throw new Error("Tour report can only be submitted after the tour has ended");
     }
 
     // Check if report is submitted within 2 hours after tour ends
     const hoursSinceTourEnd = (now.getTime() - tourEnd.getTime()) / (1000 * 60 * 60);
     if (hoursSinceTourEnd > 2) {
-      throw new Error("Báo cáo tour phải được nộp trong vòng 2 giờ sau khi tour kết thúc. Thời hạn đã hết. Bạn sẽ không thể nhận thanh toán cho tour này.");
+      throw new Error("Tour report must be submitted within 2 hours after tour ends. Deadline has passed. You will not be able to receive payment for this tour.");
     }
 
     // Check if report was already submitted (and if it was on time)
@@ -78,7 +78,7 @@ export class SubmitTourReportUseCase {
       const hoursWhenSubmitted = (reportSubmissionTime.getTime() - tourEnd.getTime()) / (1000 * 60 * 60);
       
       if (hoursWhenSubmitted > 2) {
-        throw new Error("Báo cáo tour đã được nộp quá hạn (sau 2 giờ). Không thể cập nhật. Bạn sẽ không thể nhận thanh toán cho tour này.");
+        throw new Error("Tour report was submitted late (after 2 hours). Cannot update. You will not be able to receive payment for this tour.");
       }
     }
 

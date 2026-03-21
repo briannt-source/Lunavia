@@ -22,7 +22,7 @@ export function TourDetailClient({ tourId, tourVisibility, isOperator }: ClientP
     // For public tours, we can't directly invite - guides need to apply
     // This is just a placeholder - in real implementation, you might want to
     // send a notification or message to the guide
-    toast.success("Guide sẽ nhận được thông báo về tour này");
+    toast.success("Guide will receive a notification about this tour");
     setAIMatchingOpen(false);
     router.refresh();
   };
@@ -30,11 +30,11 @@ export function TourDetailClient({ tourId, tourVisibility, isOperator }: ClientP
   const handleAssign = async (guideId: string, role: "MAIN" | "SUB") => {
     try {
       await api.tours.assign(tourId, { guideId, role });
-      toast.success("Đã phân công guide thành công!");
+      toast.success("Guide assigned successfully!");
       setAIMatchingOpen(false);
       router.refresh();
     } catch (error: any) {
-      toast.error(error.message || "Có lỗi xảy ra khi phân công");
+      toast.error(error.message || "Error during assignment");
     }
   };
 

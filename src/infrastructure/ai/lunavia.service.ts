@@ -29,9 +29,9 @@ export class LunaviaService {
       guideId,
       score: Math.random() * 0.2 + 0.8, // 0.8-1.0 range (80-100%)
       reasons: [
-        "Ngôn ngữ phù hợp",
-        "Chuyên môn khớp",
-        "Kinh nghiệm tốt",
+        "Language match",
+        "Specialties match",
+        "Good experience",
       ],
     }));
 
@@ -64,9 +64,9 @@ export class LunaviaService {
         day,
         title: `Ngày ${day}: Khám phá ${params.city}`,
         activities: [
-          "Tham quan điểm đến nổi tiếng",
-          "Trải nghiệm văn hóa địa phương",
-          "Thưởng thức ẩm thực",
+          "Visit famous destinations",
+          "Experience local culture",
+          "Enjoy local cuisine",
         ],
         timing: "08:00 - 18:00",
       });
@@ -89,23 +89,23 @@ export class LunaviaService {
     // In production, this would use Lunavia AI chat API
 
     const responses: Record<string, string> = {
-      "xin chào": "Xin chào! Tôi là trợ lý AI Lunavia. Tôi có thể giúp gì cho bạn?",
-      "help": "Tôi có thể giúp bạn tìm tour, match HDV, tạo itinerary và nhiều hơn nữa!",
+      "hello": "Hello! I'm Lunavia AI assistant. How can I help you?",
+      "help": "I can help you find tours, match guides, create itineraries and more!",
     };
 
     const lowerMessage = message.toLowerCase();
     let response = responses[lowerMessage];
 
     if (!response) {
-      response = "Tôi đang học hỏi thêm. Bạn có thể hỏi về tour, HDV matching, hoặc itinerary không?";
+      response = "I'm still learning. Can you ask about tours, guide matching, or itineraries?";
     }
 
     return {
       response,
       suggestions: [
-        "Tìm tour phù hợp",
+        "Find suitable tours",
         "Match HDV",
-        "Tạo itinerary",
+        "Create itinerary",
       ],
     };
   }
@@ -120,12 +120,12 @@ export class LunaviaService {
     // Mock analytics
     return {
       insights: [
-        "Tour của bạn có tỷ lệ ứng tuyển cao",
-        "HDV thích tour có giá tốt và lịch trình rõ ràng",
+        "Your tour has a high application rate",
+        "Guides prefer tours with good pay and clear itineraries",
       ],
       recommendations: [
-        "Thêm nhiều tour ở Hà Nội",
-        "Cải thiện mô tả tour để thu hút hơn",
+        "Add more tours in Hanoi",
+        "Improve tour description to attract more",
       ],
     };
   }

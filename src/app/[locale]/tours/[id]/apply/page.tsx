@@ -51,10 +51,10 @@ export default function ApplyToTourPage() {
         throw new Error(error.error || error.message || "Failed to apply");
       }
 
-      toast.success("Ứng tuyển thành công!");
+      toast.success("Application submitted successfully!");
       router.push(`/tours/${params.id}`);
     } catch (error: any) {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -63,8 +63,8 @@ export default function ApplyToTourPage() {
   return (
     <DashboardLayout>
       <PageHeader
-        title="Ứng tuyển Tour"
-        description="Gửi đơn ứng tuyển cho tour này"
+        title="Apply for Tour"
+        description="Submit application for this tour"
       />
 
       {needsKYC && (
@@ -75,22 +75,22 @@ export default function ApplyToTourPage() {
               <div className="flex-1">
                 <p className="font-semibold text-amber-900 mb-1">
                   {verifiedStatus === "NOT_SUBMITTED"
-                    ? "Cần hoàn tất KYC để ứng tuyển"
+                    ? "KYC must be completed to apply"
                     : verifiedStatus === "PENDING"
-                    ? "KYC đang chờ duyệt"
-                    : "KYC bị từ chối - Vui lòng nộp lại"}
+                    ? "KYC is pending review"
+                    : "KYC has been rejected - Please resubmit"}
                 </p>
                 <p className="text-sm text-amber-700 mb-3">
                   {verifiedStatus === "NOT_SUBMITTED"
-                    ? "Bạn cần nộp đầy đủ các giấy tờ bắt buộc (hình ảnh thật, CMND/CCCD, thẻ HDV, proof of address) để có thể ứng tuyển vào các tour."
+                    ? "You need to submit all required documents (portrait photo, ID card, tour guide license, proof of address) to apply for tours."
                     : verifiedStatus === "PENDING"
-                    ? "KYC của bạn đang được admin xem xét. Vui lòng kiên nhẫn chờ đợi."
-                    : "KYC của bạn đã bị từ chối. Vui lòng kiểm tra lại và nộp lại các giấy tờ."}
+                    ? "Your KYC is being reviewed by admin. Please wait patiently."
+                    : "Your KYC has been rejected. Please review and resubmit your documents."}
                 </p>
                 {verifiedStatus !== "PENDING" && (
                   <Link href="/dashboard/verification/kyc">
                     <Button size="sm" className="bg-amber-600 hover:bg-amber-700">
-                      {verifiedStatus === "NOT_SUBMITTED" ? "Nộp KYC ngay" : "Nộp lại KYC"}
+                      {verifiedStatus === "NOT_SUBMITTED" ? "Submit KYC Now" : "Resubmit KYC"}
                     </Button>
                   </Link>
                 )}
@@ -104,7 +104,7 @@ export default function ApplyToTourPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Thông tin ứng tuyển</CardTitle>
+          <CardTitle>Information ứng tuyển</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -129,13 +129,13 @@ export default function ApplyToTourPage() {
                 className="flex min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 value={coverLetter}
                 onChange={(e) => setCoverLetter(e.target.value)}
-                placeholder="Giới thiệu về bản thân và kinh nghiệm của bạn..."
+                placeholder="About yourself and your experience..."
               />
             </div>
 
             <div className="flex gap-4">
               <Button type="submit" disabled={loading}>
-                {loading ? "Đang gửi..." : "Gửi ứng tuyển"}
+                {loading ? "Submitting..." : "Submit Application"}
               </Button>
               <Button
                 type="button"

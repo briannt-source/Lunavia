@@ -73,8 +73,8 @@ export default async function AdminDisputesPage({
   return (
     <>
       <PageHeader
-        title="Quản lý Disputes"
-        description="Xử lý các tranh chấp và khiếu nại"
+        title="Manage Disputes"
+        description="Handle disputes and complaints"
       />
 
       {/* Stats */}
@@ -131,10 +131,10 @@ export default async function AdminDisputesPage({
           <form method="get" className="flex gap-4">
             <Select name="status" defaultValue={params.status || "all"}>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Trạng thái" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả trạng thái</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 <SelectItem value="PENDING">Đang chờ</SelectItem>
                 <SelectItem value="IN_REVIEW">Đang xem xét</SelectItem>
                 <SelectItem value="RESOLVED">Đã giải quyết</SelectItem>
@@ -143,7 +143,7 @@ export default async function AdminDisputesPage({
             </Select>
             <Select name="type" defaultValue={params.type || "all"}>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Loại" />
+                <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tất cả loại</SelectItem>
@@ -210,8 +210,8 @@ export default async function AdminDisputesPage({
                     </div>
                     <Button variant="outline" size="sm">
                       {dispute.status === "PENDING" || dispute.status === "IN_REVIEW"
-                        ? "Xử lý"
-                        : "Xem chi tiết"}
+                        ? "Process"
+                        : "View Details"}
                     </Button>
                   </div>
                 </Link>

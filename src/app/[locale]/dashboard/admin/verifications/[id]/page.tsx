@@ -53,13 +53,13 @@ export default function VerificationDetailPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Duyệt xác minh thành công");
+      toast.success("Verification approved successfully");
       queryClient.invalidateQueries({ queryKey: ["admin", "verification", verificationId] });
       queryClient.invalidateQueries({ queryKey: ["admin", "verifications"] });
       router.push("/dashboard/admin/verifications");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -78,13 +78,13 @@ export default function VerificationDetailPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Từ chối xác minh thành công");
+      toast.success("Verification rejected successfully");
       queryClient.invalidateQueries({ queryKey: ["admin", "verification", verificationId] });
       queryClient.invalidateQueries({ queryKey: ["admin", "verifications"] });
       router.push("/dashboard/admin/verifications");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -97,7 +97,7 @@ export default function VerificationDetailPage() {
         await approveMutation.mutateAsync(adminNotes);
       } else {
         if (!rejectionReason.trim()) {
-          toast.error("Vui lòng nhập lý do từ chối");
+          toast.error("Please enter a rejection reason");
           setProcessing(false);
           return;
         }
@@ -112,7 +112,7 @@ export default function VerificationDetailPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải...</p>
+          <p className="text-slate-600">Loading...</p>
         </div>
       </>
     );
@@ -122,7 +122,7 @@ export default function VerificationDetailPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Không tìm thấy yêu cầu xác minh</p>
+          <p className="text-slate-600">Not found yêu cầu xác minh</p>
           <Link href="/dashboard/admin/verifications">
             <Button variant="outline" className="mt-4">
               Quay lại
@@ -163,33 +163,33 @@ export default function VerificationDetailPage() {
   // Organize documents by type with labels
   const documentGroups = [
     {
-      label: "Hình ảnh thật",
+      label: "Real Photo",
       key: "photoUrl",
       urls: finalDocuments.photoUrl || [],
       required: true,
     },
     {
-      label: "CMND/CCCD/Hộ chiếu",
+      label: "National ID / Passport",
       key: "idDocumentUrl",
       urls: finalDocuments.idDocumentUrl || [],
       required: true,
     },
     {
-      label: verificationType === "KYC" ? "Thẻ HDV du lịch" : "Giấy phép kinh doanh",
+      label: verificationType === "KYC" ? "Tour Guide License" : "Business License",
       key: "licenseUrl",
       urls: finalDocuments.licenseUrl || [],
       required: true,
     },
     ...(verificationType === "KYB" && verification.user.role === "TOUR_OPERATOR"
       ? [{
-          label: "Giấy phép lữ hành quốc tế/nội địa",
+          label: "Int'l/Domestic Travel License",
           key: "travelLicenseUrl",
           urls: finalDocuments.travelLicenseUrl || [],
           required: true,
         }]
       : []),
     {
-      label: "Chứng minh nơi ở",
+      label: "Proof of Address",
       key: "proofOfAddressUrl",
       urls: finalDocuments.proofOfAddressUrl || [],
       required: true,
@@ -218,7 +218,7 @@ export default function VerificationDetailPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Thông tin người dùng</CardTitle>
+                <CardTitle>Information người dùng</CardTitle>
                 <StatusBadge status={verification.status} />
               </div>
             </CardHeader>
@@ -246,7 +246,7 @@ export default function VerificationDetailPage() {
                 </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Thời gian nộp</Label>
+                <Label className="text-sm font-medium text-slate-500">Duration nộp</Label>
                 <p className="mt-1">{formatDateTime(verification.createdAt)}</p>
               </div>
             </CardContent>
@@ -391,23 +391,23 @@ export default function VerificationDetailPage() {
 
                   {action === "approve" ? (
                     <div>
-                      <Label htmlFor="adminNotes">Ghi chú (tùy chọn)</Label>
+                      <Label htmlFor="adminNotes">Notes (tùy chọn)</Label>
                       <Textarea
                         id="adminNotes"
                         value={adminNotes}
                         onChange={(e) => setAdminNotes(e.target.value)}
-                        placeholder="Ghi chú cho người dùng..."
+                        placeholder="Notes for the user..."
                         rows={3}
                       />
                     </div>
                   ) : (
                     <div>
-                      <Label htmlFor="rejectionReason">Lý do từ chối *</Label>
+                      <Label htmlFor="rejectionReason">Reason từ chối *</Label>
                       <Textarea
                         id="rejectionReason"
                         value={rejectionReason}
                         onChange={(e) => setRejectionReason(e.target.value)}
-                        placeholder="Vui lòng nêu rõ lý do từ chối..."
+                        placeholder="Please specify the rejection reason..."
                         rows={4}
                         required
                       />
@@ -421,10 +421,10 @@ export default function VerificationDetailPage() {
                     variant={action === "approve" ? "default" : "destructive"}
                   >
                     {processing
-                      ? "Đang xử lý..."
+                      ? "Processing..."
                       : action === "approve"
-                      ? "Duyệt xác minh"
-                      : "Từ chối xác minh"}
+                      ? "Approve Verification"
+                      : "Reject Verification"}
                   </Button>
                 </form>
               </CardContent>
@@ -443,7 +443,7 @@ export default function VerificationDetailPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    {verification.rejectionReason ? "Lý do từ chối" : "Ghi chú"}
+                    {verification.rejectionReason ? "Rejection Reason" : "Notes"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -460,7 +460,7 @@ export default function VerificationDetailPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Trạng thái</CardTitle>
+              <CardTitle>Status</CardTitle>
             </CardHeader>
             <CardContent>
               <StatusBadge status={verification.status} />

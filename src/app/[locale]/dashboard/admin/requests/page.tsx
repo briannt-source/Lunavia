@@ -80,13 +80,13 @@ function AdminRequestsContent() {
 
       toast.success(
         action === "approve"
-          ? "Yêu cầu đã được duyệt thành công"
-          : "Yêu cầu đã bị từ chối"
+          ? "Request approved successfully"
+          : "Request has been rejected"
       );
       refetchTopUps();
       refetchWithdrawals();
     } catch (error: any) {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     } finally {
       setProcessingId(null);
     }
@@ -101,7 +101,7 @@ function AdminRequestsContent() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Chỉ SUPER_ADMIN mới có quyền truy cập trang này</p>
+          <p className="text-slate-600">Only SUPER_ADMIN has access trang này</p>
         </div>
       </>
     );
@@ -110,8 +110,8 @@ function AdminRequestsContent() {
   return (
     <>
       <PageHeader
-        title="Quản lý Yêu cầu Tài chính"
-        description="Duyệt các yêu cầu nạp tiền và rút tiền (Chỉ SUPER_ADMIN)"
+        title="Manage Financial Requests"
+        description="Review top-up and withdrawal requests (SUPER_ADMIN only)"
       />
 
       {/* Stats */}
@@ -192,7 +192,7 @@ function AdminRequestsContent() {
                           </div>
                           {request.adminNotes && (
                             <p className="text-sm text-slate-500 mt-2">
-                              Ghi chú: {request.adminNotes}
+                              Notes: {request.adminNotes}
                             </p>
                           )}
                         </div>
@@ -262,12 +262,12 @@ function AdminRequestsContent() {
                           </div>
                           {request.accountInfo && (
                             <p className="text-sm text-slate-500 mt-2">
-                              Thông tin tài khoản: {request.accountInfo}
+                              Information tài khoản: {request.accountInfo}
                             </p>
                           )}
                           {request.adminNotes && (
                             <p className="text-sm text-slate-500 mt-2">
-                              Ghi chú: {request.adminNotes}
+                              Notes: {request.adminNotes}
                             </p>
                           )}
                         </div>
@@ -314,7 +314,7 @@ export default function AdminRequestsPage() {
   return (
     <Suspense fallback={
       <>
-        <div className="text-center py-12">Đang tải...</div>
+        <div className="text-center py-12">Loading...</div>
       </>
     }>
       <AdminRequestsContent />

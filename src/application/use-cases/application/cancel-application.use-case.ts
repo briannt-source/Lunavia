@@ -39,12 +39,12 @@ export class CancelApplicationUseCase {
 
     // Check if already cancelled
     if (application.status === "REJECTED") {
-      throw new Error("Application đã bị từ chối");
+      throw new Error("Application has been rejected");
     }
 
     // Check if tour has already started
     if (new Date(application.tour.startDate) <= new Date()) {
-      throw new Error("Không thể hủy tour đã bắt đầu");
+      throw new Error("Cannot cancel a tour that has already started");
     }
 
     // Calculate time until tour start
@@ -65,7 +65,7 @@ export class CancelApplicationUseCase {
     if (penaltyAmount && application.guide.wallet) {
       if (application.guide.wallet.balance < penaltyAmount) {
         throw new Error(
-          `Số dư không đủ để thanh toán phí hủy tour (${penaltyAmount.toLocaleString("vi-VN")} VND). Số dư hiện tại: ${application.guide.wallet.balance.toLocaleString("vi-VN")} VND`
+          `Insufficient balance to pay tour cancellation fee (${penaltyAmount.toLocaleString("vi-VN")} VND). Current balance: ${application.guide.wallet.balance.toLocaleString("vi-VN")} VND`
         );
       }
     }
@@ -121,8 +121,8 @@ export class CancelApplicationUseCase {
     await notifyUseCase.execute({
       userId: application.tour.operatorId,
       type: "APPLICATION",
-      title: "Hướng dẫn viên đã hủy ứng tuyển",
-      message: `Hướng dẫn viên đã hủy ứng tuyển cho tour "${application.tour.title}"${penaltyAmount ? ` (phí hủy: ${penaltyAmount.toLocaleString("vi-VN")} VND)` : ""}`,
+      title: "Tour guide cancelled application",
+      message: `Tour guide cancelled application for tour "${application.tour.title}"${penaltyAmount ? ` (cancellation fee: ${penaltyAmount.toLocaleString("vi-VN")} VND)` : ""}`,
       link: `/dashboard/operator/tours/${application.tourId}/applications`,
     });
 
@@ -130,8 +130,8 @@ export class CancelApplicationUseCase {
       cancellation,
       penaltyAmount,
       message: penaltyAmount
-        ? `Đã hủy tour thành công. Phí hủy ${penaltyAmount.toLocaleString("vi-VN")} VND đã được trừ từ ví của bạn.`
-        : "Đã hủy tour thành công.",
+        ? `Tour cancelled successfully. Phí hủy ${penaltyAmount.toLocaleString("vi-VN")} VND đã được trừ từ ví của bạn.`
+        : "Tour cancelled successfully.",
     };
   }
 }

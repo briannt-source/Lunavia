@@ -78,7 +78,7 @@ export default function KYCSubmissionPage() {
       const validUrls = urls.filter((url): url is string => url != null && typeof url === 'string');
       
       if (validUrls.length === 0) {
-        throw new Error("Không có file nào được upload thành công");
+        throw new Error("No files were uploaded successfully");
       }
       
       setDocuments((prev) => ({
@@ -87,7 +87,7 @@ export default function KYCSubmissionPage() {
       }));
       toast.success(`Đã upload ${validUrls.length} file thành công!`);
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi upload file");
+      toast.error(error.message || "Error uploading file");
     } finally {
       setUploading({ ...uploading, [type]: false });
     }
@@ -105,10 +105,10 @@ export default function KYCSubmissionPage() {
     
     // Validate required fields
     const missingFields: string[] = [];
-    if (documents.photoUrl.length === 0) missingFields.push("Hình ảnh thật");
-    if (documents.idDocumentUrl.length === 0) missingFields.push("CMND/CCCD/Hộ chiếu");
-    if (documents.licenseUrl.length === 0) missingFields.push("Thẻ HDV du lịch");
-    if (documents.proofOfAddressUrl.length === 0) missingFields.push("Chứng minh nơi ở");
+    if (documents.photoUrl.length === 0) missingFields.push("Real Photo");
+    if (documents.idDocumentUrl.length === 0) missingFields.push("National ID / Passport");
+    if (documents.licenseUrl.length === 0) missingFields.push("Tour Guide License");
+    if (documents.proofOfAddressUrl.length === 0) missingFields.push("Proof of Address");
 
     if (missingFields.length > 0) {
       toast.error(`Vui lòng upload ít nhất 1 file cho: ${missingFields.join(", ")}`);
@@ -131,13 +131,13 @@ export default function KYCSubmissionPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Lỗi khi nộp KYC");
+        throw new Error(errorData.error || "Error submitting KYC");
       }
 
-      toast.success("Đã nộp KYC thành công! Vui lòng chờ admin duyệt.");
+      toast.success("KYC submitted successfully! Please wait for admin review.");
       router.push("/dashboard/guide");
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi nộp KYC");
+      toast.error(error.message || "Error submitting KYC");
     } finally {
       setLoading(false);
     }
@@ -145,27 +145,27 @@ export default function KYCSubmissionPage() {
 
   const requirements = [
     {
-      label: "Hình ảnh thật",
+      label: "Real Photo",
       key: "photoUrl" as const,
-      description: "Ảnh chân dung rõ ràng của bạn",
+      description: "A clear portrait photo of yourself",
       required: true,
     },
     {
-      label: "CMND/CCCD/Hộ chiếu",
+      label: "National ID / Passport",
       key: "idDocumentUrl" as const,
-      description: "Giấy tờ pháp lý cá nhân",
+      description: "Personal legal documents",
       required: true,
     },
     {
-      label: "Thẻ HDV du lịch",
+      label: "Tour Guide License",
       key: "licenseUrl" as const,
-      description: "Thẻ hướng dẫn viên du lịch (bắt buộc)",
+      description: "Tour guide license (required)",
       required: true,
     },
     {
-      label: "Chứng minh nơi ở (Proof of Address)",
+      label: "Proof of Address",
       key: "proofOfAddressUrl" as const,
-      description: "Giấy tờ chứng minh địa chỉ cư trú (hóa đơn điện nước, sổ hộ khẩu, v.v.)",
+      description: "Proof of residential address (utility bills, household register, etc.)",
       required: true,
     },
   ];
@@ -174,8 +174,8 @@ export default function KYCSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYC đã được duyệt"
-          description="Tài khoản của bạn đã được xác minh thành công"
+          title="KYC Approved"
+          description="Your account has been verified successfully"
         />
         <Card>
           <CardContent className="pt-6">
@@ -195,8 +195,8 @@ export default function KYCSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYC đang chờ duyệt"
-          description="Vui lòng chờ admin xem xét và duyệt KYC của bạn"
+          title="KYC Pending Review"
+          description="Please wait for admin to review and approve your KYC"
         />
         <Card>
           <CardContent className="pt-6">
@@ -216,8 +216,8 @@ export default function KYCSubmissionPage() {
     return (
       <>
         <PageHeader
-          title="KYC bị từ chối"
-          description="Vui lòng kiểm tra và nộp lại KYC"
+          title="KYC Rejected"
+          description="Please review and resubmit your KYC"
         />
         <Card>
           <CardContent className="pt-6">
@@ -225,7 +225,7 @@ export default function KYCSubmissionPage() {
               <AlertCircle className="h-6 w-6 mt-0.5" />
               <div>
                 <p className="text-lg font-semibold mb-2">
-                  KYC của bạn đã bị từ chối
+                  Your KYC has been rejected
                 </p>
                 <p className="text-sm text-slate-600">
                   Vui lòng kiểm tra lại các giấy tờ và nộp lại.
@@ -233,7 +233,7 @@ export default function KYCSubmissionPage() {
               </div>
             </div>
             <Button onClick={() => router.refresh()}>
-              Nộp lại KYC
+              Resubmit KYC
             </Button>
           </CardContent>
         </Card>
@@ -244,8 +244,8 @@ export default function KYCSubmissionPage() {
   return (
     <>
       <PageHeader
-        title="Nộp KYC"
-        description="Hoàn tất xác minh danh tính để có thể ứng tuyển vào các tour"
+        title="Submit KYC"
+        description="Complete identity verification to apply for tours"
       />
 
       <Card className="mb-6 border-amber-200 bg-amber-50">
@@ -254,7 +254,7 @@ export default function KYCSubmissionPage() {
             <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
             <div>
               <p className="font-semibold text-amber-900 mb-1">
-                Cần hoàn tất KYC để ứng tuyển tour
+                KYC must be completed to apply tour
               </p>
               <p className="text-sm text-amber-700">
                 Bạn cần nộp đầy đủ các giấy tờ bắt buộc để có thể ứng tuyển vào các tour.
@@ -266,7 +266,7 @@ export default function KYCSubmissionPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Thông tin KYC</CardTitle>
+          <CardTitle>Information KYC</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -338,7 +338,7 @@ export default function KYCSubmissionPage() {
                 disabled={loading || Object.values(uploading).some(v => v)}
                 className="bg-gradient-to-r from-teal-500 to-emerald-500"
               >
-                {loading ? "Đang xử lý..." : "Nộp KYC"}
+                {loading ? "Processing..." : "Submit KYC"}
               </Button>
               <Button
                 type="button"

@@ -3,7 +3,7 @@
  */
 
 export function getUserFriendlyError(error: any): string {
-  const errorMessage = error?.message || String(error) || "Đã có lỗi xảy ra";
+  const errorMessage = error?.message || String(error) || "An error occurred";
 
   // Prisma errors
   if (errorMessage.includes("Invalid `prisma")) {
@@ -13,42 +13,42 @@ export function getUserFriendlyError(error: any): string {
   // Date validation errors
   if (errorMessage.includes("Invalid Date") || errorMessage.includes("Expected Date")) {
     if (errorMessage.includes("startDate")) {
-      return "Vui lòng nhập ngày bắt đầu tour hợp lệ (định dạng: DD/MM/YYYY)";
+      return "Please enter a valid tour start date (format: DD/MM/YYYY)";
     }
     if (errorMessage.includes("endDate")) {
-      return "Vui lòng nhập ngày kết thúc tour hợp lệ (định dạng: DD/MM/YYYY)";
+      return "Please enter a valid tour end date (format: DD/MM/YYYY)";
     }
-    return "Vui lòng nhập ngày hợp lệ (định dạng: DD/MM/YYYY)";
+    return "Please enter a valid date (format: DD/MM/YYYY)";
   }
 
   // Required field errors
   if (errorMessage.includes("Required") || errorMessage.includes("is required")) {
     const field = extractFieldName(errorMessage);
-    return `Vui lòng điền thông tin: ${getFieldLabel(field)}`;
+    return `Please fill in: ${getFieldLabel(field)}`;
   }
 
   // Type errors
   if (errorMessage.includes("Expected") && errorMessage.includes("provided")) {
     const field = extractFieldName(errorMessage);
-    return `Thông tin ${getFieldLabel(field)} không đúng định dạng`;
+    return `Information ${getFieldLabel(field)} has invalid format`;
   }
 
   // Unique constraint errors
   if (errorMessage.includes("Unique constraint") || errorMessage.includes("already exists")) {
     if (errorMessage.includes("email")) {
-      return "Email này đã được sử dụng. Vui lòng sử dụng email khác.";
+      return "This email is already in use. Please use a different email.";
     }
-    return "Thông tin này đã tồn tại trong hệ thống";
+    return "This information already exists in the system";
   }
 
   // Foreign key errors
   if (errorMessage.includes("Foreign key constraint") || errorMessage.includes("does not exist")) {
-    return "Thông tin không hợp lệ. Vui lòng kiểm tra lại.";
+    return "Invalid information. Please check again.";
   }
 
   // Network errors
   if (errorMessage.includes("fetch") || errorMessage.includes("network")) {
-    return "Lỗi kết nối. Vui lòng kiểm tra kết nối internet và thử lại.";
+    return "Connection error. Please check your internet connection and try again.";
   }
 
   // Return original message if it's already user-friendly (Vietnamese)
@@ -57,7 +57,7 @@ export function getUserFriendlyError(error: any): string {
   }
 
   // Default fallback
-  return "Đã có lỗi xảy ra. Vui lòng thử lại sau.";
+  return "An error occurred. Please try again later.";
 }
 
 function parsePrismaError(errorMessage: string): string {
@@ -68,23 +68,23 @@ function parsePrismaError(errorMessage: string): string {
   // Check for specific error types
   if (errorMessage.includes("Invalid value") && errorMessage.includes("Date")) {
     if (field.includes("start") || field.includes("Start")) {
-      return "Vui lòng nhập ngày bắt đầu tour hợp lệ";
+      return "Please enter a valid tour start date";
     }
     if (field.includes("end") || field.includes("End")) {
-      return "Vui lòng nhập ngày kết thúc tour hợp lệ";
+      return "Please enter a valid tour end date";
     }
-    return "Vui lòng nhập ngày hợp lệ";
+    return "Please enter a valid date";
   }
 
   if (errorMessage.includes("Required")) {
-    return `Vui lòng điền thông tin: ${getFieldLabel(field)}`;
+    return `Please fill in: ${getFieldLabel(field)}`;
   }
 
   if (errorMessage.includes("Expected") && errorMessage.includes("provided")) {
-    return `Thông tin ${getFieldLabel(field)} không đúng định dạng. Vui lòng kiểm tra lại.`;
+    return `Information ${getFieldLabel(field)} has invalid format. Please check again.`;
   }
 
-  return `Thông tin ${getFieldLabel(field)} không hợp lệ. Vui lòng kiểm tra lại.`;
+  return `Information ${getFieldLabel(field)} is invalid. Please check again.`;
 }
 
 function extractFieldName(errorMessage: string): string {
@@ -108,31 +108,31 @@ function extractFieldName(errorMessage: string): string {
 
 function getFieldLabel(field: string): string {
   const fieldLabels: Record<string, string> = {
-    title: "Tiêu đề tour",
-    description: "Mô tả tour",
-    city: "Thành phố",
-    startDate: "Ngày bắt đầu",
-    endDate: "Ngày kết thúc",
-    pax: "Số lượng khách",
-    priceMain: "Giá HDV chính",
-    priceSub: "Giá HDV phụ",
-    currency: "Loại tiền tệ",
+    title: "Tour title",
+    description: "Description tour",
+    city: "City",
+    startDate: "Start date",
+    endDate: "End date",
+    pax: "Number of guests",
+    priceMain: "Main guide price",
+    priceSub: "Sub guide price",
+    currency: "Currency",
     email: "Email",
-    password: "Mật khẩu",
-    name: "Tên",
-    licenseNumber: "Số giấy phép",
-    companyName: "Tên công ty",
-    phone: "Số điện thoại",
-    address: "Địa chỉ",
-    amount: "Số tiền",
-    method: "Phương thức",
-    role: "Vai trò",
-    coverLetter: "Thư xin việc",
-    languages: "Ngôn ngữ",
-    specialties: "Chuyên môn",
-    durationHours: "Thời lượng (giờ)",
-    mainGuideSlots: "Số lượng HDV chính",
-    subGuideSlots: "Số lượng HDV phụ",
+    password: "Password",
+    name: "Name",
+    licenseNumber: "License number",
+    companyName: "Company name",
+    phone: "Phone number",
+    address: "Address",
+    amount: "Amount",
+    method: "Method",
+    role: "Role",
+    coverLetter: "Cover letter",
+    languages: "Languages",
+    specialties: "Specialties",
+    durationHours: "Duration (hours)",
+    mainGuideSlots: "Main guide slots",
+    subGuideSlots: "Sub guide slots",
   };
 
   return fieldLabels[field.toLowerCase()] || field;
@@ -141,14 +141,14 @@ function getFieldLabel(field: string): string {
 function isUserFriendlyMessage(message: string): boolean {
   // Check if message is already in Vietnamese or user-friendly format
   const vietnamesePatterns = [
-    /vui lòng/i,
-    /không thể/i,
-    /đã có/i,
-    /thành công/i,
-    /thất bại/i,
-    /lỗi/i,
-    /cần/i,
-    /phải/i,
+    /please/i,
+    /cannot/i,
+    /already/i,
+    /success/i,
+    /failed/i,
+    /error/i,
+    /need/i,
+    /must/i,
   ];
 
   return vietnamesePatterns.some((pattern) => pattern.test(message));
@@ -161,48 +161,48 @@ export function validateTourData(data: any): { isValid: boolean; errors: string[
   const errors: string[] = [];
 
   if (!data.title || data.title.trim().length === 0) {
-    errors.push("Vui lòng nhập tiêu đề tour");
+    errors.push("Please enter tour title");
   }
 
   if (!data.description || data.description.trim().length === 0) {
-    errors.push("Vui lòng nhập mô tả tour");
+    errors.push("Please enter tour description");
   }
 
   if (!data.city || data.city.trim().length === 0) {
-    errors.push("Vui lòng chọn thành phố");
+    errors.push("Please select a city");
   }
 
   if (!data.startDate) {
-    errors.push("Vui lòng nhập ngày bắt đầu tour");
+    errors.push("Please enter tour start date");
   } else {
     const startDate = new Date(data.startDate);
     if (isNaN(startDate.getTime())) {
-      errors.push("Ngày bắt đầu không hợp lệ. Vui lòng nhập đúng định dạng (DD/MM/YYYY)");
+      errors.push("Start date is invalid. Please enter correct format (DD/MM/YYYY)");
     }
   }
 
   if (data.endDate) {
     const endDate = new Date(data.endDate);
     if (isNaN(endDate.getTime())) {
-      errors.push("Ngày kết thúc không hợp lệ. Vui lòng nhập đúng định dạng (DD/MM/YYYY)");
+      errors.push("End date is invalid. Please enter correct format (DD/MM/YYYY)");
     } else if (data.startDate) {
       const startDate = new Date(data.startDate);
       if (endDate < startDate) {
-        errors.push("Ngày kết thúc phải sau ngày bắt đầu");
+        errors.push("End date must be after start date");
       }
     }
   }
 
   if (!data.pax || data.pax <= 0) {
-    errors.push("Vui lòng nhập số lượng khách hợp lệ (lớn hơn 0)");
+    errors.push("Please enter valid guest count (greater than 0)");
   }
 
   if (data.priceMain !== null && data.priceMain !== undefined && data.priceMain < 0) {
-    errors.push("Giá HDV chính không được âm");
+    errors.push("Main guide price cannot be negative");
   }
 
   if (data.priceSub !== null && data.priceSub !== undefined && data.priceSub < 0) {
-    errors.push("Giá HDV phụ không được âm");
+    errors.push("Sub guide price cannot be negative");
   }
 
   return {

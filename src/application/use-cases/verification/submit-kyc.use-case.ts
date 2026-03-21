@@ -30,10 +30,10 @@ export class SubmitKycUseCase {
       }
     };
 
-    validateField(input.photoUrl, "Hình ảnh thật");
-    validateField(input.idDocumentUrl, "CMND/CCCD/Hộ chiếu");
-    validateField(input.licenseUrl, "Thẻ HDV du lịch");
-    validateField(input.proofOfAddressUrl, "Chứng minh nơi ở");
+    validateField(input.photoUrl, "Real Photo");
+    validateField(input.idDocumentUrl, "National ID / Passport");
+    validateField(input.licenseUrl, "Tour Guide License");
+    validateField(input.proofOfAddressUrl, "Proof of address");
 
     // Check if verification exists
     const existing = await prisma.verification.findFirst({

@@ -11,79 +11,79 @@ const statusConfig: Record<
   { label: string; className: string }
 > = {
   APPROVED: {
-    label: "Đã duyệt",
+    label: "Approved",
     className: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   PENDING: {
-    label: "Đang chờ",
+    label: "Pending",
     className: "bg-amber-50 text-amber-700 border-amber-200",
   },
   REJECTED: {
-    label: "Từ chối",
+    label: "Rejected",
     className: "bg-red-50 text-red-700 border-red-200",
   },
   NOT_SUBMITTED: {
-    label: "Chưa nộp",
+    label: "Not Submitted",
     className: "bg-slate-100 text-slate-600 border-slate-300",
   },
   DRAFT: {
-    label: "Bản nháp",
+    label: "Draft",
     className: "bg-slate-100 text-slate-600 border-slate-300",
   },
   OPEN: {
-    label: "Đang mở",
+    label: "Open",
     className: "bg-blue-50 text-blue-700 border-blue-200",
   },
   CLOSED: {
-    label: "Đã đóng",
+    label: "Closed",
     className: "bg-slate-100 text-slate-700 border-slate-300",
   },
   IN_PROGRESS: {
-    label: "Đang diễn ra",
+    label: "In Progress",
     className: "bg-blue-50 text-blue-700 border-blue-200",
   },
   COMPLETED: {
-    label: "Hoàn thành",
+    label: "Completed",
     className: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   CANCELLED: {
-    label: "Đã hủy",
+    label: "Cancelled",
     className: "bg-red-50 text-red-700 border-red-200",
   },
   ACCEPTED: {
-    label: "Đã chấp nhận",
+    label: "Accepted",
     className: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   AVAILABLE: {
-    label: "Sẵn sàng",
+    label: "Available",
     className: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   BUSY: {
-    label: "Bận",
+    label: "Busy",
     className: "bg-amber-50 text-amber-700 border-amber-200",
   },
   ON_TOUR: {
-    label: "Đang tour",
+    label: "On Tour",
     className: "bg-blue-50 text-blue-700 border-blue-200",
   },
   IN_REVIEW: {
-    label: "Đang xem xét",
+    label: "Under Review",
     className: "bg-blue-50 text-blue-700 border-blue-200",
   },
   RESOLVED: {
-    label: "Đã giải quyết",
+    label: "Resolved",
     className: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   VERIFIED: {
-    label: "Đã xác nhận",
+    label: "Confirmed",
     className: "bg-green-100 text-green-700 border-green-300",
   },
   INACTIVE: {
-    label: "Không hoạt động",
+    label: "Inactive",
     className: "bg-slate-100 text-slate-600 border-slate-300",
   },
   ACTIVE: {
-    label: "Đang hoạt động",
+    label: "Active",
     className: "bg-green-100 text-green-700 border-green-300",
   },
 };

@@ -57,7 +57,7 @@ export default function AdminTransfersPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Chuyển tiền thành công");
+      toast.success("Transfer completed successfully");
       queryClient.invalidateQueries({ queryKey: ["admin", "users"] });
       setFromUserId("");
       setToUserId("");
@@ -65,7 +65,7 @@ export default function AdminTransfersPage() {
       setReason("");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     },
   });
 
@@ -76,13 +76,13 @@ export default function AdminTransfersPage() {
     try {
       const amountNum = parseFloat(amount);
       if (isNaN(amountNum) || amountNum <= 0) {
-        toast.error("Số tiền không hợp lệ");
+        toast.error("Invalid amount");
         setProcessing(false);
         return;
       }
 
       if (!reason.trim()) {
-        toast.error("Vui lòng nhập lý do chuyển tiền");
+        toast.error("Please enter a transfer reason");
         setProcessing(false);
         return;
       }
@@ -105,7 +105,7 @@ export default function AdminTransfersPage() {
     <>
       <PageHeader
         title="Internal Transfer"
-        description="Chuyển tiền nội bộ giữa các tài khoản (Chỉ SUPER_ADMIN)"
+        description="Internal transfers between accounts (SUPER_ADMIN only)"
         action={
           <Link href="/dashboard/admin">
             <Button variant="outline">
@@ -129,7 +129,7 @@ export default function AdminTransfersPage() {
                   <Label htmlFor="fromUser">Từ tài khoản *</Label>
                   <Select value={fromUserId} onValueChange={setFromUserId} required>
                     <SelectTrigger id="fromUser">
-                      <SelectValue placeholder="Chọn tài khoản gửi" />
+                      <SelectValue placeholder="Select sender account" />
                     </SelectTrigger>
                     <SelectContent>
                       {users
@@ -153,7 +153,7 @@ export default function AdminTransfersPage() {
                   <Label htmlFor="toUser">Đến tài khoản *</Label>
                   <Select value={toUserId} onValueChange={setToUserId} required>
                     <SelectTrigger id="toUser">
-                      <SelectValue placeholder="Chọn tài khoản nhận" />
+                      <SelectValue placeholder="Select receiver account" />
                     </SelectTrigger>
                     <SelectContent>
                       {users
@@ -169,7 +169,7 @@ export default function AdminTransfersPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="amount">Số tiền (VND) *</Label>
+                  <Label htmlFor="amount">Amount (VND) *</Label>
                   <Input
                     id="amount"
                     type="number"
@@ -183,19 +183,19 @@ export default function AdminTransfersPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="reason">Lý do chuyển tiền *</Label>
+                  <Label htmlFor="reason">Reason chuyển tiền *</Label>
                   <Textarea
                     id="reason"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    placeholder="Nhập lý do chuyển tiền..."
+                    placeholder="Enter transfer reason..."
                     rows={4}
                     required
                   />
                 </div>
 
                 <Button type="submit" disabled={processing} className="w-full">
-                  {processing ? "Đang xử lý..." : "Chuyển tiền"}
+                  {processing ? "Processing..." : "Transfer Funds"}
                 </Button>
               </form>
             </CardContent>
@@ -247,7 +247,7 @@ export default function AdminTransfersPage() {
 
               {amount && (
                 <div className="pt-4 border-t">
-                  <p className="text-sm text-slate-500 mb-1">Số tiền</p>
+                  <p className="text-sm text-slate-500 mb-1">Amount</p>
                   <p className="text-2xl font-bold text-teal-600">
                     {formatVND(parseFloat(amount) || 0)}
                   </p>

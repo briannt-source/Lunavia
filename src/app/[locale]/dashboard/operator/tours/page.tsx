@@ -80,7 +80,7 @@ export default function TourListPage() {
         <Link href="/dashboard/operator/tours/new">
           <Button className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm gap-1.5 active:scale-[0.98]">
             <Plus className="h-4 w-4" />
-            Tạo Tour Mới
+            Create Tour Mới
           </Button>
         </Link>
       </div>
@@ -91,7 +91,7 @@ export default function TourListPage() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Tìm kiếm tour..."
+              placeholder="Search tours..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-10 rounded-lg border-gray-200"
@@ -100,7 +100,7 @@ export default function TourListPage() {
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="rounded-lg border-gray-200">
               <Filter className="h-4 w-4 mr-2 text-gray-400" />
-              <SelectValue placeholder="Lọc theo trạng thái" />
+              <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Tất cả</SelectItem>
@@ -130,7 +130,7 @@ export default function TourListPage() {
         </div>
       ) : searchFilteredTours.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-sm text-gray-400">Không tìm thấy tour nào</p>
+          <p className="text-sm text-gray-400">No tours found</p>
         </div>
       ) : (
         <div className="space-y-2.5">
@@ -165,7 +165,7 @@ export default function TourListPage() {
                           {tour.city}
                         </span>
                         {tour.pax && (
-                          <span>{tour.pax} khách</span>
+                          <span>{tour.pax} guests</span>
                         )}
                       </div>
                     </div>

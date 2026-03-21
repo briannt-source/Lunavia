@@ -49,8 +49,8 @@ export default function EmergenciesPage() {
   return (
     <>
       <PageHeader
-        title="Báo cáo SOS / Sự cố"
-        description="Quản lý các báo cáo SOS từ hướng dẫn viên"
+        title="SOS / Incident Reports"
+        description="Manage SOS reports from guides"
       />
 
       {/* Stats */}
@@ -92,13 +92,13 @@ export default function EmergenciesPage() {
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-slate-600">Đang tải...</p>
+              <p className="text-slate-600">Loading...</p>
             </div>
           ) : emergencies.length === 0 ? (
             <EmptyState
               icon={AlertTriangle}
-              title="Chưa có báo cáo SOS nào"
-              description="Các báo cáo SOS từ hướng dẫn viên sẽ xuất hiện ở đây"
+              title="No SOS reports yet"
+              description="SOS reports from guides will appear here"
             />
           ) : (
             <div className="space-y-4">
@@ -165,7 +165,7 @@ export default function EmergenciesPage() {
                       <Link href={`/dashboard/operator/tours/${emergency.tourId}/emergencies`}>
                         <Button variant="outline" size="sm">
                           <ExternalLink className="h-4 w-4 mr-1" />
-                          Xem chi tiết
+                          View Details
                         </Button>
                       </Link>
                     </div>

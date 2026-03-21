@@ -100,7 +100,7 @@ export class PayGuideForTourUseCase {
     const tourEnd = tour.endDate ? new Date(tour.endDate) : new Date(tour.startDate);
     
     if (tourEnd > now) {
-      throw new Error("Không thể thanh toán cho tour chưa kết thúc. Vui lòng đợi tour kết thúc.");
+      throw new Error("Cannot process payment for unfinished tour. Please wait until tour ends.");
     }
 
     // Check if guide has submitted tour report within 2 hours after tour ends
@@ -115,7 +115,7 @@ export class PayGuideForTourUseCase {
 
     if (!tourReport || !tourReport.submittedAt) {
       throw new Error(
-        "Không thể thanh toán. Guide chưa nộp báo cáo tour. Guide phải nộp báo cáo trong vòng 2 giờ sau khi tour kết thúc để nhận thanh toán."
+        "Cannot process payment. Guide has not submitted tour report. Guide must submit report within 2 hours after tour ends to receive payment."
       );
     }
 
@@ -125,7 +125,7 @@ export class PayGuideForTourUseCase {
     
     if (hoursAfterTourEnd > 2) {
       throw new Error(
-        "Không thể thanh toán. Báo cáo tour đã được nộp quá hạn (sau 2 giờ kể từ khi tour kết thúc). Guide không thể nhận thanh toán cho tour này."
+        "Cannot process payment. Tour report was submitted late (after 2 hours from tour end). Guide cannot receive payment for this tour."
       );
     }
 
@@ -133,7 +133,7 @@ export class PayGuideForTourUseCase {
     const hoursSinceTourEnd = (now.getTime() - tourEnd.getTime()) / (1000 * 60 * 60);
     if (hoursSinceTourEnd > 2 && hoursAfterTourEnd > 2) {
       throw new Error(
-        "Không thể thanh toán. Báo cáo tour đã được nộp quá hạn. Guide không thể nhận thanh toán cho tour này."
+        "Cannot process payment. Tour report was submitted late. Guide cannot receive payment for this tour."
       );
     }
 

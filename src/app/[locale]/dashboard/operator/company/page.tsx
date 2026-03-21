@@ -36,13 +36,13 @@ export default function CompanyPage() {
   return (
     <>
       <PageHeader
-        title="Thông tin Công ty"
-        description="Quản lý thông tin công ty của bạn"
+        title="Company Info"
+        description="Manage your company information"
         action={
           !companyInfo && (
             <Link href="/dashboard/operator/company/create">
               <Button className="bg-gradient-to-r from-teal-500 to-emerald-500">
-                Tạo Công ty
+                Tạo Company
               </Button>
             </Link>
           )
@@ -54,11 +54,11 @@ export default function CompanyPage() {
           <CardContent className="p-6">
             <EmptyState
               icon={Building2}
-              title="Chưa có công ty"
-              description="Tạo công ty để quản lý in-house guides và invitations"
+              title="No company yet"
+              description="Create a company to manage in-house guides and invitations"
               action={
                 <Link href="/dashboard/operator/company/create">
-                  <Button>Tạo Công ty</Button>
+                  <Button>Tạo Company</Button>
                 </Link>
               }
             />
@@ -70,7 +70,7 @@ export default function CompanyPage() {
             {/* Company Info */}
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin Công ty</CardTitle>
+                <CardTitle>Information Company</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -159,8 +159,8 @@ export default function CompanyPage() {
                 ) : (
                   <EmptyState
                     icon={Users}
-                    title="Chưa có thành viên"
-                    description="Mời guides vào công ty của bạn"
+                    title="No members yet"
+                    description="Invite guides to your company"
                   />
                 )}
               </CardContent>

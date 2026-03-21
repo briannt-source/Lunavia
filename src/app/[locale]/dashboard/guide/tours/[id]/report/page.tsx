@@ -70,35 +70,35 @@ export default function TourReportPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Lỗi khi gửi báo cáo");
+        throw new Error(error.error || "Error submitting report");
       }
 
       toast.success(
         existingReport
-          ? "Đã cập nhật báo cáo tour"
-          : "Đã gửi báo cáo tour thành công"
+          ? "Tour report updated"
+          : "Tour report submitted successfully"
       );
       refetch();
       router.push(`/tours/${tourId}`);
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi gửi báo cáo");
+      toast.error(error.message || "Error submitting report");
     } finally {
       setLoading(false);
     }
   };
 
   const handleRequestPayment = async () => {
-    if (!confirm("Bạn có chắc muốn yêu cầu thanh toán? Operator sẽ được thông báo.")) {
+    if (!confirm("Are you sure you want to request payment? The operator will be notified.")) {
       return;
     }
 
     setLoading(true);
     try {
       await api.tours.requestPayment(tourId);
-      toast.success("Đã gửi yêu cầu thanh toán");
+      toast.success("Payment request sent");
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi yêu cầu thanh toán");
+      toast.error(error.message || "Error requesting payment");
     } finally {
       setLoading(false);
     }
@@ -108,7 +108,7 @@ export default function TourReportPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải...</p>
+          <p className="text-slate-600">Loading...</p>
         </div>
       </>
     );
@@ -124,13 +124,13 @@ export default function TourReportPage() {
   return (
     <>
       <PageHeader
-        title="Báo cáo Tour"
+        title="Tour Reports"
         description={`Tour: ${tour.title}`}
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard/guide" },
           { label: "Tours", href: "/tours" },
           { label: tour.title, href: `/tours/${tourId}` },
-          { label: "Báo cáo" },
+          { label: "Reports" },
         ]}
       />
 
@@ -154,7 +154,7 @@ export default function TourReportPage() {
                         ✓ Tour đã được operator xác nhận
                       </p>
                       <p className="text-sm text-green-700">
-                        Số tiền đã khóa: {formatVND(existingReport.paymentLockedAmount || 0)}
+                        Amount đã khóa: {formatVND(existingReport.paymentLockedAmount || 0)}
                       </p>
                       {existingReport.paymentDueAt && (
                         <p className="text-xs text-green-600 mt-1">
@@ -170,7 +170,7 @@ export default function TourReportPage() {
                         disabled={loading}
                         className="bg-amber-600 hover:bg-amber-700"
                       >
-                        Yêu cầu thanh toán
+                        Requirements thanh toán
                       </Button>
                     </div>
                   )}
@@ -183,7 +183,7 @@ export default function TourReportPage() {
         {/* Report Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Thông tin báo cáo</CardTitle>
+            <CardTitle>Information báo cáo</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -191,7 +191,7 @@ export default function TourReportPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="overallRating">
-                    Đánh giá tổng thể (1-5)
+                    Reviews tổng thể (1-5)
                   </Label>
                   <div className="flex gap-2 mt-2">
                     {[1, 2, 3, 4, 5].map((rating) => (
@@ -213,7 +213,7 @@ export default function TourReportPage() {
 
                 <div>
                   <Label htmlFor="clientSatisfaction">
-                    Mức độ hài lòng của khách (1-5)
+                    Mức độ hài lòng của guests (1-5)
                   </Label>
                   <div className="flex gap-2 mt-2">
                     {[1, 2, 3, 4, 5].map((rating) => (
@@ -241,7 +241,7 @@ export default function TourReportPage() {
                   id="highlights"
                   value={highlights}
                   onChange={(e) => setHighlights(e.target.value)}
-                  placeholder="Mô tả những điểm nổi bật của tour..."
+                  placeholder="Describe tour highlights..."
                   className="mt-1"
                   rows={4}
                 />
@@ -254,7 +254,7 @@ export default function TourReportPage() {
                   id="challenges"
                   value={challenges}
                   onChange={(e) => setChallenges(e.target.value)}
-                  placeholder="Mô tả các thách thức hoặc khó khăn gặp phải..."
+                  placeholder="Describe challenges or difficulties encountered..."
                   className="mt-1"
                   rows={4}
                 />
@@ -267,7 +267,7 @@ export default function TourReportPage() {
                   id="recommendations"
                   value={recommendations}
                   onChange={(e) => setRecommendations(e.target.value)}
-                  placeholder="Đề xuất các cải thiện cho tour..."
+                  placeholder="Suggest improvements for the tour..."
                   className="mt-1"
                   rows={4}
                 />
@@ -276,7 +276,7 @@ export default function TourReportPage() {
               {/* Payment Request */}
               <div>
                 <Label htmlFor="paymentRequestAmount">
-                  Yêu cầu thanh toán (VND) - Tùy chọn
+                  Requirements thanh toán (VND) - Tùy chọn
                 </Label>
                 <Input
                   id="paymentRequestAmount"
@@ -286,7 +286,7 @@ export default function TourReportPage() {
                     const value = e.target.value.replace(/[^0-9]/g, "");
                     setPaymentRequestAmount(value);
                   }}
-                  placeholder="Nhập số tiền yêu cầu thanh toán..."
+                  placeholder="Enter requested payment amount..."
                   className="mt-1"
                 />
                 {paymentRequestAmount && (
@@ -303,10 +303,10 @@ export default function TourReportPage() {
                   className="flex-1"
                 >
                   {loading
-                    ? "Đang gửi..."
+                    ? "Submitting..."
                     : existingReport
-                    ? "Cập nhật báo cáo"
-                    : "Gửi báo cáo"}
+                    ? "Update Report"
+                    : "Submit Report"}
                 </Button>
                 <Button
                   type="button"

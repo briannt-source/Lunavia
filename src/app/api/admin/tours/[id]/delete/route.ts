@@ -32,7 +32,7 @@ export async function DELETE(
 
     if (!isModerator) {
       return NextResponse.json(
-        { error: "Chỉ admin và moderator mới có quyền xóa tour" },
+        { error: "Only admin and moderator can delete tours" },
         { status: 403 }
       );
     }
@@ -53,7 +53,7 @@ export async function DELETE(
     });
 
     if (!tour) {
-      return NextResponse.json({ error: "Tour không tồn tại" }, { status: 404 });
+      return NextResponse.json({ error: "Tour does not exist" }, { status: 404 });
     }
 
     // Admin có thể xóa tour bất kỳ, nhưng cần xóa các related data trước
@@ -176,7 +176,7 @@ export async function DELETE(
     revalidatePath(`/tours/${tourId}`, "page");
 
     return NextResponse.json({
-      message: "Tour đã được xóa thành công",
+      message: "Tour deleted successfully",
       deletedTour: {
         id: tour.id,
         title: tour.title,

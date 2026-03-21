@@ -37,17 +37,17 @@ interface TourModerationDialogProps {
 }
 
 const BLOCK_REASONS = [
-  { value: "MISINFORMATION", label: "Thông tin sai lệch" },
-  { value: "INAPPROPRIATE_CONTENT", label: "Nội dung không phù hợp" },
-  { value: "POLICY_VIOLATION", label: "Vi phạm quy định" },
-  { value: "MISSING_INFO", label: "Thiếu thông tin" },
-  { value: "SPAM", label: "Spam/Lạm dụng hệ thống" },
-  { value: "FALSE_CLAIMS", label: "Tuyên bố sai sự thật" },
-  { value: "COPYRIGHT_VIOLATION", label: "Vi phạm bản quyền" },
-  { value: "UNAUTHORIZED_CONTACT", label: "Thông tin liên hệ không được phép" },
-  { value: "LEGAL_VIOLATION", label: "Vi phạm pháp luật" },
-  { value: "UNETHICAL_BEHAVIOR", label: "Hành vi không đạo đức" },
-  { value: "OTHER", label: "Lý do khác" },
+  { value: "MISINFORMATION", label: "Misinformation" },
+  { value: "INAPPROPRIATE_CONTENT", label: "Inappropriate Content" },
+  { value: "POLICY_VIOLATION", label: "Policy Violation" },
+  { value: "MISSING_INFO", label: "Missing Information" },
+  { value: "SPAM", label: "Spam/System Abuse" },
+  { value: "FALSE_CLAIMS", label: "False Claims" },
+  { value: "COPYRIGHT_VIOLATION", label: "Copyright Violation" },
+  { value: "UNAUTHORIZED_CONTACT", label: "Unauthorized Contact Info" },
+  { value: "LEGAL_VIOLATION", label: "Legal Violation" },
+  { value: "UNETHICAL_BEHAVIOR", label: "Unethical Behavior" },
+  { value: "OTHER", label: "Other" },
 ];
 
 export function TourModerationDialog({
@@ -65,7 +65,7 @@ export function TourModerationDialog({
 
   const handleSubmit = async () => {
     if (action === "block" && !reason) {
-      toast.error("Vui lòng chọn lý do đóng tour");
+      toast.error("Please select a reason for closing the tour");
       return;
     }
 
@@ -78,8 +78,8 @@ export function TourModerationDialog({
 
       toast.success(
         action === "block"
-          ? "Tour đã được đóng thành công"
-          : "Tour đã được mở lại thành công"
+          ? "Tour has been closed successfully"
+          : "Tour has been reopened successfully"
       );
       onOpenChange(false);
       setReason("");
@@ -88,7 +88,7 @@ export function TourModerationDialog({
         onSuccess();
       }
     } catch (error: any) {
-      toast.error(error.message || "Có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -122,10 +122,10 @@ export function TourModerationDialog({
           {action === "block" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="reason">Lý do đóng tour *</Label>
+                <Label htmlFor="reason">Reason đóng tour *</Label>
                 <Select value={reason} onValueChange={setReason}>
                   <SelectTrigger id="reason">
-                    <SelectValue placeholder="Chọn lý do đóng tour" />
+                    <SelectValue placeholder="Select reason for closing tour" />
                   </SelectTrigger>
                   <SelectContent>
                     {BLOCK_REASONS.map((r) => (
@@ -140,7 +140,7 @@ export function TourModerationDialog({
               {tour.isBlocked && tour.blockReason && (
                 <div className="p-3 bg-slate-50 rounded-md border border-slate-200">
                   <p className="text-sm font-medium text-slate-700 mb-1">
-                    Lý do đóng trước đó:
+                    Reason đóng trước đó:
                   </p>
                   <p className="text-sm text-slate-600">
                     {
@@ -160,14 +160,14 @@ export function TourModerationDialog({
 
           <div className="space-y-2">
             <Label htmlFor="notes">
-              Ghi chú {action === "block" ? "(tùy chọn)" : "(tùy chọn)"}
+              Notes {action === "block" ? "(optional)" : "(optional)"}
             </Label>
             <Textarea
               id="notes"
               placeholder={
                 action === "block"
-                  ? "Nhập ghi chú chi tiết về lý do đóng tour..."
-                  : "Nhập ghi chú về việc mở lại tour..."
+                  ? "Enter detailed notes about why this tour is being closed..."
+                  : "Enter notes about reopening this tour..."
               }
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -190,10 +190,10 @@ export function TourModerationDialog({
             variant={action === "block" ? "destructive" : "default"}
           >
             {loading
-              ? "Đang xử lý..."
+              ? "Processing..."
               : action === "block"
-              ? "Đóng Tour"
-              : "Mở lại Tour"}
+              ? "Close Tour"
+              : "Reopen Tour"}
           </Button>
         </DialogFooter>
       </DialogContent>

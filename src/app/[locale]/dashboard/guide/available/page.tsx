@@ -326,7 +326,7 @@ export default function GuideAvailablePage() {
 
                 {/* Language */}
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">🗣️ Ngôn ngữ</label>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">🗣️ Languages</label>
                   <select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}

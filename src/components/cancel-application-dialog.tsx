@@ -46,10 +46,10 @@ export function CancelApplicationDialog({
   let penaltyMessage = "";
   if (hoursUntilStart <= 24) {
     penaltyAmount = 500000;
-    penaltyMessage = "500,000 VND (hủy trong vòng 24h trước khi tour bắt đầu)";
+    penaltyMessage = "500,000 VND (cancelled within 24h of tour start)";
   } else if (hoursUntilStart <= 48) {
     penaltyAmount = 200000;
-    penaltyMessage = "200,000 VND (hủy trong vòng 48h trước khi tour bắt đầu)";
+    penaltyMessage = "200,000 VND (cancelled within 48h of tour start)";
   }
 
   const handleCancel = async () => {
@@ -67,15 +67,15 @@ export function CancelApplicationDialog({
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Lỗi khi hủy ứng tuyển");
+        throw new Error(error.error || "Error cancelling application");
       }
 
       const result = await response.json();
-      toast.success(result.message || "Đã hủy ứng tuyển thành công");
+      toast.success(result.message || "Application cancelled successfully");
       onOpenChange(false);
       onSuccess?.();
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi hủy ứng tuyển");
+      toast.error(error.message || "Error cancelling application");
     } finally {
       setLoading(false);
     }
@@ -104,7 +104,7 @@ export function CancelApplicationDialog({
                 Bạn sẽ bị trừ {penaltyMessage} từ ví của bạn.
               </p>
               <p className="text-xs text-amber-600 mt-2">
-                Còn {Math.ceil(hoursUntilStart)} giờ nữa tour sẽ bắt đầu.
+                Remaining {Math.ceil(hoursUntilStart)} giờ nữa tour sẽ bắt đầu.
               </p>
             </div>
           )}
@@ -118,12 +118,12 @@ export function CancelApplicationDialog({
           )}
 
           <div>
-            <Label htmlFor="reason">Lý do hủy (tùy chọn)</Label>
+            <Label htmlFor="reason">Reason hủy (tùy chọn)</Label>
             <Textarea
               id="reason"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="Nhập lý do hủy ứng tuyển..."
+              placeholder="Enter reason for cancellation..."
               className="mt-1"
               rows={3}
             />
@@ -143,7 +143,7 @@ export function CancelApplicationDialog({
             onClick={handleCancel}
             disabled={loading}
           >
-            {loading ? "Đang xử lý..." : "Xác nhận hủy"}
+            {loading ? "Processing..." : "Confirm Cancellation"}
           </Button>
         </DialogFooter>
       </DialogContent>

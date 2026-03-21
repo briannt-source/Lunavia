@@ -40,14 +40,14 @@ export function ContractVerificationButton({
     onSuccess: () => {
       toast.success(
         currentVerified
-          ? "Đã hủy xác minh hợp đồng"
-          : "Đã xác minh hợp đồng thành công!"
+          ? "Contract verification cancelled"
+          : "Contract verified successfully!"
       );
       queryClient.invalidateQueries({ queryKey: ["adminCompanies"] });
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể cập nhật trạng thái");
+      toast.error(error.message || "Unable to update status");
     },
   });
 

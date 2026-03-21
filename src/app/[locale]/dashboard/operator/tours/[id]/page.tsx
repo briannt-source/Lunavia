@@ -139,7 +139,7 @@ export default function TourDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">Đang tải...</p>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </>
     );
@@ -149,7 +149,7 @@ export default function TourDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">Tour không tồn tại</p>
+          <p className="text-gray-500">Tour does not exist</p>
         </div>
       </>
     );
@@ -185,7 +185,7 @@ export default function TourDetailPage() {
 
   const handleTransition = () => {
     if (!transitionData.toState) {
-      toast.error("Vui lòng chọn trạng thái mới");
+      toast.error("Please select a new status");
       return;
     }
     transitionMutation.mutate({
@@ -197,7 +197,7 @@ export default function TourDetailPage() {
 
   const handleSOS = () => {
     if (!sosReason.trim()) {
-      toast.error("Vui lòng nhập lý do kích hoạt SOS");
+      toast.error("Please enter SOS activation reason");
       return;
     }
     sosMutation.mutate(sosReason);
@@ -205,7 +205,7 @@ export default function TourDetailPage() {
 
   const handleOpenDispute = () => {
     if (!disputeData.reason.trim()) {
-      toast.error("Vui lòng nhập lý do mở dispute");
+      toast.error("Please enter dispute reason");
       return;
     }
     disputeMutation.mutate({
@@ -254,7 +254,7 @@ export default function TourDetailPage() {
                   <div className="flex items-start gap-3">
                     <Calendar className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-500">Ngày bắt đầu</p>
+                      <p className="text-sm text-gray-500">Start date</p>
                       <p className="font-medium text-gray-900">
                         {format(new Date(tour.startDate), "dd/MM/yyyy HH:mm")}
                       </p>
@@ -264,7 +264,7 @@ export default function TourDetailPage() {
                     <div className="flex items-start gap-3">
                       <Clock className="h-5 w-5 text-indigo-600 mt-0.5" />
                       <div>
-                        <p className="text-sm text-gray-500">Ngày kết thúc</p>
+                        <p className="text-sm text-gray-500">End date</p>
                         <p className="font-medium text-gray-900">
                           {format(new Date(tour.endDate), "dd/MM/yyyy HH:mm")}
                         </p>
@@ -274,21 +274,21 @@ export default function TourDetailPage() {
                   <div className="flex items-start gap-3">
                     <MapPin className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-500">Thành phố</p>
+                      <p className="text-sm text-gray-500">City</p>
                       <p className="font-medium text-gray-900">{tour.city}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Users className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-500">Số khách</p>
+                      <p className="text-sm text-gray-500">Số guests</p>
                       <p className="font-medium text-gray-900">{tour.pax}</p>
                     </div>
                   </div>
                 </div>
                 {tour.description && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-500 mb-2">Mô tả</p>
+                    <p className="text-sm text-gray-500 mb-2">Description</p>
                     <p className="text-gray-900">{tour.description}</p>
                   </div>
                 )}
@@ -315,7 +315,7 @@ export default function TourDetailPage() {
                             {app.guide?.profile?.name || app.guide?.email}
                           </p>
                           <p className="text-sm text-gray-500">
-                            {app.role === "MAIN" ? "HDV Chính" : "HDV Phụ"}
+                            {app.role === "MAIN" ? "Lead Guide" : "Sub Guide"}
                           </p>
                         </div>
                         <Badge variant="outline" className="border-green-300 text-green-700">
@@ -454,13 +454,13 @@ export default function TourDetailPage() {
           <div className="space-y-4 py-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Trạng thái hiện tại
+                Status hiện tại
               </label>
               <Input value={stateInfo.label} disabled className="rounded-lg" />
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Trạng thái mới
+                Status mới
               </label>
               <Select
                 value={transitionData.toState}
@@ -469,7 +469,7 @@ export default function TourDetailPage() {
                 }
               >
                 <SelectTrigger className="rounded-lg">
-                  <SelectValue placeholder="Chọn trạng thái" />
+                  <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
                   {allowedStates.map((state) => (
@@ -482,14 +482,14 @@ export default function TourDetailPage() {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Lý do (tùy chọn)
+                Reason (tùy chọn)
               </label>
               <Textarea
                 value={transitionData.reason}
                 onChange={(e) =>
                   setTransitionData({ ...transitionData, reason: e.target.value })
                 }
-                placeholder="Nhập lý do chuyển trạng thái..."
+                placeholder="Enter reason for status change..."
                 className="rounded-lg"
                 rows={3}
               />
@@ -508,7 +508,7 @@ export default function TourDetailPage() {
               disabled={!transitionData.toState || transitionMutation.isPending}
               className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
             >
-              {transitionMutation.isPending ? "Đang xử lý..." : "Xác nhận"}
+              {transitionMutation.isPending ? "Processing..." : "Verify"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -537,12 +537,12 @@ export default function TourDetailPage() {
           <div className="space-y-4 py-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Lý do kích hoạt SOS <span className="text-red-600">*</span>
+                Reason kích hoạt SOS <span className="text-red-600">*</span>
               </label>
               <Textarea
                 value={sosReason}
                 onChange={(e) => setSosReason(e.target.value)}
-                placeholder="Mô tả chi tiết lý do kích hoạt SOS..."
+                placeholder="Describe the reason for SOS activation..."
                 className="rounded-lg"
                 rows={4}
                 required
@@ -563,7 +563,7 @@ export default function TourDetailPage() {
               variant="destructive"
               className="rounded-xl"
             >
-              {sosMutation.isPending ? "Đang xử lý..." : "Xác nhận Kích Hoạt SOS"}
+              {sosMutation.isPending ? "Processing..." : "Confirm SOS Activation"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -600,12 +600,12 @@ export default function TourDetailPage() {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Lý do <span className="text-red-600">*</span>
+                Reason <span className="text-red-600">*</span>
               </label>
               <Textarea
                 value={disputeData.reason}
                 onChange={(e) => setDisputeData({ ...disputeData, reason: e.target.value })}
-                placeholder="Mô tả chi tiết vấn đề..."
+                placeholder="Describe the issue in detail..."
                 className="rounded-lg"
                 rows={4}
                 required
@@ -636,7 +636,7 @@ export default function TourDetailPage() {
               disabled={!disputeData.reason.trim() || disputeMutation.isPending}
               className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
             >
-              {disputeMutation.isPending ? "Đang xử lý..." : "Mở Dispute"}
+              {disputeMutation.isPending ? "Processing..." : "Open Dispute"}
             </Button>
           </DialogFooter>
         </DialogContent>

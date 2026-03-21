@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
     };
 
     const errors: string[] = [];
-    const photoError = validateField(photoUrl, "Hình ảnh thật");
+    const photoError = validateField(photoUrl, "Real Photo");
     if (photoError) errors.push(photoError);
     
-    const idError = validateField(idDocumentUrl, "CMND/CCCD/Hộ chiếu");
+    const idError = validateField(idDocumentUrl, "National ID / Passport");
     if (idError) errors.push(idError);
     
-    const licenseError = validateField(licenseUrl, "Giấy phép kinh doanh");
+    const licenseError = validateField(licenseUrl, "Business License");
     if (licenseError) errors.push(licenseError);
     
     // Travel license is optional for TOUR_AGENCY
@@ -69,11 +69,11 @@ export async function POST(req: NextRequest) {
       where: { id: session.user.id },
     });
     if (user?.role === "TOUR_OPERATOR") {
-      const travelError = validateField(travelLicenseUrl, "Giấy phép lữ hành");
+      const travelError = validateField(travelLicenseUrl, "Travel License");
       if (travelError) errors.push(travelError);
     }
     
-    const proofError = validateField(proofOfAddressUrl, "Chứng minh nơi ở");
+    const proofError = validateField(proofOfAddressUrl, "Proof of address");
     if (proofError) errors.push(proofError);
 
     if (errors.length > 0) {

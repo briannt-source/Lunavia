@@ -68,13 +68,13 @@ export default function PaymentMethodsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã thêm phương thức thanh toán");
+      toast.success("Payment method added");
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
       setDialogOpen(false);
       resetForm();
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi thêm phương thức");
+      toast.error(error.message || "Error adding method");
     },
   });
 
@@ -92,14 +92,14 @@ export default function PaymentMethodsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã cập nhật phương thức thanh toán");
+      toast.success("Payment method updated");
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
       setDialogOpen(false);
       setEditingMethod(null);
       resetForm();
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi cập nhật");
+      toast.error(error.message || "Error updating method");
     },
   });
 
@@ -114,11 +114,11 @@ export default function PaymentMethodsPage() {
       }
     },
     onSuccess: () => {
-      toast.success("Đã xóa phương thức thanh toán");
+      toast.success("Payment method deleted");
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi xóa");
+      toast.error(error.message || "Error deleting method");
     },
   });
 
@@ -136,14 +136,14 @@ export default function PaymentMethodsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Đã xác nhận chủ tài khoản");
+      toast.success("Account holder verified");
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
       setVerifyDialogOpen(false);
       setVerifyingMethod(null);
       setAccountOwnerName("");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Lỗi khi xác nhận");
+      toast.error(error.message || "Error verifying");
     },
   });
 
@@ -188,7 +188,7 @@ export default function PaymentMethodsPage() {
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
     if (!verifyingMethod || !accountOwnerName.trim()) {
-      toast.error("Vui lòng nhập tên chủ tài khoản");
+      toast.error("Please enter account holder name");
       return;
     }
     verifyMutation.mutate({ id: verifyingMethod.id, accountOwnerName });
@@ -197,8 +197,8 @@ export default function PaymentMethodsPage() {
   return (
     <>
       <PageHeader
-        title="Phương thức thanh toán"
-        description="Quản lý các phương thức thanh toán đã lưu"
+        title="Payment Methods"
+        description="Manage your saved payment methods"
         action={
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
@@ -210,12 +210,12 @@ export default function PaymentMethodsPage() {
             <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle>
-                  {editingMethod ? "Chỉnh sửa phương thức" : "Thêm phương thức thanh toán"}
+                  {editingMethod ? "Edit Payment Method" : "Add Payment Method"}
                 </DialogTitle>
                 <DialogDescription>
                   {editingMethod
-                    ? "Cập nhật thông tin phương thức thanh toán"
-                    : "Lưu thông tin phương thức thanh toán để sử dụng nhanh"}
+                    ? "Update payment method details"
+                    : "Save payment method details for quick access"}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -245,13 +245,13 @@ export default function PaymentMethodsPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, accountName: e.target.value })
                     }
-                    placeholder="Tên chủ tài khoản"
+                    placeholder="Account Holder Name"
                     required
                   />
                 </div>
                 <div>
                   <Label htmlFor="accountNumber">
-                    {formData.type === "BANK" ? "Số tài khoản" : "Số điện thoại"} *
+                    {formData.type === "BANK" ? "Account Number" : "Phone Number"} *
                   </Label>
                   <Input
                     id="accountNumber"
@@ -260,7 +260,7 @@ export default function PaymentMethodsPage() {
                       setFormData({ ...formData, accountNumber: e.target.value })
                     }
                     placeholder={
-                      formData.type === "BANK" ? "Số tài khoản" : "Số điện thoại"
+                      formData.type === "BANK" ? "Account Number" : "Phone Number"
                     }
                     required
                   />
@@ -275,7 +275,7 @@ export default function PaymentMethodsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, bankName: e.target.value })
                         }
-                        placeholder="VD: Vietcombank, Techcombank..."
+                        placeholder="e.g. Vietcombank, Techcombank..."
                         required
                       />
                     </div>
@@ -287,7 +287,7 @@ export default function PaymentMethodsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, branchName: e.target.value })
                         }
-                        placeholder="Chi nhánh (tùy chọn)"
+                        placeholder="Branch (optional)"
                       />
                     </div>
                   </>
@@ -319,7 +319,7 @@ export default function PaymentMethodsPage() {
                     Hủy
                   </Button>
                   <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
-                    {editingMethod ? "Cập nhật" : "Thêm"}
+                    {editingMethod ? "Update" : "Add"}
                   </Button>
                 </DialogFooter>
               </form>
@@ -335,13 +335,13 @@ export default function PaymentMethodsPage() {
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-slate-600">Đang tải...</p>
+              <p className="text-slate-600">Loading...</p>
             </div>
           ) : methods.length === 0 ? (
             <EmptyState
               icon={CreditCard}
-              title="Chưa có phương thức thanh toán"
-              description="Thêm phương thức thanh toán để sử dụng nhanh khi nạp/rút tiền"
+              title="No payment methods yet"
+              description="Add a payment method for quick use when depositing/withdrawing"
             />
           ) : (
             <div className="space-y-4">
@@ -354,7 +354,7 @@ export default function PaymentMethodsPage() {
                           <CreditCard className="h-5 w-5 text-blue-600" />
                           <h3 className="text-lg font-semibold">
                             {method.type === "BANK"
-                              ? "Chuyển khoản ngân hàng"
+                              ? "Bank Transfer"
                               : method.type === "MOMO"
                               ? "MoMo"
                               : "ZaloPay"}
@@ -380,7 +380,7 @@ export default function PaymentMethodsPage() {
                           </div>
                           <div>
                             <p className="font-medium text-slate-700">
-                              {method.type === "BANK" ? "Số tài khoản" : "Số điện thoại"}
+                              {method.type === "BANK" ? "Account Number" : "Phone Number"}
                             </p>
                             <p className="font-mono">{method.accountNumber}</p>
                           </div>
@@ -434,7 +434,7 @@ export default function PaymentMethodsPage() {
                           size="sm"
                           className="text-red-600 hover:text-red-700 hover:bg-red-50"
                           onClick={() => {
-                            if (confirm("Bạn có chắc muốn xóa phương thức này?")) {
+                            if (confirm("Are you sure you want to delete this method?")) {
                               deleteMutation.mutate(method.id);
                             }
                           }}
@@ -467,7 +467,7 @@ export default function PaymentMethodsPage() {
                 id="accountOwnerName"
                 value={accountOwnerName}
                 onChange={(e) => setAccountOwnerName(e.target.value)}
-                placeholder="Nhập tên chủ tài khoản"
+                placeholder="Enter account holder name"
                 required
               />
               {verifyingMethod && (
@@ -489,7 +489,7 @@ export default function PaymentMethodsPage() {
                 Hủy
               </Button>
               <Button type="submit" disabled={verifyMutation.isPending}>
-                {verifyMutation.isPending ? "Đang xác nhận..." : "Xác nhận"}
+                {verifyMutation.isPending ? "Verifying..." : "Verify"}
               </Button>
             </DialogFooter>
           </form>

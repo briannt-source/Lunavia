@@ -54,10 +54,10 @@ export default function SettingsPage() {
     mutationFn: (data: any) => api.settings.update(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["settings"] });
-      toast.success("Đã cập nhật cài đặt thành công!");
+      toast.success("Settings updated successfully!");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra khi cập nhật");
+      toast.error(error.message || "An error occurred during update");
     },
   });
 
@@ -73,7 +73,7 @@ export default function SettingsPage() {
   const updateAccountMutation = useMutation({
     mutationFn: (data: any) => api.settings.updateAccount(data),
     onSuccess: (data: any) => {
-      toast.success(data.message || "Đã cập nhật tài khoản thành công!");
+      toast.success(data.message || "Account updated successfully!");
       setAccountForm({
         currentPassword: "",
         newPassword: "",
@@ -82,7 +82,7 @@ export default function SettingsPage() {
       });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Có lỗi xảy ra khi cập nhật");
+      toast.error(error.message || "An error occurred during update");
     },
   });
 
@@ -90,12 +90,12 @@ export default function SettingsPage() {
     e.preventDefault();
 
     if (accountForm.newPassword && accountForm.newPassword !== accountForm.confirmPassword) {
-      toast.error("Mật khẩu mới không khớp");
+      toast.error("New passwords do not match");
       return;
     }
 
     if (accountForm.newPassword && accountForm.newPassword.length < 6) {
-      toast.error("Mật khẩu phải có ít nhất 6 ký tự");
+      toast.error("Password must be at least 6 characters");
       return;
     }
 
@@ -126,7 +126,7 @@ export default function SettingsPage() {
     <>
       <PageHeader
         title="Settings"
-        description="Quản lý cài đặt tài khoản và thông báo của bạn"
+        description="Manage your account settings and notifications"
       />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -151,7 +151,7 @@ export default function SettingsPage() {
           ) : (
             <TabsTrigger value="display" className="flex items-center gap-2">
               <Globe className="h-4 w-4" />
-              Hiển thị
+              Visibility
             </TabsTrigger>
           )}
         </TabsList>
@@ -190,7 +190,7 @@ export default function SettingsPage() {
                   {updateAccountMutation.isPending ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Đang cập nhật...
+                      Updating...
                     </>
                   ) : (
                     <>
@@ -225,7 +225,7 @@ export default function SettingsPage() {
                     onChange={(e) =>
                       setAccountForm({ ...accountForm, currentPassword: e.target.value })
                     }
-                    placeholder="Nhập mật khẩu hiện tại"
+                    placeholder="Enter current password"
                   />
                 </div>
                 <div>
@@ -237,11 +237,11 @@ export default function SettingsPage() {
                     onChange={(e) =>
                       setAccountForm({ ...accountForm, newPassword: e.target.value })
                     }
-                    placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)"
+                    placeholder="Enter new password (min. 6 characters)"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="confirmPassword">Xác nhận mật khẩu mới</Label>
+                  <Label htmlFor="confirmPassword">Confirm password mới</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -249,7 +249,7 @@ export default function SettingsPage() {
                     onChange={(e) =>
                       setAccountForm({ ...accountForm, confirmPassword: e.target.value })
                     }
-                    placeholder="Nhập lại mật khẩu mới"
+                    placeholder="Re-enter new password"
                   />
                 </div>
                 <Button
@@ -264,7 +264,7 @@ export default function SettingsPage() {
                   {updateAccountMutation.isPending ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Đang cập nhật...
+                      Updating...
                     </>
                   ) : (
                     <>
@@ -368,7 +368,7 @@ export default function SettingsPage() {
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label>Tin nhắn mới</Label>
+                  <Label>New message</Label>
                   <p className="text-sm text-muted-foreground">
                     Nhận email khi có tin nhắn mới từ operator/guide
                   </p>
@@ -398,7 +398,7 @@ export default function SettingsPage() {
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label>Yêu cầu thanh toán</Label>
+                  <Label>Requirements thanh toán</Label>
                   <p className="text-sm text-muted-foreground">
                     Nhận email khi guide yêu cầu thanh toán
                   </p>
@@ -461,11 +461,11 @@ export default function SettingsPage() {
             <CardContent className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label>Hiển thị Profile</Label>
+                  <Label>Visibility Profile</Label>
                   <p className="text-sm text-muted-foreground">
                     {settings?.profileVisibility === "PUBLIC"
-                      ? "Profile của bạn hiển thị công khai"
-                      : "Profile của bạn chỉ hiển thị cho người có quyền truy cập"}
+                      ? "Your profile is publicly visible"
+                      : "Your profile is only visible to authorized users"}
                   </p>
                 </div>
                 <Select
@@ -487,7 +487,7 @@ export default function SettingsPage() {
               {isOperator && (
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Hiển thị số dư ví cho Guides</Label>
+                    <Label>Visibility số dư ví cho Guides</Label>
                     <p className="text-sm text-muted-foreground">
                       Cho phép guides xem số dư ví của bạn khi ứng tuyển
                     </p>
@@ -505,7 +505,7 @@ export default function SettingsPage() {
                 <h3 className="text-sm font-semibold mb-4">Display & Language</h3>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="language">Ngôn ngữ</Label>
+                    <Label htmlFor="language">Languages</Label>
                     <Select
                       value={settings?.language || "vi"}
                       onValueChange={(value) =>
@@ -541,7 +541,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="currencyDisplay">Hiển thị tiền tệ</Label>
+                    <Label htmlFor="currencyDisplay">Visibility tiền tệ</Label>
                     <Select
                       value={settings?.currencyDisplay || "VND"}
                       onValueChange={(value) =>
@@ -901,7 +901,7 @@ export default function SettingsPage() {
                     id="autoCloseToursDays"
                     type="number"
                     min="0"
-                    placeholder="Không tự động đóng"
+                    placeholder="No auto-close"
                     value={settings?.autoCloseToursDays || ""}
                     onChange={(e) =>
                       updateSettingsMutation.mutate({
@@ -935,7 +935,7 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <Label htmlFor="language">Ngôn ngữ</Label>
+                  <Label htmlFor="language">Languages</Label>
                   <Select
                     value={settings?.language || "vi"}
                     onValueChange={(value) =>
@@ -971,7 +971,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="currencyDisplay">Hiển thị tiền tệ</Label>
+                  <Label htmlFor="currencyDisplay">Visibility tiền tệ</Label>
                   <Select
                     value={settings?.currencyDisplay || "VND"}
                     onValueChange={(value) =>
@@ -1009,12 +1009,12 @@ export default function SettingsPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="minTourPrice">Giá tour tối thiểu (VND)</Label>
+                      <Label htmlFor="minTourPrice">Price tour tối thiểu (VND)</Label>
                       <Input
                         id="minTourPrice"
                         type="number"
                         min="0"
-                        placeholder="Không giới hạn"
+                        placeholder="Unlimited"
                         value={settings?.minTourPrice || ""}
                         onChange={(e) =>
                           updateSettingsMutation.mutate({

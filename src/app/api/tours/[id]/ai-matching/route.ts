@@ -66,13 +66,13 @@ function calculateMatchScore(
     const experienceScore = Math.min(experienceYears * 3, 20);
     score += experienceScore;
     if (experienceYears > 0) {
-      reasons.push(`${experienceYears} năm kinh nghiệm`);
+      reasons.push(`${experienceYears} years of experience`);
     }
   } else {
     const experienceScore = Math.min(experienceYears * 2, 15);
     score += experienceScore;
     if (experienceYears > 0) {
-      reasons.push(`${experienceYears} năm kinh nghiệm`);
+      reasons.push(`${experienceYears} years of experience`);
     }
   }
 
@@ -83,15 +83,15 @@ function calculateMatchScore(
     const ratingScore = Math.min(rating * 2, 15);
     score += ratingScore;
     if (rating >= 4.5) {
-      reasons.push(`Đánh giá xuất sắc (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Reviews xuất sắc (${rating.toFixed(1)}⭐)`);
     } else if (rating >= 4.0) {
-      reasons.push(`Đánh giá tốt (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Reviews tốt (${rating.toFixed(1)}⭐)`);
     }
   } else {
     const ratingScore = Math.min(rating * 2, 10);
     score += ratingScore;
     if (rating >= 4.5) {
-      reasons.push(`Đánh giá xuất sắc (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Reviews xuất sắc (${rating.toFixed(1)}⭐)`);
     }
   }
 
@@ -105,7 +105,7 @@ function calculateMatchScore(
   // 7. Availability status
   if (guide.profile?.availabilityStatus === "AVAILABLE") {
     score += 5;
-    reasons.push("Đang sẵn sàng");
+    reasons.push("Available");
   }
 
   // Apply filters
@@ -180,7 +180,7 @@ export async function GET(
     // Check if user is the operator
     if (session.user.id !== tour.operatorId) {
       return NextResponse.json(
-        { error: "Chỉ tour operator mới có thể sử dụng tính năng này" },
+        { error: "Only tour operators can use this feature" },
         { status: 403 }
       );
     }

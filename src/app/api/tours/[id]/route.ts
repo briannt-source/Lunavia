@@ -124,7 +124,7 @@ export async function PUT(
       if (existingRequest) {
         return NextResponse.json(
           { 
-            error: "Đã có yêu cầu chỉnh sửa tour đang chờ admin duyệt. Vui lòng chờ admin xử lý.",
+            error: "Tour edit request is pending admin review. Please wait for admin to process.",
             requiresAdminApproval: true,
             requestId: existingRequest.id,
           },
@@ -137,7 +137,7 @@ export async function PUT(
         data: {
           tourId,
           operatorId: session.user.id,
-          reason: body.editReason || "Yêu cầu chỉnh sửa tour",
+          reason: body.editReason || "Tour edit request",
           changes: body, // Store all changes
           status: "PENDING",
         },
@@ -159,7 +159,7 @@ export async function PUT(
 
       return NextResponse.json(
         { 
-          message: "Tour đã có ứng tuyển. Yêu cầu chỉnh sửa đã được gửi đến admin để duyệt.",
+          message: "Tour has applications. Edit request has been sent to admin for review.",
           requiresAdminApproval: true,
           requestId: editRequest.id,
         },

@@ -63,30 +63,30 @@ export default function ApplicationsPage() {
   const handleAccept = async (tourId: string, applicationId: string) => {
     try {
       await api.tours.acceptApplication(tourId, applicationId);
-      toast.success("Đã chấp nhận ứng tuyển");
+      toast.success("Application approved");
       // Invalidate and refetch applications
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi chấp nhận");
+      toast.error(error.message || "Error approving request");
     }
   };
 
   const handleReject = async (tourId: string, applicationId: string) => {
     try {
       await api.tours.rejectApplication(tourId, applicationId);
-      toast.success("Đã từ chối ứng tuyển");
+      toast.success("Application rejected");
       // Invalidate and refetch applications
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     } catch (error: any) {
-      toast.error(error.message || "Lỗi khi từ chối");
+      toast.error(error.message || "Error rejecting request");
     }
   };
 
   return (
     <>
       <PageHeader
-        title="Quản lý Ứng tuyển"
-        description="Xem và quản lý các ứng tuyển cho tours của bạn"
+        title="Manage Applications"
+        description="View and manage applications for your tours"
       />
 
       {/* Filters */}
@@ -98,10 +98,10 @@ export default function ApplicationsPage() {
           }
         >
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Trạng thái" />
+            <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Tất cả trạng thái</SelectItem>
+            <SelectItem value="all">All statuses</SelectItem>
             <SelectItem value="PENDING">Đang chờ</SelectItem>
             <SelectItem value="ACCEPTED">Đã chấp nhận</SelectItem>
             <SelectItem value="REJECTED">Đã từ chối</SelectItem>
@@ -113,7 +113,7 @@ export default function ApplicationsPage() {
           onValueChange={(value) => setFilters({ ...filters, role: value })}
         >
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Vai trò" />
+            <SelectValue placeholder="Role" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Tất cả vai trò</SelectItem>
@@ -129,8 +129,8 @@ export default function ApplicationsPage() {
           {allApplications.length === 0 ? (
             <EmptyState
               icon={Briefcase}
-              title="Chưa có ứng tuyển nào"
-              description="Các ứng tuyển sẽ xuất hiện ở đây khi guides apply vào tours của bạn"
+              title="No applications yet"
+              description="Applications will appear here when guides apply to your tours"
             />
           ) : (
             <div className="space-y-4">

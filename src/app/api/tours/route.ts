@@ -52,48 +52,48 @@ export async function POST(req: NextRequest) {
     const validationErrors: string[] = [];
     
     if (!body.title || body.title.trim().length === 0) {
-      validationErrors.push("Vui lòng nhập tiêu đề tour");
+      validationErrors.push("Please enter tour title");
     }
 
     if (!body.description || body.description.trim().length === 0) {
-      validationErrors.push("Vui lòng nhập mô tả tour");
+      validationErrors.push("Please enter tour description");
     }
 
     if (!body.city || body.city.trim().length === 0) {
-      validationErrors.push("Vui lòng chọn thành phố");
+      validationErrors.push("Please select a city");
     }
 
     if (!body.startDate) {
-      validationErrors.push("Vui lòng nhập ngày bắt đầu tour");
+      validationErrors.push("Please enter tour start date");
     } else {
       const startDate = new Date(body.startDate);
       if (isNaN(startDate.getTime())) {
-        validationErrors.push("Ngày bắt đầu không hợp lệ. Vui lòng nhập đúng định dạng (YYYY-MM-DD hoặc DD/MM/YYYY)");
+        validationErrors.push("Start date is invalid. Please enter correct format (YYYY-MM-DD or DD/MM/YYYY)");
       }
     }
 
     if (body.endDate) {
       const endDate = new Date(body.endDate);
       if (isNaN(endDate.getTime())) {
-        validationErrors.push("Ngày kết thúc không hợp lệ. Vui lòng nhập đúng định dạng (YYYY-MM-DD hoặc DD/MM/YYYY)");
+        validationErrors.push("End date is invalid. Please enter correct format (YYYY-MM-DD or DD/MM/YYYY)");
       } else if (body.startDate) {
         const startDate = new Date(body.startDate);
         if (!isNaN(startDate.getTime()) && endDate < startDate) {
-          validationErrors.push("Ngày kết thúc phải sau ngày bắt đầu");
+          validationErrors.push("End date must be after start date");
         }
       }
     }
 
     if (!body.pax || body.pax <= 0) {
-      validationErrors.push("Vui lòng nhập số lượng khách hợp lệ (lớn hơn 0)");
+      validationErrors.push("Please enter valid guest count (greater than 0)");
     }
 
     if (body.priceMain !== null && body.priceMain !== undefined && body.priceMain < 0) {
-      validationErrors.push("Giá HDV chính không được âm");
+      validationErrors.push("Main guide price cannot be negative");
     }
 
     if (body.priceSub !== null && body.priceSub !== undefined && body.priceSub < 0) {
-      validationErrors.push("Giá HDV phụ không được âm");
+      validationErrors.push("Sub guide price cannot be negative");
     }
 
     if (validationErrors.length > 0) {
@@ -109,13 +109,13 @@ export async function POST(req: NextRequest) {
       startDate = new Date(body.startDate);
       if (isNaN(startDate.getTime())) {
         return NextResponse.json(
-          { error: "Ngày bắt đầu không hợp lệ. Vui lòng nhập đúng định dạng" },
+          { error: "Start date is invalid. Please enter correct format" },
           { status: 400 }
         );
       }
     } catch {
       return NextResponse.json(
-        { error: "Ngày bắt đầu không hợp lệ. Vui lòng nhập đúng định dạng" },
+        { error: "Start date is invalid. Please enter correct format" },
         { status: 400 }
       );
     }
@@ -126,13 +126,13 @@ export async function POST(req: NextRequest) {
         endDate = new Date(body.endDate);
         if (isNaN(endDate.getTime())) {
           return NextResponse.json(
-            { error: "Ngày kết thúc không hợp lệ. Vui lòng nhập đúng định dạng" },
+            { error: "End date is invalid. Please enter correct format" },
             { status: 400 }
           );
         }
       } catch {
         return NextResponse.json(
-          { error: "Ngày kết thúc không hợp lệ. Vui lòng nhập đúng định dạng" },
+          { error: "End date is invalid. Please enter correct format" },
           { status: 400 }
         );
       }

@@ -76,7 +76,7 @@ function infoBox(rows: { label: string; value: string }[]) {
 export function tourPublishedEmail(tourTitle: string, tourId: string) {
     return baseLayout('Tour Published Successfully', `
       <p>Tour <strong>${tourTitle}</strong> đã được đăng thành công trên Lunavia.</p>
-      <p>Hướng dẫn viên giờ đây có thể tìm thấy và ứng tuyển vào tour này.</p>
+      <p>Tour guide giờ đây có thể tìm thấy và ứng tuyển vào tour này.</p>
       ${button('Xem Tour', `${process.env.NEXTAUTH_URL}/dashboard/operator/tours/${tourId}`)}
     `);
 }
@@ -84,7 +84,7 @@ export function tourPublishedEmail(tourTitle: string, tourId: string) {
 /** New application notification to operator */
 export function newApplicationEmail(guideName: string, tourTitle: string, tourId: string) {
     return baseLayout('Ứng Tuyển Mới', `
-      <p><strong>${guideName}</strong> đã ứng tuyển vào tour:</p>
+      <p><strong>${guideName}</strong> has applied to tour:</p>
       ${infoBox([{ label: 'Tour', value: tourTitle }])}
       <p>Hãy xem hồ sơ và phản hồi sớm để đảm bảo nhân sự cho tour.</p>
       ${button('Xem Ứng Tuyển', `${process.env.NEXTAUTH_URL}/dashboard/operator/tours/${tourId}`)}
@@ -109,9 +109,9 @@ export function tourStartedEmail(tourTitle: string, guideName: string, location:
     return baseLayout('Tour Đã Bắt Đầu', `
       <p>Tour <strong>${tourTitle}</strong> đã chính thức bắt đầu.</p>
       ${infoBox([
-        { label: 'Hướng dẫn viên', value: guideName },
-        { label: 'Địa điểm', value: location },
-        { label: 'Thời gian', value: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) },
+        { label: 'Tour guide', value: guideName },
+        { label: 'Location', value: location },
+        { label: 'Duration', value: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) },
       ])}
     `);
 }
@@ -122,8 +122,8 @@ export function paymentReceivedEmail(amount: string, tourTitle: string) {
       <p>Bạn đã nhận thanh toán cho tour hoàn thành:</p>
       ${infoBox([
         { label: 'Tour', value: tourTitle },
-        { label: 'Số tiền', value: amount },
-        { label: 'Trạng thái', value: '✅ Đã vào ví' },
+        { label: 'Amount', value: amount },
+        { label: 'Status', value: '✅ Đã vào ví' },
       ])}
       ${button('Xem Ví', `${process.env.NEXTAUTH_URL}/dashboard/guide/earnings`)}
     `);
@@ -135,8 +135,8 @@ export function sosAlertEmail(tourTitle: string, guideName: string, description:
       <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:10px; padding:16px; margin-bottom:16px;">
         <p style="color:#991B1B; font-weight:700; margin:0;">⚠️ EMERGENCY ALERT</p>
       </div>
-      <p>Hướng dẫn viên <strong>${guideName}</strong> đã phát tín hiệu SOS từ tour <strong>${tourTitle}</strong>.</p>
-      <p style="color:#991B1B;"><strong>Mô tả:</strong> ${description}</p>
+      <p>Tour guide <strong>${guideName}</strong> đã phát tín hiệu SOS từ tour <strong>${tourTitle}</strong>.</p>
+      <p style="color:#991B1B;"><strong>Description:</strong> ${description}</p>
       ${button('Xem Chi Tiết', `${process.env.NEXTAUTH_URL}/dashboard/operator/emergencies`)}
       <p style="color:#EF4444; font-weight:600;">Vui lòng phản hồi ngay lập tức.</p>
     `);
@@ -147,7 +147,7 @@ export function kycResultEmail(approved: boolean, reason?: string) {
     const title = approved ? 'Xác Minh Thành Công' : 'Xác Minh Chưa Đạt';
     const message = approved
         ? 'Tài khoản của bạn đã được xác minh thành công. Bạn có thể sử dụng đầy đủ tính năng của Lunavia.'
-        : `Hồ sơ xác minh của bạn chưa đạt yêu cầu. ${reason ? `Lý do: ${reason}` : 'Vui lòng cập nhật lại hồ sơ.'}`;
+        : `Hồ sơ xác minh của bạn chưa đạt yêu cầu. ${reason ? `Reason: ${reason}` : 'Vui lòng cập nhật lại hồ sơ.'}`;
 
     return baseLayout(title, `
       <p>${message}</p>
@@ -158,10 +158,10 @@ export function kycResultEmail(approved: boolean, reason?: string) {
 /** Top-up approved notification */
 export function topUpApprovedEmail(amount: string) {
     return baseLayout('Nạp Tiền Thành Công', `
-      <p>Yêu cầu nạp tiền của bạn đã được duyệt.</p>
+      <p>Requirements nạp tiền của bạn đã được duyệt.</p>
       ${infoBox([
-        { label: 'Số tiền', value: amount },
-        { label: 'Trạng thái', value: '✅ Đã vào ví' },
+        { label: 'Amount', value: amount },
+        { label: 'Status', value: '✅ Đã vào ví' },
       ])}
       ${button('Xem Số Dư', `${process.env.NEXTAUTH_URL}/dashboard/operator/wallet`)}
     `);
@@ -170,11 +170,11 @@ export function topUpApprovedEmail(amount: string) {
 /** Withdrawal approved notification */
 export function withdrawalApprovedEmail(amount: string, method: string) {
     return baseLayout('Rút Tiền Thành Công', `
-      <p>Yêu cầu rút tiền của bạn đã được duyệt và xử lý.</p>
+      <p>Requirements rút tiền của bạn đã được duyệt và xử lý.</p>
       ${infoBox([
-        { label: 'Số tiền', value: amount },
+        { label: 'Amount', value: amount },
         { label: 'Phương thức', value: method },
-        { label: 'Trạng thái', value: '✅ Đang chuyển khoản' },
+        { label: 'Status', value: '✅ Đang chuyển khoản' },
       ])}
     `);
 }

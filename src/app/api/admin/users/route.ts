@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     // Only SUPER_ADMIN can access this page
     if (adminRole !== "SUPER_ADMIN") {
       return NextResponse.json(
-        { error: "Chỉ SUPER_ADMIN mới có quyền truy cập" },
+        { error: "Only SUPER_ADMIN has access" },
         { status: 403 }
       );
     }

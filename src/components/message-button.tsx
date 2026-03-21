@@ -31,7 +31,7 @@ export function MessageButton({
 
   const handleClick = async () => {
     if (!session?.user?.id) {
-      toast.error("Vui lòng đăng nhập");
+      toast.error("Please log in");
       return;
     }
 
@@ -49,12 +49,12 @@ export function MessageButton({
       } else if (userRole === "TOUR_OPERATOR" || userRole === "TOUR_AGENCY") {
         // If user is an operator, guideId should be the guide they want to message
         if (!guideId) {
-          toast.error("Không thể xác định guide để nhắn tin");
+          toast.error("Unable to identify guide for messaging");
           return;
         }
         finalGuideId = guideId;
       } else {
-        toast.error("Chỉ tour guide và tour operator mới có thể nhắn tin");
+        toast.error("Only tour guides and tour operators can send messages");
         return;
       }
 
@@ -68,7 +68,7 @@ export function MessageButton({
       router.push(`/messages/${conversation.id}`);
     } catch (error: any) {
       console.error("Error creating conversation:", error);
-      toast.error(error.message || "Không thể tạo cuộc trò chuyện");
+      toast.error(error.message || "Unable to create conversation");
     } finally {
       setLoading(false);
     }
@@ -83,7 +83,7 @@ export function MessageButton({
       className={className}
     >
       <MessageSquare className="h-4 w-4 mr-2" />
-      {loading ? "Đang tải..." : "Nhắn tin"}
+      {loading ? "Loading..." : "Message"}
     </Button>
   );
 }

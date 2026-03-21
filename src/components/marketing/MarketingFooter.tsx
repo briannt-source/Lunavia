@@ -20,6 +20,7 @@ export default function MarketingFooter() {
                         <li><Link href="/pricing" className="hover:text-lunavia-primary transition">{t('links.pricing')}</Link></li>
                         <li><Link href="/about" className="hover:text-lunavia-primary transition">{t('links.about')}</Link></li>
                         <li><Link href="/signup" className="hover:text-lunavia-primary transition">{t('links.get_started')}</Link></li>
+                        <li><Link href="/knowledge-base" className="hover:text-lunavia-primary transition">Knowledge Base</Link></li>
                     </ul>
                 </div>
                 <div>
@@ -33,7 +34,7 @@ export default function MarketingFooter() {
                 <div>
                     <h4 className="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wider">{t('categories.legal')}</h4>
                     <ul className="space-y-3 text-sm text-slate-500">
-                        <li><Link href="/faq" className="hover:text-lunavia-primary transition">{t('links.faq')}</Link></li>
+                        <li><Link href="/knowledge-base" className="hover:text-lunavia-primary transition">Help Center</Link></li>
                         <li><Link href="/terms" className="hover:text-lunavia-primary transition">{t('links.terms')}</Link></li>
                         <li><Link href="/privacy" className="hover:text-lunavia-primary transition">{t('links.privacy')}</Link></li>
                     </ul>

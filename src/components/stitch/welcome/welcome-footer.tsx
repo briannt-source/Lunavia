@@ -95,7 +95,7 @@ export function WelcomeFooter() {
                 <ul className="mt-6 space-y-4" role="list">
                   <li>
                     <Link
-                      href="#"
+                      href="/knowledge-base"
                       className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                     >
                       Help Center

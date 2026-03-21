@@ -65,7 +65,7 @@ export class ProcessTopUpRequestUseCase {
       if (neededForLocked > 0) {
         if (topUpRequest.amount < neededForLocked) {
           throw new Error(
-            `Số tiền nạp không đủ để đạt deposit tối thiểu. Cần thêm ${(neededForLocked - topUpRequest.amount).toLocaleString("vi-VN")} VND nữa để đạt ${OPERATOR_MIN_DEPOSIT.toLocaleString("vi-VN")} VND`
+            `Top-up amount insufficient for minimum deposit. Need ${(neededForLocked - topUpRequest.amount).toLocaleString("vi-VN")} VND more to reach ${OPERATOR_MIN_DEPOSIT.toLocaleString("vi-VN")} VND`
           );
         }
         

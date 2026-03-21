@@ -27,7 +27,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Mật khẩu không khớp");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -53,10 +53,10 @@ export default function RegisterPage() {
         throw new Error(data.error || "Registration failed");
       }
 
-      toast.success("Đăng ký thành công! Vui lòng đăng nhập.");
+      toast.success("Registered successfully! Please sign in.");
       router.push("/auth/signin");
     } catch (error: any) {
-      toast.error(error.message || "Đã có lỗi xảy ra");
+      toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export default function RegisterPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Đăng ký</CardTitle>
+            <CardTitle>Register</CardTitle>
             <CardDescription>
               Tạo tài khoản mới trên LUNAVIA
             </CardDescription>
@@ -167,7 +167,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Xác nhận mật khẩu *</Label>
+                <Label htmlFor="confirmPassword">Confirm password *</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -180,14 +180,14 @@ export default function RegisterPage() {
               </div>
 
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Đang đăng ký..." : "Đăng ký"}
+                {loading ? "Registering..." : "Register"}
               </Button>
             </form>
 
             <div className="mt-4 text-center text-sm">
-              <span className="text-muted-foreground">Đã có tài khoản? </span>
+              <span className="text-muted-foreground">Already have an account? </span>
               <Link href="/auth/signin" className="text-primary hover:underline">
-                Đăng nhập
+                Sign In
               </Link>
             </div>
           </CardContent>

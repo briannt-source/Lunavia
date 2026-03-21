@@ -37,7 +37,7 @@ interface AdminDeleteTourDialogProps {
  * Admin Delete Tour Dialog
  * 
  * Dialog để admin xác nhận xóa tour
- * Hiển thị thông tin tour và số lượng related records sẽ bị ảnh hưởng
+ * Visibility information tour và số lượng related records sẽ bị ảnh hưởng
  */
 export function AdminDeleteTourDialog({
   open,
@@ -56,7 +56,7 @@ export function AdminDeleteTourDialog({
     setIsDeleting(true);
     try {
       await api.admin.tours.delete(tour.id);
-      toast.success("Tour đã được xóa thành công");
+      toast.success("Tour deleted successfully");
       
       // Invalidate React Query cache
       await queryClient.invalidateQueries({ queryKey: ["admin-tours"] });
@@ -73,7 +73,7 @@ export function AdminDeleteTourDialog({
       onSuccess?.();
     } catch (error: any) {
       console.error("Error deleting tour:", error);
-      toast.error(error.message || "Có lỗi xảy ra khi xóa tour");
+      toast.error(error.message || "An error occurred deleting tour");
     } finally {
       setIsDeleting(false);
     }
@@ -162,7 +162,7 @@ export function AdminDeleteTourDialog({
             onClick={handleDelete}
             disabled={isDeleting}
           >
-            {isDeleting ? "Đang xóa..." : "Xóa Tour"}
+            {isDeleting ? "Deleting..." : "Delete Tour"}
           </Button>
         </DialogFooter>
       </DialogContent>
