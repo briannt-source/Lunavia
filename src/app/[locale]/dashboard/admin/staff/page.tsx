@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import StaffActions from '@/components/admin/StaffActions';
 
 export const metadata = {

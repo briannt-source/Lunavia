@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDateTime, formatCurrency } from "@/lib/utils";
 import { MapPin, Search, Calendar, Users, DollarSign, AlertTriangle, CheckCircle2, Trash2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { TourModerationDialog } from "@/components/tour-moderation-dialog";
 import { AdminDeleteTourDialog } from "@/components/admin-delete-tour-dialog";
 import { useQuery } from "@tanstack/react-query";

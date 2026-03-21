@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDateTime, formatVND } from "@/lib/utils";
 import { ArrowLeft, Save, Key, User, Shield, AlertTriangle } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 

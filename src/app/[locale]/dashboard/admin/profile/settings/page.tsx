@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export default function AdminSettingsPage() {
     const { data: session, update } = useSession();

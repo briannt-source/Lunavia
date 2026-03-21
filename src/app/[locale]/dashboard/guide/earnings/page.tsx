@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 interface EarringSummary {

@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatVND, formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function GuideDashboard() {
   const { data: userInfo } = useQuery({

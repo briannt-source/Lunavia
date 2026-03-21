@@ -11,7 +11,7 @@ import { api } from "@/lib/api-client";
 import { formatDateTime, formatCurrency } from "@/lib/utils";
 import { Plus, Calendar, MapPin, DollarSign, Users } from "lucide-react";
 import { CreateStandbyRequestDialog } from "@/components/create-standby-request-dialog";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function StandbyRequestsPage() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);

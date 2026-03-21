@@ -13,7 +13,7 @@ import { FileUpload } from "@/components/file-upload";
 import { api } from "@/lib/api-client";
 import toast from "react-hot-toast";
 import { Building2, Save, Loader2, ArrowLeft, AlertTriangle } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function CreateCompanyPage() {

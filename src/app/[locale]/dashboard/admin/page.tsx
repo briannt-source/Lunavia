@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatsCard } from "@/components/ui/stats-card";
 import { formatCurrency, formatDateTime, formatVND } from "@/lib/utils";
 import { Shield, AlertTriangle, DollarSign, Users, MapPin, CreditCard, TrendingUp, CheckCircle2, Clock, XCircle } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 

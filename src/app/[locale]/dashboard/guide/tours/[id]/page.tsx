@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import toast from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 import DisputeModal from '@/components/feedback/DisputeModal';

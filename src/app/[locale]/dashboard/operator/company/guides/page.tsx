@@ -29,7 +29,7 @@ import {
   ArrowLeft,
   UserPlus,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { formatCurrency } from "@/lib/utils";
 import { InviteGuideDialog } from "@/components/invite-guide-dialog";
 

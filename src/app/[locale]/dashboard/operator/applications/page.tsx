@@ -17,7 +17,7 @@ import {
 import { Briefcase, CheckCircle2, XCircle, Eye } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatDateTime } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 
 export default function ApplicationsPage() {

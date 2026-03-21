@@ -9,7 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { MapPin, Calendar, FileText, AlertTriangle, DollarSign } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatDate, formatVND } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { SOSReportDialog } from "@/components/sos-report-dialog";
 import { useState } from "react";
 

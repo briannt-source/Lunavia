@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDateTime } from "@/lib/utils";
 import { Shield, CheckCircle2, XCircle, Clock, Search } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default async function AdminVerificationsPage({
   searchParams,

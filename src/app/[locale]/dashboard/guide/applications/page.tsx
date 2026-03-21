@@ -11,7 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Briefcase, MapPin, Calendar, DollarSign, Clock, CheckCircle2, XCircle, X } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatVND, formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { CancelApplicationDialog } from "@/components/cancel-application-dialog";
 
 export default function GuideApplicationsPage() {

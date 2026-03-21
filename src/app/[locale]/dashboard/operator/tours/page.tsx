@@ -17,7 +17,7 @@ import {
 import { MapPin, Calendar, Search, Filter, Plus, ArrowRight } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { format } from "date-fns";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 const TOUR_STATES: Record<string, { label: string; color: string }> = {
   DRAFT: { label: "Draft", color: "bg-gray-100 text-gray-600" },

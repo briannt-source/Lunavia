@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, MapPin, Clock, ExternalLink } from "lucide-react";
 import { formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function EmergenciesPage() {
   const { data: emergencies = [], isLoading } = useQuery({

@@ -4,10 +4,8 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   AlertCircle,
-  Clock,
   FileText,
   ArrowRight,
   Calendar,
@@ -21,10 +19,13 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { api } from "@/lib/api-client";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { format } from "date-fns";
+import { useTranslations } from "next-intl";
 
 export default function OperatorDashboard() {
+  const t = useTranslations("Operator.Dashboard");
+
   const { data: tours = [], isLoading: toursLoading } = useQuery({
     queryKey: ["tours", "my"],
     queryFn: () => api.tours.my(),
@@ -57,18 +58,18 @@ export default function OperatorDashboard() {
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Tổng quan hoạt động và các tour cần chú ý
+          {t("subtitle")}
         </p>
       </div>
 
       {/* Stats Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatPill label="Tours Hôm Nay" value={toursToday.length} color="indigo" />
-        <StatPill label="Cần Chú Ý" value={toursNeedingAttention.length} color="amber" />
-        <StatPill label="SOS (24h)" value={sosCount} color="red" />
-        <StatPill label="Disputes" value={disputesTotal} color="slate" />
+        <StatPill label={t("stats.toursToday")} value={toursToday.length} color="indigo" />
+        <StatPill label={t("stats.needsAttention")} value={toursNeedingAttention.length} color="amber" />
+        <StatPill label={t("stats.sos24h")} value={sosCount} color="red" />
+        <StatPill label={t("stats.disputes")} value={disputesTotal} color="slate" />
       </div>
 
       {/* Main Grid */}
@@ -78,7 +79,7 @@ export default function OperatorDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <Calendar className="h-4 w-4 text-indigo-500" />
-              Tours Hôm Nay
+              {t("cards.toursToday")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -88,7 +89,7 @@ export default function OperatorDashboard() {
               </div>
             ) : toursToday.length === 0 ? (
               <p className="text-sm text-gray-400 py-4 text-center">
-                Không có tour nào hôm nay ✨
+                {t("cards.noTours")}
               </p>
             ) : (
               <div className="space-y-2">
@@ -98,7 +99,7 @@ export default function OperatorDashboard() {
                 {toursToday.length > 3 && (
                   <Link href="/dashboard/operator/tours?filter=today"
                     className="block text-center text-xs font-medium text-indigo-600 hover:text-indigo-700 py-2">
-                    Xem thêm {toursToday.length - 3} tour →
+                    {t("cards.viewMore", { count: toursToday.length - 3 })}
                   </Link>
                 )}
               </div>
@@ -111,13 +112,13 @@ export default function OperatorDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <AlertCircle className="h-4 w-4 text-amber-500" />
-              Cần Chú Ý
+              {t("cards.needsAttention")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {toursNeedingAttention.length === 0 ? (
               <p className="text-sm text-gray-400 py-4 text-center">
-                Tất cả tours đều ổn ✅
+                {t("cards.allGood")}
               </p>
             ) : (
               <div className="space-y-2">
@@ -139,7 +140,7 @@ export default function OperatorDashboard() {
                 {toursNeedingAttention.length > 3 && (
                   <Link href="/dashboard/operator/tours?filter=attention"
                     className="block text-center text-xs font-medium text-amber-600 hover:text-amber-700 py-2">
-                    Xem thêm {toursNeedingAttention.length - 3} tour →
+                    {t("cards.viewMore", { count: toursNeedingAttention.length - 3 })}
                   </Link>
                 )}
               </div>
@@ -152,21 +153,21 @@ export default function OperatorDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <Shield className="h-4 w-4 text-red-500" />
-              SOS (24h qua)
+              {t("cards.sos")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {sosCount === 0 ? (
               <p className="text-sm text-gray-400 py-4 text-center">
-                Không có SOS — mọi thứ an toàn 🟢
+                {t("cards.noSos")}
               </p>
             ) : (
               <div className="text-center py-3">
                 <p className="text-3xl font-bold text-red-600">{sosCount}</p>
-                <p className="text-xs text-gray-500 mt-1 mb-3">SOS kích hoạt trong 24h</p>
+                <p className="text-xs text-gray-500 mt-1 mb-3">{t("cards.sosTriggered")}</p>
                 <Link href="/dashboard/operator/tours?filter=sos">
                   <Button variant="outline" size="sm" className="border-red-200 text-red-600 hover:bg-red-50 text-xs">
-                    Xem chi tiết
+                    {t("cards.viewDetails")}
                   </Button>
                 </Link>
               </div>
@@ -179,27 +180,27 @@ export default function OperatorDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <FileText className="h-4 w-4 text-gray-500" />
-              Disputes
+              {t("cards.disputes")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {disputesTotal === 0 ? (
               <p className="text-sm text-gray-400 py-4 text-center">
-                Không có dispute nào 👍
+                {t("cards.noDisputes")}
               </p>
             ) : (
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50">
-                  <span className="text-xs text-gray-600">Đang mở</span>
+                  <span className="text-xs text-gray-600">{t("cards.disputesOpen")}</span>
                   <span className="text-sm font-bold text-blue-600">{disputesOpen}</span>
                 </div>
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50">
-                  <span className="text-xs text-gray-600">Đang xem xét</span>
+                  <span className="text-xs text-gray-600">{t("cards.disputesInReview")}</span>
                   <span className="text-sm font-bold text-amber-600">{disputesInReview}</span>
                 </div>
                 <Link href="/dashboard/operator/disputes">
                   <Button variant="outline" size="sm" className="w-full mt-2 text-xs">
-                    Xem tất cả
+                    {t("cards.viewAll")}
                   </Button>
                 </Link>
               </div>
@@ -209,16 +210,16 @@ export default function OperatorDashboard() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <QuickAction href="/dashboard/operator/tours/new" icon={<Plus className="h-4 w-4" />} label="Tạo Tour Mới" primary />
-        <QuickAction href="/dashboard/operator/wallet" icon={<Wallet className="h-4 w-4" />} label="Ví" />
-        <QuickAction href="/dashboard/operator/team" icon={<Users className="h-4 w-4" />} label="Quản Lý Team" />
-        <QuickAction href="/dashboard/operator/fleet" icon={<Map className="h-4 w-4" />} label="Fleet Tracking" />
+        <QuickAction href="/dashboard/operator/tours/new" icon={<Plus className="h-4 w-4" />} label={t("quickActions.createTour")} primary />
+        <QuickAction href="/dashboard/operator/wallet" icon={<Wallet className="h-4 w-4" />} label={t("quickActions.wallet")} />
+        <QuickAction href="/dashboard/operator/team" icon={<Users className="h-4 w-4" />} label={t("quickActions.manageTeam")} />
+        <QuickAction href="/dashboard/operator/fleet" icon={<Map className="h-4 w-4" />} label={t("quickActions.fleetTracking")} />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <QuickAction href="/dashboard/operator/tours" icon={<Eye className="h-4 w-4" />} label="Tất Cả Tours" />
-        <QuickAction href="/dashboard/operator/applications" icon={<Briefcase className="h-4 w-4" />} label="Ứng Tuyển" />
-        <QuickAction href="/dashboard/operator/disputes" icon={<FileText className="h-4 w-4" />} label="Disputes" />
-        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Tin Nhắn" />
+        <QuickAction href="/dashboard/operator/tours" icon={<Eye className="h-4 w-4" />} label={t("quickActions.allTours")} />
+        <QuickAction href="/dashboard/operator/applications" icon={<Briefcase className="h-4 w-4" />} label={t("quickActions.applications")} />
+        <QuickAction href="/dashboard/operator/disputes" icon={<FileText className="h-4 w-4" />} label={t("quickActions.disputes")} />
+        <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label={t("quickActions.messages")} />
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FileText, MapPin, Calendar, DollarSign, Clock, CheckCircle2, XCircle, AlertCircle } from "lucide-react";
 import { formatVND, formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 
 export default function GuideAssignmentsPage() {

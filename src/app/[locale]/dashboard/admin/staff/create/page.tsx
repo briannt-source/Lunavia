@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import CreateStaffForm from './CreateStaffForm';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export const metadata = {
     title: 'Create Internal Staff — Lunavia',

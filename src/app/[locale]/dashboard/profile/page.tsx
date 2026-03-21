@@ -22,7 +22,7 @@ import {
   AlertCircle,
   Save
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function ProfilePage() {
   const { data: session } = useSession();

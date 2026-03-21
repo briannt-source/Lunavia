@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 const SCENARIOS = [
     { key: 'NORMAL_EXECUTION', label: 'Normal Execution', icon: '✅', desc: 'Simulate a standard tour running smoothly from start to completion.' },

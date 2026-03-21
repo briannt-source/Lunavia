@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CheckCircle2, XCircle, Eye, Briefcase } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatDateTime, formatVND } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 import { MessageButton } from "@/components/message-button";
 

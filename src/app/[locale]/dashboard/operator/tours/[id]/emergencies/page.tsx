@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, MapPin, Clock } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function TourEmergenciesPage() {
   const params = useParams();

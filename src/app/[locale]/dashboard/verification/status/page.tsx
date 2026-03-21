@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Verification Status — Lunavia' };

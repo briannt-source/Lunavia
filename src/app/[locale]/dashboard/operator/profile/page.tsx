@@ -3,7 +3,7 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export const metadata = { title: 'Profile — Lunavia' };
 

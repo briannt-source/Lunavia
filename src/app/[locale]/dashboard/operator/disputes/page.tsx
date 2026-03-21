@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { FileText, Calendar, AlertCircle } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { format } from "date-fns";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 const DISPUTE_STATUS_COLORS: Record<string, string> = {
   PENDING: "bg-blue-100 text-blue-700 border-blue-300",

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDate } from "@/lib/utils";
 import { Building2, Users, Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { ContractVerificationButton } from "@/components/contract-verification-button";
 
 export default async function AdminCompaniesPage({

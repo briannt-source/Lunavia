@@ -9,7 +9,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { formatDateTime, formatVND } from "@/lib/utils";
 import { ArrowLeft, Mail, Shield, Wallet, MapPin, Calendar } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default async function AdminUserDetailPage({
   params,

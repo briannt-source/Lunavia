@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import VerificationBanner from '@/components/VerificationBanner';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import Skeleton, { TableSkeleton } from '@/components/ui/Skeleton';
 import CategoryBadge from '@/components/CategoryBadge';
 import toast from 'react-hot-toast';

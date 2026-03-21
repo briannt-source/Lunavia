@@ -11,7 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { FileText, CheckCircle2, Clock, DollarSign } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatVND, formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { ConfirmTourDialog } from "@/components/confirm-tour-dialog";
 import toast from "react-hot-toast";
 

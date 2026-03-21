@@ -11,7 +11,7 @@ import { DollarSign, Clock, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatVND, formatDate } from "@/lib/utils";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function OperatorPaymentsPage() {
   const [selectedStatus, setSelectedStatus] = useState<"all" | "PENDING" | "APPROVED">("all");

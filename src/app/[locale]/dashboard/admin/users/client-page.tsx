@@ -11,7 +11,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
 import { formatDateTime, formatVND } from "@/lib/utils";
 import { Users, Search, Mail, Shield, Wallet, MapPin, AlertTriangle, Trash2, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { useSearchParams, useRouter } from "next/navigation";
 import { UserModerationDialog } from "@/components/user-moderation-dialog";
 import { AdminDeleteUserDialog } from "@/components/admin-delete-user-dialog";

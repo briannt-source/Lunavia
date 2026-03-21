@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDateTime, formatVND } from "@/lib/utils";
 import { AlertTriangle, CheckCircle2, XCircle, ArrowLeft, Image as ImageIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 

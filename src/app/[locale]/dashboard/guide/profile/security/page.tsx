@@ -3,7 +3,7 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { SecuritySection } from '@/components/profile/SecuritySection';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export const metadata = { title: 'Security — Lunavia' };
 

@@ -11,7 +11,7 @@ import { api } from "@/lib/api-client";
 import { formatDateTime, formatCurrency } from "@/lib/utils";
 import { Calendar, MapPin, DollarSign, CheckCircle2, XCircle } from "lucide-react";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { Link } from '@/navigation';
 
 export default function GuideStandbyRequestsPage() {
   const queryClient = useQueryClient();

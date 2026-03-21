@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { formatVND } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Wallet } from "lucide-react";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 

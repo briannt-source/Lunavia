@@ -27,7 +27,7 @@ import {
 import { api } from "@/lib/api-client";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { Link } from '@/navigation';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
