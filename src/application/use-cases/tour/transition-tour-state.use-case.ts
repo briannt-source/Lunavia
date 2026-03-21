@@ -3,6 +3,9 @@
  * 
  * Handles tour state transitions with policy-driven validation.
  * Application layer use case - orchestrates domain logic and persistence.
+ *
+ * Side-effects on transition:
+ *   → IN_PROGRESS: schedules safety check-ins from itinerary
  */
 
 import { prisma } from "@/lib/prisma";
@@ -22,6 +25,7 @@ export interface TransitionTourStateOutput {
   previousState: TourState;
   newState: TourState;
   transitionAllowed: boolean;
+  checkInsScheduled?: number;
 }
 
 export class TransitionTourStateUseCase {
@@ -41,8 +45,6 @@ export class TransitionTourStateUseCase {
     }
 
     // Verify current state matches fromState
-    // Note: Mapping between TourState (domain) and TourStatus (Prisma) will be handled
-    // For MVP, we validate using TourState enum
     const currentState = tour.status as TourState;
     
     if (currentState !== input.fromState) {
@@ -63,38 +65,68 @@ export class TransitionTourStateUseCase {
       );
     }
 
-    // Check if target state is terminal
-    if (TourLifecyclePolicy.isTerminalState(input.toState)) {
-      // Terminal state - no further transitions allowed
-      // This is informational, transition is still valid
-    }
-
     // Update tour state
-    // Note: In MVP, we store TourState value as string in status field
-    // Future: Schema may be updated to have separate state field or map TourStatus to TourState
     await prisma.tour.update({
       where: { id: input.tourId },
       data: {
-        status: input.toState as any, // Map TourState to TourStatus (handled by Prisma)
+        status: input.toState as any,
       },
     });
 
-    // Emit domain event hook (infrastructure will implement)
-    // This is a placeholder for future event-driven architecture
-    // console.log("DOMAIN_EVENT_HOOK: TOUR_STATE_TRANSITIONED", {
-    //   tourId: input.tourId,
-    //   fromState: input.fromState,
-    //   toState: input.toState,
-    //   actorId: input.actorId,
-    //   reason: input.reason,
-    //   timestamp: new Date(),
-    // });
+    // ── Post-transition side effects (best-effort) ──
+
+    let checkInsScheduled = 0;
+
+    // Log timeline event
+    try {
+      await prisma.tourTimelineEvent.create({
+        data: {
+          tourId: input.tourId,
+          actorId: input.actorId,
+          actorRole: "OPERATOR",
+          eventType: `STATE_${input.toState}`,
+          title: `Tour transitioned to ${input.toState}`,
+          description: input.reason || null,
+        },
+      });
+    } catch (err) {
+      console.error("[TransitionUseCase] Timeline event failed:", err);
+    }
+
+    // When tour → IN_PROGRESS: schedule safety check-ins
+    if (input.toState === TourState.IN_PROGRESS) {
+      try {
+        const { SafetyCheckInService } = await import(
+          "@/domain/services/safety-checkin.service"
+        );
+        const { getAllAssignedGuideIds } = await import("@/lib/tour-compat");
+
+        // Find all assigned guides for this tour
+        const guideIds = await getAllAssignedGuideIds(input.tourId);
+
+        for (const guideId of guideIds) {
+          const result = await SafetyCheckInService.scheduleFromItinerary(
+            input.tourId,
+            guideId
+          );
+          checkInsScheduled += result.checkIns.length;
+        }
+
+        console.log(
+          `[TransitionUseCase] Tour ${input.tourId} → IN_PROGRESS: ${checkInsScheduled} check-ins scheduled for ${guideIds.length} guide(s)`
+        );
+      } catch (err) {
+        // Best-effort: don't block state transition
+        console.error("[TransitionUseCase] Check-in scheduling failed:", err);
+      }
+    }
 
     return {
       tourId: input.tourId,
       previousState: input.fromState,
       newState: input.toState,
       transitionAllowed: true,
+      checkInsScheduled,
     };
   }
 }
