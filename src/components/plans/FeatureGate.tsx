@@ -41,7 +41,7 @@ export function PlanUpgradeModal({ isOpen, onClose, feature, requiredPlan, isExp
                 </button>
 
                 {/* Icon */}
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-lunavia-muted/50">
                     <span className="text-2xl">{isExpired ? '⚠️' : '🔒'}</span>
                 </div>
 
@@ -53,7 +53,7 @@ export function PlanUpgradeModal({ isOpen, onClose, feature, requiredPlan, isExp
                     {isExpired ? (
                         <>Your plan has expired. Renew to continue using this feature.</>
                     ) : (
-                        <>This feature is available on the <span className="font-semibold text-indigo-600">{planConfig.displayName}</span> plan and above.</>
+                        <>This feature is available on the <span className="font-semibold text-[#5BA4CF]">{planConfig.displayName}</span> plan and above.</>
                     )}
                 </p>
 
@@ -138,7 +138,7 @@ export function FeatureGate({ feature, userPlan: propPlan, planExpiresAt: propEx
                     Expired
                 </span>
             ) : (
-                <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                <span className="rounded-full bg-lunavia-muted/50 px-2 py-0.5 text-xs font-medium text-[#2E8BC0]">
                     {requiredPlan}
                 </span>
             )}

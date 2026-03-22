@@ -69,8 +69,8 @@ export default function MessagesPage() {
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                          <User className="h-6 w-6 text-blue-600" />
+                        <div className="w-12 h-12 rounded-full bg-lunavia-muted/50 flex items-center justify-center">
+                          <User className="h-6 w-6 text-lunavia-primary" />
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -79,7 +79,7 @@ export default function MessagesPage() {
                             {otherUser?.profile?.name || otherUser?.email}
                           </h3>
                           {unreadCount > 0 && (
-                            <span className="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                            <span className="bg-lunavia-primary text-white text-xs font-semibold px-2 py-1 rounded-full">
                               {unreadCount}
                             </span>
                           )}

@@ -6,7 +6,7 @@ export default function AccountBlocked() {
         <p>Your account has been blocked. Please contact support for assistance.</p>
         <a
           href="/login"
-          className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          className="rounded bg-lunavia-primary px-4 py-2 text-white hover:bg-lunavia-primary-hover"
         >
           Return to Login
         </a>

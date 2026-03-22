@@ -128,7 +128,7 @@ export function GuideInviteList() {
                         key={tab}
                         onClick={() => setFilter(tab)}
                         className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${filter === tab
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-lunavia-primary text-white'
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
                     >

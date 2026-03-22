@@ -18,12 +18,12 @@ export function DemandSignal({ demand }: { demand: DemandItem[] }) {
     }
 
     return (
-        <div className="bg-white border border-indigo-100 rounded-xl overflow-hidden">
-            <div className="bg-indigo-50/50 p-4 border-b border-indigo-50">
+        <div className="bg-white border border-[#5BA4CF]/20 rounded-xl overflow-hidden">
+            <div className="bg-lunavia-light/50 p-4 border-b border-indigo-50">
                 <h3 className="text-sm font-bold text-indigo-900 flex items-center gap-2">
                     🔥 High Demand Areas (Next 7 Days)
                 </h3>
-                <p className="text-[11px] text-indigo-700 mt-1">Based on open tours needing guides. Update your availability!</p>
+                <p className="text-[11px] text-[#2E8BC0] mt-1">Based on open tours needing guides. Update your availability!</p>
             </div>
             <div className="p-4 grid gap-3 sm:grid-cols-2">
                 {demand.map((item, idx) => (
@@ -45,7 +45,7 @@ export function DemandSignal({ demand }: { demand: DemandItem[] }) {
                 ))}
             </div>
             <div className="bg-gray-50 p-3 text-center border-t border-gray-100">
-                <button className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">
+                <button className="text-xs font-semibold text-[#5BA4CF] hover:text-indigo-800 transition">
                     Enable Notifications for these Areas →
                 </button>
             </div>

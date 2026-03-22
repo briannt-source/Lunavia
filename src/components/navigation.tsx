@@ -79,7 +79,7 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="relative">
-              <Moon className="h-8 w-8 text-indigo-600" />
+              <Moon className="h-8 w-8 text-[#5BA4CF]" />
               <Compass className="h-5 w-5 text-emerald-500 absolute -bottom-1 -right-1" />
             </div>
             <span className="text-xl font-bold text-indigo-900 hidden sm:inline">LUNAVIA</span>

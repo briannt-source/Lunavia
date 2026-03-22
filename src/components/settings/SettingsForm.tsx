@@ -65,7 +65,7 @@ export default function SettingsForm({ user, trustScore, kybStatus, kycStatus }:
                         <div className="mt-4 pt-4 border-t border-gray-100">
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-gray-700">Trust Score</span>
-                                <span className="text-2xl font-bold text-indigo-600">{trustScore}</span>
+                                <span className="text-2xl font-bold text-[#5BA4CF]">{trustScore}</span>
                             </div>
                             <p className="text-xs text-gray-400 mt-1">Based on successful tour completions and verification.</p>
                         </div>
@@ -102,7 +102,7 @@ export default function SettingsForm({ user, trustScore, kybStatus, kycStatus }:
                 </p>
                 <Link
                     href={isOperator ? "/dashboard/operator/wallet" : "/dashboard/guide/wallet"}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition border border-indigo-200"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#5BA4CF] bg-lunavia-light rounded-lg hover:bg-lunavia-muted/50 transition border border-[#5BA4CF]/30"
                 >
                     Go to Wallet →
                 </Link>

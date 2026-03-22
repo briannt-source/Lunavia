@@ -47,7 +47,7 @@ export default function OperatorRiskPanel({ operatorId, className = '' }: Props)
 
             <div className="flex items-center gap-4 mb-4">
                 <div className="text-center">
-                    <div className="text-3xl font-bold text-indigo-600">{data.trustScore}</div>
+                    <div className="text-3xl font-bold text-[#5BA4CF]">{data.trustScore}</div>
                     <div className="text-xs text-gray-400">Trust Score</div>
                 </div>
                 <div className={`px-3 py-1.5 rounded-full text-xs font-bold border ${levelConfig.color} ${levelConfig.bg} ${levelConfig.border}`}>

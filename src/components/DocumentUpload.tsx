@@ -150,10 +150,10 @@ export default function DocumentUpload({
           onDrop={handleDrop}
         >
           <div className={`rounded-xl border-2 border-dashed p-6 text-center transition-all ${dragActive
-              ? 'border-indigo-400 bg-indigo-50/50'
+              ? 'border-indigo-400 bg-lunavia-light/50'
               : uploading
                 ? 'border-gray-300 bg-gray-50/50'
-                : 'border-gray-200 bg-gray-50/50 hover:border-indigo-300 hover:bg-indigo-50/30'
+                : 'border-gray-200 bg-gray-50/50 hover:border-[#5BA4CF]/40 hover:bg-lunavia-light/30'
             }`}>
             {uploading ? (
               <div className="flex flex-col items-center">
@@ -162,12 +162,12 @@ export default function DocumentUpload({
               </div>
             ) : (
               <>
-                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 group-hover:bg-indigo-100 transition-colors">
-                  <svg className="h-5 w-5 text-gray-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 group-hover:bg-lunavia-muted/50 transition-colors">
+                  <svg className="h-5 w-5 text-gray-400 group-hover:text-[#5BA4CF] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                   </svg>
                 </div>
-                <p className="text-sm font-medium text-gray-700 group-hover:text-indigo-700">
+                <p className="text-sm font-medium text-gray-700 group-hover:text-[#2E8BC0]">
                   Click or drag to upload
                 </p>
                 <p className="mt-1 text-xs text-gray-500">
@@ -207,13 +207,13 @@ export default function DocumentUpload({
               className="flex items-center justify-between rounded-lg bg-gray-50 border border-gray-200 px-3 py-2.5"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-100">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-lunavia-muted/50">
                   {doc.mimeType === 'application/pdf' ? (
-                    <svg className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-4 w-4 text-[#5BA4CF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                   ) : (
-                    <svg className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-4 w-4 text-[#5BA4CF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   )}

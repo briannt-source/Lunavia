@@ -44,13 +44,13 @@ export default async function VerificationStatus() {
           )}
 
           {(status === 'PENDING' || status === 'SUBMITTED') && (
-            <div className="bg-blue-50 p-4 rounded-md">
+            <div className="bg-lunavia-light p-4 rounded-md">
               <div className="text-5xl mb-4">⏳</div>
               <p className="text-blue-800 font-medium">Under Review</p>
-              <p className="text-sm text-blue-700 mt-2">
+              <p className="text-sm text-lunavia-primary-hover mt-2">
                 Thank you for submitting your documents. Our compliance team is reviewing your application.
               </p>
-              <p className="text-xs text-blue-600 mt-4">Estimated review time: 24-48 hours</p>
+              <p className="text-xs text-lunavia-primary mt-4">Estimated review time: 24-48 hours</p>
             </div>
           )}
 
@@ -70,14 +70,14 @@ export default async function VerificationStatus() {
           {status === 'NOT_SUBMITTED' && (
             <div className="bg-gray-50 p-4 rounded-md">
               <p className="text-gray-600">You have not submitted verification yet.</p>
-              <Link href={`/dashboard/${user.role === 'TOUR_OPERATOR' ? 'operator' : 'guide'}/verification`} className="block mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700">
+              <Link href={`/dashboard/${user.role === 'TOUR_OPERATOR' ? 'operator' : 'guide'}/verification`} className="block mt-4 w-full bg-lunavia-primary text-white py-2 rounded-md hover:bg-indigo-700">
                 Start Verification
               </Link>
             </div>
           )}
 
           <div className="pt-4 border-t border-gray-100">
-            <Link href="/dashboard" className="text-indigo-600 font-medium hover:text-indigo-500">
+            <Link href="/dashboard" className="text-[#5BA4CF] font-medium hover:text-[#5BA4CF]">
               ← Back to Dashboard
             </Link>
           </div>

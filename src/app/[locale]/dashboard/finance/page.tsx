@@ -120,7 +120,7 @@ export default function FinanceDashboard() {
                     <button
                         onClick={() => setActiveTab('topup')}
                         className={`${activeTab === 'topup'
-                            ? 'border-indigo-500 text-indigo-600'
+                            ? 'border-indigo-500 text-[#5BA4CF]'
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                     >
@@ -129,7 +129,7 @@ export default function FinanceDashboard() {
                     <button
                         onClick={() => setActiveTab('withdraw')}
                         className={`${activeTab === 'withdraw'
-                            ? 'border-indigo-500 text-indigo-600'
+                            ? 'border-indigo-500 text-[#5BA4CF]'
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                     >
@@ -146,7 +146,7 @@ export default function FinanceDashboard() {
                             <div className="flex items-center justify-between">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between mb-2">
-                                        <p className="text-sm font-medium text-indigo-600 truncate">{req.operator.name || req.operator.email}</p>
+                                        <p className="text-sm font-medium text-[#5BA4CF] truncate">{req.operator.name || req.operator.email}</p>
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                             PENDING
                                         </span>
@@ -160,7 +160,7 @@ export default function FinanceDashboard() {
                                         </div>
                                         <div>
                                             {req.proofUrl ? (
-                                                <a href={req.proofUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline flex items-center gap-1">
+                                                <a href={req.proofUrl} target="_blank" rel="noopener noreferrer" className="text-[#5BA4CF] hover:underline flex items-center gap-1">
                                                     View Proof of Payment ↗
                                                 </a>
                                             ) : (
@@ -194,7 +194,7 @@ export default function FinanceDashboard() {
                             <div className="flex items-center justify-between">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between mb-2">
-                                        <p className="text-sm font-medium text-indigo-600 truncate">{req.operator.name || req.operator.email}</p>
+                                        <p className="text-sm font-medium text-[#5BA4CF] truncate">{req.operator.name || req.operator.email}</p>
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                             PENDING
                                         </span>

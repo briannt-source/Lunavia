@@ -11,7 +11,7 @@ import { format } from "date-fns";
 import { Link } from '@/navigation';
 
 const DISPUTE_STATUS_COLORS: Record<string, string> = {
-  PENDING: "bg-blue-100 text-blue-700 border-blue-300",
+  PENDING: "bg-lunavia-muted/50 text-lunavia-primary-hover border-lunavia-primary/40",
   IN_REVIEW: "bg-amber-100 text-amber-700 border-amber-300",
   RESOLVED: "bg-green-100 text-green-700 border-green-300",
   REJECTED: "bg-red-100 text-red-700 border-red-300",
@@ -63,7 +63,7 @@ export default function DisputesListPage() {
                             >
                               {dispute.status}
                             </Badge>
-                            <Badge variant="outline" className="border-indigo-600 text-indigo-700">
+                            <Badge variant="outline" className="border-indigo-600 text-[#2E8BC0]">
                               {t(`typeLabels.${dispute.type}`) || dispute.type}
                             </Badge>
                             {dispute.tourId && (
@@ -89,7 +89,7 @@ export default function DisputesListPage() {
                           {dispute.status === "PENDING" && (
                             <AlertCircle className="h-5 w-5 text-amber-600" />
                           )}
-                          <span className="text-indigo-600">{t("viewDetails")}</span>
+                          <span className="text-[#5BA4CF]">{t("viewDetails")}</span>
                         </div>
                       </div>
                     </CardContent>

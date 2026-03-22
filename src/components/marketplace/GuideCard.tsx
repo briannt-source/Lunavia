@@ -54,7 +54,7 @@ function GuideAvatar({ guide, size }: { guide: GuideCardData; size: 'sm' | 'md' 
             {guide.avatarUrl ? (
                 <img src={guide.avatarUrl} alt={guide.name} className="h-full w-full object-cover" />
             ) : (
-                <span className={`${txt[size]} font-bold text-indigo-600`}>
+                <span className={`${txt[size]} font-bold text-[#5BA4CF]`}>
                     {(guide.name || guide.email || 'G').charAt(0).toUpperCase()}
                 </span>
             )}
@@ -65,7 +65,7 @@ function GuideAvatar({ guide, size }: { guide: GuideCardData; size: 'sm' | 'md' 
 // ── Verified Icon ────────────────────────────────────────────────────
 function VerifiedIcon() {
     return (
-        <svg className="h-4 w-4 text-blue-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="h-4 w-4 text-lunavia-primary shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
         </svg>
     );
@@ -87,7 +87,7 @@ function CardActions({ guide, onInvite, onSave, compact = false }: {
     if (compact) {
         return (
             <div className="flex items-center gap-2">
-                <Link href={`/marketplace/guide/${guide.id}`} className="text-xs font-medium text-indigo-600 hover:text-indigo-800">
+                <Link href={`/marketplace/guide/${guide.id}`} className="text-xs font-medium text-[#5BA4CF] hover:text-indigo-800">
                     View
                 </Link>
                 {onInvite && (
@@ -103,14 +103,14 @@ function CardActions({ guide, onInvite, onSave, compact = false }: {
         <div className="flex items-center gap-2">
             <Link
                 href={`/marketplace/guide/${guide.id}`}
-                className="flex-1 text-center rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 hover:bg-indigo-100 transition"
+                className="flex-1 text-center rounded-lg border border-[#5BA4CF]/30 bg-lunavia-light px-3 py-1.5 text-xs font-medium text-[#2E8BC0] hover:bg-lunavia-muted/50 transition"
             >
                 View Profile
             </Link>
             {onInvite && (
                 <button
                     onClick={() => onInvite(guide.id)}
-                    className="flex-1 text-center rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700 transition"
+                    className="flex-1 text-center rounded-lg bg-lunavia-primary px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700 transition"
                 >
                     Invite to Tour
                 </button>
@@ -118,7 +118,7 @@ function CardActions({ guide, onInvite, onSave, compact = false }: {
             {onSave && (
                 <button
                     onClick={() => onSave(guide.id)}
-                    className="rounded-lg border border-gray-200 p-1.5 text-gray-400 hover:text-indigo-600 hover:border-indigo-200 transition"
+                    className="rounded-lg border border-gray-200 p-1.5 text-gray-400 hover:text-[#5BA4CF] hover:border-[#5BA4CF]/30 transition"
                     title="Save Guide"
                 >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,7 +135,7 @@ function CardActions({ guide, onInvite, onSave, compact = false }: {
 // ══════════════════════════════════════════════════════════════════════
 function GridCard({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
     return (
-        <div className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col">
+        <div className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-[#5BA4CF]/30 transition-all flex flex-col">
             {/* Header */}
             <div className="flex items-center gap-3 mb-3">
                 <GuideAvatar guide={guide} size="lg" />
@@ -185,7 +185,7 @@ function GridCard({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
                     {guide.matchScore !== undefined && (
                         <>
                             <span className="text-gray-300">·</span>
-                            <span className="font-semibold text-indigo-600">{guide.matchScore}% match</span>
+                            <span className="font-semibold text-[#5BA4CF]">{guide.matchScore}% match</span>
                         </>
                     )}
                 </div>
@@ -237,7 +237,7 @@ function ListRow({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
             {/* Match Score */}
             {guide.matchScore !== undefined && (
                 <div className="w-16 shrink-0 hidden lg:block">
-                    <span className="inline-flex items-center rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+                    <span className="inline-flex items-center rounded-full bg-lunavia-light px-2 py-0.5 text-xs font-semibold text-[#2E8BC0]">
                         {guide.matchScore}%
                     </span>
                 </div>
@@ -270,7 +270,7 @@ function CompactRow({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
             <span className="font-medium text-gray-900 w-32 truncate flex items-center gap-1">
                 {guide.name || 'Guide'}
                 {guide.verificationStatus === 'APPROVED' && (
-                    <svg className="h-3 w-3 text-blue-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="h-3 w-3 text-lunavia-primary shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                 )}
@@ -327,7 +327,7 @@ export function ViewModeToggle({ mode, onChange }: ViewModeToggleProps) {
                     onClick={() => onChange(m.value)}
                     title={m.label}
                     className={`rounded-md p-1.5 transition ${mode === m.value
-                        ? 'bg-indigo-100 text-indigo-700'
+                        ? 'bg-lunavia-muted/50 text-[#2E8BC0]'
                         : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >

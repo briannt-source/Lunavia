@@ -6,10 +6,10 @@ interface StatusBadgeProps {
 
 const defaultStatusConfig: Record<string, { bg: string; text: string; label: string; dot?: string }> = {
   // General Tour/Request Status
-  OPEN: { bg: 'bg-blue-50', text: 'text-blue-700', label: 'Open', dot: 'bg-blue-500' },
-  PUBLISHED: { bg: 'bg-blue-50', text: 'text-blue-700', label: 'Published', dot: 'bg-blue-500' },
+  OPEN: { bg: 'bg-lunavia-light', text: 'text-lunavia-primary-hover', label: 'Open', dot: 'bg-lunavia-light0' },
+  PUBLISHED: { bg: 'bg-lunavia-light', text: 'text-lunavia-primary-hover', label: 'Published', dot: 'bg-lunavia-light0' },
   OFFERED: { bg: 'bg-yellow-50', text: 'text-yellow-700', label: 'Offered', dot: 'bg-yellow-500' },
-  ASSIGNED: { bg: 'bg-indigo-50', text: 'text-indigo-700', label: 'Assigned', dot: 'bg-indigo-500' },
+  ASSIGNED: { bg: 'bg-lunavia-light', text: 'text-[#2E8BC0]', label: 'Assigned', dot: 'bg-lunavia-light0' },
   READY: { bg: 'bg-emerald-50', text: 'text-emerald-700', label: 'Ready', dot: 'bg-emerald-500' },
   IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700', label: 'In Progress', dot: 'bg-green-500 animate-pulse' },
   COMPLETED: { bg: 'bg-gray-100', text: 'text-gray-600', label: 'Completed' },

@@ -100,7 +100,7 @@ export default function PortfolioShareCard({ user, stats, role }: ShareCardProps
                                             </div>
                                         )}
                                         {user.verificationStatus === 'APPROVED' && (
-                                            <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-1.5 border-2 border-slate-900">
+                                            <div className="absolute -bottom-1 -right-1 bg-lunavia-light0 rounded-full p-1.5 border-2 border-slate-900">
                                                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                                             </div>
                                         )}

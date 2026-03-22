@@ -74,8 +74,8 @@ function fmtDuration(hours: number | null | undefined): string {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-    OPEN: 'bg-indigo-100 text-indigo-700',
-    PUBLISHED: 'bg-indigo-100 text-indigo-700',
+    OPEN: 'bg-lunavia-muted/50 text-[#2E8BC0]',
+    PUBLISHED: 'bg-lunavia-muted/50 text-[#2E8BC0]',
     OFFERED: 'bg-purple-100 text-purple-700',
     ASSIGNED: 'bg-cyan-100 text-cyan-700',
     READY: 'bg-amber-100 text-amber-700',
@@ -250,7 +250,7 @@ export default function GuideTourDetailPage() {
     if (error || !tour) return (
         <div className="max-w-4xl mx-auto p-8 text-center">
             <p className="text-red-600 mb-4">{error || t('notFound')}</p>
-            <button onClick={() => router.back()} className="text-indigo-600 hover:underline text-sm">{t('back')}</button>
+            <button onClick={() => router.back()} className="text-[#5BA4CF] hover:underline text-sm">{t('back')}</button>
         </div>
     );
 
@@ -268,7 +268,7 @@ export default function GuideTourDetailPage() {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Link href="/dashboard/guide/available" className="hover:text-indigo-600 transition-colors">{t('breadcrumbs.available')}</Link>
+                <Link href="/dashboard/guide/available" className="hover:text-[#5BA4CF] transition-colors">{t('breadcrumbs.available')}</Link>
                 <span>›</span>
                 <span className="text-gray-900 font-medium truncate">{tour.title}</span>
             </div>
@@ -348,7 +348,7 @@ export default function GuideTourDetailPage() {
                                     <div className="space-y-2">
                                         {tour.itinerary.map((item: any, i: number) => (
                                             <div key={i} className="flex items-start gap-3 py-2 px-3 rounded-lg bg-gray-50">
-                                                <div className="mt-0.5 h-6 w-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700 shrink-0">
+                                                <div className="mt-0.5 h-6 w-6 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-xs font-bold text-[#2E8BC0] shrink-0">
                                                     {i + 1}
                                                 </div>
                                                 <div className="text-sm text-gray-700">
@@ -401,7 +401,7 @@ export default function GuideTourDetailPage() {
                     <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
                         <h3 className="font-semibold text-gray-900 text-sm mb-3">{t('operator.sectionTitle')}</h3>
                         <div className="flex items-center gap-3">
-                            <div className="h-12 w-12 rounded-xl bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-700 overflow-hidden">
+                            <div className="h-12 w-12 rounded-xl bg-lunavia-muted/50 flex items-center justify-center text-lg font-bold text-[#2E8BC0] overflow-hidden">
                                 {tour.operator?.profile?.photoUrl ? (
                                     <img src={tour.operator.profile.photoUrl} alt={tour.operator?.profile?.name || ''} className="w-full h-full object-cover" />
                                 ) : (
@@ -456,7 +456,7 @@ export default function GuideTourDetailPage() {
                                 <button
                                     onClick={() => setShowConfirmApply(true)}
                                     disabled={applying}
-                                    className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50"
+                                    className="w-full py-3 bg-lunavia-primary hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50"
                                 >
                                     {t('application.applyBtn')}
                                 </button>
@@ -489,7 +489,7 @@ export default function GuideTourDetailPage() {
 
                             {tour.guideCheckedInAt ? (
                                 <div className="text-center py-3">
-                                    <div className="h-10 w-10 mx-auto rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mb-2">
+                                    <div className="h-10 w-10 mx-auto rounded-full bg-lunavia-muted/50 flex items-center justify-center text-lunavia-primary mb-2">
                                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -499,7 +499,7 @@ export default function GuideTourDetailPage() {
                                         {t('execution.at')}: <span className="font-semibold">{fmtTime(tour.guideCheckedInAt)}</span> ({fmtDate(tour.guideCheckedInAt)})
                                     </p>
                                     {tour.status !== 'IN_PROGRESS' && tour.status !== 'COMPLETED' && (
-                                        <p className="text-xs text-blue-600 mt-2 bg-blue-50 py-1.5 px-2 rounded font-medium">
+                                        <p className="text-xs text-lunavia-primary mt-2 bg-lunavia-light py-1.5 px-2 rounded font-medium">
                                             {t('execution.waiting')}
                                         </p>
                                     )}
@@ -512,7 +512,7 @@ export default function GuideTourDetailPage() {
                                     <button
                                         onClick={handleCheckIn}
                                         disabled={checkingIn || !['ASSIGNED', 'READY'].includes(tour.status)}
-                                        className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50 flex justify-center items-center"
+                                        className="w-full py-3 bg-lunavia-primary hover:bg-lunavia-primary-hover text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50 flex justify-center items-center"
                                     >
                                         {checkingIn ? t('execution.checkingInBtn') : t('execution.checkInBtn')}
                                     </button>
@@ -576,7 +576,7 @@ export default function GuideTourDetailPage() {
                                                             </div>
                                                             <p className="mt-1 text-sm text-gray-700">{ev.message}</p>
                                                             {ev.fileUrl && (
-                                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 text-xs font-medium text-indigo-600 hover:text-indigo-800 inline-flex items-center">
+                                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 text-xs font-medium text-[#5BA4CF] hover:text-indigo-800 inline-flex items-center">
                                                                     {t('dispute.viewEvidence')}
                                                                 </a>
                                                             )}
@@ -625,7 +625,7 @@ export default function GuideTourDetailPage() {
                                 <button
                                     onClick={handleApply}
                                     disabled={applying}
-                                    className="flex-1 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 shadow-sm disabled:opacity-50 transition flex justify-center items-center"
+                                    className="flex-1 px-4 py-2.5 rounded-xl bg-lunavia-primary text-white text-sm font-medium hover:bg-indigo-700 shadow-sm disabled:opacity-50 transition flex justify-center items-center"
                                 >
                                     {applying ? (
                                         <span className="flex items-center gap-2">
@@ -721,7 +721,7 @@ export default function GuideTourDetailPage() {
 function InfoCard({ icon, label, value }: { icon: string; label: string; value: string | React.ReactNode }) {
     return (
         <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-xl shrink-0">
+            <div className="w-10 h-10 rounded-full bg-lunavia-light flex items-center justify-center text-xl shrink-0">
                 {icon}
             </div>
             <div className="min-w-0">

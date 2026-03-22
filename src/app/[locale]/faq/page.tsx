@@ -12,7 +12,7 @@ export default async function FAQPage() {
     return (
         <div className="min-h-screen bg-white font-sans text-gray-900">
             <div className="max-w-3xl mx-auto px-6 py-16">
-                <Link href="/" className="inline-block mb-8 text-indigo-600 font-medium hover:underline">{t('back')}</Link>
+                <Link href="/" className="inline-block mb-8 text-[#5BA4CF] font-medium hover:underline">{t('back')}</Link>
                 <h1 className="text-4xl font-bold mb-12">{t('h1')}</h1>
 
                 <div className="space-y-10">
@@ -47,7 +47,7 @@ export default async function FAQPage() {
 
                 <div className="mt-16 pt-8 border-t border-gray-100 text-center">
                     <p className="text-gray-500">{t('more')}</p>
-                    <Link href="mailto:support@lunavia.vn" className="text-indigo-600 font-bold hover:underline mt-2 inline-block">{t('contact')}</Link>
+                    <Link href="mailto:support@lunavia.vn" className="text-[#5BA4CF] font-bold hover:underline mt-2 inline-block">{t('contact')}</Link>
                 </div>
             </div>
         </div>

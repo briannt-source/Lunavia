@@ -601,8 +601,8 @@ const CATEGORIES: CategoryInfo[] = [
 
 /* ─────────────────── Color maps ─────────────────── */
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; bgLight: string; dot: string }> = {
-    blue:    { bg: 'bg-blue-600',    border: 'border-lunavia-muted/60',    text: 'text-lunavia-primary',    bgLight: 'bg-lunavia-light',    dot: 'bg-lunavia-light0' },
-    indigo:  { bg: 'bg-indigo-600',  border: 'border-[#5BA4CF]/30',  text: 'text-[#5BA4CF]',  bgLight: 'bg-[#E8F4FD]',  dot: 'bg-[#E8F4FD]0' },
+    blue:    { bg: 'bg-lunavia-primary',    border: 'border-lunavia-muted/60',    text: 'text-lunavia-primary',    bgLight: 'bg-lunavia-light',    dot: 'bg-lunavia-light0' },
+    indigo:  { bg: 'bg-lunavia-primary',  border: 'border-[#5BA4CF]/30',  text: 'text-[#5BA4CF]',  bgLight: 'bg-[#E8F4FD]',  dot: 'bg-[#E8F4FD]0' },
     emerald: { bg: 'bg-emerald-600', border: 'border-emerald-200', text: 'text-emerald-600', bgLight: 'bg-emerald-50', dot: 'bg-emerald-500' },
     violet:  { bg: 'bg-violet-600',  border: 'border-violet-200',  text: 'text-violet-600',  bgLight: 'bg-violet-50',  dot: 'bg-violet-500' },
     amber:   { bg: 'bg-amber-600',   border: 'border-amber-200',   text: 'text-amber-600',   bgLight: 'bg-amber-50',   dot: 'bg-amber-500' },
@@ -900,7 +900,7 @@ export default function KnowledgeBasePage() {
 
                     <div className="text-center mt-12">
                         <p className="text-slate-500 mb-4">Still have questions?</p>
-                        <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/25">
+                        <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-3 bg-lunavia-primary text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/25">
                             Contact Support
                         </Link>
                     </div>

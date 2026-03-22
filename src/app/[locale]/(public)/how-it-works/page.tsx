@@ -19,7 +19,7 @@ export default async function HowItWorksPage() {
         <li>{t('step4')}</li>
       </ol>
       <p className="mt-6 text-sm">
-        {t('join.text')} <Link href="/signup" className="text-blue-600 underline">{t('join.link')}</Link>.
+        {t('join.text')} <Link href="/signup" className="text-lunavia-primary underline">{t('join.link')}</Link>.
       </p>
     </PublicLayout>
   );

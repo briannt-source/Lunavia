@@ -54,7 +54,7 @@ export default function PortfolioAbout({ user, isEditable = false, onUpdate }: P
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold text-gray-900">About</h2>
                     {isEditable && !isEditingBio && (
-                        <button onClick={() => setIsEditingBio(true)} className="text-indigo-600 hover:text-indigo-800 text-sm flex items-center gap-1">
+                        <button onClick={() => setIsEditingBio(true)} className="text-[#5BA4CF] hover:text-indigo-800 text-sm flex items-center gap-1">
                             <PencilIcon className="h-4 w-4" /> Edit
                         </button>
                     )}
@@ -70,7 +70,7 @@ export default function PortfolioAbout({ user, isEditable = false, onUpdate }: P
                             placeholder="Tell us about your professional experience..."
                         />
                         <div className="flex gap-2">
-                            <button onClick={handleSaveBio} className="px-3 py-1 bg-indigo-600 text-white text-sm rounded hover:bg-indigo-700">Save Bio</button>
+                            <button onClick={handleSaveBio} className="px-3 py-1 bg-lunavia-primary text-white text-sm rounded hover:bg-indigo-700">Save Bio</button>
                             <button onClick={() => setIsEditingBio(false)} className="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300">Cancel</button>
                         </div>
                     </div>
@@ -91,7 +91,7 @@ export default function PortfolioAbout({ user, isEditable = false, onUpdate }: P
                     <h3 className="text-md font-semibold text-gray-900 mb-3">Skills & Expertise</h3>
                     <div className="flex flex-wrap gap-2 mb-3">
                         {skills.map((skill, idx) => (
-                            <span key={idx} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-50 text-indigo-700">
+                            <span key={idx} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-lunavia-light text-[#2E8BC0]">
                                 {skill}
                                 {isEditable && (
                                     <button onClick={() => handleRemoveSkill(skill)} className="ml-1 text-indigo-400 hover:text-indigo-900">

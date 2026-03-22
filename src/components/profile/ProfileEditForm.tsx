@@ -109,7 +109,7 @@ export function ProfileEditForm({ user, role }: ProfileEditFormProps) {
                     {!isEditing && (
                         <button
                             onClick={() => setIsEditing(true)}
-                            className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                            className="text-sm font-medium text-[#5BA4CF] hover:text-indigo-800"
                         >
                             Edit
                         </button>
@@ -170,7 +170,7 @@ export function ProfileEditForm({ user, role }: ProfileEditFormProps) {
                 {/* Trust Score (Read-only) */}
                 <div>
                     <label className="block text-sm font-medium text-gray-500 mb-1">Trust Score</label>
-                    <div className="mt-1 font-semibold text-indigo-600 space-x-2 flex items-center">
+                    <div className="mt-1 font-semibold text-[#5BA4CF] space-x-2 flex items-center">
                         <span className="text-2xl">{trustScore.toFixed(0)}</span>
                         <span className="text-xs font-normal text-gray-400">(Base 0)</span>
                     </div>
@@ -259,7 +259,7 @@ export function ProfileEditForm({ user, role }: ProfileEditFormProps) {
                             ) : (
                                 <div className="flex flex-wrap gap-1.5">
                                     {parsedLanguages.length > 0 ? parsedLanguages.map((l: { language: string; level: string }, i: number) => (
-                                        <span key={i} className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700 border border-blue-200">
+                                        <span key={i} className="inline-flex items-center rounded-full bg-lunavia-light px-2.5 py-0.5 text-xs font-medium text-lunavia-primary-hover border border-lunavia-muted/60">
                                             {l.language} ({l.level})
                                         </span>
                                     )) : <span className="text-gray-400 text-sm">—</span>}
@@ -334,7 +334,7 @@ export function ProfileEditForm({ user, role }: ProfileEditFormProps) {
                     <button
                         onClick={handleSave}
                         disabled={loading}
-                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                        className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
                     >
                         {loading ? 'Saving...' : 'Save Changes'}
                     </button>

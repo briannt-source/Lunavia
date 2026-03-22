@@ -13,7 +13,7 @@ export function VerificationBadge({ className = '', size = 'md' }: VerificationB
     };
 
     return (
-        <div className={`inline-flex items-center justify-center text-blue-500 ${className}`} title="Identity Verified">
+        <div className={`inline-flex items-center justify-center text-lunavia-primary ${className}`} title="Identity Verified">
             <svg
                 viewBox="0 0 24 24"
                 fill="currentColor"

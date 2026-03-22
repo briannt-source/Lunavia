@@ -149,7 +149,7 @@ export default async function AdminCompaniesPage({
                                             href={member.employmentContractUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-xs text-blue-600 hover:underline"
+                                            className="text-xs text-lunavia-primary hover:underline"
                                           >
                                             {t("viewContract")}
                                           </a>

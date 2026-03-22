@@ -108,7 +108,7 @@ export default function GuideProfilePage() {
                     className="w-24 h-24 rounded-full object-cover border-2 border-slate-200"
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-lunavia-primary to-lunavia-primary flex items-center justify-center">
                     <User className="h-12 w-12 text-white" />
                   </div>
                 )}
@@ -129,7 +129,7 @@ export default function GuideProfilePage() {
                         },
                         FREELANCE_GUIDE: {
                           label: "Freelance",
-                          className: "bg-blue-50 text-blue-700 border-blue-200",
+                          className: "bg-lunavia-light text-lunavia-primary-hover border-lunavia-muted/60",
                         },
                         IN_HOUSE_GUIDE: {
                           label: "In-House",
@@ -141,7 +141,7 @@ export default function GuideProfilePage() {
                         },
                         EXPERIENCED: {
                           label: "Experienced",
-                          className: "bg-indigo-50 text-indigo-700 border-indigo-200",
+                          className: "bg-lunavia-light text-[#2E8BC0] border-[#5BA4CF]/30",
                         },
                       };
                       const config = badgeConfig[badge] || {
@@ -232,7 +232,7 @@ export default function GuideProfilePage() {
                       {profile.languages.map((lang: string, idx: number) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200"
+                          className="px-3 py-1 bg-lunavia-light text-lunavia-primary-hover rounded-lg text-sm border border-lunavia-muted/60"
                         >
                           {lang}
                         </span>
@@ -313,7 +313,7 @@ export default function GuideProfilePage() {
                   {guideProfile.reviewsReceived.map((review: any) => (
                     <div 
                       key={review.id} 
-                      className="border border-slate-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                      className="border border-slate-200 rounded-lg p-4 hover:border-lunavia-primary/40 hover:shadow-sm transition-all"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -325,8 +325,8 @@ export default function GuideProfilePage() {
                                 className="w-8 h-8 rounded-full object-cover"
                               />
                             ) : (
-                              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                <User className="h-4 w-4 text-blue-600" />
+                              <div className="w-8 h-8 rounded-full bg-lunavia-muted/50 flex items-center justify-center">
+                                <User className="h-4 w-4 text-lunavia-primary" />
                               </div>
                             )}
                             <div>

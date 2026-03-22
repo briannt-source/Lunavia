@@ -78,7 +78,7 @@ export default function GuideContractPage() {
                 <div className="text-4xl mb-4">🚫</div>
                 <h1 className="text-xl font-bold text-gray-900 mb-2">{t('status.noOperatorTitle')}</h1>
                 <p className="text-sm text-gray-500 mb-6">{t('status.noOperatorDesc')}</p>
-                <a href="/dashboard/guide/profile" className="text-sm font-semibold text-indigo-600 hover:text-indigo-700">{t('backToProfile')}</a>
+                <a href="/dashboard/guide/profile" className="text-sm font-semibold text-[#5BA4CF] hover:text-[#2E8BC0]">{t('backToProfile')}</a>
             </div>
         );
     }
@@ -90,7 +90,7 @@ export default function GuideContractPage() {
                 <h1 className="text-xl font-bold text-gray-900 mb-2">{t('status.reviewTitle')}</h1>
                 <p className="text-sm text-gray-500 mb-2">{t('status.reviewDesc')}</p>
                 <p className="text-xs text-gray-400">{t('type')} {contract.contractType}</p>
-                <a href="/dashboard/guide/profile" className="inline-block mt-6 text-sm font-semibold text-indigo-600 hover:text-indigo-700">{t('backToProfile')}</a>
+                <a href="/dashboard/guide/profile" className="inline-block mt-6 text-sm font-semibold text-[#5BA4CF] hover:text-[#2E8BC0]">{t('backToProfile')}</a>
             </div>
         );
     }
@@ -101,7 +101,7 @@ export default function GuideContractPage() {
                 <div className="text-4xl mb-4">✅</div>
                 <h1 className="text-xl font-bold text-gray-900 mb-2">{t('status.approvedTitle')}</h1>
                 <p className="text-sm text-gray-500 mb-2">{t('status.approvedDesc')}</p>
-                <a href="/dashboard/guide/profile" className="inline-block mt-6 text-sm font-semibold text-indigo-600 hover:text-indigo-700">{t('backToProfile')}</a>
+                <a href="/dashboard/guide/profile" className="inline-block mt-6 text-sm font-semibold text-[#5BA4CF] hover:text-[#2E8BC0]">{t('backToProfile')}</a>
             </div>
         );
     }
@@ -122,7 +122,7 @@ export default function GuideContractPage() {
                         value={contractType}
                         onChange={e => setContractType(e.target.value)}
                         required
-                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition outline-none text-sm"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 transition outline-none text-sm"
                     >
                         <option value="">{t('form.typePlaceholder')}</option>
                         <option value="EMPLOYMENT">{t('types.employment')}</option>
@@ -139,7 +139,7 @@ export default function GuideContractPage() {
                         onChange={e => setDocumentUrl(e.target.value)}
                         placeholder={t('form.urlPlaceholder')}
                         required
-                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition outline-none text-sm"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 transition outline-none text-sm"
                     />
                     <p className="mt-1.5 text-xs text-gray-400">{t('form.urlHint')}</p>
                 </div>
@@ -157,7 +157,7 @@ export default function GuideContractPage() {
                 <button
                     type="submit"
                     disabled={submitting || !contractType || !documentUrl.trim()}
-                    className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50"
+                    className="w-full px-6 py-3 bg-lunavia-primary hover:bg-lunavia-primary-hover text-white font-semibold rounded-xl transition-colors shadow-sm disabled:opacity-50"
                 >
                     {submitting ? t('form.submittingBtn') : t('form.submitBtn')}
                 </button>

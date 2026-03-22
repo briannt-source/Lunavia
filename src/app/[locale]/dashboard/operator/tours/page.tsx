@@ -21,8 +21,8 @@ import { Link } from '@/navigation';
 
 const TOUR_STATES: Record<string, { label: string; color: string }> = {
   DRAFT: { label: "Draft", color: "bg-gray-100 text-gray-600" },
-  OPEN: { label: "Open", color: "bg-blue-50 text-blue-700" },
-  PUBLISHED: { label: "Published", color: "bg-blue-50 text-blue-700" },
+  OPEN: { label: "Open", color: "bg-lunavia-light text-lunavia-primary-hover" },
+  PUBLISHED: { label: "Published", color: "bg-lunavia-light text-lunavia-primary-hover" },
   ASSIGNED: { label: "Assigned", color: "bg-violet-50 text-violet-700" },
   CONFIRMED: { label: "Confirmed", color: "bg-emerald-50 text-emerald-700" },
   IN_PROGRESS: { label: "In Progress", color: "bg-amber-50 text-amber-700" },
@@ -78,7 +78,7 @@ export default function TourListPage() {
           <p className="text-sm text-gray-500 mt-1">Manage and track all your tours</p>
         </div>
         <Link href="/dashboard/operator/tours/new">
-          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm gap-1.5 active:scale-[0.98]">
+          <Button className="bg-lunavia-primary hover:bg-indigo-700 text-white text-sm gap-1.5 active:scale-[0.98]">
             <Plus className="h-4 w-4" />
             Create New Tour
           </Button>
@@ -138,7 +138,7 @@ export default function TourListPage() {
             const state = TOUR_STATES[tour.status] || TOUR_STATES.DRAFT;
             return (
               <Link key={tour.id} href={`/dashboard/operator/tours/${tour.id}`}>
-                <div className="bg-white rounded-xl border border-gray-100 p-4 hover:border-indigo-200 hover:bg-indigo-50/20 transition-all group"
+                <div className="bg-white rounded-xl border border-gray-100 p-4 hover:border-[#5BA4CF]/30 hover:bg-lunavia-light/20 transition-all group"
                      style={{ boxShadow: 'var(--shadow-xs)' }}>
                   <div className="flex items-center gap-4">
                     <div className="flex-1 min-w-0">
@@ -169,7 +169,7 @@ export default function TourListPage() {
                         )}
                       </div>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-indigo-500 transition shrink-0" />
+                    <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#5BA4CF] transition shrink-0" />
                   </div>
                 </div>
               </Link>

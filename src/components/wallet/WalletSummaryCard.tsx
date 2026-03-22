@@ -70,7 +70,7 @@ export function WalletSummaryCard({ compact = false }: WalletSummaryCardProps) {
                     </div>
                     <Link
                         href="/dashboard/operator/wallet"
-                        className="text-xs font-medium text-indigo-600 hover:text-indigo-700"
+                        className="text-xs font-medium text-[#5BA4CF] hover:text-[#2E8BC0]"
                     >
                         Top up →
                     </Link>
@@ -87,7 +87,7 @@ export function WalletSummaryCard({ compact = false }: WalletSummaryCardProps) {
                 </h3>
                 <Link
                     href="/dashboard/operator/wallet"
-                    className="text-xs font-medium text-indigo-600 hover:text-indigo-700"
+                    className="text-xs font-medium text-[#5BA4CF] hover:text-[#2E8BC0]"
                 >
                     Manage →
                 </Link>

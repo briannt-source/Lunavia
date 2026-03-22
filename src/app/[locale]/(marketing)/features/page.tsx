@@ -158,7 +158,7 @@ export default function FeaturesPage() {
                             key={tabItem.key}
                             onClick={() => setTab(tabItem.key)}
                             className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === tabItem.key
-                                ? 'bg-indigo-600 text-white shadow-lg'
+                                ? 'bg-lunavia-primary text-white shadow-lg'
                                 : 'text-slate-500 hover:text-slate-900'
                                 }`}
                         >
@@ -234,7 +234,7 @@ export default function FeaturesPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('cta.title')}</h2>
                     <p className="text-slate-500 mb-8">{t('cta.subtitle')}</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/25 text-lg">
+                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/25 text-lg">
                             {t('cta.start')}
                         </Link>
                         <Link href="/pricing" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition text-lg shadow-sm">

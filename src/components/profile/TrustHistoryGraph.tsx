@@ -77,7 +77,7 @@ export function TrustHistoryGraph({ userId }: { userId: string }) {
                                 return (
                                     <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
                                         <p className="font-semibold text-gray-900">{payload[0].payload.tooltipDate}</p>
-                                        <p className="text-indigo-600 font-bold text-lg">Score: {payload[0].value}</p>
+                                        <p className="text-[#5BA4CF] font-bold text-lg">Score: {payload[0].value}</p>
                                         <p className="text-xs text-gray-500 mt-1">{payload[0].payload.reason}</p>
                                     </div>
                                 );

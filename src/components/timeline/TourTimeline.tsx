@@ -26,8 +26,8 @@ const ACTOR_ICONS: Record<string, string> = {
 };
 
 const EVENT_COLORS: Record<string, string> = {
-    TOUR_PUBLISHED: 'bg-blue-500',
-    GUIDE_ASSIGNED: 'bg-indigo-500',
+    TOUR_PUBLISHED: 'bg-lunavia-light0',
+    GUIDE_ASSIGNED: 'bg-lunavia-light0',
     GUIDE_CHECKED_IN: 'bg-cyan-500',
     TOUR_STARTED_BY_OPERATOR: 'bg-green-500',
     TOUR_AUTO_STARTED: 'bg-green-400',
@@ -40,7 +40,7 @@ const EVENT_COLORS: Record<string, string> = {
     PAYMENT_REJECTED: 'bg-red-600',
     INCIDENT_REPORTED: 'bg-red-400',
     DISPUTE_OPENED: 'bg-yellow-600',
-    DISPUTE_RESOLVED: 'bg-blue-600',
+    DISPUTE_RESOLVED: 'bg-lunavia-primary',
     LATE_RETURN_FLAGGED: 'bg-amber-500',
 };
 

@@ -36,7 +36,7 @@ function AIMatchContent() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
-          <Zap className="h-8 w-8 text-indigo-600" />
+          <Zap className="h-8 w-8 text-[#5BA4CF]" />
           <h1 className="text-3xl font-bold">Lunavia AI Matching</h1>
         </div>
         <p className="text-muted-foreground">

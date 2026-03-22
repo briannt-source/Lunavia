@@ -59,7 +59,7 @@ export default function SubscriptionPage() {
                 variant="outline"
                 className={`${
                   currentPlan === "PRO"
-                    ? "bg-indigo-600 text-white border-indigo-500"
+                    ? "bg-lunavia-primary text-white border-indigo-500"
                     : currentPlan === "TRIAL"
                     ? "bg-amber-50 text-amber-700 border-amber-300"
                     : "bg-gray-100 text-gray-700 border-gray-300"
@@ -119,7 +119,7 @@ export default function SubscriptionPage() {
           <Card className="rounded-xl shadow-sm border-indigo-500">
             <CardHeader>
               <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                <Crown className="h-5 w-5 text-indigo-600" />
+                <Crown className="h-5 w-5 text-[#5BA4CF]" />
                 {t("upgradeToPro")}
               </CardTitle>
             </CardHeader>
@@ -128,7 +128,7 @@ export default function SubscriptionPage() {
                 {t("upgradeDesc")}
               </p>
               <Button
-                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
+                className="bg-lunavia-primary hover:bg-indigo-700 text-white rounded-xl"
                 disabled
               >
                 {t("upgradeBtn")}
@@ -155,7 +155,7 @@ export default function SubscriptionPage() {
                     <th className="text-left p-3 text-gray-500 font-medium">{t("feature")}</th>
                     <th className="text-center p-3 text-gray-500 font-medium">Free</th>
                     <th className="text-center p-3 text-gray-500 font-medium">Trial</th>
-                    <th className="text-center p-3 text-indigo-600 font-medium">Pro</th>
+                    <th className="text-center p-3 text-[#5BA4CF] font-medium">Pro</th>
                   </tr>
                 </thead>
                 <tbody>

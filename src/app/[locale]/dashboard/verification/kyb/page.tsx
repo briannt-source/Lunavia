@@ -351,7 +351,7 @@ export default function KYBSubmissionPage() {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:underline flex-1"
+                          className="text-sm text-lunavia-primary hover:underline flex-1"
                         >
                           File {index + 1}
                         </a>

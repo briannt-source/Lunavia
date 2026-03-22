@@ -63,8 +63,8 @@ function StarRating({ rating }: { rating: number }) {
 function StatusBadge({ status }: { status: string }) {
     const colors: Record<string, string> = {
         COMPLETED: 'bg-green-100 text-green-700',
-        PUBLISHED: 'bg-indigo-100 text-indigo-700',
-        IN_PROGRESS: 'bg-blue-100 text-blue-700',
+        PUBLISHED: 'bg-lunavia-muted/50 text-[#2E8BC0]',
+        IN_PROGRESS: 'bg-lunavia-muted/50 text-lunavia-primary-hover',
         CANCELLED: 'bg-red-100 text-red-700',
     };
     return (
@@ -87,7 +87,7 @@ export default function OperatorPublicProfile({ operator, stats, tours, reviews 
                         {operator.avatarUrl ? (
                             <img src={operator.avatarUrl} alt={operator.name} className="h-full w-full object-cover" />
                         ) : (
-                            <span className="text-2xl font-bold text-indigo-600">
+                            <span className="text-2xl font-bold text-[#5BA4CF]">
                                 {(operator.name || operator.email || 'O').charAt(0).toUpperCase()}
                             </span>
                         )}
@@ -95,7 +95,7 @@ export default function OperatorPublicProfile({ operator, stats, tours, reviews 
 
                     {/* Info */}
                     <div className="flex-1 text-center md:text-left min-w-0">
-                        <p className="text-[10px] font-semibold text-indigo-500 uppercase tracking-widest mb-1">Tour Operator</p>
+                        <p className="text-[10px] font-semibold text-[#5BA4CF] uppercase tracking-widest mb-1">Tour Operator</p>
                         <div className="flex items-center justify-center md:justify-start gap-2 mb-1.5">
                             <h1 className="text-2xl font-bold text-gray-900 truncate">{operator.name || 'Tour Operator'}</h1>
                             {operator.verificationStatus === 'APPROVED' && (
@@ -131,7 +131,7 @@ export default function OperatorPublicProfile({ operator, stats, tours, reviews 
             {/* IMPORTANT: No individual guide data exposed here */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="rounded-xl border border-gray-200 bg-white p-5 text-center shadow-sm">
-                    <div className="text-3xl font-bold text-indigo-600">{stats.completedTours}</div>
+                    <div className="text-3xl font-bold text-[#5BA4CF]">{stats.completedTours}</div>
                     <div className="text-xs text-gray-500 mt-1 font-medium">Tours Completed</div>
                 </div>
                 <div className="rounded-xl border border-gray-200 bg-white p-5 text-center shadow-sm">
@@ -168,7 +168,7 @@ export default function OperatorPublicProfile({ operator, stats, tours, reviews 
                                     <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Specialties</h3>
                                     <div className="flex flex-wrap gap-1.5">
                                         {operator.tourSpecialties.map(s => (
-                                            <span key={s} className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-600">
+                                            <span key={s} className="inline-flex items-center rounded-md bg-lunavia-light px-2 py-0.5 text-xs font-medium text-[#5BA4CF]">
                                                 {s}
                                             </span>
                                         ))}

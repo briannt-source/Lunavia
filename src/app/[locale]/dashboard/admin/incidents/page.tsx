@@ -36,7 +36,7 @@ export default function IncidentDashboard() {
             case 'CRITICAL': return 'text-red-600 bg-red-50 border-red-200';
             case 'HIGH': return 'text-orange-600 bg-orange-50 border-orange-200';
             case 'MEDIUM': return 'text-amber-600 bg-amber-50 border-amber-200';
-            default: return 'text-blue-600 bg-blue-50 border-blue-200';
+            default: return 'text-lunavia-primary bg-lunavia-light border-lunavia-muted/60';
         }
     }
 

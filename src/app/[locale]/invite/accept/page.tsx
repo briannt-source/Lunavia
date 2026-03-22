@@ -86,7 +86,7 @@ function AcceptInviteContent() {
                                 {invitation.operatorAvatar ? (
                                     <img src={invitation.operatorAvatar} alt="" className="h-10 w-10 rounded-full object-cover" />
                                 ) : (
-                                    <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-600">
+                                    <div className="h-10 w-10 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-sm font-bold text-[#5BA4CF]">
                                         {invitation.operatorName?.[0]?.toUpperCase() || '?'}
                                     </div>
                                 )}
@@ -103,7 +103,7 @@ function AcceptInviteContent() {
 
                         <button
                             onClick={handleAccept}
-                            className="w-full bg-indigo-600 text-white py-3 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors"
+                            className="w-full bg-lunavia-primary text-white py-3 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors"
                         >
                             Accept Invitation
                         </button>
@@ -134,7 +134,7 @@ function AcceptInviteContent() {
                         </p>
                         <button
                             onClick={() => router.push('/dashboard/guide')}
-                            className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+                            className="bg-lunavia-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
                         >
                             Go to Dashboard
                         </button>
@@ -152,7 +152,7 @@ function AcceptInviteContent() {
                         <p className="text-sm text-gray-500 mb-6">{errorMsg}</p>
                         <button
                             onClick={() => router.push('/login')}
-                            className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                            className="text-sm font-medium text-[#5BA4CF] hover:text-[#2E8BC0]"
                         >
                             Go to Login →
                         </button>

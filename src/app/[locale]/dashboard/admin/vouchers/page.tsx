@@ -133,11 +133,11 @@ export default function VoucherAdminPage() {
                     </div>
                     <div className="text-sm text-green-600">Active</div>
                 </div>
-                <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 shadow-sm">
-                    <div className="text-2xl font-bold text-blue-700">
+                <div className="rounded-xl border border-lunavia-muted/60 bg-lunavia-light p-4 shadow-sm">
+                    <div className="text-2xl font-bold text-lunavia-primary-hover">
                         {vouchers.reduce((acc, v) => acc + v.currentRedemptions, 0)}
                     </div>
-                    <div className="text-sm text-blue-600">Total Redemptions</div>
+                    <div className="text-sm text-lunavia-primary">Total Redemptions</div>
                 </div>
             </div>
 
@@ -161,7 +161,7 @@ export default function VoucherAdminPage() {
                                     <span className="font-mono font-medium text-gray-900">{voucher.code}</span>
                                 </td>
                                 <td className="px-4 py-3">
-                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${voucher.plan === 'PREMIUM' ? 'bg-lunavia-accent-light text-lunavia-accent' : 'bg-blue-100 text-blue-700'
+                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${voucher.plan === 'PREMIUM' ? 'bg-lunavia-accent-light text-lunavia-accent' : 'bg-lunavia-muted/50 text-lunavia-primary-hover'
                                         }`}>
                                         {voucher.plan}
                                     </span>

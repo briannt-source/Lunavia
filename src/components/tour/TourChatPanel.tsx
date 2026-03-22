@@ -148,9 +148,9 @@ export default function TourChatPanel({ tourId, isAdminView = false }: TourChatP
                                     <div
                                         className={`max-w-[85%] rounded-2xl px-4 py-2.5 shadow-sm text-sm ${
                                             isMe
-                                                ? 'bg-indigo-600 text-white rounded-tr-sm'
+                                                ? 'bg-lunavia-primary text-white rounded-tr-sm'
                                                 : msg.role === 'OPERATOR' 
-                                                    ? 'bg-blue-50 border border-blue-100 text-blue-900 rounded-tl-sm'
+                                                    ? 'bg-lunavia-light border border-lunavia-muted/40 text-blue-900 rounded-tl-sm'
                                                     : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm'
                                         }`}
                                     >
@@ -190,7 +190,7 @@ export default function TourChatPanel({ tourId, isAdminView = false }: TourChatP
                         className={`h-11 px-6 rounded-xl text-sm font-medium text-white transition-colors flex-shrink-0 flex items-center justify-center min-w-[80px] ${
                             isAdminView
                                 ? 'bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300'
-                                : 'bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300'
+                                : 'bg-lunavia-primary hover:bg-indigo-700 disabled:bg-indigo-300'
                         }`}
                     >
                         {sending ? (

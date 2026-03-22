@@ -24,7 +24,7 @@ export function GuidePortfolio({ guide, feedbackSummary }: PortfolioProps) {
             {/* Header / Banner */}
             <div className="bg-indigo-900 p-8 text-white relative">
                 <div className="relative z-10 flex items-center gap-6">
-                    <div className="h-24 w-24 rounded-full bg-indigo-500 border-4 border-white/20 flex items-center justify-center text-4xl font-bold shadow-2xl">
+                    <div className="h-24 w-24 rounded-full bg-lunavia-light0 border-4 border-white/20 flex items-center justify-center text-4xl font-bold shadow-2xl">
                         {guide.email[0].toUpperCase()}
                     </div>
                     <div>
@@ -51,7 +51,7 @@ export function GuidePortfolio({ guide, feedbackSummary }: PortfolioProps) {
                     <div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Trust Summary</h3>
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center text-center">
-                            <div className="text-4xl font-black text-indigo-600 mb-1">{guide.trustScore}</div>
+                            <div className="text-4xl font-black text-[#5BA4CF] mb-1">{guide.trustScore}</div>
                             <div className="text-xs font-bold text-gray-900 uppercase tracking-wide">{guide.trustState} Status</div>
                             <p className="text-[10px] text-gray-500 mt-2">Certified reliability score based on platform history.</p>
                         </div>
@@ -64,7 +64,7 @@ export function GuidePortfolio({ guide, feedbackSummary }: PortfolioProps) {
                                 <span className="bg-amber-100 text-amber-700 text-[10px] font-bold px-3 py-1 rounded-full border border-amber-200">Elite Veteran</span>
                             )}
                             {guide.trustScore >= 95 && (
-                                <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-200">Top Trusted</span>
+                                <span className="bg-lunavia-muted/50 text-lunavia-primary-hover text-[10px] font-bold px-3 py-1 rounded-full border border-lunavia-muted/60">Top Trusted</span>
                             )}
                             {guide.kycStatus === 'APPROVED' && (
                                 <span className="bg-green-100 text-green-700 text-[10px] font-bold px-3 py-1 rounded-full border border-green-200">KYC Verified</span>

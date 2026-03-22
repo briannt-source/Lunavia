@@ -250,7 +250,7 @@ export default function GuideVerification() {
                 className="h-20 w-20 rounded-full object-cover border-2 border-white shadow-md"
               />
             ) : (
-              <div className="h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-bold text-indigo-600 border-2 border-white shadow-md">
+              <div className="h-20 w-20 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-2xl font-bold text-[#5BA4CF] border-2 border-white shadow-md">
                 {session?.user?.email?.[0]?.toUpperCase()}
               </div>
             )}
@@ -379,7 +379,7 @@ export default function GuideVerification() {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="flex-1 rounded-lg bg-lunavia-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
             {submitting ? t('form.submittingBtn') : t('form.submitBtn')}
           </button>

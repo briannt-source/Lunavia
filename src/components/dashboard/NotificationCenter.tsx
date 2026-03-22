@@ -136,7 +136,7 @@ export function NotificationCenter() {
                         <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
                         <button
                             onClick={markAllRead}
-                            className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                            className="text-xs text-[#5BA4CF] hover:text-indigo-800 font-medium"
                         >
                             Mark all as read
                         </button>
@@ -153,7 +153,7 @@ export function NotificationCenter() {
                                     <li
                                         key={notification.id}
                                         onClick={() => handleNotificationClick(notification)}
-                                        className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${!notification.isRead ? 'bg-indigo-50/40' : ''}`}
+                                        className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${!notification.isRead ? 'bg-lunavia-light/40' : ''}`}
                                     >
                                         <div className="flex gap-3">
                                             <div className="flex-1">
@@ -168,7 +168,7 @@ export function NotificationCenter() {
                                                 </p>
                                             </div>
                                             {!notification.isRead && (
-                                                <div className="w-2 h-2 bg-indigo-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                                                <div className="w-2 h-2 bg-lunavia-primary rounded-full mt-1.5 flex-shrink-0"></div>
                                             )}
                                         </div>
                                     </li>

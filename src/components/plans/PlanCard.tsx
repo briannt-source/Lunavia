@@ -30,14 +30,14 @@ export function PlanCard({ currentPlan, activeTours = 0, role }: PlanCardProps) 
                             <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${currentPlan === 'ELITE'
                                 ? 'bg-amber-100 text-amber-800'
                                 : currentPlan === 'PRO'
-                                    ? 'bg-indigo-100 text-indigo-800'
+                                    ? 'bg-lunavia-muted/50 text-indigo-800'
                                     : 'bg-gray-100 text-gray-700'
                                 }`}>
                                 {currentPlan}
                             </span>
                         </div>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-xl">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lunavia-muted/50 text-xl">
                         {currentPlan === 'ELITE' ? '👑' : currentPlan === 'PRO' ? '⭐' : '🌱'}
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export function PlanCard({ currentPlan, activeTours = 0, role }: PlanCardProps) 
                         {maxTours !== null && (
                             <div className="h-2 overflow-hidden rounded-full bg-gray-100">
                                 <div
-                                    className={`h-full rounded-full transition-all ${activeTours >= maxTours ? 'bg-red-500' : 'bg-indigo-500'
+                                    className={`h-full rounded-full transition-all ${activeTours >= maxTours ? 'bg-red-500' : 'bg-lunavia-light0'
                                         }`}
                                     style={{ width: `${Math.min((activeTours / maxTours) * 100, 100)}%` }}
                                 />
@@ -83,12 +83,12 @@ export function PlanCard({ currentPlan, activeTours = 0, role }: PlanCardProps) 
                     <div className="mt-4 border-t border-gray-100 pt-4">
                         <button
                             onClick={() => setShowUpgradeModal(true)}
-                            className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+                            className="w-full rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
                         >
                             Upgrade Plan
                         </button>
                         <p className="mt-2 text-center text-xs text-gray-400">
-                            <Link href="/dashboard/account/subscription" className="text-indigo-600 hover:underline">View all plans</Link>
+                            <Link href="/dashboard/account/subscription" className="text-[#5BA4CF] hover:underline">View all plans</Link>
                         </p>
                     </div>
                 )}
@@ -112,7 +112,7 @@ export function PlanBadge({ plan }: { plan: UserPlan }) {
         <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${plan === 'ELITE'
             ? 'bg-amber-100 text-amber-800'
             : plan === 'PRO'
-                ? 'bg-indigo-100 text-indigo-800'
+                ? 'bg-lunavia-muted/50 text-indigo-800'
                 : 'bg-gray-100 text-gray-600'
             }`}>
             {plan === 'ELITE' ? '👑' : plan === 'PRO' ? '⭐' : '🌱'}

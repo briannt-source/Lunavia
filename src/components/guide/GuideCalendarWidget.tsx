@@ -149,7 +149,7 @@ export default function GuideCalendarWidget() {
 
                                 let bgClass = 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-900';
                                 if (isUnavailable) bgClass = 'bg-red-50 hover:bg-red-100 border-red-200 text-red-900';
-                                if (isBooked) bgClass = 'bg-indigo-50 hover:bg-indigo-100 border-indigo-200 text-indigo-900';
+                                if (isBooked) bgClass = 'bg-lunavia-light hover:bg-lunavia-muted/50 border-[#5BA4CF]/30 text-indigo-900';
                                 if (isPast) bgClass = 'bg-gray-50 border-gray-100 text-gray-400 cursor-default';
 
                                 return (
@@ -177,9 +177,9 @@ export default function GuideCalendarWidget() {
                     <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Upcoming Tours This Month</h4>
                     <div className="space-y-2">
                         {tours.slice(0, 5).map(t => (
-                            <div key={t.id} className="flex items-center justify-between bg-indigo-50 rounded-lg px-3 py-2 text-sm">
+                            <div key={t.id} className="flex items-center justify-between bg-lunavia-light rounded-lg px-3 py-2 text-sm">
                                 <span className="font-medium text-indigo-900 truncate max-w-[200px]">{t.title}</span>
-                                <span className="text-indigo-500 text-xs">
+                                <span className="text-[#5BA4CF] text-xs">
                                     {new Date(t.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
                                 </span>
                             </div>

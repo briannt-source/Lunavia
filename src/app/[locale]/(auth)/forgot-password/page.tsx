@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
         <main className="flex min-h-screen items-center justify-center bg-white p-6">
             <div className="w-full max-w-sm animate-fade-in">
                 <div className="mb-10 text-center">
-                    <Link href="/" className="text-3xl font-black text-indigo-600 tracking-widest uppercase">
+                    <Link href="/" className="text-3xl font-black text-[#5BA4CF] tracking-widest uppercase">
                         Lunavia.
                     </Link>
                 </div>
@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
                         <div className="pt-4 space-y-3">
                             <button
                                 onClick={() => { setSent(false); setEmail(''); }}
-                                className="text-sm text-indigo-600 hover:underline font-medium"
+                                className="text-sm text-[#5BA4CF] hover:underline font-medium"
                             >
                                 Try a different email
                             </button>

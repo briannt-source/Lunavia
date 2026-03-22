@@ -288,7 +288,7 @@ export default function GuideAvailablePage() {
                 </h2>
                 <button
                   onClick={() => { setProvince(''); setStartDate(''); setCategory(''); setGroupSize(''); setLanguage(''); }}
-                  className="text-xs font-medium text-gray-400 hover:text-indigo-600 transition"
+                  className="text-xs font-medium text-gray-400 hover:text-[#5BA4CF] transition"
                 >
                   {t('filters.clear')}
                 </button>
@@ -505,12 +505,12 @@ export default function GuideAvailablePage() {
             ) : (
               <div className="space-y-4 animate-fade-in">
                 {sortedRequests.map(req => (
-                  <div key={req.id} className={`bg-white rounded-xl overflow-hidden border shadow-sm hover:shadow-md transition-all duration-200 ${guideCity && (req.province === guideCity || req.city === guideCity) ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-gray-100'}`}>
+                  <div key={req.id} className={`bg-white rounded-xl overflow-hidden border shadow-sm hover:shadow-md transition-all duration-200 ${guideCity && (req.province === guideCity || req.city === guideCity) ? 'border-[#5BA4CF]/30 ring-1 ring-indigo-100' : 'border-gray-100'}`}>
                     {/* Region match badge */}
                     {guideCity && (req.province === guideCity || req.city === guideCity) && (
-                      <div className="bg-indigo-50 px-5 py-1.5 border-b border-indigo-100 flex items-center gap-1.5">
+                      <div className="bg-lunavia-light px-5 py-1.5 border-b border-[#5BA4CF]/20 flex items-center gap-1.5">
                         <span className="text-xs">📍</span>
-                        <span className="text-[11px] font-semibold text-indigo-600">Same area as you</span>
+                        <span className="text-[11px] font-semibold text-[#5BA4CF]">Same area as you</span>
                       </div>
                     )}
                     <div className="p-5">
@@ -519,7 +519,7 @@ export default function GuideAvailablePage() {
                           <div className="flex items-center gap-2 mb-1">
                             <CategoryBadge label={req.category || 'TOUR'} />
                             {req.marketType && (
-                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${req.marketType === 'INBOUND' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-purple-50 text-purple-700 border border-purple-200'}`}>
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${req.marketType === 'INBOUND' ? 'bg-lunavia-light text-lunavia-primary-hover border border-lunavia-muted/60' : 'bg-purple-50 text-purple-700 border border-purple-200'}`}>
                                 {req.marketType === 'INBOUND' ? '🇻🇳 Inbound' : '✈️ Outbound'}
                               </span>
                             )}
@@ -574,7 +574,7 @@ export default function GuideAvailablePage() {
                       <div className="flex items-center justify-between pt-3 border-t border-gray-50">
                         <div className="flex items-center gap-3">
                           {/* Operator Avatar */}
-                          <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700 shrink-0 overflow-hidden border-2 border-white shadow-sm">
+                          <div className="w-10 h-10 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-sm font-bold text-[#2E8BC0] shrink-0 overflow-hidden border-2 border-white shadow-sm">
                             {req.operator?.profile?.photoUrl ? (
                               <img src={req.operator.profile.photoUrl} alt={req.operator?.profile?.name || ''} className="w-full h-full object-cover" />
                             ) : (
@@ -609,7 +609,7 @@ export default function GuideAvailablePage() {
                         <div className="flex items-center gap-3">
                           <Link
                             href={`/dashboard/guide/tours/${req.id}`}
-                            className="px-4 py-2 border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-indigo-700 font-medium text-sm rounded-lg transition"
+                            className="px-4 py-2 border border-gray-200 hover:border-[#5BA4CF]/40 text-gray-700 hover:text-[#2E8BC0] font-medium text-sm rounded-lg transition"
                           >
                             {t('regular.viewDetails')}
                           </Link>
@@ -624,7 +624,7 @@ export default function GuideAvailablePage() {
                             <button
                               onClick={() => handleApply(req.id)}
                               disabled={applying === req.id || !['OPEN', 'PUBLISHED'].includes(req.status)}
-                              className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg transition shadow-sm disabled:opacity-50"
+                              className="px-6 py-2 bg-lunavia-primary hover:bg-indigo-700 text-white font-medium text-sm rounded-lg transition shadow-sm disabled:opacity-50"
                             >
                               {applying === req.id ? t('regular.processing') : t('regular.applyBtn')}
                             </button>

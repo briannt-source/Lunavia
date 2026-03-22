@@ -113,7 +113,7 @@ export default function OperatorInsightsPage() {
                 <Card className="card-elevated border-0">
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                            <TrendingUp className="h-4 w-4 text-indigo-500" />
+                            <TrendingUp className="h-4 w-4 text-[#5BA4CF]" />
                             {t('charts.toursMonthly')}
                         </CardTitle>
                     </CardHeader>
@@ -275,10 +275,10 @@ function KPICard({ icon, label, value, trend, color, suffix }: {
     suffix?: string;
 }) {
     const colorMap: Record<string, string> = {
-        indigo: 'text-indigo-600',
+        indigo: 'text-[#5BA4CF]',
         emerald: 'text-emerald-600',
         amber: 'text-amber-600',
-        blue: 'text-blue-600',
+        blue: 'text-lunavia-primary',
     };
 
     return (

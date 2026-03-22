@@ -45,14 +45,14 @@ export default function PortfolioTimeline({ workHistory = [], isEditable = false
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg font-bold text-gray-900">Experience Timeline</h2>
                 {isEditable && !isAdding && (
-                    <button onClick={() => setIsAdding(true)} className="text-indigo-600 hover:text-indigo-800 text-sm flex items-center gap-1">
+                    <button onClick={() => setIsAdding(true)} className="text-[#5BA4CF] hover:text-indigo-800 text-sm flex items-center gap-1">
                         <PlusIcon className="h-4 w-4" /> Add Experience
                     </button>
                 )}
             </div>
 
             {isAdding && (
-                <div className="bg-gray-50 p-4 rounded-md mb-4 border border-indigo-100">
+                <div className="bg-gray-50 p-4 rounded-md mb-4 border border-[#5BA4CF]/20">
                     <div className="grid grid-cols-2 gap-4 mb-2">
                         <div>
                             <label className="block text-xs font-medium text-gray-700">Role</label>
@@ -93,7 +93,7 @@ export default function PortfolioTimeline({ workHistory = [], isEditable = false
                     </div>
                     <div className="flex gap-2 justify-end">
                         <button onClick={() => setIsAdding(false)} className="text-gray-500 text-sm px-3 py-1">Cancel</button>
-                        <button onClick={handleAdd} className="bg-indigo-600 text-white px-3 py-1 rounded text-sm hover:bg-indigo-700">Add Entry</button>
+                        <button onClick={handleAdd} className="bg-lunavia-primary text-white px-3 py-1 rounded text-sm hover:bg-indigo-700">Add Entry</button>
                     </div>
                 </div>
             )}
@@ -107,7 +107,7 @@ export default function PortfolioTimeline({ workHistory = [], isEditable = false
                         <div className="flex justify-between items-start">
                             <div>
                                 <h3 className="text-md font-bold text-gray-900">{item.role}</h3>
-                                <p className="text-sm text-indigo-600 font-medium">{item.company}</p>
+                                <p className="text-sm text-[#5BA4CF] font-medium">{item.company}</p>
                                 <p className="text-xs text-gray-500 mt-1">{item.start} – {item.end}</p>
                             </div>
                             {isEditable && (

@@ -190,7 +190,7 @@ export default function GodModeConsolePage() {
                     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                             <h3 className="font-bold text-gray-900">📡 Event Feed (24h)</h3>
-                            <span className="text-[10px] uppercase font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full tracking-wider">Real-time</span>
+                            <span className="text-[10px] uppercase font-bold text-lunavia-primary bg-lunavia-light px-2 py-0.5 rounded-full tracking-wider">Real-time</span>
                         </div>
                         {recentEvents.length === 0 ? (
                             <div className="p-8 text-center text-sm text-gray-400">No events in the last 24 hours</div>
@@ -268,13 +268,13 @@ export default function GodModeConsolePage() {
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-500">Pending Top-ups</span>
-                                <span className={`font-semibold ${financial.pendingTopups > 0 ? 'text-blue-600' : 'text-gray-400'}`}>{financial.pendingTopups}</span>
+                                <span className={`font-semibold ${financial.pendingTopups > 0 ? 'text-lunavia-primary' : 'text-gray-400'}`}>{financial.pendingTopups}</span>
                             </div>
                             <div className="pt-2 border-t border-gray-100 flex gap-2">
                                 <Link href="/dashboard/admin/finance/escrow/withdrawals" className="flex-1 text-center px-2 py-1.5 text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200 rounded-lg hover:bg-amber-100 transition">
                                     Withdrawals
                                 </Link>
-                                <Link href="/dashboard/admin/finance/escrow/topups" className="flex-1 text-center px-2 py-1.5 text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-100 transition">
+                                <Link href="/dashboard/admin/finance/escrow/topups" className="flex-1 text-center px-2 py-1.5 text-[10px] font-bold bg-lunavia-light text-lunavia-primary-hover border border-lunavia-muted/60 rounded-lg hover:bg-lunavia-muted/50 transition">
                                     Top-ups
                                 </Link>
                             </div>
@@ -335,9 +335,9 @@ function GodStatCard({ label, value, icon, color, pulse }: {
     label: string; value: number; icon: string; color: string; pulse?: boolean;
 }) {
     const colors: Record<string, string> = {
-        blue: 'bg-blue-50 border-blue-200 text-blue-900',
+        blue: 'bg-lunavia-light border-lunavia-muted/60 text-blue-900',
         green: 'bg-green-50 border-green-200 text-green-900',
-        primary: 'bg-lunavia-primary-light border-blue-200 text-lunavia-primary',
+        primary: 'bg-lunavia-primary-light border-lunavia-muted/60 text-lunavia-primary',
         red: 'bg-red-50 border-red-200 text-red-900',
         amber: 'bg-amber-50 border-amber-200 text-amber-900',
         gray: 'bg-gray-50 border-gray-200 text-gray-500',

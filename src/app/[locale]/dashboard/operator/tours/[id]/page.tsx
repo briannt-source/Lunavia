@@ -41,7 +41,7 @@ import {
 // Tour state mapping for display
 const TOUR_STATES = {
   DRAFT: { label: "Draft", color: "bg-gray-100 text-gray-700" },
-  PUBLISHED: { label: "Published", color: "bg-blue-100 text-blue-700" },
+  PUBLISHED: { label: "Published", color: "bg-lunavia-muted/50 text-lunavia-primary-hover" },
   ASSIGNED: { label: "Assigned", color: "bg-purple-100 text-purple-700" },
   CONFIRMED: { label: "Confirmed", color: "bg-green-100 text-green-700" },
   IN_PROGRESS: { label: "In Progress", color: "bg-amber-100 text-amber-700" },
@@ -252,7 +252,7 @@ export default function TourDetailPage() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-start gap-3">
-                    <Calendar className="h-5 w-5 text-indigo-600 mt-0.5" />
+                    <Calendar className="h-5 w-5 text-[#5BA4CF] mt-0.5" />
                     <div>
                       <p className="text-sm text-gray-500">Start date</p>
                       <p className="font-medium text-gray-900">
@@ -262,7 +262,7 @@ export default function TourDetailPage() {
                   </div>
                   {tour.endDate && (
                     <div className="flex items-start gap-3">
-                      <Clock className="h-5 w-5 text-indigo-600 mt-0.5" />
+                      <Clock className="h-5 w-5 text-[#5BA4CF] mt-0.5" />
                       <div>
                         <p className="text-sm text-gray-500">End date</p>
                         <p className="font-medium text-gray-900">
@@ -272,14 +272,14 @@ export default function TourDetailPage() {
                     </div>
                   )}
                   <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-indigo-600 mt-0.5" />
+                    <MapPin className="h-5 w-5 text-[#5BA4CF] mt-0.5" />
                     <div>
                       <p className="text-sm text-gray-500">City</p>
                       <p className="font-medium text-gray-900">{tour.city}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Users className="h-5 w-5 text-indigo-600 mt-0.5" />
+                    <Users className="h-5 w-5 text-[#5BA4CF] mt-0.5" />
                     <div>
                       <p className="text-sm text-gray-500">Number of guests</p>
                       <p className="font-medium text-gray-900">{tour.pax}</p>
@@ -383,7 +383,7 @@ export default function TourDetailPage() {
                 {allowedStates.length > 0 && (
                   <Button
                     onClick={() => setTransitionDialogOpen(true)}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
+                    className="w-full bg-lunavia-primary hover:bg-indigo-700 text-white rounded-xl"
                   >
                     Change Status
                   </Button>
@@ -408,7 +408,7 @@ export default function TourDetailPage() {
                     <Button
                       onClick={() => setDisputeDialogOpen(true)}
                       variant="outline"
-                      className="w-full border-indigo-600 text-indigo-700 hover:bg-indigo-50 rounded-xl"
+                      className="w-full border-indigo-600 text-[#2E8BC0] hover:bg-lunavia-light rounded-xl"
                     >
                       <FileText className="h-4 w-4 mr-2" />
                       Open Dispute
@@ -427,7 +427,7 @@ export default function TourDetailPage() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
+                    <div className="w-2 h-2 rounded-full bg-lunavia-primary"></div>
                     <div>
                       <p className="font-medium text-gray-900 text-sm">{stateInfo.label}</p>
                       <p className="text-xs text-gray-500">
@@ -506,7 +506,7 @@ export default function TourDetailPage() {
             <Button
               onClick={handleTransition}
               disabled={!transitionData.toState || transitionMutation.isPending}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
+              className="bg-lunavia-primary hover:bg-indigo-700 text-white rounded-xl"
             >
               {transitionMutation.isPending ? "Processing..." : "Verify"}
             </Button>
@@ -634,7 +634,7 @@ export default function TourDetailPage() {
             <Button
               onClick={handleOpenDispute}
               disabled={!disputeData.reason.trim() || disputeMutation.isPending}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
+              className="bg-lunavia-primary hover:bg-indigo-700 text-white rounded-xl"
             >
               {disputeMutation.isPending ? "Processing..." : "Open Dispute"}
             </Button>

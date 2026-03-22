@@ -106,14 +106,14 @@ export default function WalletPage() {
                   </Select>
                 </div>
                 {topupData.method === "BANK" && lunaviaAccount && (
-                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="p-4 bg-lunavia-light border border-lunavia-muted/60 rounded-lg">
                     <p className="text-sm font-semibold text-blue-900 mb-2">{t("receivingAccountInfo")}</p>
-                    <div className="text-sm text-blue-700 space-y-1">
+                    <div className="text-sm text-lunavia-primary-hover space-y-1">
                       <p><span className="font-medium">{t("bank")}</span> {lunaviaAccount.bankName}</p>
                       <p><span className="font-medium">{t("accountHolder")}</span> {lunaviaAccount.accountName}</p>
                       <p><span className="font-medium">{t("accountNumber")}</span> <span className="font-mono">{lunaviaAccount.accountNumber}</span></p>
                       {lunaviaAccount.branchName && <p><span className="font-medium">{t("branch")}</span> {lunaviaAccount.branchName}</p>}
-                      {lunaviaAccount.qrCodeUrl && <div className="mt-2"><a href={lunaviaAccount.qrCodeUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{t("viewQR")}</a></div>}
+                      {lunaviaAccount.qrCodeUrl && <div className="mt-2"><a href={lunaviaAccount.qrCodeUrl} target="_blank" rel="noopener noreferrer" className="text-lunavia-primary hover:underline">{t("viewQR")}</a></div>}
                     </div>
                   </div>
                 )}
@@ -157,7 +157,7 @@ export default function WalletPage() {
                     <div><Label>{t("accountOwnerName")}</Label><Input value={withdrawalData.accountOwnerName} onChange={(e) => setWithdrawalData({ ...withdrawalData, accountOwnerName: e.target.value })} placeholder="Account holder name" required={!withdrawalData.paymentMethodId} /><p className="text-xs text-slate-500 mt-1">{t("nameMustMatch")}</p></div>
                   </>
                 )}
-                {withdrawalData.paymentMethodId && <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg"><p className="text-sm text-blue-700">{t("usingSavedMethod")}</p></div>}
+                {withdrawalData.paymentMethodId && <div className="p-3 bg-lunavia-light border border-lunavia-muted/60 rounded-lg"><p className="text-sm text-lunavia-primary-hover">{t("usingSavedMethod")}</p></div>}
                 <Button onClick={handleWithdrawal} className="w-full">{t("createRequest")}</Button>
               </div>
             </DialogContent>
@@ -221,7 +221,7 @@ export default function WalletPage() {
 
             <TabsContent value="withdrawals" className="mt-4">
               {completedWithdrawals.length === 0 ? <EmptyState icon={ArrowDownCircle} title="No withdrawal transactions yet" description="Completed withdrawal transactions will appear here" /> : (
-                <div className="space-y-3">{completedWithdrawals.map((r: any) => <div key={r.id} className="flex items-center justify-between p-4 border rounded-lg"><div className="flex items-center gap-4"><CheckCircle2 className="h-5 w-5 text-blue-600" /><div><p className="font-medium">{t("withdrawMethod", { method: r.method })}</p><p className="text-sm text-slate-500">{formatDateTime(r.processedAt || r.createdAt)}</p>{(r.customAccountInfo || r.paymentMethod?.accountNumber) && <p className="text-xs text-slate-400">{r.customAccountInfo || `${r.paymentMethod?.accountName} - ${r.paymentMethod?.accountNumber}`}</p>}</div></div><div className="text-right"><p className="font-semibold text-red-600">-{formatVND(r.amount)}</p><StatusBadge status={r.status} /></div></div>)}</div>
+                <div className="space-y-3">{completedWithdrawals.map((r: any) => <div key={r.id} className="flex items-center justify-between p-4 border rounded-lg"><div className="flex items-center gap-4"><CheckCircle2 className="h-5 w-5 text-lunavia-primary" /><div><p className="font-medium">{t("withdrawMethod", { method: r.method })}</p><p className="text-sm text-slate-500">{formatDateTime(r.processedAt || r.createdAt)}</p>{(r.customAccountInfo || r.paymentMethod?.accountNumber) && <p className="text-xs text-slate-400">{r.customAccountInfo || `${r.paymentMethod?.accountName} - ${r.paymentMethod?.accountNumber}`}</p>}</div></div><div className="text-right"><p className="font-semibold text-red-600">-{formatVND(r.amount)}</p><StatusBadge status={r.status} /></div></div>)}</div>
               )}
             </TabsContent>
           </Tabs>

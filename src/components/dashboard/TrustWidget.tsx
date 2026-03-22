@@ -16,7 +16,7 @@ interface TrustWidgetProps {
 export function TrustWidget({ score, metrics }: TrustWidgetProps) {
     const getVerdict = (s: number) => {
         if (s >= 90) return { label: 'Excellent', color: 'text-emerald-600 bg-emerald-50' };
-        if (s >= 70) return { label: 'Good', color: 'text-blue-600 bg-blue-50' };
+        if (s >= 70) return { label: 'Good', color: 'text-lunavia-primary bg-lunavia-light' };
         if (s >= 50) return { label: 'Fair', color: 'text-amber-600 bg-amber-50' };
         return { label: 'At Risk', color: 'text-red-600 bg-red-50' };
     };

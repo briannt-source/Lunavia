@@ -70,7 +70,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
           </p>
           <button
             onClick={onClose}
-            className="w-full rounded-lg bg-indigo-600 px-4 py-3 font-medium text-white hover:bg-indigo-700"
+            className="w-full rounded-lg bg-lunavia-primary px-4 py-3 font-medium text-white hover:bg-indigo-700"
           >
             Close
           </button>

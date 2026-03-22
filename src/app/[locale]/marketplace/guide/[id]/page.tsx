@@ -108,7 +108,7 @@ export default function GuideProfilePage() {
                 <div className="text-4xl mb-4">👤</div>
                 <h1 className="text-xl font-bold text-gray-900 mb-2">Guide Not Found</h1>
                 <p className="text-sm text-gray-500 mb-6">{error || 'This guide profile does not exist.'}</p>
-                <a href="/marketplace/guides" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">← Back to Marketplace</a>
+                <a href="/marketplace/guides" className="text-sm font-medium text-[#5BA4CF] hover:text-[#2E8BC0]">← Back to Marketplace</a>
             </div>
         );
     }
@@ -133,7 +133,7 @@ export default function GuideProfilePage() {
                     </button>
                     <button
                         onClick={handleInvite}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-lunavia-primary text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition shadow-sm"
                     >
                         📩 Invite to Tour
                     </button>
@@ -151,7 +151,7 @@ export default function GuideProfilePage() {
             {showInviteModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 max-h-[80vh] overflow-hidden">
-                        <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
+                        <div className="bg-gradient-to-r from-[#5BA4CF] to-indigo-700 px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <h2 className="text-white font-bold text-lg">Invite to Tour</h2>
@@ -184,7 +184,7 @@ export default function GuideProfilePage() {
                                             key={tour.id}
                                             onClick={() => handleInviteToTour(tour.id)}
                                             disabled={inviting === tour.id}
-                                            className="w-full flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50/30 transition text-left"
+                                            className="w-full flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-[#5BA4CF]/40 hover:bg-lunavia-light/30 transition text-left"
                                         >
                                             <div className="min-w-0 flex-1">
                                                 <div className="text-sm font-semibold text-gray-900 truncate">{tour.title}</div>
@@ -193,7 +193,7 @@ export default function GuideProfilePage() {
                                                     {tour.location && ` · ${tour.location}`}
                                                 </div>
                                             </div>
-                                            <span className="text-xs font-medium text-indigo-600 shrink-0 ml-3">
+                                            <span className="text-xs font-medium text-[#5BA4CF] shrink-0 ml-3">
                                                 {inviting === tour.id ? 'Sending...' : 'Invite →'}
                                             </span>
                                         </button>

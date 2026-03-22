@@ -38,12 +38,12 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
                     {role === 'TOUR_OPERATOR' ? 'Create a new tour to get started.' : 'Apply for tours in the marketplace.'}
                 </p>
                 {role === 'TOUR_OPERATOR' && (
-                    <Link href="/dashboard/operator/tours/new" className="mt-4 text-indigo-600 text-sm font-medium hover:underline">
+                    <Link href="/dashboard/operator/tours/new" className="mt-4 text-[#5BA4CF] text-sm font-medium hover:underline">
                         Create Tour →
                     </Link>
                 )}
                 {role === 'TOUR_GUIDE' && (
-                    <Link href="/dashboard/guide/available" className="mt-4 text-indigo-600 text-sm font-medium hover:underline">
+                    <Link href="/dashboard/guide/available" className="mt-4 text-[#5BA4CF] text-sm font-medium hover:underline">
                         Browse Marketplace →
                     </Link>
                 )}
@@ -55,7 +55,7 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-full">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-gray-900">📅 Upcoming Tours</h3>
-                <Link href={role === 'TOUR_OPERATOR' ? "/dashboard/operator/tours" : "/dashboard/guide/assigned"} className="text-sm text-indigo-600 hover:underline">
+                <Link href={role === 'TOUR_OPERATOR' ? "/dashboard/operator/tours" : "/dashboard/guide/assigned"} className="text-sm text-[#5BA4CF] hover:underline">
                     View All
                 </Link>
             </div>
@@ -63,12 +63,12 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
                 {upcomingTours.map((tour) => (
                     <Link href={`/dashboard/service-requests/${tour.id}`} key={tour.id} className="block group">
                         <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
-                            <div className="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg text-center min-w-[60px]">
+                            <div className="bg-lunavia-light text-[#5BA4CF] px-3 py-2 rounded-lg text-center min-w-[60px]">
                                 <div className="text-xs font-bold uppercase">{tour.startDate.toLocaleString('default', { month: 'short' })}</div>
                                 <div className="text-lg font-bold">{tour.startDate.getDate()}</div>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-gray-900 truncate group-hover:text-indigo-600 transition-colors">{tour.title}</h4>
+                                <h4 className="font-medium text-gray-900 truncate group-hover:text-[#5BA4CF] transition-colors">{tour.title}</h4>
                                 <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                                     <span>📍 {tour.location}</span>
                                     <span>•</span>
@@ -76,7 +76,7 @@ export async function UpcomingToursWidget({ role, userId }: UpcomingToursWidgetP
                                 </div>
                             </div>
                             <div className="flex flex-col items-end gap-1">
-                                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${tour.status === 'IN_PROGRESS' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${tour.status === 'IN_PROGRESS' ? 'bg-green-100 text-green-700' : 'bg-lunavia-muted/50 text-lunavia-primary-hover'
                                     }`}>
                                     {tour.status.replace('_', ' ')}
                                 </span>

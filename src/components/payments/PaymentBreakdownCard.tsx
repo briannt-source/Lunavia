@@ -44,7 +44,7 @@ export default function PaymentBreakdownCard({ breakdown, className = '', perspe
           <div className="border-t border-gray-200 pt-3">
             <div className="flex justify-between text-sm font-semibold">
               <span className="text-gray-900">Total you pay</span>
-              <span className="text-indigo-600">{fmt(breakdown.operatorPays)}</span>
+              <span className="text-[#5BA4CF]">{fmt(breakdown.operatorPays)}</span>
             </div>
           </div>
 

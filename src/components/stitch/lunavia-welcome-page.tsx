@@ -64,7 +64,7 @@ export default function LunaviaWelcomePage() {
               </p>
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-blue-600 hover:scale-105 active:scale-95"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-lunavia-primary hover:scale-105 active:scale-95"
                   asChild
                 >
                   <Link href="/auth/register?role=TOUR_AGENCY">
@@ -124,10 +124,10 @@ export default function LunaviaWelcomePage() {
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
               <RoleCard
                 icon={Building2}
-                iconBgColor="bg-blue-100 dark:bg-blue-900/30"
-                iconTextColor="text-blue-600 dark:text-blue-400"
+                iconBgColor="bg-lunavia-muted/50 dark:bg-blue-900/30"
+                iconTextColor="text-lunavia-primary dark:text-blue-400"
                 badgeText="For Business"
-                badgeColor="bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300"
+                badgeColor="bg-lunavia-muted/50 text-lunavia-primary-hover dark:bg-blue-900/50 dark:text-blue-300"
                 title="Tour Operators"
                 description="Streamline your operations with a reliable pool of vetted guides."
                 features={[
@@ -183,7 +183,7 @@ export default function LunaviaWelcomePage() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Button
-                  className="rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
+                  className="rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-lunavia-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
                   asChild
                 >
                   <Link href="#">Learn about Compliance</Link>

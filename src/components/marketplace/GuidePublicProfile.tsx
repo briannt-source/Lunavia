@@ -104,7 +104,7 @@ export default function GuidePublicProfile({ guide, recentActivity, reviews, onI
                         {onInvite && (
                             <button
                                 onClick={() => onInvite(guide.id)}
-                                className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition shadow-sm"
+                                className="rounded-lg bg-lunavia-primary px-5 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition shadow-sm"
                             >
                                 Invite to Tour
                             </button>
@@ -184,8 +184,8 @@ export default function GuidePublicProfile({ guide, recentActivity, reviews, onI
                                 {reviews.map(review => (
                                     <div key={review.id} className="pb-4 border-b border-gray-100 last:border-0 last:pb-0">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <div className="h-7 w-7 rounded-full bg-indigo-100 flex items-center justify-center">
-                                                <span className="text-[10px] font-semibold text-indigo-600">
+                                            <div className="h-7 w-7 rounded-full bg-lunavia-muted/50 flex items-center justify-center">
+                                                <span className="text-[10px] font-semibold text-[#5BA4CF]">
                                                     {review.operatorName.charAt(0).toUpperCase()}
                                                 </span>
                                             </div>
@@ -221,7 +221,7 @@ export default function GuidePublicProfile({ guide, recentActivity, reviews, onI
                                         <div key={item.id} className="relative flex gap-3 pl-1">
                                             {/* Dot */}
                                             <div className="relative z-10 mt-1.5">
-                                                <div className={`h-2.5 w-2.5 rounded-full ring-2 ring-white ${i === 0 ? 'bg-indigo-500' : 'bg-gray-300'}`} />
+                                                <div className={`h-2.5 w-2.5 rounded-full ring-2 ring-white ${i === 0 ? 'bg-lunavia-light0' : 'bg-gray-300'}`} />
                                             </div>
                                             {/* Content */}
                                             <div className="min-w-0 pb-1">

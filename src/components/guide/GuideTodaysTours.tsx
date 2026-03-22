@@ -19,7 +19,7 @@ interface TodayTour {
 }
 
 const STATUS_BADGES: Record<string, { label: string; bg: string; text: string }> = {
-    ASSIGNED: { label: 'Assigned', bg: 'bg-blue-100', text: 'text-blue-700' },
+    ASSIGNED: { label: 'Assigned', bg: 'bg-lunavia-muted/50', text: 'text-lunavia-primary-hover' },
     IN_PROGRESS: { label: 'In Progress', bg: 'bg-green-100', text: 'text-green-700' },
     COMPLETED: { label: 'Completed', bg: 'bg-gray-100', text: 'text-gray-600' },
     OFFERED: { label: 'Offered', bg: 'bg-amber-100', text: 'text-amber-700' },
@@ -60,7 +60,7 @@ export function GuideTodaysTours({ userId }: { userId: string }) {
         <div className="bg-white rounded-xl border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Today&apos;s Tours</h3>
-                <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full font-medium">
+                <span className="text-xs bg-lunavia-muted/50 text-[#2E8BC0] px-2 py-1 rounded-full font-medium">
                     {tours.length} tour{tours.length !== 1 ? 's' : ''}
                 </span>
             </div>
@@ -81,7 +81,7 @@ export function GuideTodaysTours({ userId }: { userId: string }) {
                         return (
                             <div key={tour.id} className={`rounded-lg border p-4 transition ${isInProgress ? 'border-green-200 bg-green-50/50' :
                                     isCompleted ? 'border-gray-200 bg-gray-50/50 opacity-70' :
-                                        'border-gray-200 hover:border-indigo-200'
+                                        'border-gray-200 hover:border-[#5BA4CF]/30'
                                 }`}>
                                 <div className="flex items-start justify-between gap-3">
                                     <div className="min-w-0">
@@ -112,7 +112,7 @@ export function GuideTodaysTours({ userId }: { userId: string }) {
                                     <div className="flex gap-1.5 flex-shrink-0">
                                         {isAssigned && (
                                             <a href={`/dashboard/guide/tour/${tour.id}/live`}
-                                                className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">
+                                                className="px-3 py-1.5 bg-lunavia-primary text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">
                                                 Start Tour
                                             </a>
                                         )}

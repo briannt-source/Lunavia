@@ -95,10 +95,10 @@ export default async function AdminDisputesPage({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t("stats.inReview")}</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-blue-500" />
+            <AlertTriangle className="h-4 w-4 text-lunavia-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-lunavia-primary">
               {statusStats["IN_REVIEW"] || 0}
             </div>
           </CardContent>

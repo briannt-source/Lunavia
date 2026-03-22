@@ -405,7 +405,7 @@ export default async function TrustSafetyPage() {
             {/* ═══ TOUR HEALTH CROSS-LINK ═══ */}
             <section className="py-16 bg-slate-50 border-t border-slate-100 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <div className="bg-gradient-to-r from-[#2E8BC0] to-[#5BA4CF] rounded-2xl p-8 text-white shadow-xl shadow-blue-600/20">
+                    <div className="bg-gradient-to-r from-[#2E8BC0] to-[#5BA4CF] rounded-2xl p-8 text-white shadow-xl shadow-[#2E8BC0]/20">
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             <div className="flex-shrink-0 text-5xl">🏥</div>
                             <div className="flex-grow text-center md:text-left">

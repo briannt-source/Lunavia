@@ -23,7 +23,7 @@ export default function HelpPage() {
                     <input
                         type="text"
                         placeholder="Search for guides, workflows, or trust scores..."
-                        className="w-full pl-14 pr-32 py-4 rounded-full border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-blue-500 outline-none text-gray-700"
+                        className="w-full pl-14 pr-32 py-4 rounded-full border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-lunavia-primary outline-none text-gray-700"
                     />
                     <button className="absolute right-2 top-2 bottom-2 bg-lunavia-primary text-white px-6 rounded-full text-sm font-semibold hover:bg-lunavia-primary-hover transition">
                         Search
@@ -65,7 +65,7 @@ export default function HelpPage() {
                     <div>
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Explore Topics</h4>
                         <ul className="space-y-4">
-                            <li><button className="flex items-center gap-3 text-sm font-semibold text-white bg-blue-600 px-4 py-2 rounded-lg w-full shadow-lg shadow-blue-200">
+                            <li><button className="flex items-center gap-3 text-sm font-semibold text-white bg-lunavia-primary px-4 py-2 rounded-lg w-full shadow-lg shadow-blue-200">
                                 <span>🚀</span> Getting Started
                             </button></li>
                             <li><button className="flex items-center gap-3 text-sm text-gray-600 px-4 py-2 hover:bg-gray-50 rounded-lg w-full transition">

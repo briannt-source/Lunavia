@@ -195,10 +195,10 @@ export default function OperatorVerification() {
               {verificationStatus === 'APPROVED' ? 'Your account has been verified.' : "Your documents are being reviewed. We'll notify you once complete."}
             </p>
             {verificationStatus === 'APPROVED' && (
-              <div className="mt-4 rounded-lg bg-indigo-50 border border-indigo-100 p-4 text-left">
+              <div className="mt-4 rounded-lg bg-lunavia-light border border-[#5BA4CF]/20 p-4 text-left">
                 <p className="text-sm text-indigo-800 font-medium">Next step: Fund your wallet</p>
-                <p className="text-xs text-indigo-600 mt-1">To publish tours, ensure your wallet has sufficient balance for escrow. Each tour requires the total guide payout to be held in escrow until completion.</p>
-                <a href="/dashboard/operator/wallet" className="text-sm font-medium text-indigo-700 hover:underline mt-2 inline-block">Go to Wallet →</a>
+                <p className="text-xs text-[#5BA4CF] mt-1">To publish tours, ensure your wallet has sufficient balance for escrow. Each tour requires the total guide payout to be held in escrow until completion.</p>
+                <a href="/dashboard/operator/wallet" className="text-sm font-medium text-[#2E8BC0] hover:underline mt-2 inline-block">Go to Wallet →</a>
               </div>
             )}
             <button
@@ -224,7 +224,7 @@ export default function OperatorVerification() {
     >
       <div className="max-w-3xl mx-auto space-y-6">
         {/* KYB Info Banner */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200 p-6 shadow-sm">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-lunavia-muted/60 p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <span className="text-2xl flex-shrink-0">🛡️</span>
             <div>
@@ -233,17 +233,17 @@ export default function OperatorVerification() {
                 Know Your Business (KYB) verification confirms your legal status as a tour operator. This protects both you and the guides you work with, enables escrow payments, and is required by Vietnamese tourism regulations.
               </p>
               <div className="flex flex-wrap gap-2 mb-3">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-blue-100 text-blue-700">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-lunavia-muted/40 text-lunavia-primary-hover">
                   ✅ Higher trust score
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-blue-100 text-blue-700">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-lunavia-muted/40 text-lunavia-primary-hover">
                   💰 Escrow access
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-blue-100 text-blue-700">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-lunavia-muted/40 text-lunavia-primary-hover">
                   📋 Legal compliance
                 </span>
               </div>
-              <a href="/verification-guide" target="_blank" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition inline-flex items-center gap-1">
+              <a href="/verification-guide" target="_blank" className="text-sm font-semibold text-lunavia-primary hover:text-blue-800 transition inline-flex items-center gap-1">
                 View full verification guide →
               </a>
             </div>
@@ -259,7 +259,7 @@ export default function OperatorVerification() {
                 className="h-24 w-24 rounded-full object-cover border-2 border-white shadow-md"
               />
             ) : (
-              <div className="h-24 w-24 rounded-full bg-indigo-100 flex items-center justify-center text-3xl font-bold text-indigo-600 border-2 border-white shadow-md">
+              <div className="h-24 w-24 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-3xl font-bold text-[#5BA4CF] border-2 border-white shadow-md">
                 {session?.user?.email?.[0]?.toUpperCase()}
               </div>
             )}
@@ -383,7 +383,7 @@ export default function OperatorVerification() {
 
         {/* Sole Proprietor Note */}
         {operatorType === 'SOLE_PROPRIETOR' && (
-          <div className="bg-blue-50 rounded-xl border border-blue-100 p-4">
+          <div className="bg-lunavia-light rounded-xl border border-lunavia-muted/40 p-4">
             <p className="text-sm text-blue-800">
               As a Sole Proprietor, you can verify without legal business documents. However, your trust score will start lower than verified companies.
             </p>
@@ -406,7 +406,7 @@ export default function OperatorVerification() {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="flex-1 rounded-lg bg-lunavia-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
             {submitting ? 'Submitting...' : 'Submit for Review'}
           </button>

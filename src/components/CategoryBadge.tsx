@@ -6,7 +6,7 @@ interface CategoryBadgeProps {
 const categoryConfig: Record<string, { bg: string; text: string }> = {
     LUXURY: { bg: 'bg-cyan-50', text: 'text-cyan-600' },
     ADVENTURE: { bg: 'bg-orange-50', text: 'text-orange-600' },
-    EDUCATIONAL: { bg: 'bg-blue-50', text: 'text-blue-600' },
+    EDUCATIONAL: { bg: 'bg-lunavia-light', text: 'text-lunavia-primary' },
     BUDGET: { bg: 'bg-green-50', text: 'text-green-600' },
     CULTURAL: { bg: 'bg-purple-50', text: 'text-purple-600' },
 };

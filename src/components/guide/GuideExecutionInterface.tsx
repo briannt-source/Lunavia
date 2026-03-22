@@ -26,8 +26,8 @@ interface TourData {
 // ── Status Helpers ────────────────────────────────────────────────────
 
 const SEGMENT_STATES: Record<string, { label: string; bg: string; text: string }> = {
-    ARRIVED: { label: 'Arrived', bg: 'bg-blue-100', text: 'text-blue-700' },
-    STARTED: { label: 'In Progress', bg: 'bg-indigo-100', text: 'text-indigo-700' },
+    ARRIVED: { label: 'Arrived', bg: 'bg-lunavia-muted/50', text: 'text-lunavia-primary-hover' },
+    STARTED: { label: 'In Progress', bg: 'bg-lunavia-muted/50', text: 'text-[#2E8BC0]' },
     COMPLETED: { label: 'Done', bg: 'bg-green-100', text: 'text-green-700' },
     SKIPPED: { label: 'Skipped', bg: 'bg-gray-200', text: 'text-gray-600' },
 };
@@ -39,9 +39,9 @@ const COMPLETION_STATUSES = [
 ];
 
 function nextAction(checkIn: Segment['checkIn']): { label: string; status: string; color: string } | null {
-    if (!checkIn) return { label: '📍 Arrived', status: 'ARRIVED', color: 'bg-blue-600 hover:bg-blue-700' };
+    if (!checkIn) return { label: '📍 Arrived', status: 'ARRIVED', color: 'bg-lunavia-primary hover:bg-lunavia-primary-hover' };
     switch (checkIn.status) {
-        case 'ARRIVED': return { label: '▶️ Start', status: 'STARTED', color: 'bg-indigo-600 hover:bg-indigo-700' };
+        case 'ARRIVED': return { label: '▶️ Start', status: 'STARTED', color: 'bg-lunavia-primary hover:bg-indigo-700' };
         case 'STARTED': return { label: '✅ Complete', status: 'COMPLETED', color: 'bg-green-600 hover:bg-green-700' };
         default: return null;
     }
@@ -262,11 +262,11 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                         isCompleted ? 'bg-amber-100 text-amber-700' :
                                         isClosed ? 'bg-green-100 text-green-700' :
                                         isDisputed ? 'bg-red-100 text-red-700' :
-                                            'bg-blue-100 text-blue-700'
+                                            'bg-lunavia-muted/50 text-lunavia-primary-hover'
                                     }`}>{tour.status === 'COMPLETED' ? 'PENDING CONFIRMATION' : tour.status}</span>
                                 {isTracking && (
-                                    <span className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-700 ml-1 shadow-sm">
-                                        <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-ping"></div>
+                                    <span className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-lunavia-muted/50 text-[#2E8BC0] ml-1 shadow-sm">
+                                        <div className="w-1.5 h-1.5 bg-lunavia-light0 rounded-full animate-ping"></div>
                                         LIVE
                                     </span>
                                 )}
@@ -339,7 +339,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                         <button
                             onClick={startTour}
                             disabled={acting === 'start'}
-                            className="w-full py-4 bg-indigo-600 text-white text-lg font-bold rounded-xl hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-50 disabled:cursor-wait"
+                            className="w-full py-4 bg-lunavia-primary text-white text-lg font-bold rounded-xl hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-50 disabled:cursor-wait"
                         >
                             {acting === 'start' ? '⏳ Starting...' : '🚀 Start Tour'}
                         </button>
@@ -358,7 +358,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                             const canSkip = !isDone && seg.checkIn?.status !== 'STARTED' && !isCompleted;
 
                             return (
-                                <div key={seg.id} className={`bg-white rounded-2xl border p-4 transition ${isCurrent ? 'border-indigo-300 ring-2 ring-indigo-100' :
+                                <div key={seg.id} className={`bg-white rounded-2xl border p-4 transition ${isCurrent ? 'border-[#5BA4CF]/40 ring-2 ring-indigo-100' :
                                         isDone ? 'border-gray-200 opacity-60' :
                                             'border-gray-200'
                                     }`}>
@@ -419,33 +419,33 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                 <p className="text-[10px] text-gray-400 mt-0.5">Log your stops and activities as you go</p>
                             </div>
                             {isInProgress && (
-                                <button onClick={() => setShowActivityForm(true)} className="text-xs text-indigo-600 font-semibold hover:text-indigo-700">+ Add Activity</button>
+                                <button onClick={() => setShowActivityForm(true)} className="text-xs text-[#5BA4CF] font-semibold hover:text-[#2E8BC0]">+ Add Activity</button>
                             )}
                         </div>
 
                         {/* Add Activity Form */}
                         {showActivityForm && isInProgress && (
-                            <div className="bg-white rounded-2xl border-2 border-indigo-200 p-4 space-y-3">
+                            <div className="bg-white rounded-2xl border-2 border-[#5BA4CF]/30 p-4 space-y-3">
                                 <h3 className="font-semibold text-gray-900 text-sm flex items-center gap-2"><span>📍</span> Log Activity</h3>
                                 <input
                                     type="text"
                                     value={activityTitle}
                                     onChange={e => setActivityTitle(e.target.value)}
                                     placeholder="What did you do? (e.g., Visited Grand Palace)"
-                                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-[#5BA4CF]/40 focus:ring-2 focus:ring-indigo-100 outline-none"
                                 />
                                 <input
                                     type="text"
                                     value={activityLocation}
                                     onChange={e => setActivityLocation(e.target.value)}
                                     placeholder="Location name (optional)"
-                                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-[#5BA4CF]/40 focus:ring-2 focus:ring-indigo-100 outline-none"
                                 />
                                 <textarea
                                     value={activityNotes}
                                     onChange={e => setActivityNotes(e.target.value)}
                                     placeholder="Notes (optional)"
-                                    className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-20 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                    className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-20 focus:border-[#5BA4CF]/40 focus:ring-2 focus:ring-indigo-100 outline-none"
                                 />
                                 <div className="flex gap-2">
                                     <button onClick={() => { setShowActivityForm(false); setActivityTitle(''); setActivityLocation(''); setActivityNotes(''); }}
@@ -453,7 +453,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                     <button
                                         onClick={submitActivityLog}
                                         disabled={!activityTitle.trim() || acting === 'activity'}
-                                        className="flex-1 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold disabled:opacity-50 active:scale-95 transition"
+                                        className="flex-1 py-2.5 bg-lunavia-primary text-white rounded-xl text-sm font-bold disabled:opacity-50 active:scale-95 transition"
                                     >
                                         {acting === 'activity' ? '⏳ Saving...' : '📍 Log Activity'}
                                     </button>
@@ -497,7 +497,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
 
                 {/* ── Return Tour Form ────────────────────── */}
                 {isInProgress && canReturn && showReturnForm && (
-                    <div className="bg-white rounded-2xl border-2 border-indigo-200 p-5 space-y-4">
+                    <div className="bg-white rounded-2xl border-2 border-[#5BA4CF]/30 p-5 space-y-4">
                         <div className="text-center mb-2">
                             <div className="text-3xl mb-1">📋</div>
                             <h2 className="font-bold text-gray-900 text-lg">Return Tour & Submit Report</h2>
@@ -513,7 +513,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                         key={cs.value}
                                         onClick={() => setReturnStatus(cs.value)}
                                         className={`w-full text-left p-3 rounded-xl border-2 transition ${returnStatus === cs.value
-                                            ? 'border-indigo-500 bg-indigo-50'
+                                            ? 'border-indigo-500 bg-lunavia-light'
                                             : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                     >
@@ -534,7 +534,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                 value={returnNotes}
                                 onChange={e => setReturnNotes(e.target.value)}
                                 placeholder="e.g. All 15 guests accounted for. Weather was great. Suggest adding 10 min buffer at stop #3..."
-                                className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-28 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-28 focus:border-[#5BA4CF]/40 focus:ring-2 focus:ring-indigo-100 outline-none"
                             />
                         </div>
 
@@ -559,7 +559,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                             <button
                                 onClick={submitReturnTour}
                                 disabled={acting === 'return'}
-                                className="w-full py-4 bg-indigo-600 text-white text-base font-bold rounded-xl hover:bg-indigo-700 active:scale-95 transition disabled:opacity-50"
+                                className="w-full py-4 bg-lunavia-primary text-white text-base font-bold rounded-xl hover:bg-indigo-700 active:scale-95 transition disabled:opacity-50"
                             >
                                 {acting === 'return' ? '⏳ Submitting...' : '📤 Submit & Return Tour'}
                             </button>
@@ -583,14 +583,14 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                     value={noteText}
                                     onChange={e => setNoteText(e.target.value)}
                                     placeholder="e.g. traffic delay, weather change..."
-                                    className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-20 focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                    className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none h-20 focus:border-[#5BA4CF]/40 focus:ring-2 focus:ring-indigo-100 outline-none"
                                 />
                                 <div className="flex gap-2 mt-2">
                                     <button onClick={() => { setShowNote(false); setNoteText(''); }}
                                         className="flex-1 py-2 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium">Cancel</button>
                                     <button
                                         disabled={!noteText.trim()}
-                                        className="flex-1 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold disabled:opacity-40">
+                                        className="flex-1 py-2 bg-lunavia-primary text-white rounded-xl text-sm font-bold disabled:opacity-40">
                                         Save Note
                                     </button>
                                 </div>
@@ -633,7 +633,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                         {isFreeFormMode && !showActivityForm && (
                             <button
                                 onClick={() => setShowActivityForm(true)}
-                                className="flex-1 py-3.5 bg-white border border-indigo-200 text-indigo-700 font-bold rounded-xl text-sm active:scale-95 transition"
+                                className="flex-1 py-3.5 bg-white border border-[#5BA4CF]/30 text-[#2E8BC0] font-bold rounded-xl text-sm active:scale-95 transition"
                             >
                                 📍 Log
                             </button>
@@ -655,7 +655,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                     } catch { /* allow return if API fails */ }
                                     setShowReturnForm(true);
                                 }}
-                                className="flex-1 py-3.5 bg-indigo-600 text-white font-bold rounded-xl text-sm active:scale-95 transition"
+                                className="flex-1 py-3.5 bg-lunavia-primary text-white font-bold rounded-xl text-sm active:scale-95 transition"
                             >
                                 📤 Return Tour
                             </button>
@@ -699,7 +699,7 @@ export function GuideExecutionInterface({ tourId }: { tourId: string }) {
                                             className={`flex-1 py-2 rounded-xl text-xs font-bold border transition ${incidentSev === s
                                                     ? s === 'HIGH' ? 'bg-red-100 border-red-300 text-red-700'
                                                         : s === 'MEDIUM' ? 'bg-amber-100 border-amber-300 text-amber-700'
-                                                            : 'bg-blue-100 border-blue-300 text-blue-700'
+                                                            : 'bg-lunavia-muted/50 border-lunavia-primary/40 text-lunavia-primary-hover'
                                                     : 'bg-gray-50 border-gray-200 text-gray-500'
                                                 }`}>
                                             {s}

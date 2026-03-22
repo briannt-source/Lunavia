@@ -116,15 +116,15 @@ function SignupContent() {
             <h2 className="text-3xl font-bold text-white tracking-tight leading-tight">{t('leftTitle')}</h2>
             <ul className="space-y-4 text-indigo-200">
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature1')}
               </li>
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature2')}
               </li>
               <li className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature3')}
               </li>
             </ul>
@@ -137,7 +137,7 @@ function SignupContent() {
         <div className="w-full max-w-md animate-fade-in mx-auto">
           {/* Mobile Logo */}
           <div className="lg:hidden mb-10 text-center">
-            <Link href="/" className="text-3xl font-black text-indigo-600 tracking-widest uppercase">
+            <Link href="/" className="text-3xl font-black text-[#5BA4CF] tracking-widest uppercase">
               Lunavia.
             </Link>
           </div>
@@ -206,8 +206,8 @@ function SignupContent() {
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-3">{t('roleQ')}</label>
               <div className="grid grid-cols-2 gap-3">
-                <button type="button" onClick={() => setRole('TOUR_OPERATOR')} className={`p-4 rounded-xl border-2 text-left transition-all ${role === 'TOUR_OPERATOR' ? 'border-indigo-600 bg-indigo-50/50 shadow-sm' : 'border-gray-100 bg-white hover:border-indigo-200 hover:bg-gray-50'}`}>
-                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-lg mb-2 ${role === 'TOUR_OPERATOR' ? 'bg-indigo-100' : 'bg-gray-100'}`}>🏢</div>
+                <button type="button" onClick={() => setRole('TOUR_OPERATOR')} className={`p-4 rounded-xl border-2 text-left transition-all ${role === 'TOUR_OPERATOR' ? 'border-indigo-600 bg-lunavia-light/50 shadow-sm' : 'border-gray-100 bg-white hover:border-[#5BA4CF]/30 hover:bg-gray-50'}`}>
+                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-lg mb-2 ${role === 'TOUR_OPERATOR' ? 'bg-lunavia-muted/50' : 'bg-gray-100'}`}>🏢</div>
                   <div className="font-bold text-gray-900 text-sm">{t('roleOp')}</div>
                   <div className="text-xs text-gray-500 mt-1 line-clamp-2">{t('roleOpDesc')}</div>
                 </button>
@@ -222,24 +222,24 @@ function SignupContent() {
             {/* 3. Role Metadata */}
             {role === 'TOUR_OPERATOR' && (
               <div className="space-y-6">
-                <div className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-5 shadow-sm">
+                <div className="rounded-xl border border-[#5BA4CF]/20 bg-lunavia-light/30 p-5 shadow-sm">
                   <label className="block text-sm font-medium text-indigo-900 mb-3">{t('modeQ')}</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <button type="button" onClick={() => setSystemMode('MARKETPLACE_MODE')} className={`p-4 rounded-xl border-2 text-left transition-all ${systemMode === 'MARKETPLACE_MODE' ? 'border-indigo-600 bg-indigo-50/50 shadow-sm' : 'border-white bg-white hover:border-indigo-200'}`}>
+                    <button type="button" onClick={() => setSystemMode('MARKETPLACE_MODE')} className={`p-4 rounded-xl border-2 text-left transition-all ${systemMode === 'MARKETPLACE_MODE' ? 'border-indigo-600 bg-lunavia-light/50 shadow-sm' : 'border-white bg-white hover:border-[#5BA4CF]/30'}`}>
                       <div className="font-bold text-gray-900 text-sm">{t('modeMp')}</div>
                       <div className="text-xs text-gray-500 mt-1">{t('modeMpDesc')}</div>
                     </button>
-                    <button type="button" onClick={() => setSystemMode('INTERNAL_OPERATOR_MODE')} className={`p-4 rounded-xl border-2 text-left transition-all ${systemMode === 'INTERNAL_OPERATOR_MODE' ? 'border-indigo-600 bg-indigo-50/50 shadow-sm' : 'border-white bg-white hover:border-indigo-200'}`}>
+                    <button type="button" onClick={() => setSystemMode('INTERNAL_OPERATOR_MODE')} className={`p-4 rounded-xl border-2 text-left transition-all ${systemMode === 'INTERNAL_OPERATOR_MODE' ? 'border-indigo-600 bg-lunavia-light/50 shadow-sm' : 'border-white bg-white hover:border-[#5BA4CF]/30'}`}>
                       <div className="font-bold text-gray-900 text-sm">{t('modeOps')}</div>
                       <div className="text-xs text-gray-500 mt-1">{t('modeOpsDesc')}</div>
                     </button>
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-5 space-y-4 shadow-sm">
+                <div className="rounded-xl border border-[#5BA4CF]/20 bg-lunavia-light/30 p-5 space-y-4 shadow-sm">
                   <div>
                   <label className="block text-sm font-medium text-indigo-900 mb-1.5">{t('opType')}</label>
-                  <select value={operatorType} onChange={(e) => setOperatorType(e.target.value as OperatorType)} className="w-full rounded-xl border border-indigo-200 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all outline-none text-sm">
+                  <select value={operatorType} onChange={(e) => setOperatorType(e.target.value as OperatorType)} className="w-full rounded-xl border border-[#5BA4CF]/30 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all outline-none text-sm">
                     <option value="">{t('opPlaceholder')}</option>
                     <option value="company">{t('opCompany')}</option>
                     <option value="agency">{t('opAgency')}</option>
@@ -248,7 +248,7 @@ function SignupContent() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-indigo-900 mb-1.5">{t('opLicense')} <span className="text-gray-400 font-normal">{t('optional')}</span></label>
-                  <input type="text" value={businessRegistrationNumber} onChange={(e) => setBusinessRegistrationNumber(e.target.value)} placeholder="e.g. 123456789" className="w-full rounded-xl border border-indigo-200 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all outline-none" />
+                  <input type="text" value={businessRegistrationNumber} onChange={(e) => setBusinessRegistrationNumber(e.target.value)} placeholder="e.g. 123456789" className="w-full rounded-xl border border-[#5BA4CF]/30 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all outline-none" />
                 </div>
               </div>
             </div>
@@ -320,10 +320,10 @@ function SignupContent() {
             {/* Checkbox */}
             {role && (
               <div className="flex items-start gap-3 rounded-xl bg-gray-50 border border-gray-100 p-4">
-                <input type="checkbox" id="poa" checked={proofOfAddressAcknowledged} onChange={(e) => setProofOfAddressAcknowledged(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
+                <input type="checkbox" id="poa" checked={proofOfAddressAcknowledged} onChange={(e) => setProofOfAddressAcknowledged(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#5BA4CF] focus:ring-indigo-500 cursor-pointer" />
                 <label htmlFor="poa" className="text-sm text-gray-600 leading-snug cursor-pointer">
                   {t('poaAccept')} <br />
-                  {t('agreeTerms1')} <Link href="/terms" className="text-indigo-600 underline hover:text-indigo-700">{t('agreeTermsLink1')}</Link> {t('agreeTerms2')} <Link href="/privacy" className="text-indigo-600 underline hover:text-indigo-700">{t('agreeTermsLink2')}</Link>
+                  {t('agreeTerms1')} <Link href="/terms" className="text-[#5BA4CF] underline hover:text-[#2E8BC0]">{t('agreeTermsLink1')}</Link> {t('agreeTerms2')} <Link href="/privacy" className="text-[#5BA4CF] underline hover:text-[#2E8BC0]">{t('agreeTermsLink2')}</Link>
                 </label>
               </div>
             )}

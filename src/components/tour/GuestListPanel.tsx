@@ -184,7 +184,7 @@ export function GuestListPanel({ tourId, tourStatus, isOperator = false, isGuide
                 {canAddGuests && (
                     <button
                         onClick={() => setShowAddForm(!showAddForm)}
-                        className="text-xs text-blue-600 font-semibold hover:text-blue-700"
+                        className="text-xs text-lunavia-primary font-semibold hover:text-lunavia-primary-hover"
                     >
                         {showAddForm ? 'Cancel' : '+ Add Guest'}
                     </button>
@@ -210,33 +210,33 @@ export function GuestListPanel({ tourId, tourStatus, isOperator = false, isGuide
 
             {/* Add Guest Form */}
             {showAddForm && canAddGuests && (
-                <div className="border-2 border-blue-200 rounded-xl p-3 space-y-2 bg-blue-50/50">
+                <div className="border-2 border-lunavia-muted/60 rounded-xl p-3 space-y-2 bg-lunavia-light/50">
                     <input
                         type="text" value={name} onChange={e => setName(e.target.value)}
                         placeholder="Guest name *"
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-blue-300 focus:ring-2 focus:ring-blue-100 outline-none bg-white"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-lunavia-primary/40 focus:ring-2 focus:ring-blue-100 outline-none bg-white"
                     />
                     <div className="grid grid-cols-2 gap-2">
                         <input
                             type="text" value={bookingRef} onChange={e => setBookingRef(e.target.value)}
                             placeholder="Booking Ref"
-                            className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-blue-300 outline-none bg-white"
+                            className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-lunavia-primary/40 outline-none bg-white"
                         />
                         <input
                             type="text" value={phone} onChange={e => setPhone(e.target.value)}
                             placeholder="Phone"
-                            className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-blue-300 outline-none bg-white"
+                            className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-lunavia-primary/40 outline-none bg-white"
                         />
                     </div>
                     <input
                         type="email" value={email} onChange={e => setEmail(e.target.value)}
                         placeholder="Email (optional)"
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-blue-300 outline-none bg-white"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-lunavia-primary/40 outline-none bg-white"
                     />
                     <button
                         onClick={addGuest}
                         disabled={!name.trim() || acting === 'add'}
-                        className="w-full py-2.5 bg-blue-600 text-white text-sm font-bold rounded-xl disabled:opacity-50 active:scale-95 transition"
+                        className="w-full py-2.5 bg-lunavia-primary text-white text-sm font-bold rounded-xl disabled:opacity-50 active:scale-95 transition"
                     >
                         {acting === 'add' ? '⏳ Adding...' : '➕ Add Guest'}
                     </button>
@@ -280,7 +280,7 @@ export function GuestListPanel({ tourId, tourStatus, isOperator = false, isGuide
                                     {isOperator && (
                                         <button
                                             onClick={() => copyLink(guest.checkInToken, guest.id)}
-                                            className="p-1.5 text-gray-400 hover:text-blue-600 transition"
+                                            className="p-1.5 text-gray-400 hover:text-lunavia-primary transition"
                                             title="Copy check-in link"
                                         >
                                             {copiedId === guest.id ? <span className="text-[10px] text-emerald-600">✓</span> : <span className="text-xs">🔗</span>}

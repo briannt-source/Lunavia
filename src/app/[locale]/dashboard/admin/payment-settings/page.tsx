@@ -313,7 +313,7 @@ export default function PaymentSettingsPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <Building2 className="h-5 w-5 text-blue-600" />
+                          <Building2 className="h-5 w-5 text-lunavia-primary" />
                           <h3 className="text-lg font-semibold">{account.bankName}</h3>
                           <StatusBadge
                             status={account.isActive ? "ACTIVE" : "INACTIVE"}
@@ -341,7 +341,7 @@ export default function PaymentSettingsPage() {
                                 href={account.qrCodeUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline flex items-center gap-1"
+                                className="text-lunavia-primary hover:underline flex items-center gap-1"
                               >
                                 <QrCode className="h-4 w-4" />
                                 View QR Code

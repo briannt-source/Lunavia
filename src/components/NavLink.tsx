@@ -11,7 +11,7 @@ export function NavLink({ href, children }: { href: string; children: React.Reac
       href={href}
       className={clsx(
         'flex items-center justify-between px-3 py-2 rounded',
-        active ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+        active ? 'bg-lunavia-primary text-white' : 'text-gray-700 hover:bg-gray-100'
       )}
     >
       {children}

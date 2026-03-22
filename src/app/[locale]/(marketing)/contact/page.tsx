@@ -129,12 +129,12 @@ export default function ContactPage() {
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('form.name')}</label>
                                     <input type="text" required value={formData.name} onChange={(e) => updateField('name', e.target.value)}
-                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 outline-none transition" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('form.email')}</label>
                                     <input type="email" required value={formData.email} onChange={(e) => updateField('email', e.target.value)}
-                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 outline-none transition" />
                                 </div>
                             </div>
 
@@ -142,12 +142,12 @@ export default function ContactPage() {
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('form.company')}</label>
                                     <input type="text" value={formData.company} onChange={(e) => updateField('company', e.target.value)}
-                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 outline-none transition" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{t('form.phone')}</label>
                                     <input type="tel" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)}
-                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                                        className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 outline-none transition" />
                                 </div>
                             </div>
 
@@ -156,7 +156,7 @@ export default function ContactPage() {
                                 <textarea
                                     required rows={4} value={formData.message} onChange={(e) => updateField('message', e.target.value)}
                                     placeholder={t('form.messagePlaceholder')}
-                                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
+                                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 resize-none focus:border-blue-500 focus:ring-2 focus:ring-lunavia-primary/20 outline-none transition"
                                 />
                             </div>
 

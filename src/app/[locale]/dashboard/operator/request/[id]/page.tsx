@@ -297,7 +297,7 @@ export default function OperatorRequestDetailPage({
                         <h1 className="text-xl font-bold text-gray-900">{request.title}</h1>
                         <p className="mt-1 text-gray-600">{request.location} {request.province && `(${request.province})`}</p>
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    <span className="inline-flex items-center rounded-full bg-lunavia-light px-3 py-1 text-sm font-medium text-lunavia-primary-hover ring-1 ring-inset ring-blue-700/10">
                         {request.status.replace('_', ' ')}
                     </span>
                 </div>
@@ -507,7 +507,7 @@ export default function OperatorRequestDetailPage({
                     )}
 
                     {applicant ? (
-                        <div className="flex items-center justify-between bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
+                        <div className="flex items-center justify-between bg-white p-4 rounded-lg border border-[#5BA4CF]/20 shadow-sm">
                             <div className="flex items-center gap-4">
                                 <div className="h-10 w-10 rounded-full bg-lunavia-primary-light flex items-center justify-center text-lunavia-primary font-bold">
                                     {applicant.email[0].toUpperCase()}
@@ -560,12 +560,12 @@ export default function OperatorRequestDetailPage({
                             const certConfig: Record<string, { badge: string; label: string; color: string; notice: string }> = {
                                 MAIN_GUIDE: { badge: '✅', label: 'Licensed Guide', color: 'bg-green-50 border-green-200 text-green-700', notice: 'Holds a professional Tour Guide License.' },
                                 SUPPORT_GUIDE: { badge: '⚠️', label: 'No Tour Guide License', color: 'bg-amber-50 border-amber-200 text-amber-700', notice: 'Does not hold a professional Tour Guide License. May assist but cannot lead independently.' },
-                                INTERN: { badge: '📘', label: 'Intern Guide', color: 'bg-blue-50 border-blue-200 text-blue-700', notice: 'A trainee guide still building experience. Max trust score: 60/100.' },
+                                INTERN: { badge: '📘', label: 'Intern Guide', color: 'bg-lunavia-light border-lunavia-muted/60 text-lunavia-primary-hover', notice: 'A trainee guide still building experience. Max trust score: 60/100.' },
                             };
                             const cert = certConfig[guideCert] || certConfig.MAIN_GUIDE;
 
                             return (
-                            <div key={app.id} className="bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
+                            <div key={app.id} className="bg-white p-4 rounded-lg border border-[#5BA4CF]/20 shadow-sm">
                                 <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <Link href={`/marketplace/guide/${app.guideId}`} target="_blank" className="shrink-0 h-12 w-12 rounded-full overflow-hidden bg-lunavia-primary-light flex items-center justify-center text-lunavia-primary font-bold border-2 border-transparent hover:border-lunavia-muted transition group">
@@ -779,7 +779,7 @@ export default function OperatorRequestDetailPage({
                                             </div>
                                             <p className="mt-1 text-sm text-gray-700">{ev.message}</p>
                                             {ev.fileUrl && (
-                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 text-xs font-medium text-indigo-600 hover:text-indigo-800 inline-flex items-center">
+                                                <a href={ev.fileUrl} target="_blank" rel="noreferrer" className="mt-2 text-xs font-medium text-[#5BA4CF] hover:text-indigo-800 inline-flex items-center">
                                                     📎 View Attached Evidence
                                                 </a>
                                             )}
@@ -822,7 +822,7 @@ export default function OperatorRequestDetailPage({
                         {!hasGivenFeedback(request) ? (
                             <button
                                 onClick={() => setFeedbackTourId(request.id)}
-                                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 shadow-sm"
+                                className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 shadow-sm"
                             >
                                 ★ Give Feedback
                             </button>

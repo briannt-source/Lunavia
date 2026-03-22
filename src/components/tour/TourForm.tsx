@@ -594,7 +594,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                     <div>
                         <p className="font-semibold">Verification Required to Publish</p>
                         <p>You can save drafts. Verification is required to publish tours.</p>
-                        <Link href="/dashboard/operator/verification" className="text-indigo-600 hover:underline mt-1 inline-block">Complete Verification →</Link>
+                        <Link href="/dashboard/operator/verification" className="text-[#5BA4CF] hover:underline mt-1 inline-block">Complete Verification →</Link>
                     </div>
                 </div>
             )}
@@ -608,7 +608,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             <p className="font-semibold">Action Required</p>
                             <p className="mt-0.5">{error}</p>
                             {error.includes('wallet') && (
-                                <Link href="/dashboard/operator/wallet" className="text-indigo-600 hover:underline mt-1.5 inline-block font-medium">Top up wallet →</Link>
+                                <Link href="/dashboard/operator/wallet" className="text-[#5BA4CF] hover:underline mt-1.5 inline-block font-medium">Top up wallet →</Link>
                             )}
                         </div>
                     </div>
@@ -627,9 +627,9 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                         >
                             <span className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-colors
                                 ${currentStep === step.id
-                                    ? 'bg-indigo-600 text-white'
+                                    ? 'bg-lunavia-primary text-white'
                                     : currentStep > step.id
-                                        ? 'bg-indigo-100 text-indigo-700'
+                                        ? 'bg-lunavia-muted/50 text-[#2E8BC0]'
                                         : 'bg-gray-100 text-gray-400'
                                 }`}
                             >
@@ -637,9 +637,9 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             </span>
                             <span className={`text-sm font-medium hidden sm:inline transition-colors
                                 ${currentStep === step.id
-                                    ? 'text-indigo-700'
+                                    ? 'text-[#2E8BC0]'
                                     : currentStep > step.id
-                                        ? 'text-indigo-600'
+                                        ? 'text-[#5BA4CF]'
                                         : 'text-gray-400'
                                 }`}
                             >
@@ -665,13 +665,13 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                 onClick={() => { setMarketType('INBOUND'); setCountry('VN'); setProvince(''); }}
                                 className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
                                     marketType === 'INBOUND'
-                                        ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-500/20'
+                                        ? 'border-indigo-500 bg-lunavia-light ring-2 ring-indigo-500/20'
                                         : 'border-gray-200 bg-white hover:border-gray-300'
                                 }`}
                             >
                                 <span className="text-2xl">🌍→🇻🇳</span>
                                 <div className="text-left">
-                                    <p className={`font-semibold ${marketType === 'INBOUND' ? 'text-indigo-700' : 'text-gray-700'}`}>Inbound</p>
+                                    <p className={`font-semibold ${marketType === 'INBOUND' ? 'text-[#2E8BC0]' : 'text-gray-700'}`}>Inbound</p>
                                     <p className="text-xs text-gray-500">Tours within Vietnam</p>
                                 </div>
                             </button>
@@ -925,7 +925,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                         <div className="flex items-center gap-2 shrink-0">
                                             {doc.fileUrl && (
                                                 <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer"
-                                                   className="text-xs text-indigo-600 hover:text-indigo-700 font-medium">View</a>
+                                                   className="text-xs text-[#5BA4CF] hover:text-[#2E8BC0] font-medium">View</a>
                                             )}
                                             <button onClick={() => handleDocDelete(doc.id)}
                                                     className="text-xs text-red-500 hover:text-red-700 font-medium">Remove</button>
@@ -954,7 +954,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                        className={`flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg border-2 border-dashed cursor-pointer transition-colors ${
                                            docUploading
                                                ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-                                               : 'border-gray-300 hover:border-indigo-400 hover:bg-indigo-50/50 text-gray-600'
+                                               : 'border-gray-300 hover:border-indigo-400 hover:bg-lunavia-light/50 text-gray-600'
                                        }`}>
                                     {docUploading ? (
                                         <><span className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" /> Uploading...</>
@@ -973,13 +973,13 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
             {currentStep === 3 && (
                 <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
                     {/* Running Total — top of section */}
-                    <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+                    <div className="bg-lunavia-light border border-[#5BA4CF]/20 rounded-lg p-4">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-indigo-900">Total Payout</p>
-                                <p className="text-xs text-indigo-600 mt-0.5">Sum of all roles below · auto-calculated</p>
+                                <p className="text-xs text-[#5BA4CF] mt-0.5">Sum of all roles below · auto-calculated</p>
                             </div>
-                            <p className="text-xl font-bold text-indigo-700">
+                            <p className="text-xl font-bold text-[#2E8BC0]">
                                 {currencySymbol[currency] || ''}{totalPayout.toLocaleString()} <span className="text-sm font-medium">{currency}</span>
                             </p>
                         </div>
@@ -994,7 +994,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             type="button"
                             onClick={addRole}
                             disabled={rolesNeeded.length >= GUIDE_ROLES.length}
-                            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium disabled:opacity-50"
+                            className="text-sm text-[#5BA4CF] hover:text-[#2E8BC0] font-medium disabled:opacity-50"
                         >
                             + Add Role
                         </button>
@@ -1112,7 +1112,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                             </p>
                                             <Link
                                                 href="/dashboard/operator/wallet"
-                                                className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                                                className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[#5BA4CF] hover:text-[#2E8BC0]"
                                             >
                                                 Top up wallet →
                                             </Link>
@@ -1135,7 +1135,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             <h2 className="text-lg font-semibold text-gray-900">Itinerary</h2>
                             <p className="text-xs text-gray-500 mt-0.5">Add tour stops for guides to check-in at each location. <span className="text-gray-400">(Optional — guides can log activities freely if skipped)</span></p>
                         </div>
-                        <button type="button" onClick={addStop} className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">+ Add Stop</button>
+                        <button type="button" onClick={addStop} className="text-sm text-[#5BA4CF] hover:text-[#2E8BC0] font-medium">+ Add Stop</button>
                     </div>
 
                     {itineraryStops.length === 0 ? (
@@ -1144,7 +1144,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                             <p className="font-medium text-gray-700">No itinerary stops yet</p>
                             <p className="text-sm text-gray-500 mt-1">Add stops to create a structured check-in flow for your guide.</p>
                             <p className="text-xs text-gray-400 mt-2">If you skip this, guides can still log activities freely during the tour.</p>
-                            <button type="button" onClick={addStop} className="mt-4 px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Add First Stop</button>
+                            <button type="button" onClick={addStop} className="mt-4 px-5 py-2.5 bg-lunavia-primary text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Add First Stop</button>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -1209,7 +1209,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                     </div>
                                 </div>
                             ))}
-                            <button type="button" onClick={addStop} className="w-full py-2.5 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-indigo-400 hover:text-indigo-600 transition">+ Add Another Stop</button>
+                            <button type="button" onClick={addStop} className="w-full py-2.5 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-indigo-400 hover:text-[#5BA4CF] transition">+ Add Another Stop</button>
                         </div>
                     )}
                 </section>
@@ -1240,7 +1240,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                         <button
                             type="button"
                             onClick={nextStep}
-                            className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition shadow-sm"
+                            className="rounded-lg bg-lunavia-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition shadow-sm"
                         >
                             Next →
                         </button>
@@ -1251,7 +1251,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                 type="button"
                                 onClick={() => handleSubmit('draft')}
                                 disabled={loading}
-                                className="rounded-lg border border-indigo-200 bg-indigo-50 px-5 py-2.5 text-sm font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50 transition"
+                                className="rounded-lg border border-[#5BA4CF]/30 bg-lunavia-light px-5 py-2.5 text-sm font-medium text-[#2E8BC0] hover:bg-lunavia-muted/50 disabled:opacity-50 transition"
                             >
                                 {loading ? 'Saving...' : 'Save as Draft'}
                             </button>
@@ -1261,7 +1261,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                         type="button"
                                         onClick={() => setShowPublishConfirm(true)}
                                         disabled={loading || (walletBalance !== null && totalPayout > 0 && walletBalance < totalPayout)}
-                                        className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm"
+                                        className="rounded-lg bg-lunavia-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm"
                                     >
                                         {loading ? 'Publishing...' : 'Publish Now'}
                                     </button>
@@ -1278,7 +1278,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                     >
                                         Complete Verification to Publish
                                     </button>
-                                    <Link href="/dashboard/operator/verification" className="text-xs text-indigo-600 hover:underline">
+                                    <Link href="/dashboard/operator/verification" className="text-xs text-[#5BA4CF] hover:underline">
                                         Go to Verification →
                                     </Link>
                                 </div>
@@ -1308,7 +1308,7 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
                                 <button
                                     onClick={() => { setShowPublishConfirm(false); handleSubmit('publish'); }}
                                     disabled={loading}
-                                    className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                                    className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
                                 >
                                     {loading ? 'Publishing...' : 'Confirm & Publish'}
                                 </button>

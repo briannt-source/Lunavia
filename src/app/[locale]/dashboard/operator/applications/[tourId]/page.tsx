@@ -298,7 +298,7 @@ export default function TourApplicationsPage() {
                   )}
 
                   <Link href={`/guides/${guideProfile.id}/profile`}>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    <Button className="w-full bg-lunavia-primary hover:bg-lunavia-primary-hover text-white">
                       <Eye className="h-4 w-4 mr-2" />
                       {t("detail.viewFullProfile")}
                     </Button>

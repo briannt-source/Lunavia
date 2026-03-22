@@ -69,7 +69,7 @@ export default function SimulationPanel() {
         return (
             <button
                 onClick={() => setExpanded(true)}
-                className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl p-5 shadow-sm hover:from-violet-700 hover:to-indigo-700 transition-all text-left"
+                className="w-full bg-gradient-to-r from-violet-600 to-[#5BA4CF] text-white rounded-2xl p-5 shadow-sm hover:from-violet-700 hover:to-indigo-700 transition-all text-left"
             >
                 <div className="flex items-center gap-3">
                     <span className="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center text-lg">🧪</span>
@@ -86,7 +86,7 @@ export default function SimulationPanel() {
     return (
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-violet-600 to-[#5BA4CF] px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <span className="h-8 w-8 rounded-lg bg-white/20 flex items-center justify-center text-base">🧪</span>
                     <div>
@@ -110,7 +110,7 @@ export default function SimulationPanel() {
                                 onClick={() => setSelectedScenario(s.key)}
                                 className={`text-left p-3 rounded-xl border-2 transition-all text-sm ${
                                     selectedScenario === s.key
-                                        ? 'border-indigo-500 bg-indigo-50'
+                                        ? 'border-indigo-500 bg-lunavia-light'
                                         : 'border-gray-100 hover:border-gray-200'
                                 }`}
                             >
@@ -129,7 +129,7 @@ export default function SimulationPanel() {
                 {/* Tour Count Slider */}
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                        Tour Count: <span className="text-indigo-600">{tourCount}</span>
+                        Tour Count: <span className="text-[#5BA4CF]">{tourCount}</span>
                     </label>
                     <input
                         type="range"
@@ -149,7 +149,7 @@ export default function SimulationPanel() {
                     <button
                         onClick={handleRun}
                         disabled={running || cleaning}
-                        className="flex-1 rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white hover:bg-indigo-700 disabled:opacity-50 transition-all text-sm"
+                        className="flex-1 rounded-xl bg-lunavia-primary px-5 py-2.5 font-semibold text-white hover:bg-indigo-700 disabled:opacity-50 transition-all text-sm"
                     >
                         {running ? (
                             <span className="flex items-center justify-center gap-2">
@@ -191,7 +191,7 @@ export default function SimulationPanel() {
                                 {[
                                     { label: 'Successful', value: result.data.summary.success, color: 'text-green-700 bg-green-50' },
                                     { label: 'Failed', value: result.data.summary.failed, color: result.data.summary.failed > 0 ? 'text-red-700 bg-red-50' : 'text-gray-500 bg-gray-50' },
-                                    { label: 'Events', value: result.data.summary.totalEvents, color: 'text-indigo-700 bg-indigo-50' },
+                                    { label: 'Events', value: result.data.summary.totalEvents, color: 'text-[#2E8BC0] bg-lunavia-light' },
                                     { label: 'Operator', value: result.data.summary.operatorName, color: 'text-gray-700 bg-gray-50' },
                                 ].map((s, i) => (
                                     <div key={i} className={`rounded-lg p-3 text-center ${s.color}`}>
@@ -238,7 +238,7 @@ export default function SimulationPanel() {
                                                 <tr key={i} className="border-b border-gray-100">
                                                     <td className="py-1 text-gray-800 font-mono truncate max-w-[120px]">{r.title || r.tourId?.slice(0,8)}</td>
                                                     <td className="py-1 text-gray-600">{r.scenario}</td>
-                                                    <td className="py-1 text-right text-indigo-600 font-semibold">{r.eventsGenerated}</td>
+                                                    <td className="py-1 text-right text-[#5BA4CF] font-semibold">{r.eventsGenerated}</td>
                                                     <td className="py-1 text-right">
                                                         <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${r.status === 'SUCCESS' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                                             {r.status}

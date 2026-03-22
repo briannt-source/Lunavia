@@ -104,7 +104,7 @@ export default function GuestCheckInPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="text-xl font-bold tracking-widest text-blue-400">LUNAVIA</div>
-                    <div className="text-xs bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full">Guest Check-in</div>
+                    <div className="text-xs bg-lunavia-light0/20 text-blue-400 px-3 py-1 rounded-full">Guest Check-in</div>
                 </div>
 
                 {/* Greeting */}
@@ -166,7 +166,7 @@ export default function GuestCheckInPage() {
                         <button
                             onClick={handleCheckIn}
                             disabled={confirming}
-                            className="w-full py-4 bg-blue-600 text-white text-lg font-bold rounded-xl hover:bg-blue-700 active:scale-95 transition disabled:opacity-50 disabled:cursor-wait shadow-lg shadow-blue-600/25"
+                            className="w-full py-4 bg-lunavia-primary text-white text-lg font-bold rounded-xl hover:bg-lunavia-primary-hover active:scale-95 transition disabled:opacity-50 disabled:cursor-wait shadow-lg shadow-[#2E8BC0]/25"
                         >
                             {confirming ? '⏳ Confirming...' : '✅ Confirm I\'m Here'}
                         </button>

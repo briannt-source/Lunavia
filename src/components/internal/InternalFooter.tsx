@@ -8,7 +8,7 @@ export default function InternalFooter() {
                     <span className="font-mono">v0.9.0</span>
                 </div>
                 <div>
-                    Support: <a href="mailto:support@lunavia.vn" className="text-indigo-600 hover:underline">support@lunavia.vn</a>
+                    Support: <a href="mailto:support@lunavia.vn" className="text-[#5BA4CF] hover:underline">support@lunavia.vn</a>
                 </div>
             </div>
         </footer>

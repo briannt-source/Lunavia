@@ -43,7 +43,7 @@ export default function TourEmergenciesPage() {
       case "MEDIUM":
         return "bg-amber-100 text-amber-800 border-amber-300";
       case "LOW":
-        return "bg-blue-100 text-blue-800 border-blue-300";
+        return "bg-lunavia-muted/50 text-blue-800 border-lunavia-primary/40";
       default:
         return "bg-slate-100 text-slate-800 border-slate-300";
     }
@@ -100,7 +100,7 @@ export default function TourEmergenciesPage() {
                               ? "text-orange-600"
                               : emergency.severity === "MEDIUM"
                               ? "text-amber-600"
-                              : "text-blue-600"
+                              : "text-lunavia-primary"
                           }`}
                         />
                         <CardTitle>{emergency.type}</CardTitle>
@@ -148,11 +148,11 @@ export default function TourEmergenciesPage() {
                   )}
 
                   {emergency.operatorResponse && (
-                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="p-3 bg-lunavia-light border border-lunavia-muted/60 rounded-lg">
                       <p className="text-sm font-medium text-blue-900 mb-1">
                         Your Response
                       </p>
-                      <p className="text-sm text-blue-700 whitespace-pre-wrap">
+                      <p className="text-sm text-lunavia-primary-hover whitespace-pre-wrap">
                         {emergency.operatorResponse}
                       </p>
                     </div>

@@ -82,13 +82,13 @@ export default function DemoResetPanel() {
                 />
             </div>
 
-            <div className="mt-6 rounded-lg bg-blue-50 p-4 text-sm text-blue-800">
+            <div className="mt-6 rounded-lg bg-lunavia-light p-4 text-sm text-blue-800">
                 <strong>Demo Credentials:</strong>
                 <div className="mt-2 space-y-1 font-mono text-xs">
                     <div>Operator: demo-operator@lunavia.vn</div>
                     <div>Guide: demo-guide@lunavia.vn</div>
                     <div>Intern: demo-intern@lunavia.vn</div>
-                    <div className="text-blue-600">Password: DemoPass123!</div>
+                    <div className="text-lunavia-primary">Password: DemoPass123!</div>
                 </div>
             </div>
         </div>

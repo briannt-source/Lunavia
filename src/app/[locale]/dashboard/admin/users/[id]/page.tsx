@@ -244,7 +244,7 @@ export default async function AdminUserDetailPage({
                   </div>
                   <div>
                     <p className="text-sm text-slate-500">Deposited</p>
-                    <p className="text-lg font-bold text-blue-600">
+                    <p className="text-lg font-bold text-lunavia-primary">
                       {formatVND(0)}
                     </p>
                   </div>

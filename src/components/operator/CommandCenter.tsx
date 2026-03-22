@@ -123,7 +123,7 @@ export function CommandCenter() {
                         <button
                             key={f}
                             onClick={() => { setFilter(f); setSelectedIds([]); }}
-                            className={`px-4 py-1.5 text-xs font-bold rounded-md transition ${filter === f ? 'bg-white shadow text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+                            className={`px-4 py-1.5 text-xs font-bold rounded-md transition ${filter === f ? 'bg-white shadow text-[#5BA4CF]' : 'text-gray-500 hover:text-gray-700'
                                 }`}
                         >
                             {f}
@@ -135,7 +135,7 @@ export function CommandCenter() {
                     <button
                         onClick={() => handleBulkAction('ACCEPT')}
                         disabled={processing || selectedIds.length === 0 || filter === 'TOURS'}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
+                        className="px-4 py-2 bg-lunavia-primary text-white rounded-lg text-sm font-bold hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
                     >
                         Bulk Accept ({selectedIds.filter(id => tasks.find(t => t.id === id)?.type === 'APPLICATION').length})
                     </button>
@@ -158,7 +158,7 @@ export function CommandCenter() {
                                     type="checkbox"
                                     checked={selectedIds.length === filteredTasks.length && filteredTasks.length > 0}
                                     onChange={selectAll}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                    className="h-4 w-4 rounded border-gray-300 text-[#5BA4CF] focus:ring-indigo-600"
                                 />
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Item</th>
@@ -168,13 +168,13 @@ export function CommandCenter() {
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                         {filteredTasks.length > 0 ? filteredTasks.map(task => (
-                            <tr key={task.id} className={`hover:bg-gray-50 transition cursor-pointer ${selectedIds.includes(task.id) ? 'bg-indigo-50/30' : ''}`} onClick={() => toggleSelect(task.id)}>
+                            <tr key={task.id} className={`hover:bg-gray-50 transition cursor-pointer ${selectedIds.includes(task.id) ? 'bg-lunavia-light/30' : ''}`} onClick={() => toggleSelect(task.id)}>
                                 <td className="px-6 py-4">
                                     <input
                                         type="checkbox"
                                         checked={selectedIds.includes(task.id)}
                                         onChange={() => { }} // Handled by row click
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        className="h-4 w-4 rounded border-gray-300 text-[#5BA4CF] focus:ring-indigo-600"
                                     />
                                 </td>
                                 <td className="px-6 py-4">
@@ -182,7 +182,7 @@ export function CommandCenter() {
                                     <div className="text-xs text-gray-500">{task.subtitle}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <span className={`px-2 py-1 text-[10px] font-bold rounded uppercase ${task.type === 'APPLICATION' ? 'bg-blue-50 text-blue-700' : 'bg-green-50 text-green-700'
+                                    <span className={`px-2 py-1 text-[10px] font-bold rounded uppercase ${task.type === 'APPLICATION' ? 'bg-lunavia-light text-lunavia-primary-hover' : 'bg-green-50 text-green-700'
                                         }`}>
                                         {task.status}
                                     </span>

@@ -169,7 +169,7 @@ function OperatorBusinessCard({ user }: { user: any }) {
                     <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
                         user.complianceLevel === 'GOLD' ? 'bg-amber-100 text-amber-700' :
                         user.complianceLevel === 'PROBATION' ? 'bg-red-100 text-red-700' :
-                        'bg-blue-100 text-blue-700'
+                        'bg-lunavia-muted/50 text-lunavia-primary-hover'
                     }`}>
                         {user.complianceLevel || 'STANDARD'}
                     </span>

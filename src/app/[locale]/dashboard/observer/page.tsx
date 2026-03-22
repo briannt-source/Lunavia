@@ -117,17 +117,17 @@ function InvestorView({ data }: { data: any }) {
             <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                 <h2 className="font-bold text-gray-900 mb-4">Engagement</h2>
                 <div className="grid grid-cols-3 text-center gap-4">
-                    <div className="bg-indigo-50 p-4 rounded-lg">
+                    <div className="bg-lunavia-light p-4 rounded-lg">
                         <p className="text-2xl font-black text-indigo-900">{userGrowth?.active30d?.operators}</p>
-                        <p className="text-[10px] font-bold text-indigo-700 uppercase">Active Operators (30d)</p>
+                        <p className="text-[10px] font-bold text-[#2E8BC0] uppercase">Active Operators (30d)</p>
                     </div>
                     <div className="bg-emerald-50 p-4 rounded-lg">
                         <p className="text-2xl font-black text-emerald-900">{userGrowth?.active30d?.guides}</p>
                         <p className="text-[10px] font-bold text-emerald-700 uppercase">Active Guides (30d)</p>
                     </div>
-                    <div className="bg-blue-50 p-4 rounded-lg">
+                    <div className="bg-lunavia-light p-4 rounded-lg">
                         <p className="text-2xl font-black text-blue-900">{tourVolume?.thisMonth}</p>
-                        <p className="text-[10px] font-bold text-blue-700 uppercase">Tours This Month</p>
+                        <p className="text-[10px] font-bold text-lunavia-primary-hover uppercase">Tours This Month</p>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@ function OperatorPerformanceView({ data }: { data: any }) {
                         <div className="space-y-2">
                             {data.recentFeedback?.map((f: any) => (
                                 <div key={f.id} className="text-sm p-2 bg-gray-50 rounded">
-                                    <span className="font-bold text-indigo-600 mr-2">{f.rating}★</span>
+                                    <span className="font-bold text-[#5BA4CF] mr-2">{f.rating}★</span>
                                     {f.tags && <span className="text-xs text-gray-500">[{f.tags}] </span>}
                                 </div>
                             ))}

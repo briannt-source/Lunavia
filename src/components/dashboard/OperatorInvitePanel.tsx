@@ -139,7 +139,7 @@ function InviteModal({ tours, guideId, guideName, onClose, onSent }: InviteModal
                     <button
                         onClick={handleSend}
                         disabled={sending || eligibleTours.length === 0}
-                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
+                        className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition shadow-sm"
                     >
                         {sending ? 'Sending...' : 'Send Invite'}
                     </button>

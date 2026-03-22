@@ -47,10 +47,10 @@ export default function DemoHint({ id, children, position = 'inline' }: Props) {
     };
 
     return (
-        <div className={`relative rounded-lg border border-indigo-200 bg-indigo-50 p-4 ${positionClasses[position]}`}>
+        <div className={`relative rounded-lg border border-[#5BA4CF]/30 bg-lunavia-light p-4 ${positionClasses[position]}`}>
             <button
                 onClick={handleDismiss}
-                className="absolute right-2 top-2 text-indigo-400 hover:text-indigo-600"
+                className="absolute right-2 top-2 text-indigo-400 hover:text-[#5BA4CF]"
                 aria-label="Dismiss hint"
             >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ export default function DemoHint({ id, children, position = 'inline' }: Props) {
             </button>
             <div className="flex items-start gap-3">
                 <div className="flex-shrink-0">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-lunavia-muted/50 text-[#5BA4CF]">
                         💡
                     </span>
                 </div>

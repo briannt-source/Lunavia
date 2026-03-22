@@ -89,15 +89,15 @@ export default function LoginPage() {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-indigo-200">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature1')}
               </div>
               <div className="flex items-center gap-3 text-indigo-200">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature2')}
               </div>
               <div className="flex items-center gap-3 text-indigo-200">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">✓</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lunavia-light0/20 text-indigo-300">✓</span>
                 {t('feature3')}
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function LoginPage() {
         <div className="w-full max-w-sm animate-fade-in mx-auto">
           {/* Mobile Logo */}
           <div className="lg:hidden mb-10 text-center">
-            <Link href="/" className="text-3xl font-black text-indigo-600 tracking-widest uppercase">
+            <Link href="/" className="text-3xl font-black text-[#5BA4CF] tracking-widest uppercase">
               Lunavia.
             </Link>
           </div>
@@ -160,7 +160,7 @@ export default function LoginPage() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-sm font-medium text-gray-700">{t('password')}</label>
-                <Link href="/forgot-password" className="text-xs font-semibold text-indigo-600 hover:text-indigo-500">{t('forgotPassword')}</Link>
+                <Link href="/forgot-password" className="text-xs font-semibold text-[#5BA4CF] hover:text-[#5BA4CF]">{t('forgotPassword')}</Link>
               </div>
               <input
                 type="password"

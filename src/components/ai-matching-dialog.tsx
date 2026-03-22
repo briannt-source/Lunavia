@@ -109,7 +109,7 @@ export function AIMatchingDialog({
       category === "top"
         ? "bg-emerald-50 border-emerald-200"
         : category === "good"
-        ? "bg-blue-50 border-blue-200"
+        ? "bg-lunavia-light border-lunavia-muted/60"
         : "bg-slate-50 border-slate-200";
 
     return (
@@ -271,7 +271,7 @@ export function AIMatchingDialog({
             {data.matches.good.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                  <Star className="h-5 w-5 text-blue-600" />
+                  <Star className="h-5 w-5 text-lunavia-primary" />
                   Good Matches ({data.matches.good.length})
                 </h3>
                 <div className="space-y-3">{data.matches.good.map((match: any) => renderMatchCard(match, "good"))}</div>

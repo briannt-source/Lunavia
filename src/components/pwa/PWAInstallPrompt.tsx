@@ -80,8 +80,8 @@ export default function PWAInstallPrompt() {
         <div className="fixed bottom-16 lg:bottom-4 inset-x-4 z-[70] animate-slide-in-up">
             <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-4 flex items-center gap-3">
                 {/* Icon */}
-                <div className="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center shrink-0">
-                    <Download className="h-5 w-5 text-indigo-600" />
+                <div className="w-11 h-11 rounded-xl bg-lunavia-light flex items-center justify-center shrink-0">
+                    <Download className="h-5 w-5 text-[#5BA4CF]" />
                 </div>
 
                 {/* Text */}
@@ -94,7 +94,7 @@ export default function PWAInstallPrompt() {
                 {!isIOS && deferredPrompt && (
                     <button
                         onClick={handleInstall}
-                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shrink-0"
+                        className="px-4 py-2 bg-lunavia-primary hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shrink-0"
                     >
                         {t('install')}
                     </button>

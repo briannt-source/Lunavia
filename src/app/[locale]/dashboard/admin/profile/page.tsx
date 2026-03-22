@@ -27,7 +27,7 @@ export default async function InternalProfilePage() {
     const roleName = user.role?.name || 'UNKNOWN';
     const roleColors: Record<string, string> = {
         SUPER_ADMIN: 'from-lunavia-primary to-lunavia-accent',
-        OPS: 'from-blue-500 to-cyan-600',
+        OPS: 'from-lunavia-primary to-cyan-600',
         FINANCE: 'from-green-500 to-teal-600',
         KYC_ANALYST: 'from-amber-500 to-orange-600',
     };

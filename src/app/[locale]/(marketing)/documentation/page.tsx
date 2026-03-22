@@ -38,7 +38,7 @@ export default function DocumentationPage() {
                                 { label: 'Compliance Transparency', anchor: '#compliance' },
                             ].map((item) => (
                                 <a key={item.anchor} href={item.anchor} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-500 hover:text-lunavia-primary hover:bg-lunavia-light transition">
-                                    <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                                    <svg className="w-4 h-4 text-lunavia-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                                     {item.label}
                                 </a>
                             ))}
@@ -228,10 +228,10 @@ export default function DocumentationPage() {
                             </div>
                             <h3 className="text-lg font-semibold text-slate-900 mb-2">Marketplace Guides</h3>
                             <ul className="space-y-2 text-sm text-slate-500">
-                                <li className="flex items-start gap-2"><span className="text-indigo-500 mt-0.5">•</span>Independent, verified freelance professionals</li>
-                                <li className="flex items-start gap-2"><span className="text-indigo-500 mt-0.5">•</span>Discoverable through the public marketplace</li>
-                                <li className="flex items-start gap-2"><span className="text-indigo-500 mt-0.5">•</span>Apply to open tour positions posted by operators</li>
-                                <li className="flex items-start gap-2"><span className="text-indigo-500 mt-0.5">•</span>Escrow-protected engagement terms</li>
+                                <li className="flex items-start gap-2"><span className="text-[#5BA4CF] mt-0.5">•</span>Independent, verified freelance professionals</li>
+                                <li className="flex items-start gap-2"><span className="text-[#5BA4CF] mt-0.5">•</span>Discoverable through the public marketplace</li>
+                                <li className="flex items-start gap-2"><span className="text-[#5BA4CF] mt-0.5">•</span>Apply to open tour positions posted by operators</li>
+                                <li className="flex items-start gap-2"><span className="text-[#5BA4CF] mt-0.5">•</span>Escrow-protected engagement terms</li>
                             </ul>
                         </div>
                     </div>

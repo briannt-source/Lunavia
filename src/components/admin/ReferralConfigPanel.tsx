@@ -32,7 +32,7 @@ export default function ReferralConfigPanel() {
       <button
         type="button"
         onClick={save}
-        className="rounded bg-blue-600 px-3 py-1 text-sm text-white"
+        className="rounded bg-lunavia-primary px-3 py-1 text-sm text-white"
       >
         Save
       </button>

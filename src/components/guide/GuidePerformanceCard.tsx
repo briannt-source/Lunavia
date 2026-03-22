@@ -105,7 +105,7 @@ function RatingBar({ label, value, emoji }: { label: string; value: number; emoj
             <span className="text-sm">{emoji}</span>
             <span className="text-xs text-gray-600 w-28 truncate">{label}</span>
             <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                <div className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-indigo-600 transition-all duration-700"
+                <div className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-[#5BA4CF] transition-all duration-700"
                     style={{ width: `${pct}%` }} />
             </div>
             <span className="text-xs font-semibold text-gray-700 w-8 text-right">
@@ -123,7 +123,7 @@ function ActivityChart({ data }: { data: { month: string; tours: number }[] }) {
             {data.map((d, i) => (
                 <div key={d.month} className="flex flex-col items-center flex-1 gap-0.5">
                     <div
-                        className="w-full rounded-t bg-gradient-to-t from-indigo-500 to-indigo-300 transition-all duration-500 min-h-[2px]"
+                        className="w-full rounded-t bg-gradient-to-t from-[#5BA4CF] to-indigo-300 transition-all duration-500 min-h-[2px]"
                         style={{ height: `${(d.tours / maxTours) * 100}%` }}
                         title={`${d.month}: ${d.tours} tours`}
                     />
@@ -307,7 +307,7 @@ export default function GuidePerformanceCard({ guideId }: { guideId: string }) {
                             <div className="flex flex-wrap gap-1.5">
                                 {coverage.languages.map(lang => (
                                     <span key={lang}
-                                        className="inline-flex items-center text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-medium">
+                                        className="inline-flex items-center text-xs bg-lunavia-light text-[#2E8BC0] px-2.5 py-1 rounded-full font-medium">
                                         {lang}
                                     </span>
                                 ))}

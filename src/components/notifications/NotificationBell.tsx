@@ -16,7 +16,7 @@ interface Notification {
 }
 
 const SEVERITY_STYLES: Record<string, string> = {
-    INFO: 'border-l-blue-500 bg-blue-50',
+    INFO: 'border-l-blue-500 bg-lunavia-light',
     SUCCESS: 'border-l-green-500 bg-green-50',
     WARNING: 'border-l-yellow-500 bg-yellow-50',
     ERROR: 'border-l-red-500 bg-red-50',
@@ -141,7 +141,7 @@ export default function NotificationBell() {
                         {unreadCount > 0 && (
                             <button
                                 onClick={markAllAsRead}
-                                className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+                                className="text-xs text-lunavia-primary hover:text-blue-800 font-medium"
                             >
                                 Mark all read
                             </button>
@@ -192,7 +192,7 @@ export default function NotificationBell() {
                                         {notification.message}
                                     </p>
                                     {notification.targetUrl && (
-                                        <span className="text-xs text-blue-500 mt-1 inline-block">View details →</span>
+                                        <span className="text-xs text-lunavia-primary mt-1 inline-block">View details →</span>
                                     )}
                                 </div>
                             ))
@@ -204,7 +204,7 @@ export default function NotificationBell() {
                         <div className="p-2 border-t bg-gray-50 text-center">
                             <Link
                                 href="/dashboard/notifications"
-                                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                className="text-sm text-lunavia-primary hover:text-blue-800 font-medium"
                                 onClick={() => setIsOpen(false)}
                             >
                                 View all notifications

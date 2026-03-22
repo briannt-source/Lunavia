@@ -116,9 +116,9 @@ export default function PlatformIntelligencePage() {
                                 <div className="text-xl font-bold text-amber-700">{data.supplyDemand.busyGuides}</div>
                                 <div className="text-[10px] text-amber-600 font-medium mt-1">Busy</div>
                             </div>
-                            <div className="text-center p-3 bg-blue-50 rounded-lg">
-                                <div className="text-xl font-bold text-blue-700">{data.supplyDemand.upcomingTours}</div>
-                                <div className="text-[10px] text-blue-600 font-medium mt-1">Upcoming Tours</div>
+                            <div className="text-center p-3 bg-lunavia-light rounded-lg">
+                                <div className="text-xl font-bold text-lunavia-primary-hover">{data.supplyDemand.upcomingTours}</div>
+                                <div className="text-[10px] text-lunavia-primary font-medium mt-1">Upcoming Tours</div>
                             </div>
                         </div>
                     </div>

@@ -67,7 +67,7 @@ function ResetPasswordContent() {
         <main className="flex min-h-screen items-center justify-center bg-white p-6">
             <div className="w-full max-w-sm animate-fade-in">
                 <div className="mb-10 text-center">
-                    <Link href="/" className="text-3xl font-black text-indigo-600 tracking-widest uppercase">
+                    <Link href="/" className="text-3xl font-black text-[#5BA4CF] tracking-widest uppercase">
                         Lunavia.
                     </Link>
                 </div>

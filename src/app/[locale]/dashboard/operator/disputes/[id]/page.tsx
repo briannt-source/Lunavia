@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { Link } from '@/navigation';
 
 const DISPUTE_STATUS_COLORS: Record<string, string> = {
-  PENDING: "bg-blue-100 text-blue-700 border-blue-300",
+  PENDING: "bg-lunavia-muted/50 text-lunavia-primary-hover border-lunavia-primary/40",
   IN_REVIEW: "bg-amber-100 text-amber-700 border-amber-300",
   RESOLVED: "bg-green-100 text-green-700 border-green-300",
   REJECTED: "bg-red-100 text-red-700 border-red-300",
@@ -102,7 +102,7 @@ export default function DisputeDetailPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-500 mb-1">Type</p>
-                    <Badge variant="outline" className="border-indigo-600 text-indigo-700">
+                    <Badge variant="outline" className="border-indigo-600 text-[#2E8BC0]">
                       {DISPUTE_TYPE_LABELS[dispute.type] || dispute.type}
                     </Badge>
                   </div>
@@ -146,7 +146,7 @@ export default function DisputeDetailPage() {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block text-sm text-indigo-600 hover:text-indigo-700 underline"
+                          className="block text-sm text-[#5BA4CF] hover:text-[#2E8BC0] underline"
                         >
                           {url}
                         </a>
@@ -169,7 +169,7 @@ export default function DisputeDetailPage() {
                   <div className="space-y-4">
                     {dispute.timeline.map((entry: any, index: number) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
+                        <div className="w-2 h-2 rounded-full bg-lunavia-primary mt-2"></div>
                         <div className="flex-1">
                           <p className="font-medium text-gray-900 text-sm">
                             {entry.action || entry.status}
@@ -202,7 +202,7 @@ export default function DisputeDetailPage() {
                 <CardContent>
                   <Link
                     href={`/dashboard/operator/tours/${dispute.tourId}`}
-                    className="block p-3 rounded-lg bg-gray-50 hover:bg-indigo-50 transition-colors"
+                    className="block p-3 rounded-lg bg-gray-50 hover:bg-lunavia-light transition-colors"
                   >
                     <p className="font-medium text-gray-900 text-sm">
                       {dispute.tour?.title || `Tour ${dispute.tourId}`}
@@ -226,7 +226,7 @@ export default function DisputeDetailPage() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     {dispute.status === "PENDING" && (
-                      <AlertCircle className="h-4 w-4 text-blue-600" />
+                      <AlertCircle className="h-4 w-4 text-lunavia-primary" />
                     )}
                     {dispute.status === "IN_REVIEW" && (
                       <AlertCircle className="h-4 w-4 text-amber-600" />

@@ -112,8 +112,8 @@ export default function ChatPage() {
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <User className="h-5 w-5 text-blue-600" />
+                <div className="w-10 h-10 rounded-full bg-lunavia-muted/50 flex items-center justify-center">
+                  <User className="h-5 w-5 text-lunavia-primary" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">
@@ -146,7 +146,7 @@ export default function ChatPage() {
                     <div
                       className={`max-w-[70%] rounded-lg px-4 py-2 ${
                         isOwn
-                          ? "bg-blue-600 text-white"
+                          ? "bg-lunavia-primary text-white"
                           : "bg-slate-100 text-slate-900"
                       }`}
                     >

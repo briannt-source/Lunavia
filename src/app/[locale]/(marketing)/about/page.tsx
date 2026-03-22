@@ -17,7 +17,7 @@ export default async function AboutPage() {
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight">
                         {t('hero.title1')}{' '}
-                        <span className="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-[#5BA4CF] to-lunavia-primary bg-clip-text text-transparent">
                             {t('hero.title2')}
                         </span>
                     </h1>

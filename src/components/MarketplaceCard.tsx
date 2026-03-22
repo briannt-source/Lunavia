@@ -20,7 +20,7 @@ export default function MarketplaceCard({ title, location, operator, verified, a
       </div>
       <a
         href="/login"
-        className="mt-3 block rounded bg-blue-600 px-3 py-1 text-center text-xs font-medium text-white hover:bg-blue-700"
+        className="mt-3 block rounded bg-lunavia-primary px-3 py-1 text-center text-xs font-medium text-white hover:bg-lunavia-primary-hover"
       >
         View details
       </a>

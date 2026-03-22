@@ -22,7 +22,7 @@ interface TourExecutionTimelineProps {
 }
 
 const EVENT_COLORS: Record<string, { bg: string; border: string }> = {
-    GUIDE_CHECKED_IN: { bg: 'bg-indigo-100', border: 'border-indigo-300' },
+    GUIDE_CHECKED_IN: { bg: 'bg-lunavia-muted/50', border: 'border-[#5BA4CF]/40' },
     TOUR_STARTED: { bg: 'bg-green-100', border: 'border-green-300' },
     SEGMENT_ARRIVED: { bg: 'bg-sky-100', border: 'border-sky-300' },
     SEGMENT_STARTED: { bg: 'bg-amber-100', border: 'border-amber-300' },
@@ -77,7 +77,7 @@ export function TourExecutionTimeline({ tourId, autoRefresh = false, refreshInte
         return (
             <div className="py-8 text-center">
                 <div className="inline-flex items-center gap-2 text-gray-500 text-sm">
-                    <div className="w-4 h-4 border-2 border-indigo-300 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-[#5BA4CF]/40 border-t-transparent rounded-full animate-spin" />
                     Loading timeline...
                 </div>
             </div>
@@ -88,7 +88,7 @@ export function TourExecutionTimeline({ tourId, autoRefresh = false, refreshInte
         return (
             <div className="py-6 text-center">
                 <div className="text-red-500 text-sm">{error}</div>
-                <button onClick={fetchTimeline} className="text-indigo-600 text-sm mt-2 underline">Retry</button>
+                <button onClick={fetchTimeline} className="text-[#5BA4CF] text-sm mt-2 underline">Retry</button>
             </div>
         );
     }

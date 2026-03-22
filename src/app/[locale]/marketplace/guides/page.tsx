@@ -131,7 +131,7 @@ export default function GuidesMarketplacePage() {
             {targetGuideId && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 max-h-[80vh] overflow-hidden">
-                        <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
+                        <div className="bg-gradient-to-r from-[#5BA4CF] to-indigo-700 px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <h2 className="text-white font-bold text-lg">Invite to Tour</h2>
@@ -166,7 +166,7 @@ export default function GuidesMarketplacePage() {
                                             key={tour.id}
                                             onClick={() => handleInviteToTour(tour.id)}
                                             disabled={inviting === tour.id}
-                                            className="w-full flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50/30 transition text-left"
+                                            className="w-full flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-[#5BA4CF]/40 hover:bg-lunavia-light/30 transition text-left"
                                         >
                                             <div className="min-w-0 flex-1">
                                                 <div className="text-sm font-semibold text-gray-900 truncate">{tour.title}</div>
@@ -174,7 +174,7 @@ export default function GuidesMarketplacePage() {
                                                     {tour.startTime ? new Date(tour.startTime).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'No date'}
                                                 </div>
                                             </div>
-                                            <span className="text-xs font-medium text-indigo-600 shrink-0 ml-3">
+                                            <span className="text-xs font-medium text-[#5BA4CF] shrink-0 ml-3">
                                                 {inviting === tour.id ? 'Sending...' : 'Invite →'}
                                             </span>
                                         </button>

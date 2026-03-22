@@ -55,7 +55,7 @@ export default function FeedbackWidget() {
             {/* Floating button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-transform hover:scale-105"
+                className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-lunavia-primary text-white shadow-lg hover:bg-lunavia-primary-hover transition-transform hover:scale-105"
                 title="Send feedback"
             >
                 💬
@@ -95,8 +95,8 @@ export default function FeedbackWidget() {
                                                     type="button"
                                                     onClick={() => setCategory(cat.value)}
                                                     className={`rounded border p-2 text-sm transition ${category === cat.value
-                                                            ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                                            : 'border-gray-200 hover:border-blue-300'
+                                                            ? 'border-lunavia-primary bg-lunavia-light text-lunavia-primary-hover'
+                                                            : 'border-gray-200 hover:border-lunavia-primary/40'
                                                         }`}
                                                 >
                                                     {cat.label}
@@ -129,7 +129,7 @@ export default function FeedbackWidget() {
                                         <button
                                             type="submit"
                                             disabled={!category || loading}
-                                            className="flex-1 rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+                                            className="flex-1 rounded bg-lunavia-primary px-4 py-2 text-sm text-white hover:bg-lunavia-primary-hover disabled:opacity-50"
                                         >
                                             {loading ? 'Sending...' : 'Send'}
                                         </button>

@@ -109,7 +109,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                         </p>
                         <button
                             onClick={onClose}
-                            className="mt-6 w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700"
+                            className="mt-6 w-full rounded-lg bg-lunavia-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700"
                         >
                             Done
                         </button>
@@ -140,7 +140,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                                         onClick={() => setSelectedPlan(plan)}
                                         disabled={currentPlan === plan}
                                         className={`p-4 rounded-lg border-2 text-left transition-all ${selectedPlan === plan
-                                            ? 'border-indigo-500 bg-indigo-50'
+                                            ? 'border-indigo-500 bg-lunavia-light'
                                             : 'border-gray-200 hover:border-gray-300'
                                             } ${currentPlan === plan ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     >
@@ -151,7 +151,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                                             {PLAN_CONFIG[plan].description}
                                         </div>
                                         {currentPlan === plan && (
-                                            <div className="text-xs text-indigo-600 mt-1">Current plan</div>
+                                            <div className="text-xs text-[#5BA4CF] mt-1">Current plan</div>
                                         )}
                                     </button>
                                 ))}
@@ -167,12 +167,12 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                                         key={d}
                                         onClick={() => setDuration(d)}
                                         className={`p-4 rounded-lg border-2 text-center transition-all ${duration === d
-                                            ? 'border-indigo-500 bg-indigo-50'
+                                            ? 'border-indigo-500 bg-lunavia-light'
                                             : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
                                         <div className="font-semibold text-gray-900">{d} Days</div>
-                                        <div className="text-sm text-indigo-600 mt-1">
+                                        <div className="text-sm text-[#5BA4CF] mt-1">
                                             {formatVND(PLAN_PRICING[selectedPlan]?.[d] ?? 0)}
                                         </div>
                                         {d === 90 && (
@@ -193,7 +193,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
 
                         <button
                             onClick={handleCreateRequest}
-                            className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
+                            className="w-full rounded-lg bg-lunavia-primary px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
                         >
                             Continue to Payment
                         </button>
@@ -216,9 +216,9 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                         </div>
 
                         {/* Amount */}
-                        <div className="text-center bg-indigo-50 rounded-lg p-6">
+                        <div className="text-center bg-lunavia-light rounded-lg p-6">
                             <div className="text-sm text-gray-600 mb-1">Amount to Pay</div>
-                            <div className="text-3xl font-bold text-indigo-600">{formatVND(amount)}</div>
+                            <div className="text-3xl font-bold text-[#5BA4CF]">{formatVND(amount)}</div>
                             <div className="text-sm text-gray-500 mt-1">{PLAN_CONFIG[selectedPlan].displayName} - {duration} days</div>
                         </div>
 
@@ -257,7 +257,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
 
                         <button
                             onClick={() => setStep('upload')}
-                            className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
+                            className="w-full rounded-lg bg-lunavia-primary px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
                         >
                             I&apos;ve Made the Payment
                         </button>
@@ -267,7 +267,7 @@ export function PaymentRequestModal({ isOpen, onClose, currentPlan }: PaymentReq
                 {step === 'upload' && (
                     <div className="space-y-6">
                         <div className="text-center">
-                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100">
+                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-lunavia-muted/50">
                                 <span className="text-3xl">📤</span>
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900">Upload Payment Proof</h3>

@@ -45,7 +45,7 @@ const SEGMENT_ICONS: Record<string, string> = {
 
 // Status flow: ARRIVED → STARTED → COMPLETED (or SKIPPED at any point)
 const NEXT_STATUS: Record<string, { status: string; label: string; color: string }> = {
-    '': { status: 'ARRIVED', label: '📍 Arrived', color: 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800' },
+    '': { status: 'ARRIVED', label: '📍 Arrived', color: 'bg-lunavia-primary hover:bg-lunavia-primary-hover active:bg-blue-800' },
     ARRIVED: { status: 'STARTED', label: '▶️ Start Activity', color: 'bg-amber-600 hover:bg-amber-700 active:bg-amber-800' },
     STARTED: { status: 'COMPLETED', label: '✓ Complete', color: 'bg-green-600 hover:bg-green-700 active:bg-green-800' },
 };
@@ -165,7 +165,7 @@ export default function GuideLiveTourPage() {
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="text-center space-y-3">
                     <div className="text-red-500 text-lg font-medium">{error || 'Tour not found'}</div>
-                    <button onClick={() => router.push('/dashboard/guide/assigned')} className="text-indigo-600 underline text-sm">
+                    <button onClick={() => router.push('/dashboard/guide/assigned')} className="text-[#5BA4CF] underline text-sm">
                         Back to Assigned Tours
                     </button>
                 </div>
@@ -240,9 +240,9 @@ export default function GuideLiveTourPage() {
                                         {/* Timeline dot */}
                                         <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg
                                             ${isCompleted ? 'bg-green-100 text-green-700' :
-                                                isActive ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-400 ring-offset-2' :
+                                                isActive ? 'bg-lunavia-muted/50 text-lunavia-primary-hover ring-2 ring-blue-400 ring-offset-2' :
                                                     isSkipped ? 'bg-gray-200 text-gray-500' :
-                                                        isNext ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-400 ring-offset-2' :
+                                                        isNext ? 'bg-lunavia-muted/50 text-lunavia-primary-hover ring-2 ring-blue-400 ring-offset-2' :
                                                             'bg-gray-100 text-gray-400'}`}
                                         >
                                             {isCompleted ? '✓' : isSkipped ? '–' : icon}
@@ -250,9 +250,9 @@ export default function GuideLiveTourPage() {
 
                                         {/* Content */}
                                         <div className={`flex-1 min-w-0 rounded-xl p-4 ${isCompleted ? 'bg-green-50 border border-green-200' :
-                                                isActive ? 'bg-blue-50 border-2 border-blue-300 shadow-sm' :
+                                                isActive ? 'bg-lunavia-light border-2 border-lunavia-primary/40 shadow-sm' :
                                                     isSkipped ? 'bg-gray-50 border border-gray-200' :
-                                                        isNext ? 'bg-white border-2 border-blue-300 shadow-sm' :
+                                                        isNext ? 'bg-white border-2 border-lunavia-primary/40 shadow-sm' :
                                                             'bg-white border border-gray-200'
                                             }`}>
                                             <div className="flex items-start justify-between gap-2">
@@ -305,7 +305,7 @@ export default function GuideLiveTourPage() {
                                                                 setEditTime(new Date(segment.checkIn!.checkInTime).toISOString().slice(0, 16));
                                                                 setEditReason('');
                                                             }}
-                                                            className="text-sm text-indigo-600 font-medium hover:underline"
+                                                            className="text-sm text-[#5BA4CF] font-medium hover:underline"
                                                         >
                                                             Edit time
                                                         </button>
@@ -320,7 +320,7 @@ export default function GuideLiveTourPage() {
                                                     {!currentStatus && (
                                                         <button
                                                             onClick={() => setShowNoteFor(showNoteFor === segment.id ? null : segment.id)}
-                                                            className="text-xs text-gray-500 hover:text-indigo-600"
+                                                            className="text-xs text-gray-500 hover:text-[#5BA4CF]"
                                                         >
                                                             {showNoteFor === segment.id ? '▾ Hide options' : '▸ Add note / photo'}
                                                         </button>
@@ -333,14 +333,14 @@ export default function GuideLiveTourPage() {
                                                                 placeholder="Add a note..."
                                                                 value={noteInput[segment.id] || ''}
                                                                 onChange={e => setNoteInput(p => ({ ...p, [segment.id]: e.target.value }))}
-                                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+                                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lunavia-primary"
                                                             />
                                                             <input
                                                                 type="url"
                                                                 placeholder="Photo URL (optional)"
                                                                 value={photoInput[segment.id] || ''}
                                                                 onChange={e => setPhotoInput(p => ({ ...p, [segment.id]: e.target.value }))}
-                                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+                                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lunavia-primary"
                                                             />
                                                         </div>
                                                     )}
@@ -411,7 +411,7 @@ export default function GuideLiveTourPage() {
                                     type="datetime-local"
                                     value={editTime}
                                     onChange={e => setEditTime(e.target.value)}
-                                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base focus:ring-2 focus:ring-lunavia-primary focus:border-blue-500"
                                 />
                             </div>
                             <div>
@@ -421,14 +421,14 @@ export default function GuideLiveTourPage() {
                                     onChange={e => setEditReason(e.target.value)}
                                     placeholder="e.g., Traffic delay, time zone error..."
                                     rows={3}
-                                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base focus:ring-2 focus:ring-lunavia-primary focus:border-blue-500 resize-none"
                                 />
                             </div>
                         </div>
                         <button
                             onClick={handleEditSubmit}
                             disabled={editSubmitting || !editReason.trim()}
-                            className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold text-base hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                            className="w-full py-3 bg-lunavia-primary text-white rounded-lg font-semibold text-base hover:bg-lunavia-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition"
                             style={{ minHeight: '48px' }}
                         >
                             {editSubmitting ? 'Saving...' : 'Save Edit'}

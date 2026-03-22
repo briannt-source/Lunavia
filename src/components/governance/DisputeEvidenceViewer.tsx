@@ -15,7 +15,7 @@ interface Props {
 }
 
 const TYPE_ICONS: Record<string, { icon: string; label: string; color: string }> = {
-    PHOTO: { icon: '📷', label: 'Photo', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+    PHOTO: { icon: '📷', label: 'Photo', color: 'bg-lunavia-light text-lunavia-primary-hover border-lunavia-muted/60' },
     DOCUMENT: { icon: '📄', label: 'Document', color: 'bg-purple-50 text-purple-700 border-purple-200' },
     CHAT: { icon: '💬', label: 'Chat Log', color: 'bg-green-50 text-green-700 border-green-200' },
     NOTE: { icon: '📝', label: 'Note', color: 'bg-amber-50 text-amber-700 border-amber-200' },
@@ -59,7 +59,7 @@ export default function DisputeEvidenceViewer({ evidence, className = '' }: Prop
                                         href={e.fileUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 mt-2 text-xs text-indigo-600 font-medium hover:text-indigo-700 transition"
+                                        className="inline-flex items-center gap-1 mt-2 text-xs text-[#5BA4CF] font-medium hover:text-[#2E8BC0] transition"
                                     >
                                         📎 View Attachment
                                     </a>

@@ -76,7 +76,7 @@ export async function ActionItemsWidget({ role, userId }: ActionItemsWidgetProps
                 desc: `${offersCount} tours offered to you`,
                 href: '/dashboard/guide/assigned',
                 icon: 'star',
-                color: 'bg-indigo-50 text-indigo-700'
+                color: 'bg-lunavia-light text-[#2E8BC0]'
             });
         }
     }
@@ -99,7 +99,7 @@ export async function ActionItemsWidget({ role, userId }: ActionItemsWidgetProps
             <div className="space-y-3">
                 {actions.map((action, idx) => (
                     <Link href={action.href} key={idx} className="block group">
-                        <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-indigo-200 hover:bg-gray-50 transition-all">
+                        <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-[#5BA4CF]/30 hover:bg-gray-50 transition-all">
                             <div className={`p-2 rounded-lg ${action.color}`}>
                                 {/* Simple emoji icons for now */}
                                 {action.icon === 'busts_in_silhouette' && '👥'}
@@ -108,10 +108,10 @@ export async function ActionItemsWidget({ role, userId }: ActionItemsWidgetProps
                                 {action.icon === 'star' && '⭐'}
                             </div>
                             <div>
-                                <h4 className="font-medium text-gray-900 text-sm group-hover:text-indigo-600 transition-colors">{action.label}</h4>
+                                <h4 className="font-medium text-gray-900 text-sm group-hover:text-[#5BA4CF] transition-colors">{action.label}</h4>
                                 <p className="text-xs text-gray-500">{action.desc}</p>
                             </div>
-                            <div className="ml-auto text-gray-400 group-hover:text-indigo-500">
+                            <div className="ml-auto text-gray-400 group-hover:text-[#5BA4CF]">
                                 →
                             </div>
                         </div>

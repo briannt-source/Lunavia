@@ -95,7 +95,7 @@ const URGENCY_STYLES: Record<string, { bg: string; border: string; text: string;
     urgent: { bg: 'bg-red-50', border: 'border-red-400', text: 'text-red-900', badge: 'bg-red-600 text-white', pulse: true },
     critical: { bg: 'bg-orange-50', border: 'border-orange-400', text: 'text-orange-900', badge: 'bg-orange-600 text-white', pulse: true },
     warning: { bg: 'bg-amber-50', border: 'border-amber-300', text: 'text-amber-900', badge: 'bg-amber-500 text-white' },
-    info: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-900', badge: 'bg-blue-500 text-white' },
+    info: { bg: 'bg-lunavia-light', border: 'border-lunavia-muted/60', text: 'text-blue-900', badge: 'bg-lunavia-light0 text-white' },
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -212,7 +212,7 @@ export default function TourReminderPopup() {
     return (
         <div className="fixed bottom-6 right-6 z-[9999] w-[400px] max-h-[70vh] flex flex-col">
             {/* Header */}
-            <div className="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-t-2xl px-5 py-3.5 flex items-center justify-between shadow-xl">
+            <div className="bg-gradient-to-r from-[#5BA4CF] to-violet-600 rounded-t-2xl px-5 py-3.5 flex items-center justify-between shadow-xl">
                 <div className="flex items-center gap-2">
                     <span className="text-lg">🔔</span>
                     <h3 className="text-sm font-bold text-white">Tour Reminders</h3>
@@ -276,7 +276,7 @@ export default function TourReminderPopup() {
                                     <div className="flex items-center gap-2 mt-2">
                                         <a
                                             href={alert.actionUrl}
-                                            className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-semibold"
+                                            className="text-xs px-3 py-1.5 bg-lunavia-primary text-white rounded-lg hover:bg-indigo-700 transition font-semibold"
                                         >
                                             View Tour
                                         </a>
@@ -295,7 +295,7 @@ export default function TourReminderPopup() {
                                                         <button
                                                             key={opt.label}
                                                             onClick={() => handleSnooze(alert.id, opt.ms)}
-                                                            className="block w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                                                            className="block w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-lunavia-light hover:text-[#2E8BC0] transition"
                                                         >
                                                             {opt.label}
                                                         </button>

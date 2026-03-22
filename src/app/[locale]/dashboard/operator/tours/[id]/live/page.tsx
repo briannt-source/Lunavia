@@ -156,7 +156,7 @@ export default function OperatorLiveTourPage() {
                     <div className="text-red-500 text-lg font-medium">{error || 'Tour not found'}</div>
                     <button
                         onClick={() => router.push('/dashboard/operator/tours')}
-                        className="text-indigo-600 underline text-sm"
+                        className="text-[#5BA4CF] underline text-sm"
                     >
                         Back to Tours
                     </button>
@@ -168,7 +168,7 @@ export default function OperatorLiveTourPage() {
     if (!tour) return null;
 
     const statusConfig: Record<string, { bg: string; text: string; label: string }> = {
-        ASSIGNED: { bg: 'bg-blue-50', text: 'text-blue-700', label: 'Assigned' },
+        ASSIGNED: { bg: 'bg-lunavia-light', text: 'text-lunavia-primary-hover', label: 'Assigned' },
         READY: { bg: 'bg-amber-50', text: 'text-amber-700', label: 'Ready' },
         IN_PROGRESS: { bg: 'bg-green-50', text: 'text-green-700', label: 'In Progress' },
         COMPLETED: { bg: 'bg-amber-50', text: 'text-amber-700', label: 'Pending Confirmation' },
@@ -195,7 +195,7 @@ export default function OperatorLiveTourPage() {
                         <div className="min-w-0 flex-1">
                             <button
                                 onClick={() => router.push('/dashboard/operator/tours')}
-                                className="text-sm text-gray-500 hover:text-indigo-600 mb-1 flex items-center gap-1"
+                                className="text-sm text-gray-500 hover:text-[#5BA4CF] mb-1 flex items-center gap-1"
                             >
                                 ← Back to Tours
                             </button>
@@ -218,9 +218,9 @@ export default function OperatorLiveTourPage() {
 
                     {/* Stats bar */}
                     {isFreeFormMode ? (
-                        <div className="mt-4 bg-indigo-50 rounded-lg p-3 text-center">
-                            <div className="text-xl font-bold text-indigo-700">{segments.length}</div>
-                            <div className="text-xs text-indigo-600">Activities Logged by Guide</div>
+                        <div className="mt-4 bg-lunavia-light rounded-lg p-3 text-center">
+                            <div className="text-xl font-bold text-[#2E8BC0]">{segments.length}</div>
+                            <div className="text-xs text-[#5BA4CF]">Activities Logged by Guide</div>
                         </div>
                     ) : segments.length > 0 ? (
                         <div className="mt-4 grid grid-cols-3 gap-3">
@@ -290,10 +290,10 @@ export default function OperatorLiveTourPage() {
 
                 {/* ── Start Tour / Waiting for Check-in Banner ── */}
                 {tour.status === 'ASSIGNED' && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-center">
+                    <div className="bg-lunavia-light border border-lunavia-muted/60 rounded-2xl p-5 text-center">
                         <div className="text-4xl mb-2">⏳</div>
                         <h2 className="font-bold text-blue-800 text-lg">Waiting for Guide Check-in</h2>
-                        <p className="text-sm text-blue-600 mt-1">The guide needs to check in before the tour can start.</p>
+                        <p className="text-sm text-lunavia-primary mt-1">The guide needs to check in before the tour can start.</p>
                     </div>
                 )}
 
@@ -401,7 +401,7 @@ export default function OperatorLiveTourPage() {
 
                 {/* ── Confirm / Reject Actions ───────────── */}
                 {isCompleted && !actionResult && (
-                    <div className="bg-white rounded-xl border-2 border-indigo-200 p-6">
+                    <div className="bg-white rounded-xl border-2 border-[#5BA4CF]/30 p-6">
                         <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
                             <span className="text-lg">🤝</span> Confirm Tour Completion
                         </h3>

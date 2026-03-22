@@ -148,8 +148,8 @@ export default function GuideWalletPage() {
     const typeColors: Record<string, string> = {
         TOP_UP: 'bg-green-50 text-green-700',
         HOLD: 'bg-amber-50 text-amber-700',
-        RELEASE: 'bg-blue-50 text-blue-700',
-        REFUND: 'bg-indigo-50 text-indigo-700',
+        RELEASE: 'bg-lunavia-light text-lunavia-primary-hover',
+        REFUND: 'bg-lunavia-light text-[#2E8BC0]',
         PAYOUT: 'bg-purple-50 text-purple-700',
         PENALTY: 'bg-red-50 text-red-700',
     };
@@ -379,7 +379,7 @@ export default function GuideWalletPage() {
                                                 <Link
                                                     href={`/invoice/${tx.id}`}
                                                     target="_blank"
-                                                    className="px-3 py-1 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition"
+                                                    className="px-3 py-1 text-xs font-medium text-[#2E8BC0] bg-lunavia-light border border-[#5BA4CF]/30 rounded-lg hover:bg-lunavia-muted/50 transition"
                                                 >
                                                     {t('history.invoiceBtn')}
                                                 </Link>

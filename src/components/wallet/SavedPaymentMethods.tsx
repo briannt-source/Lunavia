@@ -156,7 +156,7 @@ export default function SavedPaymentMethods({ onSelectForWithdraw, compact }: Sa
                 {!showForm && (
                     <button
                         onClick={() => { resetForm(); setShowForm(true); }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#2E8BC0] bg-lunavia-light border border-[#5BA4CF]/30 rounded-lg hover:bg-lunavia-muted/50 transition"
                     >
                         + {t('addNew')}
                     </button>
@@ -241,7 +241,7 @@ export default function SavedPaymentMethods({ onSelectForWithdraw, compact }: Sa
                             <button
                                 type="submit"
                                 disabled={submitting}
-                                className="flex-1 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                                className="flex-1 rounded-lg bg-lunavia-primary px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
                             >
                                 {submitting ? t('saving') : editingId ? t('update') : t('add')}
                             </button>
@@ -261,12 +261,12 @@ export default function SavedPaymentMethods({ onSelectForWithdraw, compact }: Sa
                 ) : (
                     <div className="space-y-3">
                         {methods.map((m) => (
-                            <div key={m.id} className={`rounded-lg border p-3 flex items-center justify-between ${m.isDefault ? 'border-indigo-200 bg-indigo-50/40' : 'border-gray-200 bg-white'}`}>
+                            <div key={m.id} className={`rounded-lg border p-3 flex items-center justify-between ${m.isDefault ? 'border-[#5BA4CF]/30 bg-lunavia-light/40' : 'border-gray-200 bg-white'}`}>
                                 <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-2 mb-1">
                                         <span className="text-xs font-semibold text-gray-700">{typeLabels[m.type] || m.type}</span>
                                         {m.isDefault && (
-                                            <span className="px-1.5 py-0.5 text-[10px] font-bold bg-indigo-100 text-indigo-700 rounded">{t('default')}</span>
+                                            <span className="px-1.5 py-0.5 text-[10px] font-bold bg-lunavia-muted/50 text-[#2E8BC0] rounded">{t('default')}</span>
                                         )}
                                         {m.isVerified && (
                                             <span className="px-1.5 py-0.5 text-[10px] font-bold bg-green-100 text-green-700 rounded">✓ {t('verified')}</span>
@@ -284,7 +284,7 @@ export default function SavedPaymentMethods({ onSelectForWithdraw, compact }: Sa
                                     {onSelectForWithdraw && (
                                         <button
                                             onClick={() => handleUseForWithdraw(m)}
-                                            className="px-2.5 py-1.5 text-[11px] font-medium text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition"
+                                            className="px-2.5 py-1.5 text-[11px] font-medium text-[#2E8BC0] bg-lunavia-light border border-[#5BA4CF]/30 rounded-lg hover:bg-lunavia-muted/50 transition"
                                             title="Use for withdrawal"
                                         >
                                             {t('use')}

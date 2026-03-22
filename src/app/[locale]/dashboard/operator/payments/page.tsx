@@ -201,7 +201,7 @@ export default function OperatorPaymentsPage() {
                         {(request.paymentRequestStatus || request.status) === "APPROVED" && (
                           <Button
                             size="sm"
-                            className="bg-blue-600 hover:bg-blue-700"
+                            className="bg-lunavia-primary hover:bg-lunavia-primary-hover"
                             onClick={() =>
                               handlePay(
                                 request.tourId,

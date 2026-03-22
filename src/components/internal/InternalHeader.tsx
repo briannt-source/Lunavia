@@ -13,7 +13,7 @@ export default function InternalHeader() {
             <div className="flex items-center gap-4">
                 <Link href="/dashboard/admin" className="flex items-center gap-2">
                     <span className="text-xl font-bold text-gray-900 tracking-tight">Lunavia</span>
-                    <span className="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-700 uppercase tracking-wide">
+                    <span className="px-2 py-0.5 rounded text-xs font-bold bg-lunavia-muted/50 text-[#2E8BC0] uppercase tracking-wide">
                         {role}
                     </span>
                 </Link>
@@ -27,7 +27,7 @@ export default function InternalHeader() {
                         </span>
                         <Link
                             href="/dashboard/admin/profile"
-                            className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                            className="text-sm font-medium text-gray-700 hover:text-[#5BA4CF] transition-colors"
                         >
                             Profile
                         </Link>

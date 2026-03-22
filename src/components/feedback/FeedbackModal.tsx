@@ -107,7 +107,7 @@ export default function FeedbackModal({ isOpen, onClose, tourId, role, onSuccess
                                     type="button"
                                     onClick={() => toggleTag(tag.id)}
                                     className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${selectedTags.includes(tag.id)
-                                        ? 'bg-indigo-50 border-indigo-200 text-indigo-700'
+                                        ? 'bg-lunavia-light border-[#5BA4CF]/30 text-[#2E8BC0]'
                                         : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
                                         }`}
                                 >
@@ -152,7 +152,7 @@ export default function FeedbackModal({ isOpen, onClose, tourId, role, onSuccess
                         <button
                             type="submit"
                             disabled={submitting || rating === 0}
-                            className="flex-1 rounded-lg bg-indigo-600 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                            className="flex-1 rounded-lg bg-lunavia-primary py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
                         >
                             {submitting ? 'Submitting...' : 'Submit Feedback'}
                         </button>

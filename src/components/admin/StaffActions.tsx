@@ -54,7 +54,7 @@ export default function StaffActions({ userId, email, role }: StaffActionsProps)
             {!showPassInput ? (
                 <button
                     onClick={() => setShowPassInput(true)}
-                    className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                    className="text-[#5BA4CF] hover:text-[#2E8BC0] text-sm font-medium"
                 >
                     Resend Invite
                 </button>
@@ -70,7 +70,7 @@ export default function StaffActions({ userId, email, role }: StaffActionsProps)
                     <button
                         onClick={handleResend}
                         disabled={sending}
-                        className="text-xs bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 disabled:opacity-50"
+                        className="text-xs bg-lunavia-primary text-white px-3 py-1 rounded hover:bg-indigo-700 disabled:opacity-50"
                     >
                         {sending ? '...' : 'Send'}
                     </button>

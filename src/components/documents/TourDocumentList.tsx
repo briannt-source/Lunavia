@@ -112,7 +112,7 @@ export function TourDocumentList({ tourId, canManage, refreshKey }: TourDocument
         return (
             <div className="py-6 text-center">
                 <div className="text-red-500 text-sm">{error}</div>
-                <button onClick={fetchDocuments} className="text-indigo-600 text-sm mt-2 underline">Retry</button>
+                <button onClick={fetchDocuments} className="text-[#5BA4CF] text-sm mt-2 underline">Retry</button>
             </div>
         );
     }
@@ -170,7 +170,7 @@ export function TourDocumentList({ tourId, canManage, refreshKey }: TourDocument
                                 {canPreview && (
                                     <button
                                         onClick={() => setPreviewUrl(doc.fileUrl)}
-                                        className="p-1.5 rounded-lg text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 transition"
+                                        className="p-1.5 rounded-lg text-gray-400 hover:text-[#5BA4CF] hover:bg-lunavia-light transition"
                                         title="Preview"
                                     >
                                         👁️

@@ -87,7 +87,7 @@ export default function PortfolioHeader({ user, isEditable = false, onUpdate }: 
                         onChange={handleAvatarChange}
                     />
                     {/* Trust Score Badge */}
-                    <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md border-2 border-white" title="Trust Score">
+                    <div className="absolute -bottom-2 -right-2 bg-lunavia-primary text-white text-xs font-bold px-2 py-1 rounded-full shadow-md border-2 border-white" title="Trust Score">
                         {user.trustScore || 0}
                     </div>
                 </div>
@@ -108,11 +108,11 @@ export default function PortfolioHeader({ user, isEditable = false, onUpdate }: 
                         )}
 
                         {user.verificationStatus === 'APPROVED' && (
-                            <CheckBadgeIcon className="h-6 w-6 text-blue-500" title="Verified" />
+                            <CheckBadgeIcon className="h-6 w-6 text-lunavia-primary" title="Verified" />
                         )}
 
                         {isEditable && !isEditing && (
-                            <button onClick={() => setIsEditing(true)} className="text-gray-400 hover:text-indigo-600 ml-2">
+                            <button onClick={() => setIsEditing(true)} className="text-gray-400 hover:text-[#5BA4CF] ml-2">
                                 <PencilIcon className="h-4 w-4" />
                             </button>
                         )}
@@ -129,7 +129,7 @@ export default function PortfolioHeader({ user, isEditable = false, onUpdate }: 
 
                     {isEditing && (
                         <div className="mt-3 flex gap-2 justify-center md:justify-start">
-                            <button onClick={handleSave} className="px-3 py-1 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700">Save</button>
+                            <button onClick={handleSave} className="px-3 py-1 bg-lunavia-primary text-white text-xs rounded hover:bg-indigo-700">Save</button>
                             <button onClick={() => setIsEditing(false)} className="px-3 py-1 bg-gray-200 text-gray-700 text-xs rounded hover:bg-gray-300">Cancel</button>
                         </div>
                     )}

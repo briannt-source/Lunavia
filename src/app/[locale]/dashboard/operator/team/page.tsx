@@ -123,15 +123,15 @@ export default function OperatorTeamPage() {
                     <h1 className="text-xl font-semibold text-gray-900">{t('title')}</h1>
                     <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
                     {session?.user?.id && (
-                        <div className="mt-4 flex items-center gap-3 rounded-lg border border-indigo-100 bg-indigo-50/50 px-3 py-2 text-sm text-indigo-900">
+                        <div className="mt-4 flex items-center gap-3 rounded-lg border border-[#5BA4CF]/20 bg-lunavia-light/50 px-3 py-2 text-sm text-indigo-900">
                             <span><strong>{t('inviteDirect')}</strong> {t('inviteDirectDesc')}</span>
-                            <code className="rounded bg-indigo-100 px-2 py-0.5 font-mono text-indigo-700 font-bold select-all">{session.user.id}</code>
+                            <code className="rounded bg-lunavia-muted/50 px-2 py-0.5 font-mono text-[#2E8BC0] font-bold select-all">{session.user.id}</code>
                         </div>
                     )}
                 </div>
                 <button
                     onClick={() => setInviteModalOpen(true)}
-                    className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 h-10"
+                    className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 h-10"
                 >
                     {t('sendInviteBtn')}
                 </button>
@@ -150,10 +150,10 @@ export default function OperatorTeamPage() {
                             <div
                                 key={guide.id}
                                 onClick={() => { setSelectedGuide(guide); fetchCalendar(guide.id); }}
-                                className="cursor-pointer rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-indigo-300 hover:shadow-md transition"
+                                className="cursor-pointer rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-[#5BA4CF]/40 hover:shadow-md transition"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold">
+                                    <div className="h-10 w-10 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-[#2E8BC0] font-bold">
                                         {guide.email[0].toUpperCase()}
                                     </div>
                                     <div>
@@ -230,13 +230,13 @@ export default function OperatorTeamPage() {
                         <div className="flex gap-2 mb-4">
                             <button
                                 onClick={() => setInviteMode('email')}
-                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'email' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
+                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'email' ? 'bg-lunavia-light text-[#2E8BC0] border border-[#5BA4CF]/30' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
                             >
                                 {t('modal.tabEmail')}
                             </button>
                             <button
                                 onClick={() => setInviteMode('guideId')}
-                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'guideId' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
+                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'guideId' ? 'bg-lunavia-light text-[#2E8BC0] border border-[#5BA4CF]/30' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
                             >
                                 {t('modal.tabGuideId')}
                             </button>
@@ -278,7 +278,7 @@ export default function OperatorTeamPage() {
                             <button
                                 onClick={handleInvite}
                                 disabled={inviting || (inviteMode === 'email' ? !inviteEmail : !inviteGuideId)}
-                                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                                className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
                             >
                                 {inviting ? t('modal.sendingBtn') : t('modal.sendBtn')}
                             </button>

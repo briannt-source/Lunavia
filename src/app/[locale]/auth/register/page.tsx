@@ -69,7 +69,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center gap-2 mb-8">
           <div className="relative">
-            <Moon className="h-10 w-10 text-indigo-600" />
+            <Moon className="h-10 w-10 text-[#5BA4CF]" />
             <Compass className="h-6 w-6 text-emerald-500 absolute -bottom-1 -right-1" />
           </div>
           <span className="text-3xl font-bold text-indigo-900">LUNAVIA</span>

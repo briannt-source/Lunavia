@@ -42,7 +42,7 @@ function styleForType(type: Event['type']) {
     case 'TOUR_STARTED':
       return { label: 'Tour started', dot: 'bg-green-600', border: 'border-green-200', icon: '▶', group: 'SYSTEM' as Group };
     case 'GPS_UPDATE':
-      return { label: 'GPS update', dot: 'bg-blue-600', border: 'border-blue-200', icon: '⌖', group: 'GPS' as Group };
+      return { label: 'GPS update', dot: 'bg-lunavia-primary', border: 'border-lunavia-muted/60', icon: '⌖', group: 'GPS' as Group };
     case 'CHECKPOINT_REACHED':
       return { label: 'Checkpoint reached', dot: 'bg-teal-600', border: 'border-teal-200', icon: '⚑', group: 'SYSTEM' as Group };
     case 'DELAY_REPORTED':

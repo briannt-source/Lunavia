@@ -400,7 +400,7 @@ export default async function HomePage() {
                             <div className="space-y-2 mb-8">
                                 {[t('products.marketplace.f1'), t('products.marketplace.f2'), t('products.marketplace.f3'), t('products.marketplace.f4')].map((f) => (
                                     <div key={f} className="flex items-center gap-2 text-sm text-slate-600">
-                                        <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <svg className="w-4 h-4 text-lunavia-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                                         {f}
                                     </div>
                                 ))}
@@ -422,7 +422,7 @@ export default async function HomePage() {
                             <div className="space-y-2 mb-8">
                                 {[t('products.operations.f1'), t('products.operations.f2'), t('products.operations.f3'), t('products.operations.f4')].map((f) => (
                                     <div key={f} className="flex items-center gap-2 text-sm text-slate-600">
-                                        <svg className="w-4 h-4 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                        <svg className="w-4 h-4 text-[#5BA4CF] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                                         {f}
                                     </div>
                                 ))}

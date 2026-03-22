@@ -90,7 +90,7 @@ export function TourDocumentUpload({ tourId, onUploaded }: TourDocumentUploadPro
                 onDragLeave={() => setDragOver(false)}
                 onDrop={handleDrop}
                 onClick={() => fileRef.current?.click()}
-                className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition ${dragOver ? 'border-indigo-400 bg-indigo-50' :
+                className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition ${dragOver ? 'border-indigo-400 bg-lunavia-light' :
                         uploading ? 'border-gray-200 bg-gray-50 pointer-events-none opacity-60' :
                             'border-gray-300 hover:border-indigo-400 hover:bg-gray-50'
                     }`}
@@ -126,7 +126,7 @@ export function TourDocumentUpload({ tourId, onUploaded }: TourDocumentUploadPro
                         type="checkbox"
                         checked={isImportant}
                         onChange={e => setIsImportant(e.target.checked)}
-                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="rounded border-gray-300 text-[#5BA4CF] focus:ring-indigo-500"
                     />
                     📌 Important
                 </label>

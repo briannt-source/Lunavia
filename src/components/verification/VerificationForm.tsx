@@ -40,7 +40,7 @@ export default function VerificationForm({ initialReason }: { initialReason?: st
       <button
         type="submit"
         disabled={loading}
-        className="rounded bg-blue-600 px-3 py-1 text-sm text-white disabled:opacity-50"
+        className="rounded bg-lunavia-primary px-3 py-1 text-sm text-white disabled:opacity-50"
       >
         {loading ? 'Submitting…' : 'Submit for verification'}
       </button>

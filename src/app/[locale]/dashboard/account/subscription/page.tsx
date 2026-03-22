@@ -307,13 +307,13 @@ export default function SubscriptionPage() {
                     return (
                         <div key={plan.name} className={`relative flex flex-col rounded-3xl p-8 transition-all ${
                             isCurrent
-                                ? 'bg-indigo-50 border-2 border-indigo-500 ring-4 ring-indigo-500/10 shadow-lg scale-[1.02] z-10'
+                                ? 'bg-lunavia-light border-2 border-indigo-500 ring-4 ring-indigo-500/10 shadow-lg scale-[1.02] z-10'
                                 : plan.highlight
                                     ? 'bg-slate-900 border border-slate-800 text-white shadow-xl scale-[1.02] z-10'
                                     : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
                         }`}>
                             {isCurrent && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-[10px] uppercase font-black tracking-widest px-4 py-1.5 rounded-full shadow-sm">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-lunavia-light0 text-white text-[10px] uppercase font-black tracking-widest px-4 py-1.5 rounded-full shadow-sm">
                                     Current Plan
                                 </div>
                             )}
@@ -349,7 +349,7 @@ export default function SubscriptionPage() {
                             <ul className="space-y-4 mb-8 flex-1">
                                 {plan.features.map((feature: string, i: number) => (
                                     <li key={i} className="flex items-start gap-3">
-                                        <svg className={`w-5 h-5 shrink-0 mt-0.5 ${plan.highlight && !isCurrent ? 'text-emerald-400' : 'text-indigo-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg className={`w-5 h-5 shrink-0 mt-0.5 ${plan.highlight && !isCurrent ? 'text-emerald-400' : 'text-[#5BA4CF]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                                         </svg>
                                         <span className={`text-sm ${plan.highlight && !isCurrent ? 'text-slate-300' : 'text-slate-600'} leading-tight`}>{feature}</span>
@@ -362,7 +362,7 @@ export default function SubscriptionPage() {
                                 onClick={() => handleUpgrade(plan)}
                                 className={`w-full py-3.5 px-4 rounded-xl font-bold transition-all flex justify-center items-center gap-2
                                     ${isCurrent
-                                        ? 'bg-indigo-100 text-indigo-700 cursor-default'
+                                        ? 'bg-lunavia-muted/50 text-[#2E8BC0] cursor-default'
                                         : canUpgrade
                                             ? plan.highlight
                                                 ? 'bg-white text-slate-900 hover:bg-gray-100 shadow-md active:scale-95'
@@ -423,7 +423,7 @@ export default function SubscriptionPage() {
             <div className="pt-12 max-w-4xl mx-auto">
                 <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-xl font-bold text-slate-900">Billing & Request History</h2>
-                    <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-500">Download Invoices</a>
+                    <a href="#" className="text-sm font-semibold text-[#5BA4CF] hover:text-[#5BA4CF]">Download Invoices</a>
                 </div>
                 
                 <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">

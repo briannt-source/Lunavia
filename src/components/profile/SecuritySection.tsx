@@ -129,7 +129,7 @@ export function SecuritySection({ emailVerified }: SecuritySectionProps) {
                     <button
                         type="submit"
                         disabled={loading || !passwordValid || !passwordsMatch || !currentPassword}
-                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
+                        className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition"
                     >
                         {loading ? 'Changing...' : 'Change Password'}
                     </button>

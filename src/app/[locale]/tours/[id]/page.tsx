@@ -153,7 +153,7 @@ export default async function TourDetailPage({
           <div className="flex items-center gap-2">
             <StatusBadge status={tour.status} />
             {tour.visibility === "PUBLIC" && (
-              <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200">
+              <span className="text-xs px-2 py-0.5 bg-lunavia-light text-lunavia-primary-hover rounded-full border border-lunavia-muted/60">
                 Public
               </span>
             )}
@@ -219,7 +219,7 @@ export default async function TourDetailPage({
                   {tour.languages.map((lang) => (
                     <span
                       key={lang}
-                      className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm"
+                      className="px-3 py-1 bg-lunavia-muted/50 text-[#2E8BC0] rounded-full text-sm"
                     >
                       {lang}
                     </span>
@@ -300,7 +300,7 @@ export default async function TourDetailPage({
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3 mb-4">
-                <Building2 className="h-8 w-8 text-indigo-600" />
+                <Building2 className="h-8 w-8 text-[#5BA4CF]" />
                 <div className="flex-1">
                   <p className="font-semibold">
                     {tour.operator.profile?.companyName ||
@@ -386,7 +386,7 @@ export default async function TourDetailPage({
                           href={file}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block text-sm text-blue-600 hover:underline"
+                          className="block text-sm text-lunavia-primary hover:underline"
                         >
                           File {index + 1}
                         </a>

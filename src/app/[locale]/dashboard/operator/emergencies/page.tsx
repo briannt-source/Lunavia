@@ -43,7 +43,7 @@ export default function EmergenciesPage() {
       case "MEDIUM":
         return "bg-amber-100 text-amber-800 border-amber-300";
       case "LOW":
-        return "bg-blue-100 text-blue-800 border-blue-300";
+        return "bg-lunavia-muted/50 text-blue-800 border-lunavia-primary/40";
       default:
         return "bg-slate-100 text-slate-800 border-slate-300";
     }
@@ -130,7 +130,7 @@ export default function EmergenciesPage() {
                                 ? "text-orange-600"
                                 : emergency.severity === "MEDIUM"
                                 ? "text-amber-600"
-                                : "text-blue-600"
+                                : "text-lunavia-primary"
                             }`}
                           />
                           <h3 className="font-semibold text-slate-900">

@@ -117,7 +117,7 @@ export default function PlanComparisonPage() {
                     </div>
                     <h2 className="text-xl font-semibold text-gray-900">Upgrade Request Submitted</h2>
                     <p className="mt-2 text-sm text-gray-600">Your payment will be reviewed by our team. You&apos;ll be notified once approved.</p>
-                    <button onClick={() => setSuccess(false)} className="mt-6 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+                    <button onClick={() => setSuccess(false)} className="mt-6 rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
                         Back to Plans
                     </button>
                 </div>
@@ -132,7 +132,7 @@ export default function PlanComparisonPage() {
                     <h1 className="text-3xl font-bold text-gray-900">Choose Your Plan</h1>
                     <p className="mt-2 text-gray-600">Scale your tour operations with the right plan.</p>
                     {currentPlan !== 'FREE' && (
-                        <div className="mt-3 inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
+                        <div className="mt-3 inline-flex items-center gap-2 bg-lunavia-light text-[#2E8BC0] px-3 py-1 rounded-full text-sm font-medium">
                             Current plan: {currentPlan}
                         </div>
                     )}
@@ -148,7 +148,7 @@ export default function PlanComparisonPage() {
                             } ${currentPlan === plan.id ? 'ring-2 ring-green-500' : ''}`}
                         >
                             {plan.highlight && (
-                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lunavia-primary text-white text-xs font-bold px-3 py-1 rounded-full">
                                     MOST POPULAR
                                 </div>
                             )}
@@ -185,7 +185,7 @@ export default function PlanComparisonPage() {
                                     currentPlan === plan.id
                                         ? 'bg-gray-100 text-gray-400 cursor-default'
                                         : plan.highlight
-                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                        ? 'bg-lunavia-primary text-white hover:bg-indigo-700'
                                         : 'bg-gray-900 text-white hover:bg-gray-800'
                                 }`}
                             >
@@ -204,9 +204,9 @@ export default function PlanComparisonPage() {
                                 Submit your payment proof. Our team will review and activate your plan.
                             </p>
 
-                            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                            <div className="mt-4 p-4 bg-lunavia-light rounded-lg">
                                 <p className="text-sm font-medium text-blue-800">Payment Instructions</p>
-                                <p className="text-xs text-blue-600 mt-1">
+                                <p className="text-xs text-lunavia-primary mt-1">
                                     Transfer to: <strong>Lunavia JSC</strong><br />
                                     Bank: Vietcombank<br />
                                     Account: 1234 5678 9012<br />
@@ -220,7 +220,7 @@ export default function PlanComparisonPage() {
                                     type="file"
                                     accept="image/*"
                                     onChange={(e) => setProofFile(e.target.files?.[0] || null)}
-                                    className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                                    className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-lunavia-light file:text-[#2E8BC0] hover:file:bg-lunavia-muted/50"
                                 />
                             </div>
 
@@ -233,7 +233,7 @@ export default function PlanComparisonPage() {
                                 <button
                                     onClick={submitUpgradeRequest}
                                     disabled={submitting}
-                                    className="flex-1 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                                    className="flex-1 rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
                                 >
                                     {submitting ? 'Submitting...' : 'Submit Request'}
                                 </button>

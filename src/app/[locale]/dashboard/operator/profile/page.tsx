@@ -71,7 +71,7 @@ export default async function ProfilePage() {
                         <div className="h-28 bg-gradient-to-r from-slate-100 to-slate-200" />
                         <div className="px-6 pb-6 -mt-12">
                             <div className="flex items-end gap-5">
-                                <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-indigo-600 shrink-0 overflow-hidden relative">
+                                <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-[#5BA4CF] shrink-0 overflow-hidden relative">
                                     {user.profile?.photoUrl ? (
                                         <img src={user.profile.photoUrl} alt={displayName} className="h-full w-full object-cover" />
                                     ) : (
@@ -95,10 +95,10 @@ export default async function ProfilePage() {
                         </div>
 
                         {verificationStatus === 'NOT_SUBMITTED' && (
-                            <div className="mx-6 mb-6 flex items-center gap-3 bg-indigo-50 rounded-xl p-3 border border-indigo-100">
+                            <div className="mx-6 mb-6 flex items-center gap-3 bg-lunavia-light rounded-xl p-3 border border-[#5BA4CF]/20">
                                 <span className="text-lg">🛡️</span>
-                                <div className="flex-1 text-sm text-indigo-700">Verify your account to publish tours.</div>
-                                <a href="/dashboard/operator/verification" className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">Get Verified</a>
+                                <div className="flex-1 text-sm text-[#2E8BC0]">Verify your account to publish tours.</div>
+                                <a href="/dashboard/operator/verification" className="px-3 py-1.5 bg-lunavia-primary text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">Get Verified</a>
                             </div>
                         )}
                     </div>
@@ -106,7 +106,7 @@ export default async function ProfilePage() {
                     {/* ── Quick Stats */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
-                            { value: createdToursCount, label: 'Tours Created', color: 'text-indigo-600' },
+                            { value: createdToursCount, label: 'Tours Created', color: 'text-[#5BA4CF]' },
                             { value: completedToursCount, label: 'Completed', color: 'text-emerald-600' },
                             { value: `${successRate}%`, label: 'Success Rate', color: 'text-amber-600' },
                             { value: teamSize, label: 'Team Size', color: 'text-purple-600' },
@@ -120,26 +120,26 @@ export default async function ProfilePage() {
 
                     {/* ── Navigation Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Link href="/dashboard/operator/portfolio" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-md transition-all">
+                        <Link href="/dashboard/operator/portfolio" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-lunavia-primary/40 hover:shadow-md transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-lg group-hover:bg-blue-100 transition">🌍</div>
+                                <div className="h-10 w-10 rounded-lg bg-lunavia-light flex items-center justify-center text-lg group-hover:bg-lunavia-muted/50 transition">🌍</div>
                                 <div>
                                     <h3 className="font-semibold text-gray-900">My Portfolio</h3>
                                     <p className="text-xs text-gray-500">View and share your public profile</p>
                                 </div>
                             </div>
-                            <div className="mt-4 text-xs font-semibold text-blue-600 group-hover:translate-x-1 transition-transform">View Portfolio →</div>
+                            <div className="mt-4 text-xs font-semibold text-lunavia-primary group-hover:translate-x-1 transition-transform">View Portfolio →</div>
                         </Link>
 
-                        <Link href="/dashboard/operator/profile/edit" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-indigo-300 hover:shadow-md transition-all">
+                        <Link href="/dashboard/operator/profile/edit" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-[#5BA4CF]/40 hover:shadow-md transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-indigo-50 flex items-center justify-center text-lg group-hover:bg-indigo-100 transition">📝</div>
+                                <div className="h-10 w-10 rounded-lg bg-lunavia-light flex items-center justify-center text-lg group-hover:bg-lunavia-muted/50 transition">📝</div>
                                 <div>
                                     <h3 className="font-semibold text-gray-900">Edit Profile</h3>
                                     <p className="text-xs text-gray-500">Update your information and bio</p>
                                 </div>
                             </div>
-                            <div className="mt-4 text-xs font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform">Edit →</div>
+                            <div className="mt-4 text-xs font-semibold text-[#5BA4CF] group-hover:translate-x-1 transition-transform">Edit →</div>
                         </Link>
 
                         <Link href="/dashboard/operator/company" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-emerald-300 hover:shadow-md transition-all">
@@ -182,7 +182,7 @@ export default async function ProfilePage() {
                     <div className="text-5xl mb-4">⚠️</div>
                     <h2 className="text-xl font-bold text-gray-900 mb-2">Unable to load profile</h2>
                     <p className="text-sm text-gray-500 mb-6">There was an issue loading your profile data. Please try refreshing the page.</p>
-                    <a href="/dashboard/operator/profile" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Reload Page</a>
+                    <a href="/dashboard/operator/profile" className="px-4 py-2 bg-lunavia-primary text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Reload Page</a>
                 </div>
             </BaseDashboardLayout>
         );

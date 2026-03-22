@@ -277,7 +277,7 @@ export default function OperatorWalletPage() {
     const typeColors: Record<string, string> = {
         TOP_UP: 'bg-green-50 text-green-700',
         HOLD: 'bg-amber-50 text-amber-700',
-        RELEASE: 'bg-blue-50 text-blue-700',
+        RELEASE: 'bg-lunavia-light text-lunavia-primary-hover',
         REFUND: 'bg-lunavia-primary-light text-lunavia-primary',
         PAYOUT: 'bg-lunavia-accent-light text-lunavia-accent',
     };
@@ -366,20 +366,20 @@ export default function OperatorWalletPage() {
                             <div className="text-sm text-red-600">{t('topUp.bankDetailsNotAvailable')}</div>
                         ) : (
                         <div className="space-y-2 text-sm text-gray-800">
-                            <div className="flex justify-between border-b border-indigo-100 pb-1">
+                            <div className="flex justify-between border-b border-[#5BA4CF]/20 pb-1">
                                 <span className="opacity-70">{t('topUp.bankName')}</span>
                                 <span className="font-medium">{bankConfig.bankName}</span>
                             </div>
-                            <div className="flex justify-between border-b border-indigo-100 pb-1">
+                            <div className="flex justify-between border-b border-[#5BA4CF]/20 pb-1">
                                 <span className="opacity-70">{t('topUp.accountNo')}</span>
                                 <span className="font-mono font-bold text-lg select-all">{bankConfig.accountNumber}</span>
                             </div>
-                            <div className="flex justify-between border-b border-indigo-100 pb-1">
+                            <div className="flex justify-between border-b border-[#5BA4CF]/20 pb-1">
                                 <span className="opacity-70">{t('topUp.accountName')}</span>
                                 <span className="font-medium">{bankConfig.accountName}</span>
                             </div>
                             {bankConfig.branch && (
-                                <div className="flex justify-between border-b border-indigo-100 pb-1">
+                                <div className="flex justify-between border-b border-[#5BA4CF]/20 pb-1">
                                     <span className="opacity-70">{t('topUp.branch')}</span>
                                     <span className="font-medium">{bankConfig.branch}</span>
                                 </div>

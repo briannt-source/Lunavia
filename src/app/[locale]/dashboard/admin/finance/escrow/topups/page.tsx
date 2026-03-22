@@ -156,7 +156,7 @@ export default function EscrowTopUpsPage() {
             <div className="flex gap-2 border-b border-gray-200 pb-2">
                 {['', 'PENDING', 'APPROVED', 'REJECTED'].map(s => (
                     <button key={s} onClick={() => setFilter(s)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === s ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'}`}>
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === s ? 'bg-lunavia-muted/50 text-lunavia-primary-hover' : 'text-gray-600 hover:bg-gray-100'}`}>
                         {s ? (s === 'PENDING' ? t('stats.pending') : s === 'APPROVED' ? t('stats.approved') : t('stats.rejected')) : t('filter.all')}
                     </button>
                 ))}
@@ -192,7 +192,7 @@ export default function EscrowTopUpsPage() {
                                     <td className="px-4 py-3 text-sm text-gray-600">{req.paymentReference || '—'}</td>
                                     <td className="px-4 py-3">
                                         {req.proofUrl ? (
-                                            <a href={req.proofUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm" onClick={e => e.stopPropagation()}>{t('table.viewProof')}</a>
+                                            <a href={req.proofUrl} target="_blank" rel="noopener noreferrer" className="text-lunavia-primary hover:underline text-sm" onClick={e => e.stopPropagation()}>{t('table.viewProof')}</a>
                                         ) : <span className="text-gray-400 text-sm">{t('table.noProof')}</span>}
                                     </td>
                                     <td className="px-4 py-3">
@@ -232,7 +232,7 @@ export default function EscrowTopUpsPage() {
                                 <div className="flex justify-between"><span className="text-xs text-gray-500">{t('modal.reference')}</span><span className="text-sm">{selectedReq.paymentReference || '—'}</span></div>
                                 <div className="flex justify-between"><span className="text-xs text-gray-500">{t('modal.submitted')}</span><span className="text-sm">{formatDate(selectedReq.createdAt)}</span></div>
                                 {selectedReq.proofUrl && (
-                                    <div className="flex justify-between"><span className="text-xs text-gray-500">{t('modal.proof')}</span><a href={selectedReq.proofUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">{t('modal.viewProof')}</a></div>
+                                    <div className="flex justify-between"><span className="text-xs text-gray-500">{t('modal.proof')}</span><a href={selectedReq.proofUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-lunavia-primary hover:underline">{t('modal.viewProof')}</a></div>
                                 )}
                                 {selectedReq.notes && (
                                     <div><span className="text-xs text-gray-500">{t('modal.operatorNotes')}</span><p className="text-sm text-gray-700 mt-0.5">{selectedReq.notes}</p></div>

@@ -79,7 +79,7 @@ export function AvatarUpload({ currentAvatarUrl, userName }: AvatarUploadProps) 
                     {preview ? (
                         <Image src={preview} alt="Profile" fill className="object-cover" />
                     ) : (
-                        <div className="h-full w-full flex items-center justify-center bg-indigo-100 text-indigo-600 text-2xl font-bold">
+                        <div className="h-full w-full flex items-center justify-center bg-lunavia-muted/50 text-[#5BA4CF] text-2xl font-bold">
                             {initials}
                         </div>
                     )}
@@ -98,7 +98,7 @@ export function AvatarUpload({ currentAvatarUrl, userName }: AvatarUploadProps) 
                 <button
                     disabled={isUploading}
                     onClick={() => fileInputRef.current?.click()}
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500 disabled:opacity-50"
+                    className="text-sm font-medium text-[#5BA4CF] hover:text-[#5BA4CF] disabled:opacity-50"
                 >
                     {isUploading ? 'Uploading...' : 'Upload New Photo'}
                 </button>

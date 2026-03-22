@@ -151,17 +151,17 @@ export default function TourReportsPage() {
 
                   {/* Payment Info */}
                   {report.paymentRequestAmount && (
-                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="p-4 bg-lunavia-light border border-lunavia-muted/60 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm font-medium text-blue-900">
                             Payment Requirements
                           </p>
-                          <p className="text-xl font-bold text-blue-700">
+                          <p className="text-xl font-bold text-lunavia-primary-hover">
                             {formatVND(report.paymentRequestAmount)}
                           </p>
                         </div>
-                        <DollarSign className="h-8 w-8 text-blue-600" />
+                        <DollarSign className="h-8 w-8 text-lunavia-primary" />
                       </div>
                     </div>
                   )}

@@ -4,7 +4,7 @@
 // Displays a colored badge for segment check-in status
 
 const STATUS_CONFIG: Record<string, { bg: string; text: string; dot: string; label: string }> = {
-    ARRIVED: { bg: 'bg-blue-50', text: 'text-blue-700', dot: 'bg-blue-500', label: 'Arrived' },
+    ARRIVED: { bg: 'bg-lunavia-light', text: 'text-lunavia-primary-hover', dot: 'bg-lunavia-light0', label: 'Arrived' },
     STARTED: { bg: 'bg-amber-50', text: 'text-amber-700', dot: 'bg-amber-500', label: 'In Progress' },
     COMPLETED: { bg: 'bg-green-50', text: 'text-green-700', dot: 'bg-green-500', label: 'Completed' },
     SKIPPED: { bg: 'bg-gray-100', text: 'text-gray-600', dot: 'bg-gray-400', label: 'Skipped' },

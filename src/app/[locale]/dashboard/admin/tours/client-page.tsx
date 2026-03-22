@@ -98,7 +98,7 @@ export default function AdminToursClientPage() {
             <CardTitle className="text-sm font-medium">In Progress</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-lunavia-primary">
               {stats["IN_PROGRESS"] || 0}
             </div>
           </CardContent>
@@ -194,7 +194,7 @@ export default function AdminToursClientPage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <Link href={`/tours/${tour.id}`}>
-                          <h3 className="font-semibold text-slate-900 hover:text-blue-600">
+                          <h3 className="font-semibold text-slate-900 hover:text-lunavia-primary">
                             {tour.title}
                           </h3>
                         </Link>
@@ -211,7 +211,7 @@ export default function AdminToursClientPage() {
                           </span>
                         )}
                         {tour.visibility === "PUBLIC" && (
-                          <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200">
+                          <span className="text-xs px-2 py-0.5 bg-lunavia-light text-lunavia-primary-hover rounded-full border border-lunavia-muted/60">
                             Public
                           </span>
                         )}

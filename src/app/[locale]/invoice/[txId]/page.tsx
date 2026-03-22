@@ -82,10 +82,10 @@ export default function InvoicePage() {
             <div className="min-h-screen bg-gray-100 py-8 px-4">
                 {/* Action Bar (hidden when printing) */}
                 <div className="no-print max-w-3xl mx-auto mb-4 flex items-center justify-between">
-                    <a href="/" className="text-sm text-indigo-600 font-medium hover:underline">← Back to Lunavia</a>
+                    <a href="/" className="text-sm text-[#5BA4CF] font-medium hover:underline">← Back to Lunavia</a>
                     <button
                         onClick={() => window.print()}
-                        className="px-5 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2"
+                        className="px-5 py-2 bg-lunavia-primary text-white text-sm font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2"
                     >
                         🖨️ Print / Save as PDF
                     </button>
@@ -164,7 +164,7 @@ export default function InvoicePage() {
                     {invoice.tour && (
                         <div className="mb-8">
                             <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Tour Information</div>
-                            <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+                            <div className="bg-lunavia-light rounded-xl p-5 border border-[#5BA4CF]/20">
                                 <div className="font-bold text-indigo-900 text-sm mb-2">{invoice.tour.title}</div>
                                 <div className="grid grid-cols-2 gap-y-2 text-sm">
                                     <div>

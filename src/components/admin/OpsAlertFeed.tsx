@@ -28,12 +28,12 @@ export function OpsAlertFeed({ alerts }: { alerts: OpsAlert[] }) {
                     key={alert.id}
                     className={`p-4 border rounded-xl flex items-start gap-3 transition-all ${alert.severity === 'critical' ? 'bg-red-50 border-red-100' :
                             alert.severity === 'warning' ? 'bg-orange-50 border-orange-100' :
-                                'bg-blue-50 border-blue-100'
+                                'bg-lunavia-light border-lunavia-muted/40'
                         }`}
                 >
                     <div className={`mt-1 p-1.5 rounded-full ${alert.severity === 'critical' ? 'bg-red-100 text-red-600' :
                             alert.severity === 'warning' ? 'bg-orange-100 text-orange-600' :
-                                'bg-blue-100 text-blue-600'
+                                'bg-lunavia-muted/50 text-lunavia-primary'
                         }`}>
                         {alert.severity === 'critical' ? (
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

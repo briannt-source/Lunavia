@@ -10,11 +10,11 @@ export default function VerificationBanner({ role }: VerificationBannerProps) {
         : '/dashboard/guide/verification';
 
     return (
-        <div className="mb-6 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50/80 via-violet-50/50 to-purple-50/80 p-5">
+        <div className="mb-6 rounded-xl border border-[#5BA4CF]/20 bg-gradient-to-r from-indigo-50/80 via-violet-50/50 to-purple-50/80 p-5">
             <div className="flex items-start gap-4">
                 {/* Friendly shield icon */}
-                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-indigo-100">
-                    <svg className="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-[#5BA4CF]/20">
+                    <svg className="h-5 w-5 text-[#5BA4CF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                         />
@@ -40,7 +40,7 @@ export default function VerificationBanner({ role }: VerificationBannerProps) {
 
                 <a
                     href={verificationPath}
-                    className="shrink-0 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-sm"
+                    className="shrink-0 rounded-lg bg-lunavia-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-sm"
                 >
                     Get Verified
                 </a>

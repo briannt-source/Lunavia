@@ -104,7 +104,7 @@ export function ConfirmTourDialog({
               <p className="text-sm text-slate-600 mt-1">{formatVND(parseFloat(paymentAmount) || 0)}</p>
             )}
             {requestedAmount && (
-              <p className="text-xs text-blue-600 mt-1">{t("guideRequested", { amount: formatVND(requestedAmount) })}</p>
+              <p className="text-xs text-lunavia-primary mt-1">{t("guideRequested", { amount: formatVND(requestedAmount) })}</p>
             )}
           </div>
 

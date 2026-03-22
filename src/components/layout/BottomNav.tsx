@@ -23,14 +23,14 @@ function BottomNavBar({ items }: { items: NavItem[] }) {
                         href={item.href}
                         className={`flex flex-col items-center justify-center gap-0.5 min-w-0 flex-1 py-1.5 rounded-lg transition-colors ${
                             isActive
-                                ? 'text-indigo-600'
+                                ? 'text-[#5BA4CF]'
                                 : 'text-gray-400 hover:text-gray-600'
                         }`}
                     >
                         <span className={isActive ? 'scale-110 transition-transform' : 'transition-transform'}>
                             {item.icon}
                         </span>
-                        <span className={`text-[10px] font-semibold truncate ${isActive ? 'text-indigo-600' : 'text-gray-400'}`}>
+                        <span className={`text-[10px] font-semibold truncate ${isActive ? 'text-[#5BA4CF]' : 'text-gray-400'}`}>
                             {item.label}
                         </span>
                     </Link>

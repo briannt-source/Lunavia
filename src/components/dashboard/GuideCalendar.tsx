@@ -155,7 +155,7 @@ export function GuideCalendar() {
     const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
     const statusColors: Record<string, string> = {
-        ASSIGNED: 'bg-blue-100 border-blue-200 text-blue-800',
+        ASSIGNED: 'bg-lunavia-muted/50 border-lunavia-muted/60 text-blue-800',
         AVAILABLE: 'bg-green-100 border-green-200 text-green-800',
         BUSY: 'bg-red-100 border-red-200 text-red-800',
         ON_TOUR: 'bg-amber-100 border-amber-200 text-amber-800',
@@ -261,7 +261,7 @@ export function GuideCalendar() {
                                 {/* Day number */}
                                 <span
                                     className={`text-sm font-medium w-7 h-7 flex items-center justify-center rounded-full ${
-                                        isTodayDate ? 'bg-indigo-600 text-white' : 'text-gray-700'
+                                        isTodayDate ? 'bg-lunavia-primary text-white' : 'text-gray-700'
                                     }`}
                                 >
                                     {format(date, 'd')}
@@ -304,7 +304,7 @@ export function GuideCalendar() {
             <div className="mt-6 flex flex-wrap gap-4 text-sm">
                 {[
                     { color: 'bg-green-100 border-green-200', label: t('legend.available') },
-                    { color: 'bg-blue-100 border-blue-200', label: t('legend.assigned') },
+                    { color: 'bg-lunavia-muted/50 border-lunavia-muted/60', label: t('legend.assigned') },
                     { color: 'bg-red-100 border-red-200', label: t('legend.busy') },
                     { color: 'bg-amber-100 border-amber-200', label: t('legend.onTour') },
                     { color: 'bg-white border-gray-200', label: t('legend.unavailable') },
