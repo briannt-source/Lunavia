@@ -30,14 +30,16 @@ export default async function AdminDashboard() {
   // Get admin user info
   let adminUser = null;
   let adminRole = "SUPPORT_STAFF";
-  if (role && role.startsWith("ADMIN_")) {
-    adminRole = role.replace("ADMIN_", "");
-    adminUser = await prisma.adminUser.findUnique({
-      where: { email: session.user?.email || "" },
-    });
-  } else if (role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF") {
-    adminRole = role;
-  }
+  try {
+    if (role && role.startsWith("ADMIN_")) {
+      adminRole = role.replace("ADMIN_", "");
+      adminUser = await prisma.adminUser.findUnique({
+        where: { email: session.user?.email || "" },
+      });
+    } else if (role === "SUPER_ADMIN" || role === "MODERATOR" || role === "SUPPORT_STAFF") {
+      adminRole = role;
+    }
+  } catch (e) { console.error("[admin-dashboard] adminUser lookup error", e); }
 
   // Check permissions
   const isSuperAdmin = adminRole === "SUPER_ADMIN";

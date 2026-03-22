@@ -9,7 +9,6 @@ import {
     ClipboardList,
     ClipboardCheck,
     Calendar,
-    CalendarCheck,
     Mail,
     FileText,
     Clock,
@@ -59,10 +58,7 @@ export default function GuideSidebar() {
                 <NavItem href="/dashboard/guide/invites" icon={Mail} active={isActive('/dashboard/guide/invites')} iconColor={IC.tour}>
                     {t('links.invites')}
                 </NavItem>
-                <NavItem href="/dashboard/guide/availability" icon={CalendarCheck} active={isActive('/dashboard/guide/availability')} iconColor={IC.work}>
-                    {t('links.availability')}
-                </NavItem>
-                <NavItem href="/dashboard/guide/calendar" icon={Calendar} active={isActive('/dashboard/guide/calendar')} iconColor={IC.work}>
+                <NavItem href="/dashboard/guide/calendar" icon={Calendar} active={isActive('/dashboard/guide/calendar') || isActive('/dashboard/guide/availability')} iconColor={IC.work}>
                     {t('links.calendar')}
                 </NavItem>
                 <NavItem href="/dashboard/guide/standby-requests" icon={Clock} active={isActive('/dashboard/guide/standby-requests')} iconColor={IC.tour}>

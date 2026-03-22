@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 import { Link } from '@/navigation';
 import { GuideReliabilityDomain } from '@/domain/execution/GuideReliabilityDomain';
 import NotificationToggle from '@/components/settings/NotificationToggle';
+import ProfileSettingsForm from '@/components/settings/ProfileSettingsForm';
 
 export const metadata = { title: 'Profile — Lunavia' };
 
@@ -164,6 +165,9 @@ export default async function ProfilePage() {
 
                     {/* ── Notification Preferences */}
                     <NotificationToggle />
+
+                    {/* ── Editable Settings */}
+                    <ProfileSettingsForm />
 
                     {/* ── Navigation Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
