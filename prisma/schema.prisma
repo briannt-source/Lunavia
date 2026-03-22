@@ -306,6 +306,7 @@ model User {
 
   // Trust & Deposit fields (Phase 3C.1)
   trustScore            Int     @default(100)
+  reliabilityScore      Int     @default(100)
   onboardingDepositPaid Boolean @default(false)
 
   profile                  Profile?

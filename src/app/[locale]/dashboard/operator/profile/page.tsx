@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
 import { prisma } from '@/lib/prisma';
 import { Link } from '@/navigation';
+import NotificationToggle from '@/components/settings/NotificationToggle';
 
 export const metadata = { title: 'Profile — Lunavia' };
 
@@ -17,8 +18,10 @@ export default async function ProfilePage() {
             select: {
                 id: true,
                 email: true,
+                role: true,
                 verifiedStatus: true,
                 trustScore: true,
+                reliabilityScore: true,
                 createdAt: true,
                 profile: { select: { name: true, photoUrl: true } },
                 wallet: { select: { balance: true } },
@@ -60,8 +63,8 @@ export default async function ProfilePage() {
             <BaseDashboardLayout
                 header={
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
-                        <p className="text-sm text-gray-500 mt-0.5">Manage your account information</p>
+                        <h1 className="text-2xl font-bold text-gray-900">Profile & Settings</h1>
+                        <p className="text-sm text-gray-500 mt-0.5">Manage your account, profile, and preferences</p>
                     </div>
                 }
             >
@@ -87,9 +90,15 @@ export default async function ProfilePage() {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="text-right hidden sm:block pb-1">
-                                    <div className="text-3xl font-bold text-lunavia-primary">{user.trustScore}</div>
-                                    <div className="text-[10px] text-gray-500 uppercase tracking-wide">Trust Score</div>
+                                <div className="text-right hidden sm:flex gap-5 pb-1">
+                                    <div className="text-center">
+                                        <div className="text-3xl font-bold text-lunavia-primary">{user.trustScore}</div>
+                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Trust Score</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-3xl font-bold text-emerald-600">{user.reliabilityScore}</div>
+                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Reliability</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +126,36 @@ export default async function ProfilePage() {
                             </div>
                         ))}
                     </div>
+
+                    {/* ── Account Info */}
+                    <div className="bg-white rounded-xl border border-gray-200 p-5">
+                        <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <span className="text-lg">👤</span> Account Information
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <label className="block text-gray-500 text-xs mb-0.5">Email</label>
+                                <div className="font-medium text-gray-900">{user.email}</div>
+                            </div>
+                            <div>
+                                <label className="block text-gray-500 text-xs mb-0.5">Role</label>
+                                <div className="font-medium text-gray-900">{user.role === 'TOUR_OPERATOR' ? 'Tour Operator' : user.role}</div>
+                            </div>
+                            <div>
+                                <label className="block text-gray-500 text-xs mb-0.5">KYB Status</label>
+                                <span className={`font-medium ${verificationStatus === 'APPROVED' ? 'text-green-600' : 'text-amber-600'}`}>
+                                    {verificationStatus}
+                                </span>
+                            </div>
+                            <div>
+                                <label className="block text-gray-500 text-xs mb-0.5">Member Since</label>
+                                <div className="font-medium text-gray-900">{new Date(user.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── Notification Preferences */}
+                    <NotificationToggle />
 
                     {/* ── Navigation Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

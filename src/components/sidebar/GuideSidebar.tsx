@@ -17,7 +17,6 @@ import {
     User,
     Coins,
     Wallet,
-    Settings,
 } from 'lucide-react';
 
 // Icon color groups — consistent visual hierarchy
@@ -86,11 +85,8 @@ export default function GuideSidebar() {
 
             {/* Account */}
             <NavSection title={t('sections.account')}>
-                <NavItem href="/dashboard/guide/profile" icon={User} active={isActive('/dashboard/guide/profile') || isActive('/dashboard/guide/profile/trust') || isActive('/dashboard/guide/portfolio') || isActive('/dashboard/guide/contract')} iconColor={IC.account}>
+                <NavItem href="/dashboard/guide/profile" icon={User} active={isActive('/dashboard/guide/profile') || isActive('/dashboard/guide/profile/trust') || isActive('/dashboard/guide/portfolio') || isActive('/dashboard/guide/contract') || isActive('/dashboard/guide/settings')} iconColor={IC.account}>
                     {t('links.profile')}
-                </NavItem>
-                <NavItem href="/dashboard/guide/settings" icon={Settings} active={isActive('/dashboard/guide/settings')} iconColor={IC.account}>
-                    {t('links.settings')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

@@ -22,7 +22,6 @@ import {
     Clock,
     FileText,
     User,
-    Settings,
 } from 'lucide-react';
 
 // Icon color groups — consistent visual hierarchy
@@ -69,7 +68,7 @@ export default function OperatorSidebar() {
                     </NavItem>
                 </FeatureGate>
                 {user?.systemMode !== 'INTERNAL_OPERATOR_MODE' && (
-                    <NavItem href="/marketplace/guides" icon={Search} active={isActive('/marketplace/guides')} iconColor={IC.tour}>
+                    <NavItem href="/dashboard/operator/marketplace" icon={Search} active={isActive('/dashboard/operator/marketplace')} iconColor={IC.tour}>
                         {t('links.discoverGuides')}
                     </NavItem>
                 )}
@@ -135,11 +134,8 @@ export default function OperatorSidebar() {
 
             {/* Account */}
             <NavSection title={t('sections.account')}>
-                <NavItem href="/dashboard/operator/profile" icon={User} active={isActive('/dashboard/operator/profile') || isActive('/dashboard/operator/profile/trust') || isActive('/dashboard/operator/portfolio') || isActive('/dashboard/operator/company')} iconColor={IC.account}>
+                <NavItem href="/dashboard/operator/profile" icon={User} active={isActive('/dashboard/operator/profile') || isActive('/dashboard/operator/profile/trust') || isActive('/dashboard/operator/portfolio') || isActive('/dashboard/operator/company') || isActive('/dashboard/operator/settings')} iconColor={IC.account}>
                     {t('links.profile')}
-                </NavItem>
-                <NavItem href="/dashboard/operator/settings" icon={Settings} active={isActive('/dashboard/operator/settings')} iconColor={IC.account}>
-                    {t('links.settings')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

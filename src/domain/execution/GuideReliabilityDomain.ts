@@ -66,7 +66,7 @@ async function recalculateReliabilityScore(guideId: string): Promise<number> {
     score = Math.max(0, Math.min(100, score));
 
     // Persist
-    await (prisma as any).user.update({
+    await prisma.user.update({
         where: { id: guideId },
         data: { reliabilityScore: score },
     });
@@ -86,7 +86,7 @@ async function applyReliabilityEvent(
 
     // ── Guide Pro Cancellation Forgiveness: 1 penalty-free cancel per quarter ──
     if (eventType === 'LATE_CANCELLATION') {
-        const guide = await (prisma as any).user.findUnique({
+        const guide = await prisma.user.findUnique({
             where: { id: guideId },
             select: { plan: true },
         });
@@ -188,7 +188,7 @@ function checkCommitmentLock(tourStartTime: Date): CommitmentCheckResult {
  * Get guide reliability stats.
  */
 async function getGuideReliabilityStats(guideId: string) {
-    const user = await (prisma as any).user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { id: guideId },
         select: { reliabilityScore: true, trustScore: true },
     });
