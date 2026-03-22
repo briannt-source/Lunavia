@@ -12,7 +12,7 @@ export default function FilterBar() {
         </div>
         <input className="flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111418] focus:outline-0 bg-white placeholder:text-[#9ca3af] px-4 text-base font-normal leading-normal dark:bg-[#232F3E] dark:text-white" placeholder="Search by tour name, tour code..." />
         <Button asChild>
-          <button className="bg-primary hover:bg-blue-600 text-white px-6 font-medium transition-colors">Tìm kiếm</button>
+          <button className="bg-primary hover:bg-blue-600 text-white px-6 font-medium transition-colors">Search</button>
         </Button>
       </div>
     </FormField>

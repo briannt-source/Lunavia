@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { api } from "@/lib/api-client";
+import { useTranslations } from "next-intl";
 
 interface AdminDeleteUserDialogProps {
   open: boolean;
@@ -32,23 +33,18 @@ interface AdminDeleteUserDialogProps {
   onSuccess?: () => void;
 }
 
-/**
- * Admin Delete User Dialog
- * 
- * Dialog để admin xác nhận xóa user
- * Visibility information user và số lượng related records sẽ bị ảnh hưởng
- */
 export function AdminDeleteUserDialog({
   open,
   onOpenChange,
   user,
   onSuccess,
 }: AdminDeleteUserDialogProps) {
+  const t = useTranslations("Components.AdminDeleteUser");
   const [isDeleting, setIsDeleting] = useState(false);
   const queryClient = useQueryClient();
 
   const handleDelete = async () => {
-    if (!confirm(`Bạn có chắc chắn muốn xóa user "${user.email}"?\n\nHành động này không thể hoàn tác!`)) {
+    if (!confirm(`Are you sure you want to delete user "${user.email}"?\n\nThis action cannot be undone!`)) {
       return;
     }
 
@@ -56,17 +52,9 @@ export function AdminDeleteUserDialog({
     try {
       await api.admin.users.delete(user.id);
       toast.success("User deleted successfully");
-      
-      // Invalidate React Query cache
       await queryClient.invalidateQueries({ queryKey: ["admin-users"] });
-      
       onOpenChange(false);
-      
-      // Force page reload to clear Next.js cache
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      
+      setTimeout(() => { window.location.reload(); }, 500);
       onSuccess?.();
     } catch (error: any) {
       console.error("Error deleting user:", error);
@@ -87,15 +75,12 @@ export function AdminDeleteUserDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-red-600">
             <Trash2 className="h-5 w-5" />
-            Xóa User
+            {t("title")}
           </DialogTitle>
-          <DialogDescription>
-            Bạn đang chuẩn bị xóa user này. Hành động này không thể hoàn tác.
-          </DialogDescription>
+          <DialogDescription>{t("desc")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* User Info */}
           <div className="rounded-lg border p-4 bg-slate-50">
             <div className="space-y-2">
               <div>
@@ -103,61 +88,44 @@ export function AdminDeleteUserDialog({
                 <p className="font-semibold text-slate-900">{user.email}</p>
               </div>
               <div>
-                <span className="text-sm font-medium text-slate-600">Vai trò:</span>
+                <span className="text-sm font-medium text-slate-600">Role:</span>
                 <p className="text-sm">{user.role.replace(/_/g, " ")}</p>
               </div>
             </div>
           </div>
 
-          {/* Warning if has related data */}
           {hasRelatedData && (
             <Alert variant="destructive">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                <p className="font-semibold mb-2">User này có dữ liệu liên quan sẽ bị xóa:</p>
+                <p className="font-semibold mb-2">This user has related data that will be deleted:</p>
                 <ul className="list-disc list-inside space-y-1 text-sm">
-                  {toursCount > 0 && (
-                    <li>{toursCount} tours</li>
-                  )}
-                  {applicationsCount > 0 && (
-                    <li>{applicationsCount} ứng tuyển</li>
-                  )}
-                  {assignmentsCount > 0 && (
-                    <li>{assignmentsCount} assignments</li>
-                  )}
+                  {toursCount > 0 && <li>{toursCount} tours</li>}
+                  {applicationsCount > 0 && <li>{applicationsCount} applications</li>}
+                  {assignmentsCount > 0 && <li>{assignmentsCount} assignments</li>}
                 </ul>
-                <p className="mt-2 font-semibold">Tất cả dữ liệu liên quan sẽ bị xóa vĩnh viễn!</p>
+                <p className="mt-2 font-semibold">All related data will be permanently deleted!</p>
               </AlertDescription>
             </Alert>
           )}
 
-          {/* Confirmation */}
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm text-amber-900">
-              <strong>Lưu ý:</strong> Hành động này sẽ xóa vĩnh viễn user và tất cả dữ liệu liên quan.
-              Bạn có chắc chắn muốn tiếp tục?
+              <strong>Warning:</strong> This action will permanently delete the user and all related data.
+              Are you sure you want to proceed?
             </p>
           </div>
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={isDeleting}
-          >
-            Hủy
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isDeleting}>
+            {t("cancel")}
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isDeleting}
-          >
-            {isDeleting ? "Deleting..." : "Delete User"}
+          <Button variant="destructive" onClick={handleDelete} disabled={isDeleting}>
+            {isDeleting ? t("deleting") : t("confirmDelete")}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-

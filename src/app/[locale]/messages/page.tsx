@@ -26,7 +26,7 @@ export default function MessagesPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải cuộc trò chuyện...</p>
+          <p className="text-slate-600">Loading conversations...</p>
         </div>
       </div>
     );
@@ -35,8 +35,8 @@ export default function MessagesPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <PageHeader
-        title="Tin nhắn"
-        description="Trao đổi với tour operator và guides"
+        title="Messages"
+        description="Chat with tour operators and guides"
       />
 
       {conversations.length === 0 ? (
@@ -44,8 +44,8 @@ export default function MessagesPage() {
           <CardContent className="py-12">
             <EmptyState
               icon={MessageSquare}
-              title="Chưa có cuộc trò chuyện nào"
-              description="Bắt đầu trao đổi với tour operator hoặc guide về tour"
+              title="No conversations yet"
+              description="Start chatting with tour operators or guides about tours"
             />
           </CardContent>
         </Card>

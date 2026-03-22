@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 interface ContractVerificationButtonProps {
   companyId: string;
@@ -19,6 +20,7 @@ export function ContractVerificationButton({
   currentVerified,
   hasContract,
 }: ContractVerificationButtonProps) {
+  const t = useTranslations("Components.ContractVerification");
   const queryClient = useQueryClient();
 
   const verifyMutation = useMutation({
@@ -65,15 +67,14 @@ export function ContractVerificationButton({
       {currentVerified ? (
         <>
           <XCircle className="mr-2 h-4 w-4" />
-          Hủy xác minh
+          {t("alreadySigned")}
         </>
       ) : (
         <>
           <CheckCircle2 className="mr-2 h-4 w-4" />
-          Xác minh
+          {t("signContract")}
         </>
       )}
     </Button>
   );
 }
-

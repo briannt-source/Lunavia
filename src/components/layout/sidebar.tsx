@@ -259,7 +259,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps = {}) {
           onClick={handleLinkClick}
         >
           <X className="h-5 w-5" />
-          Đăng xuất
+          Log out
         </Link>
       </div>
     </div>

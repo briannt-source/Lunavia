@@ -83,7 +83,7 @@ export default async function AdminVerificationsPage({
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ</CardTitle>
+            <CardTitle className="text-sm font-medium">Pending</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -94,7 +94,7 @@ export default async function AdminVerificationsPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã duyệt</CardTitle>
+            <CardTitle className="text-sm font-medium">Approved</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -105,7 +105,7 @@ export default async function AdminVerificationsPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã từ chối</CardTitle>
+            <CardTitle className="text-sm font-medium">Rejected</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -116,7 +116,7 @@ export default async function AdminVerificationsPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng</CardTitle>
+            <CardTitle className="text-sm font-medium">Total</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -137,9 +137,9 @@ export default async function AdminVerificationsPage({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All statuses</SelectItem>
-                <SelectItem value="PENDING">Đang chờ</SelectItem>
-                <SelectItem value="APPROVED">Đã duyệt</SelectItem>
-                <SelectItem value="REJECTED">Đã từ chối</SelectItem>
+                <SelectItem value="PENDING">Pending</SelectItem>
+                <SelectItem value="APPROVED">Approved</SelectItem>
+                <SelectItem value="REJECTED">Rejected</SelectItem>
               </SelectContent>
             </Select>
             <Select name="type" defaultValue={params.type || "all"}>
@@ -147,12 +147,12 @@ export default async function AdminVerificationsPage({
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả loại</SelectItem>
+                <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="KYC">KYC (Guide)</SelectItem>
                 <SelectItem value="KYB">KYB (Operator)</SelectItem>
               </SelectContent>
             </Select>
-            <Button type="submit">Lọc</Button>
+            <Button type="submit">Filter</Button>
           </form>
         </CardContent>
       </Card>
@@ -161,14 +161,14 @@ export default async function AdminVerificationsPage({
       <Card>
         <CardHeader>
           <CardTitle>
-            Danh sách Xác minh ({verifications.length})
+            Verification List ({verifications.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {verifications.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Shield className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Không có yêu cầu xác minh nào</p>
+              <p>No verification requests found</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -193,7 +193,7 @@ export default async function AdminVerificationsPage({
                         <span className="px-2 py-0.5 bg-slate-100 rounded text-xs">
                           {verification.user.role.replace(/_/g, " ")}
                         </span>
-                        <span>Nộp: {formatDateTime(verification.createdAt)}</span>
+                        <span>Submitted: {formatDateTime(verification.createdAt)}</span>
                         {verification.status !== "PENDING" && verification.updatedAt && (
                           <span>
                             {verification.status === "APPROVED" ? "Approved" : "Reject"}: {formatDateTime(verification.updatedAt)}
@@ -202,7 +202,7 @@ export default async function AdminVerificationsPage({
                       </div>
                       {verification.rejectionReason && (
                         <p className="text-sm text-red-600 mt-2">
-                          Reason từ chối: {verification.rejectionReason}
+                          Rejection reason: {verification.rejectionReason}
                         </p>
                       )}
                     </div>

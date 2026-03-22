@@ -74,13 +74,13 @@ export default function TourListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Danh Sách Tours</h1>
-          <p className="text-sm text-gray-500 mt-1">Quản lý và theo dõi tất cả tours của bạn</p>
+          <h1 className="text-2xl font-bold text-gray-900">Tour List</h1>
+          <p className="text-sm text-gray-500 mt-1">Manage and track all your tours</p>
         </div>
         <Link href="/dashboard/operator/tours/new">
           <Button className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm gap-1.5 active:scale-[0.98]">
             <Plus className="h-4 w-4" />
-            Create Tour Mới
+            Create New Tour
           </Button>
         </Link>
       </div>
@@ -103,9 +103,9 @@ export default function TourListPage() {
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tất cả</SelectItem>
-              <SelectItem value="today">Hôm nay</SelectItem>
-              <SelectItem value="attention">Cần chú ý</SelectItem>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="today">Today</SelectItem>
+              <SelectItem value="attention">Needs Attention</SelectItem>
               <SelectItem value="DRAFT">Draft</SelectItem>
               <SelectItem value="OPEN">Open</SelectItem>
               <SelectItem value="PUBLISHED">Published</SelectItem>

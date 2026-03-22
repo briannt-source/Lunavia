@@ -196,7 +196,7 @@ export default function BrowsePage() {
                           <Link href={`/tours/${tour.id}`}>
                             <Button size="sm" className="w-full">
                               <Briefcase className="h-4 w-4 mr-2" />
-                              Ứng tuyển
+                              Apply
                             </Button>
                           </Link>
                         </div>
@@ -247,7 +247,7 @@ export default function BrowsePage() {
                         <SelectValue placeholder="City" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Tất cả</SelectItem>
+                        <SelectItem value="all">All</SelectItem>
                         <SelectItem value="Hanoi">Hanoi</SelectItem>
                         <SelectItem value="Ho Chi Minh City">Ho Chi Minh City</SelectItem>
                         <SelectItem value="Da Nang">Da Nang</SelectItem>
@@ -269,9 +269,9 @@ export default function BrowsePage() {
                         <SelectValue placeholder="Status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Tất cả</SelectItem>
-                        <SelectItem value="AVAILABLE">Sẵn sàng</SelectItem>
-                        <SelectItem value="BUSY">Bận</SelectItem>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="AVAILABLE">Available</SelectItem>
+                        <SelectItem value="BUSY">Busy</SelectItem>
                         <SelectItem value="ON_TOUR">Đang tour</SelectItem>
                       </SelectContent>
                     </Select>
@@ -331,7 +331,7 @@ export default function BrowsePage() {
                               )}
                               {guide._count?.applications > 0 && (
                                 <span>
-                                  {guide._count.applications} tours hoàn thành
+                                  {guide._count.applications} completed tours
                                 </span>
                               )}
                             </div>
@@ -375,7 +375,7 @@ export default function BrowsePage() {
                         </div>
                         {guide.companyMember && (
                           <div className="mt-2 pt-2 border-t text-xs text-slate-500">
-                            In-house tại: {guide.companyMember.company.name} (
+                            In-house at: {guide.companyMember.company.name} (
                             {guide.companyMember.company.companyId})
                           </div>
                         )}

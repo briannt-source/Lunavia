@@ -8,6 +8,7 @@ import { api } from "@/lib/api-client";
 import { Edit, Globe, Eye, Sparkles } from "lucide-react";
 import { AIMatchingDialog } from "@/components/ai-matching-dialog";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface TourActionsProps {
   tourId: string;
@@ -19,7 +20,7 @@ interface TourActionsProps {
   applyReason?: string;
   hasApplied?: boolean;
   applicationStatus?: string;
-  hasAcceptedGuides?: boolean; // Whether tour has accepted applications or approved assignments
+  hasAcceptedGuides?: boolean;
 }
 
 export function TourActions({
@@ -34,54 +35,72 @@ export function TourActions({
   applicationStatus,
   hasAcceptedGuides = false,
 }: TourActionsProps) {
+  const t = useTranslations("Components.TourActions");
   const router = useRouter();
   const [aiMatchingOpen, setAIMatchingOpen] = useState(false);
 
   const handlePublish = async () => {
     try {
       const result = await api.tours.updateStatus(tourId, "OPEN");
-      console.log("Tour status updated:", result);
-      
       if (result?.status === "OPEN") {
         toast.success("Tour published to marketplace!");
-        // Force reload để cập nhật status từ server
         window.location.reload();
       } else {
         toast.error("An error occurred updating tour status");
       }
     } catch (error: any) {
-      console.error("Error publishing tour:", error);
       toast.error(error.message || "Error publishing tour");
     }
   };
 
   const handleCloseTour = async () => {
-    if (!confirm("Are you sure you want to stop accepting guides for this tour?")) {
-      return;
-    }
+    if (!confirm("Are you sure you want to stop accepting guides for this tour?")) return;
     try {
       const result = await api.tours.updateStatus(tourId, "CLOSED");
-      console.log("Tour status updated:", result);
-      
       if (result?.status === "CLOSED") {
         toast.success("Tour is no longer accepting guides");
-        // Force reload để cập nhật status từ server
         window.location.reload();
       } else {
         toast.error("An error occurred updating tour status");
       }
     } catch (error: any) {
-      console.error("Error closing tour:", error);
       toast.error(error.message || "Error closing tour");
+    }
+  };
+
+  const handleStartTour = async () => {
+    if (!confirm("Are you sure you want to start this tour? Status will change to 'Running' and guides will be notified.")) return;
+    try {
+      const result = await api.tours.updateStatus(tourId, "IN_PROGRESS");
+      if (result?.status === "IN_PROGRESS") {
+        toast.success("Tour started! Guides have been notified.");
+        window.location.reload();
+      } else {
+        toast.error("An error occurred updating tour status");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Error starting tour");
+    }
+  };
+
+  const handleReopenTour = async () => {
+    try {
+      const result = await api.tours.updateStatus(tourId, "OPEN");
+      if (result?.status === "OPEN") {
+        toast.success("Tour reopened for applications");
+        window.location.reload();
+      } else {
+        toast.error("An error occurred updating tour status");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Error reopening tour");
     }
   };
 
   if (isOperator) {
     return (
       <div className="space-y-2">
-        <p className="text-sm text-muted-foreground text-center">
-          Đây là tour của bạn
-        </p>
+        <p className="text-sm text-muted-foreground text-center">{t("yourTour")}</p>
         {tourStatus === "DRAFT" && (
           <>
             <Link href={`/tours/${tourId}/edit`}>
@@ -90,118 +109,40 @@ export function TourActions({
                 Edit Tour
               </Button>
             </Link>
-            <Button
-              className="w-full"
-              size="lg"
-              variant="outline"
-              onClick={handlePublish}
-            >
+            <Button className="w-full" size="lg" variant="outline" onClick={handlePublish}>
               <Globe className="h-4 w-4 mr-2" />
               Publish Tour
             </Button>
           </>
         )}
         {tourStatus === "OPEN" && (
-          <Button
-            className="w-full"
-            size="lg"
-            variant="outline"
-            onClick={handleCloseTour}
-          >
-            Ngưng nhận thêm tour guide
+          <Button className="w-full" size="lg" variant="outline" onClick={handleCloseTour}>
+            {t("stopAccepting")}
           </Button>
         )}
         {tourStatus === "CLOSED" && (
           <div className="space-y-2">
-            <Button
-              className="w-full"
-              size="lg"
-              variant="outline"
-              onClick={async () => {
-                try {
-                  const result = await api.tours.updateStatus(tourId, "OPEN");
-                  console.log("Tour status updated:", result);
-                  
-                  if (result?.status === "OPEN") {
-                    toast.success("Tour reopened for applications");
-                    // Force reload để cập nhật status từ server
-                    window.location.reload();
-                  } else {
-                    toast.error("An error occurred updating tour status");
-                  }
-                } catch (error: any) {
-                  console.error("Error reopening tour:", error);
-                  toast.error(error.message || "Error reopening tour");
-                }
-              }}
-            >
-              Mở lại ứng tuyển
+            <Button className="w-full" size="lg" variant="outline" onClick={handleReopenTour}>
+              {t("reopenApplications")}
             </Button>
             {hasAcceptedGuides && (
-              <Button
-                className="w-full"
-                size="lg"
-                onClick={async () => {
-                  if (!confirm("Are you sure you want to start this tour? Status will change to 'Running' and guides will be notified.")) {
-                    return;
-                  }
-                  try {
-                    const result = await api.tours.updateStatus(tourId, "IN_PROGRESS");
-                    console.log("Tour status updated:", result);
-                    
-                    if (result?.status === "IN_PROGRESS") {
-                      toast.success("Tour started! Guides have been notified.");
-                      // Force reload để cập nhật status từ server
-                      window.location.reload();
-                    } else {
-                      toast.error("An error occurred updating tour status");
-                    }
-                  } catch (error: any) {
-                    console.error("Error starting tour:", error);
-                    toast.error(error.message || "Error starting tour");
-                  }
-                }}
-              >
-                🚀 Bắt đầu tour
+              <Button className="w-full" size="lg" onClick={handleStartTour}>
+                {t("startTour")}
               </Button>
             )}
           </div>
         )}
         {tourStatus === "OPEN" && hasAcceptedGuides && (
-          <Button
-            className="w-full"
-            size="lg"
-            onClick={async () => {
-              if (!confirm("Are you sure you want to start this tour? Status will change to 'Running' and guides will be notified.")) {
-                return;
-              }
-              try {
-                const result = await api.tours.updateStatus(tourId, "IN_PROGRESS");
-                console.log("Tour status updated:", result);
-                
-                if (result?.status === "IN_PROGRESS") {
-                  toast.success("Tour started! Guides have been notified.");
-                  // Force reload để cập nhật status từ server
-                  window.location.reload();
-                } else {
-                  toast.error("An error occurred updating tour status");
-                }
-              } catch (error: any) {
-                console.error("Error starting tour:", error);
-                toast.error(error.message || "Error starting tour");
-              }
-            }}
-          >
-            🚀 Bắt đầu tour
+          <Button className="w-full" size="lg" onClick={handleStartTour}>
+            {t("startTour")}
           </Button>
         )}
         <Link href={`/dashboard/operator/applications/${tourId}`}>
           <Button className="w-full" size="lg" variant="outline">
             <Eye className="h-4 w-4 mr-2" />
-            Xem ứng tuyển ({applicationsCount})
+            {t("viewApplications", { count: applicationsCount })}
           </Button>
         </Link>
-        {/* AI Matching Button */}
         {(tourStatus === "OPEN" || tourStatus === "CLOSED") && (
           <>
             <Button
@@ -257,7 +198,7 @@ export function TourActions({
         </div>
         <Link href="/dashboard/guide/applications">
           <Button variant="outline" size="sm" className="w-full">
-            Xem tất cả ứng tuyển
+            {t("viewAllApplications")}
           </Button>
         </Link>
       </div>
@@ -267,9 +208,7 @@ export function TourActions({
   if (canApply) {
     return (
       <Link href={`/tours/${tourId}/apply`}>
-        <Button className="w-full" size="lg">
-          Apply Now
-        </Button>
+        <Button className="w-full" size="lg">Apply Now</Button>
       </Link>
     );
   }
@@ -277,9 +216,7 @@ export function TourActions({
   return (
     <div className="text-center space-y-2">
       {applyReason && (
-        <p className="text-sm text-amber-600 mb-2 font-medium">
-          {applyReason}
-        </p>
+        <p className="text-sm text-amber-600 mb-2 font-medium">{applyReason}</p>
       )}
       {!applyReason && (
         <p className="text-sm text-muted-foreground mb-2">
@@ -290,12 +227,9 @@ export function TourActions({
       )}
       {applyReason && applyReason.includes("KYC") && (
         <Link href="/dashboard/verification/kyc">
-          <Button variant="outline" size="sm" className="w-full">
-            Submit KYC Now
-          </Button>
+          <Button variant="outline" size="sm" className="w-full">Submit KYC Now</Button>
         </Link>
       )}
     </div>
   );
 }
-

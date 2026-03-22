@@ -140,7 +140,7 @@ export default function AdminUserManagePage() {
           <p className="text-slate-600">User not found</p>
           <Link href="/dashboard/admin/users">
             <Button variant="outline" className="mt-4">
-              Quay lại
+              Back
             </Button>
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function AdminUserManagePage() {
           <Link href={`/dashboard/admin/users/${userId}`}>
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              Back
             </Button>
           </Link>
         }
@@ -171,7 +171,7 @@ export default function AdminUserManagePage() {
           </TabsTrigger>
           <TabsTrigger value="security">
             <Key className="h-4 w-4 mr-2" />
-            Bảo mật
+            Security
           </TabsTrigger>
           <TabsTrigger value="info">
             <Shield className="h-4 w-4 mr-2" />
@@ -183,14 +183,14 @@ export default function AdminUserManagePage() {
         <TabsContent value="profile">
           <Card>
             <CardHeader>
-              <CardTitle>Chỉnh sửa Profile</CardTitle>
+              <CardTitle>Edit Profile</CardTitle>
             </CardHeader>
             <CardContent>
               {profileData && (
                 <form onSubmit={handleUpdateProfile} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="name">Tên</Label>
+                      <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
                         value={profileData.name}
@@ -234,7 +234,7 @@ export default function AdminUserManagePage() {
                   {(user.role === "TOUR_OPERATOR" || user.role === "TOUR_AGENCY") && (
                     <>
                       <div>
-                        <Label htmlFor="companyName">Tên công ty</Label>
+                        <Label htmlFor="companyName">Company Name</Label>
                         <Input
                           id="companyName"
                           value={profileData.companyName}
@@ -276,7 +276,7 @@ export default function AdminUserManagePage() {
         <TabsContent value="security">
           <Card>
             <CardHeader>
-              <CardTitle>Đặt lại mật khẩu</CardTitle>
+              <CardTitle>Reset Password</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleResetPassword} className="space-y-4">
@@ -285,16 +285,16 @@ export default function AdminUserManagePage() {
                     <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5" />
                     <div>
                       <p className="font-semibold text-amber-900 mb-1">
-                        Lưu ý quan trọng
+                        Important Notice
                       </p>
                       <p className="text-sm text-amber-700">
-                        Mật khẩu mới sẽ được gửi cho user qua email. User sẽ cần đăng nhập lại với mật khẩu mới.
+                        New password will be sent to the user via email. They will need to sign in again with the new password.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="newPassword">Mật khẩu mới *</Label>
+                  <Label htmlFor="newPassword">New Password *</Label>
                   <Input
                     id="newPassword"
                     type="password"
@@ -318,7 +318,7 @@ export default function AdminUserManagePage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="resetReason">Reason đặt lại mật khẩu *</Label>
+                  <Label htmlFor="resetReason">Password Reset Reason *</Label>
                   <Textarea
                     id="resetReason"
                     value={resetReason}
@@ -348,7 +348,7 @@ export default function AdminUserManagePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Information tài khoản</CardTitle>
+                <CardTitle>Account Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div>
@@ -356,15 +356,15 @@ export default function AdminUserManagePage() {
                   <p className="font-medium">{user.email}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Vai trò</p>
+                  <p className="text-sm text-slate-500">Role</p>
                   <p className="font-medium">{user.role.replace(/_/g, " ")}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Status xác minh</p>
+                  <p className="text-sm text-slate-500">Verification Status</p>
                   <StatusBadge status={user.verifiedStatus} />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Ngày đăng ký</p>
+                  <p className="text-sm text-slate-500">Registration Date</p>
                   <p className="font-medium">{formatDateTime(user.createdAt)}</p>
                 </div>
               </CardContent>
@@ -373,21 +373,21 @@ export default function AdminUserManagePage() {
             {user.wallet && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Information ví</CardTitle>
+                  <CardTitle>Wallet Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <p className="text-sm text-slate-500">Số dư</p>
+                    <p className="text-sm text-slate-500">Balance</p>
                     <p className="font-medium text-lg text-teal-600">
                       {formatVND(user.wallet.balance)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500">Đã khóa</p>
+                    <p className="text-sm text-slate-500">Locked</p>
                     <p className="font-medium">{formatVND(0)}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500">Đã đặt cọc</p>
+                    <p className="text-sm text-slate-500">Deposited</p>
                     <p className="font-medium">{formatVND(0)}</p>
                   </div>
                 </CardContent>

@@ -41,7 +41,7 @@ export default function CreateTourPage() {
     languages: "",
     specialties: "",
     visibility: "PUBLIC",
-    guideNotes: "", // Notes/notices dành cho tour guide
+    guideNotes: "", // Notes/notices for tour guides
     publishAction: "draft", // "draft" or "publish"
   });
 
@@ -251,7 +251,7 @@ export default function CreateTourPage() {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang kiểm tra quyền tạo tour...</p>
+          <p className="text-slate-600">Checking tour creation permissions...</p>
         </div>
       </DashboardLayout>
     );
@@ -268,7 +268,7 @@ export default function CreateTourPage() {
             variant="outline"
             onClick={() => router.back()}
           >
-            Hủy
+            Cancel
           </Button>
         }
       />
@@ -280,15 +280,15 @@ export default function CreateTourPage() {
               <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
               <div>
                 <p className="font-semibold text-red-900 mb-1">
-                  Không thể tạo tour
+                  Cannot Create Tour
                 </p>
                 <p className="text-sm text-red-700 mb-2">
                   {canCreate.reason}
                 </p>
                 <ul className="text-sm text-red-600 list-disc list-inside space-y-1">
-                  <li>Tài khoản phải được xác minh (APPROVED)</li>
-                  <li>Có license số đăng ký kinh doanh</li>
-                  <li>Deposit tối thiểu 1.000.000 VND</li>
+                  <li>Account must be verified (APPROVED)</li>
+                  <li>Must have a business registration license</li>
+                  <li>Minimum deposit of 1,000,000 VND</li>
                 </ul>
               </div>
             </div>
@@ -301,16 +301,16 @@ export default function CreateTourPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <Tabs defaultValue="basic" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="basic">Information cơ bản</TabsTrigger>
-                <TabsTrigger value="pricing">Price & Ngày</TabsTrigger>
-                <TabsTrigger value="details">Chi tiết</TabsTrigger>
+                <TabsTrigger value="basic">Basic Information</TabsTrigger>
+                <TabsTrigger value="pricing">Price & Date</TabsTrigger>
+                <TabsTrigger value="details">Details</TabsTrigger>
                 <TabsTrigger value="files">Files</TabsTrigger>
               </TabsList>
 
               {/* Basic Info Tab */}
               <TabsContent value="basic" className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Tiêu đề tour *</Label>
+                  <Label htmlFor="title">Title tour *</Label>
                   <Input
                     id="title"
                     value={formData.title}
@@ -359,7 +359,7 @@ export default function CreateTourPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="pax">Số guests *</Label>
+                    <Label htmlFor="pax">Number of guests *</Label>
                     <Input
                       id="pax"
                       type="number"
@@ -387,7 +387,7 @@ export default function CreateTourPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="PUBLIC">Public (Public)</SelectItem>
-                      <SelectItem value="PRIVATE">Private (Private - chỉ in-house)</SelectItem>
+                      <SelectItem value="PRIVATE">Private (In-house only)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -396,7 +396,7 @@ export default function CreateTourPage() {
               {/* Pricing & Dates Tab */}
               <TabsContent value="pricing" className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label>Đơn vị tiền tệ *</Label>
+                  <Label>Currency *</Label>
                   <Select
                     value={formData.currency}
                     onValueChange={(value) =>
@@ -407,7 +407,7 @@ export default function CreateTourPage() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="VND">VND (Việt Nam Đồng)</SelectItem>
+                      <SelectItem value="VND">VND (Vietnamese Dong)</SelectItem>
                       <SelectItem value="USD">USD (1 USD = 26,000 VND)</SelectItem>
                     </SelectContent>
                   </Select>
@@ -525,7 +525,7 @@ export default function CreateTourPage() {
                   <Label htmlFor="guideNotes">
                     Notes cho Tour Guide
                     <span className="text-slate-400 text-sm font-normal ml-2">
-                      (Chỉ Tour Guide mới thấy phần này)
+                      (Only visible to Tour Guides)
                     </span>
                   </Label>
                   <textarea
@@ -539,7 +539,7 @@ export default function CreateTourPage() {
                     }
                   />
                   <p className="text-xs text-slate-500">
-                    Phần này chỉ hiển thị cho Tour Guide khi họ xem chi tiết tour. Bạn có thể thêm các lưu ý đặc biệt, yêu cầu cụ thể, hoặc information quan trọng.
+                    This section is only visible to Tour Guides when they view tour details. You can add special notices, specific requirements, or important information.
                   </p>
                 </div>
               </TabsContent>
@@ -591,7 +591,7 @@ export default function CreateTourPage() {
                   onClick={() => router.back()}
                   disabled={loading}
                 >
-                  Hủy
+                  Cancel
                 </Button>
               </div>
             </div>

@@ -143,22 +143,22 @@ export default function TourReportPage() {
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
                 <div className="flex-1">
                   <p className="font-semibold text-slate-900">
-                    Báo cáo đã được gửi
+                    Report has been submitted
                   </p>
                   <p className="text-sm text-slate-600">
-                    Gửi lúc: {new Date(existingReport.submittedAt).toLocaleString("vi-VN")}
+                    Submitted at: {new Date(existingReport.submittedAt).toLocaleString("vi-VN")}
                   </p>
                   {existingReport.approvedAt && (
                     <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm font-medium text-green-900">
-                        ✓ Tour đã được operator xác nhận
+                        ✓ Tour has been confirmed by operator
                       </p>
                       <p className="text-sm text-green-700">
-                        Amount đã khóa: {formatVND(existingReport.paymentLockedAmount || 0)}
+                        Locked Amount: {formatVND(existingReport.paymentLockedAmount || 0)}
                       </p>
                       {existingReport.paymentDueAt && (
                         <p className="text-xs text-green-600 mt-1">
-                          Hạn thanh toán: {new Date(existingReport.paymentDueAt).toLocaleString("vi-VN")}
+                          Payment due: {new Date(existingReport.paymentDueAt).toLocaleString("vi-VN")}
                         </p>
                       )}
                     </div>
@@ -170,7 +170,7 @@ export default function TourReportPage() {
                         disabled={loading}
                         className="bg-amber-600 hover:bg-amber-700"
                       >
-                        Requirements thanh toán
+                        Payment Requirements
                       </Button>
                     </div>
                   )}
@@ -183,7 +183,7 @@ export default function TourReportPage() {
         {/* Report Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Information báo cáo</CardTitle>
+            <CardTitle>Report Information</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -191,7 +191,7 @@ export default function TourReportPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="overallRating">
-                    Reviews tổng thể (1-5)
+                    Overall Review (1-5)
                   </Label>
                   <div className="flex gap-2 mt-2">
                     {[1, 2, 3, 4, 5].map((rating) => (
@@ -213,7 +213,7 @@ export default function TourReportPage() {
 
                 <div>
                   <Label htmlFor="clientSatisfaction">
-                    Mức độ hài lòng của guests (1-5)
+                    Guest Satisfaction Level (1-5)
                   </Label>
                   <div className="flex gap-2 mt-2">
                     {[1, 2, 3, 4, 5].map((rating) => (
@@ -236,7 +236,7 @@ export default function TourReportPage() {
 
               {/* Highlights */}
               <div>
-                <Label htmlFor="highlights">Điểm nổi bật</Label>
+                <Label htmlFor="highlights">Highlights</Label>
                 <Textarea
                   id="highlights"
                   value={highlights}
@@ -249,7 +249,7 @@ export default function TourReportPage() {
 
               {/* Challenges */}
               <div>
-                <Label htmlFor="challenges">Thách thức / Khó khăn</Label>
+                <Label htmlFor="challenges">Challenges / Difficulties</Label>
                 <Textarea
                   id="challenges"
                   value={challenges}
@@ -262,7 +262,7 @@ export default function TourReportPage() {
 
               {/* Recommendations */}
               <div>
-                <Label htmlFor="recommendations">Đề xuất cải thiện</Label>
+                <Label htmlFor="recommendations">Improvement Suggestions</Label>
                 <Textarea
                   id="recommendations"
                   value={recommendations}
@@ -276,7 +276,7 @@ export default function TourReportPage() {
               {/* Payment Request */}
               <div>
                 <Label htmlFor="paymentRequestAmount">
-                  Requirements thanh toán (VND) - Tùy chọn
+                  Payment Requirements (VND) - Optional
                 </Label>
                 <Input
                   id="paymentRequestAmount"
@@ -314,7 +314,7 @@ export default function TourReportPage() {
                   onClick={() => router.back()}
                   disabled={loading}
                 >
-                  Hủy
+                  Cancel
                 </Button>
               </div>
             </form>

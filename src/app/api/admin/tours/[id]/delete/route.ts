@@ -7,8 +7,8 @@ import { revalidatePath } from "next/cache";
 /**
  * DELETE /api/admin/tours/[id]/delete
  * 
- * Admin endpoint để xóa tour trực tiếp (không cần approval)
- * Chỉ SUPER_ADMIN và MODERATOR mới có quyền
+ * Admin endpoint to delete tour directly (no approval needed)
+ * Only SUPER_ADMIN and MODERATOR have permission
  */
 export async function DELETE(
   req: NextRequest,
@@ -56,8 +56,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Tour does not exist" }, { status: 404 });
     }
 
-    // Admin có thể xóa tour bất kỳ, nhưng cần xóa các related data trước
-    // Prisma sẽ tự động xóa các records có onDelete: Cascade, nhưng chúng ta sẽ explicit để đảm bảo
+    // Admin can delete any tour, but must delete related data first
+    // Prisma will auto-delete records with onDelete: Cascade, but we are explicit to be safe
 
     // Delete messages and conversations OUTSIDE transaction first (if tables exist)
     // This prevents transaction abort if tables don't exist
@@ -116,7 +116,7 @@ export async function DELETE(
       }
     }
 
-    // Delete related data in transaction (cascade sẽ handle, nhưng explicit để rõ ràng)
+    // Delete related data in transaction (cascade will handle, but explicit for clarity)
     await prisma.$transaction(async (tx) => {
       // Delete applications
       await tx.application.deleteMany({
@@ -151,8 +151,8 @@ export async function DELETE(
         });
       }
 
-      // Note: Payments và Reviews không có onDelete: Cascade
-      // Nên chúng ta sẽ set tourId = null thay vì xóa
+      // Note: Payments and Reviews do not have onDelete: Cascade
+      // So we set tourId = null instead of deleting
       await tx.payment.updateMany({
         where: { tourId },
         data: { tourId: null },

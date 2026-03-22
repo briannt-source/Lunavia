@@ -70,7 +70,7 @@ export default function ContractVerificationPage() {
             <div className="text-center">
               <FileText className="h-12 w-12 mx-auto text-slate-300 mb-4" />
               <p className="text-muted-foreground">
-                Tính năng này đang được phát triển. Admin có thể verify contracts từ trang quản lý companies.
+                This feature is under development. Admin can verify contracts from the company management page.
               </p>
             </div>
           </CardContent>

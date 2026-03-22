@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 
 interface EscrowActionsProps {
   escrowAccount: {
@@ -40,6 +41,7 @@ export function EscrowActions({
   guideId,
   onUpdate,
 }: EscrowActionsProps) {
+  const t = useTranslations("Components.Escrow");
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [actionType, setActionType] = useState<"lock" | "release" | "refund" | null>(null);
@@ -63,7 +65,6 @@ export function EscrowActions({
       toast.error("Please enter a reason for releasing escrow");
       return;
     }
-
     setIsLoading(true);
     try {
       await api.escrow.release(escrowAccount.id, reason);
@@ -83,7 +84,6 @@ export function EscrowActions({
       toast.error("Please enter a reason for refunding escrow");
       return;
     }
-
     setIsLoading(true);
     try {
       await api.escrow.refund(escrowAccount.id, reason);
@@ -107,34 +107,29 @@ export function EscrowActions({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted-foreground">Status Escrow</p>
+          <p className="text-sm text-muted-foreground">{t("status")}</p>
           <EscrowStatusBadge status={escrowAccount.status} className="mt-1" />
         </div>
         <div className="text-right">
-          <p className="text-sm text-muted-foreground">Amount</p>
+          <p className="text-sm text-muted-foreground">{t("amount")}</p>
           <p className="text-lg font-semibold">
             {escrowAccount.amount.toLocaleString("vi-VN")} VND
           </p>
           {escrowAccount.platformFee > 0 && (
             <p className="text-xs text-muted-foreground">
-              Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
+              {t("platformFee")}: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
             </p>
           )}
           <p className="text-xs text-muted-foreground">
-            Amount nhận: {escrowAccount.netAmount.toLocaleString("vi-VN")} VND
+            {t("netAmount")}: {escrowAccount.netAmount.toLocaleString("vi-VN")} VND
           </p>
         </div>
       </div>
 
       {escrowAccount.status === "PENDING" && (
-        <Button
-          onClick={handleLock}
-          disabled={isLoading}
-          className="w-full"
-          variant="default"
-        >
+        <Button onClick={handleLock} disabled={isLoading} className="w-full" variant="default">
           <Lock className="h-4 w-4 mr-2" />
-          Khóa Escrow
+          {t("lockEscrow")}
         </Button>
       )}
 
@@ -142,126 +137,67 @@ export function EscrowActions({
         <div className="space-y-2">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button
-                onClick={() => openDialog("release")}
-                disabled={isLoading}
-                className="w-full"
-                variant="default"
-              >
+              <Button onClick={() => openDialog("release")} disabled={isLoading} className="w-full" variant="default">
                 <Unlock className="h-4 w-4 mr-2" />
-                Giải phóng Escrow
+                {t("releaseEscrow")}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Giải phóng Escrow</DialogTitle>
-                <DialogDescription>
-                  Giải phóng escrow sẽ chuyển tiền vào ví của guide. Hành động này không thể hoàn tác.
-                </DialogDescription>
+                <DialogTitle>{t("releaseTitle")}</DialogTitle>
+                <DialogDescription>{t("releaseDesc")}</DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label>Reason giải phóng</Label>
-                  <Textarea
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    placeholder="e.g. Tour completed and guide submitted report"
-                    rows={3}
-                  />
+                  <Label>{t("releaseReason")}</Label>
+                  <Textarea value={reason} onChange={(e) => setReason(e.target.value)} placeholder="e.g. Tour completed and guide submitted report" rows={3} />
                 </div>
                 <div className="bg-muted p-3 rounded-md">
-                  <p className="text-sm font-medium">Information thanh toán:</p>
-                  <p className="text-sm">
-                    Amount: {escrowAccount.amount.toLocaleString("vi-VN")} VND
-                  </p>
+                  <p className="text-sm font-medium">{t("paymentInfo")}</p>
+                  <p className="text-sm">{t("amount")}: {escrowAccount.amount.toLocaleString("vi-VN")} VND</p>
                   {escrowAccount.platformFee > 0 && (
-                    <p className="text-sm">
-                      Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
-                    </p>
+                    <p className="text-sm">{t("platformFee")}: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND</p>
                   )}
-                  <p className="text-sm font-medium">
-                    Guide sẽ nhận: {escrowAccount.netAmount.toLocaleString("vi-VN")} VND
-                  </p>
+                  <p className="text-sm font-medium">{t("guideWillReceive", { amount: escrowAccount.netAmount.toLocaleString("vi-VN") })}</p>
                 </div>
               </div>
               <DialogFooter>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsDialogOpen(false);
-                    setReason("");
-                  }}
-                >
-                  Hủy
-                </Button>
-                <Button onClick={handleRelease} disabled={isLoading || !reason.trim()}>
-                  Xác nhận giải phóng
-                </Button>
+                <Button variant="outline" onClick={() => { setIsDialogOpen(false); setReason(""); }}>{t("cancel")}</Button>
+                <Button onClick={handleRelease} disabled={isLoading || !reason.trim()}>{t("confirmRelease")}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Dialog open={isDialogOpen && actionType === "refund"} onOpenChange={(open) => {
-            if (!open) {
-              setIsDialogOpen(false);
-              setActionType(null);
-              setReason("");
-            }
+            if (!open) { setIsDialogOpen(false); setActionType(null); setReason(""); }
           }}>
             <DialogTrigger asChild>
-              <Button
-                onClick={() => openDialog("refund")}
-                disabled={isLoading}
-                className="w-full"
-                variant="outline"
-              >
+              <Button onClick={() => openDialog("refund")} disabled={isLoading} className="w-full" variant="outline">
                 <RotateCcw className="h-4 w-4 mr-2" />
-                Hoàn tiền Escrow
+                {t("refundEscrow")}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Hoàn tiền Escrow</DialogTitle>
-                <DialogDescription>
-                  Hoàn tiền escrow sẽ trả lại số tiền đã khóa vào ví của operator. Hành động này không thể hoàn tác.
-                </DialogDescription>
+                <DialogTitle>{t("refundTitle")}</DialogTitle>
+                <DialogDescription>{t("refundDesc")}</DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label>Reason hoàn tiền</Label>
-                  <Textarea
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    placeholder="e.g. Tour cancelled or dispute resolved"
-                    rows={3}
-                  />
+                  <Label>{t("refundReason")}</Label>
+                  <Textarea value={reason} onChange={(e) => setReason(e.target.value)} placeholder="e.g. Tour cancelled or dispute resolved" rows={3} />
                 </div>
                 <div className="bg-muted p-3 rounded-md">
-                  <p className="text-sm font-medium">Information hoàn tiền:</p>
-                  <p className="text-sm">
-                    Amount sẽ được hoàn: {escrowAccount.amount.toLocaleString("vi-VN")} VND
-                  </p>
+                  <p className="text-sm font-medium">{t("refundInfo")}</p>
+                  <p className="text-sm">{t("amountToRefund", { amount: escrowAccount.amount.toLocaleString("vi-VN") })}</p>
                   {escrowAccount.platformFee > 0 && (
-                    <p className="text-sm">
-                      Platform fee: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND
-                    </p>
+                    <p className="text-sm">{t("platformFee")}: {escrowAccount.platformFee.toLocaleString("vi-VN")} VND</p>
                   )}
                 </div>
               </div>
               <DialogFooter>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsDialogOpen(false);
-                    setActionType(null);
-                    setReason("");
-                  }}
-                >
-                  Hủy
-                </Button>
-                <Button onClick={handleRefund} disabled={isLoading || !reason.trim()}>
-                  Xác nhận hoàn tiền
-                </Button>
+                <Button variant="outline" onClick={() => { setIsDialogOpen(false); setActionType(null); setReason(""); }}>{t("cancel")}</Button>
+                <Button onClick={handleRefund} disabled={isLoading || !reason.trim()}>{t("confirmRefund")}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -272,7 +208,7 @@ export function EscrowActions({
         <div className="bg-green-50 border border-green-200 rounded-md p-3">
           <p className="text-sm text-green-800">
             <CheckCircle2 className="h-4 w-4 inline mr-1" />
-            Escrow has been released vào{" "}
+            {t("releasedAt")}{" "}
             {new Date(escrowAccount.releasedAt).toLocaleString("vi-VN")}
           </p>
         </div>
@@ -282,7 +218,7 @@ export function EscrowActions({
         <div className="bg-orange-50 border border-orange-200 rounded-md p-3">
           <p className="text-sm text-orange-800">
             <AlertCircle className="h-4 w-4 inline mr-1" />
-            Escrow đã được hoàn tiền vào{" "}
+            {t("refundedAt")}{" "}
             {new Date(escrowAccount.refundedAt).toLocaleString("vi-VN")}
           </p>
         </div>
@@ -290,4 +226,3 @@ export function EscrowActions({
     </div>
   );
 }
-

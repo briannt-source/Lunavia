@@ -32,7 +32,7 @@ function calculateMatchScore(
     s.toLowerCase().includes(tour.city.toLowerCase())
   )) {
     score += 30;
-    reasons.push(`Có chuyên môn về ${tour.city}`);
+    reasons.push(`Expert in ${tour.city}`);
   }
 
   // 2. Language match (25 points)
@@ -43,7 +43,7 @@ function calculateMatchScore(
     if (matchingLanguages.length > 0) {
       const languageScore = (matchingLanguages.length / tour.languages.length) * 25;
       score += languageScore;
-      reasons.push(`Thành thạo ${matchingLanguages.join(", ")}`);
+      reasons.push(`Proficient in ${matchingLanguages.join(", ")}`);
     }
   }
 
@@ -55,7 +55,7 @@ function calculateMatchScore(
     if (matchingSpecialties.length > 0) {
       const specialtyScore = (matchingSpecialties.length / tour.specialties.length) * 20;
       score += specialtyScore;
-      reasons.push(`Chuyên về ${matchingSpecialties.join(", ")}`);
+      reasons.push(`Specializes in ${matchingSpecialties.join(", ")}`);
     }
   }
 
@@ -83,15 +83,15 @@ function calculateMatchScore(
     const ratingScore = Math.min(rating * 2, 15);
     score += ratingScore;
     if (rating >= 4.5) {
-      reasons.push(`Reviews xuất sắc (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Excellent reviews (${rating.toFixed(1)}⭐)`);
     } else if (rating >= 4.0) {
-      reasons.push(`Reviews tốt (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Good reviews (${rating.toFixed(1)}⭐)`);
     }
   } else {
     const ratingScore = Math.min(rating * 2, 10);
     score += ratingScore;
     if (rating >= 4.5) {
-      reasons.push(`Reviews xuất sắc (${rating.toFixed(1)}⭐)`);
+      reasons.push(`Excellent reviews (${rating.toFixed(1)}⭐)`);
     }
   }
 
@@ -99,7 +99,7 @@ function calculateMatchScore(
   const reviewCount = guide.profile?.reviewCount || 0;
   if (reviewCount > 10) {
     score += 5;
-    reasons.push(`Nhiều đánh giá tích cực (${reviewCount} reviews)`);
+    reasons.push(`Many positive reviews (${reviewCount} reviews)`);
   }
 
   // 7. Availability status
@@ -124,7 +124,7 @@ function calculateMatchScore(
     );
     if (hasPriorityLanguage) {
       score += 10; // Bonus for priority languages
-      reasons.push(`Có ngôn ngữ ưu tiên: ${criteria.prioritizeLanguages.join(", ")}`);
+      reasons.push(`Has preferred languages: ${criteria.prioritizeLanguages.join(", ")}`);
     }
   }
 

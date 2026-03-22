@@ -61,7 +61,7 @@ export default function StandbyRequestsPage() {
           action={
             <Button onClick={() => setIsCreateDialogOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              Tạo Standby Request
+              Create Standby Request
             </Button>
           }
         />
@@ -80,7 +80,7 @@ export default function StandbyRequestsPage() {
             action={
               <Button onClick={() => setIsCreateDialogOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Tạo Standby Request
+                Create Standby Request
               </Button>
             }
           />

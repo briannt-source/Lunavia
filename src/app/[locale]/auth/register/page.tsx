@@ -79,13 +79,13 @@ export default function RegisterPage() {
           <CardHeader>
             <CardTitle>Register</CardTitle>
             <CardDescription>
-              Tạo tài khoản mới trên LUNAVIA
+              Create a new account on LUNAVIA
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="role">Loại tài khoản *</Label>
+                <Label htmlFor="role">Account Type *</Label>
                 <select
                   id="role"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -95,7 +95,7 @@ export default function RegisterPage() {
                   }
                   required
                 >
-                  <option value="TOUR_GUIDE">Tour Guide (HDV)</option>
+                  <option value="TOUR_GUIDE">Tour Guide (Guide)</option>
                   <option value="TOUR_OPERATOR">Tour Operator</option>
                   <option value="TOUR_AGENCY">Tour Agency</option>
                 </select>
@@ -116,7 +116,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="name">Tên *</Label>
+                <Label htmlFor="name">Name *</Label>
                 <Input
                   id="name"
                   value={formData.name}
@@ -130,7 +130,7 @@ export default function RegisterPage() {
               {isOperator && (
                 <>
                   <div className="space-y-2">
-                    <Label htmlFor="licenseNumber">Số license đăng ký kinh doanh *</Label>
+                    <Label htmlFor="licenseNumber">Business Registration License Number *</Label>
                     <Input
                       id="licenseNumber"
                       value={formData.licenseNumber}
@@ -141,7 +141,7 @@ export default function RegisterPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="companyName">Tên công ty</Label>
+                    <Label htmlFor="companyName">Company Name</Label>
                     <Input
                       id="companyName"
                       value={formData.companyName}
@@ -154,7 +154,7 @@ export default function RegisterPage() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="password">Mật khẩu *</Label>
+                <Label htmlFor="password">Password *</Label>
                 <Input
                   id="password"
                   type="password"

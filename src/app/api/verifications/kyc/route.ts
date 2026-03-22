@@ -33,13 +33,13 @@ export async function POST(req: NextRequest) {
     // Validate each field is an array and has max 5 files
     const validateField = (field: any, fieldName: string) => {
       if (!Array.isArray(field)) {
-        return `${fieldName} phải là một mảng`;
+        return `${fieldName} must be an array`;
       }
       if (field.length === 0) {
-        return `${fieldName} cần ít nhất 1 file`;
+        return `${fieldName} requires at least 1 file`;
       }
       if (field.length > 5) {
-        return `${fieldName} chỉ được tối đa 5 files`;
+        return `${fieldName} allows a maximum of 5 files`;
       }
       return null;
     };

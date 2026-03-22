@@ -116,14 +116,14 @@ export default function AdminAdminsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Danh sách Admin Users ({admins.length})
+            Admin Users List ({admins.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {admins.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Shield className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Chưa có admin user nào</p>
+              <p>No admin users found</p>
             </div>
           ) : (
             <div className="space-y-6">
@@ -148,7 +148,7 @@ export default function AdminAdminsPage() {
                       </div>
                       {!isEditing ? (
                         <Button onClick={() => handleEdit(admin)}>
-                          Chỉnh sửa quyền
+                          Edit Permissions
                         </Button>
                       ) : (
                         <div className="flex gap-2">
@@ -157,14 +157,14 @@ export default function AdminAdminsPage() {
                             onClick={handleCancel}
                             disabled={updatePermissionsMutation.isPending}
                           >
-                            Hủy
+                            Cancel
                           </Button>
                           <Button
                             onClick={() => handleSave(admin.id)}
                             disabled={updatePermissionsMutation.isPending}
                           >
                             <Save className="h-4 w-4 mr-2" />
-                            Lưu
+                            Save
                           </Button>
                         </div>
                       )}

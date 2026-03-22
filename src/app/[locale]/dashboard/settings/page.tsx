@@ -220,7 +220,7 @@ export default function SettingsPage() {
               <div><Label>{t("privacy.language")}</Label>
                 <Select value={settings?.language || "vi"} onValueChange={(v) => updateSettingsMutation.mutate({ language: v })}>
                   <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-                  <SelectContent><SelectItem value="vi">Tiếng Việt</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
+                  <SelectContent><SelectItem value="vi">Vietnamese</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
                 </Select>
               </div>
               <div><Label>{t("privacy.dateFormat")}</Label>
@@ -292,7 +292,7 @@ export default function SettingsPage() {
                 <div><Label>{t("privacy.language")}</Label>
                   <Select value={settings?.language || "vi"} onValueChange={(v) => updateSettingsMutation.mutate({ language: v })}>
                     <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="vi">Tiếng Việt</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
+                    <SelectContent><SelectItem value="vi">Vietnamese</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
                   </Select>
                 </div>
                 <div><Label>{t("privacy.dateFormat")}</Label>

@@ -7,8 +7,8 @@ import { revalidatePath } from "next/cache";
 /**
  * POST /api/admin/users/[id]/block
  * 
- * Admin endpoint để block/unblock user
- * Chỉ SUPER_ADMIN và MODERATOR mới có quyền
+ * Admin endpoint to block/unblock user
+ * Only SUPER_ADMIN and MODERATOR have permission
  */
 export async function POST(
   req: NextRequest,

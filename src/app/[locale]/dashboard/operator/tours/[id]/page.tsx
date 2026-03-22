@@ -246,7 +246,7 @@ export default function TourDetailPage() {
             <Card className="rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold text-gray-900">
-                  Thông Tin Tour
+                  Tour Information
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -281,7 +281,7 @@ export default function TourDetailPage() {
                   <div className="flex items-start gap-3">
                     <Users className="h-5 w-5 text-indigo-600 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-500">Số guests</p>
+                      <p className="text-sm text-gray-500">Number of guests</p>
                       <p className="font-medium text-gray-900">{tour.pax}</p>
                     </div>
                   </div>
@@ -300,7 +300,7 @@ export default function TourDetailPage() {
               <Card className="rounded-xl shadow-sm">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-gray-900">
-                    HDV Đã Phân Công
+                    Assigned Guides
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -319,7 +319,7 @@ export default function TourDetailPage() {
                           </p>
                         </div>
                         <Badge variant="outline" className="border-green-300 text-green-700">
-                          Đã chấp nhận
+                          Accepted
                         </Badge>
                       </div>
                     ))}
@@ -334,7 +334,7 @@ export default function TourDetailPage() {
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                     <AlertCircle className="h-5 w-5 text-amber-600" />
-                    Disputes Đang Mở
+                    Open Disputes
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -375,7 +375,7 @@ export default function TourDetailPage() {
             <Card className="rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold text-gray-900">
-                  Thao Tác
+                  Actions
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -385,7 +385,7 @@ export default function TourDetailPage() {
                     onClick={() => setTransitionDialogOpen(true)}
                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
                   >
-                    Chuyển Trạng Thái
+                    Change Status
                   </Button>
                 )}
 
@@ -397,7 +397,7 @@ export default function TourDetailPage() {
                     className="w-full rounded-xl"
                   >
                     <AlertTriangle className="h-4 w-4 mr-2" />
-                    Kích Hoạt SOS
+                    Activate SOS
                   </Button>
                 )}
 
@@ -411,7 +411,7 @@ export default function TourDetailPage() {
                       className="w-full border-indigo-600 text-indigo-700 hover:bg-indigo-50 rounded-xl"
                     >
                       <FileText className="h-4 w-4 mr-2" />
-                      Mở Dispute
+                      Open Dispute
                     </Button>
                   )}
               </CardContent>
@@ -421,7 +421,7 @@ export default function TourDetailPage() {
             <Card className="rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold text-gray-900">
-                  Trạng Thái Hiện Tại
+                  Current Status
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -446,21 +446,21 @@ export default function TourDetailPage() {
       <Dialog open={transitionDialogOpen} onOpenChange={setTransitionDialogOpen}>
         <DialogContent className="rounded-xl">
           <DialogHeader>
-            <DialogTitle>Chuyển Trạng Thái Tour</DialogTitle>
+            <DialogTitle>Change Status Tour</DialogTitle>
             <DialogDescription>
-              Chọn trạng thái mới cho tour này. Hành động này sẽ được ghi lại.
+              Select a new status for this tour. This action will be logged.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Status hiện tại
+                Current Status
               </label>
               <Input value={stateInfo.label} disabled className="rounded-lg" />
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Status mới
+                New Status
               </label>
               <Select
                 value={transitionData.toState}
@@ -482,7 +482,7 @@ export default function TourDetailPage() {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Reason (tùy chọn)
+                Reason (optional)
               </label>
               <Textarea
                 value={transitionData.reason}
@@ -501,7 +501,7 @@ export default function TourDetailPage() {
               onClick={() => setTransitionDialogOpen(false)}
               className="rounded-xl"
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               onClick={handleTransition}
@@ -520,16 +520,16 @@ export default function TourDetailPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
-              Kích Hoạt SOS
+              Activate SOS
             </DialogTitle>
             <DialogDescription>
               <div className="mt-2 p-3 bg-red-50 rounded-lg border border-red-200">
                 <p className="text-sm text-red-800 font-medium">
-                  Cảnh báo: SOS chỉ nên được kích hoạt trong trường hợp khẩn cấp thực sự.
+                  Warning: SOS should only be activated in genuine emergencies.
                 </p>
                 <p className="text-xs text-red-700 mt-1">
-                  Hệ thống sẽ tìm kiếm HDV thay thế. Nếu không tìm được, tour sẽ được đánh dấu
-                  là FAILED.
+                  The system will search for a replacement guide. If not found, the tour will be marked
+                  as FAILED.
                 </p>
               </div>
             </DialogDescription>
@@ -537,7 +537,7 @@ export default function TourDetailPage() {
           <div className="space-y-4 py-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Reason kích hoạt SOS <span className="text-red-600">*</span>
+                SOS Activation Reason <span className="text-red-600">*</span>
               </label>
               <Textarea
                 value={sosReason}
@@ -555,7 +555,7 @@ export default function TourDetailPage() {
               onClick={() => setSosDialogOpen(false)}
               className="rounded-xl"
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               onClick={handleSOS}
@@ -573,15 +573,15 @@ export default function TourDetailPage() {
       <Dialog open={disputeDialogOpen} onOpenChange={setDisputeDialogOpen}>
         <DialogContent className="rounded-xl">
           <DialogHeader>
-            <DialogTitle>Mở Dispute</DialogTitle>
+            <DialogTitle>Open Dispute</DialogTitle>
             <DialogDescription>
-              Mở dispute để yêu cầu hoàn tiền hoặc giải quyết vấn đề với tour này.
+              Open a dispute to request a refund or resolve issues with this tour.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Loại dispute
+                Type dispute
               </label>
               <Select
                 value={disputeData.type}
@@ -613,7 +613,7 @@ export default function TourDetailPage() {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-2 block">
-                Bằng chứng (URLs, cách nhau bởi dấu phẩy)
+                Evidence (URLs, separated by commas)
               </label>
               <Input
                 value={disputeData.evidence}
@@ -629,7 +629,7 @@ export default function TourDetailPage() {
               onClick={() => setDisputeDialogOpen(false)}
               className="rounded-xl"
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               onClick={handleOpenDispute}

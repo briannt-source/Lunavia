@@ -111,7 +111,7 @@ export async function POST(
           unblockedBy: adminUserId,
           unblockedAt: new Date(),
           // Keep block history but clear current block
-          blockNotes: notes ? `${tour.blockNotes || ""}\n\nMở lại: ${notes}`.trim() : tour.blockNotes,
+          blockNotes: notes ? `${tour.blockNotes || ""}\n\nReopened: ${notes}`.trim() : tour.blockNotes,
         },
       });
 

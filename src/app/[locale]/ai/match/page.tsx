@@ -40,19 +40,19 @@ function AIMatchContent() {
           <h1 className="text-3xl font-bold">Lunavia AI Matching</h1>
         </div>
         <p className="text-muted-foreground">
-          Độ chính xác matching: 92%
+          Matching accuracy: 92%
         </p>
       </div>
 
       {loading ? (
         <div className="text-center py-12">
-          <p>Đang phân tích và match HDV...</p>
+          <p>Analyzing and matching guides...</p>
         </div>
       ) : matches.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <p className="text-muted-foreground">
-              Chưa có tour được chọn. Vui lòng chọn tour để match HDV.
+              No tour selected. Please select a tour to match guides.
             </p>
           </CardContent>
         </Card>
@@ -63,7 +63,7 @@ function AIMatchContent() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>HDV #{index + 1}</CardTitle>
+                    <CardTitle>Guide #{index + 1}</CardTitle>
                     <p className="text-sm text-muted-foreground">
                       ID: {match.guideId}
                     </p>
@@ -75,7 +75,7 @@ function AIMatchContent() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <p className="font-semibold">Reason phù hợp:</p>
+                  <p className="font-semibold">Match reason:</p>
                   <ul className="list-disc list-inside space-y-1">
                     {match.reasons.map((reason: string, i: number) => (
                       <li key={i} className="text-sm text-muted-foreground">

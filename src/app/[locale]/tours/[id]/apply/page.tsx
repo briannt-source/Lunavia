@@ -104,12 +104,12 @@ export default function ApplyToTourPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Information ứng tuyển</CardTitle>
+          <CardTitle>Information applications</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="role">Vai trò *</Label>
+              <Label htmlFor="role">Role *</Label>
               <select
                 id="role"
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -123,7 +123,7 @@ export default function ApplyToTourPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="coverLetter">Thư xin việc</Label>
+              <Label htmlFor="coverLetter">Cover Letter</Label>
               <textarea
                 id="coverLetter"
                 className="flex min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -142,7 +142,7 @@ export default function ApplyToTourPage() {
                 variant="outline"
                 onClick={() => router.back()}
               >
-                Hủy
+                Cancel
               </Button>
             </div>
           </form>

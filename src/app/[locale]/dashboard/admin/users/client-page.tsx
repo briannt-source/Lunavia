@@ -71,7 +71,7 @@ export default function AdminUsersClientPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng Users</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -104,7 +104,7 @@ export default function AdminUsersClientPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Bị block</CardTitle>
+            <CardTitle className="text-sm font-medium">Blocked</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -143,7 +143,7 @@ export default function AdminUsersClientPage() {
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả vai trò</SelectItem>
+                <SelectItem value="all">All Roles</SelectItem>
                 <SelectItem value="TOUR_OPERATOR">Tour Operator</SelectItem>
                 <SelectItem value="TOUR_AGENCY">Tour Agency</SelectItem>
                 <SelectItem value="TOUR_GUIDE">Tour Guide</SelectItem>
@@ -157,11 +157,11 @@ export default function AdminUsersClientPage() {
                 <SelectValue placeholder="Verification" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả</SelectItem>
-                <SelectItem value="APPROVED">Đã xác minh</SelectItem>
-                <SelectItem value="PENDING">Đang chờ</SelectItem>
-                <SelectItem value="REJECTED">Từ chối</SelectItem>
-                <SelectItem value="NOT_SUBMITTED">Chưa nộp</SelectItem>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="APPROVED">Verified</SelectItem>
+                <SelectItem value="PENDING">Pending</SelectItem>
+                <SelectItem value="REJECTED">Rejected</SelectItem>
+                <SelectItem value="NOT_SUBMITTED">Not Submitted</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -170,7 +170,7 @@ export default function AdminUsersClientPage() {
                 handleFilter(role, searchInput?.value || "", verified);
               }}
             >
-              Lọc
+              Filter
             </Button>
           </div>
         </CardContent>
@@ -179,13 +179,13 @@ export default function AdminUsersClientPage() {
       {/* Users List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách Users ({users.length})</CardTitle>
+          <CardTitle>Users List ({users.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {users.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Users className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>User not found nào</p>
+              <p>No users found</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -214,7 +214,7 @@ export default function AdminUsersClientPage() {
                         {user.isBlocked && (
                           <span className="text-xs px-2 py-0.5 bg-red-50 text-red-700 rounded-full border border-red-200 flex items-center gap-1">
                             <AlertTriangle className="h-3 w-3" />
-                            Đã block
+                            Blocked
                           </span>
                         )}
                       </div>
@@ -252,7 +252,7 @@ export default function AdminUsersClientPage() {
                   <div className="flex gap-2">
                     <Link href={`/dashboard/admin/users/${user.id}`}>
                       <Button variant="outline" size="sm">
-                        Chi tiết
+                        Details
                       </Button>
                     </Link>
                     <Button

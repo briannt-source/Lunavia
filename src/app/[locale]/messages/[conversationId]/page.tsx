@@ -49,7 +49,7 @@ export default function ChatPage() {
       queryClient.invalidateQueries({ queryKey: ["conversations"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Không thể gửi tin nhắn");
+      toast.error(error.message || "Unable to send message");
     },
   });
 
@@ -69,7 +69,7 @@ export default function ChatPage() {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải tin nhắn...</p>
+          <p className="text-slate-600">Loading messages...</p>
         </div>
       </DashboardLayout>
     );
@@ -81,11 +81,11 @@ export default function ChatPage() {
         <Card>
           <CardContent className="py-12">
             <p className="text-center text-slate-600">
-              Không tìm thấy cuộc trò chuyện
+              Conversation not found
             </p>
             <div className="text-center mt-4">
               <Button onClick={() => router.push("/messages")} variant="outline">
-                Quay lại
+                Back
               </Button>
             </div>
           </CardContent>
@@ -133,7 +133,7 @@ export default function ChatPage() {
           <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 ? (
               <div className="text-center py-12 text-slate-500">
-                <p>Chưa có tin nhắn nào. Hãy bắt đầu cuộc trò chuyện!</p>
+                <p>No messages yet. Start a conversation!</p>
               </div>
             ) : (
               messages.map((msg: any) => {
@@ -172,7 +172,7 @@ export default function ChatPage() {
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Nhập tin nhắn..."
+                placeholder="Type a message..."
                 disabled={sendMessageMutation.isPending}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {

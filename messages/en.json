@@ -3593,5 +3593,222 @@
         "strict": "Strict (No refund)"
       }
     }
+  },
+  "Components": {
+    "AvatarUpload": {
+      "remove": "Remove",
+      "hint": "JPG, PNG or GIF. Max 5MB",
+      "uploading": "Uploading...",
+      "choosePhoto": "Choose Photo"
+    },
+    "FileUpload": {
+      "chooseFile": "Choose file",
+      "maxFilesHint": "Max {maxFiles} files, each up to {maxSizeMB}MB",
+      "tooManyFiles": "You can upload a maximum of {maxFiles} files",
+      "fileTooLarge": "Some files exceed {maxSizeMB}MB: {names}"
+    },
+    "Maintenance": {
+      "title": "System Under Maintenance",
+      "subtitle": "Lunavia is currently under maintenance.",
+      "apology": "We apologize for the inconvenience. Our team is working to improve your experience.",
+      "checkAgain": "↻ Check Again",
+      "returnHome": "Return to Home",
+      "needHelp": "Need help? Contact us at support@lunavia.vn"
+    },
+    "CancelApplication": {
+      "title": "Cancel Application",
+      "confirm": "Are you sure you want to cancel your application for tour \"{tourTitle}\"?",
+      "confirmPrompt": "Are you sure you want to cancel?",
+      "penaltyTitle": "⚠️ Cancellation fee",
+      "penaltyDesc": "You will be charged {penaltyMessage} from your wallet.",
+      "hoursRemaining": "{hours} hours remaining until tour starts.",
+      "noPenalty": "✓ Cancelling more than 48 hours before will incur no fee.",
+      "reasonLabel": "Reason for cancellation (optional)",
+      "cancel": "Cancel",
+      "confirmCancel": "Confirm Cancellation"
+    },
+    "ConfirmTour": {
+      "title": "Confirm Tour & Lock Payment",
+      "desc": "Confirm tour completion and lock payment amount for the guide",
+      "paymentAmount": "Payment Amount (VND) *",
+      "guideRequested": "Guide requested: {amount}",
+      "importantNote": "⚠️ Important Note",
+      "importantNoteDesc": "This amount will be locked from your wallet. You have 24 hours to pay the guide. If overdue, the guide can request payment.",
+      "notesLabel": "Notes (optional)",
+      "cancel": "Cancel"
+    },
+    "TourSOS": {
+      "reportSOS": "Report SOS / Incident"
+    },
+    "SOSButton": {
+      "title": "Emergency SOS",
+      "desc": "Report an emergency or incident during the tour",
+      "sending": "Sending...",
+      "sendSOS": "Send SOS"
+    },
+    "SOSReport": {
+      "title": "Report Emergency / Incident",
+      "desc": "Please provide details about the emergency",
+      "severityLabel": "Severity",
+      "locationLabel": "Location",
+      "descriptionLabel": "Description",
+      "contactLabel": "Contact Info",
+      "cancel": "Cancel",
+      "sending": "Sending...",
+      "submit": "Submit"
+    },
+    "Escrow": {
+      "status": "Escrow Status",
+      "amount": "Amount",
+      "platformFee": "Platform fee",
+      "netAmount": "Net Amount",
+      "paymentInfo": "Payment info:",
+      "guideWillReceive": "Guide will receive: {amount} VND",
+      "refundInfo": "Refund info:",
+      "amountToRefund": "Amount to refund: {amount} VND",
+      "lockEscrow": "Lock Escrow",
+      "releaseEscrow": "Release Escrow",
+      "refundEscrow": "Refund Escrow",
+      "releaseTitle": "Release Escrow",
+      "releaseDesc": "Releasing escrow will transfer funds to the guide's wallet. This action cannot be undone.",
+      "releaseReason": "Reason for release",
+      "confirmRelease": "Confirm Release",
+      "refundTitle": "Refund Escrow",
+      "refundDesc": "Refunding escrow will return the locked amount to the operator's wallet. This action cannot be undone.",
+      "refundReason": "Reason for refund",
+      "confirmRefund": "Confirm Refund",
+      "releasedAt": "Released at",
+      "refundedAt": "Refunded at",
+      "lockedAt": "Locked at",
+      "loading": "Loading escrow accounts...",
+      "cancel": "Cancel"
+    },
+    "TourActions": {
+      "yourTour": "This is your tour",
+      "stopAccepting": "Stop accepting guides",
+      "reopenApplications": "Reopen Applications",
+      "startTour": "🚀 Start Tour",
+      "viewApplications": "View Applications ({count})",
+      "viewAllApplications": "View all applications"
+    },
+    "AIMatching": {
+      "title": "AI Guide Matching",
+      "desc": "Find the best matching guides for your tour using AI",
+      "analyzing": "Analyzing guides...",
+      "findMatches": "Find Best Matches",
+      "matchScore": "Match Score",
+      "invite": "Invite",
+      "assign": "Assign",
+      "noResults": "No matching guides found",
+      "close": "Close"
+    },
+    "InviteGuide": {
+      "title": "Invite Guide",
+      "desc": "Send tour invitation to a guide",
+      "searchGuide": "Search guide by name or email",
+      "message": "Message (optional)",
+      "cancel": "Cancel",
+      "sending": "Sending...",
+      "sendInvite": "Send Invite"
+    },
+    "TourModeration": {
+      "closeTitle": "Close Tour",
+      "closeDesc": "Close this tour and prevent new applications",
+      "reopenTitle": "Reopen Tour",
+      "reopenDesc": "Reopen this tour for applications",
+      "reasonLabel": "Reason",
+      "cancel": "Cancel",
+      "processing": "Processing...",
+      "confirmClose": "Close Tour",
+      "confirmReopen": "Reopen Tour"
+    },
+    "UserModeration": {
+      "blockTitle": "Block User",
+      "blockDesc": "Block this user from accessing the platform",
+      "unblockTitle": "Unblock User",
+      "unblockDesc": "Restore this user's access to the platform",
+      "reasonLabel": "Reason",
+      "cancel": "Cancel",
+      "processing": "Processing...",
+      "confirmBlock": "Block User",
+      "confirmUnblock": "Unblock User"
+    },
+    "AdminDeleteTour": {
+      "title": "Delete Tour",
+      "desc": "This action cannot be undone. The tour and all related data will be permanently deleted.",
+      "reasonLabel": "Reason for deletion",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "confirmDelete": "Delete Tour"
+    },
+    "AdminDeleteUser": {
+      "title": "Delete User",
+      "desc": "This action cannot be undone. The user and all related data will be permanently deleted.",
+      "reasonLabel": "Reason for deletion",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "confirmDelete": "Delete User"
+    },
+    "ContractVerification": {
+      "signContract": "Sign Contract",
+      "alreadySigned": "Contract Signed",
+      "signing": "Signing..."
+    },
+    "SavedPaymentMethods": {
+      "title": "Saved Payment Methods",
+      "addNew": "Add New Method",
+      "bank": "Bank",
+      "accountNumber": "Account Number",
+      "accountHolder": "Account Holder",
+      "default": "Default",
+      "setDefault": "Set as Default",
+      "delete": "Delete",
+      "noMethods": "No saved payment methods",
+      "addMethodDesc": "Add a payment method for faster withdrawals"
+    },
+    "PWAInstall": {
+      "title": "Install Lunavia",
+      "desc": "Install Lunavia app for a better experience",
+      "install": "Install",
+      "later": "Later"
+    },
+    "DateTimePicker": {
+      "selectDate": "Select date",
+      "selectTime": "Select time",
+      "clear": "Clear"
+    },
+    "FilterBar": {
+      "filter": "Filter",
+      "sort": "Sort",
+      "reset": "Reset",
+      "apply": "Apply"
+    },
+    "StandbyRequest": {
+      "title": "Create Standby Request",
+      "desc": "Create a standby request to find guides available in case of emergency",
+      "titleLabel": "Title *",
+      "cityLabel": "City *",
+      "dateLabel": "Required Date *",
+      "budgetLabel": "Budget (VND) *",
+      "standbyFeeLabel": "Standby Fee (VND) - Optional",
+      "standbyFeeHint": "Standby fee will be paid immediately when guide accepts the request",
+      "mainGuideLabel": "Main Guide ID - Optional",
+      "subGuideLabel": "Sub Guide ID - Optional",
+      "descriptionLabel": "Description - Optional",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "create": "Create Standby Request"
+    },
+    "Common": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "save": "Save",
+      "delete": "Delete",
+      "edit": "Edit",
+      "close": "Close",
+      "loading": "Loading...",
+      "processing": "Processing...",
+      "noData": "No data"
+    }
   }
 }

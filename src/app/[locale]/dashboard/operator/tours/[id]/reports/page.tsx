@@ -87,10 +87,10 @@ export default function TourReportsPage() {
                     <div>
                       <CardTitle className="flex items-center gap-2">
                         <FileText className="h-5 w-5" />
-                        Báo cáo từ {report.guide?.profile?.name || report.guide?.email}
+                        Report from {report.guide?.profile?.name || report.guide?.email}
                       </CardTitle>
                       <p className="text-sm text-slate-600 mt-1">
-                        Gửi lúc: {formatDate(report.submittedAt)}
+                        Submitted at: {formatDate(report.submittedAt)}
                       </p>
                     </div>
                     <StatusBadge
@@ -106,14 +106,14 @@ export default function TourReportsPage() {
                   {/* Ratings */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-slate-600">Reviews tổng thể</p>
+                      <p className="text-sm text-slate-600">Overall Rating</p>
                       <p className="text-2xl font-bold">
                         {report.overallRating || "N/A"}
                         {report.overallRating && "/5"}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-600">Hài lòng guests hàng</p>
+                      <p className="text-sm text-slate-600">Guest Satisfaction</p>
                       <p className="text-2xl font-bold">
                         {report.clientSatisfaction || "N/A"}
                         {report.clientSatisfaction && "/5"}
@@ -125,7 +125,7 @@ export default function TourReportsPage() {
                   {report.highlights && (
                     <div>
                       <p className="text-sm font-medium text-slate-700 mb-1">
-                        Điểm nổi bật
+                        Highlights
                       </p>
                       <p className="text-sm text-slate-600">{report.highlights}</p>
                     </div>
@@ -134,7 +134,7 @@ export default function TourReportsPage() {
                   {report.challenges && (
                     <div>
                       <p className="text-sm font-medium text-slate-700 mb-1">
-                        Thách thức
+                        Challenges
                       </p>
                       <p className="text-sm text-slate-600">{report.challenges}</p>
                     </div>
@@ -143,7 +143,7 @@ export default function TourReportsPage() {
                   {report.recommendations && (
                     <div>
                       <p className="text-sm font-medium text-slate-700 mb-1">
-                        Đề xuất
+                        Suggestions
                       </p>
                       <p className="text-sm text-slate-600">{report.recommendations}</p>
                     </div>
@@ -155,7 +155,7 @@ export default function TourReportsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm font-medium text-blue-900">
-                            Requirements thanh toán
+                            Payment Requirements
                           </p>
                           <p className="text-xl font-bold text-blue-700">
                             {formatVND(report.paymentRequestAmount)}
@@ -169,14 +169,14 @@ export default function TourReportsPage() {
                   {report.paymentLockedAmount && (
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm font-medium text-green-900 mb-1">
-                        ✓ Amount đã khóa
+                        ✓ Amount Locked
                       </p>
                       <p className="text-lg font-bold text-green-700">
                         {formatVND(report.paymentLockedAmount)}
                       </p>
                       {report.paymentDueAt && (
                         <p className="text-xs text-green-600 mt-1">
-                          Hạn thanh toán: {formatDate(report.paymentDueAt)}
+                          Payment due: {formatDate(report.paymentDueAt)}
                         </p>
                       )}
                     </div>
@@ -193,7 +193,7 @@ export default function TourReportsPage() {
                         className="bg-green-600 hover:bg-green-700"
                       >
                         <CheckCircle2 className="h-4 w-4 mr-2" />
-                        Xác nhận tour & Khóa thanh toán
+                        Confirm Tour & Lock Payment
                       </Button>
                     </div>
                   )}
@@ -201,7 +201,7 @@ export default function TourReportsPage() {
                   {report.approvedAt && report.paymentRequestStatus === "PENDING" && (
                     <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
                       <p className="text-sm text-amber-700">
-                        ⚠️ Tour guide đã yêu cầu thanh toán. Vui lòng xử lý trong vòng 24h.
+                        ⚠️ Tour guide has requested payment. Please process within 24 hours.
                       </p>
                     </div>
                   )}

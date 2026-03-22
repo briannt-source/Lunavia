@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar, Clock, Check, X } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface DateTimePickerProps {
   label?: string;
@@ -24,6 +25,7 @@ export function DateTimePicker({
   min,
   placeholder = "Select date and time",
 }: DateTimePickerProps) {
+  const t = useTranslations("Components.DateTimePicker");
   // Parse value to local date and time
   const parseValue = (val: Date | string | null | undefined) => {
     if (!val) return { date: "", time: "" };
@@ -160,7 +162,7 @@ export function DateTimePicker({
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  Ngày
+                  {t("selectDate")}
                 </Label>
                 <Input
                   type="date"
@@ -192,7 +194,7 @@ export function DateTimePicker({
               {/* Preview */}
               {tempDate.date && tempDate.time && (
                 <div className="rounded-lg bg-slate-50 p-3 text-sm">
-                  <p className="text-slate-600">Xem trước:</p>
+                  <p className="text-slate-600">Preview:</p>
                   <p className="font-semibold">
                     {formatDateTime(new Date(`${tempDate.date}T${tempDate.time}`))}
                   </p>
@@ -208,7 +210,7 @@ export function DateTimePicker({
                   className="flex-1"
                 >
                   <X className="mr-2 h-4 w-4" />
-                  Hủy
+                  Cancel
                 </Button>
                 <Button
                   type="button"
@@ -217,7 +219,7 @@ export function DateTimePicker({
                   className="flex-1"
                 >
                   <Check className="mr-2 h-4 w-4" />
-                  Xác nhận
+                  Confirm
                 </Button>
               </div>
             </div>

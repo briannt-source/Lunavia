@@ -110,7 +110,7 @@ export default function AdminTransfersPage() {
           <Link href="/dashboard/admin">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              Back
             </Button>
           </Link>
         }
@@ -121,12 +121,12 @@ export default function AdminTransfersPage() {
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>Chuyển tiền nội bộ</CardTitle>
+              <CardTitle>Internal Transfer</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="fromUser">Từ tài khoản *</Label>
+                  <Label htmlFor="fromUser">From Account *</Label>
                   <Select value={fromUserId} onValueChange={setFromUserId} required>
                     <SelectTrigger id="fromUser">
                       <SelectValue placeholder="Select sender account" />
@@ -144,13 +144,13 @@ export default function AdminTransfersPage() {
                   </Select>
                   {fromUser && fromUser.wallet && (
                     <p className="text-sm text-slate-500 mt-1">
-                      Số dư khả dụng: {formatVND(fromUser.wallet.balance)}
+                      Available balance: {formatVND(fromUser.wallet.balance)}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="toUser">Đến tài khoản *</Label>
+                  <Label htmlFor="toUser">To Account *</Label>
                   <Select value={toUserId} onValueChange={setToUserId} required>
                     <SelectTrigger id="toUser">
                       <SelectValue placeholder="Select receiver account" />
@@ -183,7 +183,7 @@ export default function AdminTransfersPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="reason">Reason chuyển tiền *</Label>
+                  <Label htmlFor="reason">Transfer Reason *</Label>
                   <Textarea
                     id="reason"
                     value={reason}
@@ -206,12 +206,12 @@ export default function AdminTransfersPage() {
         <div>
           <Card>
             <CardHeader>
-              <CardTitle>Xem trước</CardTitle>
+              <CardTitle>Preview</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {fromUser && (
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">Từ</p>
+                  <p className="text-sm text-slate-500 mb-1">From</p>
                   <div className="flex items-center gap-2">
                     <Wallet className="h-4 w-4 text-slate-400" />
                     <div>
@@ -232,7 +232,7 @@ export default function AdminTransfersPage() {
 
               {toUser && (
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">Đến</p>
+                  <p className="text-sm text-slate-500 mb-1">To</p>
                   <div className="flex items-center gap-2">
                     <Wallet className="h-4 w-4 text-slate-400" />
                     <div>

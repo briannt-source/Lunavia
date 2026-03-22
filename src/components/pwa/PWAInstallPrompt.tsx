@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Download, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface BeforeInstallPromptEvent extends Event {
     prompt: () => Promise<void>;
@@ -9,6 +10,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export default function PWAInstallPrompt() {
+    const t = useTranslations('Components.PWAInstall');
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [showBanner, setShowBanner] = useState(false);
     const [isIOS, setIsIOS] = useState(false);
@@ -84,17 +86,8 @@ export default function PWAInstallPrompt() {
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900">Cài Lunavia</p>
-                    {isIOS ? (
-                        <p className="text-xs text-gray-500 mt-0.5">
-                            Nhấn <span className="inline-flex items-center font-semibold text-blue-600">
-                                <svg className="w-3 h-3 mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
-                                Chia sẻ
-                            </span> → <span className="font-semibold">Thêm vào MH chính</span>
-                        </p>
-                    ) : (
-                        <p className="text-xs text-gray-500 mt-0.5">Truy cập nhanh từ màn hình chính</p>
-                    )}
+                    <p className="text-sm font-semibold text-gray-900">{t('title')}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{t('desc')}</p>
                 </div>
 
                 {/* Actions */}
@@ -103,7 +96,7 @@ export default function PWAInstallPrompt() {
                         onClick={handleInstall}
                         className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shrink-0"
                     >
-                        Cài đặt
+                        {t('install')}
                     </button>
                 )}
                 <button

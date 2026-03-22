@@ -3593,5 +3593,222 @@
         "strict": "Nghiêm ngặt (Không hoàn tiền)"
       }
     }
+  },
+  "Components": {
+    "AvatarUpload": {
+      "remove": "Xóa",
+      "hint": "JPG, PNG hoặc GIF. Tối đa 5MB",
+      "uploading": "Đang tải lên...",
+      "choosePhoto": "Chọn ảnh"
+    },
+    "FileUpload": {
+      "chooseFile": "Chọn file",
+      "maxFilesHint": "Tối đa {maxFiles} file, mỗi file tối đa {maxSizeMB}MB",
+      "tooManyFiles": "Chỉ được upload tối đa {maxFiles} file",
+      "fileTooLarge": "Một số file vượt quá {maxSizeMB}MB: {names}"
+    },
+    "Maintenance": {
+      "title": "Hệ thống đang bảo trì",
+      "subtitle": "Lunavia đang trong quá trình bảo trì.",
+      "apology": "Chúng tôi xin lỗi vì sự bất tiện. Đội ngũ đang nỗ lực cải thiện trải nghiệm của bạn.",
+      "checkAgain": "↻ Kiểm tra lại",
+      "returnHome": "Về trang chủ",
+      "needHelp": "Cần giúp đỡ? Liên hệ support@lunavia.vn"
+    },
+    "CancelApplication": {
+      "title": "Hủy ứng tuyển",
+      "confirm": "Bạn có chắc muốn hủy ứng tuyển cho tour \"{tourTitle}\"?",
+      "confirmPrompt": "Bạn có chắc muốn hủy ứng tuyển?",
+      "penaltyTitle": "⚠️ Phí hủy tour",
+      "penaltyDesc": "Bạn sẽ bị trừ {penaltyMessage} từ ví của bạn.",
+      "hoursRemaining": "Còn {hours} giờ nữa tour sẽ bắt đầu.",
+      "noPenalty": "✓ Hủy tour trước 48 giờ sẽ không bị phạt tiền.",
+      "reasonLabel": "Lý do hủy (tùy chọn)",
+      "cancel": "Hủy",
+      "confirmCancel": "Xác nhận hủy"
+    },
+    "ConfirmTour": {
+      "title": "Xác nhận tour & Khóa thanh toán",
+      "desc": "Xác nhận tour đã hoàn thành và khóa số tiền thanh toán cho hướng dẫn viên",
+      "paymentAmount": "Số tiền thanh toán (VND) *",
+      "guideRequested": "Hướng dẫn viên yêu cầu: {amount}",
+      "importantNote": "⚠️ Lưu ý quan trọng",
+      "importantNoteDesc": "Số tiền này sẽ được khóa từ ví của bạn. Bạn có 24 giờ để thanh toán cho hướng dẫn viên. Nếu quá hạn, hướng dẫn viên có thể yêu cầu thanh toán.",
+      "notesLabel": "Ghi chú (tùy chọn)",
+      "cancel": "Hủy"
+    },
+    "TourSOS": {
+      "reportSOS": "Báo cáo SOS / Sự cố"
+    },
+    "SOSButton": {
+      "title": "SOS Khẩn cấp",
+      "desc": "Báo cáo tình huống khẩn cấp hoặc sự cố trong tour",
+      "sending": "Đang gửi...",
+      "sendSOS": "Gửi SOS"
+    },
+    "SOSReport": {
+      "title": "Báo cáo khẩn cấp / Sự cố",
+      "desc": "Vui lòng cung cấp thông tin chi tiết về sự cố",
+      "severityLabel": "Mức độ",
+      "locationLabel": "Vị trí",
+      "descriptionLabel": "Mô tả",
+      "contactLabel": "Thông tin liên hệ",
+      "cancel": "Hủy",
+      "sending": "Đang gửi...",
+      "submit": "Gửi"
+    },
+    "Escrow": {
+      "status": "Trạng thái Escrow",
+      "amount": "Số tiền",
+      "platformFee": "Phí nền tảng",
+      "netAmount": "Số tiền nhận",
+      "paymentInfo": "Thông tin thanh toán:",
+      "guideWillReceive": "Guide sẽ nhận: {amount} VND",
+      "refundInfo": "Thông tin hoàn tiền:",
+      "amountToRefund": "Số tiền sẽ được hoàn: {amount} VND",
+      "lockEscrow": "Khóa Escrow",
+      "releaseEscrow": "Giải phóng Escrow",
+      "refundEscrow": "Hoàn tiền Escrow",
+      "releaseTitle": "Giải phóng Escrow",
+      "releaseDesc": "Giải phóng escrow sẽ chuyển tiền vào ví của guide. Hành động này không thể hoàn tác.",
+      "releaseReason": "Lý do giải phóng",
+      "confirmRelease": "Xác nhận giải phóng",
+      "refundTitle": "Hoàn tiền Escrow",
+      "refundDesc": "Hoàn tiền escrow sẽ trả lại số tiền đã khóa vào ví của operator. Hành động này không thể hoàn tác.",
+      "refundReason": "Lý do hoàn tiền",
+      "confirmRefund": "Xác nhận hoàn tiền",
+      "releasedAt": "Đã giải phóng vào",
+      "refundedAt": "Đã hoàn tiền vào",
+      "lockedAt": "Đã khóa vào",
+      "loading": "Đang tải escrow accounts...",
+      "cancel": "Hủy"
+    },
+    "TourActions": {
+      "yourTour": "Đây là tour của bạn",
+      "stopAccepting": "Ngưng nhận thêm tour guide",
+      "reopenApplications": "Mở lại ứng tuyển",
+      "startTour": "🚀 Bắt đầu tour",
+      "viewApplications": "Xem ứng tuyển ({count})",
+      "viewAllApplications": "Xem tất cả ứng tuyển"
+    },
+    "AIMatching": {
+      "title": "AI Guide Matching",
+      "desc": "Tìm tour guide phù hợp nhất bằng AI",
+      "analyzing": "Đang phân tích...",
+      "findMatches": "Tìm Guide Phù Hợp",
+      "matchScore": "Điểm Phù Hợp",
+      "invite": "Mời",
+      "assign": "Phân công",
+      "noResults": "Không tìm thấy guide phù hợp",
+      "close": "Đóng"
+    },
+    "InviteGuide": {
+      "title": "Mời hướng dẫn viên",
+      "desc": "Gửi lời mời tour cho hướng dẫn viên",
+      "searchGuide": "Tìm guide theo tên hoặc email",
+      "message": "Tin nhắn (tùy chọn)",
+      "cancel": "Hủy",
+      "sending": "Đang gửi...",
+      "sendInvite": "Gửi lời mời"
+    },
+    "TourModeration": {
+      "closeTitle": "Đóng tour",
+      "closeDesc": "Đóng tour và ngừng nhận ứng tuyển mới",
+      "reopenTitle": "Mở lại tour",
+      "reopenDesc": "Mở lại tour cho ứng tuyển",
+      "reasonLabel": "Lý do",
+      "cancel": "Hủy",
+      "processing": "Đang xử lý...",
+      "confirmClose": "Đóng tour",
+      "confirmReopen": "Mở lại tour"
+    },
+    "UserModeration": {
+      "blockTitle": "Khóa người dùng",
+      "blockDesc": "Khóa người dùng không cho truy cập nền tảng",
+      "unblockTitle": "Mở khóa người dùng",
+      "unblockDesc": "Khôi phục quyền truy cập cho người dùng",
+      "reasonLabel": "Lý do",
+      "cancel": "Hủy",
+      "processing": "Đang xử lý...",
+      "confirmBlock": "Khóa người dùng",
+      "confirmUnblock": "Mở khóa người dùng"
+    },
+    "AdminDeleteTour": {
+      "title": "Xóa tour",
+      "desc": "Hành động này không thể hoàn tác. Tour và tất cả dữ liệu liên quan sẽ bị xóa vĩnh viễn.",
+      "reasonLabel": "Lý do xóa",
+      "cancel": "Hủy",
+      "deleting": "Đang xóa...",
+      "confirmDelete": "Xóa tour"
+    },
+    "AdminDeleteUser": {
+      "title": "Xóa người dùng",
+      "desc": "Hành động này không thể hoàn tác. Người dùng và tất cả dữ liệu liên quan sẽ bị xóa vĩnh viễn.",
+      "reasonLabel": "Lý do xóa",
+      "cancel": "Hủy",
+      "deleting": "Đang xóa...",
+      "confirmDelete": "Xóa người dùng"
+    },
+    "ContractVerification": {
+      "signContract": "Ký hợp đồng",
+      "alreadySigned": "Đã ký hợp đồng",
+      "signing": "Đang ký..."
+    },
+    "SavedPaymentMethods": {
+      "title": "Phương thức thanh toán đã lưu",
+      "addNew": "Thêm phương thức mới",
+      "bank": "Ngân hàng",
+      "accountNumber": "Số tài khoản",
+      "accountHolder": "Chủ tài khoản",
+      "default": "Mặc định",
+      "setDefault": "Đặt làm mặc định",
+      "delete": "Xóa",
+      "noMethods": "Chưa có phương thức thanh toán",
+      "addMethodDesc": "Thêm phương thức thanh toán để rút tiền nhanh hơn"
+    },
+    "PWAInstall": {
+      "title": "Cài đặt Lunavia",
+      "desc": "Cài đặt ứng dụng Lunavia để có trải nghiệm tốt hơn",
+      "install": "Cài đặt",
+      "later": "Để sau"
+    },
+    "DateTimePicker": {
+      "selectDate": "Chọn ngày",
+      "selectTime": "Chọn giờ",
+      "clear": "Xóa"
+    },
+    "FilterBar": {
+      "filter": "Lọc",
+      "sort": "Sắp xếp",
+      "reset": "Đặt lại",
+      "apply": "Áp dụng"
+    },
+    "StandbyRequest": {
+      "title": "Tạo Standby Request",
+      "desc": "Tạo yêu cầu standby để tìm guide sẵn sàng trong trường hợp khẩn cấp",
+      "titleLabel": "Tiêu đề *",
+      "cityLabel": "Thành phố *",
+      "dateLabel": "Ngày yêu cầu *",
+      "budgetLabel": "Ngân sách (VND) *",
+      "standbyFeeLabel": "Phí standby (VND) - Tùy chọn",
+      "standbyFeeHint": "Phí standby sẽ được trả ngay khi guide accept request",
+      "mainGuideLabel": "Main Guide ID - Tùy chọn",
+      "subGuideLabel": "Sub Guide ID - Tùy chọn",
+      "descriptionLabel": "Mô tả - Tùy chọn",
+      "cancel": "Hủy",
+      "creating": "Đang tạo...",
+      "create": "Tạo Standby Request"
+    },
+    "Common": {
+      "cancel": "Hủy",
+      "confirm": "Xác nhận",
+      "save": "Lưu",
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa",
+      "close": "Đóng",
+      "loading": "Đang tải...",
+      "processing": "Đang xử lý...",
+      "noData": "Không có dữ liệu"
+    }
   }
 }

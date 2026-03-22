@@ -50,7 +50,7 @@ export default function GuideToursPage() {
         {/* In Progress Tours */}
         {inProgressTours.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Tours đang diễn ra</h2>
+            <h2 className="text-xl font-semibold mb-4">Active Tours</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {inProgressTours.map((tour: any) => (
                 <Card key={tour.id} className="border-l-4 border-l-blue-500">
@@ -92,7 +92,7 @@ export default function GuideToursPage() {
                     <Link href={`/dashboard/guide/tours/${tour.id}/report`}>
                       <Button className="w-full" size="sm">
                         <FileText className="h-4 w-4 mr-1" />
-                        Báo cáo tour
+                        Report Tour
                       </Button>
                     </Link>
                   </CardContent>
@@ -105,7 +105,7 @@ export default function GuideToursPage() {
         {/* Upcoming Tours */}
         {upcomingTours.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Tours sắp tới</h2>
+            <h2 className="text-xl font-semibold mb-4">Upcoming Tours</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingTours.map((tour: any) => (
                 <Card key={tour.id}>
@@ -151,7 +151,7 @@ export default function GuideToursPage() {
         {/* Completed Tours */}
         {completedTours.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Tours đã hoàn thành</h2>
+            <h2 className="text-xl font-semibold mb-4">Completed Tours</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {completedTours.map((tour: any) => (
                 <Card key={tour.id} className="border-l-4 border-l-green-500">
@@ -181,7 +181,7 @@ export default function GuideToursPage() {
                       <Link href={`/dashboard/guide/tours/${tour.id}/report`}>
                         <Button variant="outline" className="flex-1" size="sm">
                           <FileText className="h-4 w-4 mr-1" />
-                          Báo cáo
+                          Report
                         </Button>
                       </Link>
                     </div>
@@ -202,7 +202,7 @@ export default function GuideToursPage() {
                 description="You haven't been assigned to any tours yet. Find and apply for tours that match your skills."
                 action={
                   <Link href="/dashboard/guide/tours">
-                    <Button>Tìm tour</Button>
+                    <Button>Find Tours</Button>
                   </Link>
                 }
               />

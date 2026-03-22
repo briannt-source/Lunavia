@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 import { api } from "@/lib/api-client";
+import { useTranslations } from "next-intl";
 
 interface CancelApplicationDialogProps {
   applicationId: string;
@@ -33,15 +34,14 @@ export function CancelApplicationDialog({
   onOpenChange,
   onSuccess,
 }: CancelApplicationDialogProps) {
+  const t = useTranslations("Components.CancelApplication");
   const [loading, setLoading] = useState(false);
   const [reason, setReason] = useState("");
 
-  // Calculate time until tour start
   const now = new Date();
   const tourStart = new Date(tourStartDate);
   const hoursUntilStart = (tourStart.getTime() - now.getTime()) / (1000 * 60 * 60);
 
-  // Calculate penalty
   let penaltyAmount: number | null = null;
   let penaltyMessage = "";
   if (hoursUntilStart <= 24) {
@@ -53,7 +53,7 @@ export function CancelApplicationDialog({
   }
 
   const handleCancel = async () => {
-    if (!confirm(`Bạn có chắc muốn hủy ứng tuyển?${penaltyAmount ? `\n\nPhí hủy: ${penaltyMessage}` : ""}`)) {
+    if (!confirm(t("confirmPrompt") + (penaltyAmount ? `\n\n${penaltyMessage}` : ""))) {
       return;
     }
 
@@ -87,38 +87,30 @@ export function CancelApplicationDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-amber-600" />
-            Hủy ứng tuyển
+            {t("title")}
           </DialogTitle>
           <DialogDescription>
-            Bạn có chắc muốn hủy ứng tuyển cho tour &quot;{tourTitle}&quot;?
+            {t("confirm", { tourTitle })}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           {penaltyAmount && (
             <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-              <p className="text-sm font-semibold text-amber-900 mb-1">
-                ⚠️ Phí hủy tour
-              </p>
-              <p className="text-sm text-amber-700">
-                Bạn sẽ bị trừ {penaltyMessage} từ ví của bạn.
-              </p>
-              <p className="text-xs text-amber-600 mt-2">
-                Remaining {Math.ceil(hoursUntilStart)} giờ nữa tour sẽ bắt đầu.
-              </p>
+              <p className="text-sm font-semibold text-amber-900 mb-1">{t("penaltyTitle")}</p>
+              <p className="text-sm text-amber-700">{t("penaltyDesc", { penaltyMessage })}</p>
+              <p className="text-xs text-amber-600 mt-2">{t("hoursRemaining", { hours: Math.ceil(hoursUntilStart) })}</p>
             </div>
           )}
 
           {!penaltyAmount && hoursUntilStart > 48 && (
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-700">
-                ✓ Hủy tour trước 48 giờ sẽ không bị phạt tiền.
-              </p>
+              <p className="text-sm text-green-700">{t("noPenalty")}</p>
             </div>
           )}
 
           <div>
-            <Label htmlFor="reason">Reason hủy (tùy chọn)</Label>
+            <Label htmlFor="reason">{t("reasonLabel")}</Label>
             <Textarea
               id="reason"
               value={reason}
@@ -131,28 +123,14 @@ export function CancelApplicationDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={loading}
-          >
-            Hủy
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            {t("cancel")}
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleCancel}
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Confirm Cancellation"}
+          <Button variant="destructive" onClick={handleCancel} disabled={loading}>
+            {loading ? "Processing..." : t("confirmCancel")}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-
-
-
-
-
-

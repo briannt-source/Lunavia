@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload, X, File } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface FileUploadProps {
   onFilesChange: (files: File[]) => void;
@@ -20,6 +21,7 @@ export function FileUpload({
   accept = "*/*",
   label = "Upload files",
 }: FileUploadProps) {
+  const t = useTranslations("Components.FileUpload");
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,20 +30,16 @@ export function FileUpload({
     const selectedFiles = Array.from(e.target.files || []);
     setError("");
 
-    // Check max files
     if (files.length + selectedFiles.length > maxFiles) {
-      setError(`Chỉ được upload tối đa ${maxFiles} file`);
+      setError(t("tooManyFiles", { maxFiles }));
       return;
     }
 
-    // Check file size
     const oversizedFiles = selectedFiles.filter(
       (file) => file.size > maxSizeMB * 1024 * 1024
     );
     if (oversizedFiles.length > 0) {
-      setError(
-        `Một số file vượt quá ${maxSizeMB}MB: ${oversizedFiles.map((f) => f.name).join(", ")}`
-      );
+      setError(t("fileTooLarge", { maxSizeMB, names: oversizedFiles.map((f) => f.name).join(", ") }));
       return;
     }
 
@@ -66,26 +64,15 @@ export function FileUpload({
     <div className="space-y-2">
       <Label>{label}</Label>
       <div className="border-2 border-dashed rounded-lg p-4">
-        <input
-          ref={fileInputRef}
-          type="file"
-          multiple
-          accept={accept}
-          onChange={handleFileSelect}
-          className="hidden"
-        />
+        <input ref={fileInputRef} type="file" multiple accept={accept} onChange={handleFileSelect} className="hidden" />
         <div className="flex flex-col items-center justify-center gap-2">
           <Upload className="h-8 w-8 text-muted-foreground" />
           <div className="text-center">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              Chọn file
+            <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
+              {t("chooseFile")}
             </Button>
             <p className="text-xs text-muted-foreground mt-2">
-              Tối đa {maxFiles} file, mỗi file tối đa {maxSizeMB}MB
+              {t("maxFilesHint", { maxFiles, maxSizeMB })}
             </p>
           </div>
         </div>
@@ -93,23 +80,13 @@ export function FileUpload({
         {files.length > 0 && (
           <div className="mt-4 space-y-2">
             {files.map((file, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-2 bg-gray-50 rounded"
-              >
+              <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
                 <div className="flex items-center gap-2 flex-1 min-w-0">
                   <File className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   <span className="text-sm truncate">{file.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    ({formatFileSize(file.size)})
-                  </span>
+                  <span className="text-xs text-muted-foreground">({formatFileSize(file.size)})</span>
                 </div>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => removeFile(index)}
-                >
+                <Button type="button" variant="ghost" size="sm" onClick={() => removeFile(index)}>
                   <X className="h-4 w-4" />
                 </Button>
               </div>
@@ -117,11 +94,8 @@ export function FileUpload({
           </div>
         )}
 
-        {error && (
-          <p className="text-sm text-destructive mt-2">{error}</p>
-        )}
+        {error && <p className="text-sm text-destructive mt-2">{error}</p>}
       </div>
     </div>
   );
 }
-

@@ -333,7 +333,7 @@ export default function GuideTourDetailPage() {
                     {tour.guideNotes && (
                         <div className="rounded-2xl bg-amber-50 border border-amber-200 p-5 shadow-sm">
                             <h3 className="font-semibold text-amber-900 text-sm mb-2 flex items-center gap-2">
-                                <span>📝</span> Ghi chú cho Guide
+                                <span>📝</span> Notes for Guide
                             </h3>
                             <div className="text-sm text-amber-800 whitespace-pre-wrap">{tour.guideNotes}</div>
                         </div>
@@ -387,7 +387,7 @@ export default function GuideTourDetailPage() {
                             )}
                             {tour.additionalRequirements && (
                                 <div>
-                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">📌 Yêu cầu thêm</h3>
+                                    <h3 className="font-semibold text-gray-900 text-sm mb-2">📌 Additional Requirements</h3>
                                     <div className="text-sm text-gray-700 whitespace-pre-wrap">{tour.additionalRequirements}</div>
                                 </div>
                             )}

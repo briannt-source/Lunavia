@@ -7,8 +7,8 @@ import { revalidatePath } from "next/cache";
 /**
  * DELETE /api/admin/users/[id]/delete
  * 
- * Admin endpoint để xóa user trực tiếp
- * Chỉ SUPER_ADMIN mới có quyền
+ * Admin endpoint to delete user directly
+ * Only SUPER_ADMIN has permission
  */
 export async function DELETE(
   req: NextRequest,

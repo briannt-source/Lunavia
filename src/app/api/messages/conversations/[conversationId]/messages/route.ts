@@ -83,8 +83,8 @@ export async function POST(
     await useCase.execute({
       userId: recipientId,
       type: "NEW_MESSAGE",
-      title: "Tin nhắn mới",
-      message: `Bạn có tin nhắn mới về tour "${conversation.tourId}"`,
+      title: "New Message",
+      message: `You have a new message about tour "${conversation.tourId}"`,
       link: `/messages/${conversationId}`,
     });
 

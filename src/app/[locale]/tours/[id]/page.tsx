@@ -197,7 +197,7 @@ export default async function TourDetailPage({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-teal-600" />
-                  Notes từ Tour Operator
+                  Notes from Tour Operator
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -210,11 +210,11 @@ export default async function TourDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Information chi tiết</CardTitle>
+              <CardTitle>Detailed Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm font-medium mb-1">Languages yêu cầu</p>
+                <p className="text-sm font-medium mb-1">Required Languages</p>
                 <div className="flex flex-wrap gap-2">
                   {tour.languages.map((lang) => (
                     <span
@@ -247,11 +247,11 @@ export default async function TourDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Ứng tuyển ({tour.applications.length})</CardTitle>
+              <CardTitle>Apply ({tour.applications.length})</CardTitle>
             </CardHeader>
             <CardContent>
               {tour.applications.length === 0 ? (
-                <p className="text-muted-foreground">Chưa có ứng tuyển nào</p>
+                <p className="text-muted-foreground">No applications yet</p>
               ) : (
                 <div className="space-y-4">
                   {tour.applications.map((app) => {
@@ -268,7 +268,7 @@ export default async function TourDetailPage({
                             {app.guide.profile?.name || app.guide.email}
                           </h3>
                           <p className="text-sm text-muted-foreground">
-                            Vai trò: {app.role} • Status: {app.status}
+                            Role: {app.role} • Status: {app.status}
                           </p>
                           {escrowAccount && app.status === "ACCEPTED" && (
                             <div className="mt-2">
@@ -339,7 +339,7 @@ export default async function TourDetailPage({
                   </p>
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">Chưa có giá Main Guide</p>
+                <p className="text-sm text-muted-foreground">No Main Guide rate set</p>
               )}
               {tour.priceSub ? (
                 <div>
@@ -351,15 +351,15 @@ export default async function TourDetailPage({
                   </p>
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">Chưa có giá Sub Guide</p>
+                <p className="text-sm text-muted-foreground">No Sub Guide rate set</p>
               )}
               {tour.durationHours && (
                 <div className="pt-4 border-t">
                   <p className="text-sm text-muted-foreground mb-1">
-                    Thời lượng
+                    Duration
                   </p>
                   <p className="text-lg font-semibold">
-                    {tour.durationHours} giờ
+                    {tour.durationHours} hours
                   </p>
                 </div>
               )}
@@ -376,7 +376,7 @@ export default async function TourDetailPage({
               {tour.files && tour.files.length > 0 && (
                 <div className="pt-4 border-t">
                   <p className="text-sm text-muted-foreground mb-2">
-                    Files đính kèm ({tour.files.length})
+                    Attached Files ({tour.files.length})
                   </p>
                   {canViewFiles ? (
                     <div className="space-y-2">

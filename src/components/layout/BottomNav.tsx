@@ -48,8 +48,8 @@ export function OperatorBottomNav() {
             items={[
                 { icon: <Home className="h-5 w-5" />, label: 'Home', href: '/dashboard/operator' },
                 { icon: <MapPin className="h-5 w-5" />, label: 'Tours', href: '/dashboard/operator/tours' },
-                { icon: <Users className="h-5 w-5" />, label: 'Ứng tuyển', href: '/dashboard/operator/applications' },
-                { icon: <Wallet className="h-5 w-5" />, label: 'Ví', href: '/dashboard/operator/wallet' },
+                { icon: <Users className="h-5 w-5" />, label: 'Applications', href: '/dashboard/operator/applications' },
+                { icon: <Wallet className="h-5 w-5" />, label: 'Wallet', href: '/dashboard/operator/wallet' },
                 { icon: <BarChart3 className="h-5 w-5" />, label: 'Insights', href: '/dashboard/operator/insights' },
             ]}
         />
@@ -61,9 +61,9 @@ export function GuideBottomNav() {
         <BottomNavBar
             items={[
                 { icon: <Home className="h-5 w-5" />, label: 'Home', href: '/dashboard/guide' },
-                { icon: <Search className="h-5 w-5" />, label: 'Tìm Tour', href: '/dashboard/guide/available' },
-                { icon: <Calendar className="h-5 w-5" />, label: 'Lịch', href: '/dashboard/guide/calendar' },
-                { icon: <Briefcase className="h-5 w-5" />, label: 'Thu nhập', href: '/dashboard/guide/earnings' },
+                { icon: <Search className="h-5 w-5" />, label: 'Find Tours', href: '/dashboard/guide/available' },
+                { icon: <Calendar className="h-5 w-5" />, label: 'Calendar', href: '/dashboard/guide/calendar' },
+                { icon: <Briefcase className="h-5 w-5" />, label: 'Earnings', href: '/dashboard/guide/earnings' },
                 { icon: <User className="h-5 w-5" />, label: 'Profile', href: '/dashboard/guide/profile' },
             ]}
         />
@@ -75,7 +75,7 @@ export function AdminBottomNav() {
         <BottomNavBar
             items={[
                 { icon: <Home className="h-5 w-5" />, label: 'Home', href: '/dashboard/admin' },
-                { icon: <ShieldCheck className="h-5 w-5" />, label: 'Xác minh', href: '/dashboard/admin/verification' },
+                { icon: <ShieldCheck className="h-5 w-5" />, label: 'Verify', href: '/dashboard/admin/verification' },
                 { icon: <MapPin className="h-5 w-5" />, label: 'Tours', href: '/dashboard/admin/tours' },
                 { icon: <Users className="h-5 w-5" />, label: 'Users', href: '/dashboard/admin/users' },
                 { icon: <BarChart3 className="h-5 w-5" />, label: 'Analytics', href: '/dashboard/admin/analytics' },

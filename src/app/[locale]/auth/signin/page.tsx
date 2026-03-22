@@ -84,7 +84,7 @@ export default function SignInPage() {
           <CardHeader>
             <CardTitle>Sign In</CardTitle>
             <CardDescription>
-              Sign In vào nền tảng Lunavia của Sea You Travel
+              Sign in to the Lunavia platform by Sea You Travel
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -101,7 +101,7 @@ export default function SignInPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Mật khẩu</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -129,7 +129,7 @@ export default function SignInPage() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">
-                    Hoặc
+                    Or
                   </span>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function SignInPage() {
                 className="w-full mt-4"
                 onClick={() => signIn("google")}
               >
-                Sign In với Google
+                Sign In with Google
               </Button>
             </div>
           </CardContent>

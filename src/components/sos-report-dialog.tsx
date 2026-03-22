@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 interface SOSReportDialogProps {
   tourId: string;
@@ -36,6 +37,7 @@ export function SOSReportDialog({
   onOpenChange,
   onSuccess,
 }: SOSReportDialogProps) {
+  const t = useTranslations("Components.SOSReport");
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState<"SOS" | "EMERGENCY" | "INCIDENT">("SOS");
   const [severity, setSeverity] = useState<"LOW" | "MEDIUM" | "HIGH" | "CRITICAL">("MEDIUM");
@@ -84,45 +86,39 @@ export function SOSReportDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-red-600" />
-            Báo cáo SOS / Sự cố
+            {t("title")}
           </DialogTitle>
-          <DialogDescription>
-            Báo cáo sự cố khẩn cấp hoặc cần hỗ trợ ngay lập tức
-          </DialogDescription>
+          <DialogDescription>{t("desc")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div>
-            <Label htmlFor="type">Loại báo cáo</Label>
+            <Label htmlFor="type">{t("severityLabel")}</Label>
             <Select value={type} onValueChange={(v: any) => setType(v)}>
-              <SelectTrigger className="mt-1">
-                <SelectValue />
-              </SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="SOS">SOS - Cần hỗ trợ khẩn cấp</SelectItem>
-                <SelectItem value="EMERGENCY">EMERGENCY - Tình huống khẩn cấp</SelectItem>
-                <SelectItem value="INCIDENT">INCIDENT - Sự cố xảy ra</SelectItem>
+                <SelectItem value="SOS">SOS - Emergency assistance needed</SelectItem>
+                <SelectItem value="EMERGENCY">EMERGENCY - Critical situation</SelectItem>
+                <SelectItem value="INCIDENT">INCIDENT - Incident occurred</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div>
-            <Label htmlFor="severity">Mức độ nghiêm trọng</Label>
+            <Label htmlFor="severity">{t("severityLabel")}</Label>
             <Select value={severity} onValueChange={(v: any) => setSeverity(v)}>
-              <SelectTrigger className="mt-1">
-                <SelectValue />
-              </SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="LOW">LOW - Thấp</SelectItem>
-                <SelectItem value="MEDIUM">MEDIUM - Trung bình</SelectItem>
-                <SelectItem value="HIGH">HIGH - Cao</SelectItem>
-                <SelectItem value="CRITICAL">CRITICAL - Nghiêm trọng</SelectItem>
+                <SelectItem value="LOW">LOW</SelectItem>
+                <SelectItem value="MEDIUM">MEDIUM</SelectItem>
+                <SelectItem value="HIGH">HIGH</SelectItem>
+                <SelectItem value="CRITICAL">CRITICAL</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div>
-            <Label htmlFor="description">Description chi tiết *</Label>
+            <Label htmlFor="description">{t("descriptionLabel")} *</Label>
             <Textarea
               id="description"
               value={description}
@@ -135,7 +131,7 @@ export function SOSReportDialog({
           </div>
 
           <div>
-            <Label htmlFor="location">Vị trí (tùy chọn)</Label>
+            <Label htmlFor="location">{t("locationLabel")}</Label>
             <Input
               id="location"
               value={location}
@@ -147,34 +143,14 @@ export function SOSReportDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={loading}
-          >
-            Hủy
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            {t("cancel")}
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleSubmit}
-            disabled={loading || !description.trim()}
-          >
-            {loading ? "Sending..." : "Submit Report"}
+          <Button variant="destructive" onClick={handleSubmit} disabled={loading || !description.trim()}>
+            {loading ? t("sending") : t("submit")}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-

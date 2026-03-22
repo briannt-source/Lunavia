@@ -8,6 +8,7 @@ import { EscrowActions } from "./escrow-actions";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Shield } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
+import { useTranslations } from "next-intl";
 
 interface EscrowListProps {
   tourId?: string;
@@ -22,6 +23,7 @@ export function EscrowList({
   operatorId,
   showActions = true,
 }: EscrowListProps) {
+  const t = useTranslations("Components.Escrow");
   const { data: escrowAccounts, isLoading, refetch } = useQuery({
     queryKey: ["escrow", { tourId, guideId, operatorId }],
     queryFn: () => api.escrow.list({ tourId, guideId, operatorId }),
@@ -31,7 +33,7 @@ export function EscrowList({
     return (
       <Card>
         <CardContent className="pt-6">
-          <p className="text-sm text-muted-foreground">Đang tải escrow accounts...</p>
+          <p className="text-sm text-muted-foreground">{t("loading")}</p>
         </CardContent>
       </Card>
     );
@@ -67,67 +69,53 @@ export function EscrowList({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">Guide</p>
-                <p className="font-medium">
-                  {escrow.guide?.profile?.name || escrow.guide?.email}
-                </p>
+                <p className="font-medium">{escrow.guide?.profile?.name || escrow.guide?.email}</p>
               </div>
               {escrow.tour && (
                 <div>
                   <p className="text-sm text-muted-foreground">Tour</p>
                   <p className="font-medium">{escrow.tour.title}</p>
                   {escrow.tour.code && (
-                    <p className="text-xs text-muted-foreground">
-                      {escrow.tour.code}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{escrow.tour.code}</p>
                   )}
                 </div>
               )}
               <div>
-                <p className="text-sm text-muted-foreground">Amount</p>
-                <p className="font-semibold text-lg">
-                  {formatCurrency(escrow.amount)} VND
-                </p>
+                <p className="text-sm text-muted-foreground">{t("amount")}</p>
+                <p className="font-semibold text-lg">{formatCurrency(escrow.amount)} VND</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Amount nhận</p>
-                <p className="font-semibold text-lg">
-                  {formatCurrency(escrow.netAmount)} VND
-                </p>
+                <p className="text-sm text-muted-foreground">{t("netAmount")}</p>
+                <p className="font-semibold text-lg">{formatCurrency(escrow.netAmount)} VND</p>
                 {escrow.platformFee > 0 && (
-                  <p className="text-xs text-muted-foreground">
-                    Platform fee: {formatCurrency(escrow.platformFee)} VND
-                  </p>
+                  <p className="text-xs text-muted-foreground">{t("platformFee")}: {formatCurrency(escrow.platformFee)} VND</p>
                 )}
               </div>
             </div>
 
             {escrow.lockedAt && (
               <div>
-                <p className="text-sm text-muted-foreground">Đã khóa vào</p>
+                <p className="text-sm text-muted-foreground">{t("lockedAt")}</p>
                 <p className="text-sm">{formatDate(escrow.lockedAt)}</p>
               </div>
             )}
 
             {escrow.releasedAt && (
               <div>
-                <p className="text-sm text-muted-foreground">Đã giải phóng vào</p>
+                <p className="text-sm text-muted-foreground">{t("releasedAt")}</p>
                 <p className="text-sm">{formatDate(escrow.releasedAt)}</p>
                 {escrow.releaseReason && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Reason: {escrow.releaseReason}
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Reason: {escrow.releaseReason}</p>
                 )}
               </div>
             )}
 
             {escrow.refundedAt && (
               <div>
-                <p className="text-sm text-muted-foreground">Đã hoàn tiền vào</p>
+                <p className="text-sm text-muted-foreground">{t("refundedAt")}</p>
                 <p className="text-sm">{formatDate(escrow.refundedAt)}</p>
                 {escrow.refundReason && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Reason: {escrow.refundReason}
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Reason: {escrow.refundReason}</p>
                 )}
               </div>
             )}
@@ -146,4 +134,3 @@ export function EscrowList({
     </div>
   );
 }
-

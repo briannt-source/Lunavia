@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
 
       if (!hasApplication && !hasAssignment) {
         return NextResponse.json(
-          { error: "Bạn phải ứng tuyển hoặc được phân công tour này trước khi có thể nhắn tin" },
+          { error: "You must apply or be assigned to this tour before you can send messages" },
           { status: 403 }
         );
       }

@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle2, DollarSign } from "lucide-react";
 import { formatVND } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 interface ConfirmTourDialogProps {
   tourId: string;
@@ -38,6 +39,7 @@ export function ConfirmTourDialog({
   onOpenChange,
   onConfirm,
 }: ConfirmTourDialogProps) {
+  const t = useTranslations("Components.ConfirmTour");
   const [loading, setLoading] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(
     requestedAmount ? requestedAmount.toString() : ""
@@ -68,11 +70,9 @@ export function ConfirmTourDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CheckCircle2 className="h-5 w-5 text-green-600" />
-            Xác nhận tour & Khóa thanh toán
+            {t("title")}
           </DialogTitle>
-          <DialogDescription>
-            Xác nhận tour đã hoàn thành và khóa số tiền thanh toán cho hướng dẫn viên
-          </DialogDescription>
+          <DialogDescription>{t("desc")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
@@ -84,9 +84,7 @@ export function ConfirmTourDialog({
           </div>
 
           <div>
-            <Label htmlFor="paymentAmount">
-              Amount thanh toán (VND) *
-            </Label>
+            <Label htmlFor="paymentAmount">{t("paymentAmount")}</Label>
             <div className="relative mt-1">
               <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input
@@ -103,47 +101,27 @@ export function ConfirmTourDialog({
               />
             </div>
             {paymentAmount && (
-              <p className="text-sm text-slate-600 mt-1">
-                {formatVND(parseFloat(paymentAmount) || 0)}
-              </p>
+              <p className="text-sm text-slate-600 mt-1">{formatVND(parseFloat(paymentAmount) || 0)}</p>
             )}
             {requestedAmount && (
-              <p className="text-xs text-blue-600 mt-1">
-                Tour guide yêu cầu: {formatVND(requestedAmount)}
-              </p>
+              <p className="text-xs text-blue-600 mt-1">{t("guideRequested", { amount: formatVND(requestedAmount) })}</p>
             )}
           </div>
 
           <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-            <p className="text-sm font-medium text-amber-900 mb-1">
-              ⚠️ Lưu ý quan trọng
-            </p>
-            <p className="text-xs text-amber-700">
-              Amount này sẽ được khóa từ ví của bạn. Bạn có 24 giờ để thanh toán cho hướng dẫn viên.
-              Nếu quá hạn, hướng dẫn viên có thể yêu cầu thanh toán.
-            </p>
+            <p className="text-sm font-medium text-amber-900 mb-1">{t("importantNote")}</p>
+            <p className="text-xs text-amber-700">{t("importantNoteDesc")}</p>
           </div>
 
           <div>
-            <Label htmlFor="notes">Notes (tùy chọn)</Label>
-            <Textarea
-              id="notes"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Enter notes for the guide..."
-              className="mt-1"
-              rows={3}
-            />
+            <Label htmlFor="notes">{t("notesLabel")}</Label>
+            <Textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Enter notes for the guide..." className="mt-1" rows={3} />
           </div>
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={loading}
-          >
-            Hủy
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            {t("cancel")}
           </Button>
           <Button
             onClick={handleConfirm}
@@ -157,15 +135,3 @@ export function ConfirmTourDialog({
     </Dialog>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-

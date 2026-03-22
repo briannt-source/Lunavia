@@ -362,8 +362,8 @@ export default function GuideAvailablePage() {
                     onChange={(e) => setLanguage(e.target.value)}
                     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
                   >
-                    <option value="">Tất cả ngôn ngữ</option>
-                    <option value="Vietnamese">Tiếng Việt</option>
+                    <option value="">All Languages</option>
+                    <option value="Vietnamese">Vietnamese</option>
                     <option value="English">English</option>
                     <option value="Chinese">中文</option>
                     <option value="Japanese">日本語</option>
@@ -416,8 +416,8 @@ export default function GuideAvailablePage() {
                   onChange={(e) => setSortBy(e.target.value as any)}
                   className="bg-transparent border-none text-sm font-bold text-gray-900 focus:ring-0 p-0 pr-8 cursor-pointer"
                 >
-                  <option value="suggested">✨ Gợi ý cho bạn</option>
-                  <option value="trust">🛡️ Uy tín cao nhất</option>
+                  <option value="suggested">✨ Suggested for you</option>
+                  <option value="trust">🛡️ Highest trust</option>
                   <option value="date_posted">{t('main.sortPosted')}</option>
                   <option value="high_payout">{t('main.sortRate')}</option>
                   <option value="urgent">{t('main.sortUrgent')}</option>
@@ -510,7 +510,7 @@ export default function GuideAvailablePage() {
                     {guideCity && (req.province === guideCity || req.city === guideCity) && (
                       <div className="bg-indigo-50 px-5 py-1.5 border-b border-indigo-100 flex items-center gap-1.5">
                         <span className="text-xs">📍</span>
-                        <span className="text-[11px] font-semibold text-indigo-600">Cùng khu vực của bạn</span>
+                        <span className="text-[11px] font-semibold text-indigo-600">Same area as you</span>
                       </div>
                     )}
                     <div className="p-5">

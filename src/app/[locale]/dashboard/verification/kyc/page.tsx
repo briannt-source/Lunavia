@@ -44,7 +44,7 @@ export default function KYCSubmissionPage() {
     // Check total files for this type
     const currentFiles = documents[type];
     if (currentFiles.length + files.length > 5) {
-      toast.error(`Mỗi trường chỉ được upload tối đa 5 files. Hiện tại đã có ${currentFiles.length} file.`);
+      toast.error(`Each field supports up to 5 file uploads. Currently has ${currentFiles.length} file(s).`);
       return;
     }
     
@@ -85,7 +85,7 @@ export default function KYCSubmissionPage() {
         ...prev,
         [type]: [...prev[type], ...validUrls],
       }));
-      toast.success(`Đã upload ${validUrls.length} file thành công!`);
+      toast.success(`Uploaded ${validUrls.length} file(s) successfully!`);
     } catch (error: any) {
       toast.error(error.message || "Error uploading file");
     } finally {
@@ -111,7 +111,7 @@ export default function KYCSubmissionPage() {
     if (documents.proofOfAddressUrl.length === 0) missingFields.push("Proof of Address");
 
     if (missingFields.length > 0) {
-      toast.error(`Vui lòng upload ít nhất 1 file cho: ${missingFields.join(", ")}`);
+      toast.error(`Please upload at least 1 file for: ${missingFields.join(", ")}`);
       return;
     }
     
@@ -182,7 +182,7 @@ export default function KYCSubmissionPage() {
             <div className="flex items-center gap-3 text-emerald-600">
               <CheckCircle2 className="h-6 w-6" />
               <p className="text-lg font-semibold">
-                KYC của bạn đã được duyệt. Bạn có thể ứng tuyển vào các tour.
+                Your KYC has been approved. You can now apply for tours.
               </p>
             </div>
           </CardContent>
@@ -203,7 +203,7 @@ export default function KYCSubmissionPage() {
             <div className="flex items-center gap-3 text-amber-600">
               <AlertCircle className="h-6 w-6" />
               <p className="text-lg font-semibold">
-                KYC của bạn đang chờ duyệt. Vui lòng kiên nhẫn chờ đợi.
+                Your KYC is pending approval. Please wait patiently.
               </p>
             </div>
           </CardContent>
@@ -228,7 +228,7 @@ export default function KYCSubmissionPage() {
                   Your KYC has been rejected
                 </p>
                 <p className="text-sm text-slate-600">
-                  Vui lòng kiểm tra lại các giấy tờ và nộp lại.
+                  Please review your documents and resubmit.
                 </p>
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function KYCSubmissionPage() {
                 KYC must be completed to apply tour
               </p>
               <p className="text-sm text-amber-700">
-                Bạn cần nộp đầy đủ các giấy tờ bắt buộc để có thể ứng tuyển vào các tour.
+                You need to submit all required documents to apply for tours.
               </p>
             </div>
           </div>
@@ -279,13 +279,13 @@ export default function KYCSubmissionPage() {
                   <p className="text-xs text-slate-500">{req.description}</p>
                 )}
                 <p className="text-xs text-slate-400">
-                  Có thể upload tối đa 5 files cho mỗi trường. Không yêu cầu định dạng file cụ thể.
+                  You can upload up to 5 files per field. No specific file format required.
                 </p>
                 
                 {documents[req.key].length > 0 && (
                   <div className="mt-2 space-y-2">
                     <p className="text-sm font-medium text-slate-700">
-                      Đã upload {documents[req.key].length}/5 files:
+                      Uploaded {documents[req.key].length}/5 files:
                     </p>
                     {documents[req.key].map((url, index) => (
                       <div
@@ -306,7 +306,7 @@ export default function KYCSubmissionPage() {
                           size="sm"
                           onClick={() => removeFile(req.key, index)}
                         >
-                          Xóa
+                          Delete
                         </Button>
                       </div>
                     ))}
@@ -320,13 +320,13 @@ export default function KYCSubmissionPage() {
                     maxSizeMB={10}
                     accept="*/*"
                     label={documents[req.key].length === 0 
-                      ? `Upload ${req.label.toLowerCase()} (tối đa 5 files)` 
-                      : `Upload thêm files (${documents[req.key].length}/5)`}
+                      ? `Upload ${req.label.toLowerCase()} (up to 5 files)` 
+                      : `Upload more files (${documents[req.key].length}/5)`}
                   />
                 )}
                 {documents[req.key].length >= 5 && (
                   <p className="text-xs text-amber-600">
-                    Đã đạt giới hạn 5 files cho trường này
+                    File limit of 5 reached for this field
                   </p>
                 )}
               </div>
@@ -346,7 +346,7 @@ export default function KYCSubmissionPage() {
                 onClick={() => router.back()}
                 disabled={loading || Object.values(uploading).some(v => v)}
               >
-                Hủy
+                Cancel
               </Button>
             </div>
           </form>

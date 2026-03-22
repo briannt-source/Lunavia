@@ -25,7 +25,7 @@ export async function PUT(
       status: body.status,
     });
 
-    // Revalidate cache để đảm bảo UI cập nhật
+    // Revalidate cache to ensure UI updates
     revalidatePath(`/tours/${tourId}`);
     revalidatePath("/tours/browse");
     revalidatePath("/dashboard/operator");

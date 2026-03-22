@@ -134,7 +134,7 @@ export default function GuideStandbyRequestsPage() {
                   )}
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-slate-500">
-                      Từ: {request.operator?.profile?.name || request.operator?.email}
+                      From: {request.operator?.profile?.name || request.operator?.email}
                     </div>
                     <div className="flex items-center gap-2">
                       {request.status === "PENDING" && (
@@ -146,7 +146,7 @@ export default function GuideStandbyRequestsPage() {
                             disabled={rejectMutation.isPending || acceptMutation.isPending}
                           >
                             <XCircle className="mr-2 h-4 w-4" />
-                            Từ chối
+                            Reject
                           </Button>
                           <Button
                             size="sm"
@@ -154,7 +154,7 @@ export default function GuideStandbyRequestsPage() {
                             disabled={acceptMutation.isPending || rejectMutation.isPending}
                           >
                             <CheckCircle2 className="mr-2 h-4 w-4" />
-                            Chấp nhận
+                            Accept
                           </Button>
                         </>
                       )}

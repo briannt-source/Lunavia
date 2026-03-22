@@ -82,7 +82,7 @@ export default async function AdminUserDetailPage({
           <Link href="/dashboard/admin/users">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              Back
             </Button>
           </Link>
         }
@@ -94,7 +94,7 @@ export default async function AdminUserDetailPage({
           {/* User Info */}
           <Card>
             <CardHeader>
-              <CardTitle>Information cơ bản</CardTitle>
+              <CardTitle>Basic Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -122,22 +122,22 @@ export default async function AdminUserDetailPage({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-slate-500">Ngày đăng ký</p>
+                  <p className="text-sm text-slate-500">Registration Date</p>
                   <p className="font-medium">{formatDateTime(user.createdAt)}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Cập nhật lần cuối</p>
+                  <p className="text-sm text-slate-500">Last Updated</p>
                   <p className="font-medium">{formatDateTime(user.updatedAt)}</p>
                 </div>
                 {user.licenseNumber && (
                   <div>
-                    <p className="text-sm text-slate-500">Số giấy phép</p>
+                    <p className="text-sm text-slate-500">License Number</p>
                     <p className="font-medium">{user.licenseNumber}</p>
                   </div>
                 )}
                 {user.employmentType && (
                   <div>
-                    <p className="text-sm text-slate-500">Loại việc làm</p>
+                    <p className="text-sm text-slate-500">Employment Type</p>
                     <p className="font-medium">
                       {user.employmentType === "FREELANCE" ? "Freelance" : "In-house"}
                     </p>
@@ -170,14 +170,14 @@ export default async function AdminUserDetailPage({
                   {user.profile.experienceYears && (
                     <div>
                       <p className="text-sm text-slate-500">Experience</p>
-                      <p className="font-medium">{user.profile.experienceYears} năm</p>
+                      <p className="font-medium">{user.profile.experienceYears} years</p>
                     </div>
                   )}
                   {user.profile.rating && (
                     <div>
                       <p className="text-sm text-slate-500">Reviews</p>
                       <p className="font-medium">
-                        {user.profile.rating.toFixed(1)} ⭐ ({user.profile.reviewCount} đánh giá)
+                        {user.profile.rating.toFixed(1)} ⭐ ({user.profile.reviewCount} reviews)
                       </p>
                     </div>
                   )}
@@ -226,24 +226,24 @@ export default async function AdminUserDetailPage({
           {user.wallet && (
             <Card>
               <CardHeader>
-                <CardTitle>Information Ví</CardTitle>
+                <CardTitle>Information Wallet</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="text-sm text-slate-500">Số dư</p>
+                    <p className="text-sm text-slate-500">Balance</p>
                     <p className="text-lg font-bold text-teal-600">
                       {formatVND(user.wallet.balance)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500">Đã khóa</p>
+                    <p className="text-sm text-slate-500">Locked</p>
                     <p className="text-lg font-bold text-amber-600">
                       {formatVND(0)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500">Đã đặt cọc</p>
+                    <p className="text-sm text-slate-500">Deposited</p>
                     <p className="text-lg font-bold text-blue-600">
                       {formatVND(0)}
                     </p>
@@ -257,7 +257,7 @@ export default async function AdminUserDetailPage({
           {user.verifications.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Xác minh</CardTitle>
+                <CardTitle>Verification</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -272,7 +272,7 @@ export default async function AdminUserDetailPage({
                         </Link>
                       </div>
                       <p className="text-sm text-slate-500">
-                        Nộp: {formatDateTime(verification.createdAt)}
+                        Submitted: {formatDateTime(verification.createdAt)}
                       </p>
                     </div>
                   ))}
@@ -313,15 +313,15 @@ export default async function AdminUserDetailPage({
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Thống kê</CardTitle>
+              <CardTitle>Statistics</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm text-slate-500">Tổng tours</p>
+                <p className="text-sm text-slate-500">Total tours</p>
                 <p className="text-2xl font-bold">{user._count.tours}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500">Tổng ứng tuyển</p>
+                <p className="text-sm text-slate-500">Total applications</p>
                 <p className="text-2xl font-bold">{user._count.applications}</p>
               </div>
             </CardContent>
@@ -329,13 +329,13 @@ export default async function AdminUserDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Hành động</CardTitle>
+              <CardTitle>Actions</CardTitle>
             </CardHeader>
             <CardContent>
               <Link href={`/dashboard/admin/users/${user.id}/manage`}>
                 <Button className="w-full" variant="outline">
                   <Shield className="h-4 w-4 mr-2" />
-                  Quản lý User
+                  Manage User
                 </Button>
               </Link>
             </CardContent>

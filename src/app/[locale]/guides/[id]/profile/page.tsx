@@ -46,7 +46,7 @@ export default function GuideProfilePage() {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải information...</p>
+          <p className="text-slate-600">Loading information...</p>
         </div>
       </DashboardLayout>
     );
@@ -60,7 +60,7 @@ export default function GuideProfilePage() {
           title="Guide not found"
           description="This tour guide does not exist or has been deleted"
           action={
-            <Button onClick={() => router.back()}>Quay lại</Button>
+            <Button onClick={() => router.back()}>Back</Button>
           }
         />
       </DashboardLayout>
@@ -86,7 +86,7 @@ export default function GuideProfilePage() {
         description="Detailed guide information"
         action={
           <Button variant="outline" onClick={() => router.back()}>
-            Quay lại
+            Back
           </Button>
         }
       />
@@ -97,7 +97,7 @@ export default function GuideProfilePage() {
           {/* Basic Info */}
           <Card>
             <CardHeader>
-              <CardTitle>Information cơ bản</CardTitle>
+              <CardTitle>Basic Information</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-start gap-6">
@@ -178,7 +178,7 @@ export default function GuideProfilePage() {
                         {stats.averageRating.toFixed(1)}
                       </span>
                       <span className="text-sm text-slate-600">
-                        ({stats.totalReviews} {stats.totalReviews === 1 ? 'đánh giá' : 'đánh giá'})
+                        ({stats.totalReviews} {stats.totalReviews === 1 ? 'reviews' : 'reviews'})
                       </span>
                     </div>
                   )}
@@ -271,7 +271,7 @@ export default function GuideProfilePage() {
           {guideProfile.companyMember && (
             <Card>
               <CardHeader>
-                <CardTitle>Information công ty</CardTitle>
+                <CardTitle>Information company</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-4">
@@ -302,7 +302,7 @@ export default function GuideProfilePage() {
                 <CardTitle>Reviews & Testimonials</CardTitle>
                 {stats.totalReviews > 0 && (
                   <span className="text-sm text-slate-600">
-                    {stats.totalReviews} đánh giá
+                    {stats.totalReviews} reviews
                   </span>
                 )}
               </div>
@@ -384,9 +384,9 @@ export default function GuideProfilePage() {
               ) : (
                 <div className="text-center py-8">
                   <Star className="h-12 w-12 text-slate-300 mx-auto mb-3" />
-                  <p className="text-slate-600">Chưa có đánh giá nào</p>
+                  <p className="text-slate-600">No reviews yet</p>
                   <p className="text-sm text-slate-500 mt-1">
-                    Reviews sẽ xuất hiện sau khi hoàn thành tour
+                    Reviews will appear after completing tours
                   </p>
                 </div>
               )}
@@ -399,7 +399,7 @@ export default function GuideProfilePage() {
           {/* Stats */}
           <Card>
             <CardHeader>
-              <CardTitle>Thống kê</CardTitle>
+              <CardTitle>Statistics</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Rating */}
@@ -411,13 +411,13 @@ export default function GuideProfilePage() {
                   </span>
                 </div>
                 <p className="text-sm text-slate-600">
-                  {stats.totalReviews || 0} đánh giá
+                  {stats.totalReviews || 0} reviews
                 </p>
               </div>
               
               {/* Completed Tours */}
               <div>
-                <p className="text-sm text-slate-600 mb-1">Tours đã hoàn thành</p>
+                <p className="text-sm text-slate-600 mb-1">Completed Tours</p>
                 <p className="text-2xl font-bold text-slate-900">
                   {stats.completedTours || 0}
                 </p>
@@ -425,7 +425,7 @@ export default function GuideProfilePage() {
               
               {/* Cancelled Tours */}
               <div>
-                <p className="text-sm text-slate-600 mb-1">Tours đã hủy</p>
+                <p className="text-sm text-slate-600 mb-1">Cancelled Tours</p>
                 <p className="text-2xl font-bold text-red-600">
                   {stats.cancelledTours || 0}
                 </p>
@@ -433,7 +433,7 @@ export default function GuideProfilePage() {
               
               {/* Total Accepted Applications */}
               <div>
-                <p className="text-sm text-slate-600 mb-1">Tổng ứng tuyển đã chấp nhận</p>
+                <p className="text-sm text-slate-600 mb-1">Total Accepted Applications</p>
                 <p className="text-xl font-semibold text-slate-700">
                   {stats.totalAcceptedApplications || 0}
                 </p>
@@ -445,18 +445,18 @@ export default function GuideProfilePage() {
           {wallet && (
             <Card>
               <CardHeader>
-                <CardTitle>Ví</CardTitle>
+                <CardTitle>Wallet</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div>
-                  <p className="text-sm text-slate-600 mb-1">Số dư khả dụng</p>
+                  <p className="text-sm text-slate-600 mb-1">Available Balance</p>
                   <p className="text-xl font-bold text-slate-900">
                     {formatVND(wallet.balance || 0)}
                   </p>
                 </div>
                 {wallet.reserved > 0 && (
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">Đã đặt cọc</p>
+                    <p className="text-sm text-slate-600 mb-1">Deposited</p>
                     <p className="text-lg font-semibold text-slate-700">
                       {formatVND(wallet.reserved)}
                     </p>
@@ -469,7 +469,7 @@ export default function GuideProfilePage() {
           {/* Verification Status */}
           <Card>
             <CardHeader>
-              <CardTitle>Status xác minh</CardTitle>
+              <CardTitle>Verification Status</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">

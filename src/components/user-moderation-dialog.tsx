@@ -22,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api-client";
 import toast from "react-hot-toast";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface UserModerationDialogProps {
   open: boolean;
@@ -55,6 +56,7 @@ export function UserModerationDialog({
   user,
   onSuccess,
 }: UserModerationDialogProps) {
+  const t = useTranslations("Components.UserModeration");
   const [action, setAction] = useState<"block" | "unblock">(
     user.isBlocked ? "unblock" : "block"
   );
@@ -83,9 +85,7 @@ export function UserModerationDialog({
       onOpenChange(false);
       setReason("");
       setNotes("");
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess?.();
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
@@ -101,19 +101,17 @@ export function UserModerationDialog({
             {action === "block" ? (
               <>
                 <AlertTriangle className="h-5 w-5 text-red-600" />
-                Block User
+                {t("blockTitle")}
               </>
             ) : (
               <>
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
-                Unblock User
+                {t("unblockTitle")}
               </>
             )}
           </DialogTitle>
           <DialogDescription>
-            {action === "block"
-              ? `Bạn đang chuẩn bị block user: ${user.email}. User này sẽ không thể đăng nhập và sử dụng hệ thống.`
-              : `Bạn đang chuẩn bị unblock user: ${user.email}. User này sẽ có thể đăng nhập và sử dụng hệ thống lại.`}
+            {action === "block" ? t("blockDesc") : t("unblockDesc")}
           </DialogDescription>
         </DialogHeader>
 
@@ -121,23 +119,21 @@ export function UserModerationDialog({
           {action === "block" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="reason">Reason block *</Label>
+                <Label htmlFor="reason">{t("reasonLabel")} *</Label>
                 <Select value={reason} onValueChange={setReason}>
                   <SelectTrigger id="reason">
                     <SelectValue placeholder="Select reason for blocking" />
                   </SelectTrigger>
                   <SelectContent>
                     {BLOCK_REASONS.map((r) => (
-                      <SelectItem key={r.value} value={r.value}>
-                        {r.label}
-                      </SelectItem>
+                      <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="notes">Notes (tùy chọn)</Label>
+                <Label htmlFor="notes">Notes (optional)</Label>
                 <Textarea
                   id="notes"
                   placeholder="Add detailed notes about the blocking reason..."
@@ -152,7 +148,7 @@ export function UserModerationDialog({
           {action === "unblock" && (
             <div className="rounded-lg border border-green-200 bg-green-50 p-4">
               <p className="text-sm text-green-900">
-                User sẽ được unblock và có thể sử dụng hệ thống lại bình thường.
+                The user will be unblocked and can use the platform normally again.
               </p>
             </div>
           )}
@@ -160,22 +156,17 @@ export function UserModerationDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
-            Hủy
+            {t("cancel")}
           </Button>
           <Button
             variant={action === "block" ? "destructive" : "default"}
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading
-              ? "Processing..."
-              : action === "block"
-              ? "Block User"
-              : "Unblock User"}
+            {loading ? t("processing") : action === "block" ? t("confirmBlock") : t("confirmUnblock")}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-

@@ -45,7 +45,7 @@ export default function EditTourPage() {
     languages: "",
     specialties: "",
     visibility: "PUBLIC",
-    guideNotes: "", // Notes/notices dành cho tour guide
+    guideNotes: "", // Notes/notices for tour guides
     publishAction: "draft",
   });
 
@@ -77,7 +77,7 @@ export default function EditTourPage() {
         // Check if tour can be edited (DRAFT, OPEN, CLOSED are allowed)
         const editableStatuses = ["DRAFT", "OPEN", "CLOSED"];
         if (!editableStatuses.includes(tour.status)) {
-          toast.error(`Không thể chỉnh sửa tour ở trạng thái ${tour.status}. Chỉ có thể chỉnh sửa tour ở trạng thái DRAFT, OPEN, hoặc CLOSED.`);
+          toast.error(`Cannot edit tour with status ${tour.status}. Can only edit tours with DRAFT, OPEN, or CLOSED status.`);
           router.push(`/tours/${tourId}`);
           return;
         }
@@ -219,7 +219,7 @@ export default function EditTourPage() {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <p className="text-slate-600">Đang tải information tour...</p>
+          <p className="text-slate-600">Loading information tour...</p>
         </div>
       </DashboardLayout>
     );
@@ -236,7 +236,7 @@ export default function EditTourPage() {
             variant="outline"
             onClick={() => router.back()}
           >
-            Hủy
+            Cancel
           </Button>
         }
       />
@@ -248,11 +248,11 @@ export default function EditTourPage() {
               <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
               <div className="flex-1">
                 <p className="font-semibold text-amber-900 mb-1">
-                  Lưu ý: Tour này đã có ứng tuyển
+                  Note: This tour already has applications
                 </p>
                 <p className="text-sm text-amber-700">
-                  Khi chỉnh sửa tour đã có ứng tuyển, bạn không thể giảm số lượng slot xuống dưới số lượng guides đã được chấp nhận. 
-                  Nếu thay đổi ngày hoặc giờ, vui lòng thông báo cho các guides đã được chấp nhận.
+                  When editing a tour with applications, you cannot reduce slots below the number of accepted guides. 
+                  If changing the date or hours, please notify accepted guides.
                 </p>
               </div>
             </div>
@@ -265,16 +265,16 @@ export default function EditTourPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <Tabs defaultValue="basic" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="basic">Information cơ bản</TabsTrigger>
-                <TabsTrigger value="pricing">Price & Ngày</TabsTrigger>
-                <TabsTrigger value="details">Chi tiết</TabsTrigger>
+                <TabsTrigger value="basic">Basic Information</TabsTrigger>
+                <TabsTrigger value="pricing">Price & Date</TabsTrigger>
+                <TabsTrigger value="details">Details</TabsTrigger>
                 <TabsTrigger value="files">Files</TabsTrigger>
               </TabsList>
 
               {/* Basic Info Tab */}
               <TabsContent value="basic" className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Tiêu đề tour *</Label>
+                  <Label htmlFor="title">Title tour *</Label>
                   <Input
                     id="title"
                     value={formData.title}
@@ -323,7 +323,7 @@ export default function EditTourPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="pax">Số guests *</Label>
+                    <Label htmlFor="pax">Number of guests *</Label>
                     <Input
                       id="pax"
                       type="number"
@@ -351,7 +351,7 @@ export default function EditTourPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="PUBLIC">Public (Public)</SelectItem>
-                      <SelectItem value="PRIVATE">Private (Private - chỉ in-house)</SelectItem>
+                      <SelectItem value="PRIVATE">Private (In-house only)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -360,7 +360,7 @@ export default function EditTourPage() {
               {/* Pricing & Dates Tab */}
               <TabsContent value="pricing" className="space-y-4 mt-6">
                 <div className="space-y-2">
-                  <Label>Đơn vị tiền tệ *</Label>
+                  <Label>Currency *</Label>
                   <Select
                     value={formData.currency}
                     onValueChange={(value) =>
@@ -371,7 +371,7 @@ export default function EditTourPage() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="VND">VND (Việt Nam Đồng)</SelectItem>
+                      <SelectItem value="VND">VND (Vietnamese Dong)</SelectItem>
                       <SelectItem value="USD">USD (1 USD = 26,000 VND)</SelectItem>
                     </SelectContent>
                   </Select>
@@ -494,7 +494,7 @@ export default function EditTourPage() {
                   <Label htmlFor="guideNotes">
                     Notes cho Tour Guide
                     <span className="text-slate-400 text-sm font-normal ml-2">
-                      (Chỉ Tour Guide mới thấy phần này)
+                      (Only visible to Tour Guides)
                     </span>
                   </Label>
                   <textarea
@@ -508,7 +508,7 @@ export default function EditTourPage() {
                     }
                   />
                   <p className="text-xs text-slate-500">
-                    Phần này chỉ hiển thị cho Tour Guide khi họ xem chi tiết tour. Bạn có thể thêm các lưu ý đặc biệt, yêu cầu cụ thể, hoặc information quan trọng.
+                    This section is only visible to Tour Guides when they view tour details. You can add special notices, specific requirements, or important information.
                   </p>
                 </div>
               </TabsContent>
@@ -517,7 +517,7 @@ export default function EditTourPage() {
               <TabsContent value="files" className="space-y-4 mt-6">
                 {existingFiles.length > 0 && (
                   <div className="space-y-2">
-                    <Label>Files hiện tại</Label>
+                    <Label>Current Files</Label>
                     <div className="space-y-2">
                       {existingFiles.map((file, index) => (
                         <div key={index} className="flex items-center justify-between p-2 border rounded">
@@ -537,7 +537,7 @@ export default function EditTourPage() {
                               setExistingFiles(existingFiles.filter((_, i) => i !== index));
                             }}
                           >
-                            Xóa
+                            Delete
                           </Button>
                         </div>
                       ))}
@@ -556,7 +556,7 @@ export default function EditTourPage() {
             {/* Publish Action Selection */}
             <div className="pt-4 border-t space-y-4">
               <div className="space-y-3">
-                <Label>Hành động</Label>
+                <Label>Actions</Label>
                 <RadioGroup
                   value={formData.publishAction}
                   onValueChange={(value) =>
@@ -571,9 +571,9 @@ export default function EditTourPage() {
                     >
                       <Save className="h-4 w-4 text-slate-600" />
                       <div>
-                        <p className="font-medium text-slate-900">Lưu làm bản nháp</p>
+                        <p className="font-medium text-slate-900">Save as Draft</p>
                         <p className="text-sm text-slate-500">
-                          Tour sẽ được lưu ở trạng thái nháp, bạn có thể chỉnh sửa và publish sau
+                          Tour will be saved as a draft and you can edit and publish later
                         </p>
                       </div>
                     </label>
@@ -586,9 +586,9 @@ export default function EditTourPage() {
                     >
                       <Globe className="h-4 w-4 text-teal-600" />
                       <div>
-                        <p className="font-medium text-slate-900">Publish lên marketplace</p>
+                        <p className="font-medium text-slate-900">Publish to Marketplace</p>
                         <p className="text-sm text-slate-500">
-                          Tour sẽ được publish ngay và hiển thị trên marketplace cho guides apply
+                          Tour will be published immediately and visible on marketplace for guides to apply
                         </p>
                       </div>
                     </label>
@@ -613,7 +613,7 @@ export default function EditTourPage() {
                   variant="outline"
                   onClick={() => router.back()}
                 >
-                  Hủy
+                  Cancel
                 </Button>
               </div>
             </div>

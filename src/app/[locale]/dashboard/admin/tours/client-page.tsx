@@ -68,7 +68,7 @@ export default function AdminToursClientPage() {
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng Tours</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Tours</CardTitle>
             <MapPin className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -85,7 +85,7 @@ export default function AdminToursClientPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang mở</CardTitle>
+            <CardTitle className="text-sm font-medium">Open</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
@@ -95,7 +95,7 @@ export default function AdminToursClientPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang diễn ra</CardTitle>
+            <CardTitle className="text-sm font-medium">In Progress</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">
@@ -105,7 +105,7 @@ export default function AdminToursClientPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Hoàn thành</CardTitle>
+            <CardTitle className="text-sm font-medium">Completed</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-slate-600">
@@ -115,7 +115,7 @@ export default function AdminToursClientPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Bị đóng</CardTitle>
+            <CardTitle className="text-sm font-medium">Closed</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
@@ -154,10 +154,10 @@ export default function AdminToursClientPage() {
               <SelectContent>
                 <SelectItem value="all">All statuses</SelectItem>
                 <SelectItem value="DRAFT">Draft</SelectItem>
-                <SelectItem value="OPEN">Đang mở</SelectItem>
-                <SelectItem value="IN_PROGRESS">Đang diễn ra</SelectItem>
-                <SelectItem value="COMPLETED">Hoàn thành</SelectItem>
-                <SelectItem value="CANCELLED">Đã hủy</SelectItem>
+                <SelectItem value="OPEN">Open</SelectItem>
+                <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
+                <SelectItem value="COMPLETED">Completed</SelectItem>
+                <SelectItem value="CANCELLED">Cancelled</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -166,7 +166,7 @@ export default function AdminToursClientPage() {
                 handleFilter(status, city, searchInput?.value || "");
               }}
             >
-              Lọc
+              Filter
             </Button>
           </div>
         </CardContent>
@@ -175,7 +175,7 @@ export default function AdminToursClientPage() {
       {/* Tours List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách Tours ({tours.length})</CardTitle>
+          <CardTitle>List Tours ({tours.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {tours.length === 0 ? (
@@ -207,7 +207,7 @@ export default function AdminToursClientPage() {
                         {tour.isBlocked && (
                           <span className="text-xs px-2 py-0.5 bg-red-50 text-red-700 rounded-full border border-red-200 flex items-center gap-1">
                             <AlertTriangle className="h-3 w-3" />
-                            Đã đóng
+                            Closed
                           </span>
                         )}
                         {tour.visibility === "PUBLIC" && (
@@ -245,8 +245,8 @@ export default function AdminToursClientPage() {
                         <span>
                           Operator: {tour.operator?.profile?.name || tour.operator?.email}
                         </span>
-                        <span>{tour._count?.applications || 0} ứng tuyển</span>
-                        <span>Tạo: {formatDateTime(tour.createdAt)}</span>
+                        <span>{tour._count?.applications || 0} applications</span>
+                        <span>Created: {formatDateTime(tour.createdAt)}</span>
                         {tour.isBlocked && tour.blockReason && (
                           <span className="text-red-600">
                             Reason: {tour.blockReason}
@@ -273,12 +273,12 @@ export default function AdminToursClientPage() {
                         {tour.isBlocked ? (
                           <>
                             <CheckCircle2 className="h-4 w-4 mr-1" />
-                            Mở lại
+                            Reopen
                           </>
                         ) : (
                           <>
                             <AlertTriangle className="h-4 w-4 mr-1" />
-                            Đóng
+                            Close
                           </>
                         )}
                       </Button>

@@ -114,7 +114,7 @@ export default function TourEmergenciesPage() {
                         <StatusBadge status={emergency.status} />
                       </div>
                       <p className="text-sm text-slate-600">
-                        Từ: {emergency.guide?.profile?.name || emergency.guide?.email}
+                        From: {emergency.guide?.profile?.name || emergency.guide?.email}
                       </p>
                     </div>
                     <div className="text-right">
@@ -140,7 +140,7 @@ export default function TourEmergenciesPage() {
                       <MapPin className="h-4 w-4 text-slate-400 mt-0.5" />
                       <div>
                         <p className="text-sm font-medium text-slate-700 mb-1">
-                          Vị trí
+                          Location
                         </p>
                         <p className="text-sm text-slate-600">{emergency.location}</p>
                       </div>
@@ -150,7 +150,7 @@ export default function TourEmergenciesPage() {
                   {emergency.operatorResponse && (
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-sm font-medium text-blue-900 mb-1">
-                        Phản hồi của bạn
+                        Your Response
                       </p>
                       <p className="text-sm text-blue-700 whitespace-pre-wrap">
                         {emergency.operatorResponse}
@@ -182,7 +182,7 @@ export default function TourEmergenciesPage() {
                           }
                         }}
                       >
-                        Đánh dấu đã xử lý
+                        Mark as Processed
                       </Button>
                     </div>
                   )}

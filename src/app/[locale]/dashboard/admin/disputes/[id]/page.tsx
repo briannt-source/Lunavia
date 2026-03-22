@@ -99,7 +99,7 @@ export default function DisputeDetailPage() {
           <p className="text-slate-600">Not found dispute</p>
           <Link href="/dashboard/admin/disputes">
             <Button variant="outline" className="mt-4">
-              Quay lại
+              Back
             </Button>
           </Link>
         </div>
@@ -116,7 +116,7 @@ export default function DisputeDetailPage() {
           <Link href="/dashboard/admin/disputes">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              Back
             </Button>
           </Link>
         }
@@ -135,7 +135,7 @@ export default function DisputeDetailPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label className="text-sm font-medium text-slate-500">Loại</Label>
+                <Label className="text-sm font-medium text-slate-500">Type</Label>
                 <p className="mt-1 font-semibold">{dispute.type}</p>
               </div>
               <div>
@@ -143,7 +143,7 @@ export default function DisputeDetailPage() {
                 <p className="mt-1 text-slate-700 whitespace-pre-wrap">{dispute.description}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Người tạo</Label>
+                <Label className="text-sm font-medium text-slate-500">Created By</Label>
                 <p className="mt-1">
                   {dispute.user?.profile?.name || dispute.user?.email}
                 </p>
@@ -157,13 +157,13 @@ export default function DisputeDetailPage() {
               </div>
               {dispute.resolvedAt && (
                 <div>
-                  <Label className="text-sm font-medium text-slate-500">Giải quyết lúc</Label>
+                  <Label className="text-sm font-medium text-slate-500">Resolved At</Label>
                   <p className="mt-1">{formatDateTime(dispute.resolvedAt)}</p>
                 </div>
               )}
               {dispute.resolutionAmount && (
                 <div>
-                  <Label className="text-sm font-medium text-slate-500">Amount hoàn</Label>
+                  <Label className="text-sm font-medium text-slate-500">Refund Amount</Label>
                   <p className="mt-1 text-lg font-bold text-green-600">
                     {formatVND(dispute.resolutionAmount || 0)}
                   </p>
@@ -176,7 +176,7 @@ export default function DisputeDetailPage() {
           {dispute.evidence && dispute.evidence.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Bằng chứng</CardTitle>
+                <CardTitle>Evidence</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
@@ -207,12 +207,12 @@ export default function DisputeDetailPage() {
           {(dispute.status === "PENDING" || dispute.status === "IN_REVIEW") && (
             <Card>
               <CardHeader>
-                <CardTitle>Xử lý Dispute</CardTitle>
+                <CardTitle>Process Dispute</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label>Hành động</Label>
+                    <Label>Action</Label>
                     <div className="flex gap-4 mt-2">
                       <label className="flex items-center gap-2">
                         <input
@@ -222,7 +222,7 @@ export default function DisputeDetailPage() {
                           checked={action === "resolve"}
                           onChange={(e) => setAction(e.target.value as any)}
                         />
-                        <span>Giải quyết</span>
+                        <span>Resolve</span>
                       </label>
                       <label className="flex items-center gap-2">
                         <input
@@ -232,7 +232,7 @@ export default function DisputeDetailPage() {
                           checked={action === "reject"}
                           onChange={(e) => setAction(e.target.value as any)}
                         />
-                        <span>Từ chối</span>
+                        <span>Reject</span>
                       </label>
                     </div>
                   </div>
@@ -240,7 +240,7 @@ export default function DisputeDetailPage() {
                   {action === "resolve" && (
                     <>
                       <div>
-                        <Label htmlFor="amountRefunded">Amount hoàn (VND)</Label>
+                        <Label htmlFor="amountRefunded">Refund Amount (VND)</Label>
                         <Input
                           id="amountRefunded"
                           type="number"
@@ -286,7 +286,7 @@ export default function DisputeDetailPage() {
           {dispute.status === "RESOLVED" && dispute.resolution && (
             <Card>
               <CardHeader>
-                <CardTitle>Giải pháp</CardTitle>
+                <CardTitle>Resolution</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 whitespace-pre-wrap">{dispute.resolution}</p>
@@ -306,7 +306,7 @@ export default function DisputeDetailPage() {
               <StatusBadge status={dispute.status} />
               {dispute.assignedTo && (
                 <p className="text-sm text-slate-500 mt-2">
-                  Được giao cho: {dispute.adminUser?.email || "N/A"}
+                  Assigned to: {dispute.adminUser?.email || "N/A"}
                 </p>
               )}
             </CardContent>

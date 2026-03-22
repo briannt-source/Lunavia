@@ -57,7 +57,7 @@ export default function DisputeDetailPage() {
     return (
       <>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">Dispute không tồn tại</p>
+          <p className="text-gray-500">Dispute not found</p>
         </div>
       </>
     );
@@ -95,13 +95,13 @@ export default function DisputeDetailPage() {
             <Card className="rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold text-gray-900">
-                  Thông Tin Dispute
+                  Dispute Information
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Loại</p>
+                    <p className="text-sm text-gray-500 mb-1">Type</p>
                     <Badge variant="outline" className="border-indigo-600 text-indigo-700">
                       {DISPUTE_TYPE_LABELS[dispute.type] || dispute.type}
                     </Badge>
@@ -113,7 +113,7 @@ export default function DisputeDetailPage() {
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Ngày tạo</p>
+                    <p className="text-sm text-gray-500 mb-1">Created Date</p>
                     <p className="font-medium text-gray-900">
                       {format(
                         new Date(dispute.createdAt || new Date()),
@@ -123,7 +123,7 @@ export default function DisputeDetailPage() {
                   </div>
                   {dispute.resolvedAt && (
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Ngày giải quyết</p>
+                      <p className="text-sm text-gray-500 mb-1">Resolution Date</p>
                       <p className="font-medium text-gray-900">
                         {format(new Date(dispute.resolvedAt), "dd/MM/yyyy HH:mm")}
                       </p>
@@ -138,7 +138,7 @@ export default function DisputeDetailPage() {
                 </div>
                 {dispute.evidence && dispute.evidence.length > 0 && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-500 mb-2">Bằng chứng</p>
+                    <p className="text-sm text-gray-500 mb-2">Evidence</p>
                     <div className="space-y-2">
                       {dispute.evidence.map((url: string, index: number) => (
                         <a
@@ -196,7 +196,7 @@ export default function DisputeDetailPage() {
               <Card className="rounded-xl shadow-sm">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-gray-900">
-                    Tour Liên Quan
+                    Related Tour
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -219,7 +219,7 @@ export default function DisputeDetailPage() {
             <Card className="rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold text-gray-900">
-                  Trạng Thái
+                  Status
                 </CardTitle>
               </CardHeader>
               <CardContent>

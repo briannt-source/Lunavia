@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import {import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 const SOS_CATEGORIES = [
-  { id: 'GUIDE_NO_SHOW', label: 'HDV không xuất hiện', icon: '🚨', description: 'Guide đã được phân công nhưng không có mặt' },
-  { id: 'SAFETY_CONCERN', label: 'Vấn đề an toàn', icon: '⚠️', description: 'Có vấn đề liên quan đến an toàn của tour hoặc guests' },
-  { id: 'URGENT_OPERATIONAL', label: 'Vấn đề vận hành khẩn cấp', icon: '🔴', description: 'Cần hỗ trợ ngay lập tức từ Lunavia' },
-  { id: 'OTHER', label: 'Vấn đề khác', icon: '📞', description: 'Cần liên hệ với đội ngũ hỗ trợ' }
+  { id: 'GUIDE_NO_SHOW', labelKey: 'guideNoShow', icon: '🚨', descKey: 'guideNoShowDesc' },
+  { id: 'SAFETY_CONCERN', labelKey: 'safetyConcern', icon: '⚠️', descKey: 'safetyConcernDesc' },
+  { id: 'URGENT_OPERATIONAL', labelKey: 'urgentOps', icon: '🔴', descKey: 'urgentOpsDesc' },
+  { id: 'OTHER', labelKey: 'other', icon: '📞', descKey: 'otherDesc' },
 ];
 
 interface SOSModalProps {
@@ -18,6 +19,7 @@ interface SOSModalProps {
 }
 
 export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
+  const t = useTranslations("Components.SOSButton");
   const { data: session } = useSession();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [description, setDescription] = useState('');
@@ -26,7 +28,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
 
   async function handleSubmit() {
     if (!selectedCategory) {
-      toast.error('Vui lòng chọn loại vấn đề');
+      toast.error('Please select an issue type');
       return;
     }
 
@@ -49,7 +51,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
       }
 
       setSubmitted(true);
-      toast.success('Requirements SOS đã được gửi. Đội ngũ sẽ liên hệ bạn sớm.');
+      toast.success('SOS request sent. Our team will contact you soon.');
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -62,15 +64,15 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl text-center">
           <div className="text-5xl mb-4">✅</div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Đã nhận yêu cầu SOS</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">SOS Request Received</h2>
           <p className="text-gray-600 mb-6">
-            Đội ngũ Lunavia đã được thông báo và sẽ liên hệ hỗ trợ bạn trong thời gian sớm nhất.
+            The Lunavia team has been notified and will contact you as soon as possible.
           </p>
           <button
             onClick={onClose}
             className="w-full rounded-lg bg-indigo-600 px-4 py-3 font-medium text-white hover:bg-indigo-700"
           >
-            Đóng
+            Close
           </button>
         </div>
       </div>
@@ -80,14 +82,13 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl overflow-hidden">
-        {/* Header */}
         <div className="bg-red-600 px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-2xl">🆘</span>
               <div>
-                <h2 className="text-lg font-bold text-white">Requirements hỗ trợ khẩn cấp</h2>
-                <p className="text-red-100 text-sm">Đội ngũ sẽ được thông báo ngay lập tức</p>
+                <h2 className="text-lg font-bold text-white">{t("title")}</h2>
+                <p className="text-red-100 text-sm">{t("desc")}</p>
               </div>
             </div>
             <button onClick={onClose} className="text-white/80 hover:text-white text-xl">✕</button>
@@ -95,18 +96,16 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
         </div>
 
         <div className="p-6 space-y-5">
-          {/* Tour context */}
           {tourTitle && (
             <div className="rounded-lg bg-gray-50 p-3 border border-gray-200">
-              <p className="text-xs text-gray-500">Tour liên quan</p>
+              <p className="text-xs text-gray-500">Related Tour</p>
               <p className="font-medium text-gray-900">{tourTitle}</p>
             </div>
           )}
 
-          {/* Category selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Chọn loại vấn đề <span className="text-red-500">*</span>
+              Select issue type <span className="text-red-500">*</span>
             </label>
             <div className="space-y-2">
               {SOS_CATEGORIES.map(cat => (
@@ -121,8 +120,7 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
                   <div className="flex items-center gap-3">
                     <span className="text-xl">{cat.icon}</span>
                     <div>
-                      <div className="font-medium text-gray-900">{cat.label}</div>
-                      <div className="text-xs text-gray-500">{cat.description}</div>
+                      <div className="font-medium text-gray-900">{cat.id.replace(/_/g, ' ')}</div>
                     </div>
                   </div>
                 </button>
@@ -130,10 +128,9 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
             </div>
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description thêm (tùy chọn)
+              Additional description (optional)
             </label>
             <textarea
               value={description}
@@ -144,20 +141,19 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
             />
           </div>
 
-          {/* Actions */}
           <div className="flex gap-3 pt-2">
             <button
               onClick={onClose}
               className="flex-1 rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 hover:bg-gray-50"
             >
-              Hủy
+              Cancel
             </button>
             <button
               onClick={handleSubmit}
               disabled={!selectedCategory || submitting}
               className="flex-1 rounded-lg bg-red-600 px-4 py-3 font-medium text-white hover:bg-red-700 disabled:opacity-50"
             >
-              {submitting ? 'Submitting...' : 'Gửi yêu cầu SOS'}
+              {submitting ? t("sending") : t("sendSOS")}
             </button>
           </div>
         </div>
@@ -166,7 +162,6 @@ export function SOSModal({ tourId, tourTitle, onClose }: SOSModalProps) {
   );
 }
 
-// Standalone button that opens SOS modal
 export default function SOSButton({ tourId, tourTitle }: { tourId?: string; tourTitle?: string }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -178,13 +173,8 @@ export default function SOSButton({ tourId, tourTitle }: { tourId?: string; tour
       >
         🆘 SOS
       </button>
-
       {showModal && (
-        <SOSModal
-          tourId={tourId}
-          tourTitle={tourTitle}
-          onClose={() => setShowModal(false)}
-        />
+        <SOSModal tourId={tourId} tourTitle={tourTitle} onClose={() => setShowModal(false)} />
       )}
     </>
   );

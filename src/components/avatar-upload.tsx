@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload, X, User } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface AvatarUploadProps {
   currentAvatar?: string;
@@ -17,6 +18,7 @@ export function AvatarUpload({
   onAvatarChange,
   label = "Avatar",
 }: AvatarUploadProps) {
+  const t = useTranslations("Components.AvatarUpload");
   const [preview, setPreview] = useState<string | null>(currentAvatar || null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,26 +27,22 @@ export function AvatarUpload({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       alert("Only image files are accepted");
       return;
     }
 
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert("Image file must not exceed 5MB");
       return;
     }
 
-    // Show preview
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result as string);
     };
     reader.readAsDataURL(file);
 
-    // Upload file
     setUploading(true);
     try {
       const formData = new FormData();
@@ -86,65 +84,27 @@ export function AvatarUpload({
       <div className="flex items-center gap-4">
         <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-300 flex items-center justify-center">
           {preview ? (
-            <Image
-              src={preview}
-              alt="Avatar preview"
-              fill
-              className="object-cover"
-            />
+            <Image src={preview} alt="Avatar preview" fill className="object-cover" />
           ) : (
             <User className="h-12 w-12 text-gray-400" />
           )}
         </div>
 
         <div className="flex flex-col gap-2">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileSelect}
-            className="hidden"
-          />
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploading}
-          >
+          <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+          <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
             <Upload className="h-4 w-4 mr-2" />
-            {uploading ? "Uploading..." : "Choose Photo"}
+            {uploading ? t("uploading") : t("choosePhoto")}
           </Button>
           {preview && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={removeAvatar}
-            >
+            <Button type="button" variant="ghost" size="sm" onClick={removeAvatar}>
               <X className="h-4 w-4 mr-2" />
-              Xóa
+              {t("remove")}
             </Button>
           )}
         </div>
       </div>
-      <p className="text-xs text-muted-foreground">
-        JPG, PNG hoặc GIF. Tối đa 5MB
-      </p>
+      <p className="text-xs text-muted-foreground">{t("hint")}</p>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

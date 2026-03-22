@@ -22,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api-client";
 import toast from "react-hot-toast";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TourModerationDialogProps {
   open: boolean;
@@ -56,6 +57,7 @@ export function TourModerationDialog({
   tour,
   onSuccess,
 }: TourModerationDialogProps) {
+  const t = useTranslations("Components.TourModeration");
   const [action, setAction] = useState<"block" | "unblock">(
     tour.isBlocked ? "unblock" : "block"
   );
@@ -84,9 +86,7 @@ export function TourModerationDialog({
       onOpenChange(false);
       setReason("");
       setNotes("");
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess?.();
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
@@ -102,19 +102,17 @@ export function TourModerationDialog({
             {action === "block" ? (
               <>
                 <AlertTriangle className="h-5 w-5 text-red-500" />
-                Đóng Tour
+                {t("closeTitle")}
               </>
             ) : (
               <>
                 <CheckCircle2 className="h-5 w-5 text-green-500" />
-                Mở lại Tour
+                {t("reopenTitle")}
               </>
             )}
           </DialogTitle>
           <DialogDescription>
-            {action === "block"
-              ? `Bạn có chắc chắn muốn đóng tour "${tour.title}"? Tour sẽ biến mất khỏi marketplace và tour operator sẽ nhận được thông báo.`
-              : `Bạn có chắc chắn muốn mở lại tour "${tour.title}"? Tour sẽ xuất hiện lại trên marketplace.`}
+            {action === "block" ? t("closeDesc") : t("reopenDesc")}
           </DialogDescription>
         </DialogHeader>
 
@@ -122,16 +120,14 @@ export function TourModerationDialog({
           {action === "block" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="reason">Reason đóng tour *</Label>
+                <Label htmlFor="reason">{t("reasonLabel")} *</Label>
                 <Select value={reason} onValueChange={setReason}>
                   <SelectTrigger id="reason">
                     <SelectValue placeholder="Select reason for closing tour" />
                   </SelectTrigger>
                   <SelectContent>
                     {BLOCK_REASONS.map((r) => (
-                      <SelectItem key={r.value} value={r.value}>
-                        {r.label}
-                      </SelectItem>
+                      <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -139,19 +135,12 @@ export function TourModerationDialog({
 
               {tour.isBlocked && tour.blockReason && (
                 <div className="p-3 bg-slate-50 rounded-md border border-slate-200">
-                  <p className="text-sm font-medium text-slate-700 mb-1">
-                    Reason đóng trước đó:
-                  </p>
+                  <p className="text-sm font-medium text-slate-700 mb-1">Previous closing reason:</p>
                   <p className="text-sm text-slate-600">
-                    {
-                      BLOCK_REASONS.find((r) => r.value === tour.blockReason)
-                        ?.label || tour.blockReason
-                    }
+                    {BLOCK_REASONS.find((r) => r.value === tour.blockReason)?.label || tour.blockReason}
                   </p>
                   {tour.blockNotes && (
-                    <p className="text-xs text-slate-500 mt-2">
-                      {tour.blockNotes}
-                    </p>
+                    <p className="text-xs text-slate-500 mt-2">{tour.blockNotes}</p>
                   )}
                 </div>
               )}
@@ -159,9 +148,7 @@ export function TourModerationDialog({
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="notes">
-              Notes {action === "block" ? "(optional)" : "(optional)"}
-            </Label>
+            <Label htmlFor="notes">Notes (optional)</Label>
             <Textarea
               id="notes"
               placeholder={
@@ -177,27 +164,18 @@ export function TourModerationDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={loading}
-          >
-            Hủy
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            {t("cancel")}
           </Button>
           <Button
             onClick={handleSubmit}
             disabled={loading || (action === "block" && !reason)}
             variant={action === "block" ? "destructive" : "default"}
           >
-            {loading
-              ? "Processing..."
-              : action === "block"
-              ? "Close Tour"
-              : "Reopen Tour"}
+            {loading ? t("processing") : action === "block" ? t("confirmClose") : t("confirmReopen")}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-

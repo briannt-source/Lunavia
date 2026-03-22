@@ -164,7 +164,7 @@ export default function PaymentSettingsPage() {
             <DialogTrigger asChild>
               <Button onClick={() => handleOpenDialog()}>
                 <Plus className="h-4 w-4 mr-2" />
-                Thêm tài khoản
+                Add Account
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
@@ -181,7 +181,7 @@ export default function PaymentSettingsPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="bankName">Tên ngân hàng *</Label>
+                    <Label htmlFor="bankName">Bank Name *</Label>
                     <Input
                       id="bankName"
                       value={formData.bankName}
@@ -193,7 +193,7 @@ export default function PaymentSettingsPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="accountName">Tên chủ tài khoản *</Label>
+                    <Label htmlFor="accountName">Account Holder *</Label>
                     <Input
                       id="accountName"
                       value={formData.accountName}
@@ -207,7 +207,7 @@ export default function PaymentSettingsPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="accountNumber">Số tài khoản *</Label>
+                    <Label htmlFor="accountNumber">Account Number *</Label>
                     <Input
                       id="accountNumber"
                       value={formData.accountNumber}
@@ -219,7 +219,7 @@ export default function PaymentSettingsPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="branchName">Chi nhánh</Label>
+                    <Label htmlFor="branchName">Branch</Label>
                     <Input
                       id="branchName"
                       value={formData.branchName}
@@ -231,7 +231,7 @@ export default function PaymentSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="qrCodeUrl">URL QR Code (tùy chọn)</Label>
+                  <Label htmlFor="qrCodeUrl">QR Code URL (optional)</Label>
                   <Input
                     id="qrCodeUrl"
                     type="url"
@@ -265,7 +265,7 @@ export default function PaymentSettingsPage() {
                     className="rounded"
                   />
                   <Label htmlFor="isActive" className="cursor-pointer">
-                    Tài khoản đang hoạt động
+                    Account is active
                   </Label>
                 </div>
                 <DialogFooter>
@@ -278,7 +278,7 @@ export default function PaymentSettingsPage() {
                       resetForm();
                     }}
                   >
-                    Hủy
+                    Cancel
                   </Button>
                   <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
                     {editingAccount ? "Update" : "Create"}
@@ -292,7 +292,7 @@ export default function PaymentSettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Tài khoản ngân hàng Lunavia</CardTitle>
+          <CardTitle>Lunavia Bank Accounts</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -321,16 +321,16 @@ export default function PaymentSettingsPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-4 text-sm text-slate-600">
                           <div>
-                            <p className="font-medium text-slate-700">Chủ tài khoản</p>
+                            <p className="font-medium text-slate-700">Account Holder</p>
                             <p>{account.accountName}</p>
                           </div>
                           <div>
-                            <p className="font-medium text-slate-700">Số tài khoản</p>
+                            <p className="font-medium text-slate-700">Account Number</p>
                             <p className="font-mono">{account.accountNumber}</p>
                           </div>
                           {account.branchName && (
                             <div>
-                              <p className="font-medium text-slate-700">Chi nhánh</p>
+                              <p className="font-medium text-slate-700">Branch</p>
                               <p>{account.branchName}</p>
                             </div>
                           )}
@@ -344,7 +344,7 @@ export default function PaymentSettingsPage() {
                                 className="text-blue-600 hover:underline flex items-center gap-1"
                               >
                                 <QrCode className="h-4 w-4" />
-                                Xem QR Code
+                                View QR Code
                               </a>
                             </div>
                           )}
@@ -362,7 +362,7 @@ export default function PaymentSettingsPage() {
                           onClick={() => handleOpenDialog(account)}
                         >
                           <Edit className="h-4 w-4 mr-1" />
-                          Sửa
+                          Edit
                         </Button>
                         <Button
                           variant="outline"

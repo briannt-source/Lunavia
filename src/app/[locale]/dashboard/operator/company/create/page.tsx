@@ -107,7 +107,7 @@ export default function CreateCompanyPage() {
         <Link href="/dashboard/operator/company">
           <Button variant="ghost" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Quay lại
+            Back
           </Button>
         </Link>
 
@@ -115,24 +115,24 @@ export default function CreateCompanyPage() {
         {isAgency && (
           <Alert className="mb-6 border-amber-200 bg-amber-50">
             <AlertTriangle className="h-4 w-4 text-amber-600" />
-            <AlertTitle className="text-amber-900">Lưu ý quan trọng</AlertTitle>
+            <AlertTitle className="text-amber-900">Important Notice</AlertTitle>
             <AlertDescription className="text-amber-800 mt-2">
               <p className="font-semibold mb-2">
-                Theo quy định Luật Du lịch Việt Nam:
+                Per Vietnam Tourism Law regulations:
               </p>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>
-                  Chỉ các doanh nghiệp có <strong>Business License lữ hành quốc tế</strong> mới được phép tổ chức tour.
+                  Only enterprises with <strong>an international travel business license</strong> are allowed to organize tours.
                 </li>
                 <li>
-                  Tour Agency hiện tại chỉ có thể quản lý tour guide freelance, không được phép tổ chức tour trực tiếp.
+                  Tour Agency can currently only manage freelance tour guides, not organize tours directly.
                 </li>
                 <li>
-                  Để tổ chức tour, bạn cần đăng ký và chuyển đổi thành <strong>Tour Operator</strong> với đầy đủ giấy phép theo quy định.
+                  To organize tours, you need to register and convert to <strong>Tour Operator</strong> with all required licenses per regulations.
                 </li>
               </ul>
               <p className="mt-3 text-sm italic">
-                <strong>Lưu ý:</strong> Chúng tôi vẫn cho phép Tour Agency tạo công ty để quản lý guide, nhưng bạn cần tuân thủ quy định pháp luật khi tổ chức tour.
+                <strong>Note:</strong> We still allow Tour Agency to create a company to manage guides, but you must comply with the law when organizing tours.
               </p>
             </AlertDescription>
           </Alert>
@@ -145,14 +145,14 @@ export default function CreateCompanyPage() {
               Information Company
             </CardTitle>
             <CardDescription>
-              Điền information công ty của bạn. Bạn chỉ có thể tạo một công ty.
+              Fill in your company information. You can only create one company.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <Label htmlFor="name">
-                  Tên công ty <span className="text-red-500">*</span>
+                  Company Name <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="name"
@@ -164,19 +164,19 @@ export default function CreateCompanyPage() {
                   placeholder="e.g. Sea You Travel JSC"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Tên công ty sẽ được dùng để tạo Company ID tự động
+                  Company Name will be used to auto-generate a Company ID
                 </p>
               </div>
 
               <div>
-                <Label htmlFor="logo">Logo công ty</Label>
+                <Label htmlFor="logo">Company Logo</Label>
                 <FileUpload
                   accept="image/*"
                   maxFiles={1}
                   onFilesChange={(files) => setUploadedLogo(files[0] || null)}
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Upload logo công ty (tùy chọn)
+                  Upload company logo (optional)
                 </p>
               </div>
 
@@ -192,7 +192,7 @@ export default function CreateCompanyPage() {
                   placeholder="company@example.com"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Company email phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp.
+                  Company email must be unique. The system will check for duplicates.
                 </p>
               </div>
 
@@ -238,7 +238,7 @@ export default function CreateCompanyPage() {
                   placeholder="0123456789"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Business registration number phải là duy nhất. Hệ thống sẽ kiểm tra để tránh trùng lặp và giả mạo.
+                  Business registration number must be unique. The system will check for duplicates and fraud.
                 </p>
               </div>
 
@@ -258,7 +258,7 @@ export default function CreateCompanyPage() {
                   placeholder="GP-123456"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Travel license number (nếu có). Hệ thống sẽ kiểm tra để tránh trùng lặp.
+                  Travel license number (if applicable). The system will check for duplicates.
                 </p>
               </div>
 
@@ -271,18 +271,18 @@ export default function CreateCompanyPage() {
                   {loading || createCompanyMutation.isPending ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Đang tạo...
+                      Creating...
                     </>
                   ) : (
                     <>
                       <Save className="h-4 w-4 mr-2" />
-                      Tạo Company
+                      Create Company
                     </>
                   )}
                 </Button>
                 <Link href="/dashboard/operator/company">
                   <Button type="button" variant="outline">
-                    Hủy
+                    Cancel
                   </Button>
                 </Link>
               </div>

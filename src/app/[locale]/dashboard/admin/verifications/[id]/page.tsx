@@ -122,10 +122,10 @@ export default function VerificationDetailPage() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Not found yêu cầu xác minh</p>
+          <p className="text-slate-600">Verification request not found</p>
           <Link href="/dashboard/admin/verifications">
             <Button variant="outline" className="mt-4">
-              Quay lại
+              Back
             </Button>
           </Link>
         </div>
@@ -199,13 +199,13 @@ export default function VerificationDetailPage() {
   return (
     <>
       <PageHeader
-        title={`Xác minh ${verificationType}`}
+        title={`Verification ${verificationType}`}
         description={`ID: ${verification.id}`}
         action={
           <Link href="/dashboard/admin/verifications">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              Back
             </Button>
           </Link>
         }
@@ -218,13 +218,13 @@ export default function VerificationDetailPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Information người dùng</CardTitle>
+                <CardTitle>User Information</CardTitle>
                 <StatusBadge status={verification.status} />
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label className="text-sm font-medium text-slate-500">Tên</Label>
+                <Label className="text-sm font-medium text-slate-500">Name</Label>
                 <p className="mt-1 font-semibold">
                   {verification.user.profile?.name || verification.user.email}
                 </p>
@@ -234,11 +234,11 @@ export default function VerificationDetailPage() {
                 <p className="mt-1">{verification.user.email}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Vai trò</Label>
+                <Label className="text-sm font-medium text-slate-500">Role</Label>
                 <p className="mt-1">{verification.user.role.replace(/_/g, " ")}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Loại xác minh</Label>
+                <Label className="text-sm font-medium text-slate-500">Verification Type</Label>
                 <p className="mt-1">
                   <span className="px-2 py-0.5 bg-lunavia-primary-light text-lunavia-primary rounded text-sm font-medium">
                     {verificationType}
@@ -246,7 +246,7 @@ export default function VerificationDetailPage() {
                 </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-slate-500">Duration nộp</Label>
+                <Label className="text-sm font-medium text-slate-500">Submission Date</Label>
                 <p className="mt-1">{formatDateTime(verification.createdAt)}</p>
               </div>
             </CardContent>
@@ -255,11 +255,11 @@ export default function VerificationDetailPage() {
           {/* Documents */}
           <Card>
             <CardHeader>
-              <CardTitle>Tài liệu đã nộp</CardTitle>
+              <CardTitle>Submitted Documents</CardTitle>
             </CardHeader>
             <CardContent>
               {documentGroups.length === 0 && (!finalDocuments.allDocuments || finalDocuments.allDocuments.length === 0) ? (
-                <p className="text-slate-500">Chưa có tài liệu nào</p>
+                <p className="text-slate-500">No documents found</p>
               ) : (
                 <div className="space-y-6">
                   {documentGroups.map((group) => (
@@ -295,7 +295,7 @@ export default function VerificationDetailPage() {
                                   rel="noopener noreferrer"
                                   className="opacity-0 group-hover:opacity-100 transition-opacity bg-white px-3 py-1.5 rounded text-sm font-medium text-teal-600 hover:bg-teal-50"
                                 >
-                                  Mở trong tab mới
+                                  Open in new tab
                                 </a>
                               </div>
                             </div>
@@ -320,7 +320,7 @@ export default function VerificationDetailPage() {
                   {finalDocuments.allDocuments && finalDocuments.allDocuments.length > 0 && (
                     <div className="border-t pt-6 mt-6">
                       <Label className="font-medium text-base mb-3 block">
-                        Tất cả files đã nộp ({documentsByType.allDocuments.length} files)
+                        All submitted files ({documentsByType.allDocuments.length} files)
                       </Label>
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                         {finalDocuments.allDocuments.map((url: string, index: number) => (
@@ -359,12 +359,12 @@ export default function VerificationDetailPage() {
           {verification.status === "PENDING" && (
             <Card>
               <CardHeader>
-                <CardTitle>Duyệt xác minh</CardTitle>
+                <CardTitle>Review Verification</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label>Hành động</Label>
+                    <Label>Actions</Label>
                     <div className="flex gap-4 mt-2">
                       <label className="flex items-center gap-2">
                         <input
@@ -374,7 +374,7 @@ export default function VerificationDetailPage() {
                           checked={action === "approve"}
                           onChange={(e) => setAction(e.target.value as any)}
                         />
-                        <span>Duyệt</span>
+                        <span>Approve</span>
                       </label>
                       <label className="flex items-center gap-2">
                         <input
@@ -384,14 +384,14 @@ export default function VerificationDetailPage() {
                           checked={action === "reject"}
                           onChange={(e) => setAction(e.target.value as any)}
                         />
-                        <span>Từ chối</span>
+                        <span>Reject</span>
                       </label>
                     </div>
                   </div>
 
                   {action === "approve" ? (
                     <div>
-                      <Label htmlFor="adminNotes">Notes (tùy chọn)</Label>
+                      <Label htmlFor="adminNotes">Notes (optional)</Label>
                       <Textarea
                         id="adminNotes"
                         value={adminNotes}
@@ -402,7 +402,7 @@ export default function VerificationDetailPage() {
                     </div>
                   ) : (
                     <div>
-                      <Label htmlFor="rejectionReason">Reason từ chối *</Label>
+                      <Label htmlFor="rejectionReason">Rejection reason *</Label>
                       <Textarea
                         id="rejectionReason"
                         value={rejectionReason}
