@@ -10,11 +10,12 @@ export const metadata = {
 
 export default async function CreateStaffPage() {
     const session = await getServerSession(authOptions);
-    const userRole = (session?.user as any)?.role;
+    const rawRole = (session?.user as any)?.role || '';
+    const adminRole = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
 
     // Strict Permissions: Only SUPER_ADMIN
-    if (userRole !== 'SUPER_ADMIN') {
-        redirect('/dashboard/admin/staff');
+    if (adminRole !== 'SUPER_ADMIN') {
+        redirect('/dashboard/admin/admins');
     }
 
     return (

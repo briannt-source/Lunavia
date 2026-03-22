@@ -18,8 +18,9 @@ export default async function DemoPage() {
     const session = await getServerSession(authOptions);
     if (!session?.user) redirect('/login');
 
-    const userRole = session.user?.role;
-    if (userRole !== 'SUPER_ADMIN') {
+    const rawRole = (session.user as any)?.role || '';
+    const adminRole = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
+    if (adminRole !== 'SUPER_ADMIN') {
         redirect('/dashboard/admin');
     }
 

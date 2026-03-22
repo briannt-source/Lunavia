@@ -9,7 +9,9 @@ export const metadata = { title: 'Fleet Tracking | God Mode — Lunavia' };
 export default async function AdminFleetPage() {
     const session = await getServerSession(authOptions);
     if (!session?.user) redirect('/login');
-    if (!['SUPER_ADMIN', 'OPS'].includes(session.user.role)) redirect('/dashboard');
+    const rawRole = (session.user as any)?.role || '';
+    const adminRole = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
+    if (!['SUPER_ADMIN', 'OPS_CS', 'OPS', 'MODERATOR'].includes(adminRole)) redirect('/dashboard');
 
     return (
         <BaseDashboardLayout header={

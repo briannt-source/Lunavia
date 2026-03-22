@@ -13,8 +13,9 @@ export default async function OpsPage() {
     const session = await getServerSession(authOptions);
     if (!session?.user) redirect('/login');
 
-    const role = session.user.role;
-    if (!['OPS', 'SUPER_ADMIN', 'ADMIN'].includes(role)) redirect('/dashboard');
+    const rawRole = (session.user as any)?.role || '';
+    const adminRole = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
+    if (!['OPS_CS', 'OPS', 'SUPER_ADMIN', 'MODERATOR'].includes(adminRole)) redirect('/dashboard');
 
     const header = (
         <div>

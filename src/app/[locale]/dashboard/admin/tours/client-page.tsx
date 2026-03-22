@@ -198,9 +198,13 @@ export default function AdminToursClientPage() {
                             {tour.title}
                           </h3>
                         </Link>
-                        {tour.code && (
-                          <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-300 font-mono">
+                        {tour.code ? (
+                          <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-300 font-mono" title={`Full ID: ${tour.id}`}>
                             {tour.code}
+                          </span>
+                        ) : (
+                          <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded border border-slate-200 font-mono" title={`Full ID: ${tour.id}`}>
+                            ID: {tour.id.slice(-8)}
                           </span>
                         )}
                         <StatusBadge status={tour.status} />

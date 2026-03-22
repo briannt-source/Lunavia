@@ -14,8 +14,9 @@ export default async function AdminFeedbackViewer({
     const session = await getServerSession(authOptions);
     if (!session?.user) redirect('/login');
 
-    const user = session.user;
-    if (!['SUPER_ADMIN', 'OPS'].includes(user.role)) {
+    const rawRole = (session.user as any)?.role || '';
+    const adminRole = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
+    if (!['SUPER_ADMIN', 'OPS_CS', 'OPS', 'MODERATOR'].includes(adminRole)) {
         return <div className="p-8 text-center text-red-600">Unauthorized Access</div>;
     }
 
