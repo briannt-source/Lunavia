@@ -24,7 +24,8 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { email, guideId } = body;
+    const { email, guideId, role: memberRole } = body;
+    const inviteRole = memberRole || "GUIDE";
 
     if (!email && !guideId) {
       return NextResponse.json(
@@ -111,6 +112,7 @@ export async function POST(req: NextRequest) {
         company: { connect: { id: company.id } },
         ...(resolvedGuideId ? { guide: { connect: { id: resolvedGuideId } } } : {}),
         email: email || null,
+        role: inviteRole as any,
         inviteToken,
         status: "PENDING",
         invitedBy: session.user.id,

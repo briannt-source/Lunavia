@@ -2,328 +2,460 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
-import { useTranslations } from 'next-intl';
 
-interface InHouseGuide {
-    id: string;
-    email: string;
-    trust: string;
-    kycStatus: string;
-    metadata: any;
+const MEMBER_ROLES = [
+  { value: "GUIDE", label: "Tour Guide", icon: "🧑‍🏫", desc: "Apply for tours, run tours" },
+  { value: "MANAGER", label: "Manager", icon: "👔", desc: "Create/edit tours, manage team" },
+  { value: "OPERATOR_STAFF", label: "Operations Staff", icon: "🎯", desc: "Create tours, follow assigned" },
+  { value: "VIEWER", label: "Viewer", icon: "👁️", desc: "Read-only dashboard access" },
+];
+
+const INVITABLE_ROLES = [...MEMBER_ROLES];
+
+interface Member {
+  id: string;
+  memberId: string;
+  email: string;
+  name: string;
+  photoUrl?: string;
+  role: string;
+  status: string;
+  companyEmail?: string;
+  trust?: string;
+  kycStatus?: string;
+  contractVerified?: boolean;
+  approvedAt?: string;
+  languages?: string[];
+  specialties?: string[];
+}
+
+interface PendingInvite {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  status: string;
+  createdAt: string;
 }
 
 export default function OperatorTeamPage() {
-    const { data: session } = useSession();
-    const t = useTranslations('Operator.Team');
-    const [guides, setGuides] = useState<InHouseGuide[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedGuide, setSelectedGuide] = useState<InHouseGuide | null>(null);
-    const [calendarEvents, setCalendarEvents] = useState<any[]>([]);
-    const [calendarLoading, setCalendarLoading] = useState(false);
+  const { data: session } = useSession();
 
-    const [invites, setInvites] = useState<any[]>([]);
-    const [inviteModalOpen, setInviteModalOpen] = useState(false);
-    const [inviteEmail, setInviteEmail] = useState('');
-    const [inviteGuideId, setInviteGuideId] = useState('');
-    const [inviteMode, setInviteMode] = useState<'email' | 'guideId'>('email');
-    const [inviting, setInviting] = useState(false);
+  const [guides, setGuides] = useState<Member[]>([]);
+  const [staff, setStaff] = useState<Member[]>([]);
+  const [pendingInvites, setPendingInvites] = useState<PendingInvite[]>([]);
+  const [companyName, setCompanyName] = useState("");
+  const [myRole, setMyRole] = useState("");
+  const [canManage, setCanManage] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchGuides();
-    }, []);
+  // Tabs
+  const [tab, setTab] = useState<"guides" | "staff" | "invites">("guides");
 
-    async function fetchGuides() {
-        try {
-            const res = await fetch('/api/operator/guides');
-            if (res.ok) {
-                const data = await res.json();
-                setGuides(data.guides || []);
-                setInvites(data.pendingInvites || []);
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
+  // Invite modal
+  const [showInvite, setShowInvite] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteGuideId, setInviteGuideId] = useState("");
+  const [inviteMode, setInviteMode] = useState<"email" | "guideId">("email");
+  const [inviteRole, setInviteRole] = useState("GUIDE");
+  const [inviting, setInviting] = useState(false);
+
+  // Role change
+  const [editRoleId, setEditRoleId] = useState<string | null>(null);
+  const [newRole, setNewRole] = useState("");
+
+  // Delete confirm  
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  useEffect(() => { fetchTeam(); }, []);
+
+  async function fetchTeam() {
+    try {
+      const res = await fetch("/api/operator/guides");
+      if (res.ok) {
+        const data = await res.json();
+        setGuides(data.guides || []);
+        setStaff(data.staff || []);
+        setPendingInvites(data.pendingInvites || []);
+        setCompanyName(data.companyName || "");
+        setMyRole(data.myRole || "");
+        setCanManage(data.canManageTeam ?? false);
+      }
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
+  }
+
+  async function handleInvite() {
+    const identifier = inviteMode === "email" ? inviteEmail : inviteGuideId;
+    if (!identifier) { toast.error("Please enter an email or Guide ID"); return; }
+
+    setInviting(true);
+    try {
+      const payload: any = { role: inviteRole };
+      if (inviteMode === "email") payload.email = inviteEmail;
+      else payload.guideId = inviteGuideId.trim();
+
+      const res = await fetch("/api/operator/team/invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Invitation sent!");
+      setShowInvite(false);
+      setInviteEmail(""); setInviteGuideId(""); setInviteRole("GUIDE");
+      fetchTeam();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to send invite");
+    } finally { setInviting(false); }
+  }
+
+  async function handleChangeRole(memberId: string) {
+    try {
+      const res = await fetch(`/api/operator/team/members/${memberId}/role`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: newRole }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Role updated");
+      setEditRoleId(null);
+      fetchTeam();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to change role");
     }
+  }
 
-    async function handleInvite() {
-        if (inviteMode === 'email') {
-            if (!inviteEmail || !inviteEmail.includes('@')) {
-                toast.error(t('alerts.invalidEmail'));
-                return;
-            }
-        } else {
-            if (!inviteGuideId.trim()) {
-                toast.error(t('alerts.invalidGuideId'));
-                return;
-            }
-        }
-
-        setInviting(true);
-        try {
-            const payload = inviteMode === 'email'
-                ? { email: inviteEmail }
-                : { guideId: inviteGuideId.trim() };
-
-            const res = await fetch('/api/operator/team/invite', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.error || t('alerts.inviteFailed'));
-            }
-
-            toast.success(t('alerts.inviteSuccess'));
-            setInviteEmail('');
-            setInviteGuideId('');
-            setInviteModalOpen(false);
-            fetchGuides(); // Refresh list
-        } catch (error: any) {
-            // Handle 429 specifically if needed, but error message usually covers it
-            toast.error(error.message);
-        } finally {
-            setInviting(false);
-        }
+  async function handleRemove(memberId: string) {
+    try {
+      const res = await fetch(`/api/operator/team/members/${memberId}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Member removed");
+      setDeleteId(null);
+      fetchTeam();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to remove member");
     }
+  }
 
-    async function fetchCalendar(guideId: string) {
-        setCalendarLoading(true);
-        try {
-            // Fetch next 30 days
-            const start = new Date();
-            const end = new Date();
-            end.setDate(end.getDate() + 30);
-            const params = new URLSearchParams({
-                start: start.toISOString(),
-                end: end.toISOString()
-            });
-            const res = await fetch(`/api/guides/${guideId}/calendar?${params.toString()}`);
-            if (res.ok) {
-                const data = await res.json();
-                setCalendarEvents(data.events || []);
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setCalendarLoading(false);
-        }
-    }
+  const roleColors: Record<string, string> = {
+    GUIDE: "bg-blue-100 text-blue-700",
+    MANAGER: "bg-violet-100 text-violet-700",
+    OPERATOR_STAFF: "bg-teal-100 text-teal-700",
+    VIEWER: "bg-gray-100 text-gray-600",
+    OWNER: "bg-amber-100 text-amber-700",
+  };
 
-    if (loading) return <div className="p-8">{t('loading')}</div>;
+  const getRoleLabel = (r: string) => MEMBER_ROLES.find(m => m.value === r)?.label || r.replace(/_/g, " ");
 
-    return (
-        <div className="space-y-8">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-xl font-semibold text-gray-900">{t('title')}</h1>
-                    <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
-                    {session?.user?.id && (
-                        <div className="mt-4 flex items-center gap-3 rounded-lg border border-[#5BA4CF]/20 bg-lunavia-light/50 px-3 py-2 text-sm text-indigo-900">
-                            <span><strong>{t('inviteDirect')}</strong> {t('inviteDirectDesc')}</span>
-                            <code className="rounded bg-lunavia-muted/50 px-2 py-0.5 font-mono text-[#2E8BC0] font-bold select-all">{session.user.id}</code>
-                        </div>
-                    )}
+  if (loading) return <div className="p-8 text-center text-gray-400">Loading team...</div>;
+
+  const allMembers = [...staff, ...guides];
+
+  return (
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">👥 My Team</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            {companyName ? `${companyName} — ` : ""}
+            {guides.length} guides, {staff.length} staff
+          </p>
+        </div>
+        {canManage && (
+          <button
+            onClick={() => setShowInvite(true)}
+            className="px-4 py-2.5 bg-gray-900 text-white rounded-xl text-sm font-semibold hover:bg-gray-800 transition flex items-center gap-2"
+          >
+            <span className="text-lg">+</span> Invite Member
+          </button>
+        )}
+      </div>
+
+      {/* Tab Bar */}
+      <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+        {[
+          { key: "guides" as const, label: `🧑‍🏫 Guides (${guides.length})` },
+          { key: "staff" as const, label: `👔 Operations Staff (${staff.length})` },
+          { key: "invites" as const, label: `📩 Pending Invites (${pendingInvites.length})` },
+        ].map(t => (
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key)}
+            className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition ${
+              tab === t.key ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Guides Tab */}
+      {tab === "guides" && (
+        <div className="space-y-3">
+          {guides.length === 0 ? (
+            <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-200 text-gray-400">
+              <p className="text-3xl mb-2">🧑‍🏫</p>
+              <p>No guides in your team yet</p>
+              {canManage && <p className="text-xs mt-1">Click "Invite Member" to add guides</p>}
+            </div>
+          ) : (
+            guides.map(g => renderMemberCard(g))
+          )}
+        </div>
+      )}
+
+      {/* Staff Tab */}
+      {tab === "staff" && (
+        <div className="space-y-3">
+          {staff.length === 0 ? (
+            <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-200 text-gray-400">
+              <p className="text-3xl mb-2">👔</p>
+              <p>No operations staff yet</p>
+              {canManage && <p className="text-xs mt-1">Click "Invite Member" → select role (Manager / Operations Staff / Viewer)</p>}
+            </div>
+          ) : (
+            staff.map(s => renderMemberCard(s))
+          )}
+        </div>
+      )}
+
+      {/* Pending Invites Tab */}
+      {tab === "invites" && (
+        <div className="space-y-3">
+          {pendingInvites.length === 0 ? (
+            <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-200 text-gray-400">
+              <p className="text-3xl mb-2">📩</p>
+              <p>No pending invitations</p>
+            </div>
+          ) : (
+            pendingInvites.map(inv => (
+              <div key={inv.id} className="bg-white rounded-xl border border-gray-200 p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600 font-bold">
+                    ✉️
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">{inv.name || inv.email}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${roleColors[inv.role] || roleColors.GUIDE}`}>
+                        {getRoleLabel(inv.role)}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        Sent {new Date(inv.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <button
-                    onClick={() => setInviteModalOpen(true)}
-                    className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 h-10"
-                >
-                    {t('sendInviteBtn')}
-                </button>
+                <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-semibold">Pending</span>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+
+      {/* Invite Modal */}
+      {showInvite && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 space-y-4">
+            <h2 className="text-lg font-bold text-gray-900">Invite Team Member</h2>
+
+            {/* Role Selector */}
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-2">Role</label>
+              <div className="grid grid-cols-2 gap-2">
+                {INVITABLE_ROLES.map(r => (
+                  <button
+                    key={r.value}
+                    onClick={() => setInviteRole(r.value)}
+                    className={`p-3 rounded-lg border text-left transition ${
+                      inviteRole === r.value
+                        ? "border-violet-400 bg-violet-50 ring-2 ring-violet-200"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <span className="text-lg">{r.icon}</span>
+                    <p className="font-semibold text-sm mt-1">{r.label}</p>
+                    <p className="text-[10px] text-gray-400">{r.desc}</p>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* In-House Guides List */}
-            <section>
-                <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('activeTeam.title')}</h2>
-                {guides.length === 0 ? (
-                    <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center text-gray-500">
-                        {t('activeTeam.empty')}
-                    </div>
-                ) : (
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {guides.map(guide => (
-                            <div
-                                key={guide.id}
-                                onClick={() => { setSelectedGuide(guide); fetchCalendar(guide.id); }}
-                                className="cursor-pointer rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-[#5BA4CF]/40 hover:shadow-md transition"
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-lunavia-muted/50 flex items-center justify-center text-[#2E8BC0] font-bold">
-                                        {guide.email[0].toUpperCase()}
-                                    </div>
-                                    <div>
-                                        <div className="font-medium text-gray-900">{guide.email}</div>
-                                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
-                                            <span className={`px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded ${guide.trust === 'VERIFIED' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-700'
-                                                }`}>
-                                                {guide.trust || t('activeTeam.unverified')}
-                                            </span>
-                                            {guide.kycStatus === 'APPROVED' ? (
-                                                <span className="flex items-center gap-1 text-emerald-600 font-medium">
-                                                    ✓ KYC
-                                                </span>
-                                            ) : (
-                                                <span className="bg-amber-100 text-amber-800 text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded">
-                                                    {t('activeTeam.pendingKyc')}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </section>
+            {/* Mode Tabs */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setInviteMode("email")}
+                className={`flex-1 py-2 rounded-lg text-sm font-medium transition border ${
+                  inviteMode === "email" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 text-gray-500 border-gray-200"
+                }`}
+              >
+                📧 By Email
+              </button>
+              <button
+                onClick={() => setInviteMode("guideId")}
+                className={`flex-1 py-2 rounded-lg text-sm font-medium transition border ${
+                  inviteMode === "guideId" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-gray-50 text-gray-500 border-gray-200"
+                }`}
+              >
+                🆔 By User ID
+              </button>
+            </div>
 
-            {/* Pending Invites */}
-            {invites.length > 0 && (
-                <section>
-                    <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('invites.title')}</h2>
-                    <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-gray-50 text-gray-500 font-medium">
-                                <tr>
-                                    <th className="px-4 py-3">{t('invites.colEmail')}</th>
-                                    <th className="px-4 py-3">{t('invites.colSent')}</th>
-                                    <th className="px-4 py-3">{t('invites.colExpires')}</th>
-                                    <th className="px-4 py-3">{t('invites.colStatus')}</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-100">
-                                {invites.map((invite) => (
-                                    <tr key={invite.id}>
-                                        <td className="px-4 py-3 font-medium text-gray-900">{invite.referredEmail}</td>
-                                        <td className="px-4 py-3 text-gray-500">{new Date(invite.createdAt).toLocaleDateString()}</td>
-                                        <td className="px-4 py-3 text-gray-500">{new Date(invite.expiresAt).toLocaleDateString()}</td>
-                                        <td className="px-4 py-3">
-                                            {!invite.isExpired ? (
-                                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                                                    {t('invites.statusPending')}
-                                                </span>
-                                            ) : (
-                                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
-                                                    {t('invites.statusExpired')}
-                                                </span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+            {inviteMode === "email" ? (
+              <input
+                type="email"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+                placeholder="user@email.com"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition"
+              />
+            ) : (
+              <input
+                type="text"
+                value={inviteGuideId}
+                onChange={(e) => setInviteGuideId(e.target.value)}
+                placeholder="User ID (cuid)"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm font-mono focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition"
+              />
             )}
 
-            {/* Invite Modal */}
-            {inviteModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-                        <h2 className="text-lg font-bold text-gray-900 mb-4">{t('modal.title')}</h2>
-
-                        {/* Mode Tabs */}
-                        <div className="flex gap-2 mb-4">
-                            <button
-                                onClick={() => setInviteMode('email')}
-                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'email' ? 'bg-lunavia-light text-[#2E8BC0] border border-[#5BA4CF]/30' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
-                            >
-                                {t('modal.tabEmail')}
-                            </button>
-                            <button
-                                onClick={() => setInviteMode('guideId')}
-                                className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${inviteMode === 'guideId' ? 'bg-lunavia-light text-[#2E8BC0] border border-[#5BA4CF]/30' : 'bg-gray-50 text-gray-500 border border-gray-200'}`}
-                            >
-                                {t('modal.tabGuideId')}
-                            </button>
-                        </div>
-
-                        {inviteMode === 'email' ? (
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">{t('modal.emailLabel')}</label>
-                                <input
-                                    type="email"
-                                    value={inviteEmail}
-                                    onChange={(e) => setInviteEmail(e.target.value)}
-                                    placeholder={t('modal.emailPlaceholder')}
-                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                />
-                                <p className="text-xs text-gray-400 mt-1">{t('modal.emailHint')}</p>
-                            </div>
-                        ) : (
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">{t('modal.idLabel')}</label>
-                                <input
-                                    type="text"
-                                    value={inviteGuideId}
-                                    onChange={(e) => setInviteGuideId(e.target.value)}
-                                    placeholder={t('modal.idPlaceholder')}
-                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm"
-                                />
-                                <p className="text-xs text-gray-400 mt-1">{t('modal.idHint')}</p>
-                            </div>
-                        )}
-
-                        <div className="flex justify-end gap-3">
-                            <button
-                                onClick={() => setInviteModalOpen(false)}
-                                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                            >
-                                {t('modal.cancelBtn')}
-                            </button>
-                            <button
-                                onClick={handleInvite}
-                                disabled={inviting || (inviteMode === 'email' ? !inviteEmail : !inviteGuideId)}
-                                className="rounded-lg bg-lunavia-primary px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-                            >
-                                {inviting ? t('modal.sendingBtn') : t('modal.sendBtn')}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Guide Schedule Modal */}
-            {selectedGuide && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setSelectedGuide(null)}>
-                    <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl h-[80vh] flex flex-col" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-start mb-4">
-                            <h2 className="text-lg font-bold text-gray-900">{t('schedule.title', { email: selectedGuide.email })}</h2>
-                            <button onClick={() => setSelectedGuide(null)} className="text-gray-400 hover:text-gray-600">✕</button>
-                        </div>
-
-                        <div className="flex-1 overflow-y-auto space-y-3 pr-2">
-                            {calendarLoading ? (
-                                <div className="text-center py-8 text-gray-500">{t('schedule.loading')}</div>
-                            ) : calendarEvents.length === 0 ? (
-                                <div className="text-center py-8 text-gray-500">{t('schedule.empty')}</div>
-                            ) : (
-                                calendarEvents.map(e => (
-                                    <div key={e.id} className={`p-3 rounded-lg border ${e.type === 'BLOCK' ? 'bg-gray-50 border-gray-200' : 'bg-purple-50 border-purple-200'
-                                        }`}>
-                                        <div className="flex justify-between">
-                                            <span className="font-medium text-sm">
-                                                {e.type === 'BLOCK' ? t('schedule.blocked') : `🚩 ${e.title}`}
-                                            </span>
-                                            <span className="text-xs text-gray-500">
-                                                {new Date(e.start).toLocaleDateString()}
-                                            </span>
-                                        </div>
-                                        <div className="text-xs text-gray-600 mt-1">
-                                            {new Date(e.start).toLocaleTimeString()} - {new Date(e.end).toLocaleTimeString()}
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                onClick={() => { setShowInvite(false); setInviteEmail(""); setInviteGuideId(""); setInviteRole("GUIDE"); }}
+                className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-200 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleInvite}
+                disabled={inviting}
+                className="px-5 py-2.5 bg-violet-600 text-white rounded-lg text-sm font-semibold hover:bg-violet-700 disabled:opacity-50 transition"
+              >
+                {inviting ? "Sending..." : "Send Invite"}
+              </button>
+            </div>
+          </div>
         </div>
-    );
-}
+      )}
 
+      {/* Summary */}
+      <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-400 text-center">
+        {allMembers.length} team member(s) • {pendingInvites.length} pending invite(s)
+      </div>
+    </div>
+  );
+
+  // ── Member Card ──
+  function renderMemberCard(member: Member) {
+    const isEditing = editRoleId === member.memberId;
+    const isDeleting = deleteId === member.memberId;
+    const isSelf = session?.user?.id === member.id;
+
+    return (
+      <div key={member.memberId} className={`bg-white rounded-xl border p-4 transition ${
+        isDeleting ? "border-red-300 bg-red-50/30" : "border-gray-200"
+      }`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {member.photoUrl ? (
+              <img src={member.photoUrl} className="w-10 h-10 rounded-full object-cover" alt="" />
+            ) : (
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${roleColors[member.role] || "bg-gray-100 text-gray-600"}`}>
+                {member.name[0]?.toUpperCase() || "?"}
+              </div>
+            )}
+            <div>
+              <p className="font-semibold text-gray-900 flex items-center gap-2">
+                {member.name}
+                {isSelf && <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">You</span>}
+              </p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${roleColors[member.role] || "bg-gray-100"}`}>
+                  {getRoleLabel(member.role)}
+                </span>
+                <span className="text-xs text-gray-400">{member.email}</span>
+                {member.kycStatus === "APPROVED" && (
+                  <span className="text-xs text-green-600 font-medium">✓ KYC</span>
+                )}
+                {member.contractVerified && (
+                  <span className="text-xs text-blue-600 font-medium">✓ Contract</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {canManage && !isSelf && member.role !== "OWNER" && !isEditing && !isDeleting && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => { setEditRoleId(member.memberId); setNewRole(member.role); }}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition"
+              >
+                Change Role
+              </button>
+              <button
+                onClick={() => setDeleteId(member.memberId)}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-red-200 text-red-500 hover:bg-red-50 transition"
+              >
+                Remove
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Role Change Inline */}
+        {isEditing && (
+          <div className="mt-3 flex items-center gap-3 bg-gray-50 rounded-lg p-3">
+            <select
+              value={newRole}
+              onChange={(e) => setNewRole(e.target.value)}
+              className="rounded-lg border border-gray-300 px-3 py-2 text-sm flex-1"
+            >
+              {MEMBER_ROLES.map(r => (
+                <option key={r.value} value={r.value}>{r.label} — {r.desc}</option>
+              ))}
+            </select>
+            <button
+              onClick={() => handleChangeRole(member.memberId)}
+              className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm font-semibold hover:bg-violet-700 transition"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setEditRoleId(null)}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+
+        {/* Delete Confirmation */}
+        {isDeleting && (
+          <div className="mt-3 flex items-center gap-3 bg-red-50 border border-red-200 rounded-lg p-3">
+            <span className="text-red-600 text-sm font-medium flex-1">
+              ⚠️ Remove <strong>{member.name}</strong> from the company? They will lose access.
+            </span>
+            <button
+              onClick={() => handleRemove(member.memberId)}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-bold hover:bg-red-700 transition"
+            >
+              Confirm
+            </button>
+            <button
+              onClick={() => setDeleteId(null)}
+              className="px-4 py-2 bg-white text-gray-700 rounded-lg text-sm font-semibold border border-gray-200 hover:bg-gray-50 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
