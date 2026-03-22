@@ -43,7 +43,7 @@ export default function MarketingNavbar() {
                     <LanguageSwitcher />
 
                     <Link href="/login" className="hidden sm:block px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition">{t('nav.login')}</Link>
-                    <Link href="/signup" className="hidden sm:block px-5 py-2.5 rounded-xl bg-lunavia-primary text-white text-sm font-semibold hover:bg-lunavia-primary-dark transition shadow-lg shadow-[#0077B6]/20">
+                    <Link href="/signup" className="hidden sm:block px-5 py-2.5 rounded-xl bg-lunavia-primary text-white text-sm font-semibold hover:bg-lunavia-primary-dark transition shadow-lg shadow-[#2E8BC0]/20">
                         {t('nav.startFree')}
                     </Link>
 

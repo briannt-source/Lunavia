@@ -33,13 +33,13 @@ export function Logo({
     lg: "text-2xl",
   };
 
-  const textColor = variant === "dark" ? "text-[#003049]" : "text-white";
+  const textColor = variant === "dark" ? "text-[#0F3D5C]" : "text-white";
 
   return (
     <Link href="/" className={cn("flex items-center gap-2.5", className)}>
       {/* Logo Icon — Lunavia Compass Wave */}
       <div className={cn(
-        "relative rounded-xl bg-gradient-to-br from-[#0096C7] to-[#0077B6] flex items-center justify-center shadow-lg shadow-[#0077B6]/20",
+        "relative rounded-xl bg-gradient-to-br from-[#5BA4CF] to-[#2E8BC0] flex items-center justify-center shadow-lg shadow-[#2E8BC0]/20",
         sizeClasses[size]
       )}>
         <svg

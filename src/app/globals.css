@@ -1,135 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 210 100% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 210 100% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 100% 12%;
-    /* Lunavia Ocean Blue - Primary */
-    --primary: 200 100% 36%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 200 20% 96%;
-    --secondary-foreground: 210 100% 12%;
-    --muted: 200 20% 96%;
-    --muted-foreground: 200 10% 46%;
-    --accent: 193 100% 42%;
-    --accent-foreground: 210 100% 12%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 200 20% 91%;
-    --input: 200 20% 91%;
-    --ring: 200 100% 36%;
-    --radius: 0.75rem;
-    --radius-sm: 0.375rem;
-    
-    /* Lunavia Brand Colors */
-    --lunavia-primary: 200 100% 36%;      /* #0077B6 */
-    --lunavia-primary-dark: 200 100% 28%; /* #005A8C */
-    --lunavia-secondary: 200 100% 15%;    /* #003049 */
-    --lunavia-accent: 210 100% 12%;       /* #001D3D */
-    --lunavia-accent-bright: 193 100% 42%; /* #00B4D8 */
-    --lunavia-light: 200 60% 95%;         /* Light tint */
-    --lunavia-lighter: 200 30% 98%;       /* Lighter tint */
-
-    /* ── Design System Tokens ─────────────────────────── */
-    /* Surface & Background */
-    --bg-main: 255 255 255;
-    --bg-subtle: 249 250 251;      /* gray-50 */
-    --bg-muted: 243 244 246;       /* gray-100 */
-    --bg-elevated: 255 255 255;    /* cards, modals */
-
-    /* Text */
-    --text-main: 17 24 39;         /* gray-900 */
-    --text-secondary: 75 85 99;    /* gray-600 */
-    --text-muted: 107 114 128;     /* gray-500 */
-    --text-faint: 156 163 175;     /* gray-400 */
-
-    /* Borders */
-    --border-subtle: 243 244 246;  /* gray-100 */
-    --border-default: 229 231 235; /* gray-200 */
-    --border-strong: 209 213 219;  /* gray-300 */
-
-    /* Brand — Lunavia Ocean Blue */
-    --color-primary: 0 119 182;         /* #0077B6 */
-    --color-primary-hover: 0 90 140;    /* #005A8C */
-    --color-primary-light: 232 244 253; /* #E8F4FD */
-    --color-primary-muted: 178 219 241; /* #B2DBF1 */
-
-    /* Accent — Bright Cyan */
-    --color-accent: 0 180 216;         /* #00B4D8 */
-    --color-accent-hover: 0 150 199;   /* #0096C7 */
-    --color-accent-light: 224 247 250; /* #E0F7FA */
-
-    /* Status */
-    --color-success: 34 197 94;    /* green-500 */
-    --color-warning: 245 158 11;   /* amber-500 */
-    --color-danger: 239 68 68;     /* red-500 */
-    --color-info: 59 130 246;      /* blue-500 */
-
-    /* Layout */
-    --sidebar-width: 260px;
-    --sidebar-collapsed-width: 72px;
-    --topbar-height: 56px;
-
-    /* Radius */
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 20px;
-    --radius-full: 9999px;
-
-    /* Shadows */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.03);
-    --shadow-glow: 0 0 20px rgba(0, 119, 182, 0.12);
-
-    /* Transitions */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .dark {
-    --background: 210 100% 6%;
-    --foreground: 200 20% 96%;
-    --card: 210 100% 8%;
-    --card-foreground: 200 20% 96%;
-    --popover: 210 100% 8%;
-    --popover-foreground: 200 20% 96%;
-    --primary: 200 100% 45%;
-    --primary-foreground: 210 100% 6%;
-    --secondary: 200 30% 15%;
-    --secondary-foreground: 200 20% 96%;
-    --muted: 200 30% 15%;
-    --muted-foreground: 200 15% 60%;
-    --accent: 193 100% 42%;
-    --accent-foreground: 200 20% 96%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 200 30% 18%;
-    --input: 200 30% 18%;
-    --ring: 200 100% 45%;
-  }
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    @apply bg-background text-foreground;
-  }
+h1, h2, h3, .font-display {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Lunavia Design Tokens
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Surface & Background ─────────────────────────── */
+  --bg-main: 255 255 255;
+  --bg-subtle: 249 250 251;      /* gray-50 */
+  --bg-muted: 243 244 246;       /* gray-100 */
+  --bg-elevated: 255 255 255;    /* cards, modals */
+
+  /* ── Text ──────────────────────────────────────────── */
+  --text-main: 17 24 39;         /* gray-900 */
+  --text-secondary: 75 85 99;    /* gray-600 */
+  --text-muted: 107 114 128;     /* gray-500 */
+  --text-faint: 156 163 175;     /* gray-400 */
+
+  /* ── Borders ───────────────────────────────────────── */
+  --border-subtle: 243 244 246;  /* gray-100 */
+  --border-default: 229 231 235; /* gray-200 */
+  --border-strong: 209 213 219;  /* gray-300 */
+
+  /* ── Brand — Lunavia Ocean Blue (Sea You Travel) ────── */
+  --color-primary: 46 139 192;         /* #2E8BC0 */
+  --color-primary-hover: 27 94 138;    /* #1B5E8A */
+  --color-primary-light: 232 244 253;  /* #E8F4FD */
+  --color-primary-muted: 178 219 241;  /* #B2DBF1 */
+  --color-primary-bright: 91 164 207;  /* #5BA4CF */
+
+  /* ── Accent — Sky Blue ────────────────────────────────── */
+  --color-accent: 59 169 220;         /* #3BA9DC */
+  --color-accent-hover: 46 139 192;   /* #2E8BC0 */
+  --color-accent-light: 232 244 253;  /* #E8F4FD */
+
+  /* ── Status ────────────────────────────────────────── */
+  --color-success: 34 197 94;    /* green-500 */
+  --color-warning: 245 158 11;   /* amber-500 */
+  --color-danger: 239 68 68;     /* red-500 */
+  --color-info: 59 130 246;      /* blue-500 */
+
+  /* ── Layout ────────────────────────────────────────── */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height: 56px;
+
+  /* ── Radius ────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ───────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 0 20px rgba(46, 139, 192, 0.15);
+  --shadow-blue: 0 4px 14px rgba(46, 139, 192, 0.12);
+
+  /* ── Transitions ───────────────────────────────────── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -202,7 +150,7 @@
 
   /* Focus */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-[#0077B6]/30 focus:ring-offset-1;
+    @apply focus:outline-none focus:ring-2 focus:ring-[#2E8BC0]/30 focus:ring-offset-1;
   }
 
   /* Card styles */
@@ -238,11 +186,42 @@
 
   /* Trust gradient — Ocean Blue */
   .trust-gradient {
-    background: linear-gradient(135deg, #00B4D8 0%, #0077B6 50%, #003049 100%);
+    background: linear-gradient(135deg, #5BA4CF 0%, #2E8BC0 50%, #1B5E8A 100%);
   }
 
   .accent-gradient {
-    background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%);
+    background: linear-gradient(135deg, #5BA4CF 0%, #2E8BC0 100%);
+  }
+
+  /* Premium card with blue top accent */
+  .card-premium {
+    @apply bg-white rounded-xl border border-gray-100;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #2E8BC0 0%, #5BA4CF 50%, #2E8BC0 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  .card-premium:hover {
+    box-shadow: var(--shadow-blue);
+    transform: translateY(-2px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Blue icon badge */
+  .icon-badge {
+    @apply p-3 rounded-xl;
+    background: linear-gradient(135deg, #5BA4CF 0%, #2E8BC0 100%);
+    box-shadow: 0 4px 12px rgba(46, 139, 192, 0.25);
   }
 
   /* Scrollbar */
@@ -285,7 +264,7 @@
 
   /* Brand gradient text */
   .text-brand-gradient {
-    background: linear-gradient(135deg, #00B4D8 0%, #0077B6 50%, #003049 100%);
+    background: linear-gradient(135deg, #5BA4CF 0%, #2E8BC0 50%, #1B5E8A 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -300,15 +279,17 @@
 .sidebar {
   width: var(--sidebar-width);
   transition: width var(--transition-slow);
-  background: rgb(var(--bg-main));
-  border-right: 1px solid rgb(var(--border-subtle));
+  background: linear-gradient(180deg, #FAFCFE 0%, #F0F7FC 100%);
+  border-right: 1px solid rgba(46, 139, 192, 0.08);
 }
 
 /* Topbar base */
 .topbar {
   height: var(--topbar-height);
-  background: rgb(var(--bg-main));
-  border-bottom: 1px solid rgb(var(--border-subtle));
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(46, 139, 192, 0.08);
 }
 
 /* Nav item base */
@@ -316,7 +297,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 12px;
+  padding: 8px 12px;
   border-radius: var(--radius-md);
   font-size: 13.5px;
   font-weight: 500;
@@ -327,26 +308,28 @@
 }
 
 .nav-item:hover {
-  background: rgb(var(--bg-muted));
-  color: rgb(var(--text-main));
+  background: rgba(46, 139, 192, 0.06);
+  color: #1B5E8A;
 }
 
 .nav-item.active {
-  background: var(--color-primary-light);
-  color: rgb(var(--color-primary));
+  background: rgba(46, 139, 192, 0.10);
+  color: #2E8BC0;
   font-weight: 600;
+  box-shadow: 0 1px 4px rgba(46, 139, 192, 0.08);
 }
 
 .nav-item.active::before {
   content: '';
   position: absolute;
-  left: -16px;
+  left: -12px;
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
-  height: 20px;
-  border-radius: 0 3px 3px 0;
-  background: rgb(var(--color-primary));
+  height: 22px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, #5BA4CF 0%, #2E8BC0 100%);
+  box-shadow: 0 0 8px rgba(46, 139, 192, 0.3);
 }
 
 /* Section label */
@@ -409,6 +392,10 @@
     height: calc(var(--topbar-height) + env(safe-area-inset-top, 0px));
   }
 
+  /* ── Safari PWA flicker fix ──
+     Safari standalone mode has a compositing bug when multiple
+     backdrop-blur layers overlap with sticky/fixed positioning.
+     Force GPU layers and disable blur to prevent repaint loops. */
   .topbar,
   nav.fixed {
     -webkit-transform: translateZ(0);
@@ -418,4 +405,3 @@
     backface-visibility: hidden;
   }
 }
-

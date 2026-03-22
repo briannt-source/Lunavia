@@ -50,8 +50,8 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 // Icon color groups — consistent visual hierarchy
 const IC = {
-    brand:   'text-lunavia-primary',   // #0077B6 — core / command center
-    ops:     'text-lunavia-accent',     // #00B4D8 — operations
+    brand:   'text-lunavia-primary',   // #2E8BC0 — core / command center
+    ops:     'text-lunavia-accent',     // #5BA4CF — operations
     finance: 'text-amber-500',         // money-related
     alert:   'text-red-400',           // incidents, disputes, risk
     system:  'text-green-500',         // system & admin tools

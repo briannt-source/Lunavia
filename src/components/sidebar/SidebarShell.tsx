@@ -83,9 +83,9 @@ export default function SidebarShell({
     const t = useTranslations('Dashboard.Sidebar');
 
     return (
-        <div className="flex h-full flex-col bg-[#FAFCFE]">
+        <div className="flex h-full flex-col" style={{ background: 'linear-gradient(180deg, #FAFCFE 0%, #F0F7FC 100%)' }}>
             {/* Logo */}
-            <div className="flex items-center gap-2.5 px-5 py-4 shrink-0 border-b border-gray-100/80">
+            <div className="flex items-center gap-2.5 px-5 py-4 shrink-0 border-b border-[#2E8BC0]/8">
                 <Logo size="sm" variant="dark" showText={true} showSubtitle={true} />
             </div>
 
@@ -95,9 +95,9 @@ export default function SidebarShell({
             </nav>
 
             {/* User Footer */}
-            <div className="shrink-0 border-t border-gray-100 px-3 py-3">
+            <div className="shrink-0 border-t border-[#2E8BC0]/8 px-3 py-3">
                 <div className="flex items-center gap-2.5 px-2 mb-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white bg-gradient-to-br from-[#0096C7] to-[#0077B6] shadow-sm">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white bg-gradient-to-br from-[#5BA4CF] to-[#2E8BC0] shadow-sm">
                         {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || '?'}
                     </div>
                     <div className="min-w-0 flex-1">

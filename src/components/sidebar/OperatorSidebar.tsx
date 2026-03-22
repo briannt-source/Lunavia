@@ -27,8 +27,8 @@ import {
 
 // Icon color groups — consistent visual hierarchy
 const IC = {
-    brand:   'text-lunavia-primary',   // #0077B6 — core navigation
-    tour:    'text-lunavia-accent',     // #00B4D8 — tour & team
+    brand:   'text-lunavia-primary',   // #2E8BC0 — core navigation
+    tour:    'text-lunavia-accent',     // #5BA4CF — tour & team
     ops:     'text-green-500',          // operations & tracking
     finance: 'text-amber-500',         // money-related
     alert:   'text-red-400',           // emergencies, disputes, risk
