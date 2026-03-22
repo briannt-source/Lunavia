@@ -181,6 +181,12 @@ export default function TourForm({ initialData, isEdit = false }: TourFormProps)
     // Fetch provinces/cities whenever country changes
     useEffect(() => {
         const activeCountry = marketType === 'OUTBOUND' ? country : 'VN';
+        // If Outbound but no country selected yet, clear the list
+        if (marketType === 'OUTBOUND' && !activeCountry) {
+            setProvinces([]);
+            setGroupedProvinces({});
+            return;
+        }
         fetch(`/api/locations?country=${activeCountry}`)
             .then(res => res.json())
             .then(data => {

@@ -27,6 +27,7 @@ export async function GET(req: NextRequest) {
     const languageFilter = searchParams.get("language");
     const groupSizeFilter = searchParams.get("groupSize");
     const startDateFilter = searchParams.get("startDate");
+    const marketTypeFilter = searchParams.get("marketType");
 
     const where: any = {};
 
@@ -68,6 +69,11 @@ export async function GET(req: NextRequest) {
     // Start date filter (tours starting on or after this date)
     if (startDateFilter) {
       where.startDate = { gte: new Date(startDateFilter) };
+    }
+
+    // Market type filter (INBOUND / OUTBOUND)
+    if (marketTypeFilter) {
+      where.marketType = marketTypeFilter;
     }
 
     const [tours, total] = await Promise.all([

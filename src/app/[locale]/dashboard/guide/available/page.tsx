@@ -79,6 +79,7 @@ export default function GuideAvailablePage() {
   const [category, setCategory] = useState('');
   const [groupSize, setGroupSize] = useState('');
   const [language, setLanguage] = useState('');
+  const [marketFilter, setMarketFilter] = useState<'' | 'INBOUND' | 'OUTBOUND'>('');
   const [sortBy, setSortBy] = useState<'suggested' | 'date_posted' | 'high_payout' | 'urgent' | 'trust'>('suggested');
 
   // Guide's own profile for region-based suggestions
@@ -118,6 +119,7 @@ export default function GuideAvailablePage() {
         if (category) params.append('category', category);
         if (groupSize) params.append('groupSize', groupSize);
         if (language) params.append('language', language);
+        if (marketFilter) params.append('marketType', marketFilter);
 
         const res = await fetch(`/api/requests?${params.toString()}`);
         const response = await res.json();
@@ -135,7 +137,7 @@ export default function GuideAvailablePage() {
     } finally {
       setLoading(false);
     }
-  }, [province, startDate, category, groupSize, language, activeTab]);
+  }, [province, startDate, category, groupSize, language, marketFilter, activeTab]);
 
   useEffect(() => {
     fetchRequests();
@@ -287,7 +289,7 @@ export default function GuideAvailablePage() {
                   {t('filters.title')}
                 </h2>
                 <button
-                  onClick={() => { setProvince(''); setStartDate(''); setCategory(''); setGroupSize(''); setLanguage(''); }}
+                  onClick={() => { setProvince(''); setStartDate(''); setCategory(''); setGroupSize(''); setLanguage(''); setMarketFilter(''); }}
                   className="text-xs font-medium text-gray-400 hover:text-[#5BA4CF] transition"
                 >
                   {t('filters.clear')}
@@ -295,6 +297,34 @@ export default function GuideAvailablePage() {
               </div>
 
               <div className="space-y-5">
+                {/* Market Type */}
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">🌍 Market</label>
+                  <div className="flex gap-1.5">
+                    {[
+                      { value: '', label: 'All' },
+                      { value: 'INBOUND', label: '🇻🇳 Inbound' },
+                      { value: 'OUTBOUND', label: '✈️ Outbound' },
+                    ].map(opt => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setMarketFilter(opt.value as any)}
+                        className={`flex-1 px-2 py-2 rounded-lg text-xs font-semibold transition border ${
+                          marketFilter === opt.value
+                            ? opt.value === 'OUTBOUND'
+                              ? 'bg-purple-50 text-purple-700 border-purple-300'
+                              : opt.value === 'INBOUND'
+                                ? 'bg-lunavia-light text-lunavia-primary-hover border-lunavia-muted/60'
+                                : 'bg-gray-900 text-white border-gray-900'
+                            : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Location */}
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1.5">{t('filters.location')}</label>
