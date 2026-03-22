@@ -221,7 +221,7 @@ export default async function AdminDashboard() {
                     <Link
                       key={dispute.id}
                       href={`/dashboard/admin/disputes/${dispute.id}`}
-                      className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
+                      className="block p-4 border border-gray-100/80 rounded-xl hover:bg-lunavia-primary-light/30 hover:border-lunavia-muted/40 transition-all duration-200 hover:shadow-sm"
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -268,7 +268,7 @@ export default async function AdminDashboard() {
                     <Link
                       key={verification.id}
                       href={`/dashboard/admin/verifications/${verification.id}`}
-                      className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
+                      className="block p-4 border border-gray-100/80 rounded-xl hover:bg-lunavia-primary-light/30 hover:border-lunavia-muted/40 transition-all duration-200 hover:shadow-sm"
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -309,7 +309,7 @@ export default async function AdminDashboard() {
                   <Link
                     key={request.id}
                     href={`/dashboard/admin/requests?tab=topup&id=${request.id}`}
-                    className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
+                    className="block p-4 border border-gray-100/80 rounded-xl hover:bg-lunavia-primary-light/30 hover:border-lunavia-muted/40 transition-all duration-200 hover:shadow-sm"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -349,7 +349,7 @@ export default async function AdminDashboard() {
                   <Link
                     key={request.id}
                     href={`/dashboard/admin/requests?tab=withdrawal&id=${request.id}`}
-                    className="block p-4 border border-gray-100 rounded-xl hover:bg-gray-50/60 transition-colors"
+                    className="block p-4 border border-gray-100/80 rounded-xl hover:bg-lunavia-primary-light/30 hover:border-lunavia-muted/40 transition-all duration-200 hover:shadow-sm"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
