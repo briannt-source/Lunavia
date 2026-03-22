@@ -47,76 +47,85 @@ export default async function AdminDashboard() {
   const canViewRequests = isSuperAdmin;
 
   // Get comprehensive stats
-  const [
-    pendingDisputes,
-    pendingVerifications,
-    totalUsers,
-    totalTours,
-    activeTours,
-    pendingTopUps,
-    pendingWithdrawals,
-    totalOperators,
-    totalGuides,
-    totalRevenue,
-  ] = await Promise.all([
-    prisma.dispute.count({ where: { status: "PENDING" } }),
-    prisma.verification.count({ where: { status: "PENDING" } }),
-    prisma.user.count(),
-    prisma.tour.count(),
-    prisma.tour.count({ where: { status: "OPEN" } }),
-    canViewRequests ? prisma.topUpRequest.count({ where: { status: "PENDING" } }) : 0,
-    canViewRequests ? prisma.withdrawalRequest.count({ where: { status: "PENDING" } }) : 0,
-    prisma.user.count({ where: { role: { in: ["TOUR_OPERATOR", "TOUR_AGENCY"] } } }),
-    prisma.user.count({ where: { role: "TOUR_GUIDE" } }),
-    prisma.payment.aggregate({
-      _sum: { amount: true },
-      where: { status: "COMPLETED" },
-    }).then((r) => r._sum.amount || 0),
-  ]);
+  let pendingDisputes = 0, pendingVerifications = 0, totalUsers = 0, totalTours = 0,
+      activeTours = 0, pendingTopUps = 0, pendingWithdrawals = 0, totalOperators = 0,
+      totalGuides = 0, totalRevenue = 0;
+  try {
+    [
+      pendingDisputes,
+      pendingVerifications,
+      totalUsers,
+      totalTours,
+      activeTours,
+      pendingTopUps,
+      pendingWithdrawals,
+      totalOperators,
+      totalGuides,
+      totalRevenue,
+    ] = await Promise.all([
+      prisma.dispute.count({ where: { status: "PENDING" } }),
+      prisma.verification.count({ where: { status: "PENDING" } }),
+      prisma.user.count(),
+      prisma.tour.count(),
+      prisma.tour.count({ where: { status: "OPEN" } }),
+      canViewRequests ? prisma.topUpRequest.count({ where: { status: "PENDING" } }) : 0,
+      canViewRequests ? prisma.withdrawalRequest.count({ where: { status: "PENDING" } }) : 0,
+      prisma.user.count({ where: { role: { in: ["TOUR_OPERATOR", "TOUR_AGENCY"] } } }),
+      prisma.user.count({ where: { role: "TOUR_GUIDE" } }),
+      prisma.payment.aggregate({
+        _sum: { amount: true },
+        where: { status: "COMPLETED" },
+      }).then((r) => r._sum.amount || 0),
+    ]);
+  } catch (e) { console.error("[admin-dashboard] stats error", e); }
 
   // Get recent items
-  const [recentDisputes, pendingVerificationsList, recentTopUps, recentWithdrawals] = await Promise.all([
-    isModerator ? prisma.dispute.findMany({
-      where: { status: "PENDING" },
-      include: {
-        user: {
-          include: { profile: true },
+  let recentDisputes: any[] = [], pendingVerificationsList: any[] = [],
+      recentTopUps: any[] = [], recentWithdrawals: any[] = [];
+  try {
+    [recentDisputes, pendingVerificationsList, recentTopUps, recentWithdrawals] = await Promise.all([
+      isModerator ? prisma.dispute.findMany({
+        where: { status: "PENDING" },
+        include: {
+          user: {
+            include: { profile: true },
+          },
         },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }) : [],
-    isModerator ? prisma.verification.findMany({
-      where: { status: "PENDING" },
-      include: {
-        user: {
-          include: { profile: true },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }) : [],
+      isModerator ? prisma.verification.findMany({
+        where: { status: "PENDING" },
+        include: {
+          user: {
+            include: { profile: true },
+          },
         },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }) : [],
-    canViewRequests ? prisma.topUpRequest.findMany({
-      where: { status: "PENDING" },
-      include: {
-        user: {
-          include: { profile: true },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }) : [],
+      canViewRequests ? prisma.topUpRequest.findMany({
+        where: { status: "PENDING" },
+        include: {
+          user: {
+            include: { profile: true },
+          },
         },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }) : [],
-    canViewRequests ? prisma.withdrawalRequest.findMany({
-      where: { status: "PENDING" },
-      include: {
-        user: {
-          include: { profile: true },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }) : [],
+      canViewRequests ? prisma.withdrawalRequest.findMany({
+        where: { status: "PENDING" },
+        include: {
+          user: {
+            include: { profile: true },
+          },
         },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }) : [],
-  ]);
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }) : [],
+    ]);
+  } catch (e) { console.error("[admin-dashboard] recent items error", e); }
 
   return (
     <div className="space-y-6 animate-fade-in">

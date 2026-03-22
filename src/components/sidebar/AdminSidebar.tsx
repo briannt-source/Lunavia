@@ -257,11 +257,8 @@ export default function AdminSidebar() {
 
             {/* ── Profile ──────────────────── */}
             <NavSection>
-                <NavItem href="/dashboard/admin/profile" icon={User} active={isActive('/dashboard/admin/profile')} iconColor={IC.account}>
+                <NavItem href="/dashboard/admin/profile" icon={User} active={isActive('/dashboard/admin/profile') || isActive('/dashboard/admin/settings')} iconColor={IC.account}>
                     {t('links.myProfile')}
-                </NavItem>
-                <NavItem href="/dashboard/admin/settings" icon={Settings} active={isActive('/dashboard/admin/settings')} iconColor={IC.account}>
-                    {t('links.adminSettings')}
                 </NavItem>
             </NavSection>
         </SidebarShell>
