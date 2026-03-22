@@ -35,11 +35,16 @@ export default function FleetMap({ isAdmin = false }: { isAdmin?: boolean }) {
             if (res.ok) {
                 setFleet(data.data || []);
                 setLastRefresh(new Date());
+                setError(''); // Clear any previous error on success
             } else {
                 setError(data.error || 'Failed to fetch fleet data');
             }
         } catch (e: any) {
-            setError('Network error loading fleet');
+            // Only show network error if we don't already have data
+            if (fleet.length === 0) {
+                setError('Unable to connect to server. Please check your connection and try again.');
+            }
+            console.error('Fleet fetch error:', e);
         } finally {
             setLoading(false);
         }

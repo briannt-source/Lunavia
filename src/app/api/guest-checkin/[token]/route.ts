@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 /**
- * GET /api/guest-checkin/:token — Guest self-check-in via token link
+ * GET /api/guest-checkin/:token — Guest self-check-in via tour ID
  * POST /api/guest-checkin/:token — Submit guest check-in
  */
 export async function GET(
@@ -12,14 +12,9 @@ export async function GET(
   try {
     const { token } = await params;
 
-    // Try to find the tour associated with this guest check-in token
-    const tour = await prisma.tour.findFirst({
-      where: {
-        OR: [
-          { shareToken: token },
-          { id: token },
-        ],
-      },
+    // Find the tour by ID (token = tour ID)
+    const tour = await prisma.tour.findUnique({
+      where: { id: token },
       select: { id: true, title: true, city: true, startDate: true, status: true },
     });
 
@@ -47,12 +42,48 @@ export async function POST(
   try {
     const { token } = await params;
     const body = await req.json();
+    const guestName = body.name || "Guest";
+
+    // Find the tour by ID
+    const tour = await prisma.tour.findUnique({
+      where: { id: token },
+      select: { id: true, title: true, status: true },
+    });
+
+    if (!tour) {
+      return NextResponse.json({ error: "Invalid check-in link" }, { status: 404 });
+    }
+
+    if (tour.status !== "IN_PROGRESS") {
+      return NextResponse.json(
+        { error: "Check-in is only available for tours currently in progress" },
+        { status: 400 }
+      );
+    }
+
+    // Save check-in as a timeline event
+    const checkedInAt = new Date();
+    await prisma.tourTimelineEvent.create({
+      data: {
+        tourId: tour.id,
+        actorRole: "GUEST",
+        eventType: "GUEST_CHECKIN",
+        title: `Guest checked in: ${guestName}`,
+        description: body.notes || null,
+        metadata: JSON.stringify({
+          guestName,
+          checkedInAt: checkedInAt.toISOString(),
+          guestCount: body.guestCount || 1,
+        }),
+      },
+    });
 
     return NextResponse.json({
       success: true,
       token,
-      guestName: body.name || "Guest",
-      checkedInAt: new Date().toISOString(),
+      guestName,
+      tourTitle: tour.title,
+      checkedInAt: checkedInAt.toISOString(),
     });
   } catch (error: any) {
     console.error("Error processing guest check-in:", error);

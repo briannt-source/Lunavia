@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { Link } from '@/navigation';
 import { CancelApplicationDialog } from "@/components/cancel-application-dialog";
 
 export default function GuideApplicationsPage() {
+  const t = useTranslations("Guide.GuideApplications");
   const [filters, setFilters] = useState({
     status: "all",
     role: "all",
@@ -51,15 +53,15 @@ export default function GuideApplicationsPage() {
   return (
     <>
       <PageHeader
-        title="My Applications"
-        description="View and manage your tour applications"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng ứng tuyển</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.total")}</CardTitle>
             <Briefcase className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -68,7 +70,7 @@ export default function GuideApplicationsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -77,7 +79,7 @@ export default function GuideApplicationsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã chấp nhận</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.accepted")}</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -86,7 +88,7 @@ export default function GuideApplicationsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã từ chối</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.rejected")}</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -107,10 +109,10 @@ export default function GuideApplicationsPage() {
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All statuses</SelectItem>
-                <SelectItem value="PENDING">Đang chờ</SelectItem>
-                <SelectItem value="ACCEPTED">Đã chấp nhận</SelectItem>
-                <SelectItem value="REJECTED">Đã từ chối</SelectItem>
+                <SelectItem value="all">{t("filters.allStatuses")}</SelectItem>
+                <SelectItem value="PENDING">{t("filters.pending")}</SelectItem>
+                <SelectItem value="ACCEPTED">{t("filters.accepted")}</SelectItem>
+                <SelectItem value="REJECTED">{t("filters.rejected")}</SelectItem>
               </SelectContent>
             </Select>
             <Select
@@ -121,9 +123,9 @@ export default function GuideApplicationsPage() {
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả vai trò</SelectItem>
-                <SelectItem value="MAIN">HDV chính</SelectItem>
-                <SelectItem value="SUB">HDV phụ</SelectItem>
+                <SelectItem value="all">{t("filters.allRoles")}</SelectItem>
+                <SelectItem value="MAIN">{t("filters.mainGuide")}</SelectItem>
+                <SelectItem value="SUB">{t("filters.subGuide")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -133,7 +135,7 @@ export default function GuideApplicationsPage() {
       {/* Applications List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách ứng tuyển ({applications.length})</CardTitle>
+          <CardTitle>{t("list", { count: applications.length })}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -143,11 +145,11 @@ export default function GuideApplicationsPage() {
           ) : applications.length === 0 ? (
             <EmptyState
               icon={Briefcase}
-              title="No applications yet"
-              description="Start finding and applying for tours that match your skills"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
               action={
                 <Link href="/dashboard/guide/tours">
-                  <Button>Tìm tour</Button>
+                  <Button>{t("findTours")}</Button>
                 </Link>
               }
             />
@@ -192,14 +194,14 @@ export default function GuideApplicationsPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <Clock className="h-4 w-4" />
-                            <span>Ứng tuyển: {formatDate(application.appliedAt)}</span>
+                            <span>{t("appliedAt", { date: formatDate(application.appliedAt) })}</span>
                           </div>
                         </div>
 
                         {application.coverLetter && (
                           <div className="mt-3 p-3 bg-slate-50 rounded-lg">
                             <p className="text-sm text-slate-700">
-                              <span className="font-medium">Thư xin việc:</span> {application.coverLetter}
+                              <span className="font-medium">{t("coverLetter")}</span> {application.coverLetter}
                             </p>
                           </div>
                         )}
@@ -214,7 +216,7 @@ export default function GuideApplicationsPage() {
                       <div className="flex flex-col gap-2 ml-4">
                         <Link href={`/tours/${application.tour.id}`}>
                           <Button variant="outline" size="sm">
-                            Xem tour
+                            {t("viewTour")}
                           </Button>
                         </Link>
                         {application.status === "PENDING" && new Date(application.tour.startDate) > new Date() && (
@@ -228,7 +230,7 @@ export default function GuideApplicationsPage() {
                             }}
                           >
                             <X className="h-4 w-4 mr-1" />
-                            Hủy ứng tuyển
+                            {t("cancelApplication")}
                           </Button>
                         )}
                       </div>
@@ -256,4 +258,3 @@ export default function GuideApplicationsPage() {
     </>
   );
 }
-

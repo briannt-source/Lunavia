@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { BaseDashboardLayout } from '@/components/layout/BaseDashboardLayout';
 import { prisma } from '@/lib/prisma';
 import { Link } from '@/navigation';
+import { GuideReliabilityDomain } from '@/domain/execution/GuideReliabilityDomain';
 
 export const metadata = { title: 'Profile — Lunavia' };
 
@@ -50,6 +51,13 @@ export default async function ProfilePage() {
             avgRating = avgRatingResult._avg?.overallRating ?? null;
         } catch { /* Stats unavailable — graceful fallback */ }
 
+        // Fetch reliability score from domain service
+        let reliabilityScore = 100;
+        try {
+            const reliabilityStats = await GuideReliabilityDomain.getGuideReliabilityStats(user.id);
+            reliabilityScore = reliabilityStats.reliabilityScore;
+        } catch { /* Reliability unavailable — default to 100 */ }
+
         const verif = {
             NOT_SUBMITTED: { color: 'bg-gray-100 text-gray-600', icon: '○', label: 'Not Started' },
             PENDING: { color: 'bg-amber-100 text-amber-700', icon: '⏳', label: 'Under Review' },
@@ -69,7 +77,7 @@ export default async function ProfilePage() {
                 <div className="max-w-3xl mx-auto space-y-6">
                     {/* ── Profile Header */}
                     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="h-20 bg-gradient-to-r from-lunavia-primary to-lunavia-accent" />
+                        <div className="h-20 bg-gradient-to-r from-slate-100 to-slate-200" />
                         <div className="px-6 pb-6 -mt-10">
                             <div className="flex items-end gap-5">
                                 <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-lunavia-primary shrink-0 overflow-hidden relative">
@@ -88,9 +96,15 @@ export default async function ProfilePage() {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="text-right hidden sm:block pb-1">
-                                    <div className="text-3xl font-bold text-lunavia-primary">{user.trustScore}</div>
-                                    <div className="text-[10px] text-gray-400 uppercase tracking-wide">Trust Score</div>
+                                <div className="text-right hidden sm:flex gap-5 pb-1">
+                                    <div className="text-center">
+                                        <div className="text-3xl font-bold text-lunavia-primary">{user.trustScore}</div>
+                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Trust Score</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-3xl font-bold text-emerald-600">{reliabilityScore}</div>
+                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Reliability</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,11 +119,12 @@ export default async function ProfilePage() {
                     </div>
 
                     {/* ── Quick Stats */}
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
                             { value: completedTours, label: 'Completed Tours', color: 'text-green-600' },
                             { value: avgRating ? avgRating.toFixed(1) : '—', label: 'Avg Rating', color: 'text-amber-600' },
                             { value: totalReviews, label: 'Reviews', color: 'text-lunavia-accent' },
+                            { value: reliabilityScore, label: 'Reliability', color: 'text-emerald-600' },
                         ].map((stat, i) => (
                             <div key={i} className="bg-white rounded-xl border border-gray-200 p-4 text-center">
                                 <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
@@ -140,28 +155,6 @@ export default async function ProfilePage() {
                                 </div>
                             </div>
                             <div className="mt-4 text-xs font-semibold text-green-600 group-hover:translate-x-1 transition-transform">Edit →</div>
-                        </Link>
-
-                        <Link href="/dashboard/guide/profile/security" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-lunavia-primary/30 hover:shadow-md transition-all">
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-lunavia-primary-light flex items-center justify-center text-lg group-hover:bg-lunavia-muted/30 transition">🔐</div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Security</h3>
-                                    <p className="text-xs text-gray-500">Change password, manage sessions</p>
-                                </div>
-                            </div>
-                            <div className="mt-4 text-xs font-semibold text-lunavia-primary group-hover:translate-x-1 transition-transform">Manage →</div>
-                        </Link>
-
-                        <Link href="/dashboard/guide/settings" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-lunavia-accent/30 hover:shadow-md transition-all">
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-lunavia-accent-light flex items-center justify-center text-lg group-hover:bg-lunavia-accent-light/80 transition">⚙️</div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">Settings</h3>
-                                    <p className="text-xs text-gray-500">Notifications and preferences</p>
-                                </div>
-                            </div>
-                            <div className="mt-4 text-xs font-semibold text-lunavia-accent group-hover:translate-x-1 transition-transform">Configure →</div>
                         </Link>
                     </div>
                 </div>

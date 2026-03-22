@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +14,7 @@ import toast from "react-hot-toast";
 import { Link } from '@/navigation';
 
 export default function NotificationsPage() {
+  const t = useTranslations("Shared.Notifications");
   const { data, refetch } = useQuery({
     queryKey: ["notifications"],
     queryFn: () => api.notifications.list(),
@@ -32,8 +34,8 @@ export default function NotificationsPage() {
   return (
     <>
       <PageHeader
-        title="Notifications"
-        description={`${data?.unreadCount || 0} thông báo chưa đọc`}
+        title={t("title")}
+        description={t("unreadCount", { count: data?.unreadCount || 0 })}
       />
 
       <Card>
@@ -80,12 +82,12 @@ export default function NotificationsPage() {
                           onClick={() => handleMarkRead(notif.id)}
                         >
                           <CheckCircle2 className="h-4 w-4 mr-2" />
-                          Đã đọc
+                          {t("markRead")}
                         </Button>
                       )}
                       {notif.link && (
                         <Link href={notif.link}>
-                          <Button size="sm">Xem</Button>
+                          <Button size="sm">{t("view")}</Button>
                         </Link>
                       )}
                     </div>
@@ -99,17 +101,3 @@ export default function NotificationsPage() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

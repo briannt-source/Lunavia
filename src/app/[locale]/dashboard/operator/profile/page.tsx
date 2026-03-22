@@ -68,7 +68,7 @@ export default async function ProfilePage() {
                 <div className="max-w-3xl mx-auto space-y-6">
                     {/* ── Profile Header */}
                     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                        <div className="h-28 bg-gradient-to-r from-indigo-500 to-purple-600" />
+                        <div className="h-28 bg-gradient-to-r from-slate-100 to-slate-200" />
                         <div className="px-6 pb-6 -mt-12">
                             <div className="flex items-end gap-5">
                                 <div className="h-20 w-20 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-2xl font-bold text-indigo-600 shrink-0 overflow-hidden relative">
@@ -88,8 +88,8 @@ export default async function ProfilePage() {
                                     </div>
                                 </div>
                                 <div className="text-right hidden sm:block pb-1">
-                                    <div className="text-3xl font-bold text-indigo-600">{user.trustScore}</div>
-                                    <div className="text-[10px] text-gray-400 uppercase tracking-wide">Trust Score</div>
+                                    <div className="text-3xl font-bold text-lunavia-primary">{user.trustScore}</div>
+                                    <div className="text-[10px] text-gray-500 uppercase tracking-wide">Trust Score</div>
                                 </div>
                             </div>
                         </div>
@@ -142,12 +142,12 @@ export default async function ProfilePage() {
                             <div className="mt-4 text-xs font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform">Edit →</div>
                         </Link>
 
-                        <Link href="/dashboard/operator/profile/security" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-emerald-300 hover:shadow-md transition-all">
+                        <Link href="/dashboard/operator/company" className="group bg-white rounded-xl border border-gray-200 p-6 hover:border-emerald-300 hover:shadow-md transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-emerald-50 flex items-center justify-center text-lg group-hover:bg-emerald-100 transition">🔐</div>
+                                <div className="h-10 w-10 rounded-lg bg-emerald-50 flex items-center justify-center text-lg group-hover:bg-emerald-100 transition">🏢</div>
                                 <div>
-                                    <h3 className="font-semibold text-gray-900">Security</h3>
-                                    <p className="text-xs text-gray-500">Change password, manage sessions</p>
+                                    <h3 className="font-semibold text-gray-900">Company</h3>
+                                    <p className="text-xs text-gray-500">Manage your company and guides</p>
                                 </div>
                             </div>
                             <div className="mt-4 text-xs font-semibold text-emerald-600 group-hover:translate-x-1 transition-transform">Manage →</div>

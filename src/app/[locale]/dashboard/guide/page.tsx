@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +27,7 @@ import { formatVND, formatDate } from "@/lib/utils";
 import { Link } from '@/navigation';
 
 export default function GuideDashboard() {
+  const t = useTranslations("Guide.GuideDashboard");
   const { data: userInfo } = useQuery({
     queryKey: ["userInfo"],
     queryFn: () => api.user.info(),
@@ -60,8 +62,8 @@ export default function GuideDashboard() {
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard Guide</h1>
-        <p className="text-sm text-gray-500 mt-1">Tổng quan hoạt động của bạn</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
+        <p className="text-sm text-gray-500 mt-1">{t("subtitle")}</p>
       </div>
 
       {/* KYC Banner */}
@@ -71,22 +73,22 @@ export default function GuideDashboard() {
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-amber-900 text-sm">
               {verifiedStatus === "NOT_SUBMITTED"
-                ? "Complete KYC to apply for tours"
+                ? t("kyc.notSubmitted")
                 : verifiedStatus === "PENDING"
-                ? "KYC pending review"
-                : "KYC rejected — Please resubmit"}
+                ? t("kyc.pending")
+                : t("kyc.rejected")}
             </p>
             <p className="text-xs text-amber-700 mt-1">
               {verifiedStatus === "NOT_SUBMITTED"
-                ? "Submit real photos, ID card, guide license, proof of address to apply."
+                ? t("kyc.notSubmittedDesc")
                 : verifiedStatus === "PENDING"
-                ? "Under admin review. Please wait."
-                : "Review and resubmit your documents."}
+                ? t("kyc.pendingDesc")
+                : t("kyc.rejectedDesc")}
             </p>
             {verifiedStatus !== "PENDING" && (
               <Link href="/dashboard/verification/kyc">
                 <Button size="sm" className="mt-2.5 bg-amber-600 hover:bg-amber-700 text-xs h-7">
-                  {verifiedStatus === "NOT_SUBMITTED" ? "Submit KYC Now" : "Resubmit KYC"}
+                  {verifiedStatus === "NOT_SUBMITTED" ? t("kyc.submitBtn") : t("kyc.resubmitBtn")}
                 </Button>
               </Link>
             )}
@@ -96,12 +98,12 @@ export default function GuideDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-        <StatCard icon={<Briefcase className="h-4 w-4" />} label="Applications" value={stats.totalApplications} color="brand" />
-        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Approve" value={stats.acceptedApplications} color="green" />
-        <StatCard icon={<Clock className="h-4 w-4" />} label="Pending" value={stats.pendingApplications} color="amber" />
-        <StatCard icon={<XCircle className="h-4 w-4" />} label="Reject" value={stats.rejectedApplications} color="red" />
-        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Earnings" value={formatVND(stats.totalEarned)} color="slate" small />
-        <StatCard icon={<DollarSign className="h-4 w-4" />} label="Balance" value={formatVND(stats.walletBalance)} color="slate" small />
+        <StatCard icon={<Briefcase className="h-4 w-4" />} label={t("stats.applications")} value={stats.totalApplications} color="brand" />
+        <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label={t("stats.approved")} value={stats.acceptedApplications} color="green" />
+        <StatCard icon={<Clock className="h-4 w-4" />} label={t("stats.pending")} value={stats.pendingApplications} color="amber" />
+        <StatCard icon={<XCircle className="h-4 w-4" />} label={t("stats.rejected")} value={stats.rejectedApplications} color="red" />
+        <StatCard icon={<DollarSign className="h-4 w-4" />} label={t("stats.earnings")} value={formatVND(stats.totalEarned)} color="slate" small />
+        <StatCard icon={<DollarSign className="h-4 w-4" />} label={t("stats.balance")} value={formatVND(stats.walletBalance)} color="slate" small />
       </div>
 
       {/* Performance + Recent Activity */}
@@ -111,14 +113,14 @@ export default function GuideDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-lunavia-primary" />
-              Hiệu Suất
+              {t("performance")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2.5">
-            <PerformanceRow label="Success Rate" value={`${stats.successRate}%`} color="text-green-600" />
-            <PerformanceRow label="Tours Completed" value={stats.completedTours} color="text-lunavia-primary" />
-            <PerformanceRow label="Total Earnings" value={formatVND(stats.totalEarned)} color="text-gray-900" />
-            <PerformanceRow label="Current Balance" value={formatVND(stats.walletBalance)} color="text-gray-900" />
+            <PerformanceRow label={t("successRate")} value={`${stats.successRate}%`} color="text-green-600" />
+            <PerformanceRow label={t("toursCompleted")} value={stats.completedTours} color="text-lunavia-primary" />
+            <PerformanceRow label={t("totalEarnings")} value={formatVND(stats.totalEarned)} color="text-gray-900" />
+            <PerformanceRow label={t("currentBalance")} value={formatVND(stats.walletBalance)} color="text-gray-900" />
           </CardContent>
         </Card>
 
@@ -127,29 +129,29 @@ export default function GuideDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <Activity className="h-4 w-4 text-lunavia-accent" />
-              Hoạt Động (7 ngày)
+              {t("recentActivity")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2.5">
             <div className="flex items-center justify-between p-3 rounded-lg bg-lunavia-primary-light/60">
-              <span className="text-xs font-medium text-lunavia-primary">Ứng tuyển mới</span>
+              <span className="text-xs font-medium text-lunavia-primary">{t("newApplications")}</span>
               <span className="text-sm font-bold text-lunavia-primary-hover">{stats.recentApplications}</span>
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg bg-green-50/60">
-              <span className="text-xs font-medium text-green-700">Đã chấp nhận</span>
+              <span className="text-xs font-medium text-green-700">{t("accepted")}</span>
               <span className="text-sm font-bold text-green-900">{stats.acceptedApplications}</span>
             </div>
             <div className="grid grid-cols-2 gap-2 pt-2">
               <Link href="/dashboard/guide/applications">
                 <Button variant="outline" size="sm" className="w-full text-xs">
                   <Briefcase className="h-3.5 w-3.5 mr-1.5" />
-                  Ứng tuyển
+                  {t("applicationsBtn")}
                 </Button>
               </Link>
               <Link href="/dashboard/guide/available">
                 <Button variant="outline" size="sm" className="w-full text-xs">
                   <Search className="h-3.5 w-3.5 mr-1.5" />
-                  Tìm Tour
+                  {t("findTours")}
                 </Button>
               </Link>
             </div>
@@ -163,7 +165,7 @@ export default function GuideDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <Calendar className="h-4 w-4 text-lunavia-accent" />
-              Tour Sắp Tới
+              {t("upcomingTours")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -197,9 +199,9 @@ export default function GuideDashboard() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <QuickAction href="/dashboard/guide/available" icon={<Search className="h-4 w-4" />} label="Find Tours" primary />
+        <QuickAction href="/dashboard/guide/available" icon={<Search className="h-4 w-4" />} label={t("findTours")} primary />
         <QuickAction href="/dashboard/guide/wallet" icon={<Wallet className="h-4 w-4" />} label="Wallet" />
-        <QuickAction href="/dashboard/guide/earnings" icon={<Coins className="h-4 w-4" />} label="Earnings" />
+        <QuickAction href="/dashboard/guide/earnings" icon={<Coins className="h-4 w-4" />} label={t("stats.earnings")} />
         <QuickAction href="/dashboard/guide/calendar" icon={<Calendar className="h-4 w-4" />} label="Calendar" />
         <QuickAction href="/messages" icon={<MessageCircle className="h-4 w-4" />} label="Messages" />
       </div>

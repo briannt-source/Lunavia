@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { api } from "@/lib/api-client";
 import toast from "react-hot-toast";
 
 function AdminRequestsContent() {
+  const t = useTranslations("Admin.Requests");
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -80,8 +82,8 @@ function AdminRequestsContent() {
 
       toast.success(
         action === "approve"
-          ? "Request approved successfully"
-          : "Request has been rejected"
+          ? t("approveSuccess")
+          : t("rejectSuccess")
       );
       refetchTopUps();
       refetchWithdrawals();
@@ -101,7 +103,7 @@ function AdminRequestsContent() {
     return (
       <>
         <div className="text-center py-12">
-          <p className="text-slate-600">Only SUPER_ADMIN has access trang này</p>
+          <p className="text-slate-600">{t("noAccess")}</p>
         </div>
       </>
     );
@@ -110,15 +112,15 @@ function AdminRequestsContent() {
   return (
     <>
       <PageHeader
-        title="Manage Financial Requests"
-        description="Review top-up and withdrawal requests (SUPER_ADMIN only)"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Top-up chờ duyệt</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("pendingTopups")}</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -126,13 +128,13 @@ function AdminRequestsContent() {
               {pendingTopUps.length}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Tổng: {formatVND(pendingTopUps.reduce((sum: number, r: any) => sum + r.amount, 0))}
+              {t("total", { amount: formatVND(pendingTopUps.reduce((sum: number, r: any) => sum + r.amount, 0)) })}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Rút tiền chờ duyệt</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("pendingWithdrawals")}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -140,7 +142,7 @@ function AdminRequestsContent() {
               {pendingWithdrawals.length}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Tổng: {formatVND(pendingWithdrawals.reduce((sum: number, r: any) => sum + r.amount, 0))}
+              {t("total", { amount: formatVND(pendingWithdrawals.reduce((sum: number, r: any) => sum + r.amount, 0)) })}
             </p>
           </CardContent>
         </Card>
@@ -152,10 +154,10 @@ function AdminRequestsContent() {
           <Tabs defaultValue={activeTab} className="w-full">
             <TabsList className="w-full">
               <TabsTrigger value="topup" className="flex-1">
-                Top-up ({pendingTopUps.length})
+                {t("topup", { count: pendingTopUps.length })}
               </TabsTrigger>
               <TabsTrigger value="withdrawal" className="flex-1">
-                Rút tiền ({pendingWithdrawals.length})
+                {t("withdrawal", { count: pendingWithdrawals.length })}
               </TabsTrigger>
             </TabsList>
 
@@ -164,7 +166,7 @@ function AdminRequestsContent() {
               {topUpRequests.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">
                   <CreditCard className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-                  <p>Không có yêu cầu nạp tiền nào</p>
+                  <p>{t("noTopups")}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -187,8 +189,8 @@ function AdminRequestsContent() {
                             <span className="text-lg font-bold text-teal-600">
                               {formatVND(request.amount)}
                             </span>
-                            <span>Phương thức: {request.method}</span>
-                            <span>Tạo: {formatDateTime(request.createdAt)}</span>
+                            <span>{t("method", { method: request.method })}</span>
+                            <span>{t("created", { date: formatDateTime(request.createdAt) })}</span>
                           </div>
                           {request.adminNotes && (
                             <p className="text-sm text-slate-500 mt-2">
@@ -207,7 +209,7 @@ function AdminRequestsContent() {
                               disabled={processingId === request.id}
                             >
                               <CheckCircle2 className="h-4 w-4 mr-1" />
-                              Duyệt
+                              {t("approve")}
                             </Button>
                             <Button
                               size="sm"
@@ -218,7 +220,7 @@ function AdminRequestsContent() {
                               disabled={processingId === request.id}
                             >
                               <XCircle className="h-4 w-4 mr-1" />
-                              Từ chối
+                              {t("reject")}
                             </Button>
                           </div>
                         )}
@@ -234,7 +236,7 @@ function AdminRequestsContent() {
               {withdrawalRequests.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">
                   <DollarSign className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-                  <p>Không có yêu cầu rút tiền nào</p>
+                  <p>{t("noWithdrawals")}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -257,12 +259,12 @@ function AdminRequestsContent() {
                             <span className="text-lg font-bold text-red-600">
                               {formatVND(request.amount)}
                             </span>
-                            <span>Phương thức: {request.method}</span>
-                            <span>Tạo: {formatDateTime(request.createdAt)}</span>
+                            <span>{t("method", { method: request.method })}</span>
+                            <span>{t("created", { date: formatDateTime(request.createdAt) })}</span>
                           </div>
                           {request.accountInfo && (
                             <p className="text-sm text-slate-500 mt-2">
-                              Information tài khoản: {request.accountInfo}
+                              {t("accountInfo", { info: request.accountInfo })}
                             </p>
                           )}
                           {request.adminNotes && (
@@ -282,7 +284,7 @@ function AdminRequestsContent() {
                               disabled={processingId === request.id}
                             >
                               <CheckCircle2 className="h-4 w-4 mr-1" />
-                              Duyệt
+                              {t("approve")}
                             </Button>
                             <Button
                               size="sm"
@@ -293,7 +295,7 @@ function AdminRequestsContent() {
                               disabled={processingId === request.id}
                             >
                               <XCircle className="h-4 w-4 mr-1" />
-                              Từ chối
+                              {t("reject")}
                             </Button>
                           </div>
                         )}
@@ -321,5 +323,3 @@ export default function AdminRequestsPage() {
     </Suspense>
   );
 }
-
-

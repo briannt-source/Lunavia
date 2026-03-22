@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react';
 import GlobalSearch from './GlobalSearch';
 import AccountMenu from './AccountMenu';
 import { NotificationCenter } from '@/components/dashboard/NotificationCenter';
-import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 
 interface Props {
     role?: string;
@@ -64,11 +63,6 @@ export default function Topbar({ role, onToggleSidebar, sidebarOpen }: Props) {
                         <span className="hidden sm:inline">{action.label}</span>
                     </Link>
                 )}
-
-                {/* Language */}
-                <div className="hidden md:block">
-                    <LanguageSwitcher />
-                </div>
 
                 {/* Notifications */}
                 <NotificationCenter />

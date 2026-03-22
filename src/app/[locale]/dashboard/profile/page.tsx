@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,7 @@ import {
 import { Link } from '@/navigation';
 
 export default function ProfilePage() {
+  const t = useTranslations("Shared.Profile");
   const { data: session } = useSession();
   const [userInfo, setUserInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -83,7 +85,6 @@ export default function ProfilePage() {
       if (response.ok) {
         toast.success("Profile updated successfully!");
         setEditMode(false);
-        // Refresh user info
         const infoResponse = await fetch("/api/user/info");
         if (infoResponse.ok) {
           const data = await infoResponse.json();
@@ -104,7 +105,7 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-12">
-          <p className="text-muted-foreground">Đang tải information...</p>
+          <p className="text-muted-foreground">{t("loading")}</p>
         </div>
       </div>
     );
@@ -115,15 +116,13 @@ export default function ProfilePage() {
       <div className="container mx-auto px-4 py-8">
         <Card>
           <CardContent className="pt-6">
-            <p className="text-muted-foreground">Không thể tải information tài khoản</p>
+            <p className="text-muted-foreground">{t("loadError")}</p>
           </CardContent>
         </Card>
       </div>
     );
   }
 
-  // API returns flat structure, not nested in 'user' object
-  // Extract user properties directly from userInfo
   const user = {
     id: userInfo.id,
     email: userInfo.email,
@@ -136,15 +135,12 @@ export default function ProfilePage() {
   };
   const { profile, wallet, verification, permissions } = userInfo;
 
-  // Safety check: if essential user data is missing, use session data as fallback
   if (!user.email && !session?.user?.email) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card>
           <CardContent className="pt-6">
-            <p className="text-muted-foreground">
-              Không thể tải information user. Vui lòng đăng nhập lại.
-            </p>
+            <p className="text-muted-foreground">{t("loginError")}</p>
           </CardContent>
         </Card>
       </div>
@@ -179,7 +175,7 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-8">Information tài khoản</h1>
+      <h1 className="text-3xl font-bold mb-8">{t("title")}</h1>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* User Info */}
@@ -187,7 +183,7 @@ export default function ProfilePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              Information cơ bản
+              {t("basicInfo")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -200,7 +196,7 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Vai trò</p>
+              <p className="text-sm text-muted-foreground mb-1">{t("role")}</p>
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-muted-foreground" />
                 <p className="font-medium">{user?.role || "N/A"}</p>
@@ -209,7 +205,7 @@ export default function ProfilePage() {
 
             {user?.licenseNumber && (
               <div>
-                <p className="text-sm text-muted-foreground mb-1">License số</p>
+                <p className="text-sm text-muted-foreground mb-1">{t("licenseNumber")}</p>
                 <div className="flex items-center gap-2">
                   <FileText className="h-4 w-4 text-muted-foreground" />
                   <p className="font-medium">{user.licenseNumber}</p>
@@ -218,7 +214,7 @@ export default function ProfilePage() {
             )}
 
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Status xác minh</p>
+              <p className="text-sm text-muted-foreground mb-1">{t("verificationStatus")}</p>
               <div className="flex items-center gap-2">
                 {getVerificationStatusIcon(user?.verifiedStatus || "NOT_SUBMITTED")}
                 <p className="font-medium">
@@ -229,14 +225,14 @@ export default function ProfilePage() {
 
             {profile?.name && (
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Tên</p>
+                <p className="text-sm text-muted-foreground mb-1">{t("name")}</p>
                 <p className="font-medium">{profile.name}</p>
               </div>
             )}
 
             {profile?.companyName && (
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Tên công ty</p>
+                <p className="text-sm text-muted-foreground mb-1">{t("companyName")}</p>
                 <div className="flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-muted-foreground" />
                   <p className="font-medium">{profile.companyName}</p>
@@ -250,7 +246,7 @@ export default function ProfilePage() {
                 size="sm"
                 onClick={() => setEditMode(!editMode)}
               >
-                {editMode ? "Cancel Edit" : "Edit Profile"}
+                {editMode ? t("cancelEdit") : t("editProfile")}
               </Button>
             </div>
           </CardContent>
@@ -260,7 +256,7 @@ export default function ProfilePage() {
         {editMode && (
           <Card className="md:col-span-2">
             <CardHeader>
-              <CardTitle>Chỉnh sửa Profile</CardTitle>
+              <CardTitle>{t("editProfileTitle")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <AvatarUpload
@@ -271,7 +267,7 @@ export default function ProfilePage() {
               />
 
               <div className="space-y-2">
-                <Label htmlFor="name">Tên</Label>
+                <Label htmlFor="name">{t("name")}</Label>
                 <Input
                   id="name"
                   value={profileData.name}
@@ -283,7 +279,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="bio">About</Label>
+                <Label htmlFor="bio">{t("bio")}</Label>
                 <textarea
                   id="bio"
                   className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -296,7 +292,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="languages">Languages (phân cách bởi dấu phẩy)</Label>
+                <Label htmlFor="languages">{t("languages")}</Label>
                 <Input
                   id="languages"
                   value={profileData.languages}
@@ -308,7 +304,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="specialties">Specialties (phân cách bởi dấu phẩy)</Label>
+                <Label htmlFor="specialties">{t("specialties")}</Label>
                 <Input
                   id="specialties"
                   value={profileData.specialties}
@@ -328,7 +324,7 @@ export default function ProfilePage() {
                   variant="outline"
                   onClick={() => setEditMode(false)}
                 >
-                  Hủy
+                  {t("cancel")}
                 </Button>
               </div>
             </CardContent>
@@ -340,42 +336,42 @@ export default function ProfilePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Wallet className="h-5 w-5" />
-              Information ví
+              {t("walletInfo")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {wallet ? (
               <>
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Số dư</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t("balance")}</p>
                   <p className="text-2xl font-bold">
                     {formatCurrency(wallet.balance)}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Deposit đã khóa</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t("lockedDeposit")}</p>
                   <p className="text-xl font-semibold">
                     {formatCurrency(0)}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Đã reserve</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t("reserved")}</p>
                   <p className="text-lg font-medium">
                     {formatCurrency(0)}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Số dư khả dụng</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t("availableBalance")}</p>
                   <p className="text-lg font-medium text-emerald-600">
                     {formatCurrency(wallet.balance)}
                   </p>
                 </div>
               </>
             ) : (
-              <p className="text-muted-foreground">Chưa có ví</p>
+              <p className="text-muted-foreground">{t("noWallet")}</p>
             )}
           </CardContent>
         </Card>
@@ -383,7 +379,7 @@ export default function ProfilePage() {
         {/* Permissions */}
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle>Quyền và khả năng</CardTitle>
+            <CardTitle>{t("permissions")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -391,13 +387,13 @@ export default function ProfilePage() {
               {permissions.canCreateTour.canCreate ? (
                 <div className="flex items-center gap-2 text-green-600">
                   <CheckCircle className="h-5 w-5" />
-                  <p>Bạn có thể tạo tour</p>
+                  <p>{t("canCreateTour")}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="h-5 w-5" />
-                    <p>Không thể tạo tour</p>
+                    <p>{t("cannotCreateTour")}</p>
                   </div>
                   <p className="text-sm text-muted-foreground ml-7">
                     {permissions.canCreateTour.reason}
@@ -411,13 +407,13 @@ export default function ProfilePage() {
               {permissions.canApplyToTour.canApply ? (
                 <div className="flex items-center gap-2 text-green-600">
                   <CheckCircle className="h-5 w-5" />
-                  <p>Bạn có thể apply tour</p>
+                  <p>{t("canApplyTour")}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="h-5 w-5" />
-                    <p>Không thể apply tour</p>
+                    <p>{t("cannotApplyTour")}</p>
                   </div>
                   <p className="text-sm text-muted-foreground ml-7">
                     {permissions.canApplyToTour.reason}
@@ -432,7 +428,7 @@ export default function ProfilePage() {
         {verification && (
           <Card className="md:col-span-2">
             <CardHeader>
-              <CardTitle>Chi tiết xác minh</CardTitle>
+              <CardTitle>{t("verificationDetails")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
@@ -446,7 +442,7 @@ export default function ProfilePage() {
                 </p>
                 {verification.adminNotes && (
                   <div>
-                    <p className="text-sm font-medium mb-1">Notes admin:</p>
+                    <p className="text-sm font-medium mb-1">{t("adminNotes")}</p>
                     <p className="text-sm text-muted-foreground">
                       {verification.adminNotes}
                     </p>
@@ -460,7 +456,7 @@ export default function ProfilePage() {
 
       <div className="mt-6 flex gap-4">
         <Link href="/dashboard">
-          <Button variant="outline">Quay lại Dashboard</Button>
+          <Button variant="outline">{t("backToDashboard")}</Button>
         </Link>
         {(user?.role === "TOUR_OPERATOR" || user?.role === "TOUR_AGENCY") && (
           <Link href="/dashboard/operator/tours/new">
@@ -471,4 +467,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-

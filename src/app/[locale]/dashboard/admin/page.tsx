@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatsCard } from "@/components/ui/stats-card";
@@ -13,6 +14,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
+  const t = await getTranslations("Admin.LegacyDashboard");
 
   if (!session) {
     redirect("/auth/signin");
@@ -119,10 +121,10 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-6 animate-fade-in">
       <PageHeader
-        title="Admin Dashboard"
+        title={t("title")}
         description={
           <span>
-            Quản lý hệ thống LUNAVIA
+            {t("subtitle")}
             {adminUser && (
               <span className="ml-2 text-sm font-normal text-gray-500">
                 ({adminUser.role} - {adminUser.permissions.join(", ")})
@@ -164,7 +166,7 @@ export default async function AdminDashboard() {
               title="Total Tours"
               value={totalTours}
               icon={MapPin}
-              subtitle={`${activeTours} đang mở`}
+              subtitle={t("activeOpen", { count: activeTours })}
             />
           </>
         )}
@@ -200,10 +202,10 @@ export default async function AdminDashboard() {
         {isModerator && (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Disputes đang chờ xử lý</CardTitle>
+              <CardTitle>{t("pendingDisputes")}</CardTitle>
               <Link href="/dashboard/admin/disputes">
                 <Button variant="outline" size="sm">
-                  Xem tất cả
+                  {t("viewAll")}
                 </Button>
               </Link>
             </CardHeader>
@@ -211,7 +213,7 @@ export default async function AdminDashboard() {
               {recentDisputes.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-green-500" />
-                  <p>Không có dispute nào đang chờ</p>
+                  <p>{t("noPendingDisputes")}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -247,10 +249,10 @@ export default async function AdminDashboard() {
         {isModerator && (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Xác minh đang chờ</CardTitle>
+              <CardTitle>{t("pendingVerifications")}</CardTitle>
               <Link href="/dashboard/admin/verifications">
                 <Button variant="outline" size="sm">
-                  Xem tất cả
+                  {t("viewAll")}
                 </Button>
               </Link>
             </CardHeader>
@@ -258,7 +260,7 @@ export default async function AdminDashboard() {
               {pendingVerificationsList.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle2 className="h-12 w-12 mx-auto mb-2 text-green-500" />
-                  <p>Không có yêu cầu xác minh nào</p>
+                  <p>{t("noPendingVerifications")}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -294,10 +296,10 @@ export default async function AdminDashboard() {
         {canViewRequests && recentTopUps.length > 0 && (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Top-up chờ duyệt</CardTitle>
+              <CardTitle>{t("pendingTopups")}</CardTitle>
               <Link href="/dashboard/admin/requests">
                 <Button variant="outline" size="sm">
-                  Xem tất cả
+                  {t("viewAll")}
                 </Button>
               </Link>
             </CardHeader>
@@ -334,10 +336,10 @@ export default async function AdminDashboard() {
         {canViewRequests && recentWithdrawals.length > 0 && (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Rút tiền chờ duyệt</CardTitle>
+              <CardTitle>{t("pendingWithdrawals")}</CardTitle>
               <Link href="/dashboard/admin/requests">
                 <Button variant="outline" size="sm">
-                  Xem tất cả
+                  {t("viewAll")}
                 </Button>
               </Link>
             </CardHeader>
@@ -373,4 +375,3 @@ export default async function AdminDashboard() {
     </div>
   );
 }
-

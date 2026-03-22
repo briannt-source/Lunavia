@@ -12,19 +12,12 @@ import {
     CalendarCheck,
     Mail,
     FileText,
-    FileSignature,
     Clock,
-    Briefcase,
     Scale,
     User,
-    Award,
     Coins,
     Wallet,
-    Star,
     Settings,
-    CheckCircle,
-    Bell,
-    MessageCircle,
 } from 'lucide-react';
 
 // Icon color groups — consistent visual hierarchy
@@ -76,9 +69,6 @@ export default function GuideSidebar() {
                 <NavItem href="/dashboard/guide/standby-requests" icon={Clock} active={isActive('/dashboard/guide/standby-requests')} iconColor={IC.tour}>
                     {t('links.standbyRequests')}
                 </NavItem>
-                <NavItem href="/dashboard/guide/portfolio" icon={Briefcase} active={isActive('/dashboard/guide/portfolio')} iconColor={IC.brand}>
-                    {t('links.portfolio')}
-                </NavItem>
                 <NavItem href="/dashboard/guide/disputes" icon={Scale} active={isActive('/dashboard/guide/disputes')} iconColor={IC.account}>
                     {t('links.disputes')}
                 </NavItem>
@@ -96,29 +86,11 @@ export default function GuideSidebar() {
 
             {/* Account */}
             <NavSection title={t('sections.account')}>
-                <NavItem href="/dashboard/guide/profile" icon={User} active={isActive('/dashboard/guide/profile')} iconColor={IC.account}>
+                <NavItem href="/dashboard/guide/profile" icon={User} active={isActive('/dashboard/guide/profile') || isActive('/dashboard/guide/profile/trust') || isActive('/dashboard/guide/portfolio') || isActive('/dashboard/guide/contract')} iconColor={IC.account}>
                     {t('links.profile')}
-                </NavItem>
-                <NavItem href="/dashboard/guide/profile/trust" icon={Award} active={isActive('/dashboard/guide/profile/trust')} iconColor={IC.brand}>
-                    {t('links.trustScore')}
-                </NavItem>
-                <NavItem href="/dashboard/guide/contract" icon={FileSignature} active={isActive('/dashboard/guide/contract')} iconColor={IC.account}>
-                    {t('links.contract')}
-                </NavItem>
-                <NavItem href="/dashboard/account/subscription" icon={Star} active={isActive('/dashboard/account/subscription')} iconColor={IC.finance}>
-                    {t('links.subscription')}
                 </NavItem>
                 <NavItem href="/dashboard/guide/settings" icon={Settings} active={isActive('/dashboard/guide/settings')} iconColor={IC.account}>
                     {t('links.settings')}
-                </NavItem>
-                <NavItem href="/dashboard/guide/verification" icon={CheckCircle} active={isActive('/dashboard/guide/verification')} iconColor={IC.work}>
-                    {t('links.verification')}
-                </NavItem>
-                <NavItem href="/dashboard/notifications" icon={Bell} active={isActive('/dashboard/notifications')} iconColor={IC.account}>
-                    {t('links.notifications')}
-                </NavItem>
-                <NavItem href="/messages" icon={MessageCircle} active={isActive('/messages')} iconColor={IC.brand}>
-                    {t('links.messages')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

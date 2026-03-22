@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 
 export default function GuideAssignmentsPage() {
+  const t = useTranslations("Guide.Assignments");
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState({
     status: "all",
@@ -46,11 +48,11 @@ export default function GuideAssignmentsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Assignment accepted");
+      toast.success(t("alerts.acceptSuccess"));
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Error accepting assignment");
+      toast.error(error.message || t("alerts.acceptFailed"));
     },
   });
 
@@ -68,13 +70,13 @@ export default function GuideAssignmentsPage() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Assignment declined");
+      toast.success(t("alerts.rejectSuccess"));
       setRejectingId(null);
       setRejectReason("");
       queryClient.invalidateQueries({ queryKey: ["assignments"] });
     },
     onError: (error: any) => {
-      toast.error(error.message || "Error declining assignment");
+      toast.error(error.message || t("alerts.rejectFailed"));
     },
   });
 
@@ -85,20 +87,9 @@ export default function GuideAssignmentsPage() {
     rejected: assignments.filter((a: any) => a.status === "REJECTED").length,
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "APPROVED":
-        return <CheckCircle2 className="h-5 w-5 text-green-600" />;
-      case "REJECTED":
-        return <XCircle className="h-5 w-5 text-red-600" />;
-      default:
-        return <Clock className="h-5 w-5 text-amber-600" />;
-    }
-  };
-
   const handleReject = (assignmentId: string) => {
     if (!rejectReason.trim()) {
-      toast.error("Please enter a rejection reason");
+      toast.error(t("alerts.reasonRequired"));
       return;
     }
     rejectMutation.mutate({ assignmentId, reason: rejectReason });
@@ -107,15 +98,15 @@ export default function GuideAssignmentsPage() {
   return (
     <>
       <PageHeader
-        title="My Assignments"
-        description="View and manage your tour assignments"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng phân công</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.total")}</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -124,7 +115,7 @@ export default function GuideAssignmentsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -133,7 +124,7 @@ export default function GuideAssignmentsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã chấp nhận</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.accepted")}</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -142,7 +133,7 @@ export default function GuideAssignmentsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã từ chối</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.rejected")}</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -162,10 +153,10 @@ export default function GuideAssignmentsPage() {
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All statuses</SelectItem>
-              <SelectItem value="PENDING">Đang chờ</SelectItem>
-              <SelectItem value="APPROVED">Đã chấp nhận</SelectItem>
-              <SelectItem value="REJECTED">Đã từ chối</SelectItem>
+              <SelectItem value="all">{t("filters.allStatuses")}</SelectItem>
+              <SelectItem value="PENDING">{t("filters.pending")}</SelectItem>
+              <SelectItem value="APPROVED">{t("filters.accepted")}</SelectItem>
+              <SelectItem value="REJECTED">{t("filters.rejected")}</SelectItem>
             </SelectContent>
           </Select>
         </CardContent>
@@ -174,7 +165,7 @@ export default function GuideAssignmentsPage() {
       {/* Assignments List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách phân công ({assignments.length})</CardTitle>
+          <CardTitle>{t("list", { count: assignments.length })}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -184,8 +175,8 @@ export default function GuideAssignmentsPage() {
           ) : assignments.length === 0 ? (
             <EmptyState
               icon={FileText}
-              title="No assignments yet"
-              description="You will receive assignments when an operator assigns you to a tour"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
             />
           ) : (
             <div className="space-y-4">
@@ -228,7 +219,7 @@ export default function GuideAssignmentsPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <Clock className="h-4 w-4" />
-                            <span>Phân công: {formatDate(assignment.createdAt)}</span>
+                            <span>{t("assignedAt", { date: formatDate(assignment.createdAt) })}</span>
                           </div>
                         </div>
 
@@ -241,7 +232,7 @@ export default function GuideAssignmentsPage() {
                         {assignment.rejectionReason && (
                           <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                             <p className="text-sm text-red-700">
-                              <span className="font-medium">Reason từ chối:</span> {assignment.rejectionReason}
+                              <span className="font-medium">{t("rejectReason")}</span> {assignment.rejectionReason}
                             </p>
                           </div>
                         )}
@@ -250,7 +241,7 @@ export default function GuideAssignmentsPage() {
                       <div className="flex flex-col gap-2 ml-4">
                         <Link href={`/tours/${assignment.tour.id}`}>
                           <Button variant="outline" size="sm">
-                            Xem tour
+                            {t("viewTour")}
                           </Button>
                         </Link>
                         {assignment.status === "PENDING" && (
@@ -261,7 +252,7 @@ export default function GuideAssignmentsPage() {
                               disabled={acceptMutation.isPending}
                               className="bg-green-600 hover:bg-green-700"
                             >
-                              Chấp nhận
+                              {t("accept")}
                             </Button>
                             <Button
                               size="sm"
@@ -269,7 +260,7 @@ export default function GuideAssignmentsPage() {
                               onClick={() => setRejectingId(assignment.id)}
                               disabled={rejectMutation.isPending}
                             >
-                              Từ chối
+                              {t("reject")}
                             </Button>
                           </>
                         )}
@@ -280,13 +271,13 @@ export default function GuideAssignmentsPage() {
                     {rejectingId === assignment.id && (
                       <div className="mt-4 p-4 border border-red-200 bg-red-50 rounded-lg">
                         <Label htmlFor="rejectReason" className="text-red-900 font-medium">
-                          Reason từ chối *
+                          {t("rejectReasonLabel")}
                         </Label>
                         <Textarea
                           id="rejectReason"
                           value={rejectReason}
                           onChange={(e) => setRejectReason(e.target.value)}
-                          placeholder="Please specify the reason for declining this assignment..."
+                          placeholder={t("rejectReasonPlaceholder")}
                           rows={3}
                           className="mt-2"
                         />
@@ -297,7 +288,7 @@ export default function GuideAssignmentsPage() {
                             onClick={() => handleReject(assignment.id)}
                             disabled={rejectMutation.isPending || !rejectReason.trim()}
                           >
-                            {rejectMutation.isPending ? "Processing..." : "Confirm Decline"}
+                            {rejectMutation.isPending ? t("processing") : t("confirmDecline")}
                           </Button>
                           <Button
                             size="sm"
@@ -308,7 +299,7 @@ export default function GuideAssignmentsPage() {
                             }}
                             disabled={rejectMutation.isPending}
                           >
-                            Hủy
+                            {t("cancel")}
                           </Button>
                         </div>
                       </div>
@@ -323,15 +314,3 @@ export default function GuideAssignmentsPage() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-

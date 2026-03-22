@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ export default async function AdminCompaniesPage({
   searchParams: Promise<{ search?: string }>;
 }) {
   const session = await getServerSession(authOptions);
+  const t = await getTranslations("Admin.Companies");
 
   if (!session) {
     redirect("/auth/signin");
@@ -68,20 +70,20 @@ export default async function AdminCompaniesPage({
   return (
     <>
       <PageHeader
-        title="Manage Companies"
-        description="View and manage all companies in the system"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Companies List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách Company ({companies.length})</CardTitle>
+          <CardTitle>{t("list", { count: companies.length })}</CardTitle>
         </CardHeader>
         <CardContent>
           {companies.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Building2 className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Không có công ty nào</p>
+              <p>{t("empty")}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -117,20 +119,20 @@ export default async function AdminCompaniesPage({
                           )}
                           <div className="flex items-center gap-2">
                             <Users className="h-4 w-4" />
-                            <span>{company.members.length + 1} thành viên</span>
+                            <span>{t("members", { count: company.members.length + 1 })}</span>
                           </div>
                         </div>
 
                         <div className="space-y-2">
                           <div>
-                            <p className="text-sm font-medium text-slate-700">Chủ sở hữu:</p>
+                            <p className="text-sm font-medium text-slate-700">{t("owner")}</p>
                             <p className="text-sm text-slate-600">
                               {company.operator.profile?.name || company.operator.email}
                             </p>
                           </div>
                           {company.members.length > 0 && (
                             <div>
-                              <p className="text-sm font-medium text-slate-700">Thành viên:</p>
+                              <p className="text-sm font-medium text-slate-700">{t("membersList")}</p>
                               <div className="space-y-2 mt-1">
                                 {company.members.map((member) => (
                                   <div
@@ -149,15 +151,15 @@ export default async function AdminCompaniesPage({
                                             rel="noopener noreferrer"
                                             className="text-xs text-blue-600 hover:underline"
                                           >
-                                            Xem hợp đồng
+                                            {t("viewContract")}
                                           </a>
                                           {member.contractVerified ? (
                                             <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">
-                                              ✓ Đã xác minh
+                                              {t("contractVerified")}
                                             </span>
                                           ) : (
                                             <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">
-                                              ⏳ Chờ xác minh
+                                              {t("contractPending")}
                                             </span>
                                           )}
                                           <ContractVerificationButton
@@ -169,7 +171,7 @@ export default async function AdminCompaniesPage({
                                         </>
                                       ) : (
                                         <span className="text-xs text-red-600">
-                                          ⚠ Chưa upload
+                                          {t("noUpload")}
                                         </span>
                                       )}
                                     </div>
@@ -181,7 +183,7 @@ export default async function AdminCompaniesPage({
                         </div>
 
                         <p className="text-xs text-slate-500 mt-4">
-                          Tạo: {formatDate(company.createdAt)}
+                          {t("created", { date: formatDate(company.createdAt) })}
                         </p>
                       </div>
                     </div>
@@ -195,4 +197,3 @@ export default async function AdminCompaniesPage({
     </>
   );
 }
-

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { VerifiedBadge } from "@/components/ui/verified-badge";
@@ -18,6 +19,7 @@ import toast from "react-hot-toast";
 import { MessageButton } from "@/components/message-button";
 
 export default function TourApplicationsPage() {
+  const t = useTranslations("Operator.Applications");
   const params = useParams();
   const tourId = params.tourId as string;
   const [selectedApplication, setSelectedApplication] = useState<string | null>(
@@ -46,31 +48,31 @@ export default function TourApplicationsPage() {
   const handleAccept = async (applicationId: string) => {
     try {
       await api.tours.acceptApplication(tourId, applicationId);
-      toast.success("Application approved");
+      toast.success(t("alerts.approveSuccess"));
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Error approving request");
+      toast.error(error.message || t("alerts.approveFailed"));
     }
   };
 
   const handleReject = async (applicationId: string) => {
     try {
       await api.tours.rejectApplication(tourId, applicationId);
-      toast.success("Application rejected");
+      toast.success(t("alerts.rejectSuccess"));
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Error rejecting request");
+      toast.error(error.message || t("alerts.rejectFailed"));
     }
   };
 
   return (
     <>
       <PageHeader
-        title={`Ứng tuyển: ${tour?.title || ""}`}
-        description={`${applications.length} ứng tuyển cho tour này`}
+        title={t("detail.title", { name: tour?.title || "" })}
+        description={t("detail.subtitle", { count: applications.length })}
         breadcrumbs={[
           { label: "Dashboard", href: "/dashboard/operator" },
-          { label: "Applications", href: "/dashboard/operator/applications" },
+          { label: t("title"), href: "/dashboard/operator/applications" },
           { label: tour?.title || "Tour" },
         ]}
       />
@@ -83,8 +85,8 @@ export default function TourApplicationsPage() {
               {applications.length === 0 ? (
                 <EmptyState
                   icon={Briefcase}
-                  title="No applications yet"
-                  description="Applications will appear here"
+                  title={t("detail.emptyTitle")}
+                  description={t("detail.emptyDesc")}
                 />
               ) : (
                 <div className="space-y-4">
@@ -125,7 +127,7 @@ export default function TourApplicationsPage() {
                             <StatusBadge status={app.status} />
                           </div>
                           <p className="text-sm text-slate-600 mb-2">
-                            Vai trò: {app.role === "MAIN" ? "Main Guide" : "Sub Guide"}
+                            {t("detail.role", { role: app.role === "MAIN" ? "Main Guide" : "Sub Guide" })}
                           </p>
                           {app.coverLetter && (
                             <p className="text-sm text-slate-500 mb-2 line-clamp-2">
@@ -207,7 +209,7 @@ export default function TourApplicationsPage() {
                   {guideProfile.badges && guideProfile.badges.length > 0 && (
                     <div>
                       <h4 className="text-sm font-medium text-slate-700 mb-2">
-                        Badges
+                        {t("detail.badges")}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {guideProfile.badges.map((badge: string) => (
@@ -225,13 +227,13 @@ export default function TourApplicationsPage() {
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-xs text-slate-500">Rating</p>
+                      <p className="text-xs text-slate-500">{t("detail.rating")}</p>
                       <p className="text-lg font-semibold">
                         {guideProfile.profile?.rating?.toFixed(1) || "N/A"}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-500">Tours</p>
+                      <p className="text-xs text-slate-500">{t("detail.tours")}</p>
                       <p className="text-lg font-semibold">
                         {guideProfile._count?.applications || 0}
                       </p>
@@ -243,7 +245,7 @@ export default function TourApplicationsPage() {
                     guideProfile.profile.languages.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-slate-700 mb-2">
-                          Languages
+                          {t("detail.languages")}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {guideProfile.profile.languages.map((lang: string) => (
@@ -263,7 +265,7 @@ export default function TourApplicationsPage() {
                     guideProfile.profile.specialties.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-slate-700 mb-2">
-                          Specialties
+                          {t("detail.specialties")}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {guideProfile.profile.specialties.map(
@@ -284,7 +286,7 @@ export default function TourApplicationsPage() {
                   {guideProfile.companyMember && (
                     <div>
                       <h4 className="text-sm font-medium text-slate-700 mb-2">
-                        Company
+                        {t("detail.company")}
                       </h4>
                       <p className="text-sm text-slate-600">
                         {guideProfile.companyMember.company.name}
@@ -298,7 +300,7 @@ export default function TourApplicationsPage() {
                   <Link href={`/guides/${guideProfile.id}/profile`}>
                     <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                       <Eye className="h-4 w-4 mr-2" />
-                      Xem Full Profile
+                      {t("detail.viewFullProfile")}
                     </Button>
                   </Link>
                 </div>
@@ -310,4 +312,3 @@ export default function TourApplicationsPage() {
     </>
   );
 }
-

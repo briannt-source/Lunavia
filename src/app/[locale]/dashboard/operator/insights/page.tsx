@@ -2,6 +2,7 @@
 
 import React from 'react';
 import useSWR from 'swr';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MiniAreaChart, MiniBarChart, DonutChart, TrendBadge, HorizontalBarList } from '@/components/analytics/Charts';
 import {
@@ -24,14 +25,15 @@ function formatVND(n: number) {
 }
 
 export default function OperatorInsightsPage() {
+    const t = useTranslations('Operator.Insights');
     const { data, isLoading, error } = useSWR('/api/analytics/time-series?scope=operator', fetcher);
 
     if (isLoading) {
         return (
             <div className="space-y-6 animate-fade-in">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Insights</h1>
-                    <p className="text-sm text-gray-500 mt-1">Phân tích hoạt động kinh doanh</p>
+                    <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
+                    <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {[1, 2, 3, 4].map(i => (
@@ -50,9 +52,9 @@ export default function OperatorInsightsPage() {
     if (error || !data || data.error) {
         return (
             <div className="space-y-6">
-                <h1 className="text-2xl font-bold text-gray-900">Insights</h1>
+                <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
                 <div className="text-center py-12 text-gray-500">
-                    {data?.error || 'Không thể tải dữ liệu phân tích'}
+                    {data?.error || t('loadError')}
                 </div>
             </div>
         );
@@ -69,28 +71,28 @@ export default function OperatorInsightsPage() {
         <div className="space-y-6 animate-fade-in">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-gray-900">Insights</h1>
-                <p className="text-sm text-gray-500 mt-1">Phân tích hoạt động {data.period.months} tháng gần nhất</p>
+                <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
+                <p className="text-sm text-gray-500 mt-1">{t('subtitlePeriod', { months: data.period.months })}</p>
             </div>
 
             {/* KPI Strip */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <KPICard
                     icon={<Calendar className="h-4 w-4" />}
-                    label="Total Tours"
+                    label={t('kpi.totalTours')}
                     value={summary.totalTours}
                     trend={trends.tours}
                     color="indigo"
                 />
                 <KPICard
                     icon={<CheckCircle2 className="h-4 w-4" />}
-                    label="Completed"
+                    label={t('kpi.completed')}
                     value={`${summary.completionRate}%`}
                     color="emerald"
                 />
                 <KPICard
                     icon={<DollarSign className="h-4 w-4" />}
-                    label="Total Spent"
+                    label={t('kpi.totalSpent')}
                     value={formatVND(summary.totalRevenue)}
                     trend={trends.revenue}
                     color="amber"
@@ -98,7 +100,7 @@ export default function OperatorInsightsPage() {
                 />
                 <KPICard
                     icon={<Users className="h-4 w-4" />}
-                    label="Applications"
+                    label={t('kpi.applications')}
                     value={summary.totalApplications}
                     trend={trends.applications}
                     color="blue"
@@ -112,7 +114,7 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <TrendingUp className="h-4 w-4 text-indigo-500" />
-                            Tours Theo Tháng
+                            {t('charts.toursMonthly')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -132,7 +134,7 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <DollarSign className="h-4 w-4 text-amber-500" />
-                            Chi Phí Theo Tháng
+                            {t('charts.revenueMonthly')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -152,20 +154,20 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <BarChart3 className="h-4 w-4 text-emerald-500" />
-                            Tỷ Lệ Hoàn Thành
+                            {t('charts.completionRate')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex items-center justify-center py-4">
                         <DonutChart
                             segments={[
-                                { label: 'Hoàn thành', value: summary.completedTours, color: '#10b981' },
-                                { label: 'Hủy', value: summary.cancelledTours, color: '#ef4444' },
-                                { label: 'Khác', value: summary.totalTours - summary.completedTours - summary.cancelledTours, color: '#e5e7eb' },
+                                { label: t('donut.completed'), value: summary.completedTours, color: '#10b981' },
+                                { label: t('donut.cancelled'), value: summary.cancelledTours, color: '#ef4444' },
+                                { label: t('donut.other'), value: summary.totalTours - summary.completedTours - summary.cancelledTours, color: '#e5e7eb' },
                             ]}
                             size={110}
                             thickness={14}
                             centerValue={`${summary.completionRate}%`}
-                            centerLabel="Completed"
+                            centerLabel={t('kpi.completed')}
                         />
                     </CardContent>
                 </Card>
@@ -175,7 +177,7 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-violet-500" />
-                            Phân Bổ Thị Trường
+                            {t('charts.marketBreakdown')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="py-4">
@@ -194,7 +196,7 @@ export default function OperatorInsightsPage() {
                                 />
                             </div>
                         ) : (
-                            <p className="text-sm text-gray-400 text-center py-4">Chưa có dữ liệu thị trường</p>
+                            <p className="text-sm text-gray-400 text-center py-4">{t('charts.noMarketData')}</p>
                         )}
                     </CardContent>
                 </Card>
@@ -204,7 +206,7 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-rose-500" />
-                            Top Thành Phố
+                            {t('charts.topCities')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -215,7 +217,7 @@ export default function OperatorInsightsPage() {
                                 maxItems={8}
                             />
                         ) : (
-                            <p className="text-sm text-gray-400 text-center py-4">Chưa có dữ liệu</p>
+                            <p className="text-sm text-gray-400 text-center py-4">{t('charts.noData')}</p>
                         )}
                     </CardContent>
                 </Card>
@@ -225,7 +227,7 @@ export default function OperatorInsightsPage() {
                     <CardHeader className="pb-1">
                         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                             <BarChart3 className="h-4 w-4 text-gray-500" />
-                            Chi Tiết Theo Tháng
+                            {t('charts.monthlyDetail')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -233,12 +235,12 @@ export default function OperatorInsightsPage() {
                             <table className="w-full text-xs">
                                 <thead>
                                     <tr className="text-gray-400 border-b border-gray-100">
-                                        <th className="text-left py-2 font-medium">Tháng</th>
-                                        <th className="text-right py-2 font-medium">Tours</th>
-                                        <th className="text-right py-2 font-medium">Hoàn thành</th>
-                                        <th className="text-right py-2 font-medium">Hủy</th>
-                                        <th className="text-right py-2 font-medium">Ứng tuyển</th>
-                                        <th className="text-right py-2 font-medium">Chi phí</th>
+                                        <th className="text-left py-2 font-medium">{t('table.month')}</th>
+                                        <th className="text-right py-2 font-medium">{t('table.tours')}</th>
+                                        <th className="text-right py-2 font-medium">{t('table.completed')}</th>
+                                        <th className="text-right py-2 font-medium">{t('table.cancelled')}</th>
+                                        <th className="text-right py-2 font-medium">{t('table.applications')}</th>
+                                        <th className="text-right py-2 font-medium">{t('table.cost')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

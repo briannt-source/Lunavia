@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -30,12 +31,12 @@ const PLANS = {
 type PlanType = "FREE" | "TRIAL" | "PRO";
 
 export default function SubscriptionPage() {
+  const t = useTranslations("Operator.Subscription");
   // In a real implementation, this would come from API
-  // For MVP, showing read-only view with placeholder data
-  const currentPlanValue: PlanType = "FREE"; // Would be fetched from API
-  const currentPlan = currentPlanValue as PlanType; // Use variable to avoid type narrowing
-  const trialDaysLeft: number | null = null; // Would be fetched from API
-  const isExpired = false; // Would be fetched from API
+  const currentPlanValue: PlanType = "FREE";
+  const currentPlan = currentPlanValue as PlanType;
+  const trialDaysLeft: number | null = null;
+  const isExpired = false;
 
   const planInfo = PLANS[currentPlan] || PLANS.FREE;
 
@@ -43,8 +44,8 @@ export default function SubscriptionPage() {
     <>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900 mb-2">Subscription</h1>
-          <p className="text-gray-500">Quản lý gói đăng ký của bạn</p>
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">{t("title")}</h1>
+          <p className="text-gray-500">{t("subtitle")}</p>
         </div>
 
         {/* Current Plan */}
@@ -52,7 +53,7 @@ export default function SubscriptionPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-semibold text-gray-900">
-                Gói Hiện Tại
+                {t("currentPlan")}
               </CardTitle>
               <Badge
                 variant="outline"
@@ -70,7 +71,7 @@ export default function SubscriptionPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-gray-500 mb-2">Tính năng bao gồm:</p>
+              <p className="text-sm text-gray-500 mb-2">{t("featuresIncluded")}</p>
               <ul className="space-y-2">
                 {planInfo.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
@@ -87,10 +88,10 @@ export default function SubscriptionPage() {
                   <Clock className="h-5 w-5 text-amber-600" />
                   <div>
                     <p className="text-sm font-medium text-amber-900">
-                      Remaining {trialDaysLeft} ngày dùng thử
+                      {t("trialDaysLeft", { days: trialDaysLeft })}
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
-                      Nâng cấp lên Pro để tiếp tục sử dụng tất cả tính năng
+                      {t("trialUpgrade")}
                     </p>
                   </div>
                 </div>
@@ -102,9 +103,9 @@ export default function SubscriptionPage() {
                 <div className="flex items-center gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
                   <XCircle className="h-5 w-5 text-red-600" />
                   <div>
-                    <p className="text-sm font-medium text-red-900">Gói đã hết hạn</p>
+                    <p className="text-sm font-medium text-red-900">{t("expired")}</p>
                     <p className="text-xs text-red-700 mt-1">
-                      Bạn đã quay về gói Free. Nâng cấp để tiếp tục sử dụng tính năng Pro.
+                      {t("expiredDesc")}
                     </p>
                   </div>
                 </div>
@@ -119,21 +120,21 @@ export default function SubscriptionPage() {
             <CardHeader>
               <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                 <Crown className="h-5 w-5 text-indigo-600" />
-                Nâng Cấp Lên Pro
+                {t("upgradeToPro")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-500 mb-4">
-                Nâng cấp để mở khóa tất cả tính năng và không giới hạn số lượng tours.
+                {t("upgradeDesc")}
               </p>
               <Button
                 className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
                 disabled
               >
-                Nâng Cấp (Sắp có)
+                {t("upgradeBtn")}
               </Button>
               <p className="text-xs text-gray-500 mt-2">
-                Tính năng thanh toán đang được phát triển
+                {t("paymentDev")}
               </p>
             </CardContent>
           </Card>
@@ -143,7 +144,7 @@ export default function SubscriptionPage() {
         <Card className="rounded-xl shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-gray-900">
-              So Sánh Gói
+              {t("comparePlans")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -151,7 +152,7 @@ export default function SubscriptionPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 text-gray-500 font-medium">Tính năng</th>
+                    <th className="text-left p-3 text-gray-500 font-medium">{t("feature")}</th>
                     <th className="text-center p-3 text-gray-500 font-medium">Free</th>
                     <th className="text-center p-3 text-gray-500 font-medium">Trial</th>
                     <th className="text-center p-3 text-indigo-600 font-medium">Pro</th>
@@ -159,22 +160,22 @@ export default function SubscriptionPage() {
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td className="p-3 text-gray-900">Số tours/tháng</td>
+                    <td className="p-3 text-gray-900">{t("toursPerMonth")}</td>
                     <td className="p-3 text-center text-gray-500">5</td>
                     <td className="p-3 text-center text-gray-500">20</td>
-                    <td className="p-3 text-center text-gray-900 font-medium">Không giới hạn</td>
+                    <td className="p-3 text-center text-gray-900 font-medium">{t("unlimited")}</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="p-3 text-gray-900">Hỗ trợ</td>
-                    <td className="p-3 text-center text-gray-500">Email</td>
-                    <td className="p-3 text-center text-gray-500">Ưu tiên</td>
+                    <td className="p-3 text-gray-900">{t("support")}</td>
+                    <td className="p-3 text-center text-gray-500">{t("email")}</td>
+                    <td className="p-3 text-center text-gray-500">{t("priority")}</td>
                     <td className="p-3 text-center text-gray-900 font-medium">24/7</td>
                   </tr>
                   <tr>
-                    <td className="p-3 text-gray-900">Analytics</td>
-                    <td className="p-3 text-center text-gray-500">Cơ bản</td>
-                    <td className="p-3 text-center text-gray-500">Cơ bản</td>
-                    <td className="p-3 text-center text-gray-900 font-medium">Nâng cao</td>
+                    <td className="p-3 text-gray-900">{t("analytics")}</td>
+                    <td className="p-3 text-center text-gray-500">{t("basic")}</td>
+                    <td className="p-3 text-center text-gray-500">{t("basic")}</td>
+                    <td className="p-3 text-center text-gray-900 font-medium">{t("advanced")}</td>
                   </tr>
                 </tbody>
               </table>
@@ -185,4 +186,3 @@ export default function SubscriptionPage() {
     </>
   );
 }
-

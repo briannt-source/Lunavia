@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -11,6 +12,8 @@ import { formatDate } from "@/lib/utils";
 import { Link } from '@/navigation';
 
 export default function EmergenciesPage() {
+  const t = useTranslations("Operator.Emergencies");
+
   const { data: emergencies = [], isLoading } = useQuery({
     queryKey: ["allEmergencies"],
     queryFn: async () => {
@@ -49,15 +52,15 @@ export default function EmergenciesPage() {
   return (
     <>
       <PageHeader
-        title="SOS / Incident Reports"
-        description="Manage SOS reports from guides"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng số báo cáo</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.totalReports")}</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -66,7 +69,7 @@ export default function EmergenciesPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ xử lý</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -75,7 +78,7 @@ export default function EmergenciesPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Nghiêm trọng</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.critical")}</CardTitle>
             <AlertTriangle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -87,18 +90,18 @@ export default function EmergenciesPage() {
       {/* Emergencies List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách báo cáo</CardTitle>
+          <CardTitle>{t("listTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="text-center py-12">
-              <p className="text-slate-600">Loading...</p>
+              <p className="text-slate-600">{t("loading")}</p>
             </div>
           ) : emergencies.length === 0 ? (
             <EmptyState
               icon={AlertTriangle}
-              title="No SOS reports yet"
-              description="SOS reports from guides will appear here"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
             />
           ) : (
             <div className="space-y-4">
@@ -143,10 +146,10 @@ export default function EmergenciesPage() {
                           <StatusBadge status={emergency.status} />
                         </div>
                         <p className="text-sm text-slate-600 mb-2">
-                          Tour: {emergency.tour?.title || "N/A"}
+                          {t("tour", { name: emergency.tour?.title || "N/A" })}
                         </p>
                         <p className="text-sm text-slate-600 mb-2">
-                          Từ: {emergency.guide?.profile?.name || emergency.guide?.email}
+                          {t("from", { name: emergency.guide?.profile?.name || emergency.guide?.email })}
                         </p>
                         <p className="text-sm text-slate-700 line-clamp-2">
                           {emergency.description}
@@ -165,7 +168,7 @@ export default function EmergenciesPage() {
                       <Link href={`/dashboard/operator/tours/${emergency.tourId}/emergencies`}>
                         <Button variant="outline" size="sm">
                           <ExternalLink className="h-4 w-4 mr-1" />
-                          View Details
+                          {t("viewDetails")}
                         </Button>
                       </Link>
                     </div>
@@ -179,9 +182,3 @@ export default function EmergenciesPage() {
     </>
   );
 }
-
-
-
-
-
-

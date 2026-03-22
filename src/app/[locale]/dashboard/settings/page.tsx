@@ -1,812 +1,248 @@
 "use client";
 
-import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { api } from "@/lib/api-client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Settings, User, Bell, Shield, MapPin, Globe, Eye, Lock, CreditCard, Banknote } from "lucide-react";
 import toast from "react-hot-toast";
-import {
-  Settings,
-  User,
-  Bell,
-  Mail,
-  Lock,
-  Globe,
-  Save,
-  Loader2,
-  Shield,
-  MapPin,
-  Eye,
-  EyeOff,
-  CreditCard,
-  DollarSign,
-} from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function SettingsPage() {
-  const queryClient = useQueryClient();
+  const t = useTranslations("Shared.Settings");
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useState("account");
-  const userRole = (session?.user as any)?.role;
-  const isOperator = userRole === "TOUR_OPERATOR" || userRole === "TOUR_AGENCY";
+  const queryClient = useQueryClient();
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  const [emailForm, setEmailForm] = useState({ newEmail: "" });
 
-  // Fetch settings
-  const { data: settings, isLoading } = useQuery({
-    queryKey: ["settings"],
-    queryFn: () => api.settings.get(),
+  const isOperator = session?.user?.role === "TOUR_OPERATOR" || session?.user?.role === "TOUR_AGENCY";
+
+  const { data: settings } = useQuery({
+    queryKey: ["userSettings"],
+    queryFn: async () => {
+      const r = await fetch("/api/user/settings");
+      if (!r.ok) return null;
+      return r.json();
+    },
   });
 
-  // Update settings mutation
   const updateSettingsMutation = useMutation({
-    mutationFn: (data: any) => api.settings.update(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["settings"] });
-      toast.success("Settings updated successfully!");
+    mutationFn: async (data: any) => {
+      const r = await fetch("/api/user/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) { const err = await r.json(); throw new Error(err.error || "Update failed"); }
+      return r.json();
     },
-    onError: (error: any) => {
-      toast.error(error.message || "An error occurred during update");
-    },
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["userSettings"] }); toast.success("Settings updated"); },
+    onError: (err: any) => { toast.error(err.message || "Error updating"); },
   });
 
-  // Account form state
-  const [accountForm, setAccountForm] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-    newEmail: "",
-  });
-
-  // Update account mutation
-  const updateAccountMutation = useMutation({
-    mutationFn: (data: any) => api.settings.updateAccount(data),
-    onSuccess: (data: any) => {
-      toast.success(data.message || "Account updated successfully!");
-      setAccountForm({
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-        newEmail: "",
-      });
+  const updatePasswordMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const r = await fetch("/api/user/change-password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) { const err = await r.json(); throw new Error(err.error || "Update failed"); }
+      return r.json();
     },
-    onError: (error: any) => {
-      toast.error(error.message || "An error occurred during update");
-    },
+    onSuccess: () => { toast.success("Password updated"); setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" }); },
+    onError: (err: any) => { toast.error(err.message || "Error updating password"); },
   });
-
-  const handleAccountSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (accountForm.newPassword && accountForm.newPassword !== accountForm.confirmPassword) {
-      toast.error("New passwords do not match");
-      return;
-    }
-
-    if (accountForm.newPassword && accountForm.newPassword.length < 6) {
-      toast.error("Password must be at least 6 characters");
-      return;
-    }
-
-    updateAccountMutation.mutate({
-      currentPassword: accountForm.currentPassword || undefined,
-      newPassword: accountForm.newPassword || undefined,
-      newEmail: accountForm.newEmail || undefined,
-    });
-  };
 
   const handleNotificationChange = (key: string, value: boolean) => {
-    updateSettingsMutation.mutate({
-      [key]: value,
-    });
+    updateSettingsMutation.mutate({ [key]: value });
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-teal-600" />
-        </div>
-      </>
-    );
-  }
+  const handlePasswordChange = () => {
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      toast.error("Passwords don't match"); return;
+    }
+    if (passwordForm.newPassword.length < 6) {
+      toast.error("Password must be at least 6 characters"); return;
+    }
+    updatePasswordMutation.mutate({ currentPassword: passwordForm.currentPassword, newPassword: passwordForm.newPassword });
+  };
 
   return (
     <>
-      <PageHeader
-        title="Settings"
-        description="Manage your account settings and notifications"
-      />
+      <PageHeader title={t("title")} description={t("subtitle")} />
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-          <TabsTrigger value="account" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            Tài khoản
-          </TabsTrigger>
-          <TabsTrigger value="notifications" className="flex items-center gap-2">
-            <Bell className="h-4 w-4" />
-            Thông báo
-          </TabsTrigger>
-          <TabsTrigger value="privacy" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            Bảo mật
-          </TabsTrigger>
-          {isOperator ? (
-            <TabsTrigger value="tour-preferences" className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Tour
-            </TabsTrigger>
-          ) : (
-            <TabsTrigger value="display" className="flex items-center gap-2">
-              <Globe className="h-4 w-4" />
-              Visibility
-            </TabsTrigger>
-          )}
+      <Tabs defaultValue="account" className="w-full">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="account"><User className="h-4 w-4 mr-2" />{t("tabs.account")}</TabsTrigger>
+          <TabsTrigger value="notifications"><Bell className="h-4 w-4 mr-2" />{t("tabs.notifications")}</TabsTrigger>
+          <TabsTrigger value="privacy"><Shield className="h-4 w-4 mr-2" />{t("tabs.privacy")}</TabsTrigger>
+          {isOperator && <TabsTrigger value="tour-preferences"><MapPin className="h-4 w-4 mr-2" />{t("tabs.tour")}</TabsTrigger>}
+          {!isOperator && <TabsTrigger value="display"><Globe className="h-4 w-4 mr-2" />{t("tabs.display")}</TabsTrigger>}
         </TabsList>
 
-        {/* Account Settings */}
+        {/* Account Tab */}
         <TabsContent value="account" className="space-y-6">
-          {/* Change Email */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Đổi Email
-              </CardTitle>
-              <CardDescription>
-                Cập nhật địa chỉ email của bạn. Bạn sẽ cần xác minh email mới.
-              </CardDescription>
+              <CardTitle className="flex items-center gap-2"><User className="h-5 w-5" />{t("account.changeEmail")}</CardTitle>
+              <CardDescription>{t("account.changeEmailDesc")}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleAccountSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="newEmail">Email mới</Label>
-                  <Input
-                    id="newEmail"
-                    type="email"
-                    value={accountForm.newEmail}
-                    onChange={(e) =>
-                      setAccountForm({ ...accountForm, newEmail: e.target.value })
-                    }
-                    placeholder="newemail@example.com"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={!accountForm.newEmail || updateAccountMutation.isPending}
-                >
-                  {updateAccountMutation.isPending ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Updating...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="h-4 w-4 mr-2" />
-                      Cập nhật Email
-                    </>
-                  )}
-                </Button>
-              </form>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="newEmail">{t("account.newEmail")}</Label>
+                <Input id="newEmail" type="email" value={emailForm.newEmail} onChange={(e) => setEmailForm({ newEmail: e.target.value })} />
+              </div>
+              <Button disabled>{t("account.updateEmail")}</Button>
             </CardContent>
           </Card>
 
-          {/* Change Password */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lock className="h-5 w-5" />
-                Đổi Mật khẩu
-              </CardTitle>
-              <CardDescription>
-                Để bảo mật tài khoản, hãy sử dụng mật khẩu mạnh và không chia sẻ với ai.
-              </CardDescription>
+              <CardTitle className="flex items-center gap-2"><Lock className="h-5 w-5" />{t("account.changePassword")}</CardTitle>
+              <CardDescription>{t("account.changePasswordDesc")}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleAccountSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="currentPassword">Mật khẩu hiện tại</Label>
-                  <Input
-                    id="currentPassword"
-                    type="password"
-                    value={accountForm.currentPassword}
-                    onChange={(e) =>
-                      setAccountForm({ ...accountForm, currentPassword: e.target.value })
-                    }
-                    placeholder="Enter current password"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="newPassword">Mật khẩu mới</Label>
-                  <Input
-                    id="newPassword"
-                    type="password"
-                    value={accountForm.newPassword}
-                    onChange={(e) =>
-                      setAccountForm({ ...accountForm, newPassword: e.target.value })
-                    }
-                    placeholder="Enter new password (min. 6 characters)"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="confirmPassword">Confirm password mới</Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    value={accountForm.confirmPassword}
-                    onChange={(e) =>
-                      setAccountForm({ ...accountForm, confirmPassword: e.target.value })
-                    }
-                    placeholder="Re-enter new password"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={
-                    !accountForm.currentPassword ||
-                    !accountForm.newPassword ||
-                    !accountForm.confirmPassword ||
-                    updateAccountMutation.isPending
-                  }
-                >
-                  {updateAccountMutation.isPending ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Updating...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="h-4 w-4 mr-2" />
-                      Cập nhật Mật khẩu
-                    </>
-                  )}
-                </Button>
-              </form>
+            <CardContent className="space-y-4">
+              <div className="space-y-2"><Label htmlFor="currentPassword">{t("account.currentPassword")}</Label><Input id="currentPassword" type="password" value={passwordForm.currentPassword} onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })} /></div>
+              <div className="space-y-2"><Label htmlFor="newPassword">{t("account.newPassword")}</Label><Input id="newPassword" type="password" value={passwordForm.newPassword} onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })} /></div>
+              <div className="space-y-2"><Label htmlFor="confirmPassword">{t("account.confirmPassword")}</Label><Input id="confirmPassword" type="password" value={passwordForm.confirmPassword} onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })} /></div>
+              <Button onClick={handlePasswordChange} disabled={updatePasswordMutation.isPending}>{updatePasswordMutation.isPending ? t("account.updating") : t("account.updatePassword")}</Button>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Notification Preferences */}
+        {/* Notifications Tab */}
         <TabsContent value="notifications" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bell className="h-5 w-5" />
-                Tùy chọn Thông báo Email
-              </CardTitle>
-              <CardDescription>
-                Chọn loại thông báo email bạn muốn nhận từ hệ thống.
-              </CardDescription>
+              <CardTitle className="flex items-center gap-2"><Bell className="h-5 w-5" />{t("notifications.emailPreferences")}</CardTitle>
+              <CardDescription>{t("notifications.emailPreferencesDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Ứng tuyển mới</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi có guide ứng tuyển vào tour của bạn
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailNewApplication ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailNewApplication", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Thay đổi trạng thái ứng tuyển</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi application được accept/reject
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailApplicationStatus ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailApplicationStatus", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Thanh toán</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi có payment hoặc payment request
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailPayment ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailPayment", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Tour bắt đầu</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi tour đến ngày khởi hành
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailTourStarted ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailTourStarted", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Tour bị hủy</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi tour bị hủy hoặc cancelled
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailTourCancelled ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailTourCancelled", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>New message</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi có tin nhắn mới từ operator/guide
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailMessage ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailMessage", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Báo cáo tour</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi guide submit tour report
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailReportSubmitted ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailReportSubmitted", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Requirements thanh toán</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi guide yêu cầu thanh toán
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailPaymentRequest ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailPaymentRequest", checked)
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Báo cáo khẩn cấp</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Nhận email khi có emergency report hoặc SOS
-                  </p>
-                </div>
-                <Switch
-                  checked={settings?.emailEmergency ?? true}
-                  onCheckedChange={(checked) =>
-                    handleNotificationChange("emailEmergency", checked)
-                  }
-                />
-              </div>
-
-              <div className="border-t pt-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Thông báo trong ứng dụng</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Bật/tắt tất cả thông báo trong ứng dụng
-                    </p>
-                  </div>
-                  <Switch
-                    checked={settings?.inAppNotifications ?? true}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("inAppNotifications", checked)
-                    }
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Privacy & Security */}
-        <TabsContent value="privacy" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5" />
-                Privacy & Security
-              </CardTitle>
-              <CardDescription>
-                Quản lý quyền riêng tư và bảo mật tài khoản của bạn
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label>Visibility Profile</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {settings?.profileVisibility === "PUBLIC"
-                      ? "Your profile is publicly visible"
-                      : "Your profile is only visible to authorized users"}
-                  </p>
-                </div>
-                <Select
-                  value={settings?.profileVisibility || "PUBLIC"}
-                  onValueChange={(value) =>
-                    updateSettingsMutation.mutate({ profileVisibility: value })
-                  }
-                >
-                  <SelectTrigger className="w-[140px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="PUBLIC">Public</SelectItem>
-                    <SelectItem value="PRIVATE">Private</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
               {isOperator && (
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Visibility số dư ví cho Guides</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Cho phép guides xem số dư ví của bạn khi ứng tuyển
-                    </p>
-                  </div>
-                  <Switch
-                    checked={settings?.showWalletBalance ?? false}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("showWalletBalance", checked)
-                    }
-                  />
-                </div>
+                <>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.newApplication")}</Label><p className="text-sm text-muted-foreground">{t("notifications.newApplicationDesc")}</p></div><Switch checked={settings?.notifyNewApplication ?? true} onCheckedChange={(v) => handleNotificationChange("notifyNewApplication", v)} /></div>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.tourReport")}</Label><p className="text-sm text-muted-foreground">{t("notifications.tourReportDesc")}</p></div><Switch checked={settings?.notifyTourReport ?? true} onCheckedChange={(v) => handleNotificationChange("notifyTourReport", v)} /></div>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.paymentRequest")}</Label><p className="text-sm text-muted-foreground">{t("notifications.paymentRequestDesc")}</p></div><Switch checked={settings?.notifyPaymentRequest ?? true} onCheckedChange={(v) => handleNotificationChange("notifyPaymentRequest", v)} /></div>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.emergency")}</Label><p className="text-sm text-muted-foreground">{t("notifications.emergencyDesc")}</p></div><Switch checked={settings?.notifyEmergency ?? true} onCheckedChange={(v) => handleNotificationChange("notifyEmergency", v)} /></div>
+                </>
               )}
-
-              <div className="border-t pt-6">
-                <h3 className="text-sm font-semibold mb-4">Display & Language</h3>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="language">Languages</Label>
-                    <Select
-                      value={settings?.language || "vi"}
-                      onValueChange={(value) =>
-                        updateSettingsMutation.mutate({ language: value })
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="vi">Tiếng Việt</SelectItem>
-                        <SelectItem value="en">English</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="dateFormat">Định dạng ngày</Label>
-                    <Select
-                      value={settings?.dateFormat || "DD/MM/YYYY"}
-                      onValueChange={(value) =>
-                        updateSettingsMutation.mutate({ dateFormat: value })
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="DD/MM/YYYY">DD/MM/YYYY</SelectItem>
-                        <SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="currencyDisplay">Visibility tiền tệ</Label>
-                    <Select
-                      value={settings?.currencyDisplay || "VND"}
-                      onValueChange={(value) =>
-                        updateSettingsMutation.mutate({ currencyDisplay: value })
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="VND">VND</SelectItem>
-                        <SelectItem value="USD">USD</SelectItem>
-                        <SelectItem value="BOTH">Cả hai</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="timezone">Múi giờ</Label>
-                    <Select
-                      value={settings?.timezone || "Asia/Ho_Chi_Minh"}
-                      onValueChange={(value) =>
-                        updateSettingsMutation.mutate({ timezone: value })
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Asia/Ho_Chi_Minh">Asia/Ho_Chi_Minh (GMT+7)</SelectItem>
-                        <SelectItem value="Asia/Bangkok">Asia/Bangkok (GMT+7)</SelectItem>
-                        <SelectItem value="Asia/Singapore">Asia/Singapore (GMT+8)</SelectItem>
-                        <SelectItem value="UTC">UTC (GMT+0)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
+              {!isOperator && (
+                <>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.applicationStatus")}</Label><p className="text-sm text-muted-foreground">{t("notifications.applicationStatusDesc")}</p></div><Switch checked={settings?.notifyApplicationStatus ?? true} onCheckedChange={(v) => handleNotificationChange("notifyApplicationStatus", v)} /></div>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.tourStarted")}</Label><p className="text-sm text-muted-foreground">{t("notifications.tourStartedDesc")}</p></div><Switch checked={settings?.notifyTourStarted ?? true} onCheckedChange={(v) => handleNotificationChange("notifyTourStarted", v)} /></div>
+                  <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.tourCancelled")}</Label><p className="text-sm text-muted-foreground">{t("notifications.tourCancelledDesc")}</p></div><Switch checked={settings?.notifyTourCancelled ?? true} onCheckedChange={(v) => handleNotificationChange("notifyTourCancelled", v)} /></div>
+                </>
+              )}
+              <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.payment")}</Label><p className="text-sm text-muted-foreground">{t("notifications.paymentDesc")}</p></div><Switch checked={settings?.notifyPayment ?? true} onCheckedChange={(v) => handleNotificationChange("notifyPayment", v)} /></div>
+              <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.newMessage")}</Label><p className="text-sm text-muted-foreground">{t("notifications.newMessageDesc")}</p></div><Switch checked={settings?.notifyNewMessage ?? true} onCheckedChange={(v) => handleNotificationChange("notifyNewMessage", v)} /></div>
+              <div className="border-t pt-4 flex items-center justify-between"><div className="space-y-0.5"><Label>{t("notifications.inApp")}</Label><p className="text-sm text-muted-foreground">{t("notifications.inAppDesc")}</p></div><Switch checked={settings?.inAppNotifications ?? true} onCheckedChange={(v) => handleNotificationChange("inAppNotifications", v)} /></div>
             </CardContent>
           </Card>
-        </TabsContent>
 
-        {/* Payment Preferences */}
-        <TabsContent value="payment" className="space-y-6">
-          {isOperator ? (
+          {/* Payment preferences */}
+          {isOperator && (
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  Payment Preferences (Operator)
-                </CardTitle>
-                <CardDescription>
-                  Cài đặt thanh toán cho tour operators
-                </CardDescription>
+                <CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5" />{t("payment.operatorTitle")}</CardTitle>
+                <CardDescription>{t("payment.operatorDesc")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Tự động duyệt thanh toán</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Tự động duyệt payment requests từ guides nếu amount &lt;= threshold
-                    </p>
-                  </div>
-                  <Switch
-                    checked={settings?.autoApprovePayments ?? false}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("autoApprovePayments", checked)
-                    }
-                  />
-                </div>
-
+                <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("payment.autoApprove")}</Label><p className="text-sm text-muted-foreground">{t("payment.autoApproveDesc")}</p></div><Switch checked={settings?.autoApprovePayments ?? false} onCheckedChange={(v) => handleNotificationChange("autoApprovePayments", v)} /></div>
                 {settings?.autoApprovePayments && (
-                  <div>
-                    <Label htmlFor="autoApproveThreshold">
-                      Threshold tự động duyệt (VND)
-                    </Label>
-                    <Input
-                      id="autoApproveThreshold"
-                      type="number"
-                      min="0"
-                      placeholder="1000000"
-                      value={settings?.autoApproveThreshold || ""}
-                      onChange={(e) =>
-                        updateSettingsMutation.mutate({
-                          autoApproveThreshold: e.target.value
-                            ? parseFloat(e.target.value)
-                            : null,
-                        })
-                      }
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Payment requests với amount &lt;= threshold sẽ được tự động duyệt
-                    </p>
-                  </div>
+                  <div><Label>{t("payment.autoApproveThreshold")}</Label><Input type="number" value={settings?.autoApproveThreshold || 0} onChange={(e) => updateSettingsMutation.mutate({ autoApproveThreshold: parseFloat(e.target.value) || 0 })} /><p className="text-xs text-muted-foreground mt-1">{t("payment.autoApproveThresholdDesc")}</p></div>
                 )}
-
-                <div>
-                  <Label htmlFor="paymentReminderDays">
-                    Nhắc nhở thanh toán (ngày)
-                  </Label>
-                  <Input
-                    id="paymentReminderDays"
-                    type="number"
-                    min="0"
-                    placeholder="7"
-                    value={settings?.paymentReminderDays || 7}
-                    onChange={(e) =>
-                      updateSettingsMutation.mutate({
-                        paymentReminderDays: parseInt(e.target.value) || 7,
-                      })
-                    }
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Nhắc nhở thanh toán sau X ngày kể từ khi guide submit payment request
-                  </p>
-                </div>
-
-                <div>
-                  <Label htmlFor="defaultPaymentMethod">Phương thức thanh toán mặc định</Label>
-                  <Select
-                    value={settings?.defaultPaymentMethod || "WALLET"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ defaultPaymentMethod: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="WALLET">Ví nội bộ</SelectItem>
-                      <SelectItem value="BANK_TRANSFER">Chuyển khoản ngân hàng</SelectItem>
-                      <SelectItem value="CARD">Thẻ</SelectItem>
-                    </SelectContent>
+                <div><Label>{t("payment.paymentReminder")}</Label><Input type="number" value={settings?.paymentReminderDays || 3} onChange={(e) => updateSettingsMutation.mutate({ paymentReminderDays: parseInt(e.target.value) || 3 })} /><p className="text-xs text-muted-foreground mt-1">{t("payment.paymentReminderDesc")}</p></div>
+                <div><Label>{t("payment.defaultPaymentMethod")}</Label>
+                  <Select value={settings?.defaultPaymentMethod || "WALLET"} onValueChange={(v) => updateSettingsMutation.mutate({ defaultPaymentMethod: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="WALLET">{t("payment.internalWallet")}</SelectItem><SelectItem value="BANK">{t("payment.bankTransfer")}</SelectItem><SelectItem value="CARD">{t("payment.card")}</SelectItem></SelectContent>
                   </Select>
                 </div>
-
-                <div>
-                  <Label htmlFor="paymentCurrency">Tiền tệ thanh toán</Label>
-                  <Select
-                    value={settings?.paymentCurrency || "VND"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ paymentCurrency: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="VND">VND</SelectItem>
-                      <SelectItem value="USD">USD</SelectItem>
-                    </SelectContent>
+                <div><Label>{t("payment.paymentSchedule")}</Label>
+                  <Select value={settings?.paymentSchedule || "IMMEDIATE"} onValueChange={(v) => updateSettingsMutation.mutate({ paymentSchedule: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="IMMEDIATE">{t("payment.immediate")}</SelectItem><SelectItem value="WEEKLY">{t("payment.weekly")}</SelectItem><SelectItem value="MONTHLY">{t("payment.monthly")}</SelectItem></SelectContent>
                   </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="paymentSchedule">Lịch thanh toán</Label>
-                  <Select
-                    value={settings?.paymentSchedule || "IMMEDIATE"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ paymentSchedule: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="IMMEDIATE">Thanh toán ngay</SelectItem>
-                      <SelectItem value="WEEKLY">Hàng tuần</SelectItem>
-                      <SelectItem value="MONTHLY">Hàng tháng</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Tần suất thanh toán cho guides (áp dụng cho batch payments)
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  Payment Preferences (Guide)
-                </CardTitle>
-                <CardDescription>
-                  Cài đặt thanh toán cho tour guides
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <Label htmlFor="preferredPaymentMethod">Phương thức thanh toán ưa thích</Label>
-                  <Select
-                    value={settings?.preferredPaymentMethod || "WALLET"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ preferredPaymentMethod: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="WALLET">Ví nội bộ</SelectItem>
-                      <SelectItem value="BANK_TRANSFER">Chuyển khoản ngân hàng</SelectItem>
-                      <SelectItem value="CARD">Thẻ</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Tự động rút tiền</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Tự động tạo withdrawal request khi balance đạt threshold
-                    </p>
-                  </div>
-                  <Switch
-                    checked={settings?.autoWithdrawEnabled ?? false}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("autoWithdrawEnabled", checked)
-                    }
-                  />
-                </div>
-
-                {settings?.autoWithdrawEnabled && (
-                  <div>
-                    <Label htmlFor="autoWithdrawThreshold">
-                      Threshold tự động rút (VND)
-                    </Label>
-                    <Input
-                      id="autoWithdrawThreshold"
-                      type="number"
-                      min="0"
-                      placeholder="5000000"
-                      value={settings?.autoWithdrawThreshold || ""}
-                      onChange={(e) =>
-                        updateSettingsMutation.mutate({
-                          autoWithdrawThreshold: e.target.value
-                            ? parseFloat(e.target.value)
-                            : null,
-                        })
-                      }
-                    />
-                     <p className="text-xs text-muted-foreground mt-1">
-                       Tự động tạo withdrawal request khi balance &gt;= threshold
-                     </p>
-                  </div>
-                )}
-
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Nhắc nhở thanh toán</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Nhận thông báo khi operator chưa thanh toán sau khi submit payment request
-                    </p>
-                  </div>
-                  <Switch
-                    checked={settings?.paymentReminderEnabled ?? true}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("paymentReminderEnabled", checked)
-                    }
-                  />
+                  <p className="text-xs text-muted-foreground mt-1">{t("payment.scheduleDesc")}</p>
                 </div>
               </CardContent>
             </Card>
           )}
+
+          {!isOperator && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Banknote className="h-5 w-5" />{t("payment.guideTitle")}</CardTitle>
+                <CardDescription>{t("payment.guideDesc")}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div><Label>{t("payment.preferredMethod")}</Label>
+                  <Select value={settings?.preferredPaymentMethod || "WALLET"} onValueChange={(v) => updateSettingsMutation.mutate({ preferredPaymentMethod: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="WALLET">{t("payment.internalWallet")}</SelectItem><SelectItem value="BANK">{t("payment.bankTransfer")}</SelectItem></SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("payment.autoWithdraw")}</Label><p className="text-sm text-muted-foreground">{t("payment.autoWithdrawDesc")}</p></div><Switch checked={settings?.autoWithdrawEnabled ?? false} onCheckedChange={(v) => handleNotificationChange("autoWithdrawEnabled", v)} /></div>
+                {settings?.autoWithdrawEnabled && (
+                  <div><Label>{t("payment.autoWithdrawThreshold")}</Label><Input type="number" value={settings?.autoWithdrawThreshold || 0} onChange={(e) => updateSettingsMutation.mutate({ autoWithdrawThreshold: parseFloat(e.target.value) || 0 })} /><p className="text-xs text-muted-foreground mt-1">{t("payment.autoWithdrawThresholdDesc")}</p></div>
+                )}
+                <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("payment.paymentReminderGuide")}</Label><p className="text-sm text-muted-foreground">{t("payment.paymentReminderGuideDesc")}</p></div><Switch checked={settings?.paymentReminderEnabled ?? true} onCheckedChange={(v) => handleNotificationChange("paymentReminderEnabled", v)} /></div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Privacy Tab */}
+        <TabsContent value="privacy" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Shield className="h-5 w-5" />{t("privacy.title")}</CardTitle>
+              <CardDescription>{t("privacy.subtitle")}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("privacy.profileVisibility")}</Label></div>
+                <Select value={settings?.profileVisibility || "PUBLIC"} onValueChange={(v) => updateSettingsMutation.mutate({ profileVisibility: v })}>
+                  <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="PUBLIC">Public</SelectItem><SelectItem value="PRIVATE">Private</SelectItem></SelectContent>
+                </Select>
+              </div>
+              {isOperator && (
+                <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>{t("privacy.walletVisibility")}</Label><p className="text-sm text-muted-foreground">{t("privacy.walletVisibilityDesc")}</p></div><Switch checked={settings?.showWalletToGuides ?? false} onCheckedChange={(v) => handleNotificationChange("showWalletToGuides", v)} /></div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Globe className="h-5 w-5" />{t("privacy.displayLanguage")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div><Label>{t("privacy.language")}</Label>
+                <Select value={settings?.language || "vi"} onValueChange={(v) => updateSettingsMutation.mutate({ language: v })}>
+                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="vi">Tiếng Việt</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <div><Label>{t("privacy.dateFormat")}</Label>
+                <Select value={settings?.dateFormat || "DD/MM/YYYY"} onValueChange={(v) => updateSettingsMutation.mutate({ dateFormat: v })}>
+                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="DD/MM/YYYY">DD/MM/YYYY</SelectItem><SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <div><Label>{t("privacy.currencyDisplay")}</Label>
+                <Select value={settings?.currencyDisplay || "VND"} onValueChange={(v) => updateSettingsMutation.mutate({ currencyDisplay: v })}>
+                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="VND">VND</SelectItem><SelectItem value="USD">USD</SelectItem><SelectItem value="BOTH">{t("privacy.both")}</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <div><Label>{t("privacy.timezone")}</Label>
+                <Select value={settings?.timezone || "Asia/Ho_Chi_Minh"} onValueChange={(v) => updateSettingsMutation.mutate({ timezone: v })}>
+                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="Asia/Ho_Chi_Minh">Asia/Ho_Chi_Minh (UTC+7)</SelectItem><SelectItem value="Asia/Bangkok">Asia/Bangkok (UTC+7)</SelectItem><SelectItem value="America/New_York">America/New_York (UTC-5)</SelectItem><SelectItem value="Europe/London">Europe/London (UTC+0)</SelectItem></SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {/* Tour Preferences (Operators only) */}
@@ -814,218 +250,68 @@ export default function SettingsPage() {
           <TabsContent value="tour-preferences" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5" />
-                  Tour Preferences
-                </CardTitle>
-                <CardDescription>
-                  Cài đặt mặc định khi tạo tour mới
-                </CardDescription>
+                <CardTitle className="flex items-center gap-2"><MapPin className="h-5 w-5" />{t("tourPreferences.title")}</CardTitle>
+                <CardDescription>{t("tourPreferences.subtitle")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <Label htmlFor="defaultTourVisibility">Visibility mặc định</Label>
-                  <Select
-                    value={settings?.defaultTourVisibility || "PUBLIC"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ defaultTourVisibility: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="PUBLIC">Public</SelectItem>
-                      <SelectItem value="PRIVATE">Private</SelectItem>
-                    </SelectContent>
+                  <Label>Default Visibility</Label>
+                  <Select value={settings?.defaultTourVisibility || "PUBLIC"} onValueChange={(v) => updateSettingsMutation.mutate({ defaultTourVisibility: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="PUBLIC">Public</SelectItem><SelectItem value="PRIVATE">Private</SelectItem></SelectContent>
                   </Select>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Tours mới sẽ có visibility này mặc định
-                  </p>
                 </div>
-
                 <div>
-                  <Label htmlFor="defaultCurrency">Tiền tệ mặc định</Label>
-                  <Select
-                    value={settings?.defaultCurrency || "VND"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ defaultCurrency: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="VND">VND</SelectItem>
-                      <SelectItem value="USD">USD</SelectItem>
-                    </SelectContent>
+                  <Label>Default Currency</Label>
+                  <Select value={settings?.defaultCurrency || "VND"} onValueChange={(v) => updateSettingsMutation.mutate({ defaultCurrency: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="VND">VND</SelectItem><SelectItem value="USD">USD</SelectItem></SelectContent>
                   </Select>
                 </div>
-
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="defaultMainGuideSlots">Main Guide Slots mặc định</Label>
-                    <Input
-                      id="defaultMainGuideSlots"
-                      type="number"
-                      min="1"
-                      value={settings?.defaultMainGuideSlots || 1}
-                      onChange={(e) =>
-                        updateSettingsMutation.mutate({
-                          defaultMainGuideSlots: parseInt(e.target.value) || 1,
-                        })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="defaultSubGuideSlots">Sub Guide Slots mặc định</Label>
-                    <Input
-                      id="defaultSubGuideSlots"
-                      type="number"
-                      min="0"
-                      value={settings?.defaultSubGuideSlots || 0}
-                      onChange={(e) =>
-                        updateSettingsMutation.mutate({
-                          defaultSubGuideSlots: parseInt(e.target.value) || 0,
-                        })
-                      }
-                    />
-                  </div>
+                  <div><Label>Main Guide Slots</Label><Input type="number" min="1" value={settings?.defaultMainGuideSlots || 1} onChange={(e) => updateSettingsMutation.mutate({ defaultMainGuideSlots: parseInt(e.target.value) || 1 })} /></div>
+                  <div><Label>Sub Guide Slots</Label><Input type="number" min="0" value={settings?.defaultSubGuideSlots || 0} onChange={(e) => updateSettingsMutation.mutate({ defaultSubGuideSlots: parseInt(e.target.value) || 0 })} /></div>
                 </div>
-
                 <div>
-                  <Label htmlFor="autoCloseToursDays">
-                    Tự động đóng tour (ngày)
-                  </Label>
-                  <Input
-                    id="autoCloseToursDays"
-                    type="number"
-                    min="0"
-                    placeholder="No auto-close"
-                    value={settings?.autoCloseToursDays || ""}
-                    onChange={(e) =>
-                      updateSettingsMutation.mutate({
-                        autoCloseToursDays: e.target.value
-                          ? parseInt(e.target.value)
-                          : null,
-                      })
-                    }
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Tự động đóng tour sau X ngày không có ứng tuyển (để trống = không tự động)
-                  </p>
+                  <Label>Auto-close Tours (days)</Label>
+                  <Input type="number" min="0" placeholder="No auto-close" value={settings?.autoCloseToursDays || ""} onChange={(e) => updateSettingsMutation.mutate({ autoCloseToursDays: e.target.value ? parseInt(e.target.value) : null })} />
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
         )}
 
-        {/* Display & Language (Guides only) */}
+        {/* Display (Guides only) */}
         {!isOperator && (
           <TabsContent value="display" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
-                  Display & Language
-                </CardTitle>
-                <CardDescription>
-                  Tùy chỉnh ngôn ngữ và định dạng hiển thị
-                </CardDescription>
+                <CardTitle className="flex items-center gap-2"><Globe className="h-5 w-5" />{t("privacy.displayLanguage")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div>
-                  <Label htmlFor="language">Languages</Label>
-                  <Select
-                    value={settings?.language || "vi"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ language: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="vi">Tiếng Việt</SelectItem>
-                      <SelectItem value="en">English</SelectItem>
-                    </SelectContent>
+                <div><Label>{t("privacy.language")}</Label>
+                  <Select value={settings?.language || "vi"} onValueChange={(v) => updateSettingsMutation.mutate({ language: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="vi">Tiếng Việt</SelectItem><SelectItem value="en">English</SelectItem></SelectContent>
                   </Select>
                 </div>
-
-                <div>
-                  <Label htmlFor="dateFormat">Định dạng ngày</Label>
-                  <Select
-                    value={settings?.dateFormat || "DD/MM/YYYY"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ dateFormat: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="DD/MM/YYYY">DD/MM/YYYY</SelectItem>
-                      <SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem>
-                    </SelectContent>
+                <div><Label>{t("privacy.dateFormat")}</Label>
+                  <Select value={settings?.dateFormat || "DD/MM/YYYY"} onValueChange={(v) => updateSettingsMutation.mutate({ dateFormat: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="DD/MM/YYYY">DD/MM/YYYY</SelectItem><SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem></SelectContent>
                   </Select>
                 </div>
-
-                <div>
-                  <Label htmlFor="currencyDisplay">Visibility tiền tệ</Label>
-                  <Select
-                    value={settings?.currencyDisplay || "VND"}
-                    onValueChange={(value) =>
-                      updateSettingsMutation.mutate({ currencyDisplay: value })
-                    }
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="VND">VND</SelectItem>
-                      <SelectItem value="USD">USD</SelectItem>
-                      <SelectItem value="BOTH">Cả hai</SelectItem>
-                    </SelectContent>
+                <div><Label>{t("privacy.currencyDisplay")}</Label>
+                  <Select value={settings?.currencyDisplay || "VND"} onValueChange={(v) => updateSettingsMutation.mutate({ currencyDisplay: v })}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="VND">VND</SelectItem><SelectItem value="USD">USD</SelectItem><SelectItem value="BOTH">{t("privacy.both")}</SelectItem></SelectContent>
                   </Select>
                 </div>
-
                 <div className="border-t pt-6">
                   <h3 className="text-sm font-semibold mb-4">Guide Preferences</h3>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <Label>Auto-apply to matching tours</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Tự động ứng tuyển vào tours phù hợp (tính năng sắp ra mắt)
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings?.autoApplyEnabled ?? false}
-                        onCheckedChange={(checked) =>
-                          handleNotificationChange("autoApplyEnabled", checked)
-                        }
-                        disabled
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="minTourPrice">Price tour tối thiểu (VND)</Label>
-                      <Input
-                        id="minTourPrice"
-                        type="number"
-                        min="0"
-                        placeholder="Unlimited"
-                        value={settings?.minTourPrice || ""}
-                        onChange={(e) =>
-                          updateSettingsMutation.mutate({
-                            minTourPrice: e.target.value ? parseFloat(e.target.value) : null,
-                          })
-                        }
-                      />
-                       <p className="text-xs text-muted-foreground mt-1">
-                         Chỉ hiển thị tours có giá &gt;= giá này
-                       </p>
-                    </div>
+                    <div className="flex items-center justify-between"><div className="space-y-0.5"><Label>Auto-apply to matching tours</Label><p className="text-sm text-muted-foreground">Coming soon</p></div><Switch checked={settings?.autoApplyEnabled ?? false} onCheckedChange={(v) => handleNotificationChange("autoApplyEnabled", v)} disabled /></div>
+                    <div><Label>Min Tour Price (VND)</Label><Input type="number" min="0" placeholder="Unlimited" value={settings?.minTourPrice || ""} onChange={(e) => updateSettingsMutation.mutate({ minTourPrice: e.target.value ? parseFloat(e.target.value) : null })} /></div>
                   </div>
                 </div>
               </CardContent>
@@ -1036,4 +322,3 @@ export default function SettingsPage() {
     </>
   );
 }
-

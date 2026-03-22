@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Calendar, AlertCircle } from "lucide-react";
@@ -16,15 +17,9 @@ const DISPUTE_STATUS_COLORS: Record<string, string> = {
   REJECTED: "bg-red-100 text-red-700 border-red-300",
 };
 
-const DISPUTE_TYPE_LABELS: Record<string, string> = {
-  PAYMENT: "Payment",
-  ASSIGNMENT: "Assignment",
-  NO_SHOW: "No Show",
-  QUALITY: "Quality",
-};
-
 export default function DisputesListPage() {
-  // Fetch disputes
+  const t = useTranslations("Operator.Disputes");
+
   const { data: disputes = [], isLoading } = useQuery({
     queryKey: ["disputes", "operator"],
     queryFn: () => api.disputes.list(),
@@ -34,19 +29,19 @@ export default function DisputesListPage() {
     <>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900 mb-2">Disputes</h1>
-          <p className="text-gray-500">Quản lý và theo dõi các disputes</p>
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">{t("title")}</h1>
+          <p className="text-gray-500">{t("subtitle")}</p>
         </div>
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-500">{t("loading")}</p>
           </div>
         ) : disputes.length === 0 ? (
           <Card className="rounded-xl shadow-sm">
             <CardContent className="pt-6 text-center py-12">
               <FileText className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-              <p className="text-gray-500">Không có dispute nào</p>
+              <p className="text-gray-500">{t("emptyTitle")}</p>
             </CardContent>
           </Card>
         ) : (
@@ -69,11 +64,11 @@ export default function DisputesListPage() {
                               {dispute.status}
                             </Badge>
                             <Badge variant="outline" className="border-indigo-600 text-indigo-700">
-                              {DISPUTE_TYPE_LABELS[dispute.type] || dispute.type}
+                              {t(`typeLabels.${dispute.type}`) || dispute.type}
                             </Badge>
                             {dispute.tourId && (
                               <span className="text-xs text-gray-500">
-                                Tour: {dispute.tour?.title || dispute.tourId}
+                                {t("tour", { name: dispute.tour?.title || dispute.tourId })}
                               </span>
                             )}
                           </div>
@@ -94,7 +89,7 @@ export default function DisputesListPage() {
                           {dispute.status === "PENDING" && (
                             <AlertCircle className="h-5 w-5 text-amber-600" />
                           )}
-                          <span className="text-indigo-600">View Details →</span>
+                          <span className="text-indigo-600">{t("viewDetails")}</span>
                         </div>
                       </div>
                     </CardContent>
@@ -108,4 +103,3 @@ export default function DisputesListPage() {
     </>
   );
 }
-

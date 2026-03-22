@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -14,6 +15,7 @@ import toast from "react-hot-toast";
 import { Link } from '@/navigation';
 
 export default function OperatorPaymentsPage() {
+  const t = useTranslations("Operator.Payments");
   const [selectedStatus, setSelectedStatus] = useState<"all" | "PENDING" | "APPROVED">("all");
 
   const { data: paymentRequests = [], refetch } = useQuery({
@@ -24,24 +26,24 @@ export default function OperatorPaymentsPage() {
   const handleApprove = async (requestId: string) => {
     try {
       await api.operator.approvePaymentRequest(requestId);
-      toast.success("Payment request approved");
+      toast.success(t("alerts.approveSuccess"));
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Error approving request");
+      toast.error(error.message || t("alerts.approveFailed"));
     }
   };
 
   const handlePay = async (tourId: string, guideId: string, amount: number) => {
-    if (!confirm(`Confirm payment of ${formatVND(amount)} to guide?`)) {
+    if (!confirm(t("confirmPay", { amount: formatVND(amount) }))) {
       return;
     }
 
     try {
       await api.tours.pay(tourId, { guideId, amount });
-      toast.success("Payment completed successfully");
+      toast.success(t("alerts.paySuccess"));
       refetch();
     } catch (error: any) {
-      toast.error(error.message || "Error processing payment");
+      toast.error(error.message || t("alerts.payFailed"));
     }
   };
 
@@ -55,15 +57,15 @@ export default function OperatorPaymentsPage() {
   return (
     <>
       <PageHeader
-        title="Payments"
-        description="Manage payment requests from guides"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng yêu cầu</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.totalRequests")}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -72,7 +74,7 @@ export default function OperatorPaymentsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -81,7 +83,7 @@ export default function OperatorPaymentsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã chấp nhận</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.approved")}</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -94,28 +96,28 @@ export default function OperatorPaymentsPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Requirements thanh toán</CardTitle>
+            <CardTitle>{t("cardTitle")}</CardTitle>
             <div className="flex gap-2">
               <Button
                 variant={selectedStatus === "all" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedStatus("all")}
               >
-                Tất cả
+                {t("filters.all")}
               </Button>
               <Button
                 variant={selectedStatus === "PENDING" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedStatus("PENDING")}
               >
-                Đang chờ
+                {t("filters.pending")}
               </Button>
               <Button
                 variant={selectedStatus === "APPROVED" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedStatus("APPROVED")}
               >
-                Đã chấp nhận
+                {t("filters.approved")}
               </Button>
             </div>
           </div>
@@ -124,8 +126,8 @@ export default function OperatorPaymentsPage() {
           {paymentRequests.length === 0 ? (
             <EmptyState
               icon={DollarSign}
-              title="No payment requests yet"
-              description="Payment requests from guides will appear here"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
             />
           ) : (
             <div className="space-y-4">
@@ -141,7 +143,7 @@ export default function OperatorPaymentsPage() {
                           <StatusBadge status={request.paymentRequestStatus || request.status} />
                         </div>
                         <p className="text-sm text-slate-600 mb-2">
-                          Tour guide: {request.guide?.profile?.name || request.guide?.email}
+                          {t("tourGuide", { name: request.guide?.profile?.name || request.guide?.email })}
                         </p>
                         <div className="flex items-center gap-4 text-sm text-slate-600 mb-3">
                           <div className="flex items-center gap-1">
@@ -158,10 +160,10 @@ export default function OperatorPaymentsPage() {
                         {request.tourReport?.paymentDueAt && (
                           <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
                             <p className="text-sm text-amber-700">
-                              ⚠️ Hạn thanh toán: {formatDate(request.tourReport.paymentDueAt)}
+                              {t("paymentDue", { date: formatDate(request.tourReport.paymentDueAt) })}
                               {new Date() > new Date(request.tourReport.paymentDueAt) && (
                                 <span className="text-red-600 font-medium ml-2">
-                                  (Đã quá hạn)
+                                  {t("overdue")}
                                 </span>
                               )}
                             </p>
@@ -177,7 +179,7 @@ export default function OperatorPaymentsPage() {
                               onClick={() => handleApprove(request.id)}
                             >
                               <CheckCircle2 className="h-4 w-4 mr-1" />
-                              Chấp nhận
+                              {t("approveBtn")}
                             </Button>
                             <Button
                               size="sm"
@@ -185,14 +187,14 @@ export default function OperatorPaymentsPage() {
                               onClick={async () => {
                                 try {
                                   await api.operator.rejectPaymentRequest(request.id);
-                                  toast.success("Request rejected");
+                                  toast.success(t("alerts.rejectSuccess"));
                                   refetch();
                                 } catch (error: any) {
-                                  toast.error(error.message || "Error rejecting request");
+                                  toast.error(error.message || t("alerts.rejectFailed"));
                                 }
                               }}
                             >
-                              Từ chối
+                              {t("rejectBtn")}
                             </Button>
                           </>
                         )}
@@ -209,12 +211,12 @@ export default function OperatorPaymentsPage() {
                             }
                           >
                             <DollarSign className="h-4 w-4 mr-1" />
-                            Thanh toán
+                            {t("payBtn")}
                           </Button>
                         )}
                         <Link href={`/tours/${request.tourId || request.tour?.id}`}>
                           <Button variant="outline" size="sm" className="w-full">
-                            Xem tour
+                            {t("viewTourBtn")}
                           </Button>
                         </Link>
                       </div>

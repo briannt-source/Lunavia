@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ export default async function AdminDisputesPage({
   searchParams: Promise<{ status?: string; type?: string }>;
 }) {
   const session = await getServerSession(authOptions);
+  const t = await getTranslations("Admin.AdminDisputes");
 
   if (!session) {
     redirect("/auth/signin");
@@ -73,15 +75,15 @@ export default async function AdminDisputesPage({
   return (
     <>
       <PageHeader
-        title="Manage Disputes"
-        description="Handle disputes and complaints"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang chờ</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -92,7 +94,7 @@ export default async function AdminDisputesPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đang xem xét</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.inReview")}</CardTitle>
             <AlertTriangle className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -103,7 +105,7 @@ export default async function AdminDisputesPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã giải quyết</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.resolved")}</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -114,7 +116,7 @@ export default async function AdminDisputesPage({
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Đã từ chối</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("stats.rejected")}</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -134,11 +136,11 @@ export default async function AdminDisputesPage({
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All statuses</SelectItem>
-                <SelectItem value="PENDING">Đang chờ</SelectItem>
-                <SelectItem value="IN_REVIEW">Đang xem xét</SelectItem>
-                <SelectItem value="RESOLVED">Đã giải quyết</SelectItem>
-                <SelectItem value="REJECTED">Đã từ chối</SelectItem>
+                <SelectItem value="all">{t("filters.allStatuses")}</SelectItem>
+                <SelectItem value="PENDING">{t("filters.pending")}</SelectItem>
+                <SelectItem value="IN_REVIEW">{t("filters.inReview")}</SelectItem>
+                <SelectItem value="RESOLVED">{t("filters.resolved")}</SelectItem>
+                <SelectItem value="REJECTED">{t("filters.rejected")}</SelectItem>
               </SelectContent>
             </Select>
             <Select name="type" defaultValue={params.type || "all"}>
@@ -146,14 +148,14 @@ export default async function AdminDisputesPage({
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tất cả loại</SelectItem>
-                <SelectItem value="PAYMENT">Thanh toán</SelectItem>
-                <SelectItem value="ASSIGNMENT">Phân công</SelectItem>
-                <SelectItem value="NO_SHOW">Không xuất hiện</SelectItem>
-                <SelectItem value="QUALITY">Chất lượng</SelectItem>
+                <SelectItem value="all">{t("filters.allTypes")}</SelectItem>
+                <SelectItem value="PAYMENT">{t("filters.payment")}</SelectItem>
+                <SelectItem value="ASSIGNMENT">{t("filters.assignment")}</SelectItem>
+                <SelectItem value="NO_SHOW">{t("filters.noShow")}</SelectItem>
+                <SelectItem value="QUALITY">{t("filters.quality")}</SelectItem>
               </SelectContent>
             </Select>
-            <Button type="submit">Lọc</Button>
+            <Button type="submit">{t("filters.filter")}</Button>
           </form>
         </CardContent>
       </Card>
@@ -161,13 +163,13 @@ export default async function AdminDisputesPage({
       {/* Disputes List */}
       <Card>
         <CardHeader>
-          <CardTitle>Danh sách Disputes ({disputes.length})</CardTitle>
+          <CardTitle>{t("list", { count: disputes.length })}</CardTitle>
         </CardHeader>
         <CardContent>
           {disputes.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-              <p>Không có dispute nào</p>
+              <p>{t("empty")}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -192,26 +194,26 @@ export default async function AdminDisputesPage({
                         {dispute.description}
                       </p>
                       <div className="flex items-center gap-4 text-xs text-slate-500">
-                        <span>Tạo: {formatDateTime(dispute.createdAt)}</span>
+                        <span>{t("created", { date: formatDateTime(dispute.createdAt) })}</span>
                         {dispute.resolvedAt && (
-                          <span>Giải quyết: {formatDateTime(dispute.resolvedAt)}</span>
+                          <span>{t("resolved", { date: formatDateTime(dispute.resolvedAt) })}</span>
                         )}
                         {dispute.assignedTo && dispute.adminUser && (
                           <span>
-                            Được giao cho: {dispute.adminUser.email}
+                            {t("assignedTo", { email: dispute.adminUser.email })}
                           </span>
                         )}
                         {dispute.resolutionAmount && (
                           <span className="text-green-600 font-medium">
-                            Hoàn tiền: {formatVND(dispute.resolutionAmount)}
+                            {t("refund", { amount: formatVND(dispute.resolutionAmount) })}
                           </span>
                         )}
                       </div>
                     </div>
                     <Button variant="outline" size="sm">
                       {dispute.status === "PENDING" || dispute.status === "IN_REVIEW"
-                        ? "Process"
-                        : "View Details"}
+                        ? t("process")
+                        : t("viewDetails")}
                     </Button>
                   </div>
                 </Link>
@@ -223,5 +225,3 @@ export default async function AdminDisputesPage({
     </>
   );
 }
-
-

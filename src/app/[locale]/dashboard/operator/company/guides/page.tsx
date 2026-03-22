@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,7 @@ import { formatCurrency } from "@/lib/utils";
 import { InviteGuideDialog } from "@/components/invite-guide-dialog";
 
 export default function CompanyGuidesPage() {
+  const t = useTranslations("Operator.CompanyGuides");
   const queryClient = useQueryClient();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showInviteDialog, setShowInviteDialog] = useState(false);
@@ -43,7 +45,6 @@ export default function CompanyGuidesPage() {
     employmentContractUrl: "",
   });
 
-  // Get user info to get company ID
   const { data: userInfo } = useQuery({
     queryKey: ["userInfo"],
     queryFn: () => api.user.getInfo(),
@@ -51,28 +52,25 @@ export default function CompanyGuidesPage() {
 
   const companyId = userInfo?.company?.id;
 
-  // Fetch company guides
   const { data: guides = [], isLoading } = useQuery({
     queryKey: ["companyGuides", companyId],
     queryFn: () => api.companies.getGuides(companyId!),
     enabled: !!companyId,
   });
 
-  // Remove guide mutation
   const removeGuideMutation = useMutation({
     mutationFn: (guideId: string) =>
       api.companies.removeGuide(companyId!, guideId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
-      toast.success("Guide removed from company");
+      toast.success(t("alerts.removeSuccess"));
     },
     onError: (error: any) => {
-      toast.error(error.message || "An error occurred");
+      toast.error(error.message || t("alerts.removeFailed"));
     },
   });
 
-  // Update guide mutation
   const updateGuideMutation = useMutation({
     mutationFn: (data: { guideId: string; companyEmail?: string; status?: string; employmentContractUrl?: string }) =>
       api.companies.updateGuide(companyId!, data),
@@ -80,10 +78,10 @@ export default function CompanyGuidesPage() {
       queryClient.invalidateQueries({ queryKey: ["companyGuides"] });
       queryClient.invalidateQueries({ queryKey: ["company"] });
       setEditingId(null);
-      toast.success("Guide info updated");
+      toast.success(t("alerts.updateSuccess"));
     },
     onError: (error: any) => {
-      toast.error(error.message || "An error occurred");
+      toast.error(error.message || t("alerts.updateFailed"));
     },
   });
 
@@ -112,9 +110,7 @@ export default function CompanyGuidesPage() {
 
   const handleRemove = (guideId: string, guideName: string) => {
     if (
-      !confirm(
-        `Bạn có chắc chắn muốn xóa ${guideName} khỏi công ty? Guide sẽ không còn là in-house guide nữa.`
-      )
+      !confirm(t("removeConfirm", { name: guideName }))
     ) {
       return;
     }
@@ -127,12 +123,12 @@ export default function CompanyGuidesPage() {
         <Card>
           <CardContent className="p-6">
             <p className="text-center text-muted-foreground">
-              Bạn chưa có công ty.{" "}
+              {t("noCompany")}{" "}
               <Link
                 href="/dashboard/operator/company/create"
                 className="text-lunavia-primary hover:underline"
               >
-                Tạo công ty
+                {t("createCompanyLink")}
               </Link>
             </p>
           </CardContent>
@@ -144,13 +140,13 @@ export default function CompanyGuidesPage() {
   return (
     <>
       <PageHeader
-        title="Manage Guides"
-        description="Manage in-house guides in your company"
+        title={t("title")}
+        description={t("subtitle")}
         action={
           <Link href="/dashboard/operator/company">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Quay lại
+              {t("backBtn")}
             </Button>
           </Link>
         }
@@ -162,7 +158,7 @@ export default function CompanyGuidesPage() {
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
-                Danh sách Guides ({guides.length})
+                {t("guidesList", { count: guides.length })}
               </span>
               <Button
                 size="sm"
@@ -170,7 +166,7 @@ export default function CompanyGuidesPage() {
                 onClick={() => setShowInviteDialog(true)}
               >
                 <UserPlus className="h-4 w-4 mr-2" />
-                Mời Guide
+                {t("inviteGuide")}
               </Button>
             </CardTitle>
           </CardHeader>
@@ -183,10 +179,10 @@ export default function CompanyGuidesPage() {
               <div className="text-center py-12">
                 <Users className="h-12 w-12 mx-auto text-slate-300 mb-4" />
                 <p className="text-muted-foreground mb-4">
-                  Chưa có guide nào trong công ty
+                  {t("emptyTitle")}
                 </p>
                 <Button onClick={() => setShowInviteDialog(true)}>
-                  Mời Guide
+                  {t("inviteGuide")}
                 </Button>
               </div>
             ) : (
@@ -231,7 +227,7 @@ export default function CompanyGuidesPage() {
                             <div className="mt-2 space-y-2">
                               <div>
                                 <Label htmlFor={`email-${member.guideId}`}>
-                                  Company Email
+                                  {t("companyEmail")}
                                 </Label>
                                 <Input
                                   id={`email-${member.guideId}`}
@@ -249,7 +245,7 @@ export default function CompanyGuidesPage() {
                               </div>
                               <div>
                                 <Label htmlFor={`status-${member.guideId}`}>
-                                  Status
+                                  {t("status")}
                                 </Label>
                                 <Select
                                   value={editForm.status}
@@ -278,7 +274,7 @@ export default function CompanyGuidesPage() {
                               </div>
                               {guide?.wallet && (
                                 <p className="text-xs text-muted-foreground">
-                                  Balance: {formatCurrency(guide.wallet.balance)}
+                                  {t("balance", { amount: formatCurrency(guide.wallet.balance) })}
                                 </p>
                               )}
                             </div>
@@ -355,4 +351,3 @@ export default function CompanyGuidesPage() {
     </>
   );
 }
-

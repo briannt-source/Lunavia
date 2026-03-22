@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -13,36 +14,35 @@ import { formatVND } from "@/lib/utils";
 import { Link } from '@/navigation';
 
 export default function CompanyPage() {
+  const t = useTranslations("Operator.Company");
+
   const { data: userInfo, refetch: refetchUserInfo } = useQuery({
     queryKey: ["userInfo"],
     queryFn: () => api.user.getInfo(),
   });
 
-  // Get company from userInfo - company relation should be included in API response
   const company = userInfo?.company;
   const companyId = company?.id;
 
-  // If company is already in userInfo, use it directly, otherwise fetch by ID
   const { data: companyData } = useQuery({
     queryKey: ["company", companyId],
     queryFn: () => (companyId ? api.companies.get(companyId) : null),
-    enabled: !!companyId && !company, // Only fetch if not already in userInfo
-    initialData: company, // Use company from userInfo as initial data
+    enabled: !!companyId && !company,
+    initialData: company,
   });
 
-  // Use companyData if available, otherwise use company from userInfo
   const companyInfo = companyData || company;
 
   return (
     <>
       <PageHeader
-        title="Company Info"
-        description="Manage your company information"
+        title={t("title")}
+        description={t("subtitle")}
         action={
           !companyInfo && (
             <Link href="/dashboard/operator/company/create">
               <Button className="bg-gradient-to-r from-teal-500 to-emerald-500">
-                Tạo Company
+                {t("createBtn")}
               </Button>
             </Link>
           )
@@ -54,11 +54,11 @@ export default function CompanyPage() {
           <CardContent className="p-6">
             <EmptyState
               icon={Building2}
-              title="No company yet"
-              description="Create a company to manage in-house guides and invitations"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
               action={
                 <Link href="/dashboard/operator/company/create">
-                  <Button>Tạo Company</Button>
+                  <Button>{t("createBtn")}</Button>
                 </Link>
               }
             />
@@ -70,18 +70,18 @@ export default function CompanyPage() {
             {/* Company Info */}
             <Card>
               <CardHeader>
-                <CardTitle>Information Company</CardTitle>
+                <CardTitle>{t("info.title")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <p className="text-sm font-medium text-slate-700 mb-1">
-                    Tên công ty
+                    {t("info.companyName")}
                   </p>
                   <p className="text-lg font-semibold">{companyInfo.name}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-slate-700 mb-1">
-                    Company ID
+                    {t("info.companyId")}
                   </p>
                   <p className="text-sm font-mono bg-slate-100 px-2 py-1 rounded inline-block">
                     {companyInfo.companyId}
@@ -120,11 +120,11 @@ export default function CompanyPage() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span>
-                    In-House Guides ({companyInfo._count?.members || 0})
+                    {t("members.title", { count: companyInfo._count?.members || 0 })}
                   </span>
                   <Link href="/dashboard/operator/company/guides">
                     <Button size="sm" variant="outline">
-                      Quản lý Guides
+                      {t("members.manageBtn")}
                     </Button>
                   </Link>
                 </CardTitle>
@@ -151,7 +151,7 @@ export default function CompanyPage() {
                     {companyInfo.members.length > 5 && (
                       <Link href="/dashboard/operator/company/guides">
                         <Button variant="outline" className="w-full">
-                          Xem tất cả ({companyInfo.members.length} guides)
+                          {t("members.viewAll", { count: companyInfo.members.length })}
                         </Button>
                       </Link>
                     )}
@@ -159,8 +159,8 @@ export default function CompanyPage() {
                 ) : (
                   <EmptyState
                     icon={Users}
-                    title="No members yet"
-                    description="Invite guides to your company"
+                    title={t("members.emptyTitle")}
+                    description={t("members.emptyDesc")}
                   />
                 )}
               </CardContent>
@@ -171,23 +171,23 @@ export default function CompanyPage() {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Thống kê</CardTitle>
+                <CardTitle>{t("stats.title")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="text-sm text-slate-600">Thành viên</p>
+                  <p className="text-sm text-slate-600">{t("stats.members")}</p>
                   <p className="text-2xl font-bold">
                     {companyInfo._count?.members || 0}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-600">Invitations</p>
+                  <p className="text-sm text-slate-600">{t("stats.invitations")}</p>
                   <p className="text-2xl font-bold">
                     {companyInfo._count?.invitations || 0}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-600">Join Requests</p>
+                  <p className="text-sm text-slate-600">{t("stats.joinRequests")}</p>
                   <p className="text-2xl font-bold">
                     {companyInfo._count?.joinRequests || 0}
                   </p>
@@ -200,7 +200,3 @@ export default function CompanyPage() {
     </>
   );
 }
-
-
-
-

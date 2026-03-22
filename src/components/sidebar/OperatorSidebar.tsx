@@ -22,15 +22,7 @@ import {
     Clock,
     FileText,
     User,
-    Briefcase,
-    Building2,
-    Award,
-    Star,
-    ShieldCheck,
     Settings,
-    Bell,
-    MessageCircle,
-    FileText as FileTextIcon,
 } from 'lucide-react';
 
 // Icon color groups — consistent visual hierarchy
@@ -58,8 +50,8 @@ export default function OperatorSidebar() {
                 <NavItem href="/dashboard/operator" icon={BarChart3} active={pathname === '/dashboard/operator'} iconColor={IC.brand}>
                     {t('links.dashboard')}
                 </NavItem>
-                <NavItem href="/dashboard/operator/tours" icon={ClipboardList} active={isActive('/dashboard/operator/tours')} iconColor={IC.brand}>
-                    {t('links.myTours')}
+                <NavItem href="/dashboard/operator/tours" icon={ClipboardList} active={isActive('/dashboard/operator/tours') || isActive('/dashboard/operator/request')} iconColor={IC.brand}>
+                    {t('links.tourManagement')}
                 </NavItem>
                 <NavItem href="/dashboard/operator/applications" icon={FileText} active={isActive('/dashboard/operator/applications')} iconColor={IC.tour}>
                     {t('links.applications')}
@@ -139,39 +131,15 @@ export default function OperatorSidebar() {
                 <NavItem href="/dashboard/operator/blacklist" icon={Ban} active={isActive('/dashboard/operator/blacklist')} iconColor={IC.alert}>
                     {t('links.guideBlacklist')}
                 </NavItem>
-                <NavItem href="/dashboard/operator/request" icon={FileTextIcon} active={isActive('/dashboard/operator/request')} iconColor={IC.tour}>
-                    {t('links.serviceRequests')}
-                </NavItem>
             </NavSection>
 
             {/* Account */}
             <NavSection title={t('sections.account')}>
-                <NavItem href="/dashboard/operator/profile" icon={User} active={isActive('/dashboard/operator/profile')} iconColor={IC.account}>
+                <NavItem href="/dashboard/operator/profile" icon={User} active={isActive('/dashboard/operator/profile') || isActive('/dashboard/operator/profile/trust') || isActive('/dashboard/operator/portfolio') || isActive('/dashboard/operator/company')} iconColor={IC.account}>
                     {t('links.profile')}
-                </NavItem>
-                <NavItem href="/dashboard/operator/profile/trust" icon={Award} active={isActive('/dashboard/operator/profile/trust')} iconColor={IC.brand}>
-                    {t('links.trustScore')}
-                </NavItem>
-                <NavItem href="/dashboard/operator/portfolio" icon={Briefcase} active={isActive('/dashboard/operator/portfolio')} iconColor={IC.brand}>
-                    {t('links.portfolio')}
-                </NavItem>
-                <NavItem href="/dashboard/operator/company" icon={Building2} active={isActive('/dashboard/operator/company')} iconColor={IC.tour}>
-                    {t('links.company')}
-                </NavItem>
-                <NavItem href="/dashboard/account/subscription" icon={Star} active={isActive('/dashboard/account/subscription')} iconColor={IC.finance}>
-                    {t('links.subscription')}
-                </NavItem>
-                <NavItem href="/dashboard/operator/verification" icon={ShieldCheck} active={isActive('/dashboard/operator/verification')} iconColor={IC.ops}>
-                    {t('links.verification')}
                 </NavItem>
                 <NavItem href="/dashboard/operator/settings" icon={Settings} active={isActive('/dashboard/operator/settings')} iconColor={IC.account}>
                     {t('links.settings')}
-                </NavItem>
-                <NavItem href="/dashboard/notifications" icon={Bell} active={isActive('/dashboard/notifications')} iconColor={IC.account}>
-                    {t('links.notifications')}
-                </NavItem>
-                <NavItem href="/messages" icon={MessageCircle} active={isActive('/messages')} iconColor={IC.brand}>
-                    {t('links.messages')}
                 </NavItem>
             </NavSection>
         </SidebarShell>

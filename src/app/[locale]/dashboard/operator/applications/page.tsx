@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -21,6 +22,7 @@ import { Link } from '@/navigation';
 import toast from "react-hot-toast";
 
 export default function ApplicationsPage() {
+  const t = useTranslations("Operator.Applications");
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState({
     status: "all",
@@ -32,14 +34,11 @@ export default function ApplicationsPage() {
     queryFn: () => api.tours.my(),
   });
 
-  // Fetch all applications for all tours in parallel using useQueries
   const openTours = tours.filter((tour: any) => tour.status === "OPEN");
   
-  // Use useQueries to fetch applications for all open tours
   const applicationsResults = useQuery({
     queryKey: ["applications", "all", filters, openTours.map((t: any) => t.id)],
     queryFn: async () => {
-      // Fetch applications for all open tours in parallel
       const promises = openTours.map((tour: any) =>
         api.tours.getApplications(tour.id, {
           status: filters.status !== "all" ? filters.status : undefined,
@@ -47,7 +46,6 @@ export default function ApplicationsPage() {
         })
       );
       const results = await Promise.all(promises);
-      // Flatten and add tourId to each application
       return results.flatMap((apps: any[], index: number) =>
         (apps || []).map((app: any) => ({
           ...app,
@@ -63,30 +61,28 @@ export default function ApplicationsPage() {
   const handleAccept = async (tourId: string, applicationId: string) => {
     try {
       await api.tours.acceptApplication(tourId, applicationId);
-      toast.success("Application approved");
-      // Invalidate and refetch applications
+      toast.success(t("alerts.approveSuccess"));
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     } catch (error: any) {
-      toast.error(error.message || "Error approving request");
+      toast.error(error.message || t("alerts.approveFailed"));
     }
   };
 
   const handleReject = async (tourId: string, applicationId: string) => {
     try {
       await api.tours.rejectApplication(tourId, applicationId);
-      toast.success("Application rejected");
-      // Invalidate and refetch applications
+      toast.success(t("alerts.rejectSuccess"));
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     } catch (error: any) {
-      toast.error(error.message || "Error rejecting request");
+      toast.error(error.message || t("alerts.rejectFailed"));
     }
   };
 
   return (
     <>
       <PageHeader
-        title="Manage Applications"
-        description="View and manage applications for your tours"
+        title={t("title")}
+        description={t("subtitle")}
       />
 
       {/* Filters */}
@@ -98,13 +94,13 @@ export default function ApplicationsPage() {
           }
         >
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder={t("filters.statusPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="PENDING">Đang chờ</SelectItem>
-            <SelectItem value="ACCEPTED">Đã chấp nhận</SelectItem>
-            <SelectItem value="REJECTED">Đã từ chối</SelectItem>
+            <SelectItem value="all">{t("filters.allStatuses")}</SelectItem>
+            <SelectItem value="PENDING">{t("filters.pending")}</SelectItem>
+            <SelectItem value="ACCEPTED">{t("filters.accepted")}</SelectItem>
+            <SelectItem value="REJECTED">{t("filters.rejected")}</SelectItem>
           </SelectContent>
         </Select>
 
@@ -113,10 +109,10 @@ export default function ApplicationsPage() {
           onValueChange={(value) => setFilters({ ...filters, role: value })}
         >
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Role" />
+            <SelectValue placeholder={t("filters.rolePlaceholder")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Tất cả vai trò</SelectItem>
+            <SelectItem value="all">{t("filters.allRoles")}</SelectItem>
             <SelectItem value="MAIN">Main Guide</SelectItem>
             <SelectItem value="SUB">Sub Guide</SelectItem>
           </SelectContent>
@@ -129,8 +125,8 @@ export default function ApplicationsPage() {
           {allApplications.length === 0 ? (
             <EmptyState
               icon={Briefcase}
-              title="No applications yet"
-              description="Applications will appear here when guides apply to your tours"
+              title={t("emptyTitle")}
+              description={t("emptyDesc")}
             />
           ) : (
             <div className="space-y-4">
@@ -152,7 +148,7 @@ export default function ApplicationsPage() {
                         />
                       </div>
                       <p className="text-sm text-slate-600 mb-2">
-                        Tour: {app.tour?.title}
+                        {t("tour", { name: app.tour?.title })}
                       </p>
                       {app.coverLetter && (
                         <p className="text-sm text-slate-500 mb-2">
@@ -167,7 +163,7 @@ export default function ApplicationsPage() {
                       <Link href={`/guides/${app.guideId}/profile`}>
                         <Button variant="outline" size="sm">
                           <Eye className="h-4 w-4 mr-2" />
-                          Xem Profile
+                          {t("viewProfile")}
                         </Button>
                       </Link>
                       {app.status === "PENDING" && (
@@ -178,7 +174,7 @@ export default function ApplicationsPage() {
                             onClick={() => handleAccept(app.tourId, app.id)}
                           >
                             <CheckCircle2 className="h-4 w-4 mr-2" />
-                            Chấp nhận
+                            {t("accept")}
                           </Button>
                           <Button
                             size="sm"
@@ -186,7 +182,7 @@ export default function ApplicationsPage() {
                             onClick={() => handleReject(app.tourId, app.id)}
                           >
                             <XCircle className="h-4 w-4 mr-2" />
-                            Từ chối
+                            {t("reject")}
                           </Button>
                         </>
                       )}
@@ -201,4 +197,3 @@ export default function ApplicationsPage() {
     </>
   );
 }
-
