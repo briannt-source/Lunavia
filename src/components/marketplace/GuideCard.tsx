@@ -10,6 +10,7 @@ export interface GuideCardData {
     email: string;
     avatarUrl: string | null;
     trustScore: number;
+    reliability?: number; // 0-100 percentage
     languages: string[];
     experienceYears: number;
     specialties: string[];
@@ -179,7 +180,18 @@ function GridCard({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
 
                 {/* Stats */}
                 <div className="flex items-center gap-3 text-xs text-gray-500">
-                    <span>{guide.experienceYears} yr{guide.experienceYears !== 1 ? 's' : ''} exp</span>
+                    <span className="font-medium text-gray-700">
+                        <svg className="inline h-3 w-3 text-lunavia-primary mr-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                        Trust {guide.trustScore}
+                    </span>
+                    {guide.reliability !== undefined && (
+                        <>
+                            <span className="text-gray-300">·</span>
+                            <span className="font-medium text-emerald-600">{guide.reliability}% reliable</span>
+                        </>
+                    )}
+                    <span className="text-gray-300">·</span>
+                    <span>{guide.experienceYears} yr{guide.experienceYears !== 1 ? 's' : ''}</span>
                     <span className="text-gray-300">·</span>
                     <span>{guide.completedTours} tours</span>
                     {guide.matchScore !== undefined && (
@@ -234,6 +246,15 @@ function ListRow({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
                 {guide.experienceYears} yr{guide.experienceYears !== 1 ? 's' : ''}
             </div>
 
+            {/* Reliability */}
+            {guide.reliability !== undefined && (
+                <div className="w-20 shrink-0 hidden lg:block">
+                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                        {guide.reliability}%
+                    </span>
+                </div>
+            )}
+
             {/* Match Score */}
             {guide.matchScore !== undefined && (
                 <div className="w-16 shrink-0 hidden lg:block">
@@ -278,6 +299,9 @@ function CompactRow({ guide, onInvite, onSave }: Omit<GuideCardProps, 'mode'>) {
             <TrustScoreBadge score={guide.trustScore} size="sm" />
             <span className="text-gray-500 hidden sm:inline">{guide.languages.slice(0, 2).join(', ')}</span>
             <span className="text-gray-400 hidden md:inline">{guide.experienceYears}yr</span>
+            {guide.reliability !== undefined && (
+                <span className="text-emerald-600 font-medium hidden sm:inline">{guide.reliability}%</span>
+            )}
             <AvailabilityDot status={guide.availabilityStatus} />
             <div className="ml-auto">
                 <CardActions guide={guide} onInvite={onInvite} onSave={onSave} compact />

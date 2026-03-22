@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Link } from '@/navigation';
 import toast from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
-import SavedPaymentMethods from '@/components/wallet/SavedPaymentMethods';
 
 interface WalletData {
     id: string;
@@ -57,6 +56,7 @@ export default function OperatorWalletPage() {
     const [submitting, setSubmitting] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [exporting, setExporting] = useState(false);
+    const [saveForNextTime, setSaveForNextTime] = useState(false);
 
     const handleExportCSV = async () => {
         setExporting(true);
@@ -93,6 +93,17 @@ export default function OperatorWalletPage() {
     useEffect(() => {
         fetchWallet();
         fetchBankConfig();
+        // Auto-fill from saved bank details
+        try {
+            const saved = localStorage.getItem('lunavia_bank_details');
+            if (saved) {
+                const data = JSON.parse(saved);
+                setWithdrawBankName(data.bankName || '');
+                setWithdrawAccountNumber(data.accountNumber || '');
+                setWithdrawAccountName(data.accountName || '');
+                setSaveForNextTime(true);
+            }
+        } catch { /* ignore */ }
     }, []);
 
     async function fetchBankConfig() {
@@ -203,6 +214,16 @@ export default function OperatorWalletPage() {
             });
             const data = await res.json();
             if (res.ok) {
+                // Save bank details if checkbox checked
+                if (saveForNextTime) {
+                    localStorage.setItem('lunavia_bank_details', JSON.stringify({
+                        bankName: withdrawBankName,
+                        accountNumber: withdrawAccountNumber,
+                        accountName: withdrawAccountName,
+                    }));
+                } else {
+                    localStorage.removeItem('lunavia_bank_details');
+                }
                 toast.success(t('alerts.withdrawSuccess'));
                 setMessage({ type: 'success', text: t('alerts.withdrawMessage') });
                 setWithdrawAmount('');
@@ -528,6 +549,17 @@ export default function OperatorWalletPage() {
                                 />
                             </div>
 
+                            {/* Save for next time */}
+                            <label className="flex items-center gap-2 pt-1 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={saveForNextTime}
+                                    onChange={(e) => setSaveForNextTime(e.target.checked)}
+                                    className="h-4 w-4 rounded border-gray-300 text-lunavia-primary focus:ring-lunavia-primary"
+                                />
+                                <span className="text-sm text-gray-600">Save bank details for next time</span>
+                            </label>
+
                             <div className="flex items-center gap-2 pt-2">
                                 <button
                                     type="button"
@@ -549,15 +581,7 @@ export default function OperatorWalletPage() {
                 </div>
             </div>
 
-            {/* Saved Payment Methods */}
-            <SavedPaymentMethods
-                onSelectForWithdraw={(method) => {
-                    setWithdrawBankName(method.bankName);
-                    setWithdrawAccountNumber(method.accountNumber);
-                    setWithdrawAccountName(method.accountName);
-                    setShowWithdraw(true);
-                }}
-            />
+
 
             {/* Transaction History */}
             <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
