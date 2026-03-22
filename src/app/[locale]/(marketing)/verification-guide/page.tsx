@@ -27,8 +27,8 @@ export default function VerificationGuidePage() {
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-200/30 rounded-full blur-[120px]" />
                 </div>
 
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-6">
+                    <span className="w-2 h-2 rounded-full bg-[#E8F4FD]0 animate-pulse" />
                     Verification Guide
                 </span>
 
@@ -67,18 +67,18 @@ export default function VerificationGuidePage() {
             <section className="py-16 bg-white border-y border-slate-100 px-6">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
-                        <span className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 block">For Operators (KYB)</span>
+                        <span className="text-xs font-bold text-lunavia-primary uppercase tracking-widest mb-2 block">For Operators (KYB)</span>
                         <h2 className="text-3xl font-bold text-slate-900 mb-3">Operator Verification</h2>
                         <p className="text-slate-500 max-w-xl mx-auto">Know Your Business (KYB) verification confirms your legal business status. Requirements depend on your operator category.</p>
                     </div>
 
                     {/* Tour Operator */}
-                    <div className="bg-blue-50 rounded-2xl p-8 border border-blue-200 mb-6">
+                    <div className="bg-lunavia-light rounded-2xl p-8 border border-lunavia-muted/60 mb-6">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-lg">🏛️</span>
+                            <span className="w-10 h-10 rounded-xl bg-lunavia-muted/50 flex items-center justify-center text-lg">🏛️</span>
                             <div>
                                 <h3 className="font-bold text-slate-900">Licensed Tour Operator</h3>
-                                <p className="text-xs text-blue-600 font-semibold">Highest trust tier — up to 90 trust points</p>
+                                <p className="text-xs text-lunavia-primary font-semibold">Highest trust tier — up to 90 trust points</p>
                             </div>
                         </div>
                         <div className="space-y-3 mt-4">
@@ -104,7 +104,7 @@ export default function VerificationGuidePage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-blue-200">
+                        <div className="mt-4 pt-4 border-t border-lunavia-muted/60">
                             <p className="text-xs text-slate-500"><strong>Also required:</strong> Business Registration Number + Tour Operator License Number</p>
                         </div>
                     </div>
@@ -256,7 +256,7 @@ export default function VerificationGuidePage() {
                                     { ext: 'PNG', desc: 'Screenshots or digital documents' },
                                 ].map((f) => (
                                     <div key={f.ext} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-slate-100">
-                                        <span className="font-mono text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">{f.ext}</span>
+                                        <span className="font-mono text-xs font-bold text-lunavia-primary bg-lunavia-light px-2 py-1 rounded">{f.ext}</span>
                                         <span className="text-sm text-slate-600">{f.desc}</span>
                                     </div>
                                 ))}
@@ -304,10 +304,10 @@ export default function VerificationGuidePage() {
                         ].map((s) => (
                             <div key={s.step} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center relative">
                                 <div className="text-3xl mb-3">{s.icon}</div>
-                                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold flex items-center justify-center">{s.step}</div>
+                                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-[#E8F4FD] text-[#5BA4CF] text-xs font-bold flex items-center justify-center">{s.step}</div>
                                 <h3 className="font-bold text-slate-900 text-sm mb-1">{s.title}</h3>
                                 <p className="text-xs text-slate-500 mb-3">{s.desc}</p>
-                                <span className="inline-block text-[10px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">{s.time}</span>
+                                <span className="inline-block text-[10px] font-semibold text-[#5BA4CF] bg-[#E8F4FD] px-2.5 py-1 rounded-full">{s.time}</span>
                             </div>
                         ))}
                     </div>
@@ -329,7 +329,7 @@ export default function VerificationGuidePage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to get verified?</h2>
                     <p className="text-slate-500 mb-8 max-w-lg mx-auto">Create your account and complete verification to start operating on Lunavia. It only takes a few minutes.</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25 text-lg">
+                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20 text-lg">
                             Create Account
                         </Link>
                         <Link href="/trust-safety" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition text-lg shadow-sm">

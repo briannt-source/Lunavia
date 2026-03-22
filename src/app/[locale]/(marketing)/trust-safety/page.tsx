@@ -44,13 +44,13 @@ export default async function TrustSafetyPage() {
             <section className="pb-16 px-6">
                 <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                        <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-2xl mb-4">🛡️</div>
+                        <div className="w-12 h-12 rounded-xl bg-lunavia-muted/50 flex items-center justify-center text-2xl mb-4">🛡️</div>
                         <h2 className="text-xl font-bold text-slate-900 mb-2">{t('overview.trust.title')}</h2>
                         <p className="text-sm text-slate-500 leading-relaxed">
                             {t('overview.trust.desc')}
                         </p>
-                        <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-blue-600">
-                            <span className="w-2 h-2 rounded-full bg-blue-500" />
+                        <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-lunavia-primary">
+                            <span className="w-2 h-2 rounded-full bg-lunavia-light0" />
                             {t('overview.trust.note')}
                         </div>
                     </div>
@@ -72,7 +72,7 @@ export default async function TrustSafetyPage() {
             <section className="py-16 bg-white border-y border-slate-100 px-6">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
-                        <span className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 block">{t('operator.tag')}</span>
+                        <span className="text-xs font-bold text-lunavia-primary uppercase tracking-widest mb-2 block">{t('operator.tag')}</span>
                         <h2 className="text-3xl font-bold text-slate-900 mb-3">{t('operator.title')}</h2>
                         <p className="text-slate-500 max-w-xl mx-auto">{t('operator.desc')}</p>
                     </div>
@@ -84,9 +84,9 @@ export default async function TrustSafetyPage() {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="bg-white rounded-xl p-5 border border-blue-100">
+                            <div className="bg-white rounded-xl p-5 border border-lunavia-muted/40">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="w-3 h-3 rounded-full bg-blue-500" />
+                                    <span className="w-3 h-3 rounded-full bg-lunavia-light0" />
                                     <span className="font-semibold text-sm text-slate-900">{t('operator.legal.title')}</span>
                                 </div>
                                 <ul className="text-xs text-slate-500 space-y-1 ml-5">
@@ -106,9 +106,9 @@ export default async function TrustSafetyPage() {
                                     <li>{t('operator.compliance.i3')} <strong className="text-slate-700">{t('operator.compliance.v3')}</strong></li>
                                 </ul>
                             </div>
-                            <div className="bg-white rounded-xl p-5 border border-indigo-100">
+                            <div className="bg-white rounded-xl p-5 border border-[#5BA4CF]/20">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="w-3 h-3 rounded-full bg-indigo-500" />
+                                    <span className="w-3 h-3 rounded-full bg-[#E8F4FD]0" />
                                     <span className="font-semibold text-sm text-slate-900">{t('operator.performance.title')}</span>
                                 </div>
                                 <p className="text-xs text-slate-500 ml-5">{t('operator.performance.desc')}</p>
@@ -169,16 +169,16 @@ export default async function TrustSafetyPage() {
                                 </div>
                                 <p className="text-xs text-slate-500 ml-5">{t('guide.base.desc')}</p>
                             </div>
-                            <div className="bg-slate-50 rounded-xl p-5 border border-blue-100">
+                            <div className="bg-slate-50 rounded-xl p-5 border border-lunavia-muted/40">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="w-3 h-3 rounded-full bg-blue-500" />
+                                    <span className="w-3 h-3 rounded-full bg-lunavia-light0" />
                                     <span className="font-semibold text-sm text-slate-900">{t('guide.completion.title')}</span>
                                 </div>
                                 <p className="text-xs text-slate-500 ml-5">{t('guide.completion.desc')}</p>
                             </div>
-                            <div className="bg-slate-50 rounded-xl p-5 border border-indigo-100">
+                            <div className="bg-slate-50 rounded-xl p-5 border border-[#5BA4CF]/20">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="w-3 h-3 rounded-full bg-indigo-500" />
+                                    <span className="w-3 h-3 rounded-full bg-[#E8F4FD]0" />
                                     <span className="font-semibold text-sm text-slate-900">{t('guide.rating.title')}</span>
                                 </div>
                                 <p className="text-xs text-slate-500 ml-5">{t('guide.rating.desc')}</p>
@@ -297,7 +297,7 @@ export default async function TrustSafetyPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
                             <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                                <span className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-sm">🏢</span>
+                                <span className="w-8 h-8 rounded-lg bg-lunavia-muted/50 flex items-center justify-center text-sm">🏢</span>
                                 {t('fees.operatorTitle')}
                             </h3>
                             <div className="space-y-3 text-sm">
@@ -384,7 +384,7 @@ export default async function TrustSafetyPage() {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                             <div className="flex items-start gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs flex-shrink-0">60%</span>
+                                <span className="w-8 h-8 rounded-lg bg-lunavia-light flex items-center justify-center text-lunavia-primary font-bold text-xs flex-shrink-0">60%</span>
                                 <div>
                                     <div className="font-semibold text-slate-900">{t('matching.rel.title')}</div>
                                     <div className="text-xs text-slate-500">{t('matching.rel.desc')}</div>
@@ -405,14 +405,14 @@ export default async function TrustSafetyPage() {
             {/* ═══ TOUR HEALTH CROSS-LINK ═══ */}
             <section className="py-16 bg-slate-50 border-t border-slate-100 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-xl shadow-blue-600/20">
+                    <div className="bg-gradient-to-r from-[#2E8BC0] to-[#5BA4CF] rounded-2xl p-8 text-white shadow-xl shadow-blue-600/20">
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             <div className="flex-shrink-0 text-5xl">🏥</div>
                             <div className="flex-grow text-center md:text-left">
                                 <h3 className="text-xl font-bold mb-2">{t('tourHealth.title')}</h3>
                                 <p className="text-sm text-blue-100 leading-relaxed">{t('tourHealth.desc')}</p>
                             </div>
-                            <Link href="/tour-health" className="flex-shrink-0 px-6 py-3 rounded-xl bg-white text-blue-700 font-semibold hover:bg-blue-50 transition text-sm shadow-md">
+                            <Link href="/tour-health" className="flex-shrink-0 px-6 py-3 rounded-xl bg-white text-lunavia-primary-hover font-semibold hover:bg-lunavia-light transition text-sm shadow-md">
                                 {t('tourHealth.btn')}
                             </Link>
                         </div>
@@ -426,7 +426,7 @@ export default async function TrustSafetyPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('cta.title')}</h2>
                     <p className="text-slate-500 mb-8">{t('cta.desc')}</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25 text-lg">
+                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20 text-lg">
                             {t('cta.start')}
                         </Link>
                         <Link href="/pricing" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition text-lg shadow-sm">

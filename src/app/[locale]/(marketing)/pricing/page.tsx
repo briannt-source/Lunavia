@@ -257,12 +257,12 @@ export default function PricingPage() {
             {/* Header */}
             <section className="relative pt-28 pb-16 text-center px-6">
                 <div className="absolute inset-0 -z-10">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-indigo-50/50 to-slate-50" />
-                    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-200/30 rounded-full blur-[120px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-[#E8F4FD]/50 to-slate-50" />
+                    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#2E8BC0]/15 rounded-full blur-[120px]" />
                 </div>
 
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lunavia-light border border-lunavia-muted/60 text-xs font-semibold text-lunavia-primary-hover mb-6">
+                    <span className="w-2 h-2 rounded-full bg-lunavia-light0 animate-pulse" />
                     {t('header.badge')}
                 </span>
 
@@ -278,7 +278,7 @@ export default function PricingPage() {
                     <button
                         onClick={() => setTab('marketplace')}
                         className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === 'marketplace'
-                            ? 'bg-blue-600 text-white shadow-lg'
+                            ? 'bg-lunavia-primary text-white shadow-lg'
                             : 'text-slate-500 hover:text-slate-900'
                             }`}
                     >
@@ -287,7 +287,7 @@ export default function PricingPage() {
                     <button
                         onClick={() => setTab('operations')}
                         className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === 'operations'
-                            ? 'bg-blue-600 text-white shadow-lg'
+                            ? 'bg-lunavia-primary text-white shadow-lg'
                             : 'text-slate-500 hover:text-slate-900'
                             }`}
                     >
@@ -331,19 +331,19 @@ export default function PricingPage() {
             {showPromo && (
                 <section className="px-6 pb-10">
                     <div className="max-w-5xl mx-auto">
-                        <div className="relative rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-blue-200 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="relative rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-lunavia-muted/60 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                             <button 
                                 onClick={() => setShowPromo(false)} 
                                 className="absolute top-3 right-3 p-1 rounded-full hover:bg-slate-200/50 text-slate-400 hover:text-slate-700 transition"
                             >
                                 <XIcon className="w-5 h-5" />
                             </button>
-                            <div className="w-12 h-12 rounded-xl bg-blue-100 flex-shrink-0 flex items-center justify-center text-2xl">🎉</div>
+                            <div className="w-12 h-12 rounded-xl bg-lunavia-muted/50 flex-shrink-0 flex items-center justify-center text-2xl">🎉</div>
                             <div className="flex-grow pr-6">
                                 <div className="font-bold text-slate-900 text-base">{t('promo.title')}</div>
-                                <div className="text-slate-600 text-sm mt-1">{t('promo.desc1')}<strong className="text-blue-700">{t('promo.descHighlight')}</strong>{t('promo.desc2')}</div>
+                                <div className="text-slate-600 text-sm mt-1">{t('promo.desc1')}<strong className="text-lunavia-primary-hover">{t('promo.descHighlight')}</strong>{t('promo.desc2')}</div>
                             </div>
-                            <Link href={`/signup?mode=${tab}`} className="flex-shrink-0 px-6 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25 whitespace-nowrap mt-2 sm:mt-0">
+                            <Link href={`/signup?mode=${tab}`} className="flex-shrink-0 px-6 py-2.5 rounded-xl bg-lunavia-primary text-white text-sm font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20 whitespace-nowrap mt-2 sm:mt-0">
                                 {t('promo.cta')}
                             </Link>
                         </div>
@@ -390,7 +390,7 @@ export default function PricingPage() {
                                 </div>
 
                                 {/* Commission badge */}
-                                <div className={`text-xs font-semibold mb-4 ${plan.enterprise && !isSelected ? 'text-slate-400' : plan.commission === '0%' ? 'text-emerald-600' : 'text-blue-600'}`}>
+                                <div className={`text-xs font-semibold mb-4 ${plan.enterprise && !isSelected ? 'text-slate-400' : plan.commission === '0%' ? 'text-emerald-600' : 'text-lunavia-primary'}`}>
                                     {plan.commission === '0%' ? t('card.noCommission') : t('card.commission', { pct: plan.commission })}
                                 </div>
 
@@ -431,7 +431,7 @@ export default function PricingPage() {
                                     className={`block w-full py-3 px-6 rounded-xl text-center font-semibold transition ${isSelected
                                         ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/25'
                                         : plan.popular
-                                            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/25'
+                                            ? 'bg-lunavia-primary text-white hover:bg-lunavia-primary-hover shadow-lg shadow-[#2E8BC0]/20'
                                             : plan.enterprise
                                                 ? 'bg-white text-slate-900 hover:bg-slate-100'
                                                 : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
@@ -445,7 +445,7 @@ export default function PricingPage() {
                 </div>
 
                 {/* Click to select hint */}
-                <p className="text-center text-xs text-slate-400 mt-4">{t('card.clickToSelect1')}<Link href="/features" className="text-blue-600 hover:underline">{t('card.clickToSelectLink')}</Link></p>
+                <p className="text-center text-xs text-slate-400 mt-4">{t('card.clickToSelect1')}<Link href="/features" className="text-lunavia-primary hover:underline">{t('card.clickToSelectLink')}</Link></p>
             </section>
 
             {/* ── Expanded Plan Modal ── */}
@@ -479,7 +479,7 @@ export default function PricingPage() {
                                 </>
                             )}
                         </div>
-                        <div className={`text-sm font-semibold mb-4 ${expandedPlan.commission === '0%' ? 'text-emerald-600' : 'text-blue-600'}`}>
+                        <div className={`text-sm font-semibold mb-4 ${expandedPlan.commission === '0%' ? 'text-emerald-600' : 'text-lunavia-primary'}`}>
                             {expandedPlan.commission === '0%' ? '✨ No commission' : `${expandedPlan.commission} commission per transaction`}
                         </div>
                         <p className="text-sm text-slate-500 mb-6">{expandedPlan.desc}</p>
@@ -541,7 +541,7 @@ export default function PricingPage() {
                                     <tr className="border-b border-slate-200">
                                         <th className="text-left text-sm font-semibold text-slate-500 py-4 pr-4 uppercase tracking-wider">{t('compare.feature')}</th>
                                         <th className="text-center text-sm font-bold text-slate-900 py-4 px-4">{t('compare.free')}</th>
-                                        <th className="text-center text-sm font-bold text-blue-600 py-4 px-4">{t('compare.pro')}</th>
+                                        <th className="text-center text-sm font-bold text-lunavia-primary py-4 px-4">{t('compare.pro')}</th>
                                         <th className="text-center text-sm font-bold text-slate-900 py-4 px-4">{t('compare.elite')}</th>
                                         <th className="text-center text-sm font-bold text-slate-900 py-4 px-4">{t('compare.enterprise')}</th>
                                     </tr>
@@ -684,7 +684,7 @@ export default function PricingPage() {
                         <h3 className="text-xl font-bold text-slate-900 text-center mb-6">{t('guide.rulesTitle')}</h3>
                         <p className="text-center text-sm text-slate-500 mb-8">
                             {t('guide.rulesDesc1')}
-                            {' '}<Link href="/trust-safety" className="text-blue-600 hover:text-blue-700 font-semibold underline underline-offset-2">{t('guide.rulesDescLink')}</Link>
+                            {' '}<Link href="/trust-safety" className="text-lunavia-primary hover:text-lunavia-primary-hover font-semibold underline underline-offset-2">{t('guide.rulesDescLink')}</Link>
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div className="bg-red-50 rounded-xl p-5 border border-red-100">
@@ -738,7 +738,7 @@ export default function PricingPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('bottomCta.title')}</h2>
                     <p className="text-slate-500 mb-8">{t('bottomCta.subtitle')}</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup?mode=marketplace" className="px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25 text-lg">
+                        <Link href="/signup?mode=marketplace" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20 text-lg">
                             {t('bottomCta.startFree')}
                         </Link>
                         <Link href="/contact" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition text-lg shadow-sm">

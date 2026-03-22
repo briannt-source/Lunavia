@@ -11,8 +11,8 @@ export default async function AboutPage() {
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-200/30 rounded-full blur-[120px]" />
                 </div>
                 <div className="max-w-4xl mx-auto text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-8">
-                        <svg className="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-8">
+                        <svg className="w-3.5 h-3.5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         {t('hero.badge')}
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight">
@@ -32,7 +32,7 @@ export default async function AboutPage() {
                 <div className="max-w-5xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4 block">{t('vision.badge')}</span>
+                            <span className="text-xs font-bold text-lunavia-primary uppercase tracking-widest mb-4 block">{t('vision.badge')}</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">
                                 {t('vision.title')}
                             </h2>
@@ -46,9 +46,9 @@ export default async function AboutPage() {
                         <div className="rounded-3xl bg-slate-50 border border-slate-200 p-10 shadow-sm">
                             <div className="space-y-6">
                                 {[
-                                    { metric: t('vision.m1Value'), label: t('vision.m1Label'), color: 'text-blue-600' },
+                                    { metric: t('vision.m1Value'), label: t('vision.m1Label'), color: 'text-lunavia-primary' },
                                     { metric: t('vision.m2Value'), label: t('vision.m2Label'), color: 'text-emerald-600' },
-                                    { metric: t('vision.m3Value'), label: t('vision.m3Label'), color: 'text-indigo-600' },
+                                    { metric: t('vision.m3Value'), label: t('vision.m3Label'), color: 'text-[#5BA4CF]' },
                                 ].map((item) => (
                                     <div key={item.label} className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
                                         <span className={`text-2xl font-bold ${item.color} whitespace-nowrap`}>{item.metric}</span>
@@ -65,7 +65,7 @@ export default async function AboutPage() {
             <section className="py-24 bg-slate-50 px-6">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-4 block">{t('approach.badge')}</span>
+                        <span className="text-xs font-bold text-[#5BA4CF] uppercase tracking-widest mb-4 block">{t('approach.badge')}</span>
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">{t('approach.title')}</h2>
                         <p className="text-slate-500 text-lg">
                             {t('approach.subtitle')}
@@ -94,9 +94,9 @@ export default async function AboutPage() {
                             },
                         ].map((item) => {
                             const colorMap: Record<string, string> = {
-                                blue: 'bg-blue-50 border-blue-100 text-blue-600',
+                                blue: 'bg-lunavia-light border-lunavia-muted/40 text-lunavia-primary',
                                 emerald: 'bg-emerald-50 border-emerald-100 text-emerald-600',
-                                indigo: 'bg-indigo-50 border-indigo-100 text-indigo-600',
+                                indigo: 'bg-[#E8F4FD] border-[#5BA4CF]/20 text-[#5BA4CF]',
                             };
                             return (
                                 <div key={item.title} className="p-8 rounded-2xl bg-white border border-slate-200 hover:shadow-lg hover:border-slate-300 transition-all duration-300 shadow-sm">
@@ -149,7 +149,7 @@ export default async function AboutPage() {
             {/* ─── Long-term Vision ─── */}
             <section className="py-24 bg-gradient-to-b from-slate-50 to-blue-50 px-6">
                 <div className="max-w-4xl mx-auto text-center">
-                    <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-4 block">{t('visionLong.badge')}</span>
+                    <span className="text-xs font-bold text-[#5BA4CF] uppercase tracking-widest mb-4 block">{t('visionLong.badge')}</span>
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
                         {t('visionLong.title')}
                     </h2>
@@ -178,8 +178,8 @@ export default async function AboutPage() {
                             },
                         ].map((item) => {
                             const colorMap: Record<string, string> = {
-                                blue: 'text-blue-700 bg-blue-50 border-blue-200',
-                                indigo: 'text-indigo-700 bg-indigo-50 border-indigo-200',
+                                blue: 'text-lunavia-primary-hover bg-lunavia-light border-lunavia-muted/60',
+                                indigo: 'text-[#2E8BC0] bg-[#E8F4FD] border-[#5BA4CF]/30',
                                 violet: 'text-violet-700 bg-violet-50 border-violet-200',
                             };
                             return (

@@ -601,8 +601,8 @@ const CATEGORIES: CategoryInfo[] = [
 
 /* ─────────────────── Color maps ─────────────────── */
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; bgLight: string; dot: string }> = {
-    blue:    { bg: 'bg-blue-600',    border: 'border-blue-200',    text: 'text-blue-600',    bgLight: 'bg-blue-50',    dot: 'bg-blue-500' },
-    indigo:  { bg: 'bg-indigo-600',  border: 'border-indigo-200',  text: 'text-indigo-600',  bgLight: 'bg-indigo-50',  dot: 'bg-indigo-500' },
+    blue:    { bg: 'bg-blue-600',    border: 'border-lunavia-muted/60',    text: 'text-lunavia-primary',    bgLight: 'bg-lunavia-light',    dot: 'bg-lunavia-light0' },
+    indigo:  { bg: 'bg-indigo-600',  border: 'border-[#5BA4CF]/30',  text: 'text-[#5BA4CF]',  bgLight: 'bg-[#E8F4FD]',  dot: 'bg-[#E8F4FD]0' },
     emerald: { bg: 'bg-emerald-600', border: 'border-emerald-200', text: 'text-emerald-600', bgLight: 'bg-emerald-50', dot: 'bg-emerald-500' },
     violet:  { bg: 'bg-violet-600',  border: 'border-violet-200',  text: 'text-violet-600',  bgLight: 'bg-violet-50',  dot: 'bg-violet-500' },
     amber:   { bg: 'bg-amber-600',   border: 'border-amber-200',   text: 'text-amber-600',   bgLight: 'bg-amber-50',   dot: 'bg-amber-500' },
@@ -654,7 +654,7 @@ export default function KnowledgeBasePage() {
                 </div>
 
                 <div className="max-w-4xl mx-auto text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-6">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-6">
                         <BookOpen />
                         Knowledge Base
                     </span>
@@ -714,9 +714,9 @@ export default function KnowledgeBasePage() {
                                         className="w-full text-left bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition group"
                                     >
                                         <div className="flex items-center gap-3 mb-1">
-                                            <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{article.categoryLabel}</span>
+                                            <span className="text-xs font-semibold text-[#5BA4CF] bg-[#E8F4FD] px-2 py-0.5 rounded-full">{article.categoryLabel}</span>
                                         </div>
-                                        <h3 className="font-semibold text-slate-900 group-hover:text-indigo-600 transition">{article.title}</h3>
+                                        <h3 className="font-semibold text-slate-900 group-hover:text-[#5BA4CF] transition">{article.title}</h3>
                                         <p className="text-sm text-slate-400 mt-1 line-clamp-2">{article.content[0]}</p>
                                     </button>
                                 ))}
@@ -874,8 +874,8 @@ export default function KnowledgeBasePage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <Link href="/documentation" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-lg transition group">
-                            <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-                                <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            <div className="w-10 h-10 rounded-xl bg-[#E8F4FD] border border-[#5BA4CF]/30 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                                <svg className="w-5 h-5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                             </div>
                             <h3 className="font-bold text-slate-900 mb-1">Platform Documentation</h3>
                             <p className="text-sm text-slate-500">Deep-dive into how Lunavia works — trust scores, escrow, compliance.</p>

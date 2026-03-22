@@ -18,11 +18,11 @@ export default async function TourHealthPage() {
             <section className="relative pt-28 pb-16 text-center px-6">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-slate-50/50 to-white" />
-                    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-200/30 rounded-full blur-[120px]" />
+                    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#2E8BC0]/15 rounded-full blur-[120px]" />
                 </div>
 
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lunavia-light border border-lunavia-muted/60 text-xs font-semibold text-lunavia-primary-hover mb-6">
+                    <span className="w-2 h-2 rounded-full bg-lunavia-light0 animate-pulse" />
                     {t('hero.badge')}
                 </span>
 
@@ -47,7 +47,7 @@ export default async function TourHealthPage() {
                 <div className="max-w-4xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                         <div>
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3 block">{t('whatIsIt.tag')}</span>
+                            <span className="text-xs font-bold text-lunavia-primary uppercase tracking-widest mb-3 block">{t('whatIsIt.tag')}</span>
                             <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('whatIsIt.title')}</h2>
                             <p className="text-slate-500 leading-relaxed mb-4">
                                 {t('whatIsIt.p1')}
@@ -80,7 +80,7 @@ export default async function TourHealthPage() {
             <section className="py-16 bg-slate-50 px-6">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
-                        <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 block">{t('scoreSystem.tag')}</span>
+                        <span className="text-xs font-bold text-[#5BA4CF] uppercase tracking-widest mb-2 block">{t('scoreSystem.tag')}</span>
                         <h2 className="text-3xl font-bold text-slate-900 mb-3">{t('scoreSystem.title')}</h2>
                         <p className="text-slate-500 max-w-xl mx-auto">{t('scoreSystem.desc')}</p>
                     </div>
@@ -358,7 +358,7 @@ export default async function TourHealthPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('cta.title')}</h2>
                     <p className="text-slate-500 mb-8">{t('cta.desc')}</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25 text-lg">
+                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20 text-lg">
                             {t('cta.start')}
                         </Link>
                         <Link href="/trust-safety" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition text-lg shadow-sm">

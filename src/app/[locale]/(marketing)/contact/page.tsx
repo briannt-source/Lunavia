@@ -68,7 +68,7 @@ export default function ContactPage() {
                     </div>
                     <h1 className="text-3xl font-bold text-slate-900">{t('success.title')}</h1>
                     <p className="text-slate-500">{t('success.desc')}</p>
-                    <Link href="/" className="inline-block px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25">
+                    <Link href="/" className="inline-block px-6 py-3 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20">
                         {t('success.back')}
                     </Link>
                 </div>
@@ -85,8 +85,8 @@ export default function ContactPage() {
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-200/30 rounded-full blur-[120px]" />
                 </div>
 
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-6">
+                    <span className="w-2 h-2 rounded-full bg-[#E8F4FD]0 animate-pulse" />
                     {t('hero.badge')}
                 </span>
 
@@ -114,7 +114,7 @@ export default function ContactPage() {
                                             type="button"
                                             onClick={() => updateField('type', t.val)}
                                             className={`text-left p-3 rounded-xl border-2 transition-all ${formData.type === t.val
-                                                ? 'border-blue-500 bg-blue-50'
+                                                ? 'border-blue-500 bg-lunavia-light'
                                                 : 'border-slate-200 hover:border-slate-300'
                                                 }`}
                                         >
@@ -167,7 +167,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 disabled:opacity-50 transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2"
+                                className="w-full py-3.5 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover disabled:opacity-50 transition shadow-lg shadow-[#2E8BC0]/20 flex items-center justify-center gap-2"
                             >
                                 {loading && <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />}
                                 {loading ? t('form.sending') : t('form.sendBtn')}
@@ -181,7 +181,7 @@ export default function ContactPage() {
                             <h3 className="font-bold text-slate-900 mb-4">{t('info.responseTimeTitle')}</h3>
                             <div className="space-y-3 text-sm text-slate-600">
                                 <div className="flex items-center gap-3">
-                                    <span className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">⚡</span>
+                                    <span className="w-8 h-8 rounded-lg bg-lunavia-light flex items-center justify-center text-lunavia-primary">⚡</span>
                                     <span>{t('info.enterpriseResponse')}<strong>{t('info.enterpriseTime')}</strong></span>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -195,7 +195,7 @@ export default function ContactPage() {
                             <h3 className="font-bold text-slate-900 mb-4">{t('info.getStartedTitle')}</h3>
                             <div className="space-y-4 text-sm text-slate-600">
                                 <p>{t('info.getStartedDesc')}</p>
-                                <Link href="/pricing" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition">
+                                <Link href="/pricing" className="inline-flex items-center gap-2 text-lunavia-primary font-semibold hover:text-lunavia-primary-hover transition">
                                     {t('info.seePricing')}
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                                 </Link>

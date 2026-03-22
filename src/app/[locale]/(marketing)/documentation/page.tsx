@@ -6,12 +6,12 @@ export default function DocumentationPage() {
             {/* Header */}
             <section className="relative pt-28 pb-16 px-6">
                 <div className="absolute inset-0 -z-10">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-indigo-50/50 to-slate-50" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-[#E8F4FD]/50 to-slate-50" />
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-200/30 rounded-full blur-[120px]" />
                 </div>
                 <div className="max-w-4xl mx-auto text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-8">
-                        <svg className="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-8">
+                        <svg className="w-3.5 h-3.5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                         Product Documentation
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
@@ -37,7 +37,7 @@ export default function DocumentationPage() {
                                 { label: 'Hybrid Model', anchor: '#hybrid-model' },
                                 { label: 'Compliance Transparency', anchor: '#compliance' },
                             ].map((item) => (
-                                <a key={item.anchor} href={item.anchor} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition">
+                                <a key={item.anchor} href={item.anchor} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-500 hover:text-lunavia-primary hover:bg-lunavia-light transition">
                                     <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                                     {item.label}
                                 </a>
@@ -51,8 +51,8 @@ export default function DocumentationPage() {
             <section id="operator-categories" className="py-16 px-6 scroll-mt-24">
                 <div className="max-w-4xl mx-auto">
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                        <div className="w-10 h-10 rounded-xl bg-lunavia-light border border-lunavia-muted/60 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-lunavia-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         </div>
                         <h2 className="text-2xl font-bold text-slate-900">Operator Categories</h2>
                     </div>
@@ -67,7 +67,7 @@ export default function DocumentationPage() {
                         ].map((cat) => {
                             const colorMap: Record<string, string> = {
                                 emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700',
-                                blue: 'bg-blue-50 border-blue-200 text-blue-700',
+                                blue: 'bg-lunavia-light border-lunavia-muted/60 text-lunavia-primary-hover',
                                 amber: 'bg-amber-50 border-amber-200 text-amber-700',
                             };
                             return (
@@ -90,8 +90,8 @@ export default function DocumentationPage() {
             <section id="trust-score" className="py-16 px-6 scroll-mt-24">
                 <div className="max-w-4xl mx-auto">
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                        <div className="w-10 h-10 rounded-xl bg-[#E8F4FD] border border-[#5BA4CF]/30 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                         </div>
                         <h2 className="text-2xl font-bold text-slate-900">Trust Score</h2>
                     </div>
@@ -109,8 +109,8 @@ export default function DocumentationPage() {
                                 { title: 'Affects marketplace visibility', desc: 'Higher trust scores lead to better ranking in marketplace results, rewarding consistent, quality service.' },
                             ].map((item) => (
                                 <div key={item.title} className="flex gap-4">
-                                    <div className="mt-1 w-6 h-6 rounded-full bg-indigo-100 flex-shrink-0 flex items-center justify-center">
-                                        <svg className="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <div className="mt-1 w-6 h-6 rounded-full bg-[#B2DBF1]/50 flex-shrink-0 flex items-center justify-center">
+                                        <svg className="w-3.5 h-3.5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                                     </div>
                                     <div>
                                         <div className="font-semibold text-slate-900 mb-1">{item.title}</div>
@@ -200,8 +200,8 @@ export default function DocumentationPage() {
             <section id="hybrid-model" className="py-16 px-6 scroll-mt-24">
                 <div className="max-w-4xl mx-auto">
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+                        <div className="w-10 h-10 rounded-xl bg-[#E8F4FD] border border-[#5BA4CF]/30 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
                         </div>
                         <h2 className="text-2xl font-bold text-slate-900">Hybrid Model</h2>
                     </div>
@@ -223,8 +223,8 @@ export default function DocumentationPage() {
                             </ul>
                         </div>
                         <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
-                            <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center mb-4">
-                                <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                            <div className="w-10 h-10 rounded-xl bg-[#E8F4FD] border border-[#5BA4CF]/30 flex items-center justify-center mb-4">
+                                <svg className="w-5 h-5 text-[#5BA4CF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                             </div>
                             <h3 className="text-lg font-semibold text-slate-900 mb-2">Marketplace Guides</h3>
                             <ul className="space-y-2 text-sm text-slate-500">
@@ -282,7 +282,7 @@ export default function DocumentationPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to get started?</h2>
                     <p className="text-slate-500 mb-8">Join the platform built for compliant, transparent operations.</p>
                     <div className="flex items-center justify-center gap-4 flex-wrap">
-                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-600/25">
+                        <Link href="/signup" className="px-8 py-4 rounded-xl bg-lunavia-primary text-white font-semibold hover:bg-lunavia-primary-hover transition shadow-lg shadow-[#2E8BC0]/20">
                             Start Free
                         </Link>
                         <Link href="/pricing" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 transition shadow-sm">

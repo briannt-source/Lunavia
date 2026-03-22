@@ -135,8 +135,8 @@ export default function FeaturesPage() {
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-indigo-200/30 rounded-full blur-[120px]" />
                 </div>
 
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700 mb-6">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4FD] border border-[#5BA4CF]/30 text-xs font-semibold text-[#2E8BC0] mb-6">
+                    <span className="w-2 h-2 rounded-full bg-[#E8F4FD]0 animate-pulse" />
                     {t('hero.badge')}
                 </span>
 
@@ -177,8 +177,8 @@ export default function FeaturesPage() {
                                 <tr className="bg-slate-50 border-b border-slate-200">
                                     <th className="text-left text-xs font-bold text-slate-400 uppercase tracking-wider py-4 px-6 w-[40%] min-w-[250px]">{t('table.feature')}</th>
                                     {columns.map(col => (
-                                        <th key={col.key} className={`text-center py-4 px-4 min-w-[100px] ${col.highlight ? 'bg-indigo-50' : ''}`}>
-                                            <span className={`text-sm font-bold ${col.highlight ? 'text-indigo-600' : 'text-slate-900'}`}>{col.label}</span>
+                                        <th key={col.key} className={`text-center py-4 px-4 min-w-[100px] ${col.highlight ? 'bg-[#E8F4FD]' : ''}`}>
+                                            <span className={`text-sm font-bold ${col.highlight ? 'text-[#5BA4CF]' : 'text-slate-900'}`}>{col.label}</span>
                                             {col.highlight && <div className="text-[10px] text-indigo-400 mt-0.5">{t('table.recommended')}</div>}
                                         </th>
                                     ))}
@@ -203,7 +203,7 @@ export default function FeaturesPage() {
                                                 {columns.map(col => {
                                                     const val = row.plans[col.key];
                                                     return (
-                                                        <td key={col.key} className={`px-4 py-3.5 text-center ${col.highlight ? 'bg-indigo-50/30' : ''}`}>
+                                                        <td key={col.key} className={`px-4 py-3.5 text-center ${col.highlight ? 'bg-[#E8F4FD]/30' : ''}`}>
                                                             {typeof val === 'boolean' ? (
                                                                 val ? <CheckIcon /> : <XIcon />
                                                             ) : (
