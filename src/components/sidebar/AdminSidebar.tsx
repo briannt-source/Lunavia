@@ -63,7 +63,10 @@ const ADMIN_ROLES = ["SUPER_ADMIN", "MODERATOR", "OPS_CS", "FINANCE", "FINANCE_L
 export default function AdminSidebar() {
     const { data: session } = useSession();
     const user = session?.user as any;
-    const role = user?.role;
+    const rawRole = user?.role || '';
+    // Auth stores admin roles as "ADMIN_SUPER_ADMIN", "ADMIN_OPS_CS" etc.
+    // Strip the prefix to get the actual AdminRole enum value
+    const role = rawRole.startsWith('ADMIN_') ? rawRole.replace('ADMIN_', '') : rawRole;
     const pathname = usePathname();
     const isActive = useIsActive();
     const t = useTranslations('Dashboard.Sidebar');
@@ -84,6 +87,8 @@ export default function AdminSidebar() {
         : role === 'OPS_CS' ? 'Operations'
         : role === 'FINANCE_LEAD' ? 'Finance Lead'
         : role === 'FINANCE' ? 'Finance'
+        : role === 'KYC_ANALYST' ? 'KYC Analyst'
+        : role === 'SUPPORT_STAFF' ? 'Support Staff'
         : 'Admin';
 
     return (
