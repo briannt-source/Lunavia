@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-config";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
+import { uploadFile, BUCKETS, generateFilePath } from "@/lib/supabase-storage";
 
 /**
- * POST /api/verification/upload — Upload verification document
- * 
- * Returns { document: { id, filename, size, mimeType, uploadedAt } }
- * Files stored in public/uploads/documents/ (local disk)
- * 
- * In production, migrate to cloud storage (S3/Firebase/Cloudinary)
+ * POST /api/verification/upload — Upload verification document to Supabase Storage
+ * Returns { document: { id, filename, size, mimeType, uploadedAt, url } }
  */
 export async function POST(req: NextRequest) {
   try {
@@ -48,31 +42,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Create upload directory
-    const uploadDir = join(process.cwd(), "public", "uploads", "documents");
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
-
-    // Generate unique filename
-    const timestamp = Date.now();
-    const randomStr = Math.random().toString(36).substring(2, 10);
-    const extension = file.name.split(".").pop() || "bin";
-    const safeFilename = `${session.user.id}-${timestamp}-${randomStr}.${extension}`;
-    const filepath = join(uploadDir, safeFilename);
-
-    // Write file
+    // Upload to Supabase Storage
     const bytes = await file.arrayBuffer();
-    await writeFile(filepath, Buffer.from(bytes));
+    const buffer = Buffer.from(bytes);
+    const filePath = generateFilePath("verify-", file.name, session.user.id);
 
-    // Return document object matching UploadedFile interface
+    const result = await uploadFile(BUCKETS.DOCUMENTS, filePath, buffer, file.type);
+
     const document = {
-      id: `doc-${timestamp}-${randomStr}`,
+      id: `doc-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`,
       filename: file.name,
       size: file.size,
       mimeType: file.type,
       uploadedAt: new Date().toISOString(),
-      url: `/uploads/documents/${safeFilename}`,
+      url: result.url,
     };
 
     return NextResponse.json({ document });
@@ -93,10 +76,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Import prisma lazily to avoid build-time issues
     const { prisma } = await import("@/lib/prisma");
 
-    // Check user verification status
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: { verifiedStatus: true },

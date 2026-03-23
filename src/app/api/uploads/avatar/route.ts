@@ -1,40 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { writeFile } from 'fs/promises';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
+import { uploadFile, BUCKETS, generateFilePath } from '@/lib/supabase-storage';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * POST /api/uploads/avatar — Upload avatar to Supabase Storage (avatars bucket)
+ */
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const formData = await req.formData();
-    const file = formData.get('file') as File | null;
-
-    if (!file) {
-        return NextResponse.json({ error: "No file received." }, { status: 400 });
-    }
-
-    const bytes = await file.arrayBuffer() as any;
-    const buffer = Buffer.from(bytes);
-    const fileExt = path.extname(file.name);
-    const filename = `${uuidv4()}${fileExt}`;
-
-    // Ensure uploads directory exists (in production use S3/Blob, here local for MVP)
-    const uploadDir = path.join(process.cwd(), 'uploads', 'avatars');
-    const filePath = path.join(uploadDir, filename);
-
     try {
-        await writeFile(filePath, buffer as any);
-        const url = `/api/uploads/avatars/${filename}`;
-        return NextResponse.json({ url });
+        const formData = await req.formData();
+        const file = formData.get('file') as File | null;
+
+        if (!file) {
+            return NextResponse.json({ error: 'No file received.' }, { status: 400 });
+        }
+
+        // Validate image types only
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+            return NextResponse.json(
+                { error: 'Invalid file type. Only images allowed (JPG, PNG, WebP, GIF).' },
+                { status: 400 }
+            );
+        }
+
+        // 5MB limit for avatars
+        if (file.size > 5 * 1024 * 1024) {
+            return NextResponse.json({ error: 'File too large. Maximum 5MB for avatars.' }, { status: 400 });
+        }
+
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const filePath = generateFilePath('avatar-', file.name, session.user.id);
+
+        const result = await uploadFile(BUCKETS.AVATARS, filePath, buffer, file.type);
+
+        return NextResponse.json({ url: result.url });
     } catch (error) {
-        console.error('Error saving file:', error);
-        return NextResponse.json({ error: "Upload failed." }, { status: 500 });
+        console.error('Avatar upload error:', error);
+        return NextResponse.json({ error: 'Upload failed.' }, { status: 500 });
     }
 }

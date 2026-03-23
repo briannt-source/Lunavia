@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
+import { uploadFile, BUCKETS, generateFilePath } from "@/lib/supabase-storage";
 
-// Simple file upload to public/uploads directory
-// In production, you should use cloud storage (S3, Firebase, etc.)
+/**
+ * POST /api/upload — General file upload to Supabase Storage
+ * 
+ * Supports single file ("file") or multiple files ("files").
+ * Optional "type" field to route to specific bucket:
+ *   - "avatar" → avatars bucket
+ *   - default  → uploads bucket
+ */
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -12,44 +16,25 @@ export async function POST(req: NextRequest) {
     const singleFile = formData.get("file") as File | null;
     const fileType = formData.get("type") as string | null;
 
-    // Handle single file (for avatar) or multiple files (for tour)
     const filesToUpload = singleFile ? [singleFile] : files;
 
     if (filesToUpload.length === 0) {
       return NextResponse.json({ error: "No files provided" }, { status: 400 });
     }
 
-    // Different directories for different file types
-    const baseDir = fileType === "avatar" ? "avatars" : "uploads";
-    const uploadDir = join(process.cwd(), "public", baseDir);
-    
-    // Create uploads directory if it doesn't exist
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
-
+    const bucket = fileType === "avatar" ? BUCKETS.AVATARS : BUCKETS.UPLOADS;
     const urls: string[] = [];
 
     for (const file of filesToUpload) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
+      const filePath = generateFilePath("", file.name);
 
-      // Generate unique filename
-      const timestamp = Date.now();
-      const randomStr = Math.random().toString(36).substring(2, 15);
-      const extension = file.name.split(".").pop();
-      const filename = `${timestamp}-${randomStr}.${extension}`;
-      const filepath = join(uploadDir, filename);
-
-      await writeFile(filepath, buffer);
-
-      // Return public URL
-      urls.push(`/${baseDir}/${filename}`);
+      const result = await uploadFile(bucket, filePath, buffer, file.type);
+      urls.push(result.url);
     }
 
-    // Ensure all URLs are valid strings
-    const validUrls = urls.filter((url): url is string => url != null && typeof url === 'string');
-    return NextResponse.json({ urls: validUrls });
+    return NextResponse.json({ urls });
   } catch (error: any) {
     console.error("Error uploading files:", error);
     return NextResponse.json(
@@ -58,4 +43,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

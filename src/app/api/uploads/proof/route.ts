@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { writeFile, mkdir, unlink } from 'fs/promises';
-import path from 'path';
-import { randomUUID } from 'crypto';
-import { prisma } from '@/lib/prisma';
+import { uploadFile, deleteFile, BUCKETS, generateFilePath } from '@/lib/supabase-storage';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,10 +9,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
 
 /**
- * POST /api/uploads/proof
- * Generic file upload for payment proofs (topup, subscription).
- * NOT tied to the VerificationSubmission flow.
- * Returns the uploaded document metadata.
+ * POST /api/uploads/proof — Upload payment proof to Supabase Storage (proofs bucket)
  */
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -41,24 +35,19 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'File too large. Maximum 10MB' }, { status: 400 });
         }
 
-        // Save file
-        const uploadDir = path.join(process.cwd(), 'uploads', 'proofs', session.user.id);
-        await mkdir(uploadDir, { recursive: true });
-
-        const ext = path.extname(file.name) || '.jpg';
-        const filename = `${randomUUID()}${ext}`;
-        const filepath = path.join(uploadDir, filename);
-
         const bytes = await file.arrayBuffer();
-        await writeFile(filepath, new Uint8Array(bytes));
+        const buffer = Buffer.from(bytes);
+        const filePath = generateFilePath('proof-', file.name, session.user.id);
+
+        const result = await uploadFile(BUCKETS.PROOFS, filePath, buffer, file.type);
 
         const document = {
-            id: randomUUID(),
+            id: `proof-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`,
             filename: file.name,
-            storedFilename: filename,
+            storedFilename: filePath,
             size: file.size,
             mimeType: file.type,
-            url: `/uploads/proofs/${session.user.id}/${filename}`,
+            url: result.url,
             uploadedAt: new Date().toISOString(),
         };
 
@@ -70,8 +59,7 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * DELETE /api/uploads/proof
- * Remove a previously uploaded proof file.
+ * DELETE /api/uploads/proof — Remove a previously uploaded proof file
  */
 export async function DELETE(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -85,14 +73,8 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: 'filename is required' }, { status: 400 });
         }
 
-        // Security: only delete from this user's directory
-        const filepath = path.join(process.cwd(), 'uploads', 'proofs', session.user.id, path.basename(filename));
-
-        try {
-            await unlink(filepath);
-        } catch {
-            // File may not exist — that's OK
-        }
+        // Delete from Supabase Storage (best-effort)
+        await deleteFile(BUCKETS.PROOFS, filename);
 
         return NextResponse.json({ success: true });
     } catch (error) {
