@@ -135,11 +135,16 @@ export default function TourReminderPopup() {
         }
     }, []);
 
-    // Poll every 60s
+    // Delay first fetch by 8s so popup doesn't flash on page load, then poll every 60s
     useEffect(() => {
-        fetchAlerts();
+        const initialDelay = setTimeout(() => {
+            fetchAlerts();
+        }, 8000); // 8-second delay before first fetch
         const interval = setInterval(fetchAlerts, POLL_INTERVAL);
-        return () => clearInterval(interval);
+        return () => {
+            clearTimeout(initialDelay);
+            clearInterval(interval);
+        };
     }, [fetchAlerts]);
 
     // Close snooze menu on outside click

@@ -55,7 +55,7 @@ export default async function AdminCompaniesPage({
       },
       members: {
         include: {
-          guide: {
+          user: {
             include: {
               profile: true,
             },
@@ -140,7 +140,7 @@ export default async function AdminCompaniesPage({
                                     className="flex items-center justify-between p-2 bg-slate-50 rounded"
                                   >
                                     <span className="text-sm text-slate-700">
-                                      {member.guide?.profile?.name || member.guide?.email}
+                                      {member.user?.profile?.name || member.user?.email}
                                     </span>
                                     <div className="flex items-center gap-2">
                                       {member.employmentContractUrl ? (
@@ -164,7 +164,7 @@ export default async function AdminCompaniesPage({
                                           )}
                                           <ContractVerificationButton
                                             companyId={company.id}
-                                            guideId={member.guideId}
+                                            guideId={member.userId}
                                             currentVerified={member.contractVerified || false}
                                             hasContract={!!member.employmentContractUrl}
                                           />

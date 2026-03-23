@@ -228,6 +228,15 @@ export default function GovernanceDashboard() {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+    // ── Dispute / Risk / Reliability state (must be before conditional returns) ──
+    const [disputes, setDisputes] = useState<any[]>([]);
+    const [disputesLoading, setDisputesLoading] = useState(false);
+    const [riskEvents, setRiskEvents] = useState<any[]>([]);
+    const [riskEventsLoading, setRiskEventsLoading] = useState(false);
+    const [guideReliability, setGuideReliability] = useState<any[]>([]);
+    const [reliabilityLoading, setReliabilityLoading] = useState(false);
+    const [resolving, setResolving] = useState<string | null>(null);
+
     const fetchData = useCallback(async () => {
         try {
             setLoading(true);
@@ -311,21 +320,11 @@ export default function GovernanceDashboard() {
         );
     }
 
-    if (!data) return null;
-
-    // ── Dispute / Risk / Reliability state ─────────────────────
-    const [disputes, setDisputes] = useState<any[]>([]);
-    const [disputesLoading, setDisputesLoading] = useState(false);
-    const [riskEvents, setRiskEvents] = useState<any[]>([]);
-    const [riskEventsLoading, setRiskEventsLoading] = useState(false);
-    const [guideReliability, setGuideReliability] = useState<any[]>([]);
-    const [reliabilityLoading, setReliabilityLoading] = useState(false);
-    const [resolving, setResolving] = useState<string | null>(null);
-
+    // Lazy-fetch disputes/risk-events/reliability on tab change
     useEffect(() => {
         if (activeTab === 'disputes' && disputes.length === 0) {
             setDisputesLoading(true);
-            fetch('/api/disputes').then(r => r.json()).then(d => setDisputes(d.disputes || [])).finally(() => setDisputesLoading(false));
+            fetch('/api/disputes').then(r => r.json()).then(d => setDisputes(d.disputes || [])).catch(() => {}).finally(() => setDisputesLoading(false));
         }
         if (activeTab === 'riskEvents' && riskEvents.length === 0) {
             setRiskEventsLoading(true);
@@ -335,7 +334,10 @@ export default function GovernanceDashboard() {
             setReliabilityLoading(true);
             fetch('/api/admin/governance/guide-reliability').then(r => r.json()).then(d => setGuideReliability(d.guides || [])).catch(() => {}).finally(() => setReliabilityLoading(false));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab]);
+
+    if (!data) return null;
 
     const handleResolve = async (disputeId: string, resolution: string, action: string) => {
         setResolving(disputeId);

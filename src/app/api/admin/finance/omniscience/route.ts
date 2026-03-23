@@ -26,26 +26,23 @@ export async function GET() {
 
     try {
         const [
-            // Wallets
             wallets,
             walletCount,
-
-            // Pending Transactions
             pendingWithdrawals,
             pendingTopups,
-
-            // Completed this month
             completedWithdrawalsMonth,
             completedTopupsMonth,
-
-            // Escrow
             activeEscrows,
         ] = await Promise.all([
-            // Top wallets by balance
+            // Top wallets by balance — include user profile for name
             prisma.wallet.findMany({
                 take: 10,
                 orderBy: { balance: 'desc' },
-                include: { user: { select: { id: true, email: true } } },
+                include: {
+                    user: {
+                        include: { profile: { select: { name: true } } },
+                    },
+                },
             }),
             prisma.wallet.count(),
 
@@ -59,14 +56,33 @@ export async function GET() {
 
             // Active escrow accounts
             prisma.escrowAccount.findMany({
-                where: { status: 'HELD' },
-                select: { id: true, amount: true, tourId: true, createdAt: true, tour: { select: { title: true, operatorId: true } } },
+                where: { status: 'LOCKED' },
+                include: {
+                    tour: {
+                        select: {
+                            title: true,
+                            operatorId: true,
+                            operator: { include: { profile: { select: { name: true } } } },
+                        },
+                    },
+                },
                 orderBy: { createdAt: 'desc' },
                 take: 15,
             }),
         ]);
 
         const totalAvailable = wallets.reduce((acc, w) => acc + Number(w.balance), 0);
+        const totalPending = Number(pendingWithdrawals._sum.amount || 0) + Number(pendingTopups._sum.amount || 0);
+
+        // Subscription revenue — use CREDIT transactions as proxy (no note field on WalletTransaction)
+        let totalSubscriptions = 0;
+        let monthlySubscriptions = 0;
+        try {
+            const subAll = await prisma.walletTransaction.aggregate({ where: { type: 'CREDIT' }, _sum: { amount: true } });
+            totalSubscriptions = Number(subAll._sum?.amount || 0);
+            const subMonth = await prisma.walletTransaction.aggregate({ where: { type: 'CREDIT', createdAt: { gte: startOfMonth } }, _sum: { amount: true } });
+            monthlySubscriptions = Number(subMonth._sum?.amount || 0);
+        } catch {}
 
         return NextResponse.json({
             success: true,
@@ -74,6 +90,7 @@ export async function GET() {
                 system: {
                     walletCount,
                     totalAvailableEstimated: totalAvailable,
+                    totalPendingEstimated: totalPending,
                 },
                 pending: {
                     withdrawalsCount: pendingWithdrawals._count.id,
@@ -84,17 +101,23 @@ export async function GET() {
                 monthlyFlow: {
                     withdrawals: Number(completedWithdrawalsMonth._sum.amount || 0),
                     topups: Number(completedTopupsMonth._sum.amount || 0),
+                    subscriptions: monthlySubscriptions,
                 },
-                topWallets: wallets.map(w => ({
+                revenue: {
+                    totalSubscriptions,
+                },
+                topWallets: wallets.map((w: any) => ({
                     id: w.id,
-                    ownerEmail: w.user.email || 'Unknown',
+                    operatorName: w.user?.profile?.name || w.user?.email || 'Unknown',
                     available: Number(w.balance),
+                    pending: 0,
                 })),
-                activeEscrowHolds: activeEscrows.map(h => ({
+                activeEscrowHolds: activeEscrows.map((h: any) => ({
                     id: h.id,
                     amount: Number(h.amount),
                     title: h.tour?.title || 'Unknown tour',
-                    heldAt: h.createdAt,
+                    operatorName: h.tour?.operator?.profile?.name || 'Unknown',
+                    heldAt: h.createdAt?.toISOString?.() || '',
                 })),
                 timestamp: now.toISOString(),
             },

@@ -41,11 +41,22 @@ export const authOptions: NextAuthOptions = {
             const isValid = await bcrypt.compare(credentials.password, user.password);
 
             if (isValid) {
+              // For operators, get company type to differentiate inhouse vs marketplace
+              let companyType: string | null = null;
+              if (user.role === 'TOUR_OPERATOR') {
+                const company = await prisma.company.findUnique({
+                  where: { operatorId: user.id },
+                  select: { companyType: true },
+                });
+                companyType = company?.companyType || null;
+              }
+
               return {
                 id: user.id,
                 email: user.email,
                 role: user.role,
                 verifiedStatus: user.verifiedStatus,
+                companyType,
               };
             }
           }
@@ -99,6 +110,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.verifiedStatus = user.verifiedStatus;
+        token.companyType = (user as any).companyType || null;
       }
       return token;
     },
@@ -107,6 +119,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
         session.user.verifiedStatus = token.verifiedStatus as string;
+        (session.user as any).companyType = token.companyType || null;
       }
       return session;
     },

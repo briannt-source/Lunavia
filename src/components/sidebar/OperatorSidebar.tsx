@@ -58,7 +58,7 @@ export default function OperatorSidebar() {
             </NavSection>
 
             {/* Team & Marketplace */}
-            <NavSection title={user?.systemMode === 'INTERNAL_OPERATOR_MODE' ? t('sections.team') : t('sections.teamMarketplace')}>
+            <NavSection title={user?.companyType === 'IN_HOUSE' ? t('sections.team') : t('sections.teamMarketplace')}>
                 <FeatureGate
                     feature="TEAM_MANAGEMENT"
                     fallback={<NavItem href="#" icon={Users} locked badgeLabel="PRO" iconColor={IC.tour}>{t('links.myTeam')}</NavItem>}
@@ -67,7 +67,7 @@ export default function OperatorSidebar() {
                         {t('links.myTeam')}
                     </NavItem>
                 </FeatureGate>
-                {user?.systemMode !== 'INTERNAL_OPERATOR_MODE' && (
+                {user?.companyType !== 'IN_HOUSE' && (
                     <NavItem href="/dashboard/operator/marketplace" icon={Search} active={isActive('/dashboard/operator/marketplace')} iconColor={IC.tour}>
                         {t('links.discoverGuides')}
                     </NavItem>
@@ -75,7 +75,7 @@ export default function OperatorSidebar() {
             </NavSection>
 
             {/* Finance */}
-            {user?.systemMode !== 'INTERNAL_OPERATOR_MODE' && (
+            {user?.companyType !== 'IN_HOUSE' && (
                 <NavSection title={t('sections.finance')}>
                     <NavItem href="/dashboard/operator/wallet" icon={Wallet} active={isActive('/dashboard/operator/wallet')} iconColor={IC.finance}>
                         {t('links.wallet')}

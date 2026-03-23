@@ -22,9 +22,13 @@ import { api } from "@/lib/api-client";
 import { Link } from "@/navigation";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 
 export default function OperatorDashboard() {
   const t = useTranslations("Operator.Dashboard");
+  const { data: session } = useSession();
+  const user = session?.user as any;
+  const isInhouse = user?.companyType === 'IN_HOUSE';
 
   const { data: tours = [], isLoading: toursLoading } = useQuery({
     queryKey: ["tours", "my"],
@@ -211,7 +215,7 @@ export default function OperatorDashboard() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <QuickAction href="/dashboard/operator/tours/new" icon={<Plus className="h-4 w-4" />} label={t("quickActions.createTour")} primary />
-        <QuickAction href="/dashboard/operator/wallet" icon={<Wallet className="h-4 w-4" />} label={t("quickActions.wallet")} />
+        {!isInhouse && <QuickAction href="/dashboard/operator/wallet" icon={<Wallet className="h-4 w-4" />} label={t("quickActions.wallet")} />}
         <QuickAction href="/dashboard/operator/team" icon={<Users className="h-4 w-4" />} label={t("quickActions.manageTeam")} />
         <QuickAction href="/dashboard/operator/fleet" icon={<Map className="h-4 w-4" />} label={t("quickActions.fleetTracking")} />
       </div>
